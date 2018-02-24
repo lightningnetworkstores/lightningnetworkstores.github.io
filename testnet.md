@@ -18,6 +18,11 @@ For mainnet click [here](https://lightningnetworkstores.github.io)
     *   Simple browser lightning wallet
     *   **URI:** 02eba4a726c20c4fcc5a7291181f65dd389951b944dc48a0aec07b13d7c772de57@54.236.31.248:9735
 
+* [LNCast](https://lncast.com/#!/)
+	* Buy and sell podcasts
+	* **URI:** 027c4d2f938f5ee5184fbf0c1b3152a806243b5ec1e53cff814f439d3c18ceceec@138.197.121.209:9735
+
+
 
 ### Some testnet faucets
 * http://tpfaucet.appspot.com/
