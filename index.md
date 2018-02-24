@@ -12,6 +12,10 @@
     *   Buy and sell articles with other members
     *   **URI:** 02669e1e43577c14a4ae796a38e0cfdadb548615058e367bd96bf825e62c0932ce@34.200.241.1:9735
 
+*   [SoGBazaar](https://sogbazaar.com/)
+    *   Posters and digital cards
+    *   **URI:** 0313f9449cdb528dc9707c02da507cc9306eedc415091c07dc75dcdf621844a5ab@69.15.179.58:9735
+
 ### Coming soon
 
 *   [Bitrefill](https://en.bitrefill.com/)
