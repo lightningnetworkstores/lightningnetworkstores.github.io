@@ -1,0 +1,38 @@
+{
+  "0": {
+    "href": "https://torguard.net/",
+    "uri": "03557fd11b58cb93d2ad4fab4dd4cff7462a97e21e8f6b7a712cb8bd27a96b9eef@188.166.23.129:9735",
+    "name": "TorGuard",
+    "description": "Anonymous VPN and Proxy"
+  },
+  "1": {
+    "href": "https://store.blockstream.com/shop/",
+    "uri": "02f6725f9c1c40333b67faea92fd211c183050f28df32cac3f9d69685fe9665432@104.198.32.198:9735",
+    "name": "Blockstream shop",
+    "description": "T-shirts, sweatshirts and stickers"
+  },
+  "2": {
+    "href": "https://mainnet.yalls.org/",
+    "uri": "02669e1e43577c14a4ae796a38e0cfdadb548615058e367bd96bf825e62c0932ce@34.200.241.1:9735",
+    "name": "Y'alls",
+    "description": "Buy and sell articles with other members"
+  },
+  "3": {
+    "href": "https://en.bitrefill.com/",
+    "uri": "039514e5d704c59a0eba65d25fc5fe559a1641243ccdf80c980b1fc10ca9c30ca2@54.72.198.211:9735",
+    "name": "Bitrefill",
+    "description": "Charge any cellphone with bitcoin",
+    "flags": {
+      "coming_soon": 1
+    }
+  },
+  "4": {
+    "href": "https://google.com/",
+    "uri": "38274hd87d32n87d34287dn5:127.0.0.1:8081",
+    "name": "Hidden Service Test",
+    "description": "This is a hidden service",
+    "flags": {
+      "hidden": 1
+    }
+  }
+}
