@@ -1,4 +1,6 @@
-# ![:camel:](https://assets-cdn.github.com/images/icons/emoji/unicode/26a1.png ":camel:") Mainnet lightning network stores ![:camel:](https://assets-cdn.github.com/images/icons/emoji/unicode/26a1.png ":camel:")
+# ![:zap:](https://assets-cdn.github.com/images/icons/emoji/unicode/26a1.png ":zap:") Mainnet lightning network stores ![:zap:](https://assets-cdn.github.com/images/icons/emoji/unicode/26a1.png ":zap:")
+
+**Warning:** Lightning network mainnet is still risky, [you may lose your funds](https://twitter.com/starkness/status/953434418948927488). For testing, use the testnet. A list of lightning network stores for the testnet can be found [here](https://lightningnetworkstores.github.io/testnet).
 
 *   [TorGuard](https://torguard.net/)
     *   Anonymous VPN and Proxy
