@@ -12,7 +12,7 @@
     *   Buy and sell articles with other members
     *   **URI:** 02669e1e43577c14a4ae796a38e0cfdadb548615058e367bd96bf825e62c0932ce@34.200.241.1:9735
 
-### Comming soon
+### Coming soon
 
 *   [Bitrefill](https://en.bitrefill.com/)
     *   Charge any cellphone with bitcoin
