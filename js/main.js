@@ -25,7 +25,7 @@ $(function(){
                     '<h3>'+d.name+'</h3>' +
                     '<p class="text-muted">'+d.description+'</p>' +
                     '<p><strong>URI:</strong> '+d.uri+'</p>' +
-                    '<a href="'+d.url+'">Click Here to Visit</a>' +
+                    '<a href="'+d.href+'">Click Here to Visit</a>' +
                 '</div>' +
                 '<hr>';
             if(d.flags){
