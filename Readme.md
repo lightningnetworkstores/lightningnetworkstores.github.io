@@ -1,4 +1,4 @@
-The lightning network is growing and people don't know how to spend their lightning coins. Therefore I made this simple html website hosted in github pages that lists the stores that I know. 
+The lightning network is growing and people don't know how to spend their bitcoin using lightning. Therefore I made this simple html website hosted in github pages that lists the stores that I know. 
 
 
 The following websites forward to www.lightningnetworkstores.github.io:
