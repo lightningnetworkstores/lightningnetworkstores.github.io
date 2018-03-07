@@ -20,10 +20,9 @@ $(function(){
 
             var inject =
                 '<div class="panel">' +
-                    '<h3>'+d.name+'</h3>' +
+                    '<h3> <a href="'+d.href+'">'+d.name+'</a></h3>' +
                     '<p class="text-muted">'+d.description+'</p>' +
                     '<p><strong>URI:</strong> '+d.uri+'</p>' +
-                    '<a href="'+d.href+'">Click Here to Visit</a>' +
                 '</div>' +
                 '<hr>';
             if(d.flags){
