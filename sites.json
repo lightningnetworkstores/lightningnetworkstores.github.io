@@ -52,5 +52,11 @@
     "uri": "unknown",
     "name": "Block & Jerry's",
     "description": "Buy ice cream and get it delivered in San Francisco from 9am to 10pm"
+  },
+    "8": {
+    "href": "https://hodlmonkey.com/",
+    "uri": "039376f846cb4e137f3474baa7fbe74ec627745c7d5c54935b99fbb1b60a62c9b3@159.65.162.130:9735",
+    "name": "Hodl Monkey",
+    "description": "Buy cryptocurrency themed T-shirts"
   }
 }
