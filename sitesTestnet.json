@@ -37,11 +37,5 @@
     "uri": "027c4d2f938f5ee5184fbf0c1b3152a806243b5ec1e53cff814f439d3c18ceceec@138.197.121.209:9735",
     "name": "LNCast",
     "description": "Buy and sell podcasts"
-  },
-    "6": {
-      "href": "https://hodlmonkey.com/",
-      "uri": "unknown",
-      "name": "Hodl Monkey",
-      "description": "Buy cryptocurrency themed T-shirts"
-    }
+  }
 }
