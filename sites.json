@@ -18,10 +18,10 @@
     "description": "Buy and sell articles with other members"
   },
   "3": {
-    "href": "https://en.bitrefill.com/",
-    "uri": "039514e5d704c59a0eba65d25fc5fe559a1641243ccdf80c980b1fc10ca9c30ca2@54.72.198.211:9735",
+    "href": "https://bitrefill.com/",
+    "uri": "024a2e265cd66066b78a788ae615acdc84b5b0dec9efac36d7ac87513015eaf6ed@lnd.bitrefill.com:9735",
     "name": "Bitrefill",
-    "description": "Charge any cellphone with bitcoin"
+    "description": "Buy phone topups, steam vouchers and other products!"
   },
   "4": {
     "href": "https://google.com/",
