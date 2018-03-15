@@ -22,9 +22,6 @@
     "uri": "039514e5d704c59a0eba65d25fc5fe559a1641243ccdf80c980b1fc10ca9c30ca2@54.72.198.211:9735",
     "name": "Bitrefill",
     "description": "Charge any cellphone with bitcoin",
-    "flags": {
-      "coming_soon": 1
-    }
   },
   "4": {
     "href": "https://google.com/",
@@ -64,5 +61,21 @@
     "uri": "0357712cde38c9e82044ce5070473585e35dcb6069014a7e31a28968f5d839bab4@97.90.42.34:9735",
     "name": "Ludvig Art",
     "description": "Buy bitcoin themed paintings"
-  }
+  },
+    "10": {
+    "href": "https://billfodl.com/",
+    "uri": "0270762bf41cd8f022877f8ae4f6cd9fc3ba26ed020705a6313f1e91ceeb729ca3@188.166.251.115:9735",
+    "name": "Billfodl",
+    "description": "Buy a hard fire-proof physical wallet"
+    "flags": {
+      "coming_soon": 1
+   },
+    "11": {
+    "href": "https://www.bitstarz.com/",
+    "uri": "03b2ff042bcc564de35c2beb17e175ec1315011fee63070617fa7e11f55308d76f@35.204.246.146:9735",
+    "name": "bitStarz",
+    "description": "Cryptocurrency casino"
+    "flags": {
+      "coming_soon": 1
+    }
 }
