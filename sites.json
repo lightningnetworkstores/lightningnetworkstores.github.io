@@ -75,5 +75,10 @@
     "name": "bitStarz",
     "description": "Cryptocurrency casino",
     "flags": {"coming_soon": 1}
-  }
+  }, 
+    "12": {
+    "href": "https://www.coincards.ca/",
+    "uri": "0312c02755c6a3475f872be27e71fdb7703a61a25777401a26125e1c772c7e0f6a@192.95.29.22:9735",
+    "name": "Coincards.ca",
+    "description": "Canadian Bitcoin to Gift Card Marketplace - $20 Amazon.ca Gift Cards Available for Purchase with Lightning",
 }
