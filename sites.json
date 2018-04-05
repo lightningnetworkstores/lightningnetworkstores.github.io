@@ -81,5 +81,11 @@
     "uri": "0312c02755c6a3475f872be27e71fdb7703a61a25777401a26125e1c772c7e0f6a@192.95.29.22:9735",
     "name": "Coincards.ca",
     "description": "Canadian Bitcoin to Gift Card Marketplace - $20 Amazon.ca Gift Cards Available for Purchase with Lightning"
-}
+  },
+	"13": {
+	"href": "http://bitcoinshirt.co/",
+	"uri": "039195c0969d69f9a25839cb44bd5e858bd9e3971638959f0e657bffa6692b43f1@13.92.141.163:9735",
+	"name": "Bitcoin Shirt",
+	"description": "Selling high-quality and unique Bitcoin merchandise"
+ }
 }
