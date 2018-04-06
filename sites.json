@@ -87,5 +87,11 @@
 	"uri": "039195c0969d69f9a25839cb44bd5e858bd9e3971638959f0e657bffa6692b43f1@13.92.141.163:9735",
 	"name": "Bitcoin Shirt",
 	"description": "Selling high-quality and unique Bitcoin merchandise"
- }
+   },
+   "14":{
+      "href":"https://lightningshop.eu/",
+      "uri":"03a8f92735a6e7aac231ec46d51f0b9e84aeed6ce8abd76431849b4e76e9745bfb@88.99.164.229:9735",
+      "name":"Lightning Shop EU",
+      "description":"Selling funny Bitcoin merchandise with a charity purpose"
+   }
 }
