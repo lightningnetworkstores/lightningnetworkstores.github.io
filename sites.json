@@ -1,97 +1,107 @@
-{
-  "0": {
-    "href": "https://torguard.net/",
-    "uri": "03557fd11b58cb93d2ad4fab4dd4cff7462a97e21e8f6b7a712cb8bd27a96b9eef@188.166.23.129:9735",
-    "name": "TorGuard",
-    "description": "Anonymous VPN and Proxy"
-  },
-  "1": {
-    "href": "https://store.blockstream.com/shop/",
-    "uri": "02f6725f9c1c40333b67faea92fd211c183050f28df32cac3f9d69685fe9665432@104.198.32.198:9735",
-    "name": "Blockstream shop",
-    "description": "T-shirts, sweatshirts and stickers"
-  },
-  "2": {
-    "href": "https://mainnet.yalls.org/",
-    "uri": "02669e1e43577c14a4ae796a38e0cfdadb548615058e367bd96bf825e62c0932ce@34.200.241.1:9735",
-    "name": "Y'alls",
-    "description": "Buy and sell articles with other members"
-  },
-  "3": {
-    "href": "https://bitrefill.com/",
-    "uri": "024a2e265cd66066b78a788ae615acdc84b5b0dec9efac36d7ac87513015eaf6ed@lnd.bitrefill.com:9735",
-    "name": "Bitrefill",
-    "description": "Buy phone topups, steam vouchers and other products!"
-  },
-  "4": {
-    "href": "https://google.com/",
-    "uri": "38274hd87d32n87d34287dn5:127.0.0.1:8081",
-    "name": "Hidden Service Test",
-    "description": "This is a hidden service",
-    "flags": {
-      "hidden": 1
-    }
-  },
-  "5": {
-    "href": "https://sogbazaar.com",
-    "uri": "0313f9449cdb528dc9707c02da507cc9306eedc415091c07dc75dcdf621844a5ab@69.15.179.58:9735",
-    "name": "SoGBazaar",
-    "description": "Posters and digital cards"
-  },
-    "6": {
-    "href": "https://www.coinmall.com/",
-    "uri": "032b31feacb6d645c9a83a015d2b52d549205ef515ddea9f0a6b8a4a657eefec3a@94.130.239.161:9735",
-    "name": "CoinMall",
-    "description": "Buy and sell digital goods (e-books, videos, music, ...)"
-  },
-    "7": {
-    "href": "http://www.blockandjerrys.fun/",
-    "uri": "unknown",
-    "name": "Block & Jerry's",
-    "description": "Buy ice cream and get it delivered in San Francisco from 9am to 10pm"
-  },
-    "8": {
-    "href": "https://hodlmonkey.com/",
-    "uri": "039376f846cb4e137f3474baa7fbe74ec627745c7d5c54935b99fbb1b60a62c9b3@159.65.162.130:9735",
-    "name": "Hodl Monkey",
-    "description": "Buy cryptocurrency themed T-shirts"
-  },
-    "9": {
-    "href": "https://ludvigart.com/",
-    "uri": "0357712cde38c9e82044ce5070473585e35dcb6069014a7e31a28968f5d839bab4@97.90.42.34:9735",
-    "name": "Ludvig Art",
-    "description": "Buy bitcoin themed paintings"
-  },
-    "10": {
-    "href": "https://billfodl.com/",
-    "uri": "0270762bf41cd8f022877f8ae4f6cd9fc3ba26ed020705a6313f1e91ceeb729ca3@188.166.251.115:9735",
-    "name": "Billfodl",
-    "description": "Buy a hard fire-proof physical wallet",
-    "flags": {"coming_soon": 1}
+{  
+   "0":{  
+      "href":"https://torguard.net/",
+      "uri":"03557fd11b58cb93d2ad4fab4dd4cff7462a97e21e8f6b7a712cb8bd27a96b9eef@188.166.23.129:9735",
+      "name":"TorGuard",
+      "description":"Anonymous VPN and Proxy"
    },
-    "11": {
-    "href": "https://www.bitstarz.com/",
-    "uri": "03b2ff042bcc564de35c2beb17e175ec1315011fee63070617fa7e11f55308d76f@35.204.246.146:9735",
-    "name": "bitStarz",
-    "description": "Cryptocurrency casino",
-    "flags": {"coming_soon": 1}
-  }, 
-    "12": {
-    "href": "https://www.coincards.ca/",
-    "uri": "0312c02755c6a3475f872be27e71fdb7703a61a25777401a26125e1c772c7e0f6a@192.95.29.22:9735",
-    "name": "Coincards.ca",
-    "description": "Canadian Bitcoin to Gift Card Marketplace - $20 Amazon.ca Gift Cards Available for Purchase with Lightning"
-  },
-	"13": {
-	"href": "http://bitcoinshirt.co/",
-	"uri": "039195c0969d69f9a25839cb44bd5e858bd9e3971638959f0e657bffa6692b43f1@13.92.141.163:9735",
-	"name": "Bitcoin Shirt",
-	"description": "Selling high-quality and unique Bitcoin merchandise"
+   "1":{  
+      "href":"https://store.blockstream.com/shop/",
+      "uri":"02f6725f9c1c40333b67faea92fd211c183050f28df32cac3f9d69685fe9665432@104.198.32.198:9735",
+      "name":"Blockstream shop",
+      "description":"T-shirts, sweatshirts and stickers"
    },
-   "14":{
+   "2":{  
+      "href":"https://mainnet.yalls.org/",
+      "uri":"02669e1e43577c14a4ae796a38e0cfdadb548615058e367bd96bf825e62c0932ce@34.200.241.1:9735",
+      "name":"Y'alls",
+      "description":"Buy and sell articles with other members"
+   },
+   "3":{  
+      "href":"https://bitrefill.com/",
+      "uri":"024a2e265cd66066b78a788ae615acdc84b5b0dec9efac36d7ac87513015eaf6ed@lnd.bitrefill.com:9735",
+      "name":"Bitrefill",
+      "description":"Buy phone topups, steam vouchers and other products!"
+   },
+   "4":{  
+      "href":"https://google.com/",
+      "uri":"38274hd87d32n87d34287dn5:127.0.0.1:8081",
+      "name":"Hidden Service Test",
+      "description":"This is a hidden service",
+      "flags":{  
+         "hidden":1
+      }
+   },
+   "5":{  
+      "href":"https://sogbazaar.com",
+      "uri":"0313f9449cdb528dc9707c02da507cc9306eedc415091c07dc75dcdf621844a5ab@69.15.179.58:9735",
+      "name":"SoGBazaar",
+      "description":"Posters and digital cards"
+   },
+   "6":{  
+      "href":"https://www.coinmall.com/",
+      "uri":"032b31feacb6d645c9a83a015d2b52d549205ef515ddea9f0a6b8a4a657eefec3a@94.130.239.161:9735",
+      "name":"CoinMall",
+      "description":"Buy and sell digital goods (e-books, videos, music, ...)"
+   },
+   "7":{  
+      "href":"http://www.blockandjerrys.fun/",
+      "uri":"unknown",
+      "name":"Block & Jerry's",
+      "description":"Buy ice cream and get it delivered in San Francisco from 9am to 10pm"
+   },
+   "8":{  
+      "href":"https://hodlmonkey.com/",
+      "uri":"039376f846cb4e137f3474baa7fbe74ec627745c7d5c54935b99fbb1b60a62c9b3@159.65.162.130:9735",
+      "name":"Hodl Monkey",
+      "description":"Buy cryptocurrency themed T-shirts"
+   },
+   "9":{  
+      "href":"https://ludvigart.com/",
+      "uri":"0357712cde38c9e82044ce5070473585e35dcb6069014a7e31a28968f5d839bab4@97.90.42.34:9735",
+      "name":"Ludvig Art",
+      "description":"Buy bitcoin themed paintings"
+   },
+   "10":{  
+      "href":"https://billfodl.com/",
+      "uri":"0270762bf41cd8f022877f8ae4f6cd9fc3ba26ed020705a6313f1e91ceeb729ca3@188.166.251.115:9735",
+      "name":"Billfodl",
+      "description":"Buy a hard fire-proof physical wallet",
+      "flags":{  
+         "coming_soon":1
+      }
+   },
+   "11":{  
+      "href":"https://www.bitstarz.com/",
+      "uri":"03b2ff042bcc564de35c2beb17e175ec1315011fee63070617fa7e11f55308d76f@35.204.246.146:9735",
+      "name":"bitStarz",
+      "description":"Cryptocurrency casino",
+      "flags":{  
+         "coming_soon":1
+      }
+   },
+   "12":{  
+      "href":"https://www.coincards.ca/",
+      "uri":"0312c02755c6a3475f872be27e71fdb7703a61a25777401a26125e1c772c7e0f6a@192.95.29.22:9735",
+      "name":"Coincards.ca",
+      "description":"Canadian Bitcoin to Gift Card Marketplace - $20 Amazon.ca Gift Cards Available for Purchase with Lightning"
+   },
+   "13":{  
+      "href":"http://bitcoinshirt.co/",
+      "uri":"039195c0969d69f9a25839cb44bd5e858bd9e3971638959f0e657bffa6692b43f1@13.92.141.163:9735",
+      "name":"Bitcoin Shirt",
+      "description":"Selling high-quality and unique Bitcoin merchandise"
+   },
+   "14":{  
       "href":"https://lightningshop.eu/",
       "uri":"03a8f92735a6e7aac231ec46d51f0b9e84aeed6ce8abd76431849b4e76e9745bfb@88.99.164.229:9735",
       "name":"Lightning Shop EU",
       "description":"Selling funny Bitcoin merchandise with a charity purpose"
+   },
+   "15":{  
+      "href":"https://btcduke.com/?lang=en",
+      "uri":"0328fbda8c1efcdb5ef375742710de71b9bcc93dbb16af22e2cf3ac84eea47dab2@80.211.252.104:9735",
+      "name":"BTC Duke",
+      "description":"Cryptocurrency exchange that supports bitcoin lightning deposits/withdrawals"
    }
 }
