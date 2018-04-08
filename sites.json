@@ -100,10 +100,10 @@
       "uri":"0328fbda8c1efcdb5ef375742710de71b9bcc93dbb16af22e2cf3ac84eea47dab2@80.211.252.104:9735",
       "name":"BTC Duke",
       "description":"Cryptocurrency exchange that supports bitcoin lightning deposits/withdrawals"
-   }
+   },
     "16":{  
       "href":"https://bitcoinlightning.shop",
-      "uri":""03635fa1d555e95f6d7d30783542dbe8538d80b2bd5924ccd5938f70faa826254e@52.226.75.40:9735,
+      "uri":"03635fa1d555e95f6d7d30783542dbe8538d80b2bd5924ccd5938f70faa826254e@52.226.75.40:9735",
       "name":"BitcoinLightning.shop",
       "description":"Buy domain names, lightning nodes, and web hosting services."
    }   
