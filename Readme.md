@@ -34,5 +34,7 @@ Example entry:
     "description": "Buy and sell articles with other members"
      },
      
+ Hint: Use a json file checker like this one: https://jsonformatter.curiousconcept.com/ to make sure you have no syntax errors.
+ 
  ### Testnet store
  Do the same but in the ```sitesTestnet.json``` file.
