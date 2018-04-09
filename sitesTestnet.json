@@ -37,5 +37,11 @@
     "uri": "027c4d2f938f5ee5184fbf0c1b3152a806243b5ec1e53cff814f439d3c18ceceec@138.197.121.209:9735",
     "name": "LNCast",
     "description": "Buy and sell podcasts"
+  },
+    "6": {
+    "href": "https://play.google.com/store/apps/details?id=com.babelon.jennysays&hl=en",
+    "uri": "0270e8806b5f1569929c8343010b393fbdcfdafcacaee47461a9fd95babca061e1@198.101.238.206:9735",
+    "name": "Jenny's Wallpapers",
+    "description": "Buy wallpapers with Android in-app payments"
   }
 }
