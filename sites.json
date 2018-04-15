@@ -142,5 +142,13 @@
       "description":"Buy domain names, lightning nodes, and web hosting services.",
       "sector":"technology",
       "physical_delivery":"no"
-   }
+   },
+   "17":{  
+    "href":"https://moonbanking.com/api",
+    "uri":"02b3877314aff657216ceac039244fe94e7116af10cfffac0232fefa5903c62a58@104.223.94.251:9735",
+    "name":"Moon Banking API",
+    "description":"Get data about the crypto-freindliness of banks around the world with the Moon Banking API.",
+    "sector":"technology",
+    "physical_delivery":"no"
+ }
 }
