@@ -20,7 +20,51 @@
 	  gtag('js', new Date());
 	  gtag('config', 'UA-74119866-1');
 	</script>
-    
+	
+	<script>
+		function showListOptions(){
+			document.getElementById("sectors").classList.toggle("show");
+		}
+		
+		function showListOptionsDelivery(){
+			document.getElementById("deliveries").classList.toggle("show");
+		}
+		
+		function showListOptionsSizes(){
+			document.getElementById("sizes").classList.toggle("show");
+		}
+		
+		function showListOptionsNew(){
+			document.getElementById("new").classList.toggle("show");
+		}
+		
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function(event) {
+		  if (!event.target.matches('button')) {
+
+			var dropdowns = document.getElementsByClassName("dropdown-menu");
+			var i;
+			for (i = 0; i < dropdowns.length; i++) {
+			  var openDropdown = dropdowns[i];
+			  if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			  }
+			}
+		  }
+		}
+		
+	
+	</script>
+
+	<style>
+		.panel { 
+				border-bottom: 1px solid #ddd;
+				margin-top: 1em;
+			   }
+
+		.dropdown { margin-right: 1em; }	   
+	</style>
+	
     </head>
     <body>
 
@@ -29,8 +73,77 @@
             <h1 id="title"><i class="fa fa-bolt"></i> Mainnet lightning network stores <i class="fa fa-bolt"></i></h1>
         </div>
         <hr>
-        <p><strong>Warning:</strong> Lightning network mainnet is still risky, <a href="https://twitter.com/starkness/status/953434418948927488">you may lose your funds</a>. For testing, use the testnet. A list of lightning network stores for the testnet can be found <a href="https://lightningnetworkstores.github.io/testnet">here</a>.</p>
+        <p><strong>Warning:</strong> Lightning network software is still in beta phase, so it is recommended to use small amounts of money. For testing, use the testnet. A list of lightning network stores for the testnet can be found <a href="https://lightningnetworkstores.github.io/testnet">here</a>.</p>
         <hr>
+	
+	<div class="btn-group">
+
+	<div class="dropdown">
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="Sector" aria-haspopup="true" aria-expanded="false" onclick="showListOptions()">
+		Sector: all
+	  </button>
+	  <div id="sectors" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		<a class="dropdown-item" href="#">technology</a>
+		<a class="dropdown-item" href="#">security</a>
+		<a class="dropdown-item" href="#">clothing</a>
+		<a class="dropdown-item" href="#">exchange</a>
+		<a class="dropdown-item" href="#">food</a>
+		<a class="dropdown-item" href="#">other</a>
+		<a class="dropdown-item" href="#">all</a>
+	  </div>
+	</div>
+	
+	<br>
+	
+	<div class="dropdown">
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="DeliveryDropdownButton" data-toggle="Sector" aria-haspopup="true" aria-expanded="false" onclick="showListOptionsDelivery()">
+		Physical delivery: all
+	  </button>
+	  <div id="deliveries" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		<a class="dropdown-item" href="#">yes</a>
+		<a class="dropdown-item" href="#">no</a>
+		<a class="dropdown-item" href="#">all</a>
+	  </div>
+	  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" data-html="true" title="'No' means that the store sells at least one good that doesn't need shipping">
+	  ?
+	</button>
+	</div>
+	
+	<br>
+	
+	<div class="dropdown">
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="SizeDropdownButton" data-toggle="Sector" aria-haspopup="true" aria-expanded="false" onclick="showListOptionsSizes()">
+		Size: big
+	  </button>
+	  <div id="sizes" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		<a class="dropdown-item" href="#">small</a>
+		<a class="dropdown-item" href="#">big</a>
+		<a class="dropdown-item" href="#">all</a>
+	  </div>
+	  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" data-html="true" title="A small store is a store that sells five goods or less or has an Alexa traffic rank worse than 1MM">
+	  ?
+	</button>
+	</div>
+	
+	<br>
+	
+	<div class="dropdown">
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="NewDropdownButton" data-toggle="Sector" aria-haspopup="true" aria-expanded="false" onclick="showListOptionsNew()">
+		New: all
+	  </button>
+	  <div id="new" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		<a class="dropdown-item" href="#">yes</a>
+		<a class="dropdown-item" href="#">no</a>
+		<a class="dropdown-item" href="#">all</a>
+	  </div>
+	  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" data-html="true" title="A store is new if it was added to this repository less than one week ago">
+	  ?
+	</button>
+	</div>
+
+	</div> <!-- end div.btn-group -->
+		
+		
         <div id="main-content">
         </div>
 
@@ -41,7 +154,7 @@
 
         <h5>Know a store that is not listed here? <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io">Add it to the git repository</a> or send an email to lightningnetworkstores@gmail.com</h5>
 
-        <h5><a href="https://lightningnetworkstores.github.io/other">Other resources</a></h5>
+        <h5>For other lightning network resources visit <a href="https://lnroute.com/">LNroute</a> or <a href="http://lopp.net/bitcoin.html">Lopp.net</a></h5>
     </div>
     </body>
 </html>
