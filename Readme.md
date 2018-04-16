@@ -34,6 +34,8 @@ Example entry:
     "description": "Buy and sell articles with other members"
      },
      
+ Fill the optional fields ``sector``, ``physical_delivery``, ``added`` and ``size``. The ``added`` field is the UNIX timestamp in seconds (seconds after 1st of January 1970) of thje current time (you can find it here https://www.epochconverter.com/).
+ 
  Hint: Careful with the commas, make sure your the new file has no syntax errors. Use https://jsonformatter.curiousconcept.com/ to check your changes.
  
  ### Testnet store
