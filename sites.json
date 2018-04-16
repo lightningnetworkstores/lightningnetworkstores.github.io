@@ -120,7 +120,8 @@
       "name":"Lightning Shop EU",
       "description":"Selling funny Bitcoin merchandise with a charity purpose",
       "sector":"clothing",
-      "physical_delivery":"yes"
+      "physical_delivery":"yes",
+      "size":"small"
    },
    {  
       "href":"https://btcduke.com/?lang=en",
@@ -244,6 +245,6 @@
    "physical_delivery":"yes",
    "sector":"food",
    "added":1523911325,
-   "size":"big"
+   "size":"small"
    }
 ]
