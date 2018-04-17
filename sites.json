@@ -189,10 +189,8 @@
    "description":"Pay Australian bills.",
    "physical_delivery":"no",
    "sector":"other",
-   "added":1523911325,
-   "flags":{  
-         "coming_soon":1
-      }
+   "size":"big",
+   "added":1523911325
    },
    {
    "href":"https://tokensoft.network/",
