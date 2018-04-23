@@ -25,7 +25,7 @@
       "sector":"other",
       "size":"big",
       "physical_delivery":"no",
-	  "popular":"yes"
+      "popular":"yes"
    },
    {  
       "href":"https://bitrefill.com/",
@@ -34,8 +34,8 @@
       "description":"Buy phone topups, steam vouchers and other products!",
       "physical_delivery":"no",
       "sector":"technology",
-	  "popular":"yes",
-	  "popular":"yes"
+      "popular":"yes",
+      "popular":"yes"
    },
    {  
       "href":"https://sogbazaar.com",
@@ -85,7 +85,7 @@
       "description":"Buy a hard fire-proof physical wallet",
       "physical_delivery":"yes",
       "sector":"security",
-	  "added":1523577600
+      "added":1523577600
    },
    {  
       "href":"https://www.bitstarz.com/",
@@ -140,109 +140,121 @@
       "physical_delivery":"no"
    },
    {  
-    "href":"https://moonbanking.com/api",
-    "uri":"02b3877314aff657216ceac039244fe94e7116af10cfffac0232fefa5903c62a58@104.223.94.251:9735",
-    "name":"Moon Banking API",
-    "description":"Get data about the crypto-freindliness of banks around the world with the Moon Banking API.",
-    "sector":"technology",
-    "physical_delivery":"no",
-	"added":1523750400
+      "href":"https://moonbanking.com/api",
+      "uri":"02b3877314aff657216ceac039244fe94e7116af10cfffac0232fefa5903c62a58@104.223.94.251:9735",
+      "name":"Moon Banking API",
+      "description":"Get data about the crypto-freindliness of banks around the world with the Moon Banking API.",
+      "sector":"technology",
+      "physical_delivery":"no",
+      "added":1523750400
    },
-   {
-   "href":"https://revealer.cc/",
-   "uri":"0264c1c5c416b481f4dfdc9b2fbfc7b56008461399fd3ee009dd677fd4d11a551f@95.216.3.56:9735",
-   "name":"Revealer",
-   "description":"Add a layer of security to your backups",
-   "physical_delivery":"yes",
-   "sector":"security",
-   "added":1523911325
+   {  
+      "href":"https://revealer.cc/",
+      "uri":"0264c1c5c416b481f4dfdc9b2fbfc7b56008461399fd3ee009dd677fd4d11a551f@95.216.3.56:9735",
+      "name":"Revealer",
+      "description":"Add a layer of security to your backups",
+      "physical_delivery":"yes",
+      "sector":"security",
+      "added":1523911325
    },
-   {
-   "href":"https://tanjalo.com/",
-   "uri":"02f40890af885da4673f0ee9725ee74bb2c66d6491cc4334056a2701057993e61d@144.76.220.229:9735",
-   "name":"Tanjalo",
-   "description":"Buy bitcoin with nigerian naira.",
-   "physical_delivery":"no",
-   "sector":"exchange",
-   "added":1523911325,
-   "flags":{  
+   {  
+      "href":"https://tanjalo.com/",
+      "uri":"02f40890af885da4673f0ee9725ee74bb2c66d6491cc4334056a2701057993e61d@144.76.220.229:9735",
+      "name":"Tanjalo",
+      "description":"Buy bitcoin with nigerian naira.",
+      "physical_delivery":"no",
+      "sector":"exchange",
+      "added":1523911325,
+      "flags":{  
          "coming_soon":1
       }
    },
-   {
-   "href":"https://bitcoinsupermarkt.de/",
-   "uri":"02d0f53a403a0b16efdec1983a082ab7645e35858f6a855871e489c9992748a059@85.214.234.164:9735",
-   "name":"Bitcoin Supermarkt",
-   "description":"Buy jam and cat food, among other products.",
-   "physical_delivery":"yes",
-   "sector":"other",
-   "added":1523911325,
-   "size":"small",
-   "flags":{  
+   {  
+      "href":"https://bitcoinsupermarkt.de/",
+      "uri":"02d0f53a403a0b16efdec1983a082ab7645e35858f6a855871e489c9992748a059@85.214.234.164:9735",
+      "name":"Bitcoin Supermarkt",
+      "description":"Buy jam and cat food, among other products.",
+      "physical_delivery":"yes",
+      "sector":"other",
+      "added":1523911325,
+      "size":"small",
+      "flags":{  
          "coming_soon":1
       }
    },
-   {
-   "href":"https://www.livingroomofsatoshi.com/",
-   "uri":"026b105ac13212c48714c6be9b11577a9ce10f10e1c88a45ce217e6331209faf8b@52.224.178.244:9735",
-   "name":"Living Room of Satoshi",
-   "description":"Pay Australian bills.",
-   "physical_delivery":"no",
-   "sector":"other",
-   "size":"big",
-   "added":1523911325
+   {  
+      "href":"https://www.livingroomofsatoshi.com/",
+      "uri":"026b105ac13212c48714c6be9b11577a9ce10f10e1c88a45ce217e6331209faf8b@52.224.178.244:9735",
+      "name":"Living Room of Satoshi",
+      "description":"Pay Australian bills.",
+      "physical_delivery":"no",
+      "sector":"other",
+      "size":"big",
+      "added":1523911325
    },
-   {
-   "href":"https://tokensoft.network/",
-   "uri":"unknown",
-   "name":"TokenSoft",
-   "description":"Whitelabel token sale platform (main website at https://www.tokensoft.io/).",
-   "physical_delivery":"yes",
-   "sector":"other",
-   "added":1523911325,
-   "size":"small"
+   {  
+      "href":"https://tokensoft.network/",
+      "uri":"unknown",
+      "name":"TokenSoft",
+      "description":"Whitelabel token sale platform (main website at https://www.tokensoft.io/).",
+      "physical_delivery":"yes",
+      "sector":"other",
+      "added":1523911325,
+      "size":"small"
    },
-   {
-   "href":"http://bight.nl/",
-   "uri":"033a6cfd3a7c3da838c152f667bd414712056599e323eda27597ab9517adac25f2@82.217.214.215:9735",
-   "name":"Bight.nl",
-   "description":"Buy handmade jewelry, play connect four, among other stuff.",
-   "physical_delivery":"no",
-   "sector":"other",
-   "added":1523911325,
-   "size":"small"
+   {  
+      "href":"http://bight.nl/",
+      "uri":"033a6cfd3a7c3da838c152f667bd414712056599e323eda27597ab9517adac25f2@82.217.214.215:9735",
+      "name":"Bight.nl",
+      "description":"Buy handmade jewelry, play connect four, among other stuff.",
+      "physical_delivery":"no",
+      "sector":"other",
+      "added":1523911325,
+      "size":"small"
    },
-   {
-   "href":"http://www.mendedheartsquilting.com/",
-   "uri":"unknown",
-   "name":"Mending Hearts Quilting",
-   "description":"Buy quilt quits and patterns (LN payments in store - Ellsworth, Iowa, USA).",
-   "physical_delivery":"yes",
-   "sector":"other",
-   "added":1523911325,
-   "size":"small"
+   {  
+      "href":"http://www.mendedheartsquilting.com/",
+      "uri":"unknown",
+      "name":"Mending Hearts Quilting",
+      "description":"Buy quilt quits and patterns (LN payments in store - Ellsworth, Iowa, USA).",
+      "physical_delivery":"yes",
+      "sector":"other",
+      "added":1523911325,
+      "size":"small"
    },
-   {
-   "href":"https://zigzag.bitlum.io/#/",
-   "uri":"unknown",
-   "name":"ZigZag",
-   "description":"Lightning enabled cryptocurrency exchange.",
-   "physical_delivery":"no",
-   "sector":"exchange",
-   "added":1523911325,
-   "size":"big",
-   "flags":{  
+   {  
+      "href":"https://zigzag.bitlum.io/#/",
+      "uri":"unknown",
+      "name":"ZigZag",
+      "description":"Lightning enabled cryptocurrency exchange.",
+      "physical_delivery":"no",
+      "sector":"exchange",
+      "added":1523911325,
+      "size":"big",
+      "flags":{  
          "coming_soon":1
       }
    },
-   {
-   "href":"http://classiccrustpizza.com/",
-   "uri":"unknown",
-   "name":"Classic Crust Pizza",
-   "description":"Pizzeria in Phoenix, USA (payments in store).",
-   "physical_delivery":"yes",
-   "sector":"food",
-   "added":1523911325,
-   "size":"small"
+   {  
+      "href":"http://classiccrustpizza.com/",
+      "uri":"unknown",
+      "name":"Classic Crust Pizza",
+      "description":"Pizzeria in Phoenix, USA (payments in store).",
+      "physical_delivery":"yes",
+      "sector":"food",
+      "added":1523911325,
+      "size":"small"
+   },
+   {  
+      "href":"https://www.bitwage.com/",
+      "uri":"unknown",
+      "name":"Bitwage",
+      "description":"Bitcoin payroll and international wage payment service.",
+      "added":1524510711,
+      "sector":"technology",
+      "physical_delivery":"no",
+      "flags":{  
+         "coming_soon":1
+      }
    }
 ]
