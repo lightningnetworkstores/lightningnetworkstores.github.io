@@ -61,7 +61,7 @@ function filtraPorSector( sector,delivery, size, newQ )
 
 function build_pannel(site){
 	var inject = '<div class="panel">' +
-				'<h3> <a href="'+site.href+'">'+site.name+'   </a>'
+				'<h5> <a href="'+site.href+'">'+site.name+'   </a>'
 	
 	if (!(site.added)) {
 			site.added = 1519862400;
@@ -75,7 +75,7 @@ function build_pannel(site){
 		inject = inject + ' '+'<span class="badge badge-info">popular</span>'
 	}
 	
-	inject = inject + '</h3>' +
+	inject = inject + '</h5>' +
 				'<p class="text-muted">'+site.description+'</p>' +
 				'<p><strong>URI:</strong> '+site.uri+'</p>' +
 				'</div>';
