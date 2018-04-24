@@ -256,5 +256,14 @@
       "flags":{  
          "coming_soon":1
       }
+   },
+   {
+    "href":"https://trustlessapparel.com/",
+    "uri":"unknown",
+    "name":"Trustless",
+    "description":"Buy cryptocurrency themed T-shirts.",
+     "added":1524597736,
+    "sector":"clothing",
+     "physical_delivery":"yes"
    }
 ]
