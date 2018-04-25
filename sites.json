@@ -265,5 +265,17 @@
      "added":1524597736,
     "sector":"clothing",
      "physical_delivery":"yes"
+   },
+   {
+    "href":"https://hipptee.com/",
+    "uri":"unknown",
+    "name":"Hipptee",
+    "description":"Buy cryptocurrency themed T-shirts.",
+     "added":1524695352,
+    "sector":"clothing",
+     "physical_delivery":"yes",
+      "flags":{  
+         "coming_soon":1
+      }
    }
 ]
