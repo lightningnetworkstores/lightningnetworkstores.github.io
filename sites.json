@@ -28,13 +28,20 @@
       "popular":"yes"
    },
    {  
+      "href":"https://bitbargain.co.uk/",
+      "uri":"032271efcb35188ef00e3f28469a2bb18b50a5f2f325bd130bdac341af24e9b5f0@37.221.209.222:9735",
+      "name":"Bitbargain",
+      "description":"UK bitcoin exchange.",
+      "physical_delivery":"no",
+      "sector":"exchange"
+   },
+   {  
       "href":"https://bitrefill.com/",
       "uri":"024a2e265cd66066b78a788ae615acdc84b5b0dec9efac36d7ac87513015eaf6ed@lnd.bitrefill.com:9735",
       "name":"Bitrefill",
       "description":"Buy phone topups, steam vouchers and other products!",
       "physical_delivery":"no",
       "sector":"technology",
-      "popular":"yes",
       "popular":"yes"
    },
    {  
