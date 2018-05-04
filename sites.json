@@ -287,5 +287,14 @@
       "sector":"food",
       "physical_delivery":"no",
       "size":"small"
+   },
+   {
+      "href":"https://www.vaultoro.com/",
+      "uri":"unknown",
+      "name":"Vaultoro",
+      "description":"Exchange that has a bitcoin to gold trading pair.",
+      "added":1525455603,
+      "sector":"exchange",
+      "physical_delivery":"yes"
    }
 ]
