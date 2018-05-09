@@ -292,7 +292,7 @@
       "description":"Savoury Eats is a global style craft food truck in South Florida. Offering a rotating menu, online ordering and Bitcoin/Lightning payments.",
       "added":1524967696,
       "sector":"food",
-      "physical_delivery":"no",
+      "physical_delivery":"yes",
       "size":"small"
    },
    {
