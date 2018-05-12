@@ -227,7 +227,8 @@
       "physical_delivery":"yes",
       "sector":"other",
       "added":1523911325,
-      "size":"small"
+      "size":"small",
+	  "address":"3212 330th Street, Ellsworth, Iowa 50075"
    },
    {
       "href":"http://zigzag.io",
@@ -250,7 +251,8 @@
       "physical_delivery":"yes",
       "sector":"food",
       "added":1523911325,
-      "size":"small"
+      "size":"small",
+	  "address":"2150 E Cactus, Phoenix, AZ 85022"
    },
    {
       "href":"https://www.bitwage.com/",
@@ -321,5 +323,15 @@
       "added":1526151182,
       "sector":"technology",
       "physical_delivery":"no"
+    },
+   {
+      "href":"https://bne.com.au/passenger/shop-dine-explore/dine/botanist-kitchen-and-bar",
+      "uri":"unknown",
+      "name":"The Botanist Kitchen and Bar",
+      "description":"Cafe-style meals in a relaxed and comfortable setting overlooking the runway at Brisbane Airport.",
+      "added":1526151182,
+      "sector":"food",
+      "physical_delivery":"yes",
+	  "address":"32 Airport Dr, Brisbane Airport QLD 4008, Australia"
    }
 ]
