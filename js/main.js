@@ -45,7 +45,7 @@ function filtraPorSector( sector,delivery, size, newQ )
 		// check if within time interval
 		within = (newQ == 'yes' && elapsed < new_during) || (newQ == 'no' && elapsed > new_during) 
 		
-        if( ((sector != 'all') && (site.sector != sector)) || ((delivery != 'all') && (site.physical_delivery != delivery)) || ((size != 'all') && (site.size != size)) || ((newQ != 'all') && !within) ) 
+        if( ((sector != 'all') && (site.sector != sector)) || ((delivery != 'all') && (site.digital_goods != delivery)) || ((size != 'all') && (site.size != size)) || ((newQ != 'all') && !within) )
         {
 			if (site.flags){
 				panels_commingSoon[nrFlags-1].style.display = "none";
@@ -162,7 +162,7 @@ function clickLinkSectores()
 function clickLinkDelivery()
 {
 	selected_delivery = this.textContent;
-    document.getElementById('DeliveryDropdownButton').textContent = "Physical delivery: " + selected_delivery;
+    document.getElementById('DeliveryDropdownButton').textContent = "Digital goods: " + selected_delivery;
     filtraPorSector( selected_sector, selected_delivery, selected_size, selected_new );
 }
 
