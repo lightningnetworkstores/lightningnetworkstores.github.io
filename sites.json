@@ -342,5 +342,23 @@
       "added":1526151182,
       "sector":"clothing",
       "digital_goods":"no, goods shipped"
+   },
+   {
+      "href":"http://www.9bravos.com.br/loja/",
+      "uri":"unknown",
+      "name":"9Bravos",
+      "description":"Brazilian book store.",
+      "added":1526758473,
+      "sector":"other",
+      "digital_goods":"no, goods shipped"
+   },
+   {
+      "href":"https://lightningconductor.net/",
+      "uri":"03c436af41160a355fc1ed230a64f6a64bcbd2ae50f12171d1318f9782602be601@mainnet.lightningconductor.net:9735",
+      "name":"Lightning Conductor",
+      "description":"Convert lightning bitcoin to on-chain bitcoin and vice-versa.",
+      "added":1526758473,
+      "sector":"other",
+      "digital_goods":"yes"
    }
 ]
