@@ -1,5 +1,14 @@
 [
    {
+      "href":"https://bitcoin-lightning.de/",
+      "uri":"03f02d965aea25de84613ad2be36573d2bd8c6d6dd47d9a516d233098c281d3ae7@85.25.255.147:9735",
+      "name":"Bitcoin Lightning",
+      "description":"By lightning shirts",
+      "sector":"clothing",
+      "size":"big",
+      "digital_goods":"no, goods shipped"
+   },
+   {
       "href":"https://torguard.net/",
       "uri":"03557fd11b58cb93d2ad4fab4dd4cff7462a97e21e8f6b7a712cb8bd27a96b9eef@188.166.23.129:9735",
       "name":"TorGuard",
