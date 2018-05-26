@@ -1,5 +1,15 @@
 [
    {
+      "href": "https://peername.com/",
+      "uri": "unknown",
+      "name": "PeerName",
+      "description": "Blockchain-Based Domain Names Registrar.",
+      "sector":"technology",
+      "size":"big",
+      "added":1527345565,
+      "digital_goods":"yes"
+   },
+   {
       "href":"https://bitcoin-lightning.de/",
       "uri":"03f02d965aea25de84613ad2be36573d2bd8c6d6dd47d9a516d233098c281d3ae7@85.25.255.147:9735",
       "name":"Bitcoin-Lightning.de",
