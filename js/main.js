@@ -1,7 +1,7 @@
 var sites;
 var selected_sector = "all";
 var selected_delivery = "all";
-var selected_size = "big";
+var selected_size = "all";
 var selected_new = "all";
 // website is considered new if added in less than this number of seconds (one week)
 var new_during = 7*24*60*60;
