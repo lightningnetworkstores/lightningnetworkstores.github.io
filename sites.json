@@ -383,5 +383,15 @@
       "size":"big",
       "added":1527618969,
       "digital_goods":"yes"
+    },
+    {	
+      "href": "https://holdit.io/",
+      "uri": "unknown",
+      "name": "HoldIt.io",
+      "description": "Create a coming soon site or landing page in a minute.",
+      "sector":"technology",
+      "size":"big",
+      "added":1527964242,
+      "digital_goods":"yes"
     }
 ]
