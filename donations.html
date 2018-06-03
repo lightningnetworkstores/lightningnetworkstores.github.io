@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Testing new page</title>
+    <script
+            src="js/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <script src="js/makeDonationTable.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-74119866-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'UA-74119866-1');
+	</script>
+
+
+</head>
+<body>
+
+<div class="text-center" id="banner">
+            <h1 id="title"><i class="fa fa-bolt"></i> Lightning donations <i class="fa fa-bolt"></i></h1>
+        </div>
+        <p> Back to <a href="https://lightningnetworkstores.github.io">mainpage</a>.</p>
+        To our knowledge, there doesn't exist a list of on-chain donation addresses, so on-chain addresses are also included.
+<br> </br>
+
+
+<div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Entity</th>
+        <th scope="col">Contributions</th>
+        <th scope="col">Lightning Donation Invoice Generator</th>
+        <th scope="col">Bitcoin address</th>
+        <th scope="col">Reddit</th>
+        <th scope="col">Twitter</th>
+    </tr>
+    </thead>
+
+    <tbody id="donation-table"></tbody>
+    <!--<tbody>-->
+    <!--<tr>-->
+        <!--<td>Mark</td>-->
+        <!--<td>Otto</td>-->
+        <!--<td></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<th >2</th>-->
+        <!--<td>Jacob</td>-->
+        <!--<td>Thornton</td>-->
+        <!--<td>@fat</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<th scope="row">3</th>-->
+        <!--<td>Larry</td>-->
+        <!--<td>the Bird</td>-->
+        <!--<td>@twitter</td>-->
+    <!--</tr>-->
+
+    <!---->
+
+    <!--</tbody>-->
+
+
+</table>
+</body>
+</html>
