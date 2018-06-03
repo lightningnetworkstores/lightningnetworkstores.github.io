@@ -46,7 +46,7 @@ $(function(){
             if (entry.android_testnet){inject = inject + "<a href='" + entry.android_testnet + " '>android </a>"}
             if (entry.iOS_testnet){inject = inject + "<a href='" + entry.iOS_testnet + " '>iOS</a></th>"}
             if (entry.android_testnet_closed){inject = inject + "<a href='" + entry.android_testnet_closed + " '>android closed-beta  </a>"}
-            if (entry.iOS_testnet_closed){inject = inject + "<a href='" + entry.iOS_testnet_closed + " '>iOS closed_beta</a>"}
+            if (entry.iOS_testnet_closed){inject = inject + "<a href='" + entry.iOS_testnet_closed + " '>iOS closed-beta</a>"}
             inject = inject + "</th>"
             } else {
             inject = inject + "<th>-</th>";
