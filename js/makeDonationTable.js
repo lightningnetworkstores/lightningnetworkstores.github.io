@@ -1,8 +1,3 @@
-function build_pannel(site){
-return "a"
-}
-
-
 $(function(){
 
     function initPage() {
@@ -22,8 +17,6 @@ $(function(){
         sites = data;
 
         var main = $('#donation-table');
-        inject = "<tr>></tr>"
-        //main.prepend(inject)
 
         sites.forEach (
         function(entry){
@@ -53,14 +46,9 @@ $(function(){
             inject = inject + "<th>-</th>";
             }
 
-
-
             inject = inject + "</tr>";
             main.prepend(inject);
-
             })
-
-
        }
 
     initPage();

@@ -1,0 +1,45 @@
+[
+  {
+    "name":"eclair wallet",
+    "page":"https://github.com/ACINQ/eclair-wallet",
+    "android":"https://play.google.com/store/apps/details?id=fr.acinq.eclair.wallet.mainnet2&hl=en",
+    "android_testnet":"https://play.google.com/store/apps/details?id=fr.acinq.eclair.wallet&hl=en",
+    "open_source":"https://github.com/ACINQ/eclair-wallet",
+    "release":"April 2018"
+  },
+  {
+    "name":"bitcoin lightning wallet",
+    "page":"http://lightning-wallet.com/",
+    "android":"https://play.google.com/store/apps/details?id=com.lightning.walletapp",
+    "android_testnet":"https://play.google.com/store/apps/details?id=com.lightning.wallet",
+    "open_source":"https://github.com/btcontract/lnwallet",
+    "release":"May 2018"
+  },
+  {
+    "name":"rawtx",
+    "page":"https://rawtx.com/",
+    "android_testnet":"https://play.google.com/store/apps/details?id=com.rtxwallet"
+  },
+  {
+    "name":"CoinClip",
+    "iOS_testnet":"https://itunes.apple.com/us/app/coinclip-testnet/id1372927440",
+    "page":"https://itunes.apple.com/us/app/coinclip-testnet/id1372927440"
+  },
+  {
+    "name":"Swift",
+    "page":"https://www.swiftlightning.io/",
+    "open_source":"https://github.com/biscottigelato/SwiftLightning/",
+    "iOS_testnet_closed":"https://swiftlightning.herokuapp.com/"
+  },
+  {
+    "name":"Shango",
+    "page":"https://github.com/neogeno/shango-lightning-wallet",
+    "android_testnet_closed":"http://www.shangoapp.com/insider",
+    "iOS_testnet_closed":"http://www.shangoapp.com/insider"
+  },
+  {
+    "name":"Cipherbook",
+    "page":"https://www.cryptotec.com/cipherbook/",
+    "iOS_testnet":"https://itunes.apple.com/de/app/cryptotec-cipherbook/id1382750659?l=en&mt=8"
+  }
+]
