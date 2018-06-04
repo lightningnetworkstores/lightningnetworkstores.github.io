@@ -47,6 +47,12 @@
     "page":"https://www.lndthinwallet.com/",
     "iOS":"https://itunes.apple.com/us/app/lnd-thin-wallet/id1375747279",
     "requires_node":"yes",
-    "release":"June 2018"
+    "release":"April 2018"
+  },
+  {
+  "name":"CoinOS",
+  "page":"https://coinos.io",
+   "open_source":"https://github.com/asoltys/coinos.io",
+   "android_testnet":"https://play.google.com/store/apps/details?id=io.cordova.coinos"
   }
 ]
