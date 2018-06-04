@@ -393,5 +393,15 @@
       "size":"big",
       "added":1527964242,
       "digital_goods":"yes"
+    },
+    {
+	"href": "https://yybazaar.com",
+      "uri": "033613d280de1eba995c7545e93caf76cfba41bef88c2d6732a67ce06c168b3acb@124.18.133.220:9735",
+      "name": "YYBAZAAR",
+      "description": "Japanese clothing store.",
+      "sector":"clothing",
+      "size":"big",
+      "added":1528109971,
+      "digital_goods":"no, goods shipped"
     }
 ]
