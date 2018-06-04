@@ -41,5 +41,12 @@
     "name":"Cipherbook",
     "page":"https://www.cryptotec.com/cipherbook/",
     "iOS_testnet":"https://itunes.apple.com/de/app/cryptotec-cipherbook/id1382750659?l=en&mt=8"
+  },
+  {
+    "name":"Thin wallet",
+    "page":"https://www.lndthinwallet.com/",
+    "iOS":"https://itunes.apple.com/us/app/lnd-thin-wallet/id1375747279",
+    "requires_node":"yes",
+    "release":"June 2018"
   }
 ]

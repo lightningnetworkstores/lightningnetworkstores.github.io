@@ -28,6 +28,12 @@ $(function(){
             inject = inject + "<th>no</th>";
             }
 
+            if (entry.requires_node){
+            inject = inject + "<th>" + entry.requires_node + "</th>"
+            } else {
+            inject = inject + "<th>no</th>";
+            }
+
             if (entry.release){
             inject = inject + "<th>" + entry.release + "</th>"
             } else {
