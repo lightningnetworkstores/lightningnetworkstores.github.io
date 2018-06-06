@@ -26,7 +26,7 @@
     "page":"https://itunes.apple.com/us/app/coinclip-testnet/id1372927440"
   },
   {
-    "name":"Swift",
+    "name":"SwiftLightning",
     "page":"https://www.swiftlightning.io/",
     "open_source":"https://github.com/biscottigelato/SwiftLightning/",
     "iOS_testnet_closed":"https://swiftlightning.herokuapp.com/"
