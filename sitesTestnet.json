@@ -49,5 +49,11 @@
     "uri": "unknown",
     "name": "Kriptode",
     "description": "Point of Sale Android Application"
+    },
+    "8": {
+    "href": "https://example.coingate.com/",
+    "uri": "0277622bf4c497475960bf91bd3c673a4cb4e9b589cebfde9700c197b3989cc1b8@35.158.243.90:9735",
+    "name": "Coingate",
+    "description": "Buy a coffee/latte."
   }
 }
