@@ -403,5 +403,15 @@
       "size":"big",
       "added":1528109971,
       "digital_goods":"no, goods shipped"
+    },
+    {
+	"href": "https://satoshis.place/",
+      "uri": "024655b768ef40951b20053a5c4b951606d4d86085d51238f2c67c7dec29c792ca@88.98.213.235:9735",
+      "name": "Satoshi place",
+      "description": "Online collaborative artboard.",
+      "sector":"other",
+      "size":"big",
+      "added":1528514579,
+      "digital_goods":"yes"
     }
 ]
