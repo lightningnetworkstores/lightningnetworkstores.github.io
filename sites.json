@@ -413,5 +413,15 @@
       "size":"big",
       "added":1528514579,
       "digital_goods":"yes"
+   },
+   {
+	"href": "https://artoflightning.network",
+      "uri": "033533e2db6311c1d417d41279c067d8713ad8a7d577a0d91e65df2f6a82c5b862@165.227.167.162:9735",
+      "name": "Art of Lightning",
+      "description": "Online Graffiti Wall",
+      "sector":"other",
+      "size":"big",
+      "added":1528773866,
+      "digital_goods":"yes"
     }
 ]
