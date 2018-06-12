@@ -57,7 +57,6 @@
     {
     "name":"Shock Wallet",
     "page":"https://shocknet.github.io",
-    "open_source":"https://shocknet.github.io",
     "requires_node":"yes",
     "release":"August 2018"
     }
