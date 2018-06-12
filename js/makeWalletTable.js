@@ -37,7 +37,7 @@ $(function(){
             if (entry.release){
             inject = inject + "<th>" + entry.release + "</th>"
             } else {
-            inject = inject + "<th>comming soon</th>";
+            inject = inject + "<th>coming soon</th>";
             }
 
             if (entry.android || entry.iOS){
