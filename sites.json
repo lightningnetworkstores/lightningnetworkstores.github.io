@@ -423,5 +423,14 @@
       "size":"big",
       "added":1528773866,
       "digital_goods":"yes"
+    },
+    {
+	"href": "https://quinsolo.com/",
+      "uri": "036dc6c5fc1a16171f182f48794cf3833654e8018cce0bde540854b19854448f5f@23.100.30.211:9735",
+      "name": "quinsolo.com",
+      "description": "Decentralized Cryptocurrency Merchandise",
+      "sector":"other",
+      "size":"big",
+      "digital_goods":"no, goods shipped"
     }
 ]
