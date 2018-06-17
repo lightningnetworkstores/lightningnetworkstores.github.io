@@ -433,5 +433,18 @@
       "size":"big",
       "digital_goods":"no, goods shipped",
       "added":1529196637
-    }
+    },
+{
+      "href": "https://www.lncards.com/",
+      "uri": "unknown",
+      "name": "LN Cards",
+      "description": "Buy gift cards.",
+      "sector":"other",
+      "size":"big",
+      "digital_goods":"yes",
+      "added":1529275470,
+       "flags":{
+         "coming_soon":1
+      }
+}
 ]
