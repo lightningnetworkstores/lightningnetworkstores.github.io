@@ -1,5 +1,6 @@
-[
-   {
+[  
+   {  
+      "id":1,
       "href":"https://bitcoin-lightning.de/",
       "uri":"03f02d965aea25de84613ad2be36573d2bd8c6d6dd47d9a516d233098c281d3ae7@85.25.255.147:9735",
       "name":"Bitcoin-Lightning.de",
@@ -9,7 +10,8 @@
       "added":1527013270,
       "digital_goods":"no, goods shipped"
    },
-   {
+   {  
+      "id":2,
       "href":"https://torguard.net/",
       "uri":"03557fd11b58cb93d2ad4fab4dd4cff7462a97e21e8f6b7a712cb8bd27a96b9eef@188.166.23.129:9735",
       "name":"TorGuard",
@@ -18,7 +20,8 @@
       "size":"big",
       "digital_goods":"yes"
    },
-   {
+   {  
+      "id":3,
       "href":"https://store.blockstream.com/shop/",
       "uri":"02f6725f9c1c40333b67faea92fd211c183050f28df32cac3f9d69685fe9665432@104.198.32.198:9735",
       "name":"Blockstream shop",
@@ -27,7 +30,8 @@
       "size":"big",
       "digital_goods":"no, goods shipped"
    },
-   {
+   {  
+      "id":4,
       "href":"https://mainnet.yalls.org/",
       "uri":"03e50492eab4107a773141bb419e107bda3de3d55652e6e1a41225f06a0bbf2d56@mainnet-lnd.yalls.org",
       "name":"Y'alls",
@@ -37,7 +41,8 @@
       "digital_goods":"yes",
       "popular":"yes"
    },
-   {
+   {  
+      "id":5,
       "href":"https://bitbargain.co.uk/",
       "uri":"032271efcb35188ef00e3f28469a2bb18b50a5f2f325bd130bdac341af24e9b5f0@37.221.209.222:9735",
       "name":"Bitbargain",
@@ -45,7 +50,8 @@
       "digital_goods":"yes",
       "sector":"exchange"
    },
-   {
+   {  
+      "id":6,
       "href":"https://bitrefill.com/",
       "uri":"024a2e265cd66066b78a788ae615acdc84b5b0dec9efac36d7ac87513015eaf6ed@lnd.bitrefill.com:9735",
       "name":"Bitrefill",
@@ -54,7 +60,8 @@
       "sector":"technology",
       "popular":"yes"
    },
-   {
+   {  
+      "id":7,
       "href":"https://sogbazaar.com",
       "uri":"0313f9449cdb528dc9707c02da507cc9306eedc415091c07dc75dcdf621844a5ab@69.15.179.58:9735",
       "name":"SoGBazaar",
@@ -63,7 +70,8 @@
       "digital_goods":"yes",
       "size":"small"
    },
-   {
+   {  
+      "id":8,
       "href":"https://www.coinmall.com/",
       "uri":"032b31feacb6d645c9a83a015d2b52d549205ef515ddea9f0a6b8a4a657eefec3a@94.130.239.161:9735",
       "name":"CoinMall",
@@ -71,7 +79,8 @@
       "sector":"other",
       "digital_goods":"yes"
    },
-   {
+   {  
+      "id":9,
       "href":"https://hodlmonkey.com/",
       "uri":"039376f846cb4e137f3474baa7fbe74ec627745c7d5c54935b99fbb1b60a62c9b3@159.65.162.130:9735",
       "name":"Hodl Monkey",
@@ -79,7 +88,8 @@
       "sector":"clothing",
       "digital_goods":"no, goods shipped"
    },
-   {
+   {  
+      "id":10,
       "href":"https://ludvigart.com/",
       "uri":"0357712cde38c9e82044ce5070473585e35dcb6069014a7e31a28968f5d839bab4@97.90.42.34:9735",
       "name":"Ludvig Art",
@@ -87,7 +97,8 @@
       "digital_goods":"no, goods shipped",
       "sector":"other"
    },
-   {
+   {  
+      "id":11,
       "href":"https://billfodl.com/",
       "uri":"0270762bf41cd8f022877f8ae4f6cd9fc3ba26ed020705a6313f1e91ceeb729ca3@188.166.251.115:9735",
       "name":"Billfodl",
@@ -96,18 +107,20 @@
       "sector":"security",
       "added":1523577600
    },
-   {
+   {  
+      "id":12,
       "href":"https://www.bitstarz.com/",
       "uri":"03b2ff042bcc564de35c2beb17e175ec1315011fee63070617fa7e11f55308d76f@35.204.246.146:9735",
       "name":"bitStarz",
       "description":"Cryptocurrency casino",
-      "flags":{
+      "flags":{  
          "coming_soon":1
       },
       "digital_goods":"yes",
       "sector":"other"
    },
-   {
+   {  
+      "id":13,
       "href":"https://www.coincards.ca/",
       "uri":"0312c02755c6a3475f872be27e71fdb7703a61a25777401a26125e1c772c7e0f6a@192.95.29.22:9735",
       "name":"Coincards.ca",
@@ -115,7 +128,8 @@
       "sector":"other",
       "digital_goods":"yes"
    },
-   {
+   {  
+      "id":14,
       "href":"http://bitcoinshirt.co/",
       "uri":"039195c0969d69f9a25839cb44bd5e858bd9e3971638959f0e657bffa6692b43f1@13.92.141.163:9735",
       "name":"Bitcoin Shirt",
@@ -123,7 +137,8 @@
       "sector":"clothing",
       "digital_goods":"no, goods shipped"
    },
-   {
+   {  
+      "id":15,
       "href":"https://lightningshop.eu/",
       "uri":"03a8f92735a6e7aac231ec46d51f0b9e84aeed6ce8abd76431849b4e76e9745bfb@88.99.164.229:9735",
       "name":"Lightning Shop EU",
@@ -132,7 +147,8 @@
       "digital_goods":"no, goods shipped",
       "size":"small"
    },
-   {
+   {  
+      "id":16,
       "href":"https://btcduke.com/?lang=en",
       "uri":"0328fbda8c1efcdb5ef375742710de71b9bcc93dbb16af22e2cf3ac84eea47dab2@80.211.252.104:9735",
       "name":"BTC Duke",
@@ -140,7 +156,8 @@
       "sector":"exchange",
       "digital_goods":"yes"
    },
-   {
+   {  
+      "id":17,
       "href":"https://bitcoinlightning.shop",
       "uri":"03635fa1d555e95f6d7d30783542dbe8538d80b2bd5924ccd5938f70faa826254e@52.226.75.40:9735",
       "name":"BitcoinLightning.shop",
@@ -148,7 +165,8 @@
       "sector":"technology",
       "digital_goods":"yes"
    },
-   {
+   {  
+      "id":18,
       "href":"https://moonbanking.com/api",
       "uri":"02b3877314aff657216ceac039244fe94e7116af10cfffac0232fefa5903c62a58@104.223.94.251:9735",
       "name":"Moon Banking API",
@@ -157,7 +175,8 @@
       "digital_goods":"yes",
       "added":1523750400
    },
-   {
+   {  
+      "id":19,
       "href":"https://revealer.cc/",
       "uri":"0264c1c5c416b481f4dfdc9b2fbfc7b56008461399fd3ee009dd677fd4d11a551f@95.216.3.56:9735",
       "name":"Revealer",
@@ -166,7 +185,8 @@
       "sector":"security",
       "added":1523911325
    },
-   {
+   {  
+      "id":20,
       "href":"https://tanjalo.com/",
       "uri":"02f40890af885da4673f0ee9725ee74bb2c66d6491cc4334056a2701057993e61d@144.76.220.229:9735",
       "name":"Tanjalo",
@@ -174,11 +194,12 @@
       "digital_goods":"yes",
       "sector":"exchange",
       "added":1523911325,
-      "flags":{
+      "flags":{  
          "coming_soon":1
       }
    },
-   {
+   {  
+      "id":21,
       "href":"https://bitcoinsupermarkt.de/",
       "uri":"02d0f53a403a0b16efdec1983a082ab7645e35858f6a855871e489c9992748a059@85.214.234.164:9735",
       "name":"Bitcoin Supermarkt",
@@ -187,11 +208,12 @@
       "sector":"other",
       "added":1523911325,
       "size":"small",
-      "flags":{
+      "flags":{  
          "coming_soon":1
       }
    },
-   {
+   {  
+      "id":22,
       "href":"https://www.livingroomofsatoshi.com/",
       "uri":"026b105ac13212c48714c6be9b11577a9ce10f10e1c88a45ce217e6331209faf8b@52.224.178.244:9735",
       "name":"Living Room of Satoshi",
@@ -201,7 +223,8 @@
       "size":"big",
       "added":1523911325
    },
-   {
+   {  
+      "id":23,
       "href":"https://tokensoft.network/",
       "uri":"unknown",
       "name":"TokenSoft",
@@ -211,7 +234,8 @@
       "added":1523911325,
       "size":"small"
    },
-   {
+   {  
+      "id":24,
       "href":"http://bight.nl/",
       "uri":"033a6cfd3a7c3da838c152f667bd414712056599e323eda27597ab9517adac25f2@82.217.214.215:9735",
       "name":"Bight.nl",
@@ -221,7 +245,8 @@
       "added":1523911325,
       "size":"small"
    },
-   {
+   {  
+      "id":25,
       "href":"http://www.mendedheartsquilting.com/",
       "uri":"unknown",
       "name":"Mending Hearts Quilting",
@@ -230,9 +255,10 @@
       "sector":"other",
       "added":1523911325,
       "size":"small",
-	  "address":"3212 330th Street, Ellsworth, Iowa 50075"
+      "address":"3212 330th Street, Ellsworth, Iowa 50075"
    },
-   {
+   {  
+      "id":26,
       "href":"http://zigzag.io",
       "uri":"unknown",
       "name":"ZigZag",
@@ -241,11 +267,12 @@
       "sector":"exchange",
       "added":1523911325,
       "size":"big",
-      "flags":{
+      "flags":{  
          "coming_soon":1
       }
    },
-   {
+   {  
+      "id":27,
       "href":"http://classiccrustpizza.com/",
       "uri":"unknown",
       "name":"Classic Crust Pizza",
@@ -254,9 +281,10 @@
       "sector":"food",
       "added":1523911325,
       "size":"small",
-	  "address":"2150 E Cactus, Phoenix, AZ 85022"
+      "address":"2150 E Cactus, Phoenix, AZ 85022"
    },
-   {
+   {  
+      "id":28,
       "href":"https://www.bitwage.com/",
       "uri":"unknown",
       "name":"Bitwage",
@@ -264,32 +292,35 @@
       "added":1524510711,
       "sector":"technology",
       "digital_goods":"yes",
-      "flags":{
+      "flags":{  
          "coming_soon":1
       }
    },
-   {
-    "href":"https://trustlessapparel.com/",
-    "uri":"unknown",
-    "name":"Trustless",
-    "description":"Buy cryptocurrency themed T-shirts.",
-     "added":1524597736,
-    "sector":"clothing",
-     "digital_goods":"no, goods shipped"
+   {  
+      "id":29,
+      "href":"https://trustlessapparel.com/",
+      "uri":"unknown",
+      "name":"Trustless",
+      "description":"Buy cryptocurrency themed T-shirts.",
+      "added":1524597736,
+      "sector":"clothing",
+      "digital_goods":"no, goods shipped"
    },
-   {
-    "href":"https://hipptee.com/",
-    "uri":"unknown",
-    "name":"Hipptee",
-    "description":"Buy cryptocurrency themed T-shirts.",
-     "added":1524695352,
-    "sector":"clothing",
-     "digital_goods":"no, goods shipped",
-      "flags":{
+   {  
+      "id":30,
+      "href":"https://hipptee.com/",
+      "uri":"unknown",
+      "name":"Hipptee",
+      "description":"Buy cryptocurrency themed T-shirts.",
+      "added":1524695352,
+      "sector":"clothing",
+      "digital_goods":"no, goods shipped",
+      "flags":{  
          "coming_soon":1
       }
    },
-   {
+   {  
+      "id":31,
       "href":"https://www.savouryeats.com/",
       "uri":"03f929098f02467c33f79976f6a6939db1db785814b814821302304fa8692cf3f4@40.71.4.80:9735",
       "name":"Savoury Eats - Mobile Kitchen",
@@ -299,7 +330,8 @@
       "digital_goods":"no, goods only in-store",
       "size":"small"
    },
-   {
+   {  
+      "id":32,
       "href":"https://www.vaultoro.com/",
       "uri":"035f813598df61688b7eff80d546b2ba200bb00c1726bf32f44b692cc98a3580cd@34.240.100.221:9735",
       "name":"Vaultoro",
@@ -308,7 +340,8 @@
       "sector":"exchange",
       "digital_goods":"no, goods shipped"
    },
-   {
+   {  
+      "id":33,
       "href":"https://cmascremeras.store",
       "uri":"024b8019795ec753fcdb1eb21ecd319bfab6a8b05e017f357dc5f052a181fb8c91@186.19.136.144:9735",
       "name":"C+C Remeras",
@@ -317,7 +350,8 @@
       "sector":"clothing",
       "digital_goods":"no, goods shipped"
    },
-   {
+   {  
+      "id":34,
       "href":"https://www.domorder.com/",
       "uri":"03eac0761275c6848984bb7b17588ca2a3baa9c6585de9250bc317dd8ccb8a371a@185.228.136.234:9735",
       "name":"DOMORDER",
@@ -325,8 +359,9 @@
       "added":1526151182,
       "sector":"technology",
       "digital_goods":"yes"
-    },
-   {
+   },
+   {  
+      "id":35,
       "href":"https://bne.com.au/passenger/shop-dine-explore/dine/botanist-kitchen-and-bar",
       "uri":"unknown",
       "name":"The Botanist Kitchen and Bar",
@@ -334,9 +369,10 @@
       "added":1526151182,
       "sector":"food",
       "digital_goods":"no, goods only in-store",
-	  "address":"32 Airport Dr, Brisbane Airport QLD 4008, Australia"
+      "address":"32 Airport Dr, Brisbane Airport QLD 4008, Australia"
    },
-   {
+   {  
+      "id":36,
       "href":"https://wearsmyliberty.com/",
       "uri":"03df95ed69a109deeb71d3dabe9b9a289ab561fa731c8fc853d1c70847597933e3@btcpay.wearsmyliberty.com",
       "name":"Wears My Liberty",
@@ -345,7 +381,8 @@
       "sector":"clothing",
       "digital_goods":"no, goods shipped"
    },
-   {
+   {  
+      "id":37,
       "href":"http://www.9bravos.com.br/loja/",
       "uri":"unknown",
       "name":"9Bravos",
@@ -354,7 +391,8 @@
       "sector":"other",
       "digital_goods":"no, goods shipped"
    },
-   {
+   {  
+      "id":38,
       "href":"https://lightningconductor.net/",
       "uri":"03c436af41160a355fc1ed230a64f6a64bcbd2ae50f12171d1318f9782602be601@mainnet.lightningconductor.net:9735",
       "name":"Lightning Conductor",
@@ -363,98 +401,106 @@
       "sector":"other",
       "digital_goods":"yes"
    },
-   {
-      "href": "https://peername.com/",
-      "uri": "026da67c0675f1140fdec27a59e734af7a3a73e39de772fa20bab7c143d0b6ab33@93.123.80.47:9735",
-      "name": "PeerName",
-      "description": "Blockchain-Based Domain Names Registrar.",
+   {  
+      "id":39,
+      "href":"https://peername.com/",
+      "uri":"026da67c0675f1140fdec27a59e734af7a3a73e39de772fa20bab7c143d0b6ab33@93.123.80.47:9735",
+      "name":"PeerName",
+      "description":"Blockchain-Based Domain Names Registrar.",
       "sector":"technology",
       "size":"big",
       "added":1527345565,
       "digital_goods":"yes"
    },
-   {
-
-      "href": "https://joltfun.com/",
-      "uri": "02977901c53b5299c7641acf11d49a46f0957e9e3f8191e6171d1222486d872317@54.37.22.216:9889",
-      "name": "Joltfun",
-      "description": "Buy computer games for popular venues such as Steam/Origin/Uplay/Battle.net.",
+   {  
+      "id":40,
+      "href":"https://joltfun.com/",
+      "uri":"02977901c53b5299c7641acf11d49a46f0957e9e3f8191e6171d1222486d872317@54.37.22.216:9889",
+      "name":"Joltfun",
+      "description":"Buy computer games for popular venues such as Steam/Origin/Uplay/Battle.net.",
       "sector":"technology",
       "size":"big",
       "added":1527618969,
       "digital_goods":"yes"
-    },
-    {
-      "href": "https://holdit.io/",
-      "uri": "unknown",
-      "name": "HoldIt.io",
-      "description": "Create a coming soon site or landing page in a minute.",
+   },
+   {  
+      "id":41,
+      "href":"https://holdit.io/",
+      "uri":"unknown",
+      "name":"HoldIt.io",
+      "description":"Create a coming soon site or landing page in a minute.",
       "sector":"technology",
       "size":"big",
       "added":1527964242,
       "digital_goods":"yes"
-    },
-    {
-	"href": "https://yybazaar.com",
-      "uri": "033613d280de1eba995c7545e93caf76cfba41bef88c2d6732a67ce06c168b3acb@124.18.133.220:9735",
-      "name": "YYBAZAAR",
-      "description": "Japanese clothing store.",
+   },
+   {  
+      "id":42,
+      "href":"https://yybazaar.com",
+      "uri":"033613d280de1eba995c7545e93caf76cfba41bef88c2d6732a67ce06c168b3acb@124.18.133.220:9735",
+      "name":"YYBAZAAR",
+      "description":"Japanese clothing store.",
       "sector":"clothing",
       "size":"big",
       "added":1528109971,
       "digital_goods":"no, goods shipped"
-    },
-    {
-	"href": "https://satoshis.place/",
-      "uri": "024655b768ef40951b20053a5c4b951606d4d86085d51238f2c67c7dec29c792ca@88.98.213.235:9735",
-      "name": "Satoshi place",
-      "description": "Online collaborative artboard.",
+   },
+   {  
+      "id":43,
+      "href":"https://satoshis.place/",
+      "uri":"024655b768ef40951b20053a5c4b951606d4d86085d51238f2c67c7dec29c792ca@88.98.213.235:9735",
+      "name":"Satoshi place",
+      "description":"Online collaborative artboard.",
       "sector":"other",
       "size":"big",
       "added":1528514579,
       "digital_goods":"yes"
    },
-   {
-	"href": "https://artoflightning.network",
-      "uri": "033533e2db6311c1d417d41279c067d8713ad8a7d577a0d91e65df2f6a82c5b862@165.227.167.162:9735",
-      "name": "Art of Lightning",
-      "description": "Online Graffiti Wall",
+   {  
+      "id":44,
+      "href":"https://artoflightning.network",
+      "uri":"033533e2db6311c1d417d41279c067d8713ad8a7d577a0d91e65df2f6a82c5b862@165.227.167.162:9735",
+      "name":"Art of Lightning",
+      "description":"Online Graffiti Wall",
       "sector":"other",
       "size":"big",
       "added":1528773866,
       "digital_goods":"yes"
-    },
-    {
-	"href": "https://quinsolo.com/",
-      "uri": "036dc6c5fc1a16171f182f48794cf3833654e8018cce0bde540854b19854448f5f@23.100.30.211:9735",
-      "name": "quinsolo.com",
-      "description": "Decentralized Cryptocurrency Merchandise",
+   },
+   {  
+      "id":45,
+      "href":"https://quinsolo.com/",
+      "uri":"036dc6c5fc1a16171f182f48794cf3833654e8018cce0bde540854b19854448f5f@23.100.30.211:9735",
+      "name":"quinsolo.com",
+      "description":"Decentralized Cryptocurrency Merchandise",
       "sector":"other",
       "size":"big",
       "digital_goods":"no, goods shipped",
       "added":1529196637
-    },
-{
-      "href": "https://www.lncards.com/",
-      "uri": "unknown",
-      "name": "LN Cards",
-      "description": "Buy gift cards.",
+   },
+   {  
+      "id":46,
+      "href":"https://www.lncards.com/",
+      "uri":"unknown",
+      "name":"LN Cards",
+      "description":"Buy gift cards.",
       "sector":"other",
       "size":"big",
       "digital_goods":"yes",
       "added":1529275470,
-       "flags":{
+      "flags":{  
          "coming_soon":1
       }
-},
-{
-      "href": "https://www.moneni.com/",
-      "uri": "03295d2e292565743a40bd44da227a820f8730877bc3dfadebade8785bcf355258@159.203.122.47:9735",
-      "name": "Moneni",
-      "description": "Casino and mini-games.",
+   },
+   {  
+      "id":47,
+      "href":"https://www.moneni.com/",
+      "uri":"03295d2e292565743a40bd44da227a820f8730877bc3dfadebade8785bcf355258@159.203.122.47:9735",
+      "name":"Moneni",
+      "description":"Casino and mini-games.",
       "sector":"other",
       "size":"big",
       "digital_goods":"yes",
       "added":1529602555
-}
+   }
 ]
