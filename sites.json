@@ -446,5 +446,15 @@
        "flags":{
          "coming_soon":1
       }
+},
+{
+      "href": "https://www.moneni.com/",
+      "uri": "03295d2e292565743a40bd44da227a820f8730877bc3dfadebade8785bcf355258@159.203.122.47:9735",
+      "name": "Moneni",
+      "description": "Casino and mini-games.",
+      "sector":"other",
+      "size":"big",
+      "digital_goods":"yes",
+      "added":1529602555
 }
 ]
