@@ -522,5 +522,17 @@
     "sector":"games&casino",
     "digital_goods":"yes",
     "added":1529973871
+   },
+   {
+      "id":50,
+    "href":"https://cloudsight.ai/",
+    "uri":"unknown",
+    "name":"Cloud Sight",
+    "description":" An image recognition API providing true understanding for your digital media(<a href='https://gist.github.com/mccallumjack/947380f24163d5b86ac4d9be9be97462'>lightning API documentation</a>)",
+    "sector":"technology",
+    "digital_goods":"yes",
+    "added":1529977711
+
+
    }
 ]
