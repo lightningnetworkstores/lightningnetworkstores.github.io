@@ -312,12 +312,9 @@
       "uri":"unknown",
       "name":"Hipptee",
       "description":"Buy cryptocurrency themed T-shirts.",
-      "added":1524695352,
+      "added":1530040142,
       "sector":"clothing",
-      "digital_goods":"no, goods shipped",
-      "flags":{  
-         "coming_soon":1
-      }
+      "digital_goods":"no, goods shipped"
    },
    {  
       "id":31,
