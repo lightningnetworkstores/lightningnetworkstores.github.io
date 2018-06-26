@@ -117,7 +117,7 @@
          "coming_soon":1
       },
       "digital_goods":"yes",
-      "sector":"other"
+      "sector":"games&casino"
    },
    {  
       "id":13,
@@ -451,7 +451,7 @@
       "uri":"024655b768ef40951b20053a5c4b951606d4d86085d51238f2c67c7dec29c792ca@88.98.213.235:9735",
       "name":"Satoshi place",
       "description":"Online collaborative artboard.",
-      "sector":"other",
+      "sector":"games&casino",
       "size":"big",
       "added":1528514579,
       "digital_goods":"yes"
@@ -462,7 +462,7 @@
       "uri":"033533e2db6311c1d417d41279c067d8713ad8a7d577a0d91e65df2f6a82c5b862@165.227.167.162:9735",
       "name":"Art of Lightning",
       "description":"Online Graffiti Wall",
-      "sector":"other",
+      "sector":"games&casino",
       "size":"big",
       "added":1528773866,
       "digital_goods":"yes"
@@ -498,7 +498,7 @@
       "uri":"03295d2e292565743a40bd44da227a820f8730877bc3dfadebade8785bcf355258@159.203.122.47:9735",
       "name":"Moneni",
       "description":"Casino and mini-games.",
-      "sector":"other",
+      "sector":"games&casino",
       "size":"big",
       "digital_goods":"yes",
       "added":1529602555
@@ -509,7 +509,7 @@
     "uri":"unknown",
     "name":"Poketoshi",
     "description":"Play pokemon emerald.",
-    "sector":"other",
+    "sector":"games&casino",
     "digital_goods":"yes",
     "added":1529973871
    },
@@ -519,7 +519,7 @@
     "uri":"0374ecf61ed6c1208c42339f47decde2bc0c4393ac95f07827b3471e939d7eb961@54.37.22.216:9735",
     "name":"Bitcoin Plays",
     "description":"Play pokemon yellow (1 move=1 satoshi).",
-    "sector":"other",
+    "sector":"games&casino",
     "digital_goods":"yes",
     "added":1529973871
    }
