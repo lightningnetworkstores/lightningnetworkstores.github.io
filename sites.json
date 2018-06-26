@@ -307,19 +307,6 @@
       "digital_goods":"no, goods shipped"
    },
    {  
-      "id":30,
-      "href":"https://hipptee.com/",
-      "uri":"unknown",
-      "name":"Hipptee",
-      "description":"Buy cryptocurrency themed T-shirts.",
-      "added":1524695352,
-      "sector":"clothing",
-      "digital_goods":"no, goods shipped",
-      "flags":{  
-         "coming_soon":1
-      }
-   },
-   {  
       "id":31,
       "href":"https://www.savouryeats.com/",
       "uri":"03f929098f02467c33f79976f6a6939db1db785814b814821302304fa8692cf3f4@40.71.4.80:9735",
@@ -545,5 +532,15 @@
     "flags":{  
       "coming_soon":1
     }
-   }
+   },
+   {  
+    "id":30,
+    "href":"https://ptee.com/",
+    "uri":"unknown",
+    "name":"Hipptee",
+    "description":"Buy cryptocurrency themed T-shirts.",
+    "added":1530040142,
+    "sector":"clothing",
+    "digital_goods":"no, goods shipped"
+  }
 ]
