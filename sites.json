@@ -532,7 +532,15 @@
     "sector":"technology",
     "digital_goods":"yes",
     "added":1529977711
-
-
+   },
+   {
+    "id":51,
+    "href":"https://bitlaunch.io",
+    "uri":"unknown",
+    "name":"Bitlaunch",
+    "description":"Launch VPS from Digital Ocean, Vultr and Linode",
+    "sector":"technology",
+    "digital_goods":"yes",
+    "added":1530029260
    }
 ]
