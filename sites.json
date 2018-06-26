@@ -502,5 +502,25 @@
       "size":"big",
       "digital_goods":"yes",
       "added":1529602555
+   },
+   {
+    "id":48,
+    "href":"https://poketoshi.com/",
+    "uri":"unknown",
+    "name":"Poketoshi",
+    "description":"Play pokemon emerald.",
+    "sector":"other",
+    "digital_goods":"yes",
+    "added":1529973871
+   },
+   {
+    "id":49,
+    "href":"http://bitcoinplays.io/",
+    "uri":"0374ecf61ed6c1208c42339f47decde2bc0c4393ac95f07827b3471e939d7eb961@54.37.22.216:9735",
+    "name":"Bitcoin Plays",
+    "description":"Play pokemon yellow (1 move=1 satoshi).",
+    "sector":"other",
+    "digital_goods":"yes",
+    "added":1529973871
    }
 ]
