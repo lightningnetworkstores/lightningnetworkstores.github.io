@@ -541,6 +541,9 @@
     "description":"Launch VPS from Digital Ocean, Vultr and Linode",
     "sector":"technology",
     "digital_goods":"yes",
-    "added":1530029260
+    "added":1530029260,
+    "flags":{  
+      "coming_soon":1
+    }
    }
 ]
