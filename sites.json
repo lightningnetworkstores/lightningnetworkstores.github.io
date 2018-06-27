@@ -18,7 +18,8 @@
       "description":"Anonymous VPN and Proxy",
       "sector":"technology",
       "size":"big",
-      "digital_goods":"yes"
+      "digital_goods":"yes",
+      "added":1519419592
    },
    {  
       "id":3,
@@ -28,7 +29,8 @@
       "description":"T-shirts, sweatshirts and stickers",
       "sector":"clothing",
       "size":"big",
-      "digital_goods":"no, goods shipped"
+      "digital_goods":"no, goods shipped",
+      "added":1519419592
    },
    {  
       "id":4,
@@ -39,7 +41,8 @@
       "sector":"other",
       "size":"big",
       "digital_goods":"yes",
-      "popular":"yes"
+      "popular":"yes",
+      "added":1519419592
    },
    {  
       "id":5,
@@ -58,7 +61,8 @@
       "description":"Buy phone topups, steam vouchers and other products!",
       "digital_goods":"yes",
       "sector":"technology",
-      "popular":"yes"
+      "popular":"yes",
+      "added":1521147592
    },
    {  
       "id":7,
@@ -68,7 +72,8 @@
       "description":"Posters and digital cards",
       "sector":"other",
       "digital_goods":"yes",
-      "size":"small"
+      "size":"small",
+      "added":1519505992
    },
    {  
       "id":8,
@@ -77,7 +82,8 @@
       "name":"CoinMall",
       "description":"Buy and sell digital goods (e-books, videos, music, ...)",
       "sector":"other",
-      "digital_goods":"yes"
+      "digital_goods":"yes",
+      "added":1519592392
    },
    {  
       "id":9,
@@ -86,7 +92,8 @@
       "name":"Hodl Monkey",
       "description":"Buy cryptocurrency themed T-shirts",
       "sector":"clothing",
-      "digital_goods":"no, goods shipped"
+      "digital_goods":"no, goods shipped",
+      "added":1520542792
    },
    {  
       "id":10,
@@ -95,7 +102,8 @@
       "name":"Ludvig Art",
       "description":"Buy bitcoin themed paintings",
       "digital_goods":"no, goods shipped",
-      "sector":"other"
+      "sector":"other",
+      "added":1520801992
    },
    {  
       "id":11,
@@ -117,7 +125,8 @@
          "coming_soon":1
       },
       "digital_goods":"yes",
-      "sector":"games&casino"
+      "sector":"games&casino",
+      "added":1521147592
    },
    {  
       "id":13,
@@ -126,7 +135,8 @@
       "name":"Coincards.ca",
       "description":"Canadian Bitcoin to Gift Card Marketplace - $20 Amazon.ca Gift Cards Available for Purchase with Lightning",
       "sector":"other",
-      "digital_goods":"yes"
+      "digital_goods":"yes",
+      "added":1522097992
    },
    {  
       "id":14,
@@ -135,7 +145,8 @@
       "name":"Bitcoin Shirt",
       "description":"Selling high-quality and unique Bitcoin merchandise",
       "sector":"clothing",
-      "digital_goods":"no, goods shipped"
+      "digital_goods":"no, goods shipped",
+      "added":1522961992
    },
    {  
       "id":15,
@@ -154,7 +165,8 @@
       "name":"BTC Duke",
       "description":"Cryptocurrency exchange that supports bitcoin lightning deposits/withdrawals",
       "sector":"exchange",
-      "digital_goods":"yes"
+      "digital_goods":"yes",
+      "added":1523048392
    },
    {  
       "id":17,
