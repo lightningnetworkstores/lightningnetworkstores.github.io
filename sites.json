@@ -552,5 +552,15 @@
     "added":1530063594,
     "sector":"games&casino",
     "digital_goods":"yes"
-  }
+  },
+   {
+    "id":53,
+    "href":"https://neverfiat.com",
+    "uri":"unknown",
+    "name":"NeverFiat",
+    "description":"Cryptocurrency marketplace.",
+    "added":1530133203,
+    "sector":"other",
+    "digital_goods":"no, goods shipped"
+   }
 ]
