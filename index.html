@@ -62,22 +62,37 @@
 			   }
 
 		.dropdown { margin-right: 1em; }
-		<!--.text-muted {margin-bottom: 1px; } -->
 	</style>
 	
     </head>
+
     <body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Resources:</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-item nav-link active" href="#">Mainnet
+						<span class="sr-only">(current)</span>
+					</a>
+					<a class="nav-item nav-link" href="http://lightningnetworkstores.com/testnet">Testnet</a>
+					<a class="nav-item nav-link" href="http://lightningnetworkstores.com/wallets">Lightning wallets</a>
+					<a class="nav-item nav-link" href="http://lightningnetworkstores.com/donations">Donation addresses</a>
+					<a class="nav-item nav-link disabled" href="#">Services</a>
+					<a class="nav-item nav-link" href="http://lightningnetworkstores.com/about">About</a>
+				</div>
+			</div>
+		</nav>
 
     <div class="container">
         <div class="text-center" id="banner">
             <h1 id="title"><i class="fa fa-bolt"></i> Mainnet lightning network stores <i class="fa fa-bolt"></i></h1>
         </div>
         <hr>
-        <p><strong>Warning:</strong> Lightning network software is still in beta phase, so it is recommended to use small amounts of money. For testing, use the testnet. A list of lightning network stores for the testnet can be found <a href="https://lightningnetworkstores.github.io/testnet">here</a>.</p>
-        <hr>
-		<p>If you are a non-technical user, you can try lightning with a <a href="https://lightningnetworkstores.github.io/wallets">mobile wallet</a>.</p>
-		<p>If you want to donate bitcoin to bitcoin-related projects (through lightning or not) check the <a href='https://lightningnetworkstores.github.io/donations'>donations page </a>.</p>
-	<hr>
 	
 	<div class="btn-group">
 
@@ -156,10 +171,6 @@
             <h1 class="text-info">Coming Soon?</h1>
             <br>
         </div>
-
-        <h5>Know a store not listed here? <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io">Add it to the git repository</a> or send an email to lightningnetworkstores@gmail.com</h5>
-
-        <h5>For other lightning network resources visit <a href="https://lnroute.com/">LNroute</a> or <a href="http://lopp.net/bitcoin.html">Lopp.net</a></h5>
     </div>
     </body>
 </html>
