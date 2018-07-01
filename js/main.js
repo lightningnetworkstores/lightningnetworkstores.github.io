@@ -138,7 +138,7 @@ $(function(){
                     return;
 
                 if(site.flags['coming_soon'] == 1)
-                    soon.append(inject);
+                    soon.prepend(inject);
                 return;
             }
 
