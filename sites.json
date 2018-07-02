@@ -606,5 +606,15 @@
    "sector":"other",
    "digital_goods":"yes",
    "added":1530568870
+   },
+   {
+   "id":60,
+   "href":"https://www.mmoga.com",
+   "uri":"unknown",
+   "name":"MMOGA",
+   "description":"Buy in-game currencies (FIFA Coins, WoW Gold, ...), game keys and items.",
+   "sector":"games&casino",
+   "digital_goods":"yes",
+   "added":1530572250
    }
 ]
