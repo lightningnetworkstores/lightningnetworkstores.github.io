@@ -586,5 +586,15 @@
    "sector":"other",
    "digital_goods":"no, goods shipped",
    "added":1530565609
+   },
+   {
+   "id":58,
+   "href":"https://thunderpick.com",
+   "uri":"unknown",
+   "name":"Thunder Pick",
+   "description":"eSports betting platform.",
+   "sector":"games&casino",
+   "digital_goods":"yes",
+   "added":1530566805
    }
 ]
