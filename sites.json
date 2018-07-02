@@ -574,7 +574,17 @@
    "name":"Bitgild",
    "description":"Buy silver and gold.",
    "sector":"other",
-   "digital_goods":"no",
+   "digital_goods":"no, goods shipped",
    "added":1530560105
+   },
+   {
+   "id":57,
+   "href":"https://thecryptocloak.com",
+   "uri":"unknown",
+   "name":"CryptoCloaks",
+   "description":"Hard Wallet Cases, Mounts and Accessories.",
+   "sector":"other",
+   "digital_goods":"no, goods shipped",
+   "added":1530565609
    }
 ]
