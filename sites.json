@@ -556,5 +556,16 @@
    "sector":"clothing",
    "digital_goods":"no, goods shipped",
    "added":1530469998
+   },
+   {
+   "id":55,
+   "href":"https://bacloud.com/",
+   "uri":"unknown",
+   "name":"Bacloud",
+   "description":"Dedicated servers, Windows/Linux VPS, free hosting domain setup.",
+   "sector":"technology",
+   "digital_goods":"yes",
+   "added":1530499360
+   
    }
 ]
