@@ -566,6 +566,15 @@
    "sector":"technology",
    "digital_goods":"yes",
    "added":1530499360
-   
+   },
+   {
+   "id":56,
+   "href":"https://www.bitgild.com/",
+   "uri":"unknown",
+   "name":"Bitgild",
+   "description":"Buy silver and gold.",
+   "sector":"other",
+   "digital_goods":"no",
+   "added":1530560105
    }
 ]
