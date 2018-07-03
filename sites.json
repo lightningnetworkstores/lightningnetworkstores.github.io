@@ -636,5 +636,25 @@
    "sector":"other",
    "digital_goods":"no, goods shipped",
    "added":1530572250
+   },
+   {
+   "id":63,
+   "href":"https://xtream-codes.com",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
+   "name":"Xtream Codes",
+   "description":"IPTV solutions.",
+   "sector":"technology",
+   "digital_goods":"no, goods shipped",
+   "added":1530572250
+   },
+   {
+   "id":64,
+   "href":"https://nuvoo.io",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
+   "name":"Nuvoo",
+   "description":"Cloud mining contracts.",
+   "sector":"other",
+   "digital_goods":"yes",
+   "added":1530572250
    }
 ]
