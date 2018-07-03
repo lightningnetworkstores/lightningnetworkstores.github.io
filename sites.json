@@ -510,7 +510,7 @@
    {
     "id":51,
     "href":"https://bitlaunch.io",
-    "uri":"unknown",
+    "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "name":"Bitlaunch",
     "description":"Launch VPS from Digital Ocean, Vultr and Linode",
     "sector":"technology",
@@ -560,7 +560,7 @@
    {
    "id":55,
    "href":"https://bacloud.com/",
-   "uri":"unknown",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
    "name":"Bacloud",
    "description":"Dedicated servers, Windows/Linux VPS, free hosting domain setup.",
    "sector":"technology",
@@ -570,7 +570,7 @@
    {
    "id":56,
    "href":"https://www.bitgild.com/",
-   "uri":"unknown",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
    "name":"Bitgild",
    "description":"Buy silver and gold.",
    "sector":"other",
@@ -580,7 +580,7 @@
    {
    "id":57,
    "href":"https://thecryptocloak.com",
-   "uri":"unknown",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
    "name":"CryptoCloaks",
    "description":"Hard Wallet Cases, Mounts and Accessories.",
    "sector":"other",
@@ -590,7 +590,7 @@
    {
    "id":58,
    "href":"https://thunderpick.com",
-   "uri":"unknown",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
    "name":"Thunder Pick",
    "description":"eSports betting platform.",
    "sector":"games&casino",
@@ -600,7 +600,7 @@
    {
    "id":59,
    "href":"https://www.manyvids.com",
-   "uri":"unknown",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
    "name":"ManyVids",
    "description":"Hottest porn vids from your favorite girls.",
    "sector":"other",
@@ -610,11 +610,31 @@
    {
    "id":60,
    "href":"https://www.mmoga.com",
-   "uri":"unknown",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
    "name":"MMOGA",
    "description":"Buy in-game currencies (FIFA Coins, WoW Gold, ...), game keys and items.",
    "sector":"games&casino",
    "digital_goods":"yes",
+   "added":1530572250
+   },
+   {
+   "id":61,
+   "href":"https://www.btc-echo.de/shop/",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
+   "name":"BTC-ECHO",
+   "description":"Bitcoin merchandise.",
+   "sector":"other",
+   "digital_goods":"no, goods shipped",
+   "added":1530572250
+   },
+   {
+   "id":62,
+   "href":"https://cryptoshopper.store/",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
+   "name":"Crypto Shopper",
+   "description":"Bitcoin merchandise.",
+   "sector":"other",
+   "digital_goods":"no, goods shipped",
    "added":1530572250
    }
 ]
