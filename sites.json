@@ -656,5 +656,15 @@
    "sector":"other",
    "digital_goods":"yes",
    "added":1530572250
+   },
+   {
+   "id":65,
+   "href":"https://lynxartcollection.com/",
+   "uri":"unknown",
+   "name":"Lynx Art Collection",
+   "description":"Space, science and cryptocurrency artwork.",
+   "sector":"other",
+   "digital_goods":"no, goods shipped",
+   "added":1530644004
    }
 ]
