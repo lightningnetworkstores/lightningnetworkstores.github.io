@@ -666,5 +666,15 @@
    "sector":"other",
    "digital_goods":"no, goods shipped",
    "added":1530644004
+   },
+   {
+   "id":66,
+   "href":"https://www.thekasbah.no/",
+   "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
+   "name":"The Kasbah",
+   "description":"Local corner café in Alexander Kiellands plass in Oslo where you can have a drink and eat healthy Middle Eastern food.",
+   "sector":"food",
+   "digital_goods":"no, goods only in-store",
+   "added":1530732932
    }
 ]
