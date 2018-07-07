@@ -676,5 +676,16 @@
    "sector":"food",
    "digital_goods":"no, goods only in-store",
    "added":1530732932
+    },
+   {
+   "id":67,
+   "href":"https://www.moonstuff.co/",
+   "uri":"unknown",
+   "name":"Moonstuff",
+   "description":"Novelty store for bitcoin enthusiasts.",
+   "sector":"other",
+   "digital_goods":"no, goods shipped",
+   "added":1531003872
    }
+   
 ]
