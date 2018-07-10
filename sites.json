@@ -696,6 +696,17 @@
    "sector":"other",
    "digital_goods":"no, goods shipped",
    "added":1531173298
+   },
+   {
+   "id":69,
+   "href":"https://quotefrom.me/",
+   "uri":"unknown",
+   "name":"Quote From Me",
+   "description":"Post quotes online.",
+   "sector":"other",
+   "digital_goods":"yes",
+   "added":1531248575
    }
+   
    
 ]
