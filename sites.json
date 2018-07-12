@@ -727,4 +727,14 @@
    "digital_goods":"yes",
    "added":1531345286
    }
+   {
+   "id":69,
+   "href":"https://junglelab.io/",
+   "uri":"0265e5791c617b6e1dfe04137e71c0c959201592bd7fe3f1bb085c35595b72646c@51.144.112.185:9735",
+   "name":"junglelab Store",
+   "description":"T-shirts, hoodies and stickers.",
+   "sector":"other",
+   "digital_goods":"yes,  goods shipped",
+   "added":1531248575
+    }
 ]
