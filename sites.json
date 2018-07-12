@@ -726,7 +726,7 @@
    "sector":"other",
    "digital_goods":"yes",
    "added":1531345286
-   }
+   },
    {  
    "id":72,
    "href":"https://junglelab.io/",
@@ -736,5 +736,5 @@
    "sector":"other",
    "digital_goods":"yes,  goods shipped",
    "added":1531248575
-},
+}
 ]
