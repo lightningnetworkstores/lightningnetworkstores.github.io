@@ -734,8 +734,8 @@
    "uri":"02c0b38022846c6b6f45b30031859ac7c5fb0c67ec8ed5cce8409c4b438c267ffe@92.53.89.123:9735",
    "name":"tayga8",
    "description":"Health supplement products.",
-   "sector":"supplements",
-   "digital_goods":"no",
+   "sector":"other",
+   "digital_goods":"no, goods shipped",
    "added":1531667510
    }   
 ]
