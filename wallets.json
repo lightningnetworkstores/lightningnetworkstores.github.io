@@ -61,5 +61,12 @@
     "page":"https://shocknet.github.io",
     "requires_node":"yes",
     "release":"August 2018"
-    }
+    },
+   {
+    "name":"Fulmo",
+    "page":"https://github.com/marzig76/fulmo",
+    "requires_node":"yes",
+    "open_source":"https://github.com/marzig76/fulmo",
+    "release":"July 2018"
+  }
 ]
