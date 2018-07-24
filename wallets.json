@@ -68,5 +68,11 @@
     "requires_node":"yes",
     "open_source":"https://github.com/marzig76/fulmo",
     "release":"July 2018"
+  },
+  {
+   "name":"Zap iOS",
+   "page":"https://zap.jackmallers.com/",
+   "requires_node":"yes",
+    "open_source":"https://github.com/LN-Zap/zap-iOS"
   }
 ]
