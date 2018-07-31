@@ -55,5 +55,11 @@
     "uri": "0277622bf4c497475960bf91bd3c673a4cb4e9b589cebfde9700c197b3989cc1b8@35.158.243.90:9735",
     "name": "Coingate",
     "description": "Buy a coffee/latte."
+  },
+  "9": {
+  "href": "https://testnet.microbet.fun/",
+  "uri": "03819ddbe246214d4c57b7ea4d28bfe5c09c03bb4308b40c26f1468532131e0cc0@186.19.136.144:19735",
+  "name": "MicroBet",
+  "description": "Sports micro bets site."
   }
 }
