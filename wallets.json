@@ -73,12 +73,21 @@
    "name":"Zap iOS",
    "page":"https://zap.jackmallers.com/",
    "requires_node":"yes",
-    "open_source":"https://github.com/LN-Zap/zap-iOS"
+    "open_source":"https://github.com/LN-Zap/zap-iOS",
+    "iOS_testnet_closed":"http://www.zap-ios.jackmallers.com/"
   },
   {
     "name":"BlueWallet iOS",
     "page":"https://bluewallet.io/",
     "requires_node":"no",
     "open_source":"https://github.com/Overtorment/BlueWallet"
+  },
+  {
+    "name":"Spark",
+    "page":"https://github.com/shesek/spark-wallet",
+    "requires_node":"yes",
+    "open_source":"https://github.com/shesek/spark-wallet",
+    "android":"https://github.com/shesek/spark-wallet/releases",
+    "release":"August 2018"
   }
 ]
