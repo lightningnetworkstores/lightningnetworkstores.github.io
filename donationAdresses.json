@@ -66,5 +66,12 @@
     "reddit":"NicolasDorier",
     "address":"3BpfdkF93GwFRWdrAN3SNsRAsi6d158YQi",
     "address_proof":"https://btcpay-server-testnet.azurewebsites.net/"
+  },
+  {
+   "entity":"Johoe Hoenick",
+    "lightning":"https://jochen-hoenicke.de/lightning/",
+    "address":"3LrXizKejCGYyGUxYzGweyuxFVtfs3odEe",
+    "address_proof":"https://jochen-hoenicke.de/queue/#1,24h",
+    "contributions":"Creator of the mempool monitoring site https://jochen-hoenicke.de/queue"
   }
 ]
