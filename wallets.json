@@ -89,5 +89,9 @@
     "open_source":"https://github.com/shesek/spark-wallet",
     "android":"https://github.com/shesek/spark-wallet/releases",
     "release":"August 2018"
+  },
+  {
+   "name":"Breez",
+   "page":"https://breez.technology/"
   }
 ]
