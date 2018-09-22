@@ -560,7 +560,7 @@
       "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
       "name":"Bitgild",
       "description":"Buy silver and gold.",
-      "sector":"other",
+      "sector":"exchange",
       "digital_goods":"no, goods shipped",
       "added":1530560105
    },
@@ -570,7 +570,7 @@
       "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
       "name":"CryptoCloaks",
       "description":"Hard Wallet Cases, Mounts and Accessories.",
-      "sector":"other",
+      "sector":"security",
       "digital_goods":"no, goods shipped",
       "added":1530565609
    },
@@ -720,7 +720,7 @@
       "uri":"02c0b38022846c6b6f45b30031859ac7c5fb0c67ec8ed5cce8409c4b438c267ffe@92.53.89.123:9735",
       "name":"tayga8",
       "description":"Health supplement products.",
-      "sector":"other",
+      "sector":"drugs&supplements",
       "digital_goods":"no, goods shipped",
       "added":1531667510
    },
@@ -1168,7 +1168,7 @@
       "href":"https://cosmicnootropic.com/",
       "uri":"0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
       "description":"CosmicNootropic products",
-      "sector":"other",
+      "sector":"drugs&supplements",
       "digital_goods":"no, goods shipped",
       "added":1537395072
    },
