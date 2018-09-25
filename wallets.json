@@ -93,5 +93,17 @@
   {
    "name":"Breez",
    "page":"https://breez.technology/"
+  },
+  {
+   "name":"Opennode Wallet",
+    "page":"https://opennode.co/signup",
+    "requires_node":"no",
+    "open_source":"no",
+    "release":"August 2018"
+  },
+  {
+   "name":"LightningPeach",
+   "page":"https://lightningpeach.com/peach-wallet",
+   "open_source":"https://github.com/LightningPeach/lightning-peach-wallet"
   }
 ]
