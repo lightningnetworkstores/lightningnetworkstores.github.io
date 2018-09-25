@@ -68,8 +68,9 @@
     "address_proof":"https://btcpay-server-testnet.azurewebsites.net/"
   },
   {
-   "entity":"Johoe Hoenick",
+    "entity":"Jochen Hoenicke (Johoe)",
     "lightning":"https://jochen-hoenicke.de/lightning/",
+    "reddit":"-johoe",
     "address":"3LrXizKejCGYyGUxYzGweyuxFVtfs3odEe",
     "address_proof":"https://jochen-hoenicke.de/queue/#1,24h",
     "contributions":"Creator of the mempool monitoring site https://jochen-hoenicke.de/queue"
