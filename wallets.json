@@ -98,7 +98,6 @@
    "name":"Opennode Wallet",
     "page":"https://opennode.co/signup",
     "requires_node":"no",
-    "open_source":"no",
     "release":"August 2018"
   },
   {
