@@ -92,9 +92,9 @@
   },
   {
    "name":"Breez",
-   "page":"https://breez.technology/"
+   "page":"https://breez.technology/",
    "requires_node":"no",
-   "open_source":"https://github.com/breez/breezmobile",
+   "open_source":"https://github.com/breez/breezmobile"
   },
   {
    "name":"Opennode Wallet",
