@@ -36,8 +36,8 @@
   {
     "name":"Shango",
     "page":"https://github.com/neogeno/shango-lightning-wallet",
-    "android_testnet_closed":"http://www.shangoapp.com/insider",
-    "iOS_testnet_closed":"http://www.shangoapp.com/insider"
+    "android_testnet":"https://play.google.com/store/apps/details?id=com.shango&hl=en-GB&ah=RLfWCJdoAACElN_m3p_mt8O6XjU",
+    "iOS_testnet":"https://testflight.apple.com/join/WwCjFnS8"
   },
   {
     "name":"Cipherbook",
