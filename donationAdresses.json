@@ -7,6 +7,14 @@
     "twitter":"aantonop"
   },
   {
+    "entity":"AromaticEntry",
+    "contributions":"Creator of <a href='https://bitcotools.com'>bitcotools.com</a>",
+    "lightning":"https://bitcotools.com/donate/",
+    "address":"https://bitcotools.com/donate/",
+    "address_proof":"3DDzjhRzHTdsuXEPXQxBmweqzFfUwhr2nE",
+    "reddit":"AromaticEntry"
+  },
+  {
     "entity": "LN route",
     "contributions": "Big routing node in the lightning network and maintainers of <a href='https://lnroute.com/'>lnroute.com</a> ",
     "lightning":"http://reckless.lnroute.com/"
