@@ -7,6 +7,18 @@
     "twitter":"aantonop"
   },
   {
+    "entity":"Sergio Abril",
+    "contributions":"Creator of the Web Lightning Network Custodial Wallet <a href='https://tippin.me/'>tippin.me</a>",
+    "lightning":"https://tippin.me/help-us",
+    "twitter":"eiprol",
+    "reddit":"Eiprol"
+  },
+  {
+    "entity":"Lightning Hood",
+    "contributions":"Creators of <a href='https://lightninghood.com/'>Lightning Hood</a>",
+    "lightning":"https://btcpay.bitbruno.com/apps/2FrKyn3d2Gh4tDjTP6pH5tgqTZWd/pos"
+  },
+  {
     "entity":"AromaticEntry",
     "contributions":"Creator of <a href='https://bitcotools.com'>bitcotools.com</a>",
     "lightning":"https://bitcotools.com/donate/",
