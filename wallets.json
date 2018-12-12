@@ -16,6 +16,10 @@
     "release":"May 2018"
   },
   {
+    "name":"Wallet of Satoshi",
+    "page":"https://www.walletofsatoshi.com/"
+  },
+  {
     "name":"rawtx",
     "page":"https://rawtx.com/",
     "android_testnet":"https://play.google.com/store/apps/details?id=com.rtxwallet",
