@@ -20,6 +20,11 @@
     "page":"https://www.walletofsatoshi.com/"
   },
   {
+    "name":"Denryu wallet",
+    "page":"https://denryu.hashhub.tokyo",
+    "android":"https://play.google.com/store/apps/details?id=com.lightning.denryu"
+  },
+  {
     "name":"rawtx",
     "page":"https://rawtx.com/",
     "android_testnet":"https://play.google.com/store/apps/details?id=com.rtxwallet",
