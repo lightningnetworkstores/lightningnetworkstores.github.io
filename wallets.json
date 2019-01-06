@@ -111,6 +111,13 @@
    "open_source":"https://github.com/breez/breezmobile"
   },
   {
+   "name":"Hibana",
+   "page":"https://play.google.com/store/apps/details?id=app.hibana.hibana",
+   "requires_node":"no",
+   "android_testnet":"https://play.google.com/store/apps/details?id=app.hibana.hibana",
+   "release":"December 2018"
+  },
+  {
    "name":"Opennode Wallet",
     "page":"https://opennode.co/signup",
     "requires_node":"no",
