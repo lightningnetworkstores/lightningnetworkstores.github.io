@@ -17,7 +17,10 @@
   },
   {
     "name":"Wallet of Satoshi",
-    "page":"https://www.walletofsatoshi.com/"
+    "page":"https://www.walletofsatoshi.com/",
+    "android":"https://play.google.com/apps/testing/com.livingroomofsatoshi.wallet",
+    "iOS":"https://testflight.apple.com/join/NTUFwnhR",
+    "release":"January 2019"
   },
   {
     "name":"Denryu wallet",
