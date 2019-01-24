@@ -83,7 +83,8 @@
     "name":"Shock Wallet",
     "page":"https://shocknet.github.io",
     "requires_node":"yes",
-    "release":"August 2018"
+    "open_source":"https://github.com/shocknet", 
+    "release":"2019"
     },
    {
     "name":"Fulmo",
