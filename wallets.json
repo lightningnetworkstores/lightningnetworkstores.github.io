@@ -43,7 +43,8 @@
     {
     "name":"LNWallet.io",
     "page":"https://lnwallet.io/",
-     "release":"January 2019"
+     "release":"January 2019",
+     "custodial":"true"
     },
     {
       "name":"Denryu wallet",
