@@ -34,17 +34,26 @@
        "custodial":"true"
     },
     {
-        "name":"Breez",
-        "page":"https://breez.technology/",
-        "requires_node":"no",
-        "open_source":"https://github.com/breez/breezmobile",
-        "android_closed":"https://breez.technology/#contact"
+    "name":"Breez",
+    "page":"https://breez.technology/",
+    "requires_node":"no",
+    "open_source":"https://github.com/breez/breezmobile",
+    "android_closed":"https://breez.technology/#contact"
     },
     {
     "name":"LNWallet.io",
     "page":"https://lnwallet.io/",
      "release":"January 2019",
-     "custodial":"true"
+     "custodial":"true",
+     "web_wallet":"https://lnwallet.io/",
+     "android":"https://play.google.com/store/apps/details?id=io.lnwallet.app"
+    },
+    {
+        "name":"Tippin.me",
+        "page":"https://tippin.me/",
+        "release":"December 2018",
+        "custodial":"true",
+        "web_wallet":"https://tippin.me/"
     },
     {
       "name":"Denryu wallet",
