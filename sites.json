@@ -2141,5 +2141,14 @@
     "sector": "games&casino",
     "digital_goods": "yes",
     "added": 1549188224
+  },
+  {
+    "id": 952,
+    "name": "Lightning Chess",
+    "href": "https://koalastud.io/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@52.15.79.245:9735",
+    "description": "Play Chess",
+    "sector": "games&casino",
+    "added": 1549401344
   }
 ]
