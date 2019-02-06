@@ -2159,5 +2159,14 @@
     "description": "Privacy First Social Networking",
     "sector": "technology",
     "added": 1549416704
+  },
+  {
+    "id": 962,
+    "name": "Space Invaders by Lightning Hood",
+    "href": "https://lightninghood.com/games/spaceinvaders/",
+    "uri": "unknown",
+    "description": "Space Invaders with Lightning",
+    "sector": "games&casino",
+    "added": 1549452160
   }
 ]
