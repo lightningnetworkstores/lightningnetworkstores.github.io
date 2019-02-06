@@ -2150,5 +2150,14 @@
     "description": "Play Chess",
     "sector": "games&casino",
     "added": 1549401344
+  },
+  {
+    "id": 957,
+    "name": "Salttie.com",
+    "href": "https://salttie.com",
+    "uri": "02a934d816a09a6658e1b1af2c6d87486eed31296cca0c5ccbf01a4464aeaccfb5@68.190.53.253:9735",
+    "description": "Privacy First Social Networking",
+    "sector": "technology",
+    "added": 1549416704
   }
 ]
