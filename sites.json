@@ -2168,5 +2168,15 @@
     "description": "Space Invaders with Lightning",
     "sector": "games&casino",
     "added": 1549452160
+  },
+  {
+    "id": 982,
+    "name": "Pollo Feed",
+    "href": "https://pollofeed.com",
+    "uri": "03902356d26efdc0812726c31a1a2e0d721f26063dd252ac89ded8280037e9ece8:198.58.99.169:9735",
+    "description": "Lightning Powered Chicken Feeder",
+    "sector": "games&casino",
+    "digital_goods": "yes",
+    "added": 1549645312
   }
 ]
