@@ -2178,5 +2178,14 @@
     "sector": "games&casino",
     "digital_goods": "yes",
     "added": 1549645312
+  },
+  {
+    "id": 987,
+    "name": "Spendl",
+    "href": "https://getspendl.com/",
+    "uri": "unknown",
+    "description": "Spendl anywhere online. ",
+    "sector": "technology",
+    "added": 1549795072
   }
 ]
