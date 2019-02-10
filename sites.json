@@ -2187,5 +2187,14 @@
     "description": "Spendl anywhere online. ",
     "sector": "technology",
     "added": 1549795072
+  },
+  {
+    "id": 992,
+    "name": "#Nanotorch",
+    "href": "https://twitter.com/hashtag/nanotorch?f=tweets&vertical=default&src=hash",
+    "uri": "unknown",
+    "description": "Pass the Nanotorch lightning and add 100sats to enlarge the chain, best lightning community",
+    "sector": "other",
+    "added": 1549822080
   }
 ]
