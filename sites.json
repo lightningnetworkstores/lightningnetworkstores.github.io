@@ -2196,5 +2196,15 @@
     "description": "Pass the Nanotorch lightning and add 100sats to enlarge the chain, best lightning community",
     "sector": "other",
     "added": 1549822080
+  },
+  {
+    "id": 1002,
+    "name": "ParaEasy",
+    "href": "http://paraeasy.ch",
+    "uri": "03a46be38d068c2bc5af3fc13da840790ed5643f3d6d27e5e34d67ed2aec16ce67@ulrichard.ch:9735",
+    "description": "paragliding tandem flights in central Switzerland",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1549921408
   }
 ]
