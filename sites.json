@@ -2215,5 +2215,15 @@
     "description": "Online Vape Store",
     "sector": "other",
     "added": 1550023680
+  },
+  {
+    "id": 1012,
+    "name": "Lightning Pizza",
+    "href": "https://ln.pizza/",
+    "uri": "02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774@mainnet-lnd.ln.pizza:9735",
+    "description": "Order Dominos Pizza in the US via Lightning Network.",
+    "sector": "food",
+    "digital_goods": "no, goods shipped",
+    "added": 1550106240
   }
 ]
