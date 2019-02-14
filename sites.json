@@ -2225,5 +2225,14 @@
     "sector": "food",
     "digital_goods": "no, goods shipped",
     "added": 1550106240
+  },
+  {
+    "id": 1017,
+    "name": "Zapread",
+    "href": "https://www.zapread.com",
+    "uri": "02cda8c01b2303e91bec74c43093d5f1c4fd42a95671ae27bf853d7dfea9b78c06@lightning.zapread.com:9735",
+    "description": "Lightning powered social media",
+    "sector": "other",
+    "added": 1550157568
   }
 ]
