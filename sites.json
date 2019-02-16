@@ -2234,5 +2234,15 @@
     "description": "Lightning powered social media",
     "sector": "other",
     "added": 1550157568
+  },
+  {
+    "id": 1027,
+    "name": "BTCWonderland",
+    "href": "https://btcwonderland.com",
+    "uri": "02b33a23440fe60ebab1aa737f1b3de5edbb0353f41f0dac79319d7652a9aed1be@13.58.72.252:9735",
+    "description": "We ONLY accept Bitcoin for our great range of products. Shop with bitcoin, enable the future crypto-economy.",
+    "sector": "clothing",
+    "digital_goods": "yes",
+    "added": 1550277120
   }
 ]
