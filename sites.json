@@ -2273,5 +2273,15 @@
     "sector": "games&casino",
     "digital_goods": "yes",
     "added": 1550428160
+  },
+  {
+    "id": 1052,
+    "name": "Stationary Plus",
+    "href": "https://stationaryplus.wordpress.com/",
+    "uri": "unknown",
+    "description": "Buy Adult Art Therapy Colouring Books. Printable PDF’s",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1550440320
   }
 ]
