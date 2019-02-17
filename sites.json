@@ -2263,5 +2263,15 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1550418176
+  },
+  {
+    "id": 1047,
+    "name": "Asgardas",
+    "href": "https://asgardas.com",
+    "uri": "03b9a4f7e039f7e851906ab302783f3c09091556ab36af3c4e6531002dbd20a847@176.9.63.240:9735",
+    "description": "Game credit and bitcoin exchange",
+    "sector": "games&casino",
+    "digital_goods": "yes",
+    "added": 1550428160
   }
 ]
