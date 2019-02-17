@@ -2253,5 +2253,15 @@
     "description": "Your source for shopping",
     "sector": "clothing",
     "added": 1550363264
+  },
+  {
+    "id": 1042,
+    "name": "Britvr Bitcoin Art",
+    "href": "https://goo.gl/tjxjfu",
+    "uri": "026e186f6cf00009595c9083980304f0be65c8c3736b63c1c9135ef9aa952f644e@98.206.133.174:9735",
+    "description": "Purchase BTC art with Bitcoin Lightning",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1550418176
   }
 ]
