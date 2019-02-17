@@ -2244,5 +2244,14 @@
     "sector": "clothing",
     "digital_goods": "yes",
     "added": 1550277120
+  },
+  {
+    "id": 1037,
+    "name": "The Internet Super Store",
+    "href": "https://internetsuper.store",
+    "uri": "030747e32c0428d6bdfe468ab91ade9cc11daf4aab2b7033d7e7fbe39449167982@172.81.178.11:9735",
+    "description": "Your source for shopping",
+    "sector": "clothing",
+    "added": 1550363264
   }
 ]
