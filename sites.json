@@ -142,15 +142,6 @@
     "added": 1522961992
   },
   {
-    "id": 15,
-    "href": "https://lightningshop.eu/",
-    "uri": "03a8f92735a6e7aac231ec46d51f0b9e84aeed6ce8abd76431849b4e76e9745bfb@88.99.164.229:9735",
-    "name": "Lightning Shop EU",
-    "description": "Selling funny Bitcoin merchandise with a charity purpose",
-    "sector": "clothing",
-    "digital_goods": "no, goods shipped"
-  },
-  {
     "id": 16,
     "href": "https://btcduke.com/?lang=en",
     "uri": "0328fbda8c1efcdb5ef375742710de71b9bcc93dbb16af22e2cf3ac84eea47dab2@80.211.252.104:9735",
@@ -203,19 +194,6 @@
     }
   },
   {
-    "id": 21,
-    "href": "https://bitcoinsupermarkt.de/",
-    "uri": "02d0f53a403a0b16efdec1983a082ab7645e35858f6a855871e489c9992748a059@85.214.234.164:9735",
-    "name": "Bitcoin Supermarkt",
-    "description": "Buy jam and cat food, among other products.",
-    "digital_goods": "no, goods shipped",
-    "sector": "other",
-    "added": 1523911325,
-    "flags": {
-      "coming_soon": 1
-    }
-  },
-  {
     "id": 22,
     "href": "https://www.livingroomofsatoshi.com/",
     "uri": "026b105ac13212c48714c6be9b11577a9ce10f10e1c88a45ce217e6331209faf8b@52.224.178.244:9735",
@@ -231,16 +209,6 @@
     "uri": "unknown",
     "name": "TokenSoft",
     "description": "Whitelabel token sale platform (main website at https://www.tokensoft.io/).",
-    "digital_goods": "yes",
-    "sector": "other",
-    "added": 1523911325
-  },
-  {
-    "id": 24,
-    "href": "http://bight.nl/",
-    "uri": "033a6cfd3a7c3da838c152f667bd414712056599e323eda27597ab9517adac25f2@82.217.214.215:9735",
-    "name": "Bight.nl",
-    "description": "Buy handmade jewelry, play connect four, among other stuff.",
     "digital_goods": "yes",
     "sector": "other",
     "added": 1523911325
@@ -289,16 +257,6 @@
     "flags": {
       "coming_soon": 1
     }
-  },
-  {
-    "id": 29,
-    "href": "https://trustlessapparel.com/",
-    "uri": "unknown",
-    "name": "Trustless",
-    "description": "Buy cryptocurrency themed T-shirts.",
-    "added": 1524597736,
-    "sector": "clothing",
-    "digital_goods": "no, goods shipped"
   },
   {
     "id": 31,
@@ -1090,16 +1048,6 @@
     "added": 1536635264
   },
   {
-    "id": 367,
-    "name": "Satoshi Stories",
-    "href": "https://satoshi-stories.com",
-    "uri": "03af80cd055e52dddb6cc05a581e13e293510858945d2829382f60fc43018f4fed@35.161.172.176:9735",
-    "description": "Round based collaborative story building.",
-    "sector": "other",
-    "digital_goods": "yes",
-    "added": 1536780160
-  },
-  {
     "id": 372,
     "name": "energyKitchen",
     "href": "https://shop.energy-kitchen.ch/#/shop",
@@ -1210,16 +1158,6 @@
     "added": 1537750784
   },
   {
-    "id": 432,
-    "name": "Pinsert SMS",
-    "href": "https://pinsert.pl/sms",
-    "uri": "03fc5b91ce2d857f146fd9b986363374ffe04dc143d8bcd6d7664c8873c463cdfc@185.228.141.6:9735",
-    "description": "Send SMS to all countries. Mass SMS.",
-    "sector": "technology",
-    "digital_goods": "yes",
-    "added": 1537894912
-  },
-  {
     "id": 437,
     "name": "CRYPTOBIRD",
     "href": "https://crypto-bird.store/",
@@ -1278,16 +1216,6 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1538085376
-  },
-  {
-    "id": 467,
-    "name": "Bitcoin Puerto Rico",
-    "href": "https://bitcoinpuertori.co/",
-    "uri": "unknown",
-    "description": "To the moon!",
-    "sector": "cryptocurrency merchandise",
-    "digital_goods": "no, goods shipped",
-    "added": 1538179328
   },
   {
     "id": 472,
