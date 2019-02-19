@@ -1009,16 +1009,6 @@
     "added": 1536297088
   },
   {
-    "id": 347,
-    "name": "FUD dice ",
-    "href": "http://fuddice.shop/",
-    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@52.15.79.245:9735",
-    "description": "FUD dice shop",
-    "sector": "cryptocurrency merchandise",
-    "digital_goods": "no, goods shipped",
-    "added": 1536342784
-  },
-  {
     "id": 352,
     "name": "Lightning Slot Machine",
     "href": "https://www.lightningslotmachine.com/",
@@ -1463,16 +1453,6 @@
     "description": "Trade about one dollar worth of bitcoin",
     "sector": "games&casino",
     "added": 1541431936
-  },
-  {
-    "id": 642,
-    "name": "BitcoTools.com",
-    "href": "https://bitcotools.com/",
-    "uri": "unknown",
-    "description": "Tools for Bitcoin. Accepting Lightning donations",
-    "sector": "other",
-    "digital_goods": "yes",
-    "added": 1541525248
   },
   {
     "id": 647,
