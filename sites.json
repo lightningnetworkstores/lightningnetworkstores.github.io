@@ -2200,5 +2200,15 @@
     "description": "Mini casino roulette for LN",
     "sector": "games&casino",
     "added": 1550515840
+  },
+  {
+    "id": 1062,
+    "name": "SwC Poker",
+    "href": "https://swcpoker.eu/",
+    "uri": "unknown",
+    "description": "Play poker with bitcoin.",
+    "sector": "games&casino",
+    "digital_goods": "yes",
+    "added": 1550541952
   }
 ]
