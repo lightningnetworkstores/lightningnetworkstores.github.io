@@ -2209,6 +2209,7 @@
     "description": "Play poker with bitcoin.",
     "sector": "games&casino",
     "digital_goods": "yes",
+    "flags":{"coming_soon":1},
     "added": 1550541952
   }
 ]
