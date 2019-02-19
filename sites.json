@@ -1687,7 +1687,7 @@
     "id": 777,
     "name": "BitStock",
     "href": "https://tomjodh.nl",
-    "uri": "03329904a2624725dc328943b0c819ea3e7a49140debdc0e49ed6e3f828fde80de@212.24.102.21:9735",
+    "uri": "02600e4f3b1c93c930314ddf236129cb15d81d211bd80a3c74b02b0241e31db63e@212.24.102.21:9735",
     "description": "Photos for Satoshis",
     "sector": "art",
     "digital_goods": "yes",
@@ -1823,10 +1823,10 @@
   },
   {
     "id": 847,
-    "name": "Route 101",
+    "name": "Route 101 Local Goods",
     "href": "https://www.route101gifts.com/shop",
     "uri": "unknown",
-    "description": "Local Goods",
+    "description": "Route 101 Local Goods features the finest artisans of New Hampshire and their work.",
     "sector": "clothing",
     "digital_goods": "no, goods shipped",
     "added": 1546726016
@@ -1999,7 +1999,7 @@
     "name": "LNWALLET.IO",
     "href": "https://lnwallet.io/",
     "uri": "unknown",
-    "description": "The first every Bitcoin Lightning Network online wallet with a strong API for merchants and businesses",
+    "description": "The first ever Bitcoin Lightning Network online wallet with a strong API for merchants and businesses",
     "sector": "other",
     "added": 1548630656
   },
