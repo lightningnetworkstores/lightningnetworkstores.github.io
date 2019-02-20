@@ -2209,7 +2209,18 @@
     "description": "Play poker with bitcoin.",
     "sector": "games&casino",
     "digital_goods": "yes",
-    "flags":{"coming_soon":1},
+    "flags": {
+      "coming_soon": 1
+    },
     "added": 1550541952
+  },
+  {
+    "id": 1072,
+    "name": "Bitcoin Tunnels",
+    "href": "https://www.bitcointunnels.com/",
+    "uri": "unknown",
+    "description": "A Bitcoin-Only store, which accepts ONLY Bitcoin and Lightning.",
+    "sector": "clothing",
+    "added": 1550644992
   }
 ]
