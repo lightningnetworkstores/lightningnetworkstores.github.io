@@ -34,6 +34,14 @@
        "custodial":"true"
     },
     {
+    "name":"Bitlum",
+    "page":"http://bit.ly/2T5aMbH",
+    "release":"February 2019",
+    "open_source":"https://github.com/bitlum/bitlum-front",
+    "custodial":"true",
+    "web_wallet":"http://bit.ly/2T5aMbH"
+    },
+    {
     "name":"Breez",
     "page":"https://breez.technology/",
     "requires_node":"no",
