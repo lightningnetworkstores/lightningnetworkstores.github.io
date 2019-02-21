@@ -2232,5 +2232,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1550717440
+  },
+  {
+    "id": 1082,
+    "name": "M0IFAY MUSIC Webstore",
+    "href": "https://moifay.online",
+    "uri": "032f65f12d290b3af6d62acf3dfe0c7c0bc3561fb8e6057d0aa81b227e8b79d2ac@170.75.162.53:9735",
+    "description": "A Growing list of Musical works by M0IFAY Available for BTC and Lightning Payments Exclusively.",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1550766592
   }
 ]
