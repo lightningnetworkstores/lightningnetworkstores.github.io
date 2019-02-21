@@ -2222,5 +2222,15 @@
     "description": "A Bitcoin-Only store, which accepts ONLY Bitcoin and Lightning.",
     "sector": "clothing",
     "added": 1550644992
+  },
+  {
+    "id": 1077,
+    "name": "Bitcart",
+    "href": "https://bitcart.io/",
+    "uri": "unknown",
+    "description": "Buy Amazon Gift Cards with Bitcoin",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1550717440
   }
 ]
