@@ -2242,5 +2242,14 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1550766592
+  },
+  {
+    "id": 1087,
+    "name": "GroupSteam",
+    "href": "https://www.groupsteam.com/",
+    "uri": "unknown",
+    "description": "Buy PC games with cryptocurrencies ",
+    "sector": "games&casino",
+    "added": 1550847232
   }
 ]
