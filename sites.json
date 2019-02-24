@@ -2251,5 +2251,15 @@
     "description": "Buy PC games with cryptocurrencies ",
     "sector": "games&casino",
     "added": 1550847232
+  },
+  {
+    "id": 1092,
+    "name": "Ligning Pictures",
+    "href": "http://lightning.pictures/",
+    "uri": "unknown",
+    "description": "A kid selling commissioned art for a Nintendo Switch",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1550969472
   }
 ]
