@@ -33,7 +33,7 @@
     "id": 4,
     "href": "https://mainnet.yalls.org/",
     "uri": "03e50492eab4107a773141bb419e107bda3de3d55652e6e1a41225f06a0bbf2d56@mainnet-lnd.yalls.org",
-    "name": "Y'alls",
+    "name": "Y\u0027alls",
     "description": "Buy and sell articles with other members",
     "sector": "other",
     "digital_goods": "yes",
@@ -118,7 +118,7 @@
       "coming_soon": 1
     },
     "digital_goods": "yes",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1521147592
   },
   {
@@ -143,7 +143,7 @@
   },
   {
     "id": 16,
-    "href": "https://btcduke.com/?lang=en",
+    "href": "https://btcduke.com/?lang\u003den",
     "uri": "0328fbda8c1efcdb5ef375742710de71b9bcc93dbb16af22e2cf3ac84eea47dab2@80.211.252.104:9735",
     "name": "BTC Duke",
     "description": "Cryptocurrency exchange that supports bitcoin lightning deposits/withdrawals",
@@ -304,7 +304,7 @@
     "href": "https://wearsmyliberty.com/",
     "uri": "03d0087b718ce9259b36485995094a2065a378135925f9a71a5daf2500300fe662@btcpay.wearsmyliberty.com@btcpay.wearsmyliberty.com",
     "name": "Wears My Liberty",
-    "description": "Liberty & Bitcoin themed shirts, hats, hoodies & more",
+    "description": "Liberty \u0026 Bitcoin themed shirts, hats, hoodies \u0026 more",
     "added": 1526151182,
     "sector": "clothing",
     "digital_goods": "no, goods shipped"
@@ -375,7 +375,7 @@
     "uri": "024655b768ef40951b20053a5c4b951606d4d86085d51238f2c67c7dec29c792ca@88.98.213.235:9735",
     "name": "Satoshi place",
     "description": "Online collaborative artboard.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1528514579,
     "digital_goods": "yes"
   },
@@ -385,7 +385,7 @@
     "uri": "033533e2db6311c1d417d41279c067d8713ad8a7d577a0d91e65df2f6a82c5b862@165.227.167.162:9735",
     "name": "Art of Lightning",
     "description": "Online Graffiti Wall",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1528773866,
     "digital_goods": "yes"
   },
@@ -418,7 +418,7 @@
     "uri": "03295d2e292565743a40bd44da227a820f8730877bc3dfadebade8785bcf355258@159.203.122.47:9735",
     "name": "Moneni",
     "description": "Casino and mini-games.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1529602555
   },
@@ -428,7 +428,7 @@
     "uri": "unknown",
     "name": "Poketoshi",
     "description": "Play pokemon emerald.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1529973871
   },
@@ -437,8 +437,8 @@
     "href": "http://bitcoinplays.io/",
     "uri": "0374ecf61ed6c1208c42339f47decde2bc0c4393ac95f07827b3471e939d7eb961@54.37.22.216:9735",
     "name": "Bitcoin Plays",
-    "description": "Play pokemon yellow (1 move=1 satoshi).",
-    "sector": "games&casino",
+    "description": "Play pokemon yellow (1 move\u003d1 satoshi).",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1529973871
   },
@@ -447,7 +447,7 @@
     "href": "https://cloudsight.ai/",
     "uri": "unknown",
     "name": "Cloud Sight",
-    "description": " An image recognition API providing true understanding for your digital media(<a href='https://gist.github.com/mccallumjack/947380f24163d5b86ac4d9be9be97462'>lightning API documentation</a>)",
+    "description": " An image recognition API providing true understanding for your digital media(\u003ca href\u003d\u0027https://gist.github.com/mccallumjack/947380f24163d5b86ac4d9be9be97462\u0027\u003elightning API documentation\u003c/a\u003e)",
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1529977711
@@ -479,7 +479,7 @@
     "name": "Lightning Spin",
     "description": "Provably fair lightning roulette.",
     "added": 1530063594,
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes"
   },
   {
@@ -538,7 +538,7 @@
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "name": "Thunder Pick",
     "description": "eSports betting platform.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1530566805
   },
@@ -558,7 +558,7 @@
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "name": "MMOGA",
     "description": "Buy in-game currencies (FIFA Coins, WoW Gold, ...), game keys and items.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1530572250
   },
@@ -678,7 +678,7 @@
     "uri": "02c0b38022846c6b6f45b30031859ac7c5fb0c67ec8ed5cce8409c4b438c267ffe@92.53.89.123:9735",
     "name": "tayga8",
     "description": "Health supplement products.",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1531667510
   },
@@ -697,7 +697,7 @@
     "name": "HomeTicker",
     "href": "https://hometicker.shop/",
     "uri": "unknown",
-    "description": "A personal desk display that can display bitcoin's price.",
+    "description": "A personal desk display that can display bitcoin\u0027s price.",
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1531711488
@@ -778,7 +778,7 @@
     "href": "https://www.cannabis-seeds-store.co.uk/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Buy Cannabis Seeds from The Vault Cannabis Seeds Store (UK).",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1531773184
   },
@@ -848,7 +848,7 @@
     "href": "https://www.seedsman.com",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Cannabis Seeds",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1532036736
   },
@@ -867,7 +867,7 @@
     "href": "https://mandelduck.io/beta-game/",
     "uri": "unknown",
     "description": "Play SaruTobi arcade game",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1532158464
   },
   {
@@ -925,7 +925,7 @@
     "href": "https://microbet.fun",
     "uri": "024b8019795ec753fcdb1eb21ecd319bfab6a8b05e017f357dc5f052a181fb8c91@186.19.136.144:9735",
     "description": "Make match results predictions on soccer, football, baseball and basketball and win money.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1533068160
   },
@@ -935,7 +935,7 @@
     "href": "http://www.mocacinno.com/lightning/",
     "uri": "03301e633b25d769377bf75ce6b6ed2ec570270bc06c8c02bf33c5bd2aa47da098@193.70.78.148:9735",
     "description": "test the lightning network by sponsoring one or more unblurring steps, starting at 50 satoshis",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1533106432
   },
@@ -974,7 +974,7 @@
     "href": "https://lightning-roulette.com/",
     "uri": "031678745383bd273b4c3dbefc8ffbf4847d85c2f62d3407c0c980430b3257c403@35.204.214.101:9735",
     "description": "Lightning Roulette",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1534263424
   },
@@ -1014,7 +1014,7 @@
     "href": "https://www.lightningslotmachine.com/",
     "uri": "039f01ad62e5208940faff11d0bbc997582eafad7642aaf53de6a5f6551ab73400@40.114.234.63:9735",
     "description": "Play Slots With Lightning and Win the 200X Big Win payout! Instant Payouts using the Bitcoin Lightning Network!",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "no, goods only in-store",
     "added": 1536444672
   },
@@ -1042,7 +1042,7 @@
     "name": "energyKitchen",
     "href": "https://shop.energy-kitchen.ch/#/shop",
     "uri": "unknown",
-    "description": "Buy delicious food and drinks on the first self order point of it's kind at Spitalgasse 47-51, 3001 Bern, Switzerland.",
+    "description": "Buy delicious food and drinks on the first self order point of it\u0027s kind at Spitalgasse 47-51, 3001 Bern, Switzerland.",
     "sector": "food",
     "digital_goods": "no, goods only in-store",
     "added": 1537274752
@@ -1053,7 +1053,7 @@
     "href": "http://www.enhancednation.com",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Bulletproof Coffee, MCT oil, Bio Hacking - Enhanced Nation",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1537391360
   },
@@ -1073,7 +1073,7 @@
     "href": "http://nootropicspot.com",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Cognitive Enhancers ",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1537392768
   },
@@ -1083,7 +1083,7 @@
     "href": "https://www.myweedo.de/en/headshop/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "High-quality bongs, pipes, vaporizers, and much more",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1537393920
   },
@@ -1092,8 +1092,8 @@
     "name": "SeedSupreme",
     "href": "https://www.seedsupreme.com/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
-    "description": "SeedSupreme Seedbank , Weed, Marijuana & Cannabis Seeds",
-    "sector": "drugs&supplements",
+    "description": "SeedSupreme Seedbank , Weed, Marijuana \u0026 Cannabis Seeds",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1537394560
   },
@@ -1103,7 +1103,7 @@
     "href": "https://cosmicnootropic.com/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "CosmicNootropic products",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1537395072
   },
@@ -1123,7 +1123,7 @@
     "href": "http://mmgenetics.eu",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "The CBD Dominant Seed Bank",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1537400192
   },
@@ -1140,7 +1140,7 @@
   {
     "id": 427,
     "name": "LN Rekkit",
-    "href": "https://lnreddit.com/?t=16",
+    "href": "https://lnreddit.com/?t\u003d16",
     "uri": "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735",
     "description": "Lightning Network Based Reddit",
     "sector": "other",
@@ -1233,7 +1233,7 @@
     "href": "https://getneutralized.com/",
     "uri": "unknown",
     "description": "Advanced Dietary Formulas",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1538250368
   },
@@ -1312,7 +1312,7 @@
     "name": "Lecyclosportif",
     "href": "https://www.lecyclosportif.com.au",
     "uri": "unknown",
-    "description": "Noosa Cycling & Triathlon Specialists",
+    "description": "Noosa Cycling \u0026 Triathlon Specialists",
     "sector": "other",
     "added": 1539125632
   },
@@ -1382,7 +1382,7 @@
     "href": "https://lightning-casino.com",
     "uri": "02725e5abcbf5550fc29e6b19706a1377f25d2b1502684f9be9965b6deac167520@213.91.178.177:9735",
     "description": "Play a slot machine over lightning.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1539788800
   },
@@ -1392,7 +1392,7 @@
     "href": "https://lightninggem.com",
     "uri": "038118e0490f8d3df07b6bdc5e7034dee90d769012764d31bfeb167269866824f0@73.31.13.143:9735",
     "description": "Buy a virtual gem for fun.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1540402560
   },
@@ -1451,7 +1451,7 @@
     "href": "http://BitcoinDayTrader.nl",
     "uri": "02888244029c5909593038ab19f269947c720de3423e491791b46c7c92f76279b6@82.217.214.215:9735",
     "description": "Trade about one dollar worth of bitcoin",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1541431936
   },
   {
@@ -1478,7 +1478,7 @@
     "href": "http://www.mindgamesmelbourne.com",
     "uri": "unknown",
     "description": "Big store with a wide range of board games, puzzles, role playing and miniature games in Swanston St, Melbourne.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "no, goods only in-store",
     "added": 1541892608
   },
@@ -1518,7 +1518,7 @@
     "href": "http://b12vitaminstore.com",
     "uri": "unknown",
     "description": "Your place for affordable High Quality B12 and B Complex Injectables",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1542214784
   },
@@ -1538,7 +1538,7 @@
     "href": "https://www.mjhemp.eu/",
     "uri": "unknown",
     "description": "CBD Hemp Buds",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1542462976
   },
@@ -1548,7 +1548,7 @@
     "href": "http://www.bestsarms.net",
     "uri": "unknown",
     "description": "Ultimate online destination for SARMs products",
-    "sector": "drugs&supplements",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1542463872
   },
@@ -1565,7 +1565,7 @@
   {
     "id": 702,
     "name": "DipthDesign",
-    "href": "http://www.dipth.de/?lang=en",
+    "href": "http://www.dipth.de/?lang\u003den",
     "uri": "unknown",
     "description": "Dog Collars with lovely Designs",
     "sector": "other",
@@ -1577,8 +1577,8 @@
     "name": "Biotraxx",
     "href": "https://biotraxx.eu/",
     "uri": "unknown",
-    "description": "Herbal Health & Beauty - Detoxing - purify - immune build up",
-    "sector": "drugs&supplements",
+    "description": "Herbal Health \u0026 Beauty - Detoxing - purify - immune build up",
+    "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1542557568
   },
@@ -1650,7 +1650,7 @@
     "name": "Travala",
     "href": "https://www.travala.com/",
     "uri": "unknown",
-    "description": "Accommodation & Hotel Bookings Worldwide",
+    "description": "Accommodation \u0026 Hotel Bookings Worldwide",
     "sector": "other",
     "added": 1544795904
   },
@@ -1678,8 +1678,8 @@
     "name": "Kriptode",
     "href": "https://kriptode.com/",
     "uri": "unknown",
-    "description": "Lightning games & services",
-    "sector": "games&casino",
+    "description": "Lightning games \u0026 services",
+    "sector": "games\u0026casino",
     "digital_goods": "no, goods shipped",
     "added": 1545469056
   },
@@ -1699,7 +1699,7 @@
     "href": "https://satoshisgameof.life/",
     "uri": "03a8eb40ba4c068847ba1a98bdfee2e7d0d3c2844d9cbba65e715966eda3904ed9@173.249.22.49:9735",
     "description": "Play Conways Game of Life and pay with Satoshis!",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1545742976
   },
@@ -1729,7 +1729,7 @@
     "href": "http://lightning-snake.tk/",
     "uri": "unknown",
     "description": "Play classic snake and climb the highscore list.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "no, goods shipped",
     "added": 1546211200
   },
@@ -1749,7 +1749,7 @@
     "href": "https://lightningauction.net/",
     "uri": "02d11c4c4f986ff547288d873f6a33758aab744927355b01272ee560a3ba44d01e@lightningauction.net:9735",
     "description": "Lowest Unique Bid Auctions for Bitcoins.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1546379264
   },
   {
@@ -1776,7 +1776,7 @@
     "name": "betcoin.com",
     "href": "https://www.betcoin.com",
     "uri": "unknown",
-    "description": "Sport Betting & Gaming",
+    "description": "Sport Betting \u0026 Gaming",
     "sector": "other",
     "digital_goods": "yes",
     "added": 1546649344
@@ -1796,7 +1796,7 @@
     "name": "BitcoinHub",
     "href": "http://bitcoinhub.co.za/shop/",
     "uri": "unknown",
-    "description": "Shop The Latest Bitcoin Products & Merchandise",
+    "description": "Shop The Latest Bitcoin Products \u0026 Merchandise",
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1546706048
@@ -1816,7 +1816,7 @@
     "name": "doodah",
     "href": "http://doodah.co.za/",
     "uri": "unknown",
-    "description": "Buy Cool Eletronics, Gadgets & Gifts - Discount CD Keys & PC Parts Shop",
+    "description": "Buy Cool Eletronics, Gadgets \u0026 Gifts - Discount CD Keys \u0026 PC Parts Shop",
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1546707072
@@ -1929,7 +1929,7 @@
     "href": "http://hodlman.tk/",
     "uri": "031cc35d487b8fae5f24df919e8ce5ad2a6bbf489f67694e5a929f10eee0e000a5@188.68.60.152:9735",
     "description": "Play HODLman a classic pacman adaptation and climb the highscore list.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1547989888
   },
   {
@@ -1937,7 +1937,7 @@
     "name": "Lightning Energy Shop",
     "href": "https://lightningenergyshop.com",
     "uri": "03728053580578793c83d47f235b187f513dcddda4135e7764f53e40c6d2adea69@70.189.85.79:9735",
-    "description": "Buy Coffee, Jerky, Nuts, Energy Drinks & More With Lightning Network",
+    "description": "Buy Coffee, Jerky, Nuts, Energy Drinks \u0026 More With Lightning Network",
     "sector": "food",
     "digital_goods": "no, goods shipped",
     "added": 1548039680
@@ -1948,7 +1948,7 @@
     "href": "http://ckies.pw/lightning-flip/",
     "uri": "unknown",
     "description": "Gamble Bitcoins instantly using Lighting Network",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "no, goods only in-store",
     "added": 1548067840
   },
@@ -1958,7 +1958,7 @@
     "href": "https://medium.com/@br_robin/a-bitcoin-lightning-network-powered-rpg-penguinshooter-6d36cc34de0c",
     "uri": "028a2f0ca33134cfd5f655ed942ddcd9feb4a879831416bb23858d1d60154b0936@penguinshooter.chickenkiller.com:9735",
     "description": "RPG in which you pay ingame stuff via LN",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1548254720
   },
@@ -1968,7 +1968,7 @@
     "href": "https://bitmemory.herokuapp.com",
     "uri": "03a8355790b89f4d96963019eb9413b9a2c884691837ac976bacfe25a5212892d7@99.71.113.187:9735",
     "description": "A BTC-themed memory game",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1548292864
   },
   {
@@ -2009,7 +2009,7 @@
     "href": "https://lightningnetwork.games/lastpaywin/",
     "uri": "03ab2157b6b046ad0f499d3b6552acedadeda7a09c6c3542df52efc2ac8d756b0f@node.lightningnetwork.games:9735",
     "description": "Simple game where last person win the pot.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "no, goods shipped",
     "added": 1548762880
   },
@@ -2028,7 +2028,7 @@
     "href": "https://bitword.herokuapp.com",
     "uri": "03a8355790b89f4d96963019eb9413b9a2c884691837ac976bacfe25a5212892d7@99.71.113.187:9735",
     "description": "A word guess game",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1548990336
   },
   {
@@ -2046,7 +2046,7 @@
     "href": "https://niffler.co/bitcoin-graveyard/",
     "uri": "unknown",
     "description": "Bitcoin obtituaries 2.0, show your condolences when bitcoin dies.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1549188224
   },
@@ -2056,7 +2056,7 @@
     "href": "https://koalastud.io/",
     "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@52.15.79.245:9735",
     "description": "Play Chess",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1549401344
   },
   {
@@ -2074,7 +2074,7 @@
     "href": "https://lightninghood.com/games/spaceinvaders/",
     "uri": "unknown",
     "description": "Space Invaders with Lightning",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1549452160
   },
   {
@@ -2083,7 +2083,7 @@
     "href": "https://pollofeed.com",
     "uri": "03902356d26efdc0812726c31a1a2e0d721f26063dd252ac89ded8280037e9ece8:198.58.99.169:9735",
     "description": "Lightning Powered Chicken Feeder",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1549645312
   },
@@ -2099,7 +2099,7 @@
   {
     "id": 992,
     "name": "#Nanotorch",
-    "href": "https://twitter.com/hashtag/nanotorch?f=tweets&vertical=default&src=hash",
+    "href": "https://twitter.com/hashtag/nanotorch?f\u003dtweets\u0026vertical\u003ddefault\u0026src\u003dhash",
     "uri": "unknown",
     "description": "Pass the Nanotorch lightning and add 100sats to enlarge the chain, best lightning community",
     "sector": "other",
@@ -2178,7 +2178,7 @@
     "href": "https://asgardas.com",
     "uri": "03b9a4f7e039f7e851906ab302783f3c09091556ab36af3c4e6531002dbd20a847@176.9.63.240:9735",
     "description": "Game credit and bitcoin exchange",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1550428160
   },
@@ -2198,7 +2198,7 @@
     "href": "https://miniroulette.lngames.net/",
     "uri": "03952f8756c036669440e06c782c7f21732886ccf04052e0e6e792f8f5a490f6aa@207.180.252.186:9735",
     "description": "Mini casino roulette for LN",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1550515840
   },
   {
@@ -2207,7 +2207,7 @@
     "href": "https://swcpoker.eu/",
     "uri": "unknown",
     "description": "Play poker with bitcoin.",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "flags": {
       "coming_soon": 1
@@ -2249,7 +2249,7 @@
     "href": "https://www.groupsteam.com/",
     "uri": "unknown",
     "description": "Buy PC games with cryptocurrencies ",
-    "sector": "games&casino",
+    "sector": "games\u0026casino",
     "added": 1550847232
   },
   {
@@ -2271,5 +2271,15 @@
     "sector": "food",
     "digital_goods": "no, goods shipped",
     "added": 1551045637
+  },
+  {
+    "id": 1107,
+    "name": "THCServers",
+    "href": "https://thcservers.com",
+    "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
+    "description": "Cheap web hosting.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1551117312
   }
 ]
