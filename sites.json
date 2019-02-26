@@ -2281,5 +2281,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1551117312
+  },
+  {
+    "id": 1117,
+    "name": "KaffeBox ",
+    "href": "https://www.kaffebox.no/product/kaffebox-gift-subscription/",
+    "uri": "unknown",
+    "description": "Scandinavian roasted specialty coffee shipping worldwide",
+    "sector": "food",
+    "digital_goods": "no, goods shipped",
+    "added": 1551192832
   }
 ]
