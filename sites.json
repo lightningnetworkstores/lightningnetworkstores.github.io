@@ -2291,5 +2291,14 @@
     "sector": "food",
     "digital_goods": "no, goods shipped",
     "added": 1551192832
+  },
+  {
+    "id": 1122,
+    "name": "Designs Lab",
+    "href": "http://designslab.xyz",
+    "uri": "unknown",
+    "description": "Awesome website designs, affordable price, accepting Lightning.",
+    "sector": "other",
+    "added": 1551288448
   }
 ]
