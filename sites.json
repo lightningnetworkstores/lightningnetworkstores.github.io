@@ -2310,5 +2310,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1551345280
+  },
+  {
+    "id": 1132,
+    "name": "Ivans Stuff Store",
+    "href": "https://www.bitcoin-ivan.com/store",
+    "uri": "037e9432da1609bd10e115253e58a7b6f8be856bcf6421cadc616efc27a7d799f8@24.55.111.241:9735",
+    "description": "Selling some of my stuff to acquire more Satoshis.",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1551388032
   }
 ]
