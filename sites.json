@@ -2300,5 +2300,15 @@
     "description": "Awesome website designs, affordable price, accepting Lightning.",
     "sector": "other",
     "added": 1551288448
+  },
+  {
+    "id": 1127,
+    "name": "Bolt-A-Thon",
+    "href": "https://www.boltathon.com/",
+    "uri": "032bf50d657c83e911b3f40ed26a8280f48ad75aca58cd6f8e82f04adf943bbf50@167.99.231.134:9735",
+    "description": "The world’s first virtual LightningNetwork conference and hackathon.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1551345280
   }
 ]
