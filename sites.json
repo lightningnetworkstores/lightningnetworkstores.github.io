@@ -2320,5 +2320,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1551388032
+  },
+  {
+    "id": 1142,
+    "name": "Lightning Lottery",
+    "href": "https://www.lightninglottery.net",
+    "uri": "unknown",
+    "description": "Lottery using the Lightning Network",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1551443200
   }
 ]
