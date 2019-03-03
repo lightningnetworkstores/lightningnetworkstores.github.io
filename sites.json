@@ -2340,5 +2340,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1551608448
+  },
+  {
+    "id": 1152,
+    "name": "Paintings \u0026 Drawings by Denise Magdale",
+    "href": "https://www.denisemagdale.com/shop/",
+    "uri": "unknown",
+    "description": "Paintings and drawings - limited number.",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1551652352
   }
 ]
