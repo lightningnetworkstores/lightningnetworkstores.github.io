@@ -2350,5 +2350,18 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1551652352
+  },
+  {
+    "id": 1182,
+    "name": "Bitzdrapka.pl",
+    "href": "https://www.bitzdrapka.pl",
+    "uri": "unknown",
+    "description": "Zapraszamy po najtańsze i najszybsze doładowania GSM, Paysafecard, Google play, Steam, Xbox, Playstation.",
+    "sector": "inny",
+    "digital_goods": "tak",
+    "flags": {
+      "coming_soon": 1
+    },
+    "added": 1551719296
   }
 ]
