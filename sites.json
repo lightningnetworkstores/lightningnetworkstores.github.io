@@ -2373,5 +2373,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1551759232
+  },
+  {
+    "id": 1227,
+    "name": "lN-Zone",
+    "href": "https://ln-zone.com",
+    "uri": "unknown",
+    "description": "Marketplace Lightning",
+    "sector": "escoger...",
+    "digital_goods": "escoger...",
+    "added": 1551810432
   }
 ]
