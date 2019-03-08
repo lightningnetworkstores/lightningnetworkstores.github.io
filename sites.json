@@ -2383,5 +2383,15 @@
     "sector": "escoger...",
     "digital_goods": "escoger...",
     "added": 1551810432
+  },
+  {
+    "id": 1232,
+    "name": "MSLNco",
+    "href": "https://www.mslnco.com/",
+    "uri": "unknown",
+    "description": "MSLNco is the destination for all your Korean goodies",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1552049920
   }
 ]
