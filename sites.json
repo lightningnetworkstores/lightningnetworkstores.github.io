@@ -2322,16 +2322,6 @@
     "added": 1551388032
   },
   {
-    "id": 1142,
-    "name": "Lightning Lottery",
-    "href": "https://www.lightninglottery.net",
-    "uri": "unknown",
-    "description": "Lottery using the Lightning Network",
-    "sector": "games\u0026casino",
-    "digital_goods": "yes",
-    "added": 1551443200
-  },
-  {
     "id": 1147,
     "name": "cherry servers",
     "href": "https://www.cherryservers.com",
@@ -2359,9 +2349,6 @@
     "description": "Zapraszamy po najtańsze i najszybsze doładowania GSM, Paysafecard, Google play, Steam, Xbox, Playstation.",
     "sector": "inny",
     "digital_goods": "tak",
-    "flags": {
-      "coming_soon": 1
-    },
     "added": 1551719296
   },
   {
@@ -2380,8 +2367,8 @@
     "href": "https://ln-zone.com",
     "uri": "unknown",
     "description": "Marketplace Lightning",
-    "sector": "escoger...",
-    "digital_goods": "escoger...",
+    "sector": "other",
+    "digital_goods": "yes",
     "added": 1551810432
   },
   {
@@ -2398,9 +2385,19 @@
     "id": 1242,
     "name": "BC.Game",
     "href": "https://bc.game/?utm_source\u003dlnstores",
-    "uri": "unknown",
+    "uri": "0274a542b693385f9e38d7acf4017ed31748d00693ff219c54e1b33749595a7419@18.179.20.192:9735",
     "description": "A BlockChain Game platform with provably fair,fast payouts and free faucet.",
     "sector": "games\u0026casino",
     "added": 1552116736
+  },
+  {
+    "id": 1247,
+    "name": "Lightninghood Game Studio",
+    "href": "https://lhgamestudio.com/",
+    "uri": "unknown",
+    "description": "The miniclip of lightning-based games.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1552145152
   }
 ]
