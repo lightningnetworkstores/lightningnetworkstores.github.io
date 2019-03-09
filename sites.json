@@ -2393,5 +2393,14 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1552049920
+  },
+  {
+    "id": 1242,
+    "name": "BC.Game",
+    "href": "https://bc.game/?utm_source\u003dlnstores",
+    "uri": "unknown",
+    "description": "A BlockChain Game platform with provably fair,fast payouts and free faucet.",
+    "sector": "games\u0026casino",
+    "added": 1552116736
   }
 ]
