@@ -1600,7 +1600,7 @@
     "name": "Bitcoin Adult Store",
     "href": "https://bitcoinadultstore.com/",
     "uri": "unknown",
-    "description": "Bitcoin Adult Store",
+    "description": "Your one stop #bitcoin shop for adult toys! Now accepting #ethereum #bitcoincash #dash #monero #litecoin and lots more #crypto! ฿💋🍆💦",
     "sector": "adult",
     "digital_goods": "no, goods shipped",
     "added": 1542936192
@@ -2155,7 +2155,7 @@
   },
   {
     "id": 1037,
-    "name": "Internet Super Store",
+    "name": "Internet Superstore",
     "href": "https://internetsuper.store",
     "uri": "030747e32c0428d6bdfe468ab91ade9cc11daf4aab2b7033d7e7fbe39449167982@172.81.178.11:9735",
     "description": "Your source for shopping",
@@ -2399,5 +2399,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1552145152
+  },
+  {
+    "id": 1262,
+    "name": "Heady Treasures",
+    "href": "http://www.headytreasures.com",
+    "uri": "unknown",
+    "description": "Online Smoke Shop.",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1552423040
   }
 ]
