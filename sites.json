@@ -2418,5 +2418,15 @@
     "description": "CSGO like provably fair roulette. Trollbox with tipbot. Autobetting.",
     "sector": "games\u0026casino",
     "added": 1552502400
+  },
+  {
+    "id": 1272,
+    "name": "Room77 Bar Berlin",
+    "href": "http://www.room77.de/",
+    "uri": "03d34c207eecb9045228c9f835d7a2ed950f2ba03a4f173ed6fd3a895cf00de201@91.65.34.69:9735",
+    "description": "Room77: The bar to be in Berlin if you are into Bitcoin; accepting Bitcoin since 2011.",
+    "sector": "other",
+    "digital_goods": "no, goods only in-store",
+    "added": 1552552704
   }
 ]
