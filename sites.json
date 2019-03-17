@@ -2446,5 +2446,15 @@
     "description": "vendita auto e noleggio",
     "sector": "other",
     "added": 1552840832
+  },
+  {
+    "id": 1297,
+    "name": "Auberge du Soleil Kampot Cambodia",
+    "href": "https://www.facebook.com/soleilkampot",
+    "uri": "022f45ae28425e697c2c516c185887075bdfa75b11ec3346a16307b8be73a4d220@100.69.202.46:9735",
+    "description": "Swiss French Restaurant",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1552859776
   }
 ]
