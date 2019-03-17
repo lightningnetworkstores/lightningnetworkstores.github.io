@@ -2437,5 +2437,14 @@
     "description": "BitDouble gambling site",
     "sector": "games\u0026casino",
     "added": 1552832384
+  },
+  {
+    "id": 1292,
+    "name": "Prestigeauto",
+    "href": "http://prestigesrlauto.it",
+    "uri": "unknown",
+    "description": "vendita auto e noleggio",
+    "sector": "other",
+    "added": 1552840832
   }
 ]
