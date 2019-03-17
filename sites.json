@@ -2428,5 +2428,14 @@
     "sector": "other",
     "digital_goods": "no, goods only in-store",
     "added": 1552552704
+  },
+  {
+    "id": 1287,
+    "name": "BitDouble",
+    "href": "https://bitdouble.io",
+    "uri": "03ce648061614b971a3a990e62cb5f782ac94e9576f2311256b2985bc05b5033e0@bitdouble.io:9735",
+    "description": "BitDouble gambling site",
+    "sector": "games\u0026casino",
+    "added": 1552832384
   }
 ]
