@@ -2466,5 +2466,14 @@
     "sector": "games\u0026casino",
     "digital_goods": "no, goods only in-store",
     "added": 1552938240
+  },
+  {
+    "id": 1307,
+    "name": "Spending Satoshis",
+    "href": "https://spendingsatoshis.com",
+    "uri": "025731077fddc998300b4f358dfec833efdc412aa0bd78c06d5ab61963b60119fe@172.81.177.203:9735",
+    "description": " Store focused on bitcoin Twitter culture also offer custom decals for BTC",
+    "sector": "cryptocurrency merchandise",
+    "added": 1552940544
   }
 ]
