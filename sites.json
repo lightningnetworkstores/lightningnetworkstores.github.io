@@ -2456,5 +2456,15 @@
     "sector": "food",
     "digital_goods": "no, goods only in-store",
     "added": 1552859776
+  },
+  {
+    "id": 1302,
+    "name": "LuckyThunder",
+    "href": "https://www.luckythunder.com/#/",
+    "uri": "02294ffbd3619e9dcd7e0577d1203ff06828625f421647950888a19cf30b5a635f@51.83.41.129:9735",
+    "description": "LuckyThunder is a slot machine build on top of the bitcoin lightning network⚡. No login required, provably fair, high win percentage.",
+    "sector": "games\u0026casino",
+    "digital_goods": "no, goods only in-store",
+    "added": 1552938240
   }
 ]
