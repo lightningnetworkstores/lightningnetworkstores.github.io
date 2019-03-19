@@ -2475,5 +2475,14 @@
     "description": " Store focused on bitcoin Twitter culture also offer custom decals for BTC",
     "sector": "cryptocurrency merchandise",
     "added": 1552940544
+  },
+  {
+    "id": 1317,
+    "name": "Bitcoin Lightning Faucet",
+    "href": "https://light.yuyaogawa.com/faucet",
+    "uri": "033613d280de1eba995c7545e93caf76cfba41bef88c2d6732a67ce06c168b3acb@light.yuyaogawa.com:9735",
+    "description": "Claim 200 satoshi a day",
+    "sector": "other",
+    "added": 1552994816
   }
 ]
