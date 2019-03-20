@@ -1599,7 +1599,7 @@
     "id": 717,
     "name": "Bitcoin Adult Store",
     "href": "https://bitcoinadultstore.com/",
-    "uri": "unknown",
+    "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Your one stop #bitcoin shop for adult toys! Now accepting #ethereum #bitcoincash #dash #monero #litecoin and lots more #crypto! ฿💋🍆💦",
     "sector": "adult",
     "digital_goods": "no, goods shipped",
@@ -2484,5 +2484,15 @@
     "description": "Claim 200 satoshi a day",
     "sector": "other",
     "added": 1552994816
+  },
+  {
+    "id": 1322,
+    "name": "LNBIG",
+    "href": "https://lnbig.com/",
+    "uri": "0390b5d4492dc2f5318e5233ab2cebf6d48914881a33ef6a9c6bcdbb433ad986d0@lnd-01.LNBIG.com:9735",
+    "description": "Inbound and outbound channels for free! One-two clicks and you have inbound channel!",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1553111040
   }
 ]
