@@ -2494,5 +2494,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1553111040
+  },
+  {
+    "id": 1327,
+    "name": "Lightning Shell",
+    "href": "https://lnsh.pw/",
+    "uri": "021f5bfc335e949e555e93a1532b670a37ef7325410d2680fe5a8cf483eff161e2@5.189.166.193:9735",
+    "description": "Get access to a docker container with root privileges, 200MB RAM, 0.5 CPUs and up to 200MBit/s network connection for 42sat/h.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1553246464
   }
 ]
