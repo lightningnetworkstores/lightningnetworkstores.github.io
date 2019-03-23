@@ -2504,5 +2504,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1553246464
+  },
+  {
+    "id": 1332,
+    "name": "Card Wallet",
+    "href": "https://www.cardwallet.com/en/home/",
+    "uri": "02d4531a2f2e6e5a9033d37d548cff4834a3898e74c3abe1985b493c42ebbd707d@35.195.234.115:9735",
+    "description": "High secure offline cold storage card for Bitcoin",
+    "sector": "security",
+    "digital_goods": "no, goods shipped",
+    "added": 1553355264
   }
 ]
