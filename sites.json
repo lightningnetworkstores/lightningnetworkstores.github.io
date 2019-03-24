@@ -2514,5 +2514,14 @@
     "sector": "security",
     "digital_goods": "no, goods shipped",
     "added": 1553355264
+  },
+  {
+    "id": 1337,
+    "name": "Vape Crypto CBD",
+    "href": "https://vapecryptocbd.com",
+    "uri": "unknown",
+    "description": "Buy CBD Online with Bitcoin and LN and save 10%. Sister site of Vape Crypto.com. ",
+    "sector": "other",
+    "added": 1553389568
   }
 ]
