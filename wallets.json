@@ -29,7 +29,7 @@
       "requires_node":"no",
       "open_source":"https://github.com/Overtorment/BlueWallet",
       "android":"https://play.google.com/store/apps/details?id=io.bluewallet.bluewallet",
-      "iOS":"https://itunes.apple.com/us/app/bluewallet-bitcoin-wallet/id1376878040?l=ru&ls=1&mt=8",
+      "iOS":"https://itunes.apple.com/us/app/bluewallet-bitcoin-wallet/id1376878040",
       "release":"December 2018",
        "custodial":"true"
     },
@@ -47,6 +47,14 @@
     "requires_node":"no",
     "open_source":"https://github.com/breez/breezmobile",
     "android_closed":"https://breez.technology/#contact"
+    },
+    {
+     "name":"Bitpie",
+     "page":"https://bitpie.com/",
+     "android":"https://play.google.com/store/apps/details?id=com.bitpie",
+     "iOS":"https://itunes.apple.com/hk/app/bitpie-blockchain-wallet/id1168568820?l=en&mt=8",
+     "release":"March 2019",
+     "custodial":"true"
     },
     {
         "name":"Tippin.me",
