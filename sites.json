@@ -2532,5 +2532,15 @@
     "description": "Hotels \u0026 Accommodation WorldWide",
     "sector": "other",
     "added": 1553446144
+  },
+  {
+    "id": 1347,
+    "name": "Lightning Maneki-neko by dread.cz",
+    "href": "http://srv.dread.cz/",
+    "uri": "0208d142e09411fca84c73174f88e88bc02c2710726427a8c8a7bb32ccb1c9d9c0@37.205.11.73:9735",
+    "description": "LN Payments demo inspired by pollofeed.com - make Maneki-neko waving using LN network",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1553694592
   }
 ]
