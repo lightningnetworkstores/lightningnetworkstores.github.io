@@ -2542,5 +2542,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1553694592
+  },
+  {
+    "id": 1352,
+    "name": "Sweet Sugarleaf Artwork",
+    "href": "https://trustedcoins.co.uk/sweetsugarleaf/",
+    "uri": "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735",
+    "description": "Marijuana Art \u0026 Merchandise",
+    "sector": "art",
+    "digital_goods": "no, goods shipped",
+    "added": 1553807488
   }
 ]
