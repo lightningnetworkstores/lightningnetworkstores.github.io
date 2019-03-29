@@ -2552,5 +2552,15 @@
     "sector": "art",
     "digital_goods": "no, goods shipped",
     "added": 1553807488
+  },
+  {
+    "id": 1357,
+    "name": "CryptoShirt.io",
+    "href": "https://cryptoshirt.io/",
+    "uri": "unknown",
+    "description": "Wear the digital revolution",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1553884288
   }
 ]
