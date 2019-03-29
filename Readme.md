@@ -7,7 +7,7 @@ To be the a very complete repository of stores that accept bitcoin through light
 Please visit: https://lightningnetworkstores.com/about
 
 # Contributions
-Contributions are welcome, I will give push access to who proves to be trustworthy or forward the registered domains to your forked website if it's open source and well maintained.
+Contributions are welcome and much needed. Right now, the website should be redesigned. Pull requests that make good contributions and are accepted can be paid bounties. Contact us if you want to know more.
 
 ## How to add a store
 
