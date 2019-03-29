@@ -11,6 +11,8 @@
     <script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
         crossorigin="anonymous">
+    
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-74119866-1"></script>
@@ -25,62 +27,86 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="http://lightningnetworkstores.com">Resources:</a>
+        <a class="navbar-brand" href="/stats">Statistics</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="http://lightningnetworkstores.com">Mainnet
+                <a class="nav-item nav-link" href="/">Mainnet
                     <span class="sr-only">(current)</span>
                 </a>
-                <a class="nav-item nav-link" href="http://lightningnetworkstores.com/testnet">Testnet</a>
-                <a class="nav-item nav-link" href="http://lightningnetworkstores.com/wallets">Lightning wallets</a>
-                <a class="nav-item nav-link" href="http://lightningnetworkstores.com/donations">Donation addresses</a>
-                <a class="nav-item nav-link disabled" href="#">Services</a>
-                <a class="nav-item nav-link active" href="http://lightningnetworkstores.com/about">About</a>
+                <a class="nav-item nav-link" href="/wallets">Lightning wallets</a>
+                <a class="nav-item nav-link" href="/testnet">Testnet</a>
+                <a class="nav-item nav-link" href="/donations">Donation addresses</a>
+                <a class="nav-item nav-link" href="/services">Services</a>
+                <a class="nav-item nav-link active" href="/about">About</a>
             </div>
         </div>
     </nav>
 
+    <br>
 
-    <h2>About</h2>
-    <p> The goal of this website is to track the rapid growth of the lightning network. It tries to be most complete repository
-        of lightning merchants, wallets, donation pages and services.</p>
+    <div class='container'>
+        <h2>Goal</h2>
+        <p> The goal of this website is to track the adoption of the lightning network by merchants and to inform bitcoin users where they can spend their bitcoin through lightning. 
+            It tries to be most complete repository of lightning merchants, while also providing a comprehensive list of lightning mobile wallets. Feel free to suggest new features to be added.</p>
+        
+        <br>
+        <h2>Contact</h2>
+        <p>Main developer/maintainer: Pedro FR</p>
+        <p>Email: lightningnetworkstores@gmail.com</p>
+        <p>Twitter: <a href='https://twitter.com/bitcoinLNS'>@bitcoinLNS </a></p>
+        <p>Telegram: <a href='https://t.me/LNstores'>LNstores</a> (public channel), <a href='https://t.me/bitcoinLNS'> @bitcoinLNS</a> (username)</p>
+        <p>Git repository:
+            <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io">https://github.com/lightningnetworkstores/lightningnetworkstores.github.io</a>
+        </p>
+    
+        <p>Our node (using Strike from Acinq): 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735</p>
 
-    <p>This is only possible thanks to the large number of contributors to the
-        <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io">git repository</a>. If you know a store/wallet/service/donation page not listed here, there are several ways to get
-        it listed:
-    </p>
-    <ul>
-        <li>The fastest way is to make a pull request to the
-            <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io">git repository</a>. If it's a new store, add the information to
-            <i>sites.json</i>; if it's a new testnet store, add it
-            <i>testnetSites.json</i>; a new wallet, to
-            <i>wallets.json</i>; a new donation page, to
-            <i>donationAddresses.json</i>. </li>
-        <li>Open an issue in
-            <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/issues">github</a>
-        </li>
-        <li>Send an email to lightningnetworkstores@gmail.com</li>
-    </ul>
+        <br>
+        <h2>F.A.Q.</h2>
+        <h4>How to get a store listed?</h4>
+        <p>A store can get instantly added by using the <button class='btn btn-primary'>Instantly add new Store!</button> button on the <a href='/'>main page.</a>
+        If you are a trustworthy or plan on adding several stores, ask for a coupon code so you can add stores without paying the small entry fee.</p>
+        <p>In the rare scenario where the button doesn't work or you can't route a payment, you can make a pull request 
+            to <a href='https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/sites.json'>sites.json</a>
+            or send an email to lightningnetworkstores@gmail.com
+        </p>
 
-    <p>For other lightning network resources such as explorers, learning materials and tutorials on setting a lightning node,
-        check
-        <a href="https://lnroute.com/">LNroute</a> or
-        <a href="http://lopp.net/bitcoin.html">Lopp.net</a>
-    </p>
+        <h4>How to edit or remove a store?</h4>
+        <p>Use the <i class="fas fa-edit"></i> and <i class="fas fa-ban"></i> icons on the <a href='/'>main page.</a> We plan to improve these tools
+        to edit or remove stores automatically through veryfing ownership of the domain.</p>
 
-    <h2>Contact</h2>
-    <p>Email: lightningnetworkstores@gmail.com</p>
-    <p>Github:
-        <a href="https://github.com/lightningnetworkstores">https://github.com/lightningnetworkstores</a>
-    </p>
-    <p>Git repository:
-        <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io">https://github.com/lightningnetworkstores/lightningnetworkstores.github.io</a>
-    </p>
+        <h4>How to add/edit/remove a wallet/service/donation-address/testnet-store?</h4>
+        <p>
+        If you are used to working with git, make a pull request to  <a href='https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/wallets.json'>wallets.json</a>,
+        <a href='https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/services.json'>services.json</a>,
+        <a href='https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/donationAddresses.json'>donationAddresses.json</a>
+        or <a href='https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/sitesTestnet.json'>sitesTestnet.json</a>
+        </p>
 
+        <h4>How are the trending and controversial scores calculated?</h4>
+        <p>Controversial scores are calculated like <a href='https://www.reddit.com/r/NoStupidQuestions/comments/433ayh/how_does_reddit_determine_what_is_controversial/czfbxk4/'>reddit does</a>. 
+        Trending scores are calculated using the formula: (S-EMA)/max(35000000, min(20000,S)), where S is the current score of the store in satoshis (upvotes-downvotes) and EMA is the
+        exponential moving average of the score. The half-life of the EMA is currently set to 4 days. This formula may be tweaked in the future.
+        </p>
+        
+        <h4>When are stores tweeted in <a href='https://twitter.com/bitcoinLNS'>@bitcoinLNS?</a> </h4>
+        <p>Currently every new store and trending stores (trending score >= 30) are tweeted. A store can be tweeted again if:
+            it hasn't been tweeted for 8 days, it's score has been increased by at least 100000 satoshis (1 mBTC) since the last tweet and has a trending score no lower than 30.
+            Only payments can trigger tweets, no matter how small or the direction. These rules are subject to change and might even be held secret if people start
+            abusing them.
+        </p>
+
+        <br>
+        <h2>Acknowledgements</h2>
+        <p>A big Thanks for all the people that add new lightning stores as they get announced! If you are frequent contributor, ask for a coupon code
+            to add stores without paying the small entry fee.
+        </p>
+
+    </div>
 
 </body>
 

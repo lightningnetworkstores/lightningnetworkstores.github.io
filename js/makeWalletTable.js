@@ -33,18 +33,35 @@ $(function(){
             } else {
             inject = inject + "<th>no</th>";
             }
-
+            
+            if (entry.custodial){
+                inject = inject + "<th>" + entry.custodial + "</th>"
+            } else {
+                inject = inject + '<th>false</th>'
+            }
+            
             if (entry.release){
             inject = inject + "<th>" + entry.release + "</th>"
             } else {
             inject = inject + "<th>coming soon</th>";
             }
 
-            if (entry.android || entry.iOS){
-            if (entry.android){inject = inject + "<th><a href='" + entry.android + " '>android </a></th>"}
-            if (entry.iOS){inject = inject + "<th><a href='" + entry.iOS + " '>iOS</a></th>"}
+            if (entry.web_wallet){
+                inject = inject + "<th><a href='" + entry.web_wallet + "'</a>yes</th>"
             } else {
-            inject = inject + "<th>-</th>";
+                inject = inject + "<th>no</th>"
+            }
+
+
+            if (entry.android || entry.iOS || entry.android_closed || entry.iOS_closed){
+                inject= inject + "<th>"
+                if (entry.android){inject = inject + "<a href='" + entry.android + " '>android </a>"}
+                if (entry.iOS){inject = inject + "<a href='" + entry.iOS + " '>iOS </a>"}
+                if (entry.android_closed){inject = inject + "<a href='" + entry.android_closed + " '>android closed-beta </a>"}
+                if (entry.iOS_closed){inject = inject + "<a href='" + entry.iOS_closed + " '>iOS closed-beta</a>"}
+                inject = inject + "</th>"
+                } else {
+                inject = inject + "<th>-</th>";
             }
 
             if (entry.android_testnet || entry.iOS_testnet || entry.iOS_testnet_closed || entry.iOS_testnet_closed){
