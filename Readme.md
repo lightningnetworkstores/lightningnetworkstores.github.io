@@ -2,18 +2,16 @@
 
 To be the a very complete repository of stores that accept bitcoin through lightning. This repository will continue to be import even after the webpage is not hosted by Github Pages anymore! The new server will fetch new information from this repository!
 
-# Domains
+# FAQ and contact information
 
-The following websites forward to www.lightningnetworkstores.github.io:
-
-www.lightningnetworkstores.com
-
-www.lightningnetworkshops.com
+Please visit: https://lightningnetworkstores.com/about
 
 # Contributions
 Contributions are welcome, I will give push access to who proves to be trustworthy or forward the registered domains to your forked website if it's open source and well maintained.
 
 ## How to add a store
+
+Should be done using the button on the main page that says "Instantly add new store!". If for some reason, this doesn't work, a pull request can be made:
 
 ### Mainnet store
 Go to ```sites.json``` and add an entry with the folowing information:
