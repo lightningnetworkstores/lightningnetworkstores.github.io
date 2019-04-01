@@ -2562,5 +2562,15 @@
     "sector": "clothing",
     "digital_goods": "no, goods shipped",
     "added": 1553884288
+  },
+  {
+    "id": 1367,
+    "name": "Pokemon using Lightning",
+    "href": "http://poke.lightningwiki.net/",
+    "uri": "020e56a13babec99abdc2c4afbe34e1e44230d79b234c059fd4ff1e367765fdb1b@main.lightningnode.eu",
+    "description": "Play pokemon using Lightning layments",
+    "sector": "games\u0026casino",
+    "digital_goods": "no, goods only in-store",
+    "added": 1554109952
   }
 ]
