@@ -34,15 +34,6 @@
        "custodial":"true"
     },
     {
-        "name":"Cobo Wallet",
-        "page":"https://cobo.com",
-        "requires_node":"no",
-        "android":"https://cobo.com/download/android",
-        "iOS":"https://cobo.com/download/ios",
-        "release":"March 2019",
-        "custodial":"true"
-    },
-    {
     "name":"Bitlum",
     "page":"http://bit.ly/2T5aMbH",
     "release":"February 2019",
