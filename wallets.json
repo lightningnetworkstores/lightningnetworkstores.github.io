@@ -157,7 +157,10 @@
     {
      "name":"LightningPeach",
      "page":"https://lightningpeach.com/peach-wallet",
-     "open_source":"https://github.com/LightningPeach/lightning-peach-wallet"
+     "open_source":"https://github.com/LightningPeach/lightning-peach-wallet",
+     "android":"https://itunes.apple.com/app/id1407201546",
+     "iOS":"https://itunes.apple.com/app/id1407201546",
+     "release":"March 2019"
     }
   ]
   
