@@ -2591,5 +2591,15 @@
     "description": "Hats, Apparel \u0026 Accessories",
     "sector": "clothing",
     "added": 1554349568
+  },
+  {
+    "id": 1387,
+    "name": "Boltz",
+    "href": "https://boltz.exchange",
+    "uri": "unknown",
+    "description": "Boltz exchange",
+    "sector": "exchange",
+    "digital_goods": "no, goods shipped",
+    "added": 1554399232
   }
 ]
