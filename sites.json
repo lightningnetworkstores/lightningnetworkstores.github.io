@@ -2582,5 +2582,14 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1554340224
+  },
+  {
+    "id": 1382,
+    "name": "Grassroots California",
+    "href": "https://www.grassrootscalifornia.com/",
+    "uri": "unknown",
+    "description": "Hats, Apparel \u0026 Accessories",
+    "sector": "clothing",
+    "added": 1554349568
   }
 ]
