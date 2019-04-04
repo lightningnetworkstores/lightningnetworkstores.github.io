@@ -2572,5 +2572,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "no, goods only in-store",
     "added": 1554109952
+  },
+  {
+    "id": 1377,
+    "name": "FixedFloat",
+    "href": "https://fixedfloat.com/",
+    "uri": "unknown",
+    "description": "Lightning crypto exchange",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1554340224
   }
 ]
