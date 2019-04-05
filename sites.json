@@ -2578,7 +2578,7 @@
     "name": "FixedFloat",
     "href": "https://fixedfloat.com/",
     "uri": "unknown",
-    "description": "Lightning crypto exchange",
+    "description": "Exchange the TOP-20 сryptocurrencies with lightning network! No registration required.",
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1554340224
@@ -2599,7 +2599,17 @@
     "uri": "unknown",
     "description": "Boltz exchange",
     "sector": "exchange",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1554399232
+  },
+  {
+    "id": 1392,
+    "name": "Satoshi pictures",
+    "href": "https://satoshis.pictures/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@52.15.79.245:9735",
+    "description": "Million-dollar-page with a twist. Advertise your products in this crypto wall of fame.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1554497792
   }
 ]
