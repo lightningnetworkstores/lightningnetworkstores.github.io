@@ -1,16 +1,20 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import { Store } from "./interfaces/Store";
 
-Vue.use(Vuex)
+const stores: Store[] = require("../data/sites.json");
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-
-  },
-  mutations: {
-
-  },
-  actions: {
-
-  }
-})
+    state: {
+        stores: stores
+    },
+    getters: {
+        getStore: state => (id: number) => {
+            return state.stores.find(store => store.id == id);
+        }
+    },
+    mutations: {},
+    actions: {}
+});

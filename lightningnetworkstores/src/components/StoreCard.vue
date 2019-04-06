@@ -3,11 +3,11 @@
         <v-layout justify-center class="my-4">
             <v-flex xs11 md8 lg4>
                 <v-card hover @click.native="gotoStore()">
-                    <v-img src="https://www.luckythunder.com/img/ogimage.png" height="100px"><v-chip color="green" text-color="white" class="ma-2">Trending</v-chip></v-img>
+                    <v-img :src="imageUrl" height="100px"><v-chip color="green" text-color="white" class="ma-2">Trending</v-chip></v-img>
                     <v-layout>
                         <div class="text-xs-center vote">
                             <v-flex xs12>
-                                <v-btn icon><v-icon>arrow_upward</v-icon></v-btn>
+                                <v-btn icon @click.stop="vote(true)"><v-icon>arrow_upward</v-icon></v-btn>
                             </v-flex>
 
                             <v-flex xs12>
@@ -15,17 +15,17 @@
                             </v-flex>
 
                             <v-flex xs12>
-                                <v-btn icon><v-icon>arrow_downward</v-icon></v-btn>
+                                <v-btn icon @click.stop="vote(false)"><v-icon>arrow_downward</v-icon></v-btn>
                             </v-flex>
                         </div>
 
                         <v-flex>
                             <v-card-title primary-title class="pa-2">
                                 <div>
-                                    <div class="headline">LuckyThunder</div>
-                                    <span class="grey--text"
-                                        >LuckyThunder is a slot machine build on top of the bitcoin lightning network⚡. No login required, provably fair, high win percentage.</span
-                                    >
+                                    <div class="headline">
+                                        <a class="store-link" :href="store.href">{{ store.name }}</a>
+                                    </div>
+                                    <span class="grey--text">{{ store.description }}</span>
                                 </div>
                             </v-card-title>
                         </v-flex>
@@ -38,12 +38,45 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Store } from "../interfaces/Store";
+
+const grabity = require("grabity");
 
 @Component
 export default class StoreCard extends Vue {
+    @Prop() store!: Store;
+    imageUrl: string = "";
+
+    async created() {
+        //this.imageUrl = await this.getImageUrl();
+    }
+
+    private async getImageUrl(): Promise<string> {
+        let url = this.store.href.replace(/^((\w+:)?\/\/[^\/]+\/?).*$/, "$1");
+
+        try {
+            let grabbed = await grabity.grabIt(url);
+            if ("image" in grabbed) {
+                return grabbed.image;
+            } else if ("favicon" in grabbed) {
+                return grabbed.favicon;
+            }
+            return "";
+        } catch (error) {}
+
+        return "";
+    }
+
     private gotoStore() {
-        const storeId = 2;
-        this.$router.push({ path: `/store/${storeId}` });
+        this.$router.push({ path: `/store/${this.store.id}` });
+    }
+
+    private vote(upvote: boolean) {
+        if (upvote) {
+            console.log("upvote");
+        } else {
+            console.log("downvote");
+        }
     }
 }
 </script>
@@ -52,5 +85,12 @@ export default class StoreCard extends Vue {
 <style scoped lang="scss">
 .vote {
     width: 50px;
+}
+.store-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.87);
+    &:hover {
+        text-decoration: underline;
+    }
 }
 </style>
