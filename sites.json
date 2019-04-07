@@ -1707,7 +1707,7 @@
     "id": 787,
     "name": "Denarium Bitcoin",
     "href": "https://denarium.com/",
-    "uri": "unknown",
+    "uri": "034e5fb407fc7d12ff83255e492b63b19b9cd73a4eafc6bf41e7739168b504e9c4@212.47.254.6:9735",
     "description": "Professional Physical Bitcoins Manufacturer",
     "sector": "other",
     "digital_goods": "no, goods shipped",
@@ -2611,5 +2611,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1554497792
+  },
+  {
+    "id": 1397,
+    "name": "OMG LOL",
+    "href": "https://omg.lol/",
+    "uri": "031b8038e52d85f2cc49db309d2f87577601645279b4b5e83ee9a9832752356fc5@96.28.98.230:9735",
+    "description": "Buy an email address and forward it anywhere.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1554661504
   }
 ]
