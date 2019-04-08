@@ -2621,5 +2621,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1554661504
+  },
+  {
+    "id": 1402,
+    "name": "Layer One Bitcoin Store",
+    "href": "https://layeronebtc.com/",
+    "uri": "unknown",
+    "description": "Bitcoin shirts, hats, hoodies \u0026 MORE!",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1554729472
   }
 ]
