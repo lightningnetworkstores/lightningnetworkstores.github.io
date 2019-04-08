@@ -2641,5 +2641,14 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1554736512
+  },
+  {
+    "id": 1412,
+    "name": "Lightning Lotto",
+    "href": "https://proved.win/",
+    "uri": "unknown",
+    "description": "Provably fair lotto-style lottery",
+    "sector": "games\u0026casino",
+    "added": 1554747136
   }
 ]
