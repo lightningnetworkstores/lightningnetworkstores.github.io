@@ -2660,5 +2660,14 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1554819840
+  },
+  {
+    "id": 1422,
+    "name": "Payment Gateway for Opencart stores",
+    "href": "https://www.opencart.com/index.php?route\u003dmarketplace/extension/info\u0026extension_id\u003d36414",
+    "uri": "unknown",
+    "description": "Free and opensource payment gateway that works with your LND node",
+    "sector": "cryptocurrency merchandise",
+    "added": 1554881280
   }
 ]
