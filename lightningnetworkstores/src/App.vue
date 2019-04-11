@@ -22,4 +22,7 @@
 .toolbar {
     text-decoration: none;
 }
+.break-word {
+    word-wrap: break-word;
+}
 </style>

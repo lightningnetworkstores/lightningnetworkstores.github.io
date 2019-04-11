@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { mapState } from "vuex";
 import { State } from "vuex-class";
 import { Store } from "../interfaces/Store";
 import StoreCard from "@/components/StoreCard.vue";

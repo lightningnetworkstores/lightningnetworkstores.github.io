@@ -5,25 +5,13 @@
                 <v-card hover @click.native="gotoStore()">
                     <v-img :src="imageUrl" height="100px"><v-chip color="green" text-color="white" class="ma-2">Trending</v-chip></v-img>
                     <v-layout>
-                        <div class="text-xs-center vote">
-                            <v-flex xs12>
-                                <v-btn icon @click.stop="vote(true)"><v-icon>arrow_upward</v-icon></v-btn>
-                            </v-flex>
-
-                            <v-flex xs12>
-                                <span>50m</span>
-                            </v-flex>
-
-                            <v-flex xs12>
-                                <v-btn icon @click.stop="vote(false)"><v-icon>arrow_downward</v-icon></v-btn>
-                            </v-flex>
-                        </div>
+                        <vote v-bind:storeId="store.id"></vote>
 
                         <v-flex>
                             <v-card-title primary-title class="pa-2">
                                 <div>
                                     <div class="headline">
-                                        <a class="store-link" :href="store.href">{{ store.name }}</a>
+                                        <a class="store-link" @click.stop :href="store.href">{{ store.name }}</a>
                                     </div>
                                     <span class="grey--text">{{ store.description }}</span>
                                 </div>
@@ -39,10 +27,15 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Store } from "../interfaces/Store";
+import Vote from "@/components/Vote.vue";
 
 const grabity = require("grabity");
 
-@Component
+@Component({
+    components: {
+        Vote
+    }
+})
 export default class StoreCard extends Vue {
     @Prop() store!: Store;
     imageUrl: string = "";
@@ -70,14 +63,6 @@ export default class StoreCard extends Vue {
     private gotoStore() {
         this.$router.push({ path: `/store/${this.store.id}` });
     }
-
-    private vote(upvote: boolean) {
-        if (upvote) {
-            console.log("upvote");
-        } else {
-            console.log("downvote");
-        }
-    }
 }
 </script>
 
@@ -88,7 +73,6 @@ export default class StoreCard extends Vue {
 }
 .store-link {
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.87);
     &:hover {
         text-decoration: underline;
     }
