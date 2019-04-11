@@ -2669,5 +2669,15 @@
     "description": "Free and opensource payment gateway that works with your LND node",
     "sector": "cryptocurrency merchandise",
     "added": 1554881280
+  },
+  {
+    "id": 1427,
+    "name": "Satoshis.club",
+    "href": "https://satoshis.club/",
+    "uri": "unknown",
+    "description": "Satoshis club",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1554993152
   }
 ]
