@@ -2679,5 +2679,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1554993152
+  },
+  {
+    "id": 1432,
+    "name": "Hodlonaut Legal Fund",
+    "href": "https://weareallhodlonaut.com/",
+    "uri": "028c1da32603fce64118e469ffe2cfeec04d1c4bd88205efb4e8b4208f77a8064e@172.81.181.237:9735",
+    "description": "Crowdfund to help hodlnaut legal battle against Craig Wright (Faketoshi).",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1555100032
   }
 ]
