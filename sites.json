@@ -2689,5 +2689,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1555100032
+  },
+  {
+    "id": 1437,
+    "name": "KAZARTT",
+    "href": "https://www.kazartt.com/",
+    "uri": "unknown",
+    "description": "Unconventional belts for men",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1555165824
   }
 ]
