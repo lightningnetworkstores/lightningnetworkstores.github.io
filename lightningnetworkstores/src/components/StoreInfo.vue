@@ -9,7 +9,7 @@
         </div>
         <v-layout justify-center row wrap class="my-4">
             <v-flex xs11 md8 lg6>
-                <v-img :src="imageUrl" height="300px"
+                <v-img :src="imageUrl" aspect-radio="1.6"
                     ><v-chip color="success" text-color="white" class="ma-2 text-capitalize">New</v-chip>
                     <v-chip color="orange" text-color="white">
                         100
@@ -27,28 +27,33 @@
                     </v-flex>
                 </v-layout>
 
-                <v-layout row>
-                    <v-flex pb-3>{{ store.description }} </v-flex>
-                </v-layout>
-                <v-layout row v-if="store.uri.length">
-                    <span class="break-word"><b>Node:&nbsp;</b>{{ store.uri }}</span></v-layout
-                >
-                <v-layout row v-if="store.digital_goods.length"><b>Goods:&nbsp;</b>{{ store.digital_goods }}</v-layout>
-                <v-layout row v-if="store.sector.length"><b>Sector:&nbsp;</b>{{ store.sector }}</v-layout>
-                <v-layout row>
-                    <v-flex shrink pa-1 pr-3>
-                        <v-btn icon @click.stop="vote(true)"><v-icon>arrow_upward</v-icon></v-btn>
-                        5,000,000
-                    </v-flex>
-                    <v-flex grow pa-1>
-                        <v-progress-linear color="success" background-color="error" class="white--text" height="15" value="98"></v-progress-linear>
-                    </v-flex>
-                    <v-flex shrink pa-1 pr-3>
-                        <v-btn icon @click.stop="vote(true)"><v-icon>arrow_downward</v-icon></v-btn>
-                        1000
-                    </v-flex>
+                <v-layout row pb-3>
+                    <v-flex>{{ store.description }} </v-flex>
                 </v-layout>
 
+                <v-layout row pb-3><a @click.stop :href="store.href">Visit website</a></v-layout>
+                <v-layout row v-if="store.uri.length">
+                    <span class="break-word"
+                        ><b>Node:&nbsp;</b><a :href="'https://1ml.com/node/' + store.uri.split('@')[0]">{{ store.uri }}</a></span
+                    ></v-layout
+                >
+                <v-layout row v-if="store.digital_goods.length"><b>Digital goods:&nbsp;</b>{{ store.digital_goods }}</v-layout>
+                <v-layout row v-if="store.sector.length"
+                    ><b>Sector:&nbsp;</b><router-link :to="'/?sector=' + encodeURIComponent(store.sector)">{{ store.sector }}</router-link></v-layout
+                >
+                <v-layout row pt-4>
+                    <v-flex grow pa-1>
+                        <v-btn fab dark color="success" @click.stop="vote(true)"><v-icon large>arrow_upward</v-icon></v-btn>
+                    </v-flex>
+                    <v-flex shrink pa-1>
+                        <v-btn fab dark color="error" @click.stop="vote(false)"><v-icon large>arrow_downward</v-icon></v-btn>
+                    </v-flex>
+                </v-layout>
+                <v-layout row>
+                    <v-flex shrink pa-3>{{ upvotes | number }}</v-flex>
+                    <v-flex grow pa-1><v-progress-linear color="success" background-color="error" height="15" value="98"></v-progress-linear></v-flex>
+                    <v-flex shrink pa-3>{{ downvotes | number }}</v-flex>
+                </v-layout>
                 <v-layout row>
                     <v-flex grow pl-1>
                         <v-btn flat icon color="blue">
@@ -82,16 +87,15 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { Store } from "../interfaces/Store";
 import Vote from "@/components/Vote.vue";
 
-const grabity = require("grabity");
-
 @Component({
     components: { Vote }
 })
 export default class StoreInfo extends Vue {
     @Prop() storeId!: number;
     store!: Store;
-
     imageUrl: string = "";
+    upvotes: number = 5000000;
+    downvotes: number = 1000;
 
     breadCrumb: any;
 
@@ -109,23 +113,15 @@ export default class StoreInfo extends Vue {
                 href: location.href
             }
         ];
-        this.imageUrl = await this.getImageUrl();
+        this.imageUrl = this.$store.getters.getImageUrl(this.storeId);
     }
 
-    private async getImageUrl(): Promise<string> {
-        let url = this.store.href.replace(/^((\w+:)?\/\/[^\/]+\/?).*$/, "$1");
-
-        try {
-            let grabbed = await grabity.grabIt(url);
-            if ("image" in grabbed) {
-                return grabbed.image;
-            } else if ("favicon" in grabbed) {
-                return grabbed.favicon;
-            }
-            return "";
-        } catch (error) {}
-
-        return "";
+    private vote(upvote: boolean) {
+        if (upvote) {
+            console.log("upvote");
+        } else {
+            console.log("downvote");
+        }
     }
 }
 </script>

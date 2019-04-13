@@ -13,6 +13,13 @@ export default new Vuex.Store({
     getters: {
         getStore: state => (id: number) => {
             return state.stores.find(store => store.id == id);
+        },
+        getStores: state => (sector: string) => {
+            console.log(sector);
+            return sector ? state.stores.filter(store => store.sector == sector) : state.stores;
+        },
+        getImageUrl: state => (id: number) => {
+            return "https://www.luckythunder.com/img/ogimage.png";
         }
     },
     mutations: {},

@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { State } from "vuex-class";
 import { Store } from "../interfaces/Store";
 import StoreCard from "@/components/StoreCard.vue";
 
@@ -16,10 +15,12 @@ import StoreCard from "@/components/StoreCard.vue";
     }
 })
 export default class StoreList extends Vue {
-    @State
     stores!: Store[];
+    @Prop() sector!: string;
 
     created() {
+        console.log(this.sector);
+        this.stores = this.$store.getters.getStores(this.sector);
         console.log("Stores: " + this.stores.length);
     }
 }

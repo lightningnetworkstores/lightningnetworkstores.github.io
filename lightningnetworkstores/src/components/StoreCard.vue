@@ -3,7 +3,7 @@
         <v-layout justify-center class="my-4">
             <v-flex xs11 md8 lg4>
                 <v-card hover @click.native="gotoStore()">
-                    <v-img :src="imageUrl" height="100px"><v-chip color="green" text-color="white" class="ma-2">Trending</v-chip></v-img>
+                    <v-img :src="imageUrl"><v-chip color="green" text-color="white" class="ma-2">Trending</v-chip></v-img>
                     <v-layout>
                         <vote v-bind:storeId="store.id"></vote>
 
@@ -68,10 +68,4 @@ export default class StoreCard extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.store-link {
-    text-decoration: none;
-    &:hover {
-        text-decoration: underline;
-    }
-}
 </style>

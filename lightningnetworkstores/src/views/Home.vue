@@ -1,11 +1,11 @@
 <template>
     <div class="home">
-        <StoreList />
+        <StoreList v-bind:sector="decodeURI(sector)" />
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import StoreList from "@/components/StoreList.vue";
 
 @Component({
@@ -13,5 +13,7 @@ import StoreList from "@/components/StoreList.vue";
         StoreList
     }
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+    @Prop() sector!: string;
+}
 </script>

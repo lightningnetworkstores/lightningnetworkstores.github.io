@@ -13,7 +13,8 @@ export default new Router({
         {
             path: "/",
             name: "home",
-            component: Home
+            component: Home,
+            props: route => ({ sector: route.query.sector })
         },
         {
             path: "/store/:storeId",
