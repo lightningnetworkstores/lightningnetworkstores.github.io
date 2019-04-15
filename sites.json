@@ -2646,7 +2646,7 @@
     "id": 1412,
     "name": "Lightning Lotto",
     "href": "https://proved.win/",
-    "uri": "unknown",
+    "uri": "03a503d8e30f2ff407096d235b5db63b4fcf3f89a653acb6f43d3fc492a7674019@37.59.50.48:9735",
     "description": "Provably fair lotto-style lottery",
     "sector": "games\u0026casino",
     "added": 1554747136
@@ -2708,5 +2708,14 @@
     "description": "Please help me finance my wife new haircut with lightning",
     "sector": "art",
     "added": 1555237760
+  },
+  {
+    "id": 1462,
+    "name": "Toshi Vision by Koala",
+    "href": "https://www.toshi.vision/",
+    "uri": "unknown",
+    "description": "inspired from satoshis place buy words",
+    "sector": "games\u0026casino",
+    "added": 1555356928
   }
 ]
