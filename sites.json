@@ -2711,11 +2711,21 @@
   },
   {
     "id": 1462,
-    "name": "Toshi Vision by Koala",
+    "name": "Toshi Vision",
     "href": "https://www.toshi.vision/",
     "uri": "unknown",
-    "description": "inspired from satoshis place buy words",
+    "description": "Pay to edit words of the bitcoin whitepaper, inspited by Satoshis Place.",
     "sector": "games\u0026casino",
     "added": 1555356928
+  },
+  {
+    "id": 1467,
+    "name": "Rotate bar (London)",
+    "href": "https://www.rotateshoreditch.com/",
+    "uri": "unknown",
+    "description": "Venue serving specialty coffee by day and craft beers, cocktails and great music by night. Located in Shoreditch, London.",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1555443840
   }
 ]
