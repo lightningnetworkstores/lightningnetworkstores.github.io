@@ -23,7 +23,9 @@
                 >
                 <v-layout row>
                     <v-flex pb-1>
-                        <h1>{{ store.name }}</h1>
+                        <a class="store-link" @click.stop :href="store.href"
+                            ><h1>{{ store.name }} <v-icon small class="pb-2">fa-external-link-alt</v-icon></h1></a
+                        >
                     </v-flex>
                 </v-layout>
 
@@ -31,7 +33,7 @@
                     <v-flex>{{ store.description }} </v-flex>
                 </v-layout>
 
-                <v-layout row pb-3><a @click.stop :href="store.href">Visit website</a></v-layout>
+                <!-- <v-layout row pb-3><a @click.stop :href="store.href">Visit website</a></v-layout> -->
                 <v-layout row v-if="store.uri.length">
                     <span class="break-word"
                         ><b>Node:&nbsp;</b><a :href="'https://1ml.com/node/' + store.uri.split('@')[0]">{{ store.uri }}</a></span
@@ -70,7 +72,7 @@
                     </v-flex>
                     <v-flex shrink>
                         <v-btn flat icon color="grey darken-2">
-                            <v-icon small>fa-edit</v-icon>
+                            <v-icon small @click.stop="editDialog = true">fa-edit</v-icon>
                         </v-btn>
                         <v-btn flat icon color="grey darken-2">
                             <v-icon small>fa-ban</v-icon>
@@ -78,6 +80,42 @@
                     </v-flex>
                 </v-layout>
             </v-flex>
+            <!-- Edit store modal -->
+            <v-dialog v-model="editDialog" max-width="500">
+                <v-card>
+                    <v-card-title class="headline">Suggest an edit for {{ store.name }}</v-card-title>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-combobox v-modal="editDialogForm.property" label="Property" :items="editDialogProperties"></v-combobox>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-text-field v-modal="editDialogForm.value" label="Value" value="" hint="eg. www.new-url.com"></v-text-field>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-textarea v-modal="editDialogForm.motivation" label="Motivation" hint="eg. We moved to a different domain: www.new-url.com"> </v-textarea>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+
+                        <v-btn color="green darken-1" flat="flat" @click="editDialog = false">
+                            Cancel
+                        </v-btn>
+
+                        <v-btn color="green darken-1" flat="flat" @click="editDialog = false">
+                            Send
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-layout>
     </div>
 </template>
@@ -96,8 +134,11 @@ export default class StoreInfo extends Vue {
     imageUrl: string = "";
     upvotes: number = 5000000;
     downvotes: number = 1000;
-
     breadCrumb: any;
+
+    editDialog: boolean = false;
+    editDialogProperties: string[] = ["Name", "Description", "URL", "Node URI", "Sector", "Digital goods"];
+    editDialogForm: object = { property: "", value: "", motivation: "" };
 
     async created() {
         this.store = this.$store.getters.getStore(this.storeId);
@@ -128,4 +169,8 @@ export default class StoreInfo extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.store-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.87);
+}
 </style>

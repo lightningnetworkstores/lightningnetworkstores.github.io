@@ -38,10 +38,4 @@
     -webkit-hyphens: auto;
     hyphens: auto;
 }
-.store-link {
-    text-decoration: none;
-    &:hover {
-        text-decoration: underline;
-    }
-}
 </style>
