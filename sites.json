@@ -2727,5 +2727,15 @@
     "sector": "food",
     "digital_goods": "no, goods only in-store",
     "added": 1555443840
+  },
+  {
+    "id": 1477,
+    "name": "Crypto Coffee",
+    "href": "https://crypto-coffee.org",
+    "uri": "02aecff209ee8e066e73df7b7881141007a72ab4055856b2f27b92a884bbf16aa8@170.75.175.231:9735",
+    "description": "Accelerating bitcoin adoption with the power of Lightning and caffeine",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1555461888
   }
 ]
