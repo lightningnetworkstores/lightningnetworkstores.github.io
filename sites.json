@@ -2737,5 +2737,14 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1555461888
+  },
+  {
+    "id": 1482,
+    "name": "Lightning Network Gift Card",
+    "href": "https://www.lngiftcard.com/",
+    "uri": "unknown",
+    "description": "eGift Card on Lightning Network",
+    "sector": "other",
+    "added": 1555593984
   }
 ]
