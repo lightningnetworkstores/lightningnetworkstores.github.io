@@ -2746,5 +2746,15 @@
     "description": "eGift Card on Lightning Network",
     "sector": "other",
     "added": 1555593984
+  },
+  {
+    "id": 1487,
+    "name": "Lucho Polleti",
+    "href": "https://luchopoletti.com/",
+    "uri": "unknown",
+    "description": "Art, clothing and accessories designed by Lucho Polleti.",
+    "sector": "art",
+    "digital_goods": "no, goods shipped",
+    "added": 1555612160
   }
 ]
