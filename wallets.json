@@ -54,7 +54,8 @@
     "page":"https://breez.technology/",
     "requires_node":"no",
     "open_source":"https://github.com/breez/breezmobile",
-    "android_closed":"https://breez.technology/#contact"
+    "android":"https://play.google.com/apps/testing/com.breez.client",
+    "release":"April 2019"
     },
     {
      "name":"Bitpie",
