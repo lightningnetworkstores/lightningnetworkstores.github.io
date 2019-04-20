@@ -2766,5 +2766,14 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1555676544
+  },
+  {
+    "id": 1497,
+    "name": "Real-Time Crypto Trading Signals",
+    "href": "https://crypto.slamtrade.com",
+    "uri": "unknown",
+    "description": "24/7 streaming of high-performance Crypto-Currency trading signals presented in a single view for professional trading.",
+    "sector": "technology",
+    "added": 1555731456
   }
 ]
