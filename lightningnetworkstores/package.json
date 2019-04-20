@@ -9,8 +9,8 @@
   "dependencies": {
     "@types/numeral": "0.0.25",
     "core-js": "^2.6.5",
-    "grabity": "^1.0.5",
     "numeral": "^2.0.6",
+    "qrcode.vue": "^1.6.1",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",

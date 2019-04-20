@@ -17,6 +17,13 @@ export default new Vuex.Store({
         getStores: state => (sector: string) => {
             return sector !== "undefined" ? state.stores.filter(store => store.sector == sector) : state.stores;
         },
+        getImage: state => (id: number) => {
+            try {
+                return require(`@/assets/images/stores/${id}_override.png`);
+            } catch (error) {
+                return require(`@/assets/images/stores/${id}.png`);
+            }
+        },
         getImageUrl: state => (id: number) => {
             return "https://www.luckythunder.com/img/ogimage.png";
         }

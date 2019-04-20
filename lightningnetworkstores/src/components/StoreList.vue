@@ -19,9 +19,9 @@ export default class StoreList extends Vue {
     @Prop() sector!: string;
 
     created() {
-        console.log(this.sector);
+        console.log("Sector: " + this.sector);
         this.stores = this.$store.getters.getStores(this.sector);
-        
+
         console.log("Stores: " + this.stores.length);
     }
 }

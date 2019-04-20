@@ -9,7 +9,7 @@
         </div>
         <v-layout justify-center row wrap class="my-4">
             <v-flex xs11 md8 lg6>
-                <v-img :src="imageUrl" aspect-radio="1.6"
+                <v-img :src="image" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
                     ><v-chip color="success" text-color="white" class="ma-2 text-capitalize">New</v-chip>
                     <v-chip color="orange" text-color="white">
                         100
@@ -43,19 +43,9 @@
                 <v-layout row v-if="store.sector.length"
                     ><b>Sector:&nbsp;</b><router-link :to="'/?sector=' + encodeURIComponent(store.sector)">{{ store.sector }}</router-link></v-layout
                 >
-                <v-layout row pt-4>
-                    <v-flex grow pa-1>
-                        <v-btn fab dark color="success" @click.stop="vote(true)"><v-icon large>arrow_upward</v-icon></v-btn>
-                    </v-flex>
-                    <v-flex shrink pa-1>
-                        <v-btn fab dark color="error" @click.stop="vote(false)"><v-icon large>arrow_downward</v-icon></v-btn>
-                    </v-flex>
-                </v-layout>
-                <v-layout row>
-                    <v-flex shrink pa-3>{{ upvotes | number }}</v-flex>
-                    <v-flex grow pa-1><v-progress-linear color="success" background-color="error" height="15" value="98"></v-progress-linear></v-flex>
-                    <v-flex shrink pa-3>{{ downvotes | number }}</v-flex>
-                </v-layout>
+
+                <vote v-bind:store="store" v-bind:isInfo="true"></vote>
+
                 <v-layout row>
                     <v-flex grow pl-1>
                         <v-btn flat icon color="blue">
@@ -72,7 +62,7 @@
                     </v-flex>
                     <v-flex shrink>
                         <v-btn flat icon color="grey darken-2">
-                            <v-icon small @click.stop="editDialog = true">fa-edit</v-icon>
+                            <v-icon small @click.stop="showDialog = true">fa-edit</v-icon>
                         </v-btn>
                         <v-btn flat icon color="grey darken-2">
                             <v-icon small>fa-ban</v-icon>
@@ -81,39 +71,66 @@
                 </v-layout>
             </v-flex>
             <!-- Edit store modal -->
-            <v-dialog v-model="editDialog" max-width="500">
+            <v-dialog v-model="showDialog" max-width="500">
                 <v-card>
                     <v-card-title class="headline">Suggest an edit for {{ store.name }}</v-card-title>
+                    <form @submit.prevent="submitEdit">
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-combobox
+                                    v-model="editDialogForm.property"
+                                    item-text="name"
+                                    item-value="prop"
+                                    label="Property"
+                                    :items="editDialogProperties"
+                                    return-object
+                                    :rules="[v => !!v || 'Property is required']"
+                                ></v-combobox>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-combobox v-modal="editDialogForm.property" label="Property" :items="editDialogProperties"></v-combobox>
-                        </v-flex>
-                    </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-text-field :value="store[editDialogForm.property.prop]" label="Current value" disabled></v-text-field>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-text-field v-modal="editDialogForm.value" label="Value" value="" hint="eg. www.new-url.com"></v-text-field>
-                        </v-flex>
-                    </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-text-field v-model="editDialogForm.value" label="Value" hint="eg. www.new-url.com" :rules="[v => !!v || 'Value is required']"></v-text-field>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-textarea v-modal="editDialogForm.motivation" label="Motivation" hint="eg. We moved to a different domain: www.new-url.com"> </v-textarea>
-                        </v-flex>
-                    </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-textarea
+                                    v-model="editDialogForm.motivation"
+                                    label="Motivation"
+                                    hint="eg. We moved to a different domain: www.new-url.com"
+                                    :rules="[v => !!v || 'Motivation is required']"
+                                >
+                                </v-textarea>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-checkbox v-model="editDialogForm.askOwner" label="Ask store owner for approval (email will be sent to store owner)"></v-checkbox>
+                            </v-flex>
+                        </v-layout>
 
-                        <v-btn color="green darken-1" flat="flat" @click="editDialog = false">
-                            Cancel
-                        </v-btn>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
 
-                        <v-btn color="green darken-1" flat="flat" @click="editDialog = false">
-                            Send
-                        </v-btn>
-                    </v-card-actions>
+                            <v-btn color="green darken-1" flat="flat" @click="showDialog = false">
+                                Cancel
+                            </v-btn>
+
+                            <v-btn color="green darken-1" flat="flat" type="submit">
+                                Send
+                            </v-btn>
+                        </v-card-actions>
+                    </form>
                 </v-card>
             </v-dialog>
         </v-layout>
@@ -131,16 +148,21 @@ import Vote from "@/components/Vote.vue";
 export default class StoreInfo extends Vue {
     @Prop() storeId!: number;
     store!: Store;
-    imageUrl: string = "";
-    upvotes: number = 5000000;
-    downvotes: number = 1000;
+    image: any = {};
     breadCrumb: any;
+    showDialog: boolean = false;
 
-    editDialog: boolean = false;
-    editDialogProperties: string[] = ["Name", "Description", "URL", "Node URI", "Sector", "Digital goods"];
-    editDialogForm: object = { property: "", value: "", motivation: "" };
+    editDialogProperties: object[] = [
+        { name: "Name", prop: "name" },
+        { name: "Description", prop: "description" },
+        { name: "URL", prop: "href" },
+        { name: "Node URI", prop: "uri" },
+        { name: "Sector", prop: "sector" },
+        { name: "Digital goods", prop: "digital_goods" }
+    ];
+    editDialogForm: object = { property: "", askOwner: true };
 
-    async created() {
+    created() {
         this.store = this.$store.getters.getStore(this.storeId);
         this.breadCrumb = [
             {
@@ -154,15 +176,15 @@ export default class StoreInfo extends Vue {
                 href: location.href
             }
         ];
-        this.imageUrl = this.$store.getters.getImageUrl(this.storeId);
+        this.image = this.$store.getters.getImage(this.store.id);
     }
 
-    private vote(upvote: boolean) {
-        if (upvote) {
-            console.log("upvote");
-        } else {
-            console.log("downvote");
-        }
+    private showEditDialog() {
+        this.$router.replace({ query: { edit: "true" } });
+    }
+
+    private submitEdit() {
+        console.log("submit");
     }
 }
 </script>

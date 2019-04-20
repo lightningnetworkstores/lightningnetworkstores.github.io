@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+    <meta name="google-site-verification" content="3MEqCjT5SDT_hZ4oIa7tzQAoSFKLZ63oeW_2YxuikQY" />
+        <title>Travala Online Travel Booking Marketplace | Travala.com</title>
+    <meta name="description"
+              content="Travel Booking Marketplace. Smart Travel for the Smart Economy. Savings on accommodation in worldwide destinations. Travala Online Travel Booking Marketplace built using blockchain technology. Travala.com"> 
+    <meta property="og:image" content="https://www.travala.com/Fb_cover.png" />
+        <link rel="stylesheet" href="fontawesome.css">
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" type="image/png" href="https://project.travala.com/wp-content/uploads/2018/05/favicon.png"/>
+    </head>
+    <body class="background-image">
+        <div class="mask">
+            <div class="container">
+                <div class="d-flex flex-column text-center justify-content-center">
+                    <img class="big-logo" src="images/travala-big-logo.png" alt="">
+                    <div class="pt-20 notify-coming-soon">We have got something special</div>
+                    <div class="notify-coming-soon">coming for you</div>
+                    <div class="pt-20 notify-comeback">And we can't wait for you to see it.</div>
+                    <div class="notify-comeback">Please check back soon</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
