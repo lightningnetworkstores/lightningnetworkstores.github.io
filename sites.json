@@ -2775,5 +2775,15 @@
     "description": "24/7 streaming of high-performance Crypto-Currency trading signals presented in a single view for professional trading.",
     "sector": "technology",
     "added": 1555731456
+  },
+  {
+    "id": 1502,
+    "name": "Hempods",
+    "href": "https://hempods.com",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@connect.opennode.co:9735",
+    "description": "CBD Pods compatible with Juul, CBD Cartbridges and more",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1555796864
   }
 ]
