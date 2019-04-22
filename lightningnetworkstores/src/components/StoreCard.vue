@@ -1,7 +1,7 @@
 <template>
     <div class="store-card">
         <v-layout justify-center class="my-4">
-            <v-flex xs11 md8 lg4>
+            <v-flex xs11 md8 lg5>
                 <v-card hover @click.native="gotoStore()">
                     <v-img :src="image" max-height="100px" position="top center" class="text-xs-right"><v-chip color="green" text-color="white" class="ma-2">Trending</v-chip></v-img>
                     <v-layout>

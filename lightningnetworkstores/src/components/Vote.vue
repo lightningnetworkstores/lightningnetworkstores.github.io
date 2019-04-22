@@ -115,7 +115,13 @@ export default class StoreCard extends Vue {
 
     paymentRequest: string = "";
 
-    async created() {}
+    checkPaymentTimer: any;
+
+    async created() {
+        this.checkPaymentTimer = setInterval(() => {
+            this.checkPayment();
+        }, 3000);
+    }
 
     private vote(upvote: boolean) {
         this.isUpvoting = upvote;
@@ -134,6 +140,7 @@ export default class StoreCard extends Vue {
     }
 
     private cancel() {
+        clearInterval(this.checkPaymentTimer);
         if (this.paymentRequest.length > 0) {
             this.paymentRequest = "";
         } else {
@@ -142,8 +149,13 @@ export default class StoreCard extends Vue {
     }
 
     private getInvoice() {
+        //todo: do request to get invoice
         this.paymentRequest =
             "lnbc250u1pwt46zypp54jkdggjvguk95e2nsjq3hny985snmja6kxmd79chm89pwrg8ucwsdpgf36kx6me23582mnyv4ezucm0d5s8q6tw8gcrwdfjcqzpgxqzuyjr3qnzmtxlnpyxhqgzvsy4n556jx9urwt4440g58p8g00y2tm34ymy80fwpj0dujlvj08c55mwxn08kcfm8dfhecglptp0ppwjp08xcq9qe8ph";
+    }
+
+    private checkPayment() {
+        //todo: check if payment is done
     }
 }
 </script>
