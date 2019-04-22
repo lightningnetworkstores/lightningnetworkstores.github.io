@@ -2785,5 +2785,15 @@
     "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1555796864
+  },
+  {
+    "id": 1507,
+    "name": "Digital Marketplace",
+    "href": "https://store.billcrypto.co.in",
+    "uri": "unknown",
+    "description": "The Stock Image and Footage store",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1555896448
   }
 ]
