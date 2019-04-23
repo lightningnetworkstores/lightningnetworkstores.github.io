@@ -2092,7 +2092,7 @@
     "name": "Spendl",
     "href": "https://getspendl.com/",
     "uri": "unknown",
-    "description": "Pay with Bitcoin, Lightning and more on the stores you know and trust like Amazon, eBay and Asos.",
+    "description": "Pay anywhere online with a lightning Chrome  extension.",
     "sector": "technology",
     "added": 1549795072
   },
@@ -2795,5 +2795,14 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1555896448
+  },
+  {
+    "id": 1512,
+    "name": "Bitcoinbomber",
+    "href": "https://bitcoinbomber.app",
+    "uri": "03970306a0aaa62556f51f4df8f51d8d8a62c1140d02566d49df65704a1f4fec9c@85.214.217.177:97",
+    "description": "Bomberman on lightning",
+    "sector": "games\u0026casino",
+    "added": 1556049792
   }
 ]
