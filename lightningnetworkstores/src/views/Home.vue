@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <StoreListFilter v-bind:sector="decodeURI(sector)" v-bind:digitalGoods="decodeURI(digitalGoods)" />
-        <StoreList v-bind:sector="decodeURI(sector)" v-bind:digitalGoods="decodeURI(digitalGoods)" />
+        <StoreListFilter v-bind:sector="decodeURI(sector)" v-bind:digitalGoods="decodeURI(digitalGoods)" v-bind:sort="decodeURI(sort)" />
+        <StoreList v-bind:sector="decodeURI(sector)" v-bind:digitalGoods="decodeURI(digitalGoods)" v-bind:sort="decodeURI(sort)" />
     </div>
 </template>
 
@@ -19,5 +19,6 @@ import StoreListFilter from "@/components/StoreListFilter.vue";
 export default class Home extends Vue {
     @Prop() sector!: string;
     @Prop() digitalGoods!: string;
+    @Prop() sort!: string;
 }
 </script>

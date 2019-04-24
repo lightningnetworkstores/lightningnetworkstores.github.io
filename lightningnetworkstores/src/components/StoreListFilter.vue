@@ -5,6 +5,7 @@
                 <v-layout row pt-4 wrap>
                     <v-flex grow pa-1><v-combobox v-model="selectedSector" item-text="name" item-value="prop" label="Sector" :items="sectorItems" return-object></v-combobox></v-flex>
                     <v-flex grow pa-1><v-combobox v-model="selectedDigitalGood" item-text="name" item-value="prop" label="Digital goods" :items="digitalGoodItems" return-object></v-combobox></v-flex>
+                    <v-flex grow pa-1><v-combobox v-model="selectedSort" item-text="name" item-value="prop" label="Sort" :items="sortItems" return-object></v-combobox></v-flex>
                 </v-layout>
             </v-flex>
         </v-layout>
@@ -18,6 +19,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 export default class StoreList extends Vue {
     @Prop() sector!: string;
     @Prop() digitalGoods!: string;
+    @Prop() sort!: string;
 
     digitalGoodItems: any[] = [
         { name: "Yes", prop: "yes" },
@@ -41,13 +43,16 @@ export default class StoreList extends Vue {
         { name: "All", prop: "all" }
     ];
 
+    sortItems: any[] = [{ name: "Best", prop: "best" }, { name: "Trending", prop: "trending" }, { name: "Newest", prop: "newest" }, { name: "Controversial", prop: "controversial" }];
+
     selectedDigitalGood: any = this.digitalGoods == "undefined" ? this.digitalGoodItems[this.digitalGoodItems.length - 1] : this.digitalGoodItems.find(good => good.prop == this.digitalGoods).name;
     selectedSector: any = this.sector == "undefined" ? this.sectorItems[this.sectorItems.length - 1] : this.sectorItems.find(sector => sector.prop == this.sector).name;
+    selectedSort: any = this.sort == "undefined" ? this.sortItems[0] : this.sortItems.find(sort => sort.prop == this.sortItems).name;
 
     created() {}
 
     private changeUrl() {
-        this.$router.push({ query: { sector: encodeURI(this.selectedSector.prop), digital_goods: encodeURI(this.selectedDigitalGood.prop) } });
+        this.$router.push({ query: { sector: encodeURI(this.selectedSector.prop), digital_goods: encodeURI(this.selectedDigitalGood.prop), sort: encodeURI(this.selectedSort.prop) } });
     }
 
     @Watch("selectedDigitalGood")
@@ -59,6 +64,13 @@ export default class StoreList extends Vue {
 
     @Watch("selectedSector")
     private onSelectedSectorChanged(val: string, oldVal: string) {
+        if (val !== oldVal) {
+            this.changeUrl();
+        }
+    }
+
+    @Watch("selectedSort")
+    private onSelectedSortChanged(val: string, oldVal: string) {
         if (val !== oldVal) {
             this.changeUrl();
         }

@@ -3,15 +3,15 @@
         <div class="store-card" v-if="!isInfo">
             <div class="text-xs-center">
                 <v-flex xs12>
-                    <v-btn icon @click.stop="vote(true)"><v-icon>arrow_upward</v-icon></v-btn>
+                    <v-btn icon @click.stop="vote(true)"><v-icon large>arrow_upward</v-icon></v-btn>
                 </v-flex>
 
-                <v-flex xs12>
+                <v-flex xs12 pa-2>
                     <span class="caption">{{ upvotes | number }}</span>
                 </v-flex>
 
                 <v-flex xs12>
-                    <v-btn icon @click.stop="vote(false)"><v-icon>arrow_downward</v-icon></v-btn>
+                    <v-btn icon @click.stop="vote(false)"><v-icon large>arrow_downward</v-icon></v-btn>
                 </v-flex>
             </div>
         </div>
@@ -26,7 +26,7 @@
             </v-layout>
             <v-layout row>
                 <v-flex shrink pa-3>{{ upvotes | number }}</v-flex>
-                <v-flex grow pa-1><v-progress-linear color="success" background-color="error" height="15" value="98"></v-progress-linear></v-flex>
+                <v-flex grow pa-1><v-progress-linear color="success" background-color="error" height="15" :value="(upvotes / (upvotes + downvotes)) * 100"></v-progress-linear></v-flex>
                 <v-flex shrink pa-3>{{ downvotes | number }}</v-flex>
             </v-layout>
         </div>
@@ -105,8 +105,8 @@ export default class StoreCard extends Vue {
     @Prop() store!: Store;
     @Prop() isInfo!: boolean;
 
-    upvotes: number = 5000000;
-    downvotes: number = 1000;
+    upvotes: number = 0;
+    downvotes: number = 0;
 
     isUpvoting: boolean = true;
 
@@ -121,6 +121,13 @@ export default class StoreCard extends Vue {
         this.checkPaymentTimer = setInterval(() => {
             this.checkPayment();
         }, 3000);
+        this.setScore();
+    }
+
+    private setScore() {
+        let score = this.$store.getters.getScore(this.store.id);
+        this.upvotes = score[0];
+        this.downvotes = score[1];
     }
 
     private vote(upvote: boolean) {
