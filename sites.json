@@ -2804,5 +2804,15 @@
     "description": "Bomberman on lightning",
     "sector": "games\u0026casino",
     "added": 1556049792
+  },
+  {
+    "id": 1517,
+    "name": "SOPHODES",
+    "href": "https://sophodes.com/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@connect.opennode.co:9735",
+    "description": "A high end, contemporary boutique lifestyle brand",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1556111616
   }
 ]
