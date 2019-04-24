@@ -2824,5 +2824,15 @@
     "sector": "clothing",
     "digital_goods": "no, goods shipped",
     "added": 1556120064
+  },
+  {
+    "id": 1537,
+    "name": "Host4Crypto",
+    "href": "https://www.host4crypto.com",
+    "uri": "028b6dc171f603467690f799b6a0d52b1f5a5b8977b1453440016ea7917f53925f@80.241.216.204:9735",
+    "description": "register your domains lightning fast with host4crypto.com",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1556132864
   }
 ]
