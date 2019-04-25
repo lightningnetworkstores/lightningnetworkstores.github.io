@@ -2834,5 +2834,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1556132864
+  },
+  {
+    "id": 1542,
+    "name": "Nayuta Lightning Shop",
+    "href": "http://shop.nayuta.co/",
+    "uri": "unknown",
+    "description": "Try to make payments using Lightning Network!",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1556161152
   }
 ]
