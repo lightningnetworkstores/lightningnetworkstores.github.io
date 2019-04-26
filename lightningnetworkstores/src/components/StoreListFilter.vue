@@ -45,14 +45,20 @@ export default class StoreList extends Vue {
 
     sortItems: any[] = [{ name: "Best", prop: "best" }, { name: "Trending", prop: "trending" }, { name: "Newest", prop: "newest" }, { name: "Controversial", prop: "controversial" }];
 
-    selectedDigitalGood: any = this.digitalGoods == "undefined" ? this.digitalGoodItems[this.digitalGoodItems.length - 1] : this.digitalGoodItems.find(good => good.prop == this.digitalGoods).name;
-    selectedSector: any = this.sector == "undefined" ? this.sectorItems[this.sectorItems.length - 1] : this.sectorItems.find(sector => sector.prop == this.sector).name;
-    selectedSort: any = this.sort == "undefined" ? this.sortItems[0] : this.sortItems.find(sort => sort.prop == this.sortItems).name;
+    selectedDigitalGood: any = this.digitalGoods == "undefined" ? "all" : this.digitalGoods;
+    selectedSector: any = this.sector == "undefined" ? "all" : this.sector;
+    selectedSort: any = this.sort == "undefined" ? "best" : this.sort;
 
     created() {}
 
     private changeUrl() {
-        this.$router.push({ query: { sector: encodeURI(this.selectedSector.prop), digital_goods: encodeURI(this.selectedDigitalGood.prop), sort: encodeURI(this.selectedSort.prop) } });
+        this.$router.push({
+            query: {
+                sector: encodeURI(this.selectedSector.prop || this.selectedSector),
+                digital_goods: encodeURI(this.selectedDigitalGood.prop || this.selectedDigitalGood),
+                sort: encodeURI(this.selectedSort.prop || this.selectedSort)
+            }
+        });
     }
 
     @Watch("selectedDigitalGood")

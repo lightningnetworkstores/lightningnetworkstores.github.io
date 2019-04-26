@@ -1,7 +1,10 @@
 <template>
     <v-flex xs12 sm6 md4 lg4 pa-3>
         <v-card hover @click.native="gotoStore()">
-            <v-img :src="image" max-height="150px" position="top center" class="text-xs-right"><v-chip color="green" text-color="white" class="ma-2">Trending</v-chip></v-img>
+            <v-img :src="image" max-height="170px" position="top center" class="text-xs-right"
+                ><v-chip v-if="score.trending >= 8" color="purple" text-color="white" class="ma-2">Trending</v-chip
+                ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip></v-img
+            >
             <v-layout>
                 <vote v-bind:store="store"></vote>
 
@@ -33,12 +36,19 @@ import Vote from "@/components/Vote.vue";
 export default class StoreCard extends Vue {
     @Prop() store!: Store;
     image: any = {};
+    score: any = {};
 
     async created() {
         this.image = this.$store.getters.getImage(this.store.id);
+        this.score = this.$store.getters.getScore(this.store.id);
     }
+
     private gotoStore() {
         this.$router.push({ path: `/store/${this.store.id}` });
+    }
+
+    get isNewStore(): boolean {
+        return new Date(this.store.added * 1000 + 86400000 * 20) > new Date();
     }
 }
 </script>

@@ -7,7 +7,7 @@
                 </v-flex>
 
                 <v-flex xs12 pa-2>
-                    <span class="caption">{{ upvotes | number }}</span>
+                    <span class="caption">{{ score.upvotes | number }}</span>
                 </v-flex>
 
                 <v-flex xs12>
@@ -25,9 +25,11 @@
                 </v-flex>
             </v-layout>
             <v-layout row>
-                <v-flex shrink pa-3>{{ upvotes | number }}</v-flex>
-                <v-flex grow pa-1><v-progress-linear color="success" background-color="error" height="15" :value="(upvotes / (upvotes + downvotes)) * 100"></v-progress-linear></v-flex>
-                <v-flex shrink pa-3>{{ downvotes | number }}</v-flex>
+                <v-flex shrink pa-3>{{ score.upvotes | number }}</v-flex>
+                <v-flex grow pa-1
+                    ><v-progress-linear color="success" background-color="error" height="15" :value="(score.upvotes / (score.upvotes + score.downvotes)) * 100"></v-progress-linear
+                ></v-flex>
+                <v-flex shrink pa-3>{{ score.downvotes | number }}</v-flex>
             </v-layout>
         </div>
         <!-- Upvote store modal -->
@@ -105,8 +107,7 @@ export default class StoreCard extends Vue {
     @Prop() store!: Store;
     @Prop() isInfo!: boolean;
 
-    upvotes: number = 0;
-    downvotes: number = 0;
+    score: any = {};
 
     isUpvoting: boolean = true;
 
@@ -125,9 +126,7 @@ export default class StoreCard extends Vue {
     }
 
     private setScore() {
-        let score = this.$store.getters.getScore(this.store.id);
-        this.upvotes = score[0];
-        this.downvotes = score[1];
+        this.score = this.$store.getters.getScore(this.store.id);
     }
 
     private vote(upvote: boolean) {

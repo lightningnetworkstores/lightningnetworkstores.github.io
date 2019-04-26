@@ -38,17 +38,17 @@ export default new Vuex.Store({
                     break;
                 case "trending":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id.toString()] || [0])[0] - (state.scores[a.id.toString()] || [0])[0];
+                        return (state.scores[b.id.toString()] || [0])[2] - (state.scores[a.id.toString()] || [0])[2];
                     });
                     break;
                 case "newest":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id.toString()] || [0])[0] - (state.scores[a.id.toString()] || [0])[0];
+                        return b.added - a.added;
                     });
                     break;
                 case "controversial":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id.toString()] || [0])[0] - (state.scores[a.id.toString()] || [0])[0];
+                        return (state.scores[b.id.toString()] || [0])[1] - (state.scores[a.id.toString()] || [0])[1];
                     });
                     break;
                 default:
@@ -61,7 +61,8 @@ export default new Vuex.Store({
             return stores;
         },
         getScore: state => (id: number) => {
-            return state.scores[id.toString()] || [0, 0, 0];
+            let score = state.scores[id.toString()] || [0, 0, 0];
+            return { upvotes: score[0], downvotes: score[1], trending: score[2] };
         },
         getImage: state => (id: number) => {
             try {

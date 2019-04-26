@@ -1,7 +1,7 @@
 <template>
     <div class="store-list">
         <v-layout justify-center>
-            <v-flex xs12 md12 lg8>
+            <v-flex xs12 md12 lg10 xl8>
                 <v-container fluid grid-list-md>
                     <v-layout row wrap>
                         <store-card v-for="store in stores" :key="store.id" :store="store"></store-card>
@@ -34,6 +34,7 @@ export default class StoreList extends Vue {
         console.log("Sort: " + this.sort);
 
         this.getStores();
+        this.$forceUpdate();
     }
 
     @Watch("sector")
