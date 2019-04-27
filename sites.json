@@ -2894,5 +2894,14 @@
     "description": "change the message on this clock live",
     "sector": "other",
     "added": 1556371584
+  },
+  {
+    "id": 1577,
+    "name": "Lightning Hosted",
+    "href": "http://lightninghosted.com/",
+    "uri": "unknown",
+    "description": "LightingHosted is an image hosting service that uses the bitcoin lightning network to share advertising revenue with users.",
+    "sector": "other",
+    "added": 1556375808
   }
 ]
