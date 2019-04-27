@@ -2862,7 +2862,7 @@
     "name": "Giver Of Bitcoin",
     "href": "https://giverofbitcoin.fun/",
     "uri": "unknown",
-    "description": "Technology through fun ",
+    "description": "I give 5 satoshis to everyone for free and without any conditions.",
     "sector": "technology",
     "added": 1556264448
   },
@@ -2885,5 +2885,14 @@
     "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1556290816
+  },
+  {
+    "id": 1572,
+    "name": "blockclock.live",
+    "href": "https://www.blockclock.live/",
+    "uri": "03df257120256b5f0b87d25659946d42067a094c765bff830eb66d6ffba6f4d5da@38.87.54.164:9735",
+    "description": "change the message on this clock live",
+    "sector": "other",
+    "added": 1556371584
   }
 ]
