@@ -51,6 +51,11 @@ export default new Vuex.Store({
                         return (state.scores[b.id.toString()] || [0])[1] - (state.scores[a.id.toString()] || [0])[1];
                     });
                     break;
+                case "lastcommented":
+                    stores.sort((a: Store, b: Store) => {
+                        return (state.scores[b.id.toString()] || [0])[3] - (state.scores[a.id.toString()] || [0])[3];
+                    });
+                    break;
                 default:
                     stores.sort((a: Store, b: Store) => {
                         return (state.scores[b.id.toString()] || [0])[0] - (state.scores[a.id.toString()] || [0])[0];
@@ -62,7 +67,7 @@ export default new Vuex.Store({
         },
         getScore: state => (id: number) => {
             let score = state.scores[id.toString()] || [0, 0, 0];
-            return { upvotes: score[0], downvotes: score[1], trending: score[2] };
+            return { upvotes: score[0], downvotes: score[1], trending: score[2], lastCommented: score[3] };
         },
         getImage: state => (id: number) => {
             try {

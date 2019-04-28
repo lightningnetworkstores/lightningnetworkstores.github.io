@@ -7,4 +7,5 @@ export interface Store {
     sector: string;
     added: number;
     digital_goods: string;
+    img_position: string;
 }

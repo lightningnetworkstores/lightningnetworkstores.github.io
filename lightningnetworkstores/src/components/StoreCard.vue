@@ -1,7 +1,7 @@
 <template>
     <v-flex xs12 sm6 md4 lg4 pa-3>
         <v-card hover @click.native="gotoStore()">
-            <v-img :src="image" max-height="170px" position="top center" class="text-xs-right"
+            <v-img :src="image" height="170px" :position="!store.img_position ? 'top center' : store.img_position" class="text-xs-right"
                 ><v-chip v-if="score.trending >= 8" color="purple" text-color="white" class="ma-2">Trending</v-chip
                 ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip></v-img
             >

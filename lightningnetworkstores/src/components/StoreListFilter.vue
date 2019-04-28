@@ -43,7 +43,13 @@ export default class StoreList extends Vue {
         { name: "All", prop: "all" }
     ];
 
-    sortItems: any[] = [{ name: "Best", prop: "best" }, { name: "Trending", prop: "trending" }, { name: "Newest", prop: "newest" }, { name: "Controversial", prop: "controversial" }];
+    sortItems: any[] = [
+        { name: "Best", prop: "best" },
+        { name: "Trending", prop: "trending" },
+        { name: "Newest", prop: "newest" },
+        { name: "Controversial", prop: "controversial" },
+        { name: "Last commented", prop: "lastcommented" }
+    ];
 
     selectedDigitalGood: any = this.digitalGoods == "undefined" ? "all" : this.digitalGoods;
     selectedSector: any = this.sector == "undefined" ? "all" : this.sector;
