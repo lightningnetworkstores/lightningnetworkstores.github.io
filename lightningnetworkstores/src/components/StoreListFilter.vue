@@ -22,13 +22,14 @@ export default class StoreList extends Vue {
     @Prop() sort!: string;
 
     digitalGoodItems: any[] = [
+        { name: "All", prop: "all" },
         { name: "Yes", prop: "yes" },
         { name: "No, goods shipped", prop: "no, goods shipped" },
-        { name: "No, goods only in-store", prop: "no, goods only in-store" },
-        { name: "All", prop: "all" }
+        { name: "No, goods only in-store", prop: "no, goods only in-store" }
     ];
 
     sectorItems: any[] = [
+        { name: "All", prop: "all" },
         { name: "Technology", prop: "technology" },
         { name: "Security", prop: "security" },
         { name: "Clothing", prop: "clothing" },
@@ -39,8 +40,7 @@ export default class StoreList extends Vue {
         { name: "Art", prop: "art" },
         { name: "Drugs & Supplements", prop: "drugs&supplements" },
         { name: "Cryptocurrency merchandise", prop: "cryptocurrency merchandise" },
-        { name: "Other", prop: "other" },
-        { name: "All", prop: "all" }
+        { name: "Other", prop: "other" }
     ];
 
     sortItems: any[] = [
@@ -48,7 +48,7 @@ export default class StoreList extends Vue {
         { name: "Trending", prop: "trending" },
         { name: "Newest", prop: "newest" },
         { name: "Controversial", prop: "controversial" },
-        { name: "Last commented", prop: "lastcommented" }
+        { name: "Last commented", prop: "last commented" }
     ];
 
     selectedDigitalGood: any = this.digitalGoods == "undefined" ? "all" : this.digitalGoods;

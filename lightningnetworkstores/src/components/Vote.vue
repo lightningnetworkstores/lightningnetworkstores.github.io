@@ -7,7 +7,7 @@
                 </v-flex>
 
                 <v-flex xs12 pa-2>
-                    <span class="caption">{{ score.upvotes | number }}</span>
+                    <span class="caption">{{ (score.upvotes - score.downvotes) | number }}</span>
                 </v-flex>
 
                 <v-flex xs12>
