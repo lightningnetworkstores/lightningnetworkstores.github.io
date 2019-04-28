@@ -2903,5 +2903,15 @@
     "description": "LightingHosted is an image hosting service that uses the bitcoin lightning network to share advertising revenue with users.",
     "sector": "other",
     "added": 1556375808
+  },
+  {
+    "id": 1582,
+    "name": "AutoSky North",
+    "href": "https://autoskynorth.co.uk/shop/",
+    "uri": "unknown",
+    "description": "Purchase aerial pictures using the lightning network",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1556449920
   }
 ]
