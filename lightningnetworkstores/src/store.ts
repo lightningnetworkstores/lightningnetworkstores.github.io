@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 import { Store } from "./interfaces/Store";
 import { Score } from "./interfaces/Score";
 
@@ -7,6 +8,8 @@ const stores: Store[] = require("../data/sites.json");
 const scores: any = require("../data/storeScores.json");
 
 Vue.use(Vuex);
+
+const baseUrl = "https://lightningnetworkstores.com/";
 
 export default new Vuex.Store({
     state: {
@@ -100,6 +103,27 @@ export default new Vuex.Store({
             return "https://www.luckythunder.com/img/ogimage.png";
         }
     },
-    mutations: {},
-    actions: {}
+    actions: {
+        getStoreVotePaymentRequest({}, { id, amount, isUpvote }) {
+            return axios
+                .get(`${baseUrl}get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        },
+        checkPayment({}, { id: id }) {
+            return axios
+                .get(`${baseUrl}check_payment?id=${id}`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        }
+    },
+    mutations: {}
 });

@@ -33,15 +33,30 @@
             </v-layout>
         </div>
         <!-- Upvote store modal -->
-        <v-dialog v-model="showDialog" max-width="500">
+        <v-dialog v-model="showDialog" persistent max-width="500">
             <v-card>
-                <v-card-title class="headline">
-                    <v-layout row>
-                        <v-flex grow><span v-if="isUpvoting">Upvote</span><span v-else>Downvote</span>&nbsp;{{ store.name }}</v-flex>
-                        <v-flex shrink v-if="paymentRequest"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
+                <div v-if="paymentRequest && isPaid" class="text-xs-center">
+                    <!-- paymentRequest && isPaid -->
+                    <v-card-title class="headline">
+                        <v-layout row>
+                            <v-flex>Payment successful</v-flex>
+                        </v-layout>
+                    </v-card-title>
+                    <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
+                    <v-layout row mt-2>
+                        <v-flex
+                            >Go to <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
+                        >
                     </v-layout>
-                </v-card-title>
-                <form @submit.prevent="submitEdit">
+                </div>
+
+                <div v-else>
+                    <v-card-title class="headline">
+                        <v-layout row>
+                            <v-flex grow><span v-if="isUpvoting">Upvote</span><span v-else>Downvote</span>&nbsp;{{ store.name }}</v-flex>
+                            <v-flex shrink v-if="paymentRequest && !isPaid"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
+                        </v-layout>
+                    </v-card-title>
                     <v-layout row>
                         <v-flex pl-3 pr-3 v-if="!paymentRequest.length">
                             <v-text-field
@@ -75,23 +90,22 @@
                             </v-flex>
                         </v-layout>
                     </div>
+                </div>
+                <v-layout row>
+                    <v-flex pl-3 pr-3> </v-flex>
+                </v-layout>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3> </v-flex>
-                    </v-layout>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
 
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" flat="flat" @click="cancel">
+                        {{ paymentRequest && isPaid ? "Close" : "Cancel" }}
+                    </v-btn>
 
-                        <v-btn color="green darken-1" flat="flat" @click="cancel">
-                            Cancel
-                        </v-btn>
-
-                        <v-btn color="green darken-1" flat="flat" @click="getInvoice" v-if="!paymentRequest.length">
-                            Get invoice
-                        </v-btn>
-                    </v-card-actions>
-                </form>
+                    <v-btn color="green darken-1" flat="flat" @click="getInvoice" v-if="!paymentRequest.length">
+                        Get invoice
+                    </v-btn>
+                </v-card-actions>
             </v-card>
         </v-dialog>
     </div>
@@ -112,16 +126,16 @@ export default class StoreCard extends Vue {
     isUpvoting: boolean = true;
 
     showDialog: boolean = false;
-    upvoteDialogForm: object = { amount: 1000 };
+    upvoteDialogForm: any = { amount: 1000 };
 
     paymentRequest: string = "";
+    paymentID: string = "";
+    expiryTime: Date = new Date();
+    isPaid: boolean = false;
 
     checkPaymentTimer: any;
 
     async created() {
-        this.checkPaymentTimer = setInterval(() => {
-            this.checkPayment();
-        }, 3000);
         this.setScore();
     }
 
@@ -132,11 +146,6 @@ export default class StoreCard extends Vue {
     private vote(upvote: boolean) {
         this.isUpvoting = upvote;
         this.showDialog = true;
-        if (upvote) {
-            console.log("upvote");
-        } else {
-            console.log("downvote");
-        }
     }
 
     private copy() {
@@ -146,22 +155,66 @@ export default class StoreCard extends Vue {
     }
 
     private cancel() {
-        clearInterval(this.checkPaymentTimer);
         if (this.paymentRequest.length > 0) {
             this.paymentRequest = "";
         } else {
-            this.showDialog = false;
+            this.closeDialog();
         }
+
+        if (!this.isPaid) {
+            clearInterval(this.checkPaymentTimer);
+        } else {
+            this.closeDialog();
+        }
+    }
+
+    private closeDialog() {
+        this.upvoteDialogForm.amount = 1000;
+        this.showDialog = false;
+        this.isPaid = false;
+        this.paymentID = "";
     }
 
     private getInvoice() {
         //todo: do request to get invoice
-        this.paymentRequest =
-            "lnbc250u1pwt46zypp54jkdggjvguk95e2nsjq3hny985snmja6kxmd79chm89pwrg8ucwsdpgf36kx6me23582mnyv4ezucm0d5s8q6tw8gcrwdfjcqzpgxqzuyjr3qnzmtxlnpyxhqgzvsy4n556jx9urwt4440g58p8g00y2tm34ymy80fwpj0dujlvj08c55mwxn08kcfm8dfhecglptp0ppwjp08xcq9qe8ph";
+        this.$store.dispatch("getStoreVotePaymentRequest", { id: this.store.id, amount: this.upvoteDialogForm.amount, isUpvote: this.isUpvoting }).then(
+            response => {
+                this.paymentRequest = response.data.payment_request;
+                this.paymentID = response.data.id;
+                let date = new Date();
+                this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600));
+                this.checkPaymentTimer = setInterval(() => {
+                    this.checkPayment();
+                }, 3000);
+            },
+            error => {
+                console.error(error);
+            }
+        );
     }
 
     private checkPayment() {
         //todo: check if payment is done
+        if (this.expiryTime > new Date()) {
+            this.$store.dispatch("checkPayment", { id: this.paymentID }).then(
+                response => {
+                    if (response.data) {
+                        this.isPaid = true;
+                        clearInterval(this.checkPaymentTimer);
+                    }
+                },
+                error => {
+                    console.error(error);
+                }
+            );
+        } else {
+            this.stopPayment();
+        }
+    }
+
+    private stopPayment() {
+        clearInterval(this.checkPaymentTimer);
+        this.paymentRequest = "";
     }
 }
 </script>
