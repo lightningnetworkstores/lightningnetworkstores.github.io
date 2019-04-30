@@ -66,6 +66,7 @@
                                 hint=""
                                 :rules="[v => !!v || 'Amount is required']"
                             ></v-text-field>
+                            <v-text-field v-model="upvoteDialogForm.comment" type="text" label="Comment (optional)"></v-text-field>
                         </v-flex>
                     </v-layout>
 
@@ -126,7 +127,7 @@ export default class StoreCard extends Vue {
     isUpvoting: boolean = true;
 
     showDialog: boolean = false;
-    upvoteDialogForm: any = { amount: 1000 };
+    upvoteDialogForm: any = { amount: 1000, comment: "" };
 
     paymentRequest: string = "";
     paymentID: string = "";
@@ -169,7 +170,7 @@ export default class StoreCard extends Vue {
     }
 
     private closeDialog() {
-        this.upvoteDialogForm.amount = 1000;
+        this.upvoteDialogForm = { amount: 1000, comment: "" };
         this.showDialog = false;
         this.isPaid = false;
         this.paymentID = "";
@@ -177,7 +178,7 @@ export default class StoreCard extends Vue {
 
     private getInvoice() {
         //todo: do request to get invoice
-        this.$store.dispatch("getStoreVotePaymentRequest", { id: this.store.id, amount: this.upvoteDialogForm.amount, isUpvote: this.isUpvoting }).then(
+        this.$store.dispatch("getStoreVotePaymentRequest", { id: this.store.id, amount: this.upvoteDialogForm.amount, isUpvote: this.isUpvoting, comment: this.upvoteDialogForm.comment }).then(
             response => {
                 this.paymentRequest = response.data.payment_request;
                 this.paymentID = response.data.id;
