@@ -1391,16 +1391,6 @@
     "added": 1541892608
   },
   {
-    "id": 662,
-    "name": "PeanutBTC",
-    "href": "https://peanutbtc.co.uk/",
-    "uri": "02d662ddf6e5db93b0f6bb2de8d3bb7cac0872bb9ef41740e3113e72c59315aa0a@172.81.182.140:9735",
-    "description": "Buy peanut butter using the lightning network (UK only)",
-    "sector": "food",
-    "digital_goods": "no, goods shipped",
-    "added": 1541966976
-  },
-  {
     "id": 667,
     "name": "CoolWalletS",
     "href": "https://coolwallet.io/",
