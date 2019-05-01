@@ -1,5 +1,5 @@
 <template>
-    <div class="store-info">
+    <div class="store-info" v-if="loaded">
         <div>
             <v-breadcrumbs :items="breadCrumb">
                 <template v-slot:divider>
@@ -9,7 +9,7 @@
         </div>
         <v-layout justify-center row wrap class="my-4">
             <v-flex xs11 md8 lg6>
-                <v-img :src="image" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
+                <v-img :src="`${baseUrl}thumbnails/${store.id}.png`" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
                     ><v-chip color="success" text-color="white" class="ma-2 text-capitalize">New</v-chip>
                     <v-chip color="orange" text-color="white">
                         100
@@ -148,9 +148,10 @@ import Vote from "@/components/Vote.vue";
 export default class StoreInfo extends Vue {
     @Prop() storeId!: number;
     store!: Store;
-    image: any = {};
+    baseUrl: string = "";
     breadCrumb: any;
     showDialog: boolean = false;
+    loaded: boolean = false;
 
     editDialogProperties: object[] = [
         { name: "Name", prop: "name" },
@@ -163,20 +164,32 @@ export default class StoreInfo extends Vue {
     editDialogForm: object = { property: "", askOwner: true };
 
     created() {
-        this.store = this.$store.getters.getStore(this.storeId);
-        this.breadCrumb = [
-            {
-                text: "Stores",
-                disabled: false,
-                href: "/"
+        this.loaded = false;
+
+        this.baseUrl = this.$store.getters.getBaseUrl();
+
+        this.$store.dispatch("getStore", { id: this.storeId }).then(
+            response => {
+                this.store = response.data;
+                console.log(this.store);
+                this.breadCrumb = [
+                    {
+                        text: "Stores",
+                        disabled: false,
+                        href: "/"
+                    },
+                    {
+                        text: this.store.name,
+                        disabled: false,
+                        href: location.href
+                    }
+                ];
+                this.loaded = true;
             },
-            {
-                text: this.store.name,
-                disabled: false,
-                href: location.href
+            error => {
+                console.error(error);
             }
-        ];
-        this.image = this.$store.getters.getImage(this.store.id);
+        );
     }
 
     private showEditDialog() {

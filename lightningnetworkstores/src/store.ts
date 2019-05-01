@@ -13,36 +13,37 @@ const baseUrl = "https://lightningnetworkstores.com/";
 
 export default new Vuex.Store({
     state: {
-        stores: stores,
-        scores: scores
+        stores: [],
+        scores: []
     },
     getters: {
         getStore: state => (id: number) => {
-            return state.stores.find(store => store.id == id);
+            return state.stores.find((store: Store) => store.id == id);
         },
         getStores: state => ({ sector, digitalGoods }: any, sort: string): Store[] => {
             //filter
+            console.log(state.scores);
             let stores: Store[] = [];
             if ((!sector || sector == "undefined") && (!digitalGoods || digitalGoods == "undefined")) {
                 stores = state.stores;
             } else if (!digitalGoods || digitalGoods == "undefined") {
-                stores = sector !== "all" ? state.stores.filter(store => store.sector == sector) : state.stores;
+                stores = sector !== "all" ? state.stores.filter((store: any) => store.sector == sector) : state.stores;
             } else if (!sector || sector == "undefined") {
-                stores = digitalGoods !== "all" ? state.stores.filter(store => store.digital_goods == digitalGoods) : state.stores;
+                stores = digitalGoods !== "all" ? state.stores.filter((store: Store) => store.digital_goods == digitalGoods) : state.stores;
             } else {
-                let filteredBySector = sector !== "all" ? state.stores.filter(store => store.sector == sector) : state.stores;
-                stores = digitalGoods !== "all" ? filteredBySector.filter(store => store.digital_goods == digitalGoods) : filteredBySector;
+                let filteredBySector = sector !== "all" ? state.stores.filter((store: Store) => store.sector == sector) : state.stores;
+                stores = digitalGoods !== "all" ? filteredBySector.filter((store: Store) => store.digital_goods == digitalGoods) : filteredBySector;
             }
             //sort
             switch (sort) {
                 case "best":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id.toString()] || [0])[0] - (state.scores[a.id.toString()] || [0])[0];
+                        return (state.scores[b.id] || [0])[0] - (state.scores[a.id] || [0])[0];
                     });
                     break;
                 case "trending":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id.toString()] || [0])[2] - (state.scores[a.id.toString()] || [0])[2];
+                        return (state.scores[b.id] || [0])[2] - (state.scores[a.id] || [0])[2];
                     });
                     break;
                 case "newest":
@@ -52,17 +53,17 @@ export default new Vuex.Store({
                     break;
                 case "controversial":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id.toString()] || [0])[1] - (state.scores[a.id.toString()] || [0])[1];
+                        return (state.scores[b.id] || [0])[1] - (state.scores[a.id] || [0])[1];
                     });
                     break;
                 case "lastcommented":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id.toString()] || [0])[3] - (state.scores[a.id.toString()] || [0])[3];
+                        return (state.scores[b.id] || [0])[3] - (state.scores[a.id] || [0])[3];
                     });
                     break;
                 default:
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id.toString()] || [0])[0] - (state.scores[a.id.toString()] || [0])[0];
+                        return (state.scores[b.id] || [0])[0] - (state.scores[a.id] || [0])[0];
                     });
                     break;
             }
@@ -70,9 +71,8 @@ export default new Vuex.Store({
             return stores;
         },
         getScore: state => (id: number): Score => {
-            let score = state.scores[id.toString()] || [0, 0, 0];
+            let score = state.scores[id] || [0, 0, 0];
             let rank: any = 1;
-            console.log();
             if (score[0] - score[1] !== 0) {
                 for (var element in state.scores) {
                     if (state.scores.hasOwnProperty(element)) {
@@ -99,11 +99,41 @@ export default new Vuex.Store({
                 }
             }
         },
-        getImageUrl: state => (id: number) => {
-            return "https://www.luckythunder.com/img/ogimage.png";
+        getBaseUrl: state => () => {
+            return baseUrl;
         }
     },
     actions: {
+        getStore({}, { id: id }) {
+            return axios
+                .get(`${baseUrl}storeinfo?id=${id}`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        },
+        fetchStores({ commit }) {
+            axios
+                .get(`${baseUrl}sites.json`)
+                .then(response => {
+                    commit("setStores", response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        fetchScores({ commit }) {
+            axios
+                .get(`${baseUrl}storeScores.json`)
+                .then(response => {
+                    commit("setScores", response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
         getStoreVotePaymentRequest({}, { id, amount, isUpvote, comment }) {
             return axios
                 .get(`${baseUrl}get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}${comment ? "&comment=" + encodeURI(comment) : ""}`)
@@ -125,5 +155,12 @@ export default new Vuex.Store({
                 });
         }
     },
-    mutations: {}
+    mutations: {
+        setStores(state, stores) {
+            state.stores = stores;
+        },
+        setScores(state, scores) {
+            state.scores = scores;
+        }
+    }
 });

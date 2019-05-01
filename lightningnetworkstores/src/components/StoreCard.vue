@@ -1,20 +1,20 @@
 <template>
     <v-flex xs12 sm6 md4 lg4 pa-3>
         <v-card hover @click.native="gotoStore()">
-            <v-img :src="image" height="170px" :position="!store.img_position ? 'top center' : store.img_position" class="text-xs-right"
-                ><v-chip v-if="score.trending >= 8" color="purple" text-color="white" class="ma-2">Trending</v-chip><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip
-                ><v-chip color="orange" text-color="white" class="ma-2">{{ score.rank }}</v-chip></v-img
+            <v-img :src="`${baseUrl}thumbnails/${storeWithScore.id}.png`" height="170px" :position="!storeWithScore.img_position ? 'top center' : storeWithScore.img_position" class="text-xs-right"
+                ><v-chip v-if="storeWithScore.trending >= 8" color="purple" text-color="white" class="ma-2">Trending</v-chip
+                ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip><v-chip color="orange" text-color="white" class="ma-2">{{ storeWithScore.rank }}</v-chip></v-img
             >
             <v-layout>
-                <vote v-bind:store="store"></vote>
+                <vote v-bind:store="storeWithScore"></vote>
 
                 <v-flex>
                     <v-card-title primary-title class="pa-2">
                         <div>
                             <div class="headline">
-                                <a class="store-link" @click.stop :href="store.href">{{ store.name }}</a>
+                                <a class="store-link" @click.stop :href="storeWithScore.href">{{ storeWithScore.name }}</a>
                             </div>
-                            <span class="grey--text">{{ store.description }}</span>
+                            <span class="grey--text">{{ storeWithScore.description }}</span>
                         </div>
                     </v-card-title>
                 </v-flex>
@@ -36,12 +36,13 @@ import Vote from "@/components/Vote.vue";
 })
 export default class StoreCard extends Vue {
     @Prop() store!: Store;
-    score!: Score;
-    image: any = {};
+    storeWithScore: Store = this.store;
+    baseUrl: string = "";
 
     async created() {
-        this.image = this.$store.getters.getImage(this.store.id);
-        this.score = this.$store.getters.getScore(this.store.id);
+        this.baseUrl = this.$store.getters.getBaseUrl();
+        let score = this.$store.getters.getScore(this.store.id);
+        this.storeWithScore = Object.assign({}, this.store, score);
     }
 
     private gotoStore() {

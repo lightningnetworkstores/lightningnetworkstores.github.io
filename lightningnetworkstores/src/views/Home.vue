@@ -20,5 +20,11 @@ export default class Home extends Vue {
     @Prop() sector!: string;
     @Prop() digitalGoods!: string;
     @Prop() sort!: string;
+
+    beforeCreate() {
+        console.log("home beforeCreate");
+        this.$store.dispatch("fetchStores");
+        this.$store.dispatch("fetchScores");
+    }
 }
 </script>

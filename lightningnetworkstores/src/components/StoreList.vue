@@ -4,7 +4,7 @@
             <v-flex xs12 md12 lg10 xl8>
                 <v-container fluid grid-list-md>
                     <v-layout row wrap>
-                        <store-card v-for="store in stores" :key="store.id" :store="store"></store-card>
+                        <store-card v-for="store in getStores" :key="store.id" :store="store"></store-card>
                     </v-layout>
                 </v-container>
             </v-flex>
@@ -33,31 +33,26 @@ export default class StoreList extends Vue {
         console.log("Digital goods: " + this.digitalGoods);
         console.log("Sort: " + this.sort);
 
-        this.getStores();
         this.$forceUpdate();
     }
 
     @Watch("sector")
     private onSectorChanged(val: string, oldVal: string) {
-        this.getStores();
         this.$forceUpdate();
     }
 
     @Watch("digitalGoods")
     private onDigitalGoodsChanged(val: string, oldVal: string) {
-        this.getStores();
         this.$forceUpdate();
     }
 
     @Watch("sort")
     private onSortChanged(val: string, oldVal: string) {
-        this.getStores();
         this.$forceUpdate();
     }
 
-    private getStores() {
-        this.stores = this.$store.getters.getStores({ sector: this.sector, digitalGoods: this.digitalGoods }, this.sort);
-        console.log("Stores: " + this.stores.length);
+    get getStores() {
+        return this.$store.getters.getStores({ sector: this.sector, digitalGoods: this.digitalGoods }, this.sort);
     }
 }
 </script>

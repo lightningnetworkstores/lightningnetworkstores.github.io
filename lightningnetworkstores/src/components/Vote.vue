@@ -7,7 +7,7 @@
                 </v-flex>
 
                 <v-flex xs12 pa-2>
-                    <span class="caption">{{ (score.upvotes - score.downvotes) | number }}</span>
+                    <span class="caption">{{ (store.upvotes - store.downvotes) | number }}</span>
                 </v-flex>
 
                 <v-flex xs12>
@@ -25,11 +25,11 @@
                 </v-flex>
             </v-layout>
             <v-layout row>
-                <v-flex shrink pa-3>{{ score.upvotes | number }}</v-flex>
+                <v-flex shrink pa-3>{{ store.upvotes | number }}</v-flex>
                 <v-flex grow pa-1
-                    ><v-progress-linear color="success" background-color="error" height="15" :value="(score.upvotes / (score.upvotes + score.downvotes)) * 100"></v-progress-linear
+                    ><v-progress-linear color="success" background-color="error" height="15" :value="(store.upvotes / (store.upvotes + store.downvotes)) * 100"></v-progress-linear
                 ></v-flex>
-                <v-flex shrink pa-3>{{ score.downvotes | number }}</v-flex>
+                <v-flex shrink pa-3>{{ store.downvotes | number }}</v-flex>
             </v-layout>
         </div>
         <!-- Upvote store modal -->
@@ -136,13 +136,7 @@ export default class StoreCard extends Vue {
 
     checkPaymentTimer: any;
 
-    async created() {
-        this.setScore();
-    }
-
-    private setScore() {
-        this.score = this.$store.getters.getScore(this.store.id);
-    }
+    async created() {}
 
     private vote(upvote: boolean) {
         this.isUpvoting = upvote;
