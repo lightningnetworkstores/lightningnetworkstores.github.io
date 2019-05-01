@@ -620,16 +620,6 @@
     "added": 1531711488
   },
   {
-    "id": 87,
-    "name": "Thunder message",
-    "href": "http://thundermessage.com/",
-    "uri": "0374ecf61ed6c1208c42339f47decde2bc0c4393ac95f07827b3471e939d7eb961@54.37.22.216:9735",
-    "description": "Post messages and vote for the best ones using lightning.",
-    "sector": "other",
-    "digital_goods": "yes",
-    "added": 1531761536
-  },
-  {
     "id": 92,
     "name": "LicensePal",
     "href": "https://www.licensepal.com/",
