@@ -142,15 +142,6 @@
     "added": 1523048392
   },
   {
-    "id": 17,
-    "href": "https://bitcoinlightning.shop",
-    "uri": "03635fa1d555e95f6d7d30783542dbe8538d80b2bd5924ccd5938f70faa826254e@52.226.75.40:9735",
-    "name": "BitcoinLightning.shop",
-    "description": "Buy domain names, lightning nodes, and web hosting services.",
-    "sector": "technology",
-    "digital_goods": "yes"
-  },
-  {
     "id": 18,
     "href": "https://moonbanking.com/promote",
     "uri": "02b3877314aff657216ceac039244fe94e7116af10cfffac0232fefa5903c62a58@104.223.94.251:9735",
@@ -1478,9 +1469,6 @@
     "description": "Online shop selling metal Bitcoin wallets",
     "sector": "security",
     "digital_goods": "no, goods shipped",
-    "flags": {
-      "coming_soon": 1
-    },
     "added": 1542704768
   },
   {
@@ -2823,5 +2811,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1556487296
+  },
+  {
+    "id": 1612,
+    "name": "Lightning Blackjack",
+    "href": "https://www.lnblackjack.com/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "Provably fair blackjack over lightning.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1556781440
   }
 ]
