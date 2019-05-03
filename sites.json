@@ -1161,7 +1161,7 @@
     "href": "https://malechastitydevices.us/",
     "uri": "unknown",
     "description": "Male Chastity Devices",
-    "sector": "other",
+    "sector": "adult",
     "digital_goods": "no, goods shipped",
     "added": 1538480768
   },
@@ -1634,7 +1634,7 @@
     "href": "https://www.betcoin.com",
     "uri": "unknown",
     "description": "Sport Betting \u0026 Gaming",
-    "sector": "other",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1546649344
   },
@@ -1664,7 +1664,7 @@
     "href": "http://quesoselpilar.com",
     "uri": "unknown",
     "description": "Quesos manchegos realizados a mano desde hace 80 anos",
-    "sector": "other",
+    "sector": "food",
     "digital_goods": "no, goods shipped",
     "added": 1546706304
   },
@@ -1969,7 +1969,7 @@
     "href": "https://vapecrypto.com",
     "uri": "unknown",
     "description": "Online Vape Store",
-    "sector": "other",
+    "sector": "drugs\u0026supplements",
     "added": 1550023680
   },
   {
@@ -2360,7 +2360,7 @@
     "href": "https://vapecryptocbd.com",
     "uri": "unknown",
     "description": "Buy CBD Online with Bitcoin and LN and save 10%. Sister site of Vape Crypto.com. ",
-    "sector": "other",
+    "sector": "drugs\u0026supplements",
     "added": 1553389568
   },
   {
@@ -2665,7 +2665,7 @@
     "added": 1556120064
   },
   {
-    "id": 1537,
+    "id": 34,
     "name": "Host4Crypto",
     "href": "https://www.host4crypto.com",
     "uri": "028b6dc171f603467690f799b6a0d52b1f5a5b8977b1453440016ea7917f53925f@80.241.216.204:9735",
@@ -2812,5 +2812,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1556781440
+  },
+  {
+    "id": 1617,
+    "name": "Funraiden",
+    "href": "https://funraiden.com/",
+    "uri": "unknown",
+    "description": "A hand-curated geek shop",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1556895232
   }
 ]
