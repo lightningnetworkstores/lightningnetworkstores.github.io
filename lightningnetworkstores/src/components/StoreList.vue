@@ -9,6 +9,11 @@
                 </v-container>
             </v-flex>
         </v-layout>
+        <v-fab-transition>
+            <v-btn :model="true" color="green" dark fab fixed bottom right>
+                <v-icon>add</v-icon>
+            </v-btn>
+        </v-fab-transition>
     </div>
 </template>
 

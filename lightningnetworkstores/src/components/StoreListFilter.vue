@@ -1,7 +1,7 @@
 <template>
     <div class="store-list-filter">
         <v-layout justify-center>
-            <v-flex xs11 md8 lg5>
+            <v-flex xs11 md11 lg6>
                 <v-layout row pt-4 wrap>
                     <v-flex grow pa-1><v-combobox v-model="selectedSector" item-text="name" item-value="prop" label="Sector" :items="sectorItems" return-object></v-combobox></v-flex>
                     <v-flex grow pa-1><v-combobox v-model="selectedDigitalGood" item-text="name" item-value="prop" label="Digital goods" :items="digitalGoodItems" return-object></v-combobox></v-flex>
@@ -9,6 +9,106 @@
                 </v-layout>
             </v-flex>
         </v-layout>
+
+        <v-btn color="green" dark fab fixed bottom right @click="showAddDialog = true">
+            <v-icon>add</v-icon>
+        </v-btn>
+
+        <!-- Add store modal -->
+        <v-dialog v-model="showAddDialog" max-width="500" persistent>
+            <v-card>
+                <v-layout row v-if="addAlert.message.length">
+                    <v-flex pa-3>
+                        <v-alert :value="addAlert.message" :type="addAlert.success ? 'success' : 'error'" transition="scale-transition">
+                            {{ addAlert.message }}
+                        </v-alert>
+                    </v-flex>
+                </v-layout>
+
+                <v-card-title class="headline">Add store</v-card-title>
+                <v-form @submit.prevent="submitAdd" ref="addform">
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-text-field v-model="addDialogForm.value" label="name" hint="eg. LuckyThunder" :rules="[v => !!v || 'Name is required']"></v-text-field>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-text-field
+                                v-model="addDialogForm.description"
+                                label="Description"
+                                hint="eg. LuckyThunder is a LN Slotmachine..."
+                                :rules="[v => !!v || 'Description is required']"
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-text-field
+                                v-model="addDialogForm.websiteURL"
+                                label="Website URL"
+                                hint="eg. https://www.luckythunder.com"
+                                :rules="[v => !!v || 'Website URL is required']"
+                            ></v-text-field>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-text-field v-model="addDialogForm.nodeURI" label="Node URI (optional)" hint="eg. 7d1203ff06828625f421647950888a19cf30b5a635f@51.83.41.129:9735 (optional)"></v-text-field>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-combobox
+                                v-model="addDialogForm.sector"
+                                item-text="name"
+                                item-value="prop"
+                                label="Sector"
+                                :items="sectorItems"
+                                return-object
+                                :rules="[v => !!v || 'Sector is required']"
+                            ></v-combobox>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-combobox
+                                v-model="addDialogForm.digitalGoods"
+                                item-text="name"
+                                item-value="prop"
+                                label="Digital goods"
+                                :items="digitalGoodItems"
+                                return-object
+                                :rules="[v => !!v || 'Digital goods is required']"
+                            ></v-combobox>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3>
+                            <v-text-field v-model="addDialogForm.contributor" label="Contributor code (optional)"></v-text-field>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+
+                        <v-btn color="green darken-1" flat="flat" @click="showAddDialog = false">
+                            Cancel
+                        </v-btn>
+
+                        <v-btn color="green darken-1" flat="flat" type="submit">
+                            Send
+                        </v-btn>
+                    </v-card-actions>
+                </v-form>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -54,6 +154,10 @@ export default class StoreList extends Vue {
     selectedDigitalGood: any = this.digitalGoods == "undefined" ? "all" : this.digitalGoods;
     selectedSector: any = this.sector == "undefined" ? "all" : this.sector;
     selectedSort: any = this.sort == "undefined" ? "best" : this.sort;
+
+    showAddDialog: boolean = true;
+    addDialogForm: any = {};
+    addAlert: any = { message: "", success: true };
 
     created() {}
 

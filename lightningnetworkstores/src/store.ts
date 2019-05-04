@@ -13,8 +13,8 @@ const baseUrl = "https://lightningnetworkstores.com/";
 
 export default new Vuex.Store({
     state: {
-        stores: [],
-        scores: []
+        stores: stores,
+        scores: scores
     },
     getters: {
         getStore: state => (id: number) => {
@@ -147,6 +147,26 @@ export default new Vuex.Store({
         checkPayment({}, { id: id }) {
             return axios
                 .get(`${baseUrl}check_payment?id=${id}`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        },
+        addStoreUpdate({}, { id: id, field: field, value: value, askOwner: askOwner }) {
+            return axios
+                .get(`${baseUrl}addUpdate?storeID=${id}&field=${field}&newValue=${value}&requestOwner=${askOwner}`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        },
+        suggestBan({}, { id: id, name: name, message: message }) {
+            return axios
+                .get(`${baseUrl}suggestBan?id=${id}&name=${name}&message=${message}`)
                 .then(response => {
                     return Promise.resolve(response);
                 })

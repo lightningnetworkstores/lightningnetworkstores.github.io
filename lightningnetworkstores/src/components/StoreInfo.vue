@@ -34,7 +34,7 @@
                 </v-layout>
 
                 <!-- <v-layout row pb-3><a @click.stop :href="store.href">Visit website</a></v-layout> -->
-                <v-layout row v-if="store.uri.length">
+                <v-layout row v-if="store.uri && store.uri.toLowerCase() != 'unknown'">
                     <span class="break-word"
                         ><b>Node:&nbsp;</b><a :href="'https://1ml.com/node/' + store.uri.split('@')[0]">{{ store.uri }}</a></span
                     ></v-layout
@@ -62,19 +62,27 @@
                     </v-flex>
                     <v-flex shrink>
                         <v-btn flat icon color="grey darken-2">
-                            <v-icon small @click.stop="showDialog = true">fa-edit</v-icon>
+                            <v-icon small @click.stop="showEditDialog = true">fa-edit</v-icon>
                         </v-btn>
                         <v-btn flat icon color="grey darken-2">
-                            <v-icon small>fa-ban</v-icon>
+                            <v-icon small @click.stop="showBanDialog = true">fa-ban</v-icon>
                         </v-btn>
                     </v-flex>
                 </v-layout>
             </v-flex>
             <!-- Edit store modal -->
-            <v-dialog v-model="showDialog" max-width="500">
+            <v-dialog v-model="showEditDialog" max-width="500" persistent>
                 <v-card>
+                    <v-layout row v-if="editAlert.message.length">
+                        <v-flex pa-3>
+                            <v-alert :value="editAlert.message" :type="editAlert.success ? 'success' : 'error'" transition="scale-transition">
+                                {{ editAlert.message }}
+                            </v-alert>
+                        </v-flex>
+                    </v-layout>
+
                     <v-card-title class="headline">Suggest an edit for {{ store.name }}</v-card-title>
-                    <form @submit.prevent="submitEdit">
+                    <v-form @submit.prevent="submitEdit" ref="editform">
                         <v-layout row>
                             <v-flex pl-3 pr-3>
                                 <v-combobox
@@ -100,7 +108,7 @@
                                 <v-text-field v-model="editDialogForm.value" label="Value" hint="eg. www.new-url.com" :rules="[v => !!v || 'Value is required']"></v-text-field>
                             </v-flex>
                         </v-layout>
-
+                        <!--
                         <v-layout row>
                             <v-flex pl-3 pr-3>
                                 <v-textarea
@@ -111,7 +119,7 @@
                                 >
                                 </v-textarea>
                             </v-flex>
-                        </v-layout>
+                        </v-layout> -->
 
                         <v-layout row>
                             <v-flex pl-3 pr-3>
@@ -122,7 +130,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
 
-                            <v-btn color="green darken-1" flat="flat" @click="showDialog = false">
+                            <v-btn color="green darken-1" flat="flat" @click="showEditDialog = false">
                                 Cancel
                             </v-btn>
 
@@ -130,9 +138,42 @@
                                 Send
                             </v-btn>
                         </v-card-actions>
-                    </form>
+                    </v-form>
                 </v-card>
             </v-dialog>
+
+            <!-- Ban store modal -->
+            <v-dialog v-model="showBanDialog" max-width="500" persistent>
+                <v-card>
+                    <v-card-title class="headline">Suggest banning {{ store.name }}</v-card-title>
+                    <v-form @submit.prevent="submitBan" ref="banform">
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-textarea v-model="banDialogForm.motivation" label="Motivation" hint="eg. Its a scam! Because..." :rules="[v => !!v || 'Motivation is required']"> </v-textarea>
+                            </v-flex>
+                        </v-layout>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                            <v-btn color="green darken-1" flat="flat" @click="showBanDialog = false">
+                                Cancel
+                            </v-btn>
+
+                            <v-btn color="green darken-1" flat="flat" type="submit">
+                                Send
+                            </v-btn>
+                        </v-card-actions>
+                    </v-form>
+                </v-card>
+            </v-dialog>
+
+            <v-snackbar v-model="banSnackbar" color="info" :timeout="3000">
+                Ban suggestion recorded
+                <v-btn dark flat @click="snackbar = false">
+                    Close
+                </v-btn>
+            </v-snackbar>
         </v-layout>
     </div>
 </template>
@@ -150,8 +191,10 @@ export default class StoreInfo extends Vue {
     store!: Store;
     baseUrl: string = "";
     breadCrumb: any;
-    showDialog: boolean = false;
+    showEditDialog: boolean = false;
+    showBanDialog: boolean = false;
     loaded: boolean = false;
+    editAlert: any = { message: "", success: true };
 
     editDialogProperties: object[] = [
         { name: "Name", prop: "name" },
@@ -161,7 +204,10 @@ export default class StoreInfo extends Vue {
         { name: "Sector", prop: "sector" },
         { name: "Digital goods", prop: "digital_goods" }
     ];
-    editDialogForm: object = { property: "", askOwner: true };
+    editDialogForm: any = { property: "", askOwner: true };
+
+    banDialogForm: any = { motivation: "" };
+    banSnackbar: boolean = false;
 
     created() {
         this.loaded = false;
@@ -171,7 +217,6 @@ export default class StoreInfo extends Vue {
         this.$store.dispatch("getStore", { id: this.storeId }).then(
             response => {
                 this.store = response.data;
-                console.log(this.store);
                 this.breadCrumb = [
                     {
                         text: "Stores",
@@ -192,12 +237,41 @@ export default class StoreInfo extends Vue {
         );
     }
 
-    private showEditDialog() {
-        this.$router.replace({ query: { edit: "true" } });
+    private submitEdit() {
+        (this.$refs.editform as Vue & { validate: () => boolean }).validate();
+        if (this.storeId && this.editDialogForm.property.prop && this.editDialogForm.value) {
+            this.$store.dispatch("addStoreUpdate", { id: this.storeId, field: this.editDialogForm.property.prop, value: this.editDialogForm.value, askOwner: this.editDialogForm.askOwner }).then(
+                response => {
+                    this.editAlert.message = response.data;
+                    if (response.data.includes("The request was successfully recorded")) {
+                        this.editAlert.success = true;
+                    } else {
+                        this.editAlert.success = false;
+                    }
+                    this.editDialogForm = { property: "", askOwner: true };
+                },
+                error => {
+                    console.error(error);
+                }
+            );
+        }
     }
 
-    private submitEdit() {
-        console.log("submit");
+    private submitBan() {
+        (this.$refs.banform as Vue & { validate: () => boolean }).validate();
+        if (this.storeId && this.store.name && this.banDialogForm.motivation) {
+            this.$store.dispatch("suggestBan", { id: this.storeId, name: this.store.name, message: this.banDialogForm.motivation }).then(
+                response => {
+                    this.banDialogForm.motivation = "";
+                    this.showBanDialog = false;
+                    this.banSnackbar = true;
+                    console.log(this.banSnackbar);
+                },
+                error => {
+                    console.error(error);
+                }
+            );
+        }
     }
 }
 </script>

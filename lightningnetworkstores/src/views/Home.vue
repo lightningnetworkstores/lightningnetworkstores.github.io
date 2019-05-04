@@ -23,8 +23,8 @@ export default class Home extends Vue {
 
     beforeCreate() {
         console.log("home beforeCreate");
-        this.$store.dispatch("fetchStores");
-        this.$store.dispatch("fetchScores");
+        //this.$store.dispatch("fetchStores");
+        //this.$store.dispatch("fetchScores");
     }
 }
 </script>
