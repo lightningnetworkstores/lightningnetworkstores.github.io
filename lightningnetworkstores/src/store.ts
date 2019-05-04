@@ -104,6 +104,16 @@ export default new Vuex.Store({
         }
     },
     actions: {
+        addStore({}, { id: id }) {
+            return axios
+                .get(`${baseUrl}storeinfo?id=${id}`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        },
         getStore({}, { id: id }) {
             return axios
                 .get(`${baseUrl}storeinfo?id=${id}`)

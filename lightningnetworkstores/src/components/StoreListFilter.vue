@@ -24,89 +24,123 @@
                         </v-alert>
                     </v-flex>
                 </v-layout>
-
-                <v-card-title class="headline">Add store</v-card-title>
-                <v-form @submit.prevent="submitAdd" ref="addform">
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-text-field v-model="addDialogForm.value" label="name" hint="eg. LuckyThunder" :rules="[v => !!v || 'Name is required']"></v-text-field>
-                        </v-flex>
+                <div v-if="paymentRequest && isPaid" class="text-xs-center">
+                    <!-- paymentRequest && isPaid -->
+                    <v-card-title class="headline">
+                        <v-layout row>
+                            <v-flex>Payment successful</v-flex>
+                        </v-layout>
+                    </v-card-title>
+                    <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
+                    <v-layout row mt-2>
+                        <v-flex
+                            >Go to <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
+                        >
                     </v-layout>
+                </div>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-text-field
-                                v-model="addDialogForm.description"
-                                label="Description"
-                                hint="eg. LuckyThunder is a LN Slotmachine..."
-                                :rules="[v => !!v || 'Description is required']"
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
+                <div v-else>
+                    <v-card-title class="headline">Automatically add new store!</v-card-title>
+                    <v-form @submit.prevent="submitAdd" ref="addform">
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-text-field v-model="addDialogForm.value" label="Name" hint="eg. LuckyThunder" :rules="[v => !!v || 'Name is required']"></v-text-field>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-text-field
-                                v-model="addDialogForm.websiteURL"
-                                label="Website URL"
-                                hint="eg. https://www.luckythunder.com"
-                                :rules="[v => !!v || 'Website URL is required']"
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-text-field
+                                    v-model="addDialogForm.description"
+                                    label="Description"
+                                    hint="eg. LuckyThunder is a LN Slotmachine..."
+                                    :rules="[v => !!v || 'Description is required']"
+                                ></v-text-field>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-text-field v-model="addDialogForm.nodeURI" label="Node URI (optional)" hint="eg. 7d1203ff06828625f421647950888a19cf30b5a635f@51.83.41.129:9735 (optional)"></v-text-field>
-                        </v-flex>
-                    </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-text-field
+                                    v-model="addDialogForm.websiteURL"
+                                    label="Website URL"
+                                    hint="eg. https://www.luckythunder.com"
+                                    :rules="[v => !!v || 'Website URL is required']"
+                                ></v-text-field>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-combobox
-                                v-model="addDialogForm.sector"
-                                item-text="name"
-                                item-value="prop"
-                                label="Sector"
-                                :items="sectorItems"
-                                return-object
-                                :rules="[v => !!v || 'Sector is required']"
-                            ></v-combobox>
-                        </v-flex>
-                    </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-text-field
+                                    v-model="addDialogForm.nodeURI"
+                                    label="Node URI (optional)"
+                                    hint="eg. 7d1203ff06828625f421647950888a19cf30b5a635f@51.83.41.129:9735 (optional)"
+                                ></v-text-field>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-combobox
-                                v-model="addDialogForm.digitalGoods"
-                                item-text="name"
-                                item-value="prop"
-                                label="Digital goods"
-                                :items="digitalGoodItems"
-                                return-object
-                                :rules="[v => !!v || 'Digital goods is required']"
-                            ></v-combobox>
-                        </v-flex>
-                    </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-combobox
+                                    v-model="addDialogForm.sector"
+                                    item-text="name"
+                                    item-value="prop"
+                                    label="Sector"
+                                    :items="sectorItems"
+                                    return-object
+                                    :rules="[v => !!v || 'Sector is required']"
+                                ></v-combobox>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-layout row>
-                        <v-flex pl-3 pr-3>
-                            <v-text-field v-model="addDialogForm.contributor" label="Contributor code (optional)"></v-text-field>
-                        </v-flex>
-                    </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-combobox
+                                    v-model="addDialogForm.digitalGoods"
+                                    item-text="name"
+                                    item-value="prop"
+                                    label="Digital goods"
+                                    :items="digitalGoodItems"
+                                    return-object
+                                    :rules="[v => !!v || 'Digital goods is required']"
+                                ></v-combobox>
+                            </v-flex>
+                        </v-layout>
 
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-text-field v-model="addDialogForm.contributor" label="Contributor code (optional)"></v-text-field>
+                            </v-flex>
+                        </v-layout>
 
-                        <v-btn color="green darken-1" flat="flat" @click="showAddDialog = false">
-                            Cancel
-                        </v-btn>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-checkbox v-model="addDialogForm.agreeRemoved" label="I agree that the store may be removed later if it disables lightning payments"></v-checkbox>
+                            </v-flex>
+                        </v-layout>
 
-                        <v-btn color="green darken-1" flat="flat" type="submit">
-                            Send
-                        </v-btn>
-                    </v-card-actions>
-                </v-form>
+                        <v-layout row>
+                            <v-flex grow></v-flex>
+                            <v-flex pl-3 pr-3 shrink>
+                                <vue-recaptcha sitekey="6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj"></vue-recaptcha>
+                            </v-flex>
+                            <v-flex grow></v-flex>
+                        </v-layout>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                            <v-btn color="green darken-1" flat="flat" @click="showAddDialog = false">
+                                Cancel
+                            </v-btn>
+
+                            <v-btn color="green darken-1" flat="flat" type="submit">
+                                Send
+                            </v-btn>
+                        </v-card-actions>
+                    </v-form>
+                </div>
             </v-card>
         </v-dialog>
     </div>
@@ -114,8 +148,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import VueRecaptcha from "vue-recaptcha";
 
-@Component
+@Component({ components: { VueRecaptcha } })
 export default class StoreList extends Vue {
     @Prop() sector!: string;
     @Prop() digitalGoods!: string;
@@ -158,6 +193,11 @@ export default class StoreList extends Vue {
     showAddDialog: boolean = true;
     addDialogForm: any = {};
     addAlert: any = { message: "", success: true };
+
+    paymentRequest: string = "";
+    paymentID: string = "";
+    expiryTime: Date = new Date();
+    isPaid: boolean = false;
 
     created() {}
 
