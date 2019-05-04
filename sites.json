@@ -2822,5 +2822,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1556895232
+  },
+  {
+    "id": 1622,
+    "name": "Bloom Audio",
+    "href": "https://bloomaudio.com/",
+    "uri": "unknown",
+    "description": "Headphones and Much More",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1556987136
   }
 ]
