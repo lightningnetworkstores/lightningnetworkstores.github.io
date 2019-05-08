@@ -104,9 +104,13 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        addStore({}, { id: id }) {
+        addStore({}, { name: name, description: description, url: url, uri: uri, sector: sector, digitalGoods: digitalGoods, contributor: contributor, recaptcha: recaptcha }) {
             return axios
-                .get(`${baseUrl}storeinfo?id=${id}`)
+                .get(
+                    `${baseUrl}addStore?name=${encodeURI(name)}&description=${encodeURI(
+                        description
+                    )}&URL=${url}&URI=${uri}&sector=${sector}&digitalGoods=${digitalGoods}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
+                )
                 .then(response => {
                     return Promise.resolve(response);
                 })

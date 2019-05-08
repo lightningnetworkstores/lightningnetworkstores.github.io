@@ -193,7 +193,7 @@ export default class StoreCard extends Vue {
         if (this.expiryTime > new Date()) {
             this.$store.dispatch("checkPayment", { id: this.paymentID }).then(
                 response => {
-                    if (response.data) {
+                    if (response.data == true) {
                         this.isPaid = true;
                         clearInterval(this.checkPaymentTimer);
                     }
