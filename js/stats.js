@@ -368,13 +368,23 @@ function changeCoinmap(){
 function setBannerValues(){
     document.getElementById('storeNumberNow').innerHTML = addedTimes.length
     
-    var lastMonthStart = Math.round( (new Date().getTime() - daysOfRatio*24*60*60*1000)/1000 )
+    lastMonthStart = Math.round( (new Date().getTime() - daysOfRatio*24*60*60*1000)/1000 )
     var LNstoresLastMonth = addedTimes.length - addedTimes.findIndex(function(el){return el > lastMonthStart})
-    var coinmapLastMonth = coinmap[coinmap.length - 1][1] - coinmap[coinmap.length - 1 - LNstoresLastMonth][1]
+    var coinmapLastMonth = coinmap[coinmap.length - 1][1] - coinmapStoresOneMonthAgo(lastMonthStart)
     
     document.getElementById('ratioNow').innerHTML = Math.round(100*LNstoresLastMonth/coinmapLastMonth, 1) + '%'
 
 
+}
+
+function coinmapStoresOneMonthAgo(lastMonthStart){
+
+    for(var i=0; i < coinmap.length; i++){
+        if (coinmap[i][0] > lastMonthStart){
+            return coinmap[i][1]
+        }
+    }
+    return coinmap[i][coinmap.length - 1][1]
 }
 
 function chooseRandomStore(){
