@@ -2842,5 +2842,14 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1557398528
+  },
+  {
+    "id": 1672,
+    "name": "lndrive",
+    "href": "https://lndrive.space",
+    "uri": "unknown",
+    "description": "Host files on IPFS using lightning.",
+    "sector": "technology",
+    "added": 1557423872
   }
 ]
