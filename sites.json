@@ -2851,5 +2851,15 @@
     "description": "Host files on IPFS using lightning.",
     "sector": "technology",
     "added": 1557423872
+  },
+  {
+    "id": 1682,
+    "name": "Bitstop Store",
+    "href": "https://store.bitstop.co/",
+    "uri": "02a25d19fd55ae8635905fa1009666aa24444f6aa5cb3f8dd55c68f5e1201dfc1e@172.81.180.35:9735",
+    "description": "Bitcoin Swag",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1557433344
   }
 ]
