@@ -2832,5 +2832,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1556987136
+  },
+  {
+    "id": 1667,
+    "name": "CheapBitcoinBuys",
+    "href": "http://www.cheapbitcoinbuys.com",
+    "uri": "unknown",
+    "description": "Buy and do silly things for micro payments",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1557398528
   }
 ]
