@@ -2861,5 +2861,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1557433344
+  },
+  {
+    "id": 1697,
+    "name": "BitKikis",
+    "href": "https://www.bitkiks.com/",
+    "uri": "unknown",
+    "description": "Bitcoin designer sneakers and footwear.",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1557495808
   }
 ]
