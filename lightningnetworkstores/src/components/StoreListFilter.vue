@@ -49,7 +49,7 @@
                                     v-model="addDialogForm.description"
                                     label="Description"
                                     hint="eg. LuckyThunder is a LN Slotmachine..."
-                                    :rules="[v => !!v || 'Description is required', v => v && (v.length > 6 && v.split(/\b(\s)/).length > 1) || 'Enter a clear description of the store']"
+                                    :rules="[v => !!v || 'Description is required', v => (v && (v.length > 6 && v.split(/\b(\s)/).length > 1)) || 'Enter a clear description of the store']"
                                 ></v-text-field>
                             </v-flex>
                         </v-layout>
@@ -60,7 +60,13 @@
                                     v-model="addDialogForm.url"
                                     label="Website URL"
                                     hint="eg. https://www.luckythunder.com"
-                                    :rules="[v => !!v || 'Website URL is required', v => /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(v) || 'Enter a valid url eg. https://www.luckythunder.com']"
+                                    :rules="[
+                                        v => !!v || 'Website URL is required',
+                                        v =>
+                                            /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+                                                v
+                                            ) || 'Enter a valid url eg. https://www.luckythunder.com'
+                                    ]"
                                 ></v-text-field>
                             </v-flex>
                         </v-layout>
@@ -96,7 +102,7 @@
                                     item-text="name"
                                     item-value="prop"
                                     label="Digital goods"
-                                    :items="digitalGoodItems"
+                                    :items="digitalGoodFormItems"
                                     return-object
                                     :rules="[v => !!v || 'Digital goods is required']"
                                 ></v-combobox>
@@ -161,6 +167,8 @@ export default class StoreList extends Vue {
         { name: "No, goods shipped", prop: "no, goods shipped" },
         { name: "No, goods only in-store", prop: "no, goods only in-store" }
     ];
+
+    digitalGoodFormItems: any[] = [{ name: "Yes", prop: "yes" }, { name: "No, goods shipped", prop: "no, goods shipped" }, { name: "No, goods only in-store", prop: "no, goods only in-store" }];
 
     sectorItems: any[] = [
         { name: "All", prop: "all" },
@@ -233,16 +241,16 @@ export default class StoreList extends Vue {
                 .then(
                     response => {
                         if (response.data.includes("Waiting for payment")) {
-                            let splitResp = response.data.split("=")
-                            this.paymentRequest = splitResp[splitResp.length-1];
-                            this.paymentID = splitResp[splitResp.length-2];
+                            let splitResp = response.data.split("=");
+                            this.paymentRequest = splitResp[splitResp.length - 1];
+                            this.paymentID = splitResp[splitResp.length - 2];
 
                             let date = new Date();
                             this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600));
                             this.checkPaymentTimer = setInterval(() => {
                                 this.checkPayment();
                             }, 3000);
-                        } else if(response.data.includes("Store successfully added")){
+                        } else if (response.data.includes("Store successfully added")) {
                             this.addAlert.message = response.data;
                             this.addAlert.success = true;
                             this.addDialogForm = {};
@@ -263,7 +271,7 @@ export default class StoreList extends Vue {
         if (this.expiryTime > new Date()) {
             this.$store.dispatch("checkPayment", { id: this.paymentID }).then(
                 response => {
-                        console.log(response.data);
+                    console.log(response.data);
                     if (response.data == true) {
                         this.isPaid = true;
                         this.addDialogForm = {};

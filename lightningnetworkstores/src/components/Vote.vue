@@ -66,7 +66,7 @@
                                 hint=""
                                 :rules="[v => !!v || 'Amount is required']"
                             ></v-text-field>
-                            <v-text-field v-model="upvoteDialogForm.comment" type="text" label="Comment (optional)"></v-text-field>
+                            <!-- <v-text-field v-model="upvoteDialogForm.comment" type="text" label="Comment (optional)"></v-text-field> -->
                         </v-flex>
                     </v-layout>
 

@@ -13,16 +13,18 @@ const baseUrl = "https://lightningnetworkstores.com/";
 
 export default new Vuex.Store({
     state: {
-        stores: stores,
-        scores: scores
+        stores: [],
+        scores: []
     },
     getters: {
         getStore: state => (id: number) => {
             return state.stores.find((store: Store) => store.id == id);
         },
+        getStoreCount: state => () => {
+            return state.stores.length;
+        },
         getStores: state => ({ sector, digitalGoods }: any, sort: string): Store[] => {
             //filter
-            console.log(state.scores);
             let stores: Store[] = [];
             if ((!sector || sector == "undefined") && (!digitalGoods || digitalGoods == "undefined")) {
                 stores = state.stores;
@@ -148,6 +150,36 @@ export default new Vuex.Store({
                     console.log(error);
                 });
         },
+        getWallets({}) {
+            return axios
+                .get(`${baseUrl}wallets.json`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        },
+        getServices({}) {
+            return axios
+                .get(`${baseUrl}services.json`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        },
+        getCoinmapData({}) {
+            return axios
+                .get(`${baseUrl}coinmap.json`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        },
         getStoreVotePaymentRequest({}, { id, amount, isUpvote, comment }) {
             return axios
                 .get(`${baseUrl}get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}${comment ? "&comment=" + encodeURI(comment) : ""}`)
@@ -180,7 +212,7 @@ export default new Vuex.Store({
         },
         suggestBan({}, { id: id, name: name, message: message }) {
             return axios
-                .get(`${baseUrl}suggestBan?id=${id}&name=${name}&message=${message}`)
+                .get(`${baseUrl}suggestBan?id=${id}&name=${name}&message=${encodeURI(message)}`)
                 .then(response => {
                     return Promise.resolve(response);
                 })
