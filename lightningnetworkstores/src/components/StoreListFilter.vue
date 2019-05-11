@@ -36,7 +36,36 @@
 
                 <div v-else>
                     <v-card-title class="headline">Automatically add new store!</v-card-title>
-                    <v-form @submit.prevent="submitAdd" ref="addform">
+
+                    <div v-if="paymentRequest">
+                        <v-layout row>
+                            <v-flex pa-3 class="text-xs-center"><h3>5000 sat</h3></v-flex>
+                        </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3 class="text-xs-center"><qrcode-vue class="qrcode" size="300" :value="paymentRequest"></qrcode-vue></v-flex>
+                        </v-layout>
+
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <v-text-field :value="paymentRequest" label="Invoice" hint="" append-icon="fa-copy" type="text" id="paymentrequest" @click:append="copy"></v-text-field
+                            ></v-flex>
+                        </v-layout>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3 class="text-xs-center">
+                                <a :href="'lightning:' + paymentRequest" class="link-button">Open in wallet</a>
+                            </v-flex>
+                        </v-layout>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                            <v-btn color="green darken-1" flat="flat" @click="cancel">
+                                Cancel
+                            </v-btn>
+                        </v-card-actions>
+                    </div>
+
+                    <v-form @submit.prevent="submitAdd" ref="addform" v-if="!paymentRequest.length">
                         <v-layout row>
                             <v-flex pl-3 pr-3>
                                 <v-text-field v-model="addDialogForm.name" label="Name" hint="eg. LuckyThunder" :rules="[v => !!v || 'Name is required']"></v-text-field>
@@ -154,8 +183,9 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import VueRecaptcha from "vue-recaptcha";
+import QrcodeVue from "qrcode.vue";
 
-@Component({ components: { VueRecaptcha } })
+@Component({ components: { VueRecaptcha, QrcodeVue } })
 export default class StoreList extends Vue {
     @Prop() sector!: string;
     @Prop() digitalGoods!: string;
@@ -224,6 +254,28 @@ export default class StoreList extends Vue {
 
     created() {}
 
+    private cancel() {
+        if (this.paymentRequest.length > 0) {
+            this.paymentRequest = "";
+        }
+
+        clearInterval(this.checkPaymentTimer);
+        this.closeDialog();
+    }
+
+    private closeDialog() {
+        this.addDialogForm = {};
+        this.showAddDialog = false;
+        this.isPaid = false;
+        this.paymentID = "";
+    }
+
+    private copy() {
+        let input = document.getElementById("paymentrequest")!.focus();
+        document.execCommand("SelectAll");
+        document.execCommand("copy");
+    }
+
     private submitAdd(event: any) {
         (this.$refs.addform as Vue & { validate: () => boolean }).validate();
         if (event.target["g-recaptcha-response"].value) {
@@ -242,8 +294,8 @@ export default class StoreList extends Vue {
                     response => {
                         if (response.data.includes("Waiting for payment")) {
                             let splitResp = response.data.split("=");
-                            this.paymentRequest = splitResp[splitResp.length - 1];
-                            this.paymentID = splitResp[splitResp.length - 2];
+                            this.paymentRequest = splitResp[splitResp.length - 2];
+                            this.paymentID = splitResp[splitResp.length - 1];
 
                             let date = new Date();
                             this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600));
