@@ -4,7 +4,7 @@
             <v-flex xs12 md12 lg10 xl8>
                 <v-container fluid grid-list-md>
                     <v-layout row wrap>
-                        <store-card v-for="store in getStores" :key="store.id" :store="store"></store-card>
+                        <store-card v-for="store in getStores" :key="store.id" :store="store" :baseUrl="baseUrl"></store-card>
                     </v-layout>
                 </v-container>
             </v-flex>
@@ -23,15 +23,18 @@ import StoreCard from "@/components/StoreCard.vue";
     }
 })
 export default class StoreList extends Vue {
-    stores!: Store[];
     @Prop() sector!: string;
     @Prop() digitalGoods!: string;
     @Prop() sort!: string;
 
-    created() {
+    baseUrl: string = "";
+
+    mounted() {
         console.log("Sector: " + this.sector);
         console.log("Digital goods: " + this.digitalGoods);
         console.log("Sort: " + this.sort);
+
+        this.baseUrl = this.$store.getters.getBaseUrl();
 
         this.$forceUpdate();
     }

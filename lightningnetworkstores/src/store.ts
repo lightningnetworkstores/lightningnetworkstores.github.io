@@ -90,17 +90,17 @@ export default new Vuex.Store({
 
             return { upvotes: score[0], downvotes: score[1], trending: score[2], lastCommented: score[3], rank: rank };
         },
-        getImage: state => (id: number) => {
-            try {
-                return require(`@/assets/images/stores/${id}_override.png`);
-            } catch (error) {
-                try {
-                    return require(`@/assets/images/stores/${id}.png`);
-                } catch (error) {
-                    return "";
-                }
-            }
-        },
+        // getImage: state => (id: number) => {
+        //     try {
+        //         return require(`@/assets/images/stores/${id}_override.png`);
+        //     } catch (error) {
+        //         try {
+        //             return require(`@/assets/images/stores/${id}.png`);
+        //         } catch (error) {
+        //             return "";
+        //         }
+        //     }
+        // },
         getBaseUrl: state => () => {
             return baseUrl;
         }

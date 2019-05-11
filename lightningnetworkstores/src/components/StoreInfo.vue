@@ -9,66 +9,69 @@
         </div>
         <v-layout justify-center row wrap class="my-4">
             <v-flex xs11 md8 lg6>
-                <v-img :src="`${baseUrl}thumbnails/${store.id}.png`" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
-                    ><v-chip color="success" text-color="white" class="ma-2 text-capitalize">New</v-chip>
-                    <v-chip color="orange" text-color="white">
-                        100
-                        <v-tooltip bottom>
-                            <template v-slot:activator="{ on }">
-                                <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
-                            </template>
-                            <span>Trending score</span>
-                        </v-tooltip>
-                    </v-chip></v-img
-                >
-                <v-layout row>
-                    <v-flex pb-1>
-                        <a class="store-link" @click.stop :href="store.href"
-                            ><h1>{{ store.name }} <v-icon small class="pb-2">fa-external-link-alt</v-icon></h1></a
-                        >
-                    </v-flex>
-                </v-layout>
+                <v-card>
+                    <v-img :src="`${baseUrl}thumbnails/${store.id}.png`" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
+                        ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip>
+                        <v-chip color="purple" text-color="white">
+                            {{ score.trending }}
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on }">
+                                    <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
+                                </template>
+                                <span>Trending score</span>
+                            </v-tooltip>
+                        </v-chip>
+                        <!-- <v-chip color="orange" text-color="white" class="ma-2">{{ score.rank }}</v-chip> -->
+                    </v-img>
+                    <v-layout row pa-3>
+                        <v-flex pb-1>
+                            <a class="store-link" @click.stop :href="store.href"
+                                ><h1>{{ store.name }} <v-icon small class="pb-2">fa-external-link-alt</v-icon></h1></a
+                            >
+                        </v-flex>
+                    </v-layout>
 
-                <v-layout row pb-3>
-                    <v-flex>{{ store.description }} </v-flex>
-                </v-layout>
+                    <v-layout row pb-3 pl-3 pr-3>
+                        <v-flex>{{ store.description }} </v-flex>
+                    </v-layout>
 
-                <!-- <v-layout row pb-3><a @click.stop :href="store.href">Visit website</a></v-layout> -->
-                <v-layout row v-if="store.uri && store.uri.toLowerCase() != 'unknown'">
-                    <span class="break-word"
-                        ><b>Node:&nbsp;</b><a :href="'https://1ml.com/node/' + store.uri.split('@')[0]">{{ store.uri }}</a></span
-                    ></v-layout
-                >
-                <v-layout row v-if="store.digital_goods.length"><b>Digital goods:&nbsp;</b>{{ store.digital_goods }}</v-layout>
-                <v-layout row v-if="store.sector.length"
-                    ><b>Sector:&nbsp;</b><router-link :to="'/?sector=' + encodeURIComponent(store.sector)">{{ store.sector }}</router-link></v-layout
-                >
+                    <!-- <v-layout row pb-3><a @click.stop :href="store.href">Visit website</a></v-layout> -->
+                    <v-layout row v-if="store.uri && store.uri.toLowerCase() != 'unknown'" pl-3 pr-3>
+                        <span class="break-word"
+                            ><b>Node:&nbsp;</b><a :href="'https://1ml.com/node/' + store.uri.split('@')[0]">{{ store.uri }}</a></span
+                        ></v-layout
+                    >
+                    <v-layout row v-if="store.digital_goods.length" pl-3 pr-3><b>Digital goods:&nbsp;</b>{{ store.digital_goods }}</v-layout>
+                    <v-layout row v-if="store.sector.length" pl-3 pr-3
+                        ><b>Sector:&nbsp;</b><router-link :to="'/?sector=' + encodeURIComponent(store.sector)">{{ store.sector }}</router-link></v-layout
+                    >
 
-                <vote v-bind:store="store" v-bind:isInfo="true"></vote>
+                    <vote v-bind:store="store" v-bind:isInfo="true"></vote>
 
-                <v-layout row>
-                    <v-flex grow pl-1>
-                        <v-btn flat icon color="blue">
-                            <v-icon small>fab fa-twitter</v-icon>
-                        </v-btn>
+                    <v-layout row pb-3 pl-2 pr-2 pt-3>
+                        <v-flex grow>
+                            <v-btn flat icon color="blue" :disabled="!store.twitter" :href="'https://twitter.com/' + store.twitter">
+                                <v-icon>fab fa-twitter</v-icon>
+                            </v-btn>
 
-                        <v-btn flat icon color="blue darken-3">
-                            <v-icon small>fab fa-facebook</v-icon>
-                        </v-btn>
+                            <v-btn flat icon color="blue darken-3" :disabled="!store.facebook" :href="'https://facebook.com/' + store.facebook">
+                                <v-icon>fab fa-facebook</v-icon>
+                            </v-btn>
 
-                        <v-btn flat icon color="orange darken-2">
-                            <v-icon small>fab fa-reddit</v-icon>
-                        </v-btn>
-                    </v-flex>
-                    <v-flex shrink>
-                        <v-btn flat icon color="grey darken-2">
-                            <v-icon small @click.stop="showEditDialog = true">fa-edit</v-icon>
-                        </v-btn>
-                        <v-btn flat icon color="grey darken-2">
-                            <v-icon small @click.stop="showBanDialog = true">fa-ban</v-icon>
-                        </v-btn>
-                    </v-flex>
-                </v-layout>
+                            <v-btn flat icon color="orange darken-2" :disabled="!store.reddit" :href="'https://reddit.com/users/' + store.reddit">
+                                <v-icon>fab fa-reddit</v-icon>
+                            </v-btn>
+                        </v-flex>
+                        <v-flex shrink>
+                            <v-btn flat icon color="grey darken-2">
+                                <v-icon @click.stop="showEditDialog = true">fa-edit</v-icon>
+                            </v-btn>
+                            <v-btn flat icon color="grey darken-2">
+                                <v-icon @click.stop="showBanDialog = true">fa-ban</v-icon>
+                            </v-btn>
+                        </v-flex>
+                    </v-layout>
+                </v-card>
             </v-flex>
             <!-- Edit store modal -->
             <v-dialog v-model="showEditDialog" max-width="500" persistent>
@@ -181,6 +184,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Store } from "../interfaces/Store";
+import { Score } from "../interfaces/Score";
 import Vote from "@/components/Vote.vue";
 
 @Component({
@@ -195,6 +199,7 @@ export default class StoreInfo extends Vue {
     showBanDialog: boolean = false;
     loaded: boolean = false;
     editAlert: any = { message: "", success: true };
+    score!: Score;
 
     editDialogProperties: object[] = [
         { name: "Name", prop: "name" },
@@ -209,7 +214,7 @@ export default class StoreInfo extends Vue {
     banDialogForm: any = { motivation: "" };
     banSnackbar: boolean = false;
 
-    created() {
+    mounted() {
         this.loaded = false;
 
         this.baseUrl = this.$store.getters.getBaseUrl();
@@ -235,6 +240,8 @@ export default class StoreInfo extends Vue {
                 console.error(error);
             }
         );
+
+        this.score = this.$store.getters.getScore(this.storeId);
     }
 
     private submitEdit() {
@@ -265,13 +272,16 @@ export default class StoreInfo extends Vue {
                     this.banDialogForm.motivation = "";
                     this.showBanDialog = false;
                     this.banSnackbar = true;
-                    console.log(this.banSnackbar);
                 },
                 error => {
                     console.error(error);
                 }
             );
         }
+    }
+
+    get isNewStore(): boolean {
+        return new Date(this.store.added * 1000 + 86400000 * 20) > new Date();
     }
 }
 </script>

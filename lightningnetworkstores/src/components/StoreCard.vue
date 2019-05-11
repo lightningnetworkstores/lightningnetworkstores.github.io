@@ -1,10 +1,18 @@
 <template>
     <v-flex xs12 sm6 md4 lg4 pa-3>
         <v-card hover @click.native="gotoStore()">
-            <v-img :src="`${baseUrl}thumbnails/${storeWithScore.id}.png`" height="170px" :position="!storeWithScore.img_position ? 'top center' : storeWithScore.img_position" class="text-xs-right"
-                ><v-chip v-if="storeWithScore.trending >= 8" color="purple" text-color="white" class="ma-2">Trending</v-chip
-                ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip><v-chip color="orange" text-color="white" class="ma-2">{{ storeWithScore.rank }}</v-chip></v-img
-            >
+            <div class="chips">
+                <v-chip v-if="storeWithScore.rank !== 'unranked'" color="orange" text-color="white" class="ma-2">{{ storeWithScore.rank }}</v-chip>
+                <v-chip v-if="storeWithScore.trending >= 8" color="purple" text-color="white" class="ma-2">Trending</v-chip>
+                <v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip>
+            </div>
+
+            <vuetify-lazy-image
+                :src="`${baseUrl}thumbnails/${storeWithScore.id}.png`"
+                height="170px"
+                :position="!storeWithScore.img_position ? 'top center' : storeWithScore.img_position"
+                class="text-xs-right"
+            ></vuetify-lazy-image>
             <v-layout>
                 <vote v-bind:store="storeWithScore"></vote>
 
@@ -28,19 +36,21 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { Store } from "../interfaces/Store";
 import { Score } from "../interfaces/Score";
 import Vote from "@/components/Vote.vue";
+//@ts-ignore
+import VuetifyLazyImage from "vuetify-lazy-image";
 
 @Component({
     components: {
-        Vote
+        Vote,
+        VuetifyLazyImage
     }
 })
 export default class StoreCard extends Vue {
     @Prop() store!: Store;
+    @Prop() baseUrl!: string;
     storeWithScore: Store = this.store;
-    baseUrl: string = "";
 
-    async created() {
-        this.baseUrl = this.$store.getters.getBaseUrl();
+    async mounted() {
         let score = this.$store.getters.getScore(this.store.id);
         this.storeWithScore = Object.assign({}, this.store, score);
     }
@@ -61,6 +71,14 @@ export default class StoreCard extends Vue {
     text-decoration: none;
     &:hover {
         text-decoration: underline;
+    }
+}
+.chips {
+    position: absolute;
+    z-index: 7;
+    width: 100%;
+    .v-chip {
+        float: right;
     }
 }
 </style>

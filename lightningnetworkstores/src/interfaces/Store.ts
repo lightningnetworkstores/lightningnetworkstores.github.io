@@ -8,6 +8,9 @@ export interface Store {
     added: number;
     digital_goods: string;
     img_position: string;
+    facebook: string;
+    twitter: string;
+    reddit: string;
 }
 
 export interface Store {
@@ -24,4 +27,7 @@ export interface Store {
     href: string;
     sector: string;
     comments: any[];
+    facebook: string;
+    twitter: string;
+    reddit: string;
 }
