@@ -1,6 +1,5 @@
 <template>
     <div class="add-store-modal">
-
         <v-btn color="green" dark fab fixed bottom right @click="showAddDialog = true">
             <v-icon>add</v-icon>
         </v-btn>
@@ -153,6 +152,13 @@
                             <v-flex grow></v-flex>
                         </v-layout>
 
+                        <v-layout row>
+                            <v-flex pl-3 pr-3>
+                                <br />
+                                <span>Amount due if not a contributor: 5000 satoshis</span>
+                            </v-flex>
+                        </v-layout>
+
                         <v-card-actions>
                             <v-spacer></v-spacer>
 
@@ -178,8 +184,6 @@ import QrcodeVue from "qrcode.vue";
 
 @Component({ components: { VueRecaptcha, QrcodeVue } })
 export default class AddStoreModal extends Vue {
-
-
     digitalGoodFormItems: any[] = [{ name: "Yes", prop: "yes" }, { name: "No, goods shipped", prop: "no, goods shipped" }, { name: "No, goods only in-store", prop: "no, goods only in-store" }];
 
     sectorFormItems: any[] = [
