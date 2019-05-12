@@ -59,7 +59,7 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
 @Component
-export default class About extends Vue {
+export default class Donations extends Vue {
     pagination: any = {
         rowsPerPage: 500
     };

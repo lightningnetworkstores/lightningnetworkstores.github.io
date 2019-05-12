@@ -40,9 +40,9 @@ export default new Vuex.Store({
             switch (sort) {
                 case "best":
                     stores.sort((a: Store, b: Store) => {
-                        var score_b: number = (state.scores[b.id] || [0])[0] - (state.scores[b.id] || [0, 0])[1];
-                        var score_a: number = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
-                        return score_b - score_a;
+                        let scoreB: number = (state.scores[b.id] || [0])[0] - (state.scores[b.id] || [0, 0])[1];
+                        let scoreA: number = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
+                        return scoreB - scoreA;
                     });
                     break;
                 case "trending":
@@ -67,7 +67,9 @@ export default new Vuex.Store({
                     break;
                 default:
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id] || [0])[0] - (state.scores[a.id] || [0])[0];
+                        let scoreB: number = (state.scores[b.id] || [0])[0] - (state.scores[b.id] || [0, 0])[1];
+                        let scoreA: number = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
+                        return scoreB - scoreA;
                     });
                     break;
             }
