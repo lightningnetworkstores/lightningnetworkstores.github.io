@@ -6,6 +6,7 @@ import Stats from "./views/Stats.vue";
 import About from "./views/About.vue";
 import Wallets from "./views/Wallets.vue";
 import Services from "./views/Services.vue";
+import Donations from "./views/Donations.vue";
 
 Vue.use(Router);
 
@@ -39,6 +40,11 @@ export default new Router({
             path: "/services",
             name: "services",
             component: Services
+        },
+        {
+            path: "/donations",
+            name: "donations",
+            component: Donations
         },
         {
             path: "/stats",

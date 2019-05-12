@@ -170,6 +170,16 @@ export default new Vuex.Store({
                     return Promise.reject(error);
                 });
         },
+        getDonations({}) {
+            return axios
+                .get(`${baseUrl}donationAdresses.json`)
+                .then(response => {
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    return Promise.reject(error);
+                });
+        },
         getCoinmapData({}) {
             return axios
                 .get(`${baseUrl}coinmap.json`)

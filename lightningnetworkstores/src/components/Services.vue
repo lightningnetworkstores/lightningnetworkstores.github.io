@@ -4,7 +4,7 @@
             <v-flex xs12 md12 lg10 xl8>
                 <v-container>
                     <v-layout row>
-                        <h1>Merchant adoption of the lightning network</h1>
+                        <h1>Lightning services</h1>
                     </v-layout>
 
                     <v-layout row>

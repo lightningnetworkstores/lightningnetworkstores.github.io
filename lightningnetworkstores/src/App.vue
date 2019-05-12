@@ -7,6 +7,7 @@
                 <v-btn flat to="/stats">Statistics</v-btn>
                 <v-btn flat to="/wallets">Wallets</v-btn>
                 <v-btn flat to="/services">Services</v-btn>
+                <v-btn flat to="/donations">Donations</v-btn>
                 <v-btn flat to="/about">About</v-btn> </v-toolbar-items
             ><v-menu class="hidden-md-and-up">
                 <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
@@ -24,6 +25,11 @@
                     <v-list-tile to="/services">
                         <v-list-tile-content>
                             <v-list-tile-title>Services</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile to="/donations">
+                        <v-list-tile-content>
+                            <v-list-tile-title>Donations</v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
                     <v-list-tile to="/about">
