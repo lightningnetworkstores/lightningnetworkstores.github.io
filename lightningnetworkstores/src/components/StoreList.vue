@@ -2,7 +2,7 @@
     <div class="store-list">
         <v-layout justify-center>
             <v-flex xs12 md12 lg10 xl8>
-                <v-container fluid grid-list-md>
+                <v-container fluid grid-list-md style="padding-top: 0px;">
                     <v-layout row wrap>
                         <store-card v-for="store in getStores" :key="store.id" :store="store" :baseUrl="baseUrl"></store-card>
                     </v-layout>
