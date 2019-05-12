@@ -22,7 +22,7 @@
                             <div class="headline">
                                 <a class="store-link" @click.stop :href="storeWithScore.href">{{ storeWithScore.name }}</a>
                             </div>
-                            <span class="grey--text">{{ storeWithScore.description }}</span>
+                            <span class="grey--text">{{ storeWithScore.description.substring(0, 96) }}{{ storeWithScore.description.length > 96 ? "..." : "" }}</span>
                         </div>
                     </v-card-title>
                 </v-flex>

@@ -3,15 +3,15 @@
         <div class="store-card" v-if="!isInfo">
             <div class="text-xs-center">
                 <v-flex xs12>
-                    <v-btn icon @click.stop="vote(true)"><v-icon large>arrow_upward</v-icon></v-btn>
+                    <v-btn icon @click.stop="vote(true)" outline color="success"><v-icon>arrow_upward</v-icon></v-btn>
                 </v-flex>
 
                 <v-flex xs12 pa-2>
-                    <span class="caption">{{ (store.upvotes - store.downvotes) | number }}</span>
+                    <span class="number">{{ (store.upvotes - store.downvotes) | number }}</span>
                 </v-flex>
 
                 <v-flex xs12>
-                    <v-btn icon @click.stop="vote(false)"><v-icon large>arrow_downward</v-icon></v-btn>
+                    <v-btn icon @click.stop="vote(false)" outline color="error"><v-icon>arrow_downward</v-icon></v-btn>
                 </v-flex>
             </div>
         </div>
@@ -220,5 +220,8 @@ export default class StoreCard extends Vue {
     &.store-card {
         width: 50px;
     }
+}
+.number {
+    font-size: 15px !important;
 }
 </style>
