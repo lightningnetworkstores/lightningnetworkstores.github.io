@@ -91,7 +91,10 @@ export default class BanStoreModal extends Vue {
         { name: "URL", prop: "href" },
         { name: "Node URI", prop: "uri" },
         { name: "Sector", prop: "sector" },
-        { name: "Digital goods", prop: "digital_goods" }
+        { name: "Digital goods", prop: "digital_goods" },
+        { name: "Reddit", prop: "reddit" },
+        { name: "Facebook", prop: "facebook" },
+        { name: "Twitter", prop: "twitter" }
     ];
     editDialogForm: any = { property: "", askOwner: true };
 
