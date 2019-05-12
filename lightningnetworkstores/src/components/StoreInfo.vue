@@ -64,119 +64,15 @@
                         </v-flex>
                         <v-flex shrink>
                             <v-btn flat icon color="grey darken-2">
-                                <v-icon @click.stop="showEditDialog = true">fa-edit</v-icon>
+                                <edit-store-modal :store="store"></edit-store-modal>
                             </v-btn>
                             <v-btn flat icon color="grey darken-2">
-                                <v-icon @click.stop="showBanDialog = true">fa-ban</v-icon>
+                                <ban-store-modal :store="store"></ban-store-modal>
                             </v-btn>
                         </v-flex>
                     </v-layout>
                 </v-card>
             </v-flex>
-            <!-- Edit store modal -->
-            <v-dialog v-model="showEditDialog" max-width="500" persistent>
-                <v-card>
-                    <v-layout row v-if="editAlert.message.length">
-                        <v-flex pa-3>
-                            <v-alert :value="editAlert.message" :type="editAlert.success ? 'success' : 'error'" transition="scale-transition">
-                                {{ editAlert.message }}
-                            </v-alert>
-                        </v-flex>
-                    </v-layout>
-
-                    <v-card-title class="headline">Suggest an edit for {{ store.name }}</v-card-title>
-                    <v-form @submit.prevent="submitEdit" ref="editform">
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-combobox
-                                    v-model="editDialogForm.property"
-                                    item-text="name"
-                                    item-value="prop"
-                                    label="Property"
-                                    :items="editDialogProperties"
-                                    return-object
-                                    :rules="[v => !!v || 'Property is required']"
-                                ></v-combobox>
-                            </v-flex>
-                        </v-layout>
-
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-text-field :value="store[editDialogForm.property.prop]" label="Current value" disabled></v-text-field>
-                            </v-flex>
-                        </v-layout>
-
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-text-field v-model="editDialogForm.value" label="Value" hint="eg. www.new-url.com" :rules="[v => !!v || 'Value is required']"></v-text-field>
-                            </v-flex>
-                        </v-layout>
-                        <!--
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-textarea
-                                    v-model="editDialogForm.motivation"
-                                    label="Motivation"
-                                    hint="eg. We moved to a different domain: www.new-url.com"
-                                    :rules="[v => !!v || 'Motivation is required']"
-                                >
-                                </v-textarea>
-                            </v-flex>
-                        </v-layout> -->
-
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-checkbox v-model="editDialogForm.askOwner" label="Ask store owner for approval (email will be sent to store owner)"></v-checkbox>
-                            </v-flex>
-                        </v-layout>
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-
-                            <v-btn color="green darken-1" flat="flat" @click="showEditDialog = false">
-                                Cancel
-                            </v-btn>
-
-                            <v-btn color="green darken-1" flat="flat" type="submit">
-                                Send
-                            </v-btn>
-                        </v-card-actions>
-                    </v-form>
-                </v-card>
-            </v-dialog>
-
-            <!-- Ban store modal -->
-            <v-dialog v-model="showBanDialog" max-width="500" persistent>
-                <v-card>
-                    <v-card-title class="headline">Suggest banning {{ store.name }}</v-card-title>
-                    <v-form @submit.prevent="submitBan" ref="banform">
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-textarea v-model="banDialogForm.motivation" label="Motivation" hint="eg. Its a scam! Because..." :rules="[v => !!v || 'Motivation is required']"> </v-textarea>
-                            </v-flex>
-                        </v-layout>
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-
-                            <v-btn color="green darken-1" flat="flat" @click="showBanDialog = false">
-                                Cancel
-                            </v-btn>
-
-                            <v-btn color="green darken-1" flat="flat" type="submit">
-                                Send
-                            </v-btn>
-                        </v-card-actions>
-                    </v-form>
-                </v-card>
-            </v-dialog>
-
-            <v-snackbar v-model="banSnackbar" color="info" :timeout="3000">
-                Ban suggestion recorded
-                <v-btn dark flat @click="snackbar = false">
-                    Close
-                </v-btn>
-            </v-snackbar>
         </v-layout>
     </div>
 </template>
@@ -186,33 +82,19 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { Store } from "../interfaces/Store";
 import { Score } from "../interfaces/Score";
 import Vote from "@/components/Vote.vue";
+import BanStoreModal from "@/components/BanStoreModal.vue";
+import EditStoreModal from "@/components/EditStoreModal.vue";
 
 @Component({
-    components: { Vote }
+    components: { Vote, BanStoreModal, EditStoreModal }
 })
 export default class StoreInfo extends Vue {
     @Prop() storeId!: number;
     store!: Store;
     baseUrl: string = "";
     breadCrumb: any;
-    showEditDialog: boolean = false;
-    showBanDialog: boolean = false;
     loaded: boolean = false;
-    editAlert: any = { message: "", success: true };
     score!: Score;
-
-    editDialogProperties: object[] = [
-        { name: "Name", prop: "name" },
-        { name: "Description", prop: "description" },
-        { name: "URL", prop: "href" },
-        { name: "Node URI", prop: "uri" },
-        { name: "Sector", prop: "sector" },
-        { name: "Digital goods", prop: "digital_goods" }
-    ];
-    editDialogForm: any = { property: "", askOwner: true };
-
-    banDialogForm: any = { motivation: "" };
-    banSnackbar: boolean = false;
 
     mounted() {
         this.loaded = false;
@@ -242,42 +124,6 @@ export default class StoreInfo extends Vue {
         );
 
         this.score = this.$store.getters.getScore(this.storeId);
-    }
-
-    private submitEdit() {
-        (this.$refs.editform as Vue & { validate: () => boolean }).validate();
-        if (this.storeId && this.editDialogForm.property.prop && this.editDialogForm.value) {
-            this.$store.dispatch("addStoreUpdate", { id: this.storeId, field: this.editDialogForm.property.prop, value: this.editDialogForm.value, askOwner: this.editDialogForm.askOwner }).then(
-                response => {
-                    this.editAlert.message = response.data;
-                    if (response.data.includes("The request was successfully recorded")) {
-                        this.editAlert.success = true;
-                    } else {
-                        this.editAlert.success = false;
-                    }
-                    this.editDialogForm = { property: "", askOwner: true };
-                },
-                error => {
-                    console.error(error);
-                }
-            );
-        }
-    }
-
-    private submitBan() {
-        (this.$refs.banform as Vue & { validate: () => boolean }).validate();
-        if (this.storeId && this.store.name && this.banDialogForm.motivation) {
-            this.$store.dispatch("suggestBan", { id: this.storeId, name: this.store.name, message: this.banDialogForm.motivation }).then(
-                response => {
-                    this.banDialogForm.motivation = "";
-                    this.showBanDialog = false;
-                    this.banSnackbar = true;
-                },
-                error => {
-                    console.error(error);
-                }
-            );
-        }
     }
 
     get isNewStore(): boolean {
