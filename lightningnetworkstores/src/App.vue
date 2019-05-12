@@ -39,6 +39,10 @@
                     </v-list-tile>
                 </v-list>
             </v-menu>
+
+            <v-btn icon :href="'https://twitter.com/bitcoinLNS'">
+                <v-icon>fab fa-twitter</v-icon>
+            </v-btn>
         </v-toolbar>
         <v-content>
             <router-view />
