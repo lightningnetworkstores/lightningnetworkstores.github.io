@@ -29,7 +29,9 @@
                                 <td>
                                     <a :href="props.item.link">{{ props.item.entity }}</a>
                                 </td>
-                                <td class="text-xs-left">{{ props.item.contributions }}</td>
+                                <td class="text-xs-left">
+                                    <span v-html="props.item.contributions"></span>
+                                </td>
                                 <td class="text-xs-center"><a v-if="props.item.lightning" :href="props.item.lightning">link</a><span v-else>-</span></td>
                                 <td>
                                     <a v-if="props.item.address" :href="'https://blockstream.info/address/' + props.item.address">
@@ -70,7 +72,7 @@ export default class About extends Vue {
             value: "entity"
         },
         { text: "Description", value: "description" },
-        { text: "Lightning Donation Invoice Generator", value: "Lightning Donation Invoice Generator" },
+        { text: "Lightning", value: "Lightning" },
         { text: "Bitcoin address", value: "Bitcoin address" },
         { text: "Reddit", value: "reddit" },
         { text: "Twitter", value: "twitter" }
