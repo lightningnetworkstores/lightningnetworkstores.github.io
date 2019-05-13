@@ -8,41 +8,45 @@
                     </v-layout>
 
                     <v-layout row pt-4 wrap>
-                        <v-flex grow class="text-xs-center" pa-4
-                            ><h2>Number of stores: {{ storeCount }}</h2></v-flex
-                        >
-                        <v-flex grow class="text-xs-center" pa-4
-                            ><h2>Ratio of stores accepting lightning: ≃{{ lightningStoreRatio | number }}%</h2></v-flex
-                        >
-                        <v-flex grow class="text-xs-center" pa-4
-                            ><h2><a href="/">Best stores</a></h2></v-flex
-                        >
-                    </v-layout>
-                    <v-layout row pt-3>
-                        <v-flex grow class="text-xs-center"><GChart type="LineChart" :data="chartData" :options="chartOptions"/></v-flex>
+                        <v-flex grow class="text-xs-center" pa-4>
+                            <v-card>
+                                <v-card-title primary-title class="justify-center">
+                                    <div>
+                                        <h3 class="headline text--accent-2">Ratio of stores accepting lightning: ≃{{ lightningStoreRatio | number }}%</h3>
+                                    </div>
+                                </v-card-title>
+                                <GChart type="LineChart" :data="chartData" :options="chartOptions"/></v-card
+                        ></v-flex>
                     </v-layout>
 
                     <v-layout row pt-3>
-                        <v-flex>
+                        <v-flex grow class="text-xs-center" pa-4>
                             <v-card>
-                                <v-toolbar>
-                                    <h3><a href="/?sort=trending">Trending stores</a></h3></v-toolbar
-                                >
-                                <v-list v-for="(store, index) in trendingStores" v-show="index < 4"
-                                    ><v-list-title>
-                                        <a :href="store.href">{{ store.name }}</a></v-list-title
-                                    ></v-list
-                                >
+                                <v-card-title primary-title class="justify-center">
+                                    <div>
+                                        <h3 class="headline text--accent-2">
+                                            <a href="/">Stores: {{ storeCount }}</a>
+                                        </h3>
+                                    </div>
+                                </v-card-title>
+                                <v-list v-for="(store, index) in trendingStores" v-show="index < 4" :key="store.id">
+                                    <a :href="store.href">{{ store.name }}</a>
+                                </v-list>
                             </v-card>
+                        </v-flex>
+
+                        <v-flex grow class="text-xs-center" pa-4>
                             <v-card>
-                                <v-toolbar>
-                                    <h3><a href="/?sort=newest">Newest stores</a></h3></v-toolbar
-                                >
-                                <v-list v-for="(store, index) in newestStores" v-show="index < 4"
-                                    ><v-list-title>
-                                        <a :href="store.href">{{ store.name }}</a></v-list-title
-                                    ></v-list
-                                >
+                                <v-card-title primary-title class="justify-center">
+                                    <div>
+                                        <h3 class="headline text--accent-2">
+                                            <a href="/?sort=newest">Newest stores</a>
+                                        </h3>
+                                    </div>
+                                </v-card-title>
+                                <v-list v-for="(store, index) in newestStores" v-show="index < 4" :key="store.id">
+                                    <a :href="store.href">{{ store.name }}</a>
+                                </v-list>
                             </v-card>
                         </v-flex>
                     </v-layout>
@@ -69,8 +73,7 @@ export default class Stats extends Vue {
             title: "Number of merchants"
         },
         height: 500,
-        colors: ["#3c3d3c"],
-        backgroundColor: "#fafafa"
+        colors: ["#3c3d3c"]
     };
 
     chartData: any = [["Time", "Stores"]];
