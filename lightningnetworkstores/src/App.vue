@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-toolbar class="toolbar" dark>
-            <v-toolbar-title><v-btn flat to="/">Lightning Network Stores</v-btn></v-toolbar-title>
+            <v-toolbar-title><img to="/" src="./assets/images/LNS.svg"/></v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
                 <v-btn flat to="/stats">Statistics</v-btn>
