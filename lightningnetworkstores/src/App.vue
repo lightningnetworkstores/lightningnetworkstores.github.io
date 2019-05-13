@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-toolbar class="toolbar" dark>
-            <v-toolbar-title><img to="/" src="./assets/images/LNS.svg"/></v-toolbar-title>
+            <v-toolbar-title><img src="@/assets/images/LNS.png" class="nav-logo"/></v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
                 <v-btn flat to="/stats">Statistics</v-btn>
@@ -85,5 +85,9 @@ export default class App extends Vue {
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
+}
+.nav-logo {
+    height: 55px;
+    padding-top: 5px;
 }
 </style>
