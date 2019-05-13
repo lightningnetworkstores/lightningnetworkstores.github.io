@@ -9,7 +9,7 @@ const scores: any = require("../data/storeScores.json");
 
 Vue.use(Vuex);
 
-const baseUrl = "https://lightningnetworkstores.com/";
+const baseUrl = "https://localhost:8443/";
 
 export default new Vuex.Store({
     state: {
