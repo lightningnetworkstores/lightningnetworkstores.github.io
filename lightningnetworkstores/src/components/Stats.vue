@@ -21,6 +21,31 @@
                     <v-layout row pt-3>
                         <v-flex grow class="text-xs-center"><GChart type="LineChart" :data="chartData" :options="chartOptions"/></v-flex>
                     </v-layout>
+
+                    <v-layout row pt-3>
+                        <v-flex>
+                            <v-card>
+                                <v-toolbar>
+                                    <h3><a href="/?sort=trending">Trending stores</a></h3></v-toolbar
+                                >
+                                <v-list v-for="(store, index) in trendingStores" v-show="index < 4"
+                                    ><v-list-title>
+                                        <a :href="store.href">{{ store.name }}</a></v-list-title
+                                    ></v-list
+                                >
+                            </v-card>
+                            <v-card>
+                                <v-toolbar>
+                                    <h3><a href="/?sort=newest">Newest stores</a></h3></v-toolbar
+                                >
+                                <v-list v-for="(store, index) in newestStores" v-show="index < 4"
+                                    ><v-list-title>
+                                        <a :href="store.href">{{ store.name }}</a></v-list-title
+                                    ></v-list
+                                >
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
                 </v-container>
             </v-flex>
         </v-layout>
@@ -98,6 +123,9 @@ export default class Stats extends Vue {
     get getStores() {
         return this.$store.getters.getStores({ sector: null, digitalGoods: null });
     }
+
+    trendingStores: Store[] = this.$store.getters.getStores({ sector: null, digitalGoods: null }, "trending");
+    newestStores: Store[] = this.$store.getters.getStores({ sector: null, digitalGoods: null }, "newest");
 }
 </script>
 
