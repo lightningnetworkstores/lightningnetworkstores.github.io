@@ -2,6 +2,7 @@
     <div class="store-list-filter">
         <v-layout justify-center>
             <v-flex xs11 md11 lg6>
+                Non-ASCII: ≃
                 <v-layout row pt-4 wrap>
                     <v-flex grow pa-1><v-combobox v-model="selectedSector" item-text="name" item-value="prop" label="Sector" :items="sectorItems" return-object></v-combobox></v-flex>
                     <v-flex grow pa-1><v-combobox v-model="selectedDigitalGood" item-text="name" item-value="prop" label="Digital goods" :items="digitalGoodItems" return-object></v-combobox></v-flex>
