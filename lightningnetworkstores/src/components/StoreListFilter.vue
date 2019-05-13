@@ -1,8 +1,13 @@
 <template>
     <div class="store-list-filter">
+        <v-layout justify-center class="text-xs-center">
+            <v-flex>
+                <img src="@/assets/images/LightningNetworkStores.png" class="logo" />
+            </v-flex>
+        </v-layout>
         <v-layout justify-center>
             <v-flex xs11 md11 lg6>
-                <v-layout row pt-4 wrap>
+                <v-layout row pt-2 wrap>
                     <v-flex grow pa-1><v-combobox v-model="selectedSector" item-text="name" item-value="prop" label="Sector" :items="sectorItems" return-object></v-combobox></v-flex>
                     <v-flex grow pa-1><v-combobox v-model="selectedDigitalGood" item-text="name" item-value="prop" label="Digital goods" :items="digitalGoodItems" return-object></v-combobox></v-flex>
                     <v-flex grow pa-1><v-combobox v-model="selectedSort" item-text="name" item-value="prop" label="Sort" :items="sortItems" return-object></v-combobox></v-flex>
@@ -95,4 +100,10 @@ export default class StoreList extends Vue {
 </script>
 
 <style scoped lang="scss">
+.logo {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    padding: 5px;
+}
 </style>
