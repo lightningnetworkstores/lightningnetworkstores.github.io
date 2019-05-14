@@ -58,6 +58,13 @@
     "release":"April 2019"
     },
     {
+        "name":"Muun",
+        "page":"https://muun.com/",
+        "open_source":"https://github.com/muun/apollo",
+        "android":"https://play.google.com/store/apps/details?id=io.muun.apollo",
+        "release":"May 2019"
+    },
+    {
      "name":"Bitpie",
      "page":"https://bitpie.com/",
      "android":"https://play.google.com/store/apps/details?id=com.bitpie",
