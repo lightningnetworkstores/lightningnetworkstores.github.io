@@ -12,15 +12,17 @@
                 <v-card>
                     <v-img :src="`${baseUrl}thumbnails/${store.id}.png`" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
                         ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip>
-                        <v-chip color="purple" text-color="white">
-                            {{ score.trending }}
-                            <v-tooltip bottom>
-                                <template v-slot:activator="{ on }">
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                                <v-chip v-if="score.trending > 0" color="purple" text-color="white">
+                                    {{ score.trending }}%
+
                                     <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
-                                </template>
-                                <span>Trending score</span>
-                            </v-tooltip>
-                        </v-chip>
+                                </v-chip>
+                            </template>
+                            <span>Trending score</span>
+                        </v-tooltip>
+
                         <!-- <v-chip color="orange" text-color="white" class="ma-2">{{ score.rank }}</v-chip> -->
                     </v-img>
                     <v-layout row pa-3>
@@ -44,6 +46,10 @@
                     <v-layout row v-if="store.digital_goods.length" pl-3 pr-3><b>Digital goods:&nbsp;</b>{{ store.digital_goods }}</v-layout>
                     <v-layout row v-if="store.sector.length" pl-3 pr-3
                         ><b>Sector:&nbsp;</b><router-link :to="'/?sector=' + encodeURIComponent(store.sector)">{{ store.sector }}</router-link></v-layout
+                    >
+                    <v-layout row v-if="store.sector.length" pl-3 pr-3
+                        ><b>Date added:&nbsp;</b><span v-if="store.added"> {{ new Date(store.added * 1000).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" }) }}</span
+                        ><a v-else>24/Feb/2018</a></v-layout
                     >
 
                     <vote v-bind:store="store" v-bind:isInfo="true"></vote>
