@@ -12,6 +12,9 @@
                             <v-card>
                                 <v-card-title primary-title class="justify-center">
                                     <div>
+                                        <h3 class="headline text--accent-2">Number of stores: {{ storeCount }}</h3>
+                                    </div>
+                                    <div>
                                         <h3 class="headline text--accent-2">Ratio of stores accepting lightning: ≃{{ lightningStoreRatio | number }}%</h3>
                                     </div>
                                 </v-card-title>
@@ -25,7 +28,7 @@
                                 <v-card-title primary-title class="justify-center">
                                     <div>
                                         <h3 class="headline text--accent-2">
-                                            <a href="/">Stores: {{ storeCount }}</a>
+                                            <a href="/?sort=trending">Trending stores</a>
                                         </h3>
                                     </div>
                                 </v-card-title>
