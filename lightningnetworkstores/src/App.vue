@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-toolbar class="toolbar" dark>
+        <v-toolbar class="toolbar" color="rgba(217, 217, 217, 1)">
             <v-toolbar-title><img src="@/assets/images/LNS.png" class="nav-logo"/></v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
