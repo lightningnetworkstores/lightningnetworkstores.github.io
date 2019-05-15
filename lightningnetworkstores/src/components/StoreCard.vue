@@ -50,8 +50,9 @@ export default class StoreCard extends Vue {
     @Prop() baseUrl!: string;
     storeWithScore: Store = this.store;
 
-    async mounted() {
+    mounted() {
         let score = this.$store.getters.getScore(this.store.id);
+
         this.storeWithScore = Object.assign({}, this.store, score);
     }
 
