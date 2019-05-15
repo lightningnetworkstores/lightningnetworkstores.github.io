@@ -12,7 +12,7 @@
                     </v-layout>
 
                     <v-layout row pt-3 justify-center>
-                        <v-data-table :headers="headers" :items="services" :rows-per-page-items="[50, 100, 500]" :pagination.sync="pagination" style="width: 100%">
+                        <v-data-table :headers="headers" :items="services" :rows-per-page-items="[50, 100, 500]" :pagination.sync="pagination" style="width: 100%" disable-initial-sort>
                             <template slot="headerCell" slot-scope="props">
                                 <v-tooltip bottom>
                                     <template v-slot:activator="{ on }">
