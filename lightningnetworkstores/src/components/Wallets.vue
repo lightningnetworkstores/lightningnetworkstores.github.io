@@ -29,14 +29,28 @@
                                 <td>
                                     <a :href="props.item.page">{{ props.item.name }}</a>
                                 </td>
-                                <td class="text-xs-left"><a v-if="props.item.open_source" :href="props.item.open_source">yes</a></td>
-                                <td class="text-xs-right">{{ props.item.requires_node }}</td>
-                                <td class="text-xs-right">{{ props.item.custodial }}</td>
+                                <td class="text-xs-center"><a v-if="props.item.open_source" :href="props.item.open_source">yes</a><span v-else>no</span></td>
+                                <td class="text-xs-center">
+                                    <span v-if="props.item.requires_node">{{ props.item.requires_node }}</span
+                                    ><span v-else>no</span>
+                                </td>
+                                <td class="text-xs-center">
+                                    <span v-if="props.item.custodial">{{ props.item.custodial }}</span
+                                    ><span v-else>no</span>
+                                </td>
                                 <td class="text-xs-right">{{ props.item.release }}</td>
-                                <td class="text-xs-right"><a v-if="props.item.web_wallet" :href="props.item.web_wallet">yes</a><span v-else>no</span></td>
-                                <td class="text-xs-right"><a v-if="props.item.android" :href="props.item.android">android</a>&nbsp;<a v-if="props.item.iOS" :href="props.item.iOS">iOS</a></td>
+                                <td class="text-xs-center"><a v-if="props.item.web_wallet" :href="props.item.web_wallet">yes</a><span v-else>no</span></td>
                                 <td class="text-xs-right">
-                                    <a v-if="props.item.android_testnet" :href="props.item.android_testnet">android</a>&nbsp;<a v-if="props.item.iOS_testnet" :href="props.item.iOS_testnet">iOS</a>
+                                    <a v-if="props.item.android" :href="props.item.android">android</a>
+                                    <a v-else-if="props.item.android_closed" :href="props.item.android_closed">android closed-beta</a>&nbsp;
+                                    <a v-if="props.item.iOS" :href="props.item.iOS">iOS</a>
+                                    <a v-else-if="props.item.iOS_closed" :href="props.item.iOS_closed">iOS closed-beta</a>
+                                </td>
+                                <td class="text-xs-right">
+                                    <a v-if="props.item.android_testnet" :href="props.item.android_testnet">android</a>
+                                    <a v-else-if="props.item.android_testnet_closed" :href="props.item.android_testnet_closed">android closed-beta</a>
+                                    &nbsp;<a v-if="props.item.iOS_testnet" :href="props.item.iOS_testnet">iOS</a>
+                                    <a v-else-if="props.item.iOS_testnet_closed" :href="props.item.iOS_testnet_closed">iOS closed-beta</a>
                                 </td>
                             </template>
                         </v-data-table>
