@@ -11,8 +11,8 @@
                         <i>Warning: some recent wallets might be scams. Be carefull when experimenting with new wallets.</i>
                     </v-layout>
 
-                    <v-layout row pt-3 style="overflow: auto; width: 100%">
-                        <v-data-table :headers="headers" :items="wallets" :rows-per-page-items="[50, 100, 500]" :pagination.sync="pagination">
+                    <v-layout row pt-3 style="overflow: auto; width: 100%" justify-center>
+                        <v-data-table :headers="headers" :items="wallets" :rows-per-page-items="[50, 100, 500]" :pagination.sync="pagination" disable-initial-sort>
                             <template slot="headerCell" slot-scope="props">
                                 <v-tooltip bottom>
                                     <template v-slot:activator="{ on }">
