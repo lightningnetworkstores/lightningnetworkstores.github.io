@@ -11,7 +11,7 @@
                         This is a small list of lightning services/resources, it doesn't aim to be an exaustive list.
                     </v-layout>
 
-                    <v-layout row pt-3>
+                    <v-layout row pt-3 justify-center>
                         <v-data-table :headers="headers" :items="services" :rows-per-page-items="[50, 100, 500]" :pagination.sync="pagination" style="width: 100%">
                             <template slot="headerCell" slot-scope="props">
                                 <v-tooltip bottom>

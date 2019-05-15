@@ -11,7 +11,7 @@
                         To our knowledge, there isn't any list of on-chain donation addresses, so on-chain addresses are also included.
                     </v-layout>
 
-                    <v-layout row pt-3>
+                    <v-layout row pt-3 justify-center>
                         <v-data-table :headers="headers" :items="donations" :rows-per-page-items="[50, 100, 500]" :pagination.sync="pagination" style="width: 100%">
                             <template slot="headerCell" slot-scope="props">
                                 <v-tooltip bottom>
