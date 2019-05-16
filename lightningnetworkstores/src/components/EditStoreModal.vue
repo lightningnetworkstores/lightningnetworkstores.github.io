@@ -37,7 +37,7 @@
 
                     <v-layout row>
                         <v-flex pl-3 pr-3>
-                            <v-text-field v-model="editDialogForm.value" label="Value" hint="eg. www.new-url.com" :rules="[v => !!v || 'Value is required']"></v-text-field>
+                            <v-text-field v-model="editDialogForm.value" label="Value" :hint="hints[editDialogForm.property.prop]" :rules="[v => !!v || 'Value is required']"></v-text-field>
                         </v-flex>
                     </v-layout>
                     <!--
@@ -97,6 +97,10 @@ export default class BanStoreModal extends Vue {
         { name: "Twitter URL", prop: "twitter" }
     ];
     editDialogForm: any = { property: "", askOwner: true };
+
+    hints: JSON = JSON.parse(
+        '{"digital_goods":"\\"No, goods only in-store.\\" or \\"No, goods shipped.\\" or \\"yes\\" ", "uri":"e.g. 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735", "href":"e.g. https://example.com", "sector":"e.g. games&casino", "name":"Some new name no longer than 50 characters.", "description": "Some new description not longer than 150 characters.", "reddit":"e.g. https://reddit.com/user/someUser", "facebook":"e.g. https://facebook.com/somebody", "twitter":"e.g. https://twitter.com/somebody"}'
+    );
 
     private submitEdit() {
         (this.$refs.editform as Vue & { validate: () => boolean }).validate();
