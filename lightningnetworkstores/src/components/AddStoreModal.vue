@@ -58,7 +58,7 @@
                     <v-form @submit.prevent="submitAdd" ref="addform" v-if="!paymentRequest.length">
                         <v-layout row>
                             <v-flex pl-3 pr-3>
-                                <v-text-field v-model="addDialogForm.name" label="Name" hint="eg. LuckyThunder" :rules="[v => !!v || 'Name is required']"></v-text-field>
+                                <v-text-field v-model="addDialogForm.name" label="Name" hint="eg. Some name no longer than 50 characters." :rules="[v => !!v || 'Name is required']"></v-text-field>
                             </v-flex>
                         </v-layout>
 
@@ -67,7 +67,7 @@
                                 <v-text-field
                                     v-model="addDialogForm.description"
                                     label="Description"
-                                    hint="eg. LuckyThunder is a LN Slotmachine..."
+                                    hint="eg. Some description no longer than 150 characters."
                                     :rules="[v => !!v || 'Description is required', v => (v && (v.length > 6 && v.split(/\b(\s)/).length > 1)) || 'Enter a clear description of the store']"
                                 ></v-text-field>
                             </v-flex>
@@ -78,13 +78,13 @@
                                 <v-text-field
                                     v-model="addDialogForm.url"
                                     label="Website URL"
-                                    hint="eg. https://www.luckythunder.com"
+                                    hint="eg. https://lightningnetworkstores.com"
                                     :rules="[
                                         v => !!v || 'Website URL is required',
                                         v =>
                                             /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
                                                 v
-                                            ) || 'Enter a valid url eg. https://www.luckythunder.com'
+                                            ) || 'Enter a valid url eg. https://lightningnetworkstores.com'
                                     ]"
                                 ></v-text-field>
                             </v-flex>
@@ -95,7 +95,7 @@
                                 <v-text-field
                                     v-model="addDialogForm.uri"
                                     label="Node URI (optional)"
-                                    hint="eg. 7d1203ff06828625f421647950888a19cf30b5a635f@51.83.41.129:9735 (optional)"
+                                    hint="eg. 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735 (optional)"
                                 ></v-text-field>
                             </v-flex>
                         </v-layout>
