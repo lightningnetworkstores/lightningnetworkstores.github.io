@@ -22,7 +22,7 @@
                             </template>
                             <span>Trending score</span>
                         </v-tooltip>
-
+                        <v-chip v-if="store.rank > 0" color="orange" text-color="white" class="ma-2">#{{ store.rank }}</v-chip>
                         <!-- <v-chip color="orange" text-color="white" class="ma-2">{{ score.rank }}</v-chip> -->
                     </v-img>
                     <v-layout row pa-3>
@@ -109,6 +109,7 @@ export default class StoreInfo extends Vue {
 
         this.$store.dispatch("getStore", { id: this.storeId }).then(
             response => {
+                console.log(response.data);
                 this.store = response.data;
                 this.breadCrumb = [
                     {

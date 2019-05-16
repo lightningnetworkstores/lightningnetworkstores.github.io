@@ -1,7 +1,9 @@
 <template>
     <v-app>
-        <v-toolbar class="toolbar" color="rgba(217, 217, 217, 1)">
-            <v-toolbar-title><img src="@/assets/images/LNS.png" class="nav-logo"/></v-toolbar-title>
+        <v-toolbar class="toolbar" dark>
+            <v-toolbar-title
+                ><a href="/"><img src="@/assets/images/LNS.svg" class="nav-logo"/></a
+            ></v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
                 <v-btn flat to="/stats">Statistics</v-btn>

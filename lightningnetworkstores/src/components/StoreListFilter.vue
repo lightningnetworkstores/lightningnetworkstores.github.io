@@ -2,7 +2,7 @@
     <div class="store-list-filter">
         <v-layout justify-center class="text-xs-center">
             <v-flex>
-                <img src="@/assets/images/LightningNetworkStores.png" class="logo" />
+                <img src="@/assets/images/LightningNetworkStores.svg" class="logo" />
             </v-flex>
         </v-layout>
         <v-layout justify-center>

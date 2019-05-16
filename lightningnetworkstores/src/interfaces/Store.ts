@@ -11,6 +11,7 @@ export interface Store {
     facebook: string;
     twitter: string;
     reddit: string;
+    rank: number;
 }
 
 export interface Store {
@@ -30,4 +31,5 @@ export interface Store {
     facebook: string;
     twitter: string;
     reddit: string;
+    rank: number;
 }
