@@ -26,16 +26,19 @@ export default new Vuex.Store({
         getStores: state => ({ sector, digitalGoods }: any, sort: string): Store[] => {
             //filter
             let stores: Store[] = [];
+            let stateStores = state.stores.slice(0);
             if ((!sector || sector == "undefined") && (!digitalGoods || digitalGoods == "undefined")) {
-                stores = state.stores;
+                stores = stateStores;
             } else if (!digitalGoods || digitalGoods == "undefined") {
-                stores = sector !== "all" ? state.stores.filter((store: any) => store.sector == sector) : state.stores;
+                stores = sector !== "all" ? stateStores.filter((store: any) => store.sector == sector) : stateStores;
             } else if (!sector || sector == "undefined") {
-                stores = digitalGoods !== "all" ? state.stores.filter((store: Store) => store.digital_goods == digitalGoods) : state.stores;
+                stores = digitalGoods !== "all" ? stateStores.filter((store: Store) => store.digital_goods == digitalGoods) : stateStores;
             } else {
-                let filteredBySector = sector !== "all" ? state.stores.filter((store: Store) => store.sector == sector) : state.stores;
+                let filteredBySector = sector !== "all" ? stateStores.filter((store: Store) => store.sector == sector) : stateStores;
                 stores = digitalGoods !== "all" ? filteredBySector.filter((store: Store) => store.digital_goods == digitalGoods) : filteredBySector;
             }
+
+            console.log(sort);
             //sort
             switch (sort) {
                 case "best":
@@ -47,22 +50,24 @@ export default new Vuex.Store({
                     break;
                 case "trending":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id] || [0])[2] - (state.scores[a.id] || [0])[2];
+                        return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
                     });
                     break;
                 case "newest":
-                    stores.sort((a: Store, b: Store) => {
-                        return b.added - a.added;
-                    });
+                    stores
+                        .sort((a: Store, b: Store) => {
+                            return a.added - b.added;
+                        })
+                        .reverse();
                     break;
                 case "controversial":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id] || [0])[1] - (state.scores[a.id] || [0])[1];
+                        return (state.scores[b.id] || [0, 0])[1] - (state.scores[a.id] || [0, 0])[1];
                     });
                     break;
                 case "lastcommented":
                     stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id] || [0])[3] - (state.scores[a.id] || [0])[3];
+                        return (state.scores[b.id] || [0, 0, 0, 0])[3] - (state.scores[a.id] || [0, 0, 0, 0])[3];
                     });
                     break;
                 default:
@@ -152,6 +157,30 @@ export default new Vuex.Store({
                 })
                 .catch(error => {
                     console.log(error);
+                });
+        },
+        getStores({ commit }) {
+            return axios
+                .get(`${baseUrl}sites.json`)
+                .then(response => {
+                    commit("setStores", response.data);
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                    return Promise.reject(error);
+                });
+        },
+        getScores({ commit }) {
+            return axios
+                .get(`${baseUrl}storeScores.json`)
+                .then(response => {
+                    commit("setScores", response.data);
+                    return Promise.resolve(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                    return Promise.reject(error);
                 });
         },
         getWallets({}) {

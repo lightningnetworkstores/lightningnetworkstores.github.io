@@ -12,7 +12,7 @@
                             <v-card>
                                 <v-card-title primary-title class="justify-center">
                                     <div>
-                                        <h3 class="headline text--accent-2">Number of stores: {{ storeCount }}</h3>
+                                        <h3 class="headline text--accent-2">Number of stores: {{ trendingStores.length }}&nbsp;</h3>
                                     </div>
                                     <div>
                                         <h3 class="headline text--accent-2">Ratio of stores accepting lightning: ≃{{ lightningStoreRatio | number }}%</h3>
@@ -69,7 +69,9 @@ import { GChart } from "vue-google-charts";
 export default class Stats extends Vue {
     lightningStoreRatio: number = 0;
     coinmap: any = [];
-    storeCount: number = 0;
+
+    trendingStores: Store[] = [];
+    newestStores: Store[] = [];
 
     chartOptions: any = {
         chart: {
@@ -81,17 +83,23 @@ export default class Stats extends Vue {
 
     chartData: any = [["Time", "Stores"]];
 
-    mounted() {
-        this.$store.dispatch("getCoinmapData").then(
-            response => {
-                this.coinmap = response.data;
-                this.getStatsData();
-            },
-            error => {
-                console.error(error);
-            }
-        );
-        this.storeCount = this.getStores.length;
+    async mounted() {
+        let scores = (await this.$store.dispatch("getScores")).data;
+        let stores = (await this.$store.dispatch("getStores")).data;
+        this.coinmap = (await this.$store.dispatch("getCoinmapData")).data;
+
+        this.trendingStores = stores.slice(0).sort((a: Store, b: Store) => {
+            return (scores[b.id] || [0, 0, 0])[2] - (scores[a.id] || [0, 0, 0])[2];
+        });
+
+        this.newestStores = stores
+            .slice(0)
+            .sort((a: Store, b: Store) => {
+                return a.added - b.added;
+            })
+            .reverse();
+
+        this.getStatsData();
     }
 
     private getStatsData() {
@@ -129,9 +137,6 @@ export default class Stats extends Vue {
     get getStores() {
         return this.$store.getters.getStores({ sector: null, digitalGoods: null });
     }
-
-    trendingStores: Store[] = this.$store.getters.getStores({ sector: null, digitalGoods: null }, "trending");
-    newestStores: Store[] = this.$store.getters.getStores({ sector: null, digitalGoods: null }, "newest");
 }
 </script>
 
