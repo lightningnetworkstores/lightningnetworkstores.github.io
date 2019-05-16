@@ -99,7 +99,7 @@ export default class BanStoreModal extends Vue {
     editDialogForm: any = { property: "", askOwner: true };
 
     hints: JSON = JSON.parse(
-        '{"digital_goods":"\\"No, goods only in-store.\\" or \\"No, goods shipped.\\" or \\"yes\\" ", "uri":"e.g. 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735", "href":"e.g. https://example.com", "sector":"e.g. games&casino", "name":"Some new name no longer than 50 characters.", "description": "Some new description not longer than 150 characters.", "reddit":"e.g. https://reddit.com/user/someUser", "facebook":"e.g. https://facebook.com/somebody", "twitter":"e.g. https://twitter.com/somebody"}'
+        '{"digital_goods":"\\"No, goods only in-store\\" or \\"No, goods shipped\\" or \\"yes\\" ", "uri":"e.g. 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735", "href":"e.g. https://example.com", "sector":"e.g. games&casino", "name":"Some new name no longer than 50 characters.", "description": "Some new description not longer than 150 characters.", "reddit":"e.g. https://reddit.com/user/someUser", "facebook":"e.g. https://facebook.com/somebody", "twitter":"e.g. https://twitter.com/somebody"}'
     );
 
     private submitEdit() {
