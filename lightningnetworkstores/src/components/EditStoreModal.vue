@@ -13,7 +13,7 @@
                     </v-flex>
                 </v-layout>
 
-                <v-card-title class="headline">Suggest an edit for {{ store.name }}</v-card-title>
+                <v-card-title class="headline">Edit {{ store.name }}</v-card-title>
                 <v-form @submit.prevent="submitEdit" ref="editform">
                     <v-layout row>
                         <v-flex pl-3 pr-3>
