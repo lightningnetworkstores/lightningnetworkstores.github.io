@@ -15,6 +15,7 @@
     "qrcode.vue": "^1.6.1",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.6",
+    "vue-analytics": "^5.16.4",
     "vue-class-component": "^6.0.0",
     "vue-google-charts": "^0.3.2",
     "vue-property-decorator": "^8.0.0",
