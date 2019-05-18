@@ -67,7 +67,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component
 export default class About extends Vue {
     pagination: any = {
-        rowsPerPage: 500
+        rowsPerPage: 50
     };
 
     headers: any = [

@@ -57,7 +57,7 @@
                                 <v-icon>add</v-icon>
                             </v-btn>
                             button on the <a href="/">main page.</a><br />
-                            If you are a trustworthy store or plan on adding several stores, ask for a coupon code so you can add stores without paying the small entry fee.
+                            If you are trustworthy or plan on adding several stores, ask for a coupon code so you can add stores without paying the small entry fee.
                         </p>
                     </v-layout>
                     <v-layout row>
