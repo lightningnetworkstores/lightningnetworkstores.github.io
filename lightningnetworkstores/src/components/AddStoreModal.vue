@@ -292,7 +292,6 @@ export default class AddStoreModal extends Vue {
         if (this.expiryTime > new Date()) {
             this.$store.dispatch("checkPayment", { id: this.paymentID }).then(
                 response => {
-                    console.log(response.data);
                     if (response.data == true) {
                         this.isPaid = true;
                         this.addDialogForm = {};
