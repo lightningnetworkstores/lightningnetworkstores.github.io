@@ -7,8 +7,8 @@
             <v-flex xs11 md11 lg6 pa-3>
                 <v-card>
                     <v-toolbar card color="rgb(56, 56, 56)" dark dense
-                        ><v-text-field v-model="searchQuery" hide-details prepend-icon="search" single-line class="pt-0"></v-text-field><v-spacer></v-spacer><v-icon>filter_list</v-icon></v-toolbar
-                    >
+                        ><v-text-field v-model="searchQuery" hide-details prepend-icon="search" single-line class="pt-0"></v-text-field><v-spacer></v-spacer><tutorial-modal></tutorial-modal
+                    ></v-toolbar>
                     <!-- <v-spacer></v-spacer><v-icon>fa-filter</v-icon> -->
                     <v-layout row style="padding: 20px 20px 14px 20px;" wrap>
                         <v-flex grow pa-1><v-combobox v-model="selectedSector" item-text="name" item-value="prop" label="Sector" :items="sectorItems" return-object></v-combobox></v-flex>
@@ -29,8 +29,9 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import VueRecaptcha from "vue-recaptcha";
 import QrcodeVue from "qrcode.vue";
 import AddStoreModal from "@/components/AddStoreModal.vue";
+import TutorialModal from "@/components/TutorialModal.vue";
 
-@Component({ components: { VueRecaptcha, QrcodeVue, AddStoreModal } })
+@Component({ components: { VueRecaptcha, QrcodeVue, AddStoreModal, TutorialModal } })
 export default class StoreList extends Vue {
     @Prop() sector!: string;
     @Prop() digitalGoods!: string;

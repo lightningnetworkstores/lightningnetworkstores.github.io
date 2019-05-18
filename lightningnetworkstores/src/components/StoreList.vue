@@ -30,10 +30,13 @@ export default class StoreList extends Vue {
 
     baseUrl: string = "";
 
-    mounted() {
+    async mounted() {
         console.log("Sector: " + this.sector);
         console.log("Digital goods: " + this.digitalGoods);
         console.log("Sort: " + this.sort);
+
+        await this.$store.dispatch("getScores");
+        await this.$store.dispatch("getStores");
 
         this.baseUrl = this.$store.getters.getBaseUrl();
 
@@ -57,7 +60,6 @@ export default class StoreList extends Vue {
 
     @Watch("search")
     private onSearchChanged(val: string, oldVal: string) {
-        console.log(val);
         this.$forceUpdate();
     }
 

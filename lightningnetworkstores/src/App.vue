@@ -58,8 +58,8 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export default class App extends Vue {
     mounted() {
-        this.$store.dispatch("fetchScores");
-        this.$store.dispatch("fetchStores");
+        // this.$store.dispatch("fetchScores");
+        // this.$store.dispatch("fetchStores");
     }
 }
 </script>
