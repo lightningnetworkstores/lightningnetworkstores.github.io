@@ -10,16 +10,15 @@
                 <v-carousel :cycle="false">
                     <v-carousel-item>
                         <p class="pl-3 pt-3 pr-3 subheading">1. This website lists stores that accept bitcoin through the lightning network. Any user can vote up or down on the stores listed.</p>
-                        <v-img :src="`${baseUrl}tutorial/video1.gif`" alt=""
+                        <vuetify-lazy-image :src="`${baseUrl}tutorial/video1.gif`" alt=""
                     /></v-carousel-item>
                     <v-carousel-item>
                         <p class="pl-3 pt-3 pr-3 subheading">2. Anyone can add a store that accepts bitcoin through lightning. The store is tweeted after being added.</p>
-                        <v-img :src="`${baseUrl}tutorial/video2.gif`" alt=""
+                        <vuetify-lazy-image :src="`${baseUrl}tutorial/video2.gif`" alt=""
                     /></v-carousel-item>
-
                     <v-carousel-item>
                         <p class="pl-3 pt-3 pr-3 subheading">3. Users can suggest updates on the store information, this update can be accepted by the website owner.</p>
-                        <v-img :src="`${baseUrl}tutorial/video3.gif`" alt=""
+                        <vuetify-lazy-image :src="`${baseUrl}tutorial/video3.gif`" alt=""
                     /></v-carousel-item>
                 </v-carousel>
 
@@ -37,8 +36,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+//@ts-ignore
+import VuetifyLazyImage from "vuetify-lazy-image";
 
-@Component
+@Component({
+    components: {
+        VuetifyLazyImage
+    }
+})
 export default class TutorialModal extends Vue {
     showTutorialDialog: boolean = false;
     baseUrl: string = "";
