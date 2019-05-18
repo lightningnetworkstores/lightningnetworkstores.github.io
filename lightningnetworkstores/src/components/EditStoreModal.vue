@@ -118,7 +118,6 @@ export default class EditStoreModal extends Vue {
     }
 
     private submitEdit() {
-        this.editAlert = { message: "", success: true };
         (this.$refs.editform as Vue & { validate: () => boolean }).validate();
         if (this.store.id && this.editDialogForm.property.prop && this.editDialogForm.value) {
             this.isLoading = true;
@@ -127,11 +126,11 @@ export default class EditStoreModal extends Vue {
                     this.editAlert.message = response.data;
                     if (response.data.includes("The request was successfully recorded")) {
                         this.editAlert.success = true;
+                        this.editDialogForm = { property: "", askOwner: true };
+                        (this.$refs.editform as Vue & { reset: () => boolean }).reset();
                     } else {
                         this.editAlert.success = false;
                     }
-                    this.editDialogForm = { property: "", askOwner: true };
-                    (this.$refs.editform as Vue & { reset: () => boolean }).reset();
                     this.isLoading = false;
                 },
                 error => {
