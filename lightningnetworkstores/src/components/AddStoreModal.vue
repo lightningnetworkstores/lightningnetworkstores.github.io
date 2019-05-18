@@ -22,6 +22,14 @@
                         </v-layout>
                     </v-card-title>
                     <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+
+                        <v-btn color="green darken-1" flat="flat" @click="cancel">
+                            Cancel
+                        </v-btn>
+                    </v-card-actions>
                 </div>
 
                 <div v-else>

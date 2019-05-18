@@ -11,11 +11,11 @@
                     ></v-toolbar>
                     <!-- <v-spacer></v-spacer><v-icon>fa-filter</v-icon> -->
                     <v-layout row style="padding: 20px 20px 14px 20px;" wrap>
+                        <v-flex grow pa-1><v-combobox v-model="selectedSort" item-text="name" item-value="prop" label="Sort" :items="sortItems" return-object></v-combobox></v-flex>
                         <v-flex grow pa-1><v-combobox v-model="selectedSector" item-text="name" item-value="prop" label="Sector" :items="sectorItems" return-object></v-combobox></v-flex>
                         <v-flex grow pa-1
                             ><v-combobox v-model="selectedDigitalGood" item-text="name" item-value="prop" label="Digital goods" :items="digitalGoodItems" return-object></v-combobox
                         ></v-flex>
-                        <v-flex grow pa-1><v-combobox v-model="selectedSort" item-text="name" item-value="prop" label="Sort" :items="sortItems" return-object></v-combobox></v-flex>
                     </v-layout>
                 </v-card>
             </v-flex>
