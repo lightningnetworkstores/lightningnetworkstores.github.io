@@ -13,11 +13,11 @@ Vue.use(Vuex);
 const baseUrl = "https://lightningnetworkstores.com:8443/";
 const options = {
     shouldSort: true,
-    threshold: 0.6,
+    threshold: 1,
     location: 0,
     distance: 100,
     maxPatternLength: 32,
-    minMatchCharLength: 1,
+    minMatchCharLength: 3,
     keys: ["name", "rank", "href", "description"]
 };
 
