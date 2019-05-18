@@ -14,15 +14,15 @@
                         ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
-                                <v-chip v-if="score.trending > 0" color="purple" text-color="white">
-                                    {{ score.trending }}%
+                                <v-chip v-if="store.trending > 0" color="purple" text-color="white" v-on="on">
+                                    {{ store.trending }}%
 
                                     <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
                                 </v-chip>
                             </template>
                             <span>Trending score</span>
                         </v-tooltip>
-                        <v-chip v-if="store.rank > 0" color="orange" text-color="white" class="ma-2">#{{ store.rank }}</v-chip>
+                        <v-chip v-if="store.rank > 0" color="#fdb919" text-color="white" class="ma-2">#{{ store.rank }}</v-chip>
                         <!-- <v-chip color="orange" text-color="white" class="ma-2">{{ score.rank }}</v-chip> -->
                     </v-img>
                     <v-layout row pa-3>
@@ -86,7 +86,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Store } from "../interfaces/Store";
-import { Score } from "../interfaces/Score";
 import Vote from "@/components/Vote.vue";
 import BanStoreModal from "@/components/BanStoreModal.vue";
 import EditStoreModal from "@/components/EditStoreModal.vue";
@@ -100,7 +99,6 @@ export default class StoreInfo extends Vue {
     baseUrl: string = "";
     breadCrumb: any;
     loaded: boolean = false;
-    score!: Score;
 
     mounted() {
         this.loaded = false;
@@ -129,8 +127,6 @@ export default class StoreInfo extends Vue {
                 console.error(error);
             }
         );
-
-        this.score = this.$store.getters.getScore(this.storeId);
     }
 
     get isNewStore(): boolean {

@@ -25,7 +25,18 @@
                 </div>
 
                 <div v-else>
-                    <v-card-title class="headline">Automatically add new store!</v-card-title>
+                    <v-card-title class="headline">
+                        <v-layout row>
+                            <v-flex grow>Automatically add new store!</v-flex>
+                            <v-flex shrink v-if="isLoading || paymentRequest.length"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
+                        </v-layout>
+                    </v-card-title>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3 v-if="!paymentRequest.length">
+                            Amount due if not a contributor: 5000 satoshis
+                        </v-flex>
+                    </v-layout>
 
                     <div v-if="paymentRequest">
                         <v-layout row>
@@ -152,13 +163,6 @@
                             <v-flex grow></v-flex>
                         </v-layout>
 
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <br />
-                                <span>Amount due if not a contributor: 5000 satoshis</span>
-                            </v-flex>
-                        </v-layout>
-
                         <v-card-actions>
                             <v-spacer></v-spacer>
 
@@ -203,6 +207,7 @@ export default class AddStoreModal extends Vue {
     showAddDialog: boolean = false;
     addDialogForm: any = {};
     addAlert: any = { message: "", success: true };
+    isLoading: boolean = false;
 
     paymentRequest: string = "";
     paymentID: string = "";
@@ -225,6 +230,7 @@ export default class AddStoreModal extends Vue {
     private closeDialog() {
         this.addDialogForm = {};
         this.showAddDialog = false;
+        (this.$refs.addform as Vue & { reset: () => boolean }).reset();
         this.isPaid = false;
         this.paymentID = "";
     }
@@ -238,6 +244,7 @@ export default class AddStoreModal extends Vue {
     private submitAdd(event: any) {
         (this.$refs.addform as Vue & { validate: () => boolean }).validate();
         if (event.target["g-recaptcha-response"].value) {
+            this.isLoading = true;
             this.$store
                 .dispatch("addStore", {
                     name: this.addDialogForm.name,
@@ -269,9 +276,12 @@ export default class AddStoreModal extends Vue {
                             this.addAlert.message = response.data;
                             this.addAlert.success = false;
                         }
+
+                        this.isLoading = false;
                     },
                     error => {
                         console.error(error);
+                        this.isLoading = false;
                     }
                 );
         }

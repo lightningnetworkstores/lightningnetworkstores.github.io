@@ -1,8 +1,8 @@
 <template>
     <v-app>
-        <v-toolbar class="toolbar" dark>
+        <v-toolbar class="toolbar" color="rgb(56, 56, 56)" dark>
             <v-toolbar-title
-                ><a href="/"><img src="@/assets/images/LNS.svg" class="nav-logo"/></a
+                ><a href="/"><img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"/></a
             ></v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
@@ -90,6 +90,11 @@ export default class App extends Vue {
 }
 .nav-logo {
     height: 55px;
-    padding-top: 5px;
 }
+.v-image__image {
+    background-position: top center !important;
+}
+// .theme--light.application {
+//     background: rgb(255, 255, 255) !important;
+// }
 </style>

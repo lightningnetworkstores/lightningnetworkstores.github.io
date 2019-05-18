@@ -2,7 +2,7 @@
     <v-flex xs12 sm6 md4 lg4 pa-3>
         <v-card hover @click.native="gotoStore()">
             <div class="chips">
-                <v-chip v-if="storeWithScore.rank !== 'unranked'" color="orange" text-color="white" class="ma-2">{{ storeWithScore.rank }}</v-chip>
+                <v-chip v-if="storeWithScore.rank !== 'unranked'" color="#fdb919" text-color="white" class="ma-2">{{ storeWithScore.rank }}</v-chip>
                 <v-chip v-if="storeWithScore.trending >= 30" color="purple" text-color="white" class="ma-2">Trending</v-chip>
                 <v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip>
             </div>

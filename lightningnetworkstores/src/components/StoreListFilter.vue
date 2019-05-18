@@ -1,17 +1,23 @@
 <template>
     <div class="store-list-filter">
         <v-layout justify-center class="text-xs-center">
-            <v-flex>
-                <img src="@/assets/images/LightningNetworkStores.svg" class="logo" />
-            </v-flex>
+            <v-flex> </v-flex>
         </v-layout>
         <v-layout justify-center>
-            <v-flex xs11 md11 lg6>
-                <v-layout row pt-2 wrap>
-                    <v-flex grow pa-1><v-combobox v-model="selectedSector" item-text="name" item-value="prop" label="Sector" :items="sectorItems" return-object></v-combobox></v-flex>
-                    <v-flex grow pa-1><v-combobox v-model="selectedDigitalGood" item-text="name" item-value="prop" label="Digital goods" :items="digitalGoodItems" return-object></v-combobox></v-flex>
-                    <v-flex grow pa-1><v-combobox v-model="selectedSort" item-text="name" item-value="prop" label="Sort" :items="sortItems" return-object></v-combobox></v-flex>
-                </v-layout>
+            <v-flex xs11 md11 lg6 pa-3>
+                <v-card>
+                    <v-toolbar card color="rgb(56, 56, 56)" dark dense
+                        ><v-text-field hide-details prepend-icon="search" single-line class="pt-0"></v-text-field><v-spacer></v-spacer><v-icon>filter_list</v-icon></v-toolbar
+                    >
+                    <!-- <v-spacer></v-spacer><v-icon>fa-filter</v-icon> -->
+                    <v-layout row style="padding: 20px 20px 14px 20px;" wrap>
+                        <v-flex grow pa-1><v-combobox v-model="selectedSector" item-text="name" item-value="prop" label="Sector" :items="sectorItems" return-object></v-combobox></v-flex>
+                        <v-flex grow pa-1
+                            ><v-combobox v-model="selectedDigitalGood" item-text="name" item-value="prop" label="Digital goods" :items="digitalGoodItems" return-object></v-combobox
+                        ></v-flex>
+                        <v-flex grow pa-1><v-combobox v-model="selectedSort" item-text="name" item-value="prop" label="Sort" :items="sortItems" return-object></v-combobox></v-flex>
+                    </v-layout>
+                </v-card>
             </v-flex>
         </v-layout>
         <add-store-modal></add-store-modal>
@@ -100,10 +106,4 @@ export default class StoreList extends Vue {
 </script>
 
 <style scoped lang="scss">
-.logo {
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    padding: 5px;
-}
 </style>

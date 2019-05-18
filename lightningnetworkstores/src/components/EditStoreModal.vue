@@ -12,32 +12,33 @@
                         </v-alert>
                     </v-flex>
                 </v-layout>
-
-                <v-card-title class="headline">Edit {{ store.name }}</v-card-title>
+                <v-card-title class="headline">
+                    <v-layout row>
+                        <v-flex grow>Edit&nbsp;{{ store.name }}</v-flex>
+                        <v-flex shrink v-if="isLoading"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
+                    </v-layout>
+                </v-card-title>
                 <v-form @submit.prevent="submitEdit" ref="editform">
                     <v-layout row>
                         <v-flex pl-3 pr-3>
-                            <v-combobox
-                                v-model="editDialogForm.property"
-                                item-text="name"
-                                item-value="prop"
-                                label="Property"
-                                :items="editDialogProperties"
-                                return-object
-                                :rules="[v => !!v || 'Property is required']"
-                            ></v-combobox>
+                            <v-combobox v-model="editDialogForm.property" item-text="name" item-value="prop" label="Property" :items="editDialogProperties" return-object></v-combobox>
                         </v-flex>
                     </v-layout>
 
                     <v-layout row>
                         <v-flex pl-3 pr-3>
-                            <v-text-field :value="store[editDialogForm.property.prop]" label="Current value" disabled></v-text-field>
+                            <v-text-field :value="editDialogForm.property && editDialogForm.property.prop ? store[editDialogForm.property.prop] : ''" label="Current value" disabled></v-text-field>
                         </v-flex>
                     </v-layout>
 
                     <v-layout row>
                         <v-flex pl-3 pr-3>
-                            <v-text-field v-model="editDialogForm.value" label="Value" :hint="hints[editDialogForm.property.prop]" :rules="[v => !!v || 'Value is required']"></v-text-field>
+                            <v-text-field
+                                v-model="editDialogForm.value"
+                                label="Value"
+                                :hint="editDialogForm.property && editDialogForm.property.prop ? hints[editDialogForm.property.prop] : ''"
+                                :rules="[v => !!v || 'Value is required']"
+                            ></v-text-field>
                         </v-flex>
                     </v-layout>
                     <!--
@@ -62,7 +63,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
-                        <v-btn color="green darken-1" flat="flat" @click="showEditDialog = false">
+                        <v-btn color="green darken-1" flat="flat" @click="closeDialog">
                             Cancel
                         </v-btn>
 
@@ -81,10 +82,11 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Store } from "../interfaces/Store";
 
 @Component
-export default class BanStoreModal extends Vue {
+export default class EditStoreModal extends Vue {
     @Prop() store!: Store;
     editAlert: any = { message: "", success: true };
     showEditDialog: boolean = false;
+    isLoading: boolean = false;
     editDialogProperties: object[] = [
         { name: "Name", prop: "name" },
         { name: "Description", prop: "description" },
@@ -110,9 +112,16 @@ export default class BanStoreModal extends Vue {
         twitter: "e.g. https://twitter.com/somebody"
     };
 
+    private closeDialog() {
+        this.showEditDialog = false;
+        (this.$refs.editform as Vue & { reset: () => boolean }).reset();
+    }
+
     private submitEdit() {
+        this.editAlert = { message: "", success: true };
         (this.$refs.editform as Vue & { validate: () => boolean }).validate();
         if (this.store.id && this.editDialogForm.property.prop && this.editDialogForm.value) {
+            this.isLoading = true;
             this.$store.dispatch("addStoreUpdate", { id: this.store.id, field: this.editDialogForm.property.prop, value: this.editDialogForm.value, askOwner: this.editDialogForm.askOwner }).then(
                 response => {
                     this.editAlert.message = response.data;
@@ -122,9 +131,12 @@ export default class BanStoreModal extends Vue {
                         this.editAlert.success = false;
                     }
                     this.editDialogForm = { property: "", askOwner: true };
+                    (this.$refs.editform as Vue & { reset: () => boolean }).reset();
+                    this.isLoading = false;
                 },
                 error => {
                     console.error(error);
+                    this.isLoading = false;
                 }
             );
         }
