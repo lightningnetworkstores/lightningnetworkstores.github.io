@@ -1,15 +1,25 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import Fuse from "fuse.js";
 import { Store } from "./interfaces/Store";
 import { Score } from "./interfaces/Score";
 
-const stores: Store[] = require("../data/sites.json");
-const scores: any = require("../data/storeScores.json");
+// const stores: Store[] = require("../data/sites.json");
+// const scores: any = require("../data/storeScores.json");
 
 Vue.use(Vuex);
 
 const baseUrl = "https://lightningnetworkstores.com:8443/";
+const options = {
+    shouldSort: true,
+    threshold: 0.6,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: ["name", "rank", "href", "description"]
+};
 
 export default new Vuex.Store({
     state: {
@@ -23,7 +33,7 @@ export default new Vuex.Store({
         getStoreCount: state => () => {
             return state.stores.length;
         },
-        getStores: state => ({ sector, digitalGoods }: any, sort: string): Store[] => {
+        getStores: state => ({ sector, digitalGoods }: any, sort: string, search: string): Store[] => {
             //filter
             let stores: Store[] = [];
             let stateStores = state.stores.slice(0);
@@ -38,45 +48,50 @@ export default new Vuex.Store({
                 stores = digitalGoods !== "all" ? filteredBySector.filter((store: Store) => store.digital_goods == digitalGoods) : filteredBySector;
             }
 
-            console.log(sort);
-            //sort
-            switch (sort) {
-                case "best":
-                    stores.sort((a: Store, b: Store) => {
-                        let scoreB: number = (state.scores[b.id] || [0])[0] - (state.scores[b.id] || [0, 0])[1];
-                        let scoreA: number = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
-                        return scoreB - scoreA;
-                    });
-                    break;
-                case "trending":
-                    stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
-                    });
-                    break;
-                case "newest":
-                    stores
-                        .sort((a: Store, b: Store) => {
-                            return a.added - b.added;
-                        })
-                        .reverse();
-                    break;
-                case "controversial":
-                    stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id] || [0, 0])[1] - (state.scores[a.id] || [0, 0])[1];
-                    });
-                    break;
-                case "lastcommented":
-                    stores.sort((a: Store, b: Store) => {
-                        return (state.scores[b.id] || [0, 0, 0, 0])[3] - (state.scores[a.id] || [0, 0, 0, 0])[3];
-                    });
-                    break;
-                default:
-                    stores.sort((a: Store, b: Store) => {
-                        let scoreB: number = (state.scores[b.id] || [0])[0] - (state.scores[b.id] || [0, 0])[1];
-                        let scoreA: number = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
-                        return scoreB - scoreA;
-                    });
-                    break;
+            //Search
+            if (search && search !== "undefined") {
+                let fuse = new Fuse(stores, options);
+                stores = fuse.search(search);
+            } else {
+                //sort
+                switch (sort) {
+                    case "best":
+                        stores.sort((a: Store, b: Store) => {
+                            let scoreB: number = (state.scores[b.id] || [0])[0] - (state.scores[b.id] || [0, 0])[1];
+                            let scoreA: number = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
+                            return scoreB - scoreA;
+                        });
+                        break;
+                    case "trending":
+                        stores.sort((a: Store, b: Store) => {
+                            return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
+                        });
+                        break;
+                    case "newest":
+                        stores
+                            .sort((a: Store, b: Store) => {
+                                return a.added - b.added;
+                            })
+                            .reverse();
+                        break;
+                    case "controversial":
+                        stores.sort((a: Store, b: Store) => {
+                            return (state.scores[b.id] || [0, 0])[1] - (state.scores[a.id] || [0, 0])[1];
+                        });
+                        break;
+                    case "lastcommented":
+                        stores.sort((a: Store, b: Store) => {
+                            return (state.scores[b.id] || [0, 0, 0, 0])[3] - (state.scores[a.id] || [0, 0, 0, 0])[3];
+                        });
+                        break;
+                    default:
+                        stores.sort((a: Store, b: Store) => {
+                            let scoreB: number = (state.scores[b.id] || [0])[0] - (state.scores[b.id] || [0, 0])[1];
+                            let scoreA: number = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
+                            return scoreB - scoreA;
+                        });
+                        break;
+                }
             }
 
             return stores;

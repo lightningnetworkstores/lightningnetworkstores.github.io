@@ -26,6 +26,7 @@ export default class StoreList extends Vue {
     @Prop() sector!: string;
     @Prop() digitalGoods!: string;
     @Prop() sort!: string;
+    @Prop() search!: string;
 
     baseUrl: string = "";
 
@@ -54,8 +55,14 @@ export default class StoreList extends Vue {
         this.$forceUpdate();
     }
 
+    @Watch("search")
+    private onSearchChanged(val: string, oldVal: string) {
+        console.log(val);
+        this.$forceUpdate();
+    }
+
     get getStores() {
-        return this.$store.getters.getStores({ sector: this.sector, digitalGoods: this.digitalGoods }, this.sort);
+        return this.$store.getters.getStores({ sector: this.sector, digitalGoods: this.digitalGoods }, this.sort, this.search);
     }
 }
 </script>

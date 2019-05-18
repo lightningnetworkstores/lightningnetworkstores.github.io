@@ -7,7 +7,7 @@
             <v-flex xs11 md11 lg6 pa-3>
                 <v-card>
                     <v-toolbar card color="rgb(56, 56, 56)" dark dense
-                        ><v-text-field hide-details prepend-icon="search" single-line class="pt-0"></v-text-field><v-spacer></v-spacer><v-icon>filter_list</v-icon></v-toolbar
+                        ><v-text-field v-model="searchQuery" hide-details prepend-icon="search" single-line class="pt-0"></v-text-field><v-spacer></v-spacer><v-icon>filter_list</v-icon></v-toolbar
                     >
                     <!-- <v-spacer></v-spacer><v-icon>fa-filter</v-icon> -->
                     <v-layout row style="padding: 20px 20px 14px 20px;" wrap>
@@ -35,6 +35,7 @@ export default class StoreList extends Vue {
     @Prop() sector!: string;
     @Prop() digitalGoods!: string;
     @Prop() sort!: string;
+    @Prop() search!: string;
 
     digitalGoodItems: any[] = [
         { name: "All", prop: "all" },
@@ -69,6 +70,7 @@ export default class StoreList extends Vue {
     selectedDigitalGood: any = this.digitalGoods == "undefined" ? "all" : this.digitalGoods;
     selectedSector: any = this.sector == "undefined" ? "all" : this.sector;
     selectedSort: any = this.sort == "undefined" ? "best" : this.sort;
+    searchQuery: string = this.search == "undefined" ? "" : this.search;
 
     created() {}
 
@@ -77,7 +79,8 @@ export default class StoreList extends Vue {
             query: {
                 sector: encodeURI(this.selectedSector.prop || this.selectedSector),
                 digital_goods: encodeURI(this.selectedDigitalGood.prop || this.selectedDigitalGood),
-                sort: encodeURI(this.selectedSort.prop || this.selectedSort)
+                sort: encodeURI(this.selectedSort.prop || this.selectedSort),
+                search: encodeURI(this.searchQuery)
             }
         });
     }
@@ -100,6 +103,15 @@ export default class StoreList extends Vue {
     private onSelectedSortChanged(val: string, oldVal: string) {
         if (val !== oldVal) {
             this.changeUrl();
+        }
+    }
+
+    @Watch("searchQuery")
+    private onSearchChanged(val: string, oldVal: string) {
+        if (val !== oldVal) {
+            setTimeout(() => {
+                this.changeUrl();
+            }, 1000);
         }
     }
 }

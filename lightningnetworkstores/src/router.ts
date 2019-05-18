@@ -18,7 +18,7 @@ export default new Router({
             path: "/",
             name: "home",
             component: Home,
-            props: route => ({ sector: route.query.sector, digitalGoods: route.query.digital_goods, sort: route.query.sort })
+            props: route => ({ sector: route.query.sector, digitalGoods: route.query.digital_goods, sort: route.query.sort, search: route.query.search })
         },
         {
             path: "/store/:storeId",
