@@ -179,7 +179,7 @@
                             </v-btn>
 
                             <v-btn color="green darken-1" flat="flat" type="submit">
-                                Send
+                                Submit
                             </v-btn>
                         </v-card-actions>
                     </v-form>
