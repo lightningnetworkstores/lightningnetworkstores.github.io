@@ -99,19 +99,6 @@
     "added": 1523577600
   },
   {
-    "id": 12,
-    "href": "https://www.bitstarz.com/",
-    "uri": "03b2ff042bcc564de35c2beb17e175ec1315011fee63070617fa7e11f55308d76f@35.204.246.146:9735",
-    "name": "bitStarz",
-    "description": "Cryptocurrency casino",
-    "flags": {
-      "coming_soon": 1
-    },
-    "digital_goods": "yes",
-    "sector": "games\u0026casino",
-    "added": 1521147592
-  },
-  {
     "id": 13,
     "href": "https://www.coincards.ca/",
     "uri": "0312c02755c6a3475f872be27e71fdb7703a61a25777401a26125e1c772c7e0f6a@192.95.29.22:9735",
@@ -160,19 +147,6 @@
     "digital_goods": "no, goods shipped",
     "sector": "security",
     "added": 1523911325
-  },
-  {
-    "id": 20,
-    "href": "https://tanjalo.com/",
-    "uri": "02f40890af885da4673f0ee9725ee74bb2c66d6491cc4334056a2701057993e61d@144.76.220.229:9735",
-    "name": "Tanjalo",
-    "description": "Buy bitcoin with nigerian naira.",
-    "digital_goods": "yes",
-    "sector": "exchange",
-    "added": 1523911325,
-    "flags": {
-      "coming_soon": 1
-    }
   },
   {
     "id": 22,
@@ -225,19 +199,6 @@
     "sector": "food",
     "added": 1523911325,
     "address": "2150 E Cactus, Phoenix, AZ 85022"
-  },
-  {
-    "id": 28,
-    "href": "https://www.bitwage.com/",
-    "uri": "unknown",
-    "name": "Bitwage",
-    "description": "Bitcoin payroll and international wage payment service.",
-    "added": 1524510711,
-    "sector": "technology",
-    "digital_goods": "yes",
-    "flags": {
-      "coming_soon": 1
-    }
   },
   {
     "id": 31,
@@ -396,7 +357,7 @@
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "name": "Bitlaunch",
     "description": "Launch VPS from Digital Ocean, Vultr and Linode",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1530029260
   },
@@ -446,7 +407,7 @@
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "name": "Bacloud",
     "description": "Dedicated servers, Windows/Linux VPS, free hosting domain setup.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1530499360
   },
@@ -596,7 +557,7 @@
     "href": "https://crowncloud.net/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "VPSes, dedicated servers and colocation services. ",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1531711232
   },
@@ -616,7 +577,7 @@
     "href": "https://www.licensepal.com/",
     "uri": "unknown",
     "description": "Web hosting software license reseller.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1531766528
   },
@@ -636,7 +597,7 @@
     "href": "http://www.routerhosting.com/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Linux and Windows VPS servers including SSD VPS and storage servers.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1531772544
   },
@@ -686,7 +647,7 @@
     "href": "http://rentvip.it/en/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Rent ski equipment and mountain bikes (Livigno, Italy).",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
     "digital_goods": "no, goods only in-store",
     "added": 1531773568
   },
@@ -716,7 +677,7 @@
     "href": "http://www.lavavps.lt/en/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "VPS hosting, domains, SSL certificates.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1531774848
   },
@@ -922,7 +883,7 @@
     "href": "https://bikebeltline.com",
     "uri": "02b3877314aff657216ceac039244fe94e7116af10cfffac0232fefa5903c62a58@104.223.94.251:9735",
     "description": "Buy bike parts and accessories at BikeBeltline.",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
     "added": 1536635264
   },
   {
@@ -1201,7 +1162,7 @@
     "href": "https://www.lecyclosportif.com.au",
     "uri": "unknown",
     "description": "Noosa Cycling \u0026 Triathlon Specialists",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
     "added": 1539125632
   },
   {
@@ -1260,7 +1221,7 @@
     "href": "https://www.forexvps.net/",
     "uri": "unknown",
     "description": "Reliable Forex VPS",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1539654528
   },
@@ -1387,7 +1348,7 @@
     "href": "https://www.empowermindbodylife.com/shop/",
     "uri": "02f9c7deb297e32fc3d3d55f336176055cd667a2fada0bd5663e7413e1aba55b86@66.110.250.130:9735",
     "description": "Yoga Training, Attire and other fitness goods",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
     "digital_goods": "no, goods shipped",
     "added": 1542418432
   },
@@ -1704,7 +1665,7 @@
     "href": "https://cryptoho.st/",
     "uri": "03c492f46d8e0a6256bb9c5c42f2aed24717f70a3f39e0961419dee511688e3110@lightning-network.ro:9735",
     "description": "Virtual Private Server (VPS) Shop",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1547441801
   },
@@ -1717,19 +1678,6 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1547441801
-  },
-  {
-    "id": 846,
-    "href": "https://www.cryptorefills.com",
-    "uri": "unknown",
-    "name": "Cryptorefills",
-    "description": "Buy phone recharges, steam vouchers and other products.",
-    "sector": "technology",
-    "added": 1547607543,
-    "digital_goods": "yes",
-    "flags": {
-      "coming_soon": 1
-    }
   },
   {
     "id": 857,
@@ -1807,19 +1755,6 @@
     "description": "A BTC-themed memory game",
     "sector": "games\u0026casino",
     "added": 1548292864
-  },
-  {
-    "id": 902,
-    "name": "Lightning Collect",
-    "href": "https://lightningcollect.com",
-    "uri": "unknown",
-    "description": "Bitcoins First Regular Payment Scheme for Businesses",
-    "sector": "technology",
-    "digital_goods": "yes",
-    "flags": {
-      "coming_soon": 1
-    },
-    "added": 1548330752
   },
   {
     "id": 903,
@@ -1939,7 +1874,7 @@
     "href": "http://paraeasy.ch",
     "uri": "03a46be38d068c2bc5af3fc13da840790ed5643f3d6d27e5e34d67ed2aec16ce67@ulrichard.ch:9735",
     "description": "paragliding tandem flights in central Switzerland",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
     "digital_goods": "no, goods shipped",
     "added": 1549921408
   },
@@ -2030,19 +1965,6 @@
     "added": 1550515840
   },
   {
-    "id": 1062,
-    "name": "SwC Poker",
-    "href": "https://swcpoker.eu/",
-    "uri": "unknown",
-    "description": "Play poker with bitcoin.",
-    "sector": "games\u0026casino",
-    "digital_goods": "yes",
-    "flags": {
-      "coming_soon": 1
-    },
-    "added": 1550541952
-  },
-  {
     "id": 1072,
     "name": "Bitcoin Tunnels",
     "href": "https://www.bitcointunnels.com/",
@@ -2106,7 +2028,7 @@
     "href": "https://thcservers.com",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Cheap web hosting.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1551117312
   },
@@ -2665,18 +2587,6 @@
     "added": 1556161152
   },
   {
-    "id": 1552,
-    "name": "Opentribe",
-    "href": "https://www.opentribe.io",
-    "uri": "03d47e1782e1b63011b45053746bd4deea12bdaaa15f3f1c3b081a3f50194953bd",
-    "description": "The Lightning marketplace, allowing people everywhere to sell their goods.",
-    "sector": "other",
-    "flags": {
-      "coming_soon": 1
-    },
-    "added": 1556204544
-  },
-  {
     "id": 1557,
     "name": "Giver Of Bitcoin",
     "href": "https://giverofbitcoin.fun/",
@@ -2862,4 +2772,4 @@
     "digital_goods": "yes",
     "added": 1558218496
   }
-]
+  ]
