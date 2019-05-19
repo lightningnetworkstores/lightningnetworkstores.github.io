@@ -1,6 +1,8 @@
 # Purpose
 
-To be the a very complete repository of stores that accept bitcoin through lightning. This repository will continue to be import even after the webpage is not hosted by Github Pages anymore! The new server will fetch new information from this repository!
+This repository contains the front-end code of https://lightningnetworkstores.com - the most comprehensive directory of stores that accept bitcoin through lightning. The server fetches some files from this repository - including sites.json, wallets.json, services.json and donationAdresses.json. A pull request to one of these files will therefore affect what is seen on the website.
+
+Please check the redesign branch which currently has the most recent code.
 
 # FAQ and contact information
 
@@ -9,9 +11,24 @@ Please visit: https://lightningnetworkstores.com/about
 # Contributions
 Contributions are welcome and much needed. Right now, the website should be redesigned. Pull requests that make good contributions and are accepted can be paid bounties. Contact us if you want to know more.
 
+## How to add a wallet
+ 
+ Go to ```wallets.json``` and add an entry with information like in this example:
+ 
+     {
+        "name":"eclair wallet",
+        "page":"https://github.com/ACINQ/eclair-wallet",
+        "android":"https://play.google.com/store/apps/details?id=fr.acinq.eclair.wallet.mainnet2&hl=en",
+        "android_testnet":"https://play.google.com/store/apps/details?id=fr.acinq.eclair.wallet&hl=en",
+        "open_source":"https://github.com/ACINQ/eclair-wallet",
+        "release":"April 2018"
+      }
+
+There can be missing information in the entry except for ```name``` and ```page```.
+
 ## How to add a store
 
-Should be done using the button on the main page that says "Instantly add new store!". If for some reason, this doesn't work, a pull request can be made:
+Should be done using the button on the bottom right corner of the main page that says with a (+) sign. If for some reason, this doesn't work, a pull request can be made:
 
 ### Mainnet store
 Go to ```sites.json``` and add an entry with the folowing information:
@@ -43,20 +60,5 @@ Example entry:
  
  Hint: Careful with the commas, make sure your the new file has no syntax errors. Use https://jsonformatter.curiousconcept.com/ to check your changes.
  
- ### Testnet store
- Do the same but in the ```sitesTestnet.json``` file.
  
- ## How to add a wallet
  
- Go to ```wallets.json``` and add an entry with information like in this example:
- 
-     {
-        "name":"eclair wallet",
-        "page":"https://github.com/ACINQ/eclair-wallet",
-        "android":"https://play.google.com/store/apps/details?id=fr.acinq.eclair.wallet.mainnet2&hl=en",
-        "android_testnet":"https://play.google.com/store/apps/details?id=fr.acinq.eclair.wallet&hl=en",
-        "open_source":"https://github.com/ACINQ/eclair-wallet",
-        "release":"April 2018"
-      }
-
-There can be missing information in the entry except for ```name``` and ```page```.
