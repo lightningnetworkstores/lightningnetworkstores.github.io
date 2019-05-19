@@ -9,7 +9,6 @@ Please check the redesign branch which currently has the most recent code.
 Please visit: https://lightningnetworkstores.com/about
 
 # Contributions
-Contributions are welcome and much needed. Right now, the website should be redesigned. Pull requests that make good contributions and are accepted can be paid bounties. Contact us if you want to know more.
 
 ## How to add a wallet
  
@@ -28,7 +27,9 @@ There can be missing information in the entry except for ```name``` and ```page`
 
 ## How to add a store
 
-Should be done using the button on the bottom right corner of the main page that says with a (+) sign. If for some reason, this doesn't work, a pull request can be made:
+Should be done using the button on the bottom right corner of the main page that says with a (+) sign. If you don't want to pay the listing fee you can contact us and we may add your website for free or, if you are a trusted member of the community, give you a code that will allow you to add any store for free. 
+
+As a last resource, a pull request can be made:
 
 ### Mainnet store
 Go to ```sites.json``` and add an entry with the folowing information:
