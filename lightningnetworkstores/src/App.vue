@@ -50,8 +50,10 @@
             <router-view />
         </v-content>
         <v-icon>wallet</v-icon>
-        <v-footer class="pa-3">
-            <div>Copyright &copy; {{ new Date().getFullYear() }} LightningNetworkStores. All rights reserved.</div>
+        <v-footer class="pa-3" color="rgb(56, 56, 56)" dark>
+            <v-layout justify-center row wrap>
+                <v-flex text-xs-center> Copyright &copy; {{ new Date().getFullYear() }} LightningNetworkStores. All rights reserved. </v-flex>
+            </v-layout>
         </v-footer>
     </v-app>
 </template>
