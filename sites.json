@@ -2771,5 +2771,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1558218496
+  },
+  {
+    "id": 1807,
+    "name": "Digital Marketplace - Stock images/videos store",
+    "href": "https://billcrypto.blogspot.com",
+    "uri": "undefined",
+    "description": "We sale images and videos from stocks like Shutterstock.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1558297728
   }
-  ]
+]
