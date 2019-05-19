@@ -70,7 +70,7 @@
                         </v-flex>
                         <v-flex shrink>
                             <v-btn flat icon color="grey darken-2">
-                                <embed-modal :store="store"></embed-modal>
+                                <embed-modal :store="store" :baseUrl="baseUrl"></embed-modal>
                             </v-btn>
                             <v-btn flat icon color="grey darken-2">
                                 <edit-store-modal :store="store"></edit-store-modal>
