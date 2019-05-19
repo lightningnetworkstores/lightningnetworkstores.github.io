@@ -43,11 +43,11 @@
                             ><b>Node:&nbsp;</b><a :href="'https://1ml.com/node/' + store.uri.split('@')[0]">{{ store.uri }}</a></span
                         ></v-layout
                     >
-                    <v-layout row v-if="store.digital_goods.length" pl-3 pr-3><b>Digital goods:&nbsp;</b>{{ store.digital_goods }}</v-layout>
-                    <v-layout row v-if="store.sector.length" pl-3 pr-3
+                    <v-layout row v-if="store.digital_goods && store.digital_goods.length > 0" pl-3 pr-3><b>Digital goods:&nbsp;</b>{{ store.digital_goods }}</v-layout>
+                    <v-layout row v-if="store.sector && store.sector.length > 0" pl-3 pr-3
                         ><b>Sector:&nbsp;</b><router-link :to="'/?sector=' + encodeURIComponent(store.sector)">{{ store.sector }}</router-link></v-layout
                     >
-                    <v-layout row v-if="store.sector.length" pl-3 pr-3
+                    <v-layout row v-if="store.sector && store.sector.length > 0" pl-3 pr-3
                         ><b>Date added:&nbsp;</b><span v-if="store.added"> {{ new Date(store.added * 1000).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" }) }}</span
                         ><a v-else>24/Feb/2018</a></v-layout
                     >
