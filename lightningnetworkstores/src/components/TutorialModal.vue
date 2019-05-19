@@ -9,7 +9,10 @@
 
                 <v-carousel :cycle="false">
                     <v-carousel-item>
-                        <p class="pl-3 pt-3 pr-3 subheading">1. This website lists stores that accept bitcoin through the lightning network. Any user can vote up or down on the stores listed.</p>
+                        <p class="pl-3 pt-3 pr-3 subheading">
+                            1. This website lists stores that accept bitcoin through the lightning network. Any user can vote up or down on the stores listed. To actively participate you should have a
+                            <a :href="`${baseUrl}wallets`">lightning-enabled bitcoin wallet</a>.
+                        </p>
                         <vuetify-lazy-image :src="`${baseUrl}tutorial/video1.gif`" alt=""
                     /></v-carousel-item>
                     <v-carousel-item>
