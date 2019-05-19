@@ -48,6 +48,7 @@ export default class StoreList extends Vue {
     sectorItems: any[] = [
         { name: "All", prop: "all" },
         { name: "Technology", prop: "technology" },
+        { name: "VPS & Web hosting", prop: "vps&web hosting" },
         { name: "Security", prop: "security" },
         { name: "Clothing", prop: "clothing" },
         { name: "Exchange", prop: "exchange" },
@@ -57,6 +58,7 @@ export default class StoreList extends Vue {
         { name: "Art", prop: "art" },
         { name: "Drugs & Supplements", prop: "drugs&supplements" },
         { name: "Cryptocurrency merchandise", prop: "cryptocurrency merchandise" },
+        { name: "Fitness & Sports", prop: "fitness&sports" },
         { name: "Other", prop: "other" }
     ];
 
