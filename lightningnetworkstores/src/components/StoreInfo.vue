@@ -70,6 +70,9 @@
                         </v-flex>
                         <v-flex shrink>
                             <v-btn flat icon color="grey darken-2">
+                                <embed-modal :store="store"></embed-modal>
+                            </v-btn>
+                            <v-btn flat icon color="grey darken-2">
                                 <edit-store-modal :store="store"></edit-store-modal>
                             </v-btn>
                             <v-btn flat icon color="grey darken-2">
@@ -89,9 +92,10 @@ import { Store } from "../interfaces/Store";
 import Vote from "@/components/Vote.vue";
 import BanStoreModal from "@/components/BanStoreModal.vue";
 import EditStoreModal from "@/components/EditStoreModal.vue";
+import EmbedModal from "@/components/EmbedModal.vue";
 
 @Component({
-    components: { Vote, BanStoreModal, EditStoreModal }
+    components: { Vote, BanStoreModal, EditStoreModal, EmbedModal }
 })
 export default class StoreInfo extends Vue {
     @Prop() storeId!: number;
@@ -107,7 +111,6 @@ export default class StoreInfo extends Vue {
 
         this.$store.dispatch("getStore", { id: this.storeId }).then(
             response => {
-                console.log(response.data);
                 this.store = response.data;
                 this.breadCrumb = [
                     {
