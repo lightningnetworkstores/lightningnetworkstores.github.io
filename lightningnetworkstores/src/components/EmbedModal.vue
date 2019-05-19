@@ -39,7 +39,7 @@ export default class EmbedModal extends Vue {
     @Prop() store!: Store;
     @Prop() baseUrl!: string;
     showEmbedDialog: boolean = false;
-    html: string = `<div id="lns-snippet"><a href="${this.baseUrl}store/${this.store.id}"><img scr="${this.baseUrl}img/snippet.svg" height="50px"></a></div>`;
+    html: string = `<div id="lns-snippet"><a href="${this.baseUrl}store/${this.store.id}"><img src="${this.baseUrl}img/snippet.svg" height="45px"></a></div>`;
 
     private copy() {
         let input = document.getElementById("embedhtml")!.focus();
