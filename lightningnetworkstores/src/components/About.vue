@@ -13,8 +13,7 @@
                     <v-layout row>
                         <p>
                             The goal of this website is to track the adoption of the lightning network by merchants and to inform bitcoin users where they can spend their bitcoin through lightning. It
-                            tries to be most complete repository of lightning merchants, while also providing a comprehensive list of lightning mobile wallets. Feel free to suggest new features to be
-                            added.
+                            tries to be most complete repository of lightning merchants, while also providing a comprehensive list of lightning mobile wallets.
                         </p>
                     </v-layout>
 
@@ -48,6 +47,12 @@
                         <h2>F.A.Q.</h2>
                     </v-layout>
                     <v-layout row>
+                        <h4>I don't understand this website, how do I use it?</h4>
+                    </v-layout>
+                    <v-layout row>
+                        <p>Check our quick tutorial here: <tutorial-modal></tutorial-modal></p>
+                    </v-layout>
+                    <v-layout row>
                         <h4>How to get a store listed?</h4>
                     </v-layout>
                     <v-layout row>
@@ -75,15 +80,14 @@
                         <p>Use the <i class="fas fa-edit"></i> and <i class="fas fa-ban"></i> icons on the store page.</p>
                     </v-layout>
                     <v-layout row>
-                        <h4>How to add/edit/remove a wallet/service/donation-address/testnet-store?</h4>
+                        <h4>How to add/edit/remove a wallet/service/donation-address?</h4>
                     </v-layout>
                     <v-layout row>
                         <p>
                             If you are used to working with git, make a pull request to
                             <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/wallets.json">wallets.json</a>,
-                            <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/services.json">services.json</a>,
+                            <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/services.json">services.json</a> or
                             <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/donationAddresses.json">donationAddresses.json</a>
-                            or <a href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/sitesTestnet.json">sitesTestnet.json</a>
                         </p>
                     </v-layout>
                     <v-layout row>
@@ -93,7 +97,7 @@
                         <p>
                             Controversial scores are calculated like
                             <a href="https://www.reddit.com/r/NoStupidQuestions/comments/433ayh/how_does_reddit_determine_what_is_controversial/czfbxk4/">reddit does</a>. Trending scores are
-                            calculated using the formula: (S-EMA)/max(35000000, min(20000,S)), where S is the current score of the store in satoshis (upvotes-downvotes) and EMA is the exponential
+                            calculated using the formula: (S-EMA)/max(40000000, min(20000,S)), where S is the current score of the store in satoshis (upvotes-downvotes) and EMA is the exponential
                             moving average of the score. The half-life of the EMA is currently set to 4 days. This formula may be tweaked in the future.
                         </p>
                     </v-layout>
@@ -124,8 +128,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import TutorialModal from "@/components/TutorialModal.vue";
 
-@Component
+@Component({ components: { TutorialModal } })
 export default class About extends Vue {
     created() {}
 }
