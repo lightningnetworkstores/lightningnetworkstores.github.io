@@ -2801,5 +2801,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1558343040
+  },
+  {
+    "id": 1827,
+    "name": "CryptoAlly.io - Crypto for All",
+    "href": "https://cryptoally.io",
+    "uri": "undefined",
+    "description": "CryptoAlly.io is a place to discover quotes of Satoshis and Bitcoin in 100  currencies at real time. ",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1558350720
   }
 ]
