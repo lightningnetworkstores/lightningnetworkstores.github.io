@@ -2811,5 +2811,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1558350720
+  },
+  {
+    "id": 1837,
+    "name": "Bottle",
+    "href": "https://about.bottle.li/",
+    "uri": "undefined",
+    "description": "Easily send Bitcoin to anyone with a social media account.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1558470400
   }
 ]
