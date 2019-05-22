@@ -7,5 +7,5 @@
 {"entity":"LightningTo.Me", "link":"https://lightningto.me/", "description":"Inward liquidity provider for lightning nodes."},
 {"entity":"1ML", "link":"https://1ml.com/", "description":"Lightning network explorer."},
 {"entity":"BTCPay", "link":"https://btcpayserver.org/", "description":"Non-custodial open-source server to accept bitcoin payments."},
-{"entity":"Cryptochil", "link":"https://cryptochill.com/", "description":"Lightning-enabled bitcoin payment processor."}
+{"entity":"Cryptochill", "link":"https://cryptochill.com/", "description":"Lightning-enabled bitcoin payment processor."}
 ]
