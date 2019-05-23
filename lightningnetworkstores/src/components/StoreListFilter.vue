@@ -67,7 +67,7 @@ export default class StoreList extends Vue {
         { name: "Trending", prop: "trending" },
         { name: "Newest", prop: "newest" },
         { name: "Controversial", prop: "controversial" },
-        { name: "Last commented", prop: "last commented" }
+        { name: "Last reviewed", prop: "last commented" }
     ];
 
     selectedDigitalGood: any = this.digitalGoods == "undefined" ? "all" : this.digitalGoods;
