@@ -10,7 +10,7 @@ import { Score } from "./interfaces/Score";
 
 Vue.use(Vuex);
 
-const baseUrl = "https://lightningnetworkstores.com:8443/";
+const baseUrl = "https://lightningnetworkstores.com/";
 const options = {
     shouldSort: true,
     threshold: 1,

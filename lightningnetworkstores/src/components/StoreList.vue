@@ -7,6 +7,11 @@
                         <store-card v-for="store in getStores" :key="store.id" :store="store" :baseUrl="baseUrl"></store-card>
                     </v-layout>
                 </v-container>
+                <v-container fill-height v-if="isLoading">
+                    <v-layout row justify-center align-center>
+                        <v-progress-circular indeterminate :size="70" :width="7" color="#fdb919"></v-progress-circular>
+                    </v-layout>
+                </v-container>
             </v-flex>
         </v-layout>
     </div>
@@ -30,6 +35,8 @@ export default class StoreList extends Vue {
 
     baseUrl: string = "";
 
+    isLoading: boolean = true;
+
     async mounted() {
         console.log("Sector: " + this.sector);
         console.log("Digital goods: " + this.digitalGoods);
@@ -41,6 +48,10 @@ export default class StoreList extends Vue {
         this.baseUrl = this.$store.getters.getBaseUrl();
 
         this.$forceUpdate();
+
+        this.$nextTick(() => {
+            this.isLoading = false;
+        });
     }
 
     @Watch("sector")
