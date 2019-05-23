@@ -196,7 +196,11 @@ import QrcodeVue from "qrcode.vue";
 
 @Component({ components: { VueRecaptcha, QrcodeVue } })
 export default class AddStoreModal extends Vue {
-    digitalGoodFormItems: any[] = [{ name: "Yes", prop: "yes" }, { name: "No, goods shipped", prop: "no, goods shipped" }, { name: "No, goods only in-store", prop: "no, goods only in-store" }];
+    digitalGoodFormItems: any[] = [
+        { name: "Yes", prop: "yes" },
+        { name: "No, goods shipped", prop: "no, goods shipped" },
+        { name: "No, goods only in a physical store", prop: "no, goods only in-store" }
+    ];
 
     sectorFormItems: any[] = [
         { name: "Technology", prop: "technology" },
