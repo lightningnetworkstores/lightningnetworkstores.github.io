@@ -146,8 +146,9 @@
      "name":"Zap iOS",
      "page":"https://zap.jackmallers.com/",
      "requires_node":"yes",
-      "open_source":"https://github.com/LN-Zap/zap-iOS",
-      "iOS_testnet_closed":"http://www.zap-ios.jackmallers.com/"
+     "open_source":"https://github.com/LN-Zap/zap-iOS",
+     "iOS_testnet_closed":"http://www.zap-ios.jackmallers.com/",
+     "iOS":"https://testflight.apple.com/join/P32C380R"
     },
     {
       "name":"Spark",
