@@ -42,7 +42,7 @@ export default class StoreList extends Vue {
         { name: "All", prop: "all" },
         { name: "Yes", prop: "yes" },
         { name: "No, goods shipped", prop: "no, goods shipped" },
-        { name: "No, goods only in-store", prop: "no, goods only in-store" }
+        { name: "No, goods only in a physical store", prop: "no, goods only in-store" }
     ];
 
     sectorItems: any[] = [
@@ -67,7 +67,7 @@ export default class StoreList extends Vue {
         { name: "Trending", prop: "trending" },
         { name: "Newest", prop: "newest" },
         { name: "Controversial", prop: "controversial" },
-        { name: "Last commented", prop: "last commented" }
+        { name: "Last reviewed", prop: "last commented" }
     ];
 
     selectedDigitalGood: any = this.digitalGoods == "undefined" ? "all" : this.digitalGoods;
