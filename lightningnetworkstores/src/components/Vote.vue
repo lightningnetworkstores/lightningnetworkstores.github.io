@@ -1,6 +1,6 @@
 <template>
     <div class="vote">
-        <div class="store-card" v-if="!isInfo">
+        <div class="store-card" v-if="!isInfo && !parentReview && !parentComment">
             <div class="text-xs-center">
                 <v-flex xs12>
                     <v-btn icon @click.stop="vote(true)" outline color="success"><v-icon>arrow_upward</v-icon></v-btn>
@@ -32,6 +32,13 @@
                 <v-flex shrink pa-3>{{ store.downvotes | number }}</v-flex>
             </v-layout>
         </div>
+        <div class="review" v-if="parentReview && !parentComment">
+            <v-btn v-if="isReviewUpvote == true" icon @click.stop="vote(true)" outline color="success" class="ma-2"><v-icon>thumb_up</v-icon></v-btn>
+            <v-btn v-else icon @click.stop="vote(false)" outline color="error" class="ma-2"><v-icon>thumb_down</v-icon></v-btn>
+        </div>
+        <template class="comment" v-if="parentComment">
+            <a @click="reply()">Reply</a>
+        </template>
         <!-- Upvote store modal -->
         <v-dialog v-model="showDialog" persistent max-width="500">
             <v-card>
@@ -53,12 +60,16 @@
                 <div v-else>
                     <v-card-title class="headline">
                         <v-layout row>
-                            <v-flex grow><span v-if="isUpvoting">Upvote</span><span v-else>Downvote</span>&nbsp;{{ store.name }}</v-flex>
+                            <v-flex grow>
+                                <span v-if="isUpvoting && !parentComment && !parentReview">Upvote</span><span v-if="!isUpvoting && !parentComment && !parentReview">Downvote</span>
+                                <span v-if="!parentReview && !parentComment">&nbsp;{{ store.name }}</span>
+                                <span v-if="parentReview && !parentComment">&nbsp;Reinforce review</span><span v-if="parentComment">Reply</span>
+                            </v-flex>
                             <v-flex shrink v-if="paymentRequest && !isPaid"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
                         </v-layout>
                     </v-card-title>
                     <v-layout row>
-                        <v-flex pl-3 pr-3 v-if="!paymentRequest.length">
+                        <v-flex pl-3 pr-3 v-if="!paymentRequest.length && !parentComment">
                             <v-text-field
                                 v-model="upvoteDialogForm.amount"
                                 type="number"
@@ -66,7 +77,14 @@
                                 hint=""
                                 :rules="[v => !!v || 'Amount is required']"
                             ></v-text-field>
-                            <!-- <v-text-field v-model="upvoteDialogForm.comment" type="text" label="Comment (optional)"></v-text-field> -->
+                            <v-textarea v-if="!parentReview" v-model="upvoteDialogForm.comment" type="text" label="Review (optional)" rows="5"></v-textarea>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                        <v-flex pl-3 pr-3 v-if="!paymentRequest.length && parentComment">
+                            Costs: {{ upvoteDialogForm.amount }}sat
+                            <v-text-field v-if="parentReview && parentComment" v-model="upvoteDialogForm.comment" type="text" label="Reply" :rules="[v => !!v || 'Reply is required']"></v-text-field>
                         </v-flex>
                     </v-layout>
 
@@ -121,13 +139,19 @@ import QrcodeVue from "qrcode.vue";
 export default class StoreCard extends Vue {
     @Prop() store!: Store;
     @Prop() isInfo!: boolean;
+    @Prop() parentReview!: string;
+    @Prop() parentComment!: string;
+    @Prop() isReviewUpvote!: boolean;
+    @Prop() isReplyToSubComment!: boolean;
+
+    defaultAmount: number = 1;
 
     score: any = {};
 
     isUpvoting: boolean = true;
 
     showDialog: boolean = false;
-    upvoteDialogForm: any = { amount: 1000, comment: "" };
+    upvoteDialogForm: any = { amount: this.defaultAmount, comment: "" };
 
     paymentRequest: string = "";
     paymentID: string = "";
@@ -137,6 +161,10 @@ export default class StoreCard extends Vue {
     checkPaymentTimer: any;
 
     async created() {}
+
+    private reply() {
+        this.showDialog = true;
+    }
 
     private vote(upvote: boolean) {
         this.isUpvoting = upvote;
@@ -160,11 +188,12 @@ export default class StoreCard extends Vue {
             clearInterval(this.checkPaymentTimer);
         } else {
             this.closeDialog();
+            if (this.parentReview || this.parentComment) location.reload();
         }
     }
 
     private closeDialog() {
-        this.upvoteDialogForm = { amount: 1000, comment: "" };
+        this.upvoteDialogForm = { amount: this.defaultAmount, comment: "" };
         this.showDialog = false;
         this.isPaid = false;
         this.paymentID = "";
@@ -172,20 +201,30 @@ export default class StoreCard extends Vue {
 
     private getInvoice() {
         //todo: do request to get invoice
-        this.$store.dispatch("getStoreVotePaymentRequest", { id: this.store.id, amount: this.upvoteDialogForm.amount, isUpvote: this.isUpvoting, comment: this.upvoteDialogForm.comment }).then(
-            response => {
-                this.paymentRequest = response.data.payment_request;
-                this.paymentID = response.data.id;
-                let date = new Date();
-                this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600));
-                this.checkPaymentTimer = setInterval(() => {
-                    this.checkPayment();
-                }, 3000);
-            },
-            error => {
-                console.error(error);
-            }
-        );
+        this.$store
+            .dispatch("getStoreVotePaymentRequest", {
+                id: this.store.id,
+                amount: this.upvoteDialogForm.amount,
+                isUpvote: this.isUpvoting,
+                comment: this.isReplyToSubComment
+                    ? `@${(this.parentComment ? this.parentComment : this.parentReview).substring(0, 5)} ${this.upvoteDialogForm.comment}`
+                    : this.upvoteDialogForm.comment,
+                parent: this.parentReview
+            })
+            .then(
+                response => {
+                    this.paymentRequest = response.data.payment_request;
+                    this.paymentID = response.data.id;
+                    let date = new Date();
+                    this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600));
+                    this.checkPaymentTimer = setInterval(() => {
+                        this.checkPayment();
+                    }, 3000);
+                },
+                error => {
+                    console.error(error);
+                }
+            );
     }
 
     private checkPayment() {

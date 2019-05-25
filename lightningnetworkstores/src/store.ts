@@ -10,7 +10,7 @@ import { Score } from "./interfaces/Score";
 
 Vue.use(Vuex);
 
-const baseUrl = "https://lightningnetworkstores.com/";
+const baseUrl = "https://lightningnetworkstores.com:8443/";
 const options = {
     shouldSort: true,
     threshold: 1,
@@ -238,9 +238,13 @@ export default new Vuex.Store({
                     return Promise.reject(error);
                 });
         },
-        getStoreVotePaymentRequest({}, { id, amount, isUpvote, comment }) {
+        getStoreVotePaymentRequest({}, { id, amount, isUpvote, comment, parent }) {
             return axios
-                .get(`${baseUrl}get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}${comment ? "&comment=" + encodeURI(comment) : ""}`)
+                .get(
+                    `${baseUrl}get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}${comment ? "&comment=" + encodeURI(comment) : ""}${
+                        parent ? "&parent=" + parent : ""
+                    }`
+                )
                 .then(response => {
                     return Promise.resolve(response);
                 })

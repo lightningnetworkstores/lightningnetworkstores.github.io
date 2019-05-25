@@ -7,7 +7,7 @@
                 </template>
             </v-breadcrumbs>
         </div>
-        <v-layout justify-center row wrap class="my-4">
+        <v-layout justify-center row wrap class="my-2">
             <v-flex xs11 md8 lg6>
                 <v-card>
                     <v-img :src="`${baseUrl}thumbnails/${store.id}.png`" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
@@ -83,6 +83,25 @@
                 </v-card>
             </v-flex>
         </v-layout>
+        <v-layout justify-center row wrap class="my-4">
+            <v-flex xs11 md8 lg6 v-if="store.comments.length > 0">
+                <h1>Reviews</h1>
+            </v-flex>
+        </v-layout>
+
+        <!-- <new-review></new-review> -->
+
+        <Review
+            v-for="comment in store.comments
+                .filter(comment => comment.parent == 'null')
+                .sort((a, b) => {
+                    return Math.abs(b.score) - Math.abs(a.score);
+                })"
+            :key="comment.id"
+            :comment="comment"
+            :comments="store.comments"
+            :store="store"
+        ></Review>
     </div>
 </template>
 
@@ -93,9 +112,11 @@ import Vote from "@/components/Vote.vue";
 import BanStoreModal from "@/components/BanStoreModal.vue";
 import EditStoreModal from "@/components/EditStoreModal.vue";
 import EmbedModal from "@/components/EmbedModal.vue";
+import Review from "@/components/Review.vue";
+import NewReview from "@/components/NewReview.vue";
 
 @Component({
-    components: { Vote, BanStoreModal, EditStoreModal, EmbedModal }
+    components: { Vote, BanStoreModal, EditStoreModal, EmbedModal, Review, NewReview }
 })
 export default class StoreInfo extends Vue {
     @Prop() storeId!: number;

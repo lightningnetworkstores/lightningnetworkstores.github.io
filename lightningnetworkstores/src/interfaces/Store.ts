@@ -1,3 +1,5 @@
+import { Comment } from "./Comment";
+
 export interface Store {
     id: number;
     href: string;
@@ -27,9 +29,9 @@ export interface Store {
     id: number;
     href: string;
     sector: string;
-    comments: any[];
     facebook: string;
     twitter: string;
     reddit: string;
     rank: number;
+    comments: Comment[];
 }
