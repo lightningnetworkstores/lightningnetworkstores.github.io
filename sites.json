@@ -844,7 +844,7 @@
     "uri": "0321d586e0165cbde2df4a67378fcec5e941d87f18dfd4a67893329958099b7272@208.110.80.34:9735",
     "description": "For youtube addicts - a daily watch stream based on your keywords.",
     "sector": "other",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1536211200
   },
   {
@@ -993,7 +993,7 @@
     "uri": "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735",
     "description": "Lightning Network Based Reddit",
     "sector": "other",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1537750784
   },
   {
@@ -1487,7 +1487,7 @@
     "uri": "unknown",
     "description": "Lightning games \u0026 services",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1545469056
   },
   {
@@ -1537,7 +1537,7 @@
     "uri": "unknown",
     "description": "Play classic snake and climb the highscore list.",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1546211200
   },
   {
@@ -1547,7 +1547,7 @@
     "uri": "026e186f6cf00009595c9083980304f0be65c8c3736b63c1c9135ef9aa952f644e@192.168.2.20:9735",
     "description": "24/7 running node for access to make transactions on bitcoin lightning network.",
     "sector": "technology",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1546218496
   },
   {
@@ -1773,7 +1773,7 @@
     "uri": "03ab2157b6b046ad0f499d3b6552acedadeda7a09c6c3542df52efc2ac8d756b0f@node.lightningnetwork.games:9735",
     "description": "Simple game where last person win the pot.",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1548762880
   },
   {
