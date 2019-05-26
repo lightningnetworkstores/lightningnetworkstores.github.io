@@ -251,7 +251,7 @@ export default class StoreCard extends Vue {
                     }
                 );
         } else {
-            this.commentAlert.message = "Encoded review or comment is too long, please remove special characters and emoijs.";
+            this.commentAlert.message = "Encoded review of comment is too long, please remove special characters and emoijs.";
         }
     }
 

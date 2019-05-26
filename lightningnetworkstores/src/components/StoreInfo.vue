@@ -89,29 +89,20 @@
                 <v-card>
                     <v-card-title primary-title class="pa-3">
                         <div>
-                            <div class="headline font-weight-medium">
-                                Reviews: (<a @click="filter('all')">{{ store.comments.filter(comment => comment.parent == "null").length }}</a
-                                >)
-                            </div>
+                            <div class="headline font-weight-medium">Reviews: {{ store.comments.filter(comment => comment.parent == "null").length }}</div>
                         </div>
                     </v-card-title>
                     <v-layout row>
-                        <v-flex pl-3 pr-3 pb-3>To leave a review up or down vote the store.</v-flex>
+                        <v-flex pl-3 pr-3 pb-3>To leave a review, up or downvote the store.</v-flex>
                     </v-layout>
                     <v-layout row pa-2 class="text-xs-center">
                         <v-flex grow justify-center pa-3
                             ><v-btn fab @click="filter('positive')" outline color="success"><v-icon color="success" large>thumb_up</v-icon></v-btn>
-                            <h3>
-                                Positive reviews: (<a @click="filter('positive')">{{ store.comments.filter(comment => comment.parent == "null" && comment.score > 0).length }}</a
-                                >)
-                            </h3>
+                            <h3>Positive reviews: {{ store.comments.filter(comment => comment.parent == "null" && comment.score > 0).length }}</h3>
                         </v-flex>
                         <v-flex grow justify-center pa-3
                             ><v-btn fab @click="filter('negative')" outline color="error"><v-icon color="error" large>thumb_down</v-icon></v-btn>
-                            <h3>
-                                Negative reviews: (<a @click="filter('negative')">{{ store.comments.filter(comment => comment.parent == "null" && comment.score &lt; 0).length }}</a
-                                >)
-                            </h3></v-flex
+                            <h3>Negative reviews: {{ store.comments.filter(comment => comment.parent == "null" && comment.score &lt; 0).length }}</h3></v-flex
                         >
                     </v-layout>
                 </v-card>
