@@ -99,7 +99,15 @@
                     <v-layout row>
                         <v-flex pl-3 pr-3 v-if="!paymentRequest.length && parentComment">
                             Costs: {{ upvoteDialogForm.amount }}sat
-                            <v-text-field v-if="parentReview && parentComment" v-model="upvoteDialogForm.comment" type="text" label="Reply" :rules="[v => !!v || 'Reply is required']"></v-text-field>
+                            <v-textarea
+                                v-if="parentReview && parentComment"
+                                v-model="upvoteDialogForm.comment"
+                                type="text"
+                                counter="160"
+                                label="Reply"
+                                rows="4"
+                                :rules="[v => v.length <= 160 || 'Reply has to be shorter than 160 characters', v => !!v || 'Reply is required']"
+                            ></v-textarea>
                         </v-flex>
                     </v-layout>
 
