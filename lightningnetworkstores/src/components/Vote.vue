@@ -89,7 +89,7 @@
                                 v-model="upvoteDialogForm.comment"
                                 type="text"
                                 counter="160"
-                                label="Review (optional)"
+                                :label="'Review (optional - minimum ' + upvoteDialogForm.amount + ' satoshis)'"
                                 rows="4"
                                 :rules="[v => v.length <= 160 || 'Review has to be shorter than 160 characters']"
                             ></v-textarea>
@@ -167,7 +167,7 @@ export default class StoreCard extends Vue {
     @Prop() isReviewUpvote!: boolean;
     @Prop() isReplyToSubComment!: boolean;
 
-    defaultAmount: number = 1;
+    defaultAmount: number = 2;
 
     score: any = {};
 
