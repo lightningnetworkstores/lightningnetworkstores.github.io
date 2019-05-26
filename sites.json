@@ -2870,5 +2870,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1558470400
+  },
+  {
+    "id": 1842,
+    "name": "Paid.co",
+    "href": "https://paid.co",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "Sell anything in this decentralized marketplace where sellers keep 100%.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1558915072
   }
 ]
