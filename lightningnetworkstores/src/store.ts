@@ -240,11 +240,7 @@ export default new Vuex.Store({
         },
         getStoreVotePaymentRequest({}, { id, amount, isUpvote, comment, parent }) {
             return axios
-                .get(
-                    `${baseUrl}get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}${comment ? "&comment=" + encodeURI(comment) : ""}${
-                        parent ? "&parent=" + parent : ""
-                    }`
-                )
+                .get(`${baseUrl}get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}${comment ? "&comment=" + comment : ""}${parent ? "&parent=" + parent : ""}`)
                 .then(response => {
                     return Promise.resolve(response);
                 })

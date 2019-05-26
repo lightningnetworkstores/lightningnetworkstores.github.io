@@ -9,7 +9,7 @@
                     </v-flex>
 
                     <v-flex pa-3>
-                        {{ comment.text }}
+                        {{ comment.text.replace(/\+/g, " ") }}
                     </v-flex>
                 </v-layout>
 
@@ -28,7 +28,7 @@
                     <v-flex>
                         <v-card>
                             <v-layout row pa-2 pt-3>
-                                <v-flex pl-2 v-html="commentText(subComment.text)"></v-flex>
+                                <v-flex pl-2 v-html="commentText(subComment.text.replace(/\+/g, ' '))"></v-flex>
                             </v-layout>
 
                             <v-layout row pa-2 class="caption comment-extra">

@@ -84,24 +84,41 @@
             </v-flex>
         </v-layout>
         <v-layout justify-center row wrap class="my-4">
-            <v-flex xs11 md8 lg6 v-if="store.comments.length > 0">
-                <h1>Reviews</h1>
+            <v-flex xs11 md8 lg6 v-if="store.comments.length > 0"> </v-flex>
+        </v-layout>
+
+        <v-layout justify-center row wrap class="my-4" v-if="store.comments.length > 0">
+            <v-flex xs11 md8 lg6>
+                <v-card>
+                    <v-card-title primary-title class="pa-3">
+                        <div>
+                            <div class="headline font-weight-medium">
+                                Reviews (<a @click="filter('all')">{{ store.comments.filter(comment => comment.parent == "null").length }}</a
+                                >)
+                            </div>
+                        </div>
+                    </v-card-title>
+                    <v-layout row pa-2 class="text-xs-center">
+                        <v-flex grow justify-center pa-3
+                            ><v-icon color="success" large>thumb_up</v-icon>
+                            <h3>
+                                Positive reviews: (<a @click="filter('positive')">{{ store.comments.filter(comment => comment.parent == "null" && comment.score > 0).length }}</a
+                                >)
+                            </h3>
+                        </v-flex>
+                        <v-flex grow justify-center pa-3
+                            ><v-icon color="error" large>thumb_down</v-icon>
+                            <h3>
+                                Negative reviews: (<a @click="filter('negative')">{{ store.comments.filter(comment => comment.parent == "null" && comment.score &lt; 0).length }}</a
+                                >)
+                            </h3></v-flex
+                        >
+                    </v-layout>
+                </v-card>
             </v-flex>
         </v-layout>
 
-        <!-- <new-review></new-review> -->
-
-        <Review
-            v-for="comment in store.comments
-                .filter(comment => comment.parent == 'null')
-                .sort((a, b) => {
-                    return Math.abs(b.score) - Math.abs(a.score);
-                })"
-            :key="comment.id"
-            :comment="comment"
-            :comments="store.comments"
-            :store="store"
-        ></Review>
+        <Review v-for="comment in comments" :key="comment.id" :comment="comment" :comments="store.comments" :store="store"></Review>
     </div>
 </template>
 
@@ -113,10 +130,10 @@ import BanStoreModal from "@/components/BanStoreModal.vue";
 import EditStoreModal from "@/components/EditStoreModal.vue";
 import EmbedModal from "@/components/EmbedModal.vue";
 import Review from "@/components/Review.vue";
-import NewReview from "@/components/NewReview.vue";
+import { Comment } from "../interfaces/Comment";
 
 @Component({
-    components: { Vote, BanStoreModal, EditStoreModal, EmbedModal, Review, NewReview }
+    components: { Vote, BanStoreModal, EditStoreModal, EmbedModal, Review }
 })
 export default class StoreInfo extends Vue {
     @Prop() storeId!: number;
@@ -124,6 +141,25 @@ export default class StoreInfo extends Vue {
     baseUrl: string = "";
     breadCrumb: any;
     loaded: boolean = false;
+
+    comments: Comment[] = [];
+
+    private filter(filter: string) {
+        switch (filter) {
+            case "all":
+                this.comments = this.store.comments.filter(comment => comment.parent == "null");
+                break;
+            case "negative":
+                this.comments = this.store.comments.filter(comment => comment.parent == "null" && comment.score < 0);
+                break;
+            case "positive":
+                this.comments = this.store.comments.filter(comment => comment.parent == "null" && comment.score > 0);
+                break;
+            default:
+                this.comments = this.store.comments.filter(comment => comment.parent == "null");
+                break;
+        }
+    }
 
     mounted() {
         this.loaded = false;
@@ -133,6 +169,7 @@ export default class StoreInfo extends Vue {
         this.$store.dispatch("getStore", { id: this.storeId }).then(
             response => {
                 this.store = response.data;
+                this.comments = this.store.comments.filter(comment => comment.parent == "null");
                 this.breadCrumb = [
                     {
                         text: "Stores",
