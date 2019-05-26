@@ -83,11 +83,8 @@
                 </v-card>
             </v-flex>
         </v-layout>
-        <v-layout justify-center row wrap class="my-4">
-            <v-flex xs11 md8 lg6 v-if="store.comments.length > 0"> </v-flex>
-        </v-layout>
 
-        <v-layout justify-center row wrap class="my-4" v-if="store.comments.length > 0">
+        <v-layout justify-center row wrap class="my-4">
             <v-flex xs11 md8 lg6>
                 <v-card>
                     <v-card-title primary-title class="pa-3">
