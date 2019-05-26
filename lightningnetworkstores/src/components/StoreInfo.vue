@@ -98,8 +98,11 @@
                             </div>
                         </div>
                     </v-card-title>
+                    <v-layout row>
+                        <v-flex pl-3 pr-3 pb-3>To leave a review up or down vote the store.</v-flex>
+                    </v-layout>
                     <v-layout row pa-2 class="text-xs-center">
-                        <v-flex grow justify-center pa-3
+                        <v-flex grow justify-center pl-3 pr-3
                             ><v-icon color="success" large>thumb_up</v-icon>
                             <h3>
                                 Positive reviews: (<a @click="filter('positive')">{{ store.comments.filter(comment => comment.parent == "null" && comment.score > 0).length }}</a
