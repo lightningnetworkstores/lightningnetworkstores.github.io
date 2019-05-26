@@ -70,7 +70,9 @@
                             <v-flex grow>
                                 <span v-if="isUpvoting && !parentComment && !parentReview">Upvote</span><span v-if="!isUpvoting && !parentComment && !parentReview">Downvote</span>
                                 <span v-if="!parentReview && !parentComment">&nbsp;{{ store.name }}</span>
-                                <span v-if="parentReview && !parentComment">&nbsp;Reinforce review</span><span v-if="parentComment">Reply</span>
+                                <span v-if="parentReview && !parentComment && isReviewUpvote">Reinforce positive review & upvote</span>
+                                <span v-if="parentReview && !parentComment && !isReviewUpvote">Reinforce negative review & downvote</span>
+                                <span v-if="parentComment">Reply</span>
                             </v-flex>
                             <v-flex shrink v-if="paymentRequest && !isPaid"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
                         </v-layout>
