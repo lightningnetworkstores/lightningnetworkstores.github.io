@@ -98,7 +98,7 @@
 
                     <v-layout row>
                         <v-flex pl-3 pr-3 v-if="!paymentRequest.length && parentComment">
-                            Costs: {{ upvoteDialogForm.amount }}sat
+                            Cost: {{ upvoteDialogForm.amount }} satoshis
                             <v-textarea
                                 v-if="parentReview && parentComment"
                                 v-model="upvoteDialogForm.comment"
