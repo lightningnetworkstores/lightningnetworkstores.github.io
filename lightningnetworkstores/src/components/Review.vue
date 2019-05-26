@@ -24,7 +24,7 @@
                 <!-- .sort((a, b) => {
                             return Math.abs(a.score) - Math.abs(b.score);
                         }) -->
-                <v-layout row pt-1 pb-1 pl-3 pr-3 v-for="subComment in comments.filter(subComment => subComment.parent == comment.id)" :key="subComment.id">
+                <v-layout row pt-1 pb-1 pl-3 pr-3 v-for="subComment in comments.filter(subComment => subComment.parent == comment.id).sort((a, b) => a.timestamp - b.timestamp)" :key="subComment.id">
                     <v-flex>
                         <v-card>
                             <v-layout row pa-2 pt-3>
