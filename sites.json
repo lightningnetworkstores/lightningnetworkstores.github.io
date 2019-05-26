@@ -708,6 +708,7 @@
     "uri": "027c3b1cc5a649d5f6f7be2d591e34c37dc146fbed54d7f4c85898f9330107fe1c@206.116.15.124:9735",
     "description": "Low priced and useful products To help build and spread the ⚡ network.",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1532115712
   },
   {
@@ -717,6 +718,7 @@
     "uri": "unknown",
     "description": "Play SaruTobi arcade game",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1532158464
   },
   {
@@ -736,6 +738,7 @@
     "uri": "02f8220c901057c536fc8b4fdffd4f88b8ddd9cf811af03bbf85dd2c1eb25a7262@70.29.71.171:9735",
     "description": "Buy Crypto related products.",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1532278272
   },
   {
@@ -805,6 +808,7 @@
     "uri": "02c69a0b4cb468660348d6d457d9212563ad08fb94d424395da6796fb74a13f276@pretty-troll.creampay.io:9735",
     "description": "The only channel you will ever need",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1534129280
   },
   {
@@ -884,6 +888,7 @@
     "uri": "02b3877314aff657216ceac039244fe94e7116af10cfffac0232fefa5903c62a58@104.223.94.251:9735",
     "description": "Buy bike parts and accessories at BikeBeltline.",
     "sector": "fitness\u0026sports",
+    "digital_goods": "no, goods shipped",
     "added": 1536635264
   },
   {
@@ -1163,6 +1168,7 @@
     "uri": "unknown",
     "description": "Noosa Cycling \u0026 Triathlon Specialists",
     "sector": "fitness\u0026sports",
+    "digital_goods": "no, goods shipped",
     "added": 1539125632
   },
   {
@@ -1292,6 +1298,7 @@
     "uri": "02888244029c5909593038ab19f269947c720de3423e491791b46c7c92f76279b6@82.217.214.215:9735",
     "description": "Trade about one dollar worth of bitcoin",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1541431936
   },
   {
@@ -1301,6 +1308,7 @@
     "uri": "038df0bd2fad1bfe42d177f18ea5e33543e2b855ef369d06bd94b81d2c87187c82@178.238.237.16:9735",
     "description": "Microtask freelancing powered by Lightning",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1541539456
   },
   {
@@ -1310,6 +1318,7 @@
     "uri": "unknown",
     "description": "A bitcoin sticker pack for $4 with free shipping!",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1541697152
   },
   {
@@ -1459,6 +1468,7 @@
     "uri": "unknown",
     "description": "Accommodation \u0026 Hotel Bookings Worldwide",
     "sector": "other",
+    "digital_goods": "no, goods only in-store",
     "added": 1544795904
   },
   {
@@ -1478,6 +1488,7 @@
     "uri": "03cbf7816667ee86a3b7077f05961542cfa9dc60078b782a230a41a5cb772f1a81",
     "description": "The lightning button is an endless auction website. Put any link you want and buy the button using lightning network micropayment.",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1545394048
   },
   {
@@ -1567,6 +1578,7 @@
     "uri": "03f38829a9b9131e3a0887ca21fd042f2d07bd7f151fffefcc3d1585f24c1b3e7e@85.2.192.111:9735",
     "description": "post your message",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1546553600
   },
   {
@@ -1696,6 +1708,7 @@
     "uri": "unknown",
     "description": "Fastest No-Logs Online VPN",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1547849472
   },
   {
@@ -1715,6 +1728,7 @@
     "uri": "031cc35d487b8fae5f24df919e8ce5ad2a6bbf489f67694e5a929f10eee0e000a5@188.68.60.152:9735",
     "description": "Play HODLman a classic pacman adaptation and climb the highscore list.",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1547989888
   },
   {
@@ -1754,6 +1768,7 @@
     "uri": "03a8355790b89f4d96963019eb9413b9a2c884691837ac976bacfe25a5212892d7@99.71.113.187:9735",
     "description": "A BTC-themed memory game",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1548292864
   },
   {
@@ -1783,6 +1798,7 @@
     "uri": "unknown",
     "description": "Trade crypto peer to peer",
     "sector": "exchange",
+    "digital_goods": "yes",
     "added": 1548886784
   },
   {
@@ -1792,6 +1808,7 @@
     "uri": "03a8355790b89f4d96963019eb9413b9a2c884691837ac976bacfe25a5212892d7@99.71.113.187:9735",
     "description": "A word guess game",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1548990336
   },
   {
@@ -1801,6 +1818,7 @@
     "uri": "unknown",
     "description": "Collection of fun ln games :D",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1549055104
   },
   {
@@ -1820,6 +1838,7 @@
     "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@52.15.79.245:9735",
     "description": "Play Chess",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1549401344
   },
   {
@@ -1829,6 +1848,7 @@
     "uri": "02a934d816a09a6658e1b1af2c6d87486eed31296cca0c5ccbf01a4464aeaccfb5@68.190.53.253:9735",
     "description": "Privacy First Social Networking",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1549416704
   },
   {
@@ -1838,6 +1858,7 @@
     "uri": "unknown",
     "description": "Space Invaders with Lightning",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1549452160
   },
   {
@@ -1857,6 +1878,7 @@
     "uri": "unknown",
     "description": "Pay anywhere online with a lightning Chrome  extension.",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1549795072
   },
   {
@@ -1866,6 +1888,7 @@
     "uri": "unknown",
     "description": "Pass the Nanotorch lightning and add 100sats to enlarge the chain, best lightning community",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1549822080
   },
   {
@@ -1885,6 +1908,7 @@
     "uri": "unknown",
     "description": "Online Vape Store",
     "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
     "added": 1550023680
   },
   {
@@ -1904,6 +1928,7 @@
     "uri": "02cda8c01b2303e91bec74c43093d5f1c4fd42a95671ae27bf853d7dfea9b78c06@lightning.zapread.com:9735",
     "description": "Lightning powered social media",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1550157568
   },
   {
@@ -1923,6 +1948,7 @@
     "uri": "030747e32c0428d6bdfe468ab91ade9cc11daf4aab2b7033d7e7fbe39449167982@172.81.178.11:9735",
     "description": "Your source for bitcoin shopping",
     "sector": "clothing",
+    "digital_goods": "no, goods shipped",
     "added": 1550363264
   },
   {
@@ -1962,6 +1988,7 @@
     "uri": "03952f8756c036669440e06c782c7f21732886ccf04052e0e6e792f8f5a490f6aa@207.180.252.186:9735",
     "description": "Mini casino roulette for LN",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1550515840
   },
   {
@@ -1971,6 +1998,7 @@
     "uri": "unknown",
     "description": "A Bitcoin-Only store, which accepts ONLY Bitcoin and Lightning.",
     "sector": "clothing",
+    "digital_goods": "no, goods shipped",
     "added": 1550644992
   },
   {
@@ -2000,6 +2028,7 @@
     "uri": "unknown",
     "description": "Buy PC games with cryptocurrencies ",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1550847232
   },
   {
@@ -2049,6 +2078,7 @@
     "uri": "unknown",
     "description": "Awesome website designs, affordable price, accepting Lightning.",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1551288448
   },
   {
@@ -2138,6 +2168,7 @@
     "uri": "0274a542b693385f9e38d7acf4017ed31748d00693ff219c54e1b33749595a7419@18.179.20.192:9735",
     "description": "A BlockChain Game platform with provably fair,fast payouts and free faucet.",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1552116736
   },
   {
@@ -2167,6 +2198,7 @@
     "uri": "unknown",
     "description": "CSGO like provably fair roulette. Trollbox with tipbot. Autobetting.",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1552502400
   },
   {
@@ -2186,6 +2218,7 @@
     "uri": "03ce648061614b971a3a990e62cb5f782ac94e9576f2311256b2985bc05b5033e0@bitdouble.io:9735",
     "description": "BitDouble gambling site",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1552832384
   },
   {
@@ -2195,6 +2228,7 @@
     "uri": "unknown",
     "description": "vendita auto e noleggio",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1552840832
   },
   {
@@ -2224,6 +2258,7 @@
     "uri": "025731077fddc998300b4f358dfec833efdc412aa0bd78c06d5ab61963b60119fe@172.81.177.203:9735",
     "description": " Store focused on bitcoin Twitter culture also offer custom decals for BTC",
     "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
     "added": 1552940544
   },
   {
@@ -2263,6 +2298,7 @@
     "uri": "unknown",
     "description": "Buy CBD Online with Bitcoin and LN and save 10%. Sister site of Vape Crypto.com. ",
     "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
     "added": 1553389568
   },
   {
@@ -2272,6 +2308,7 @@
     "uri": "unknown",
     "description": "Hotels \u0026 Accommodation WorldWide",
     "sector": "other",
+    "digital_goods": "no, goods only in-store",
     "added": 1553446144
   },
   {
@@ -2331,6 +2368,7 @@
     "uri": "unknown",
     "description": "Hats, Apparel \u0026 Accessories",
     "sector": "clothing",
+    "digital_goods": "no, goods shipped",
     "added": 1554349568
   },
   {
@@ -2390,6 +2428,7 @@
     "uri": "03a503d8e30f2ff407096d235b5db63b4fcf3f89a653acb6f43d3fc492a7674019@37.59.50.48:9735",
     "description": "Provably fair lotto-style lottery",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1554747136
   },
   {
@@ -2409,6 +2448,7 @@
     "uri": "unknown",
     "description": "Free and opensource payment gateway that works with your LND node",
     "sector": "cryptocurrency merchandise",
+    "digital_goods": "yes",
     "added": 1554881280
   },
   {
@@ -2448,6 +2488,7 @@
     "uri": "unknown",
     "description": "Please help me finance my wife new haircut with lightning",
     "sector": "art",
+    "digital_goods": "yes",
     "added": 1555237760
   },
   {
@@ -2457,6 +2498,7 @@
     "uri": "unknown",
     "description": "Pay to edit words of the bitcoin whitepaper, inspited by Satoshis Place.",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1555356928
   },
   {
@@ -2486,6 +2528,7 @@
     "uri": "unknown",
     "description": "eGift Card on Lightning Network",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1555593984
   },
   {
@@ -2515,6 +2558,7 @@
     "uri": "unknown",
     "description": "24/7 streaming of high-performance Crypto-Currency trading signals presented in a single view for professional trading.",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1555731456
   },
   {
@@ -2544,6 +2588,7 @@
     "uri": "03970306a0aaa62556f51f4df8f51d8d8a62c1140d02566d49df65704a1f4fec9c@85.214.217.177:97",
     "description": "Bomberman on lightning",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1556049792
   },
   {
@@ -2593,6 +2638,7 @@
     "uri": "unknown",
     "description": "I give 5 satoshis to everyone for free and without any conditions.",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1556264448
   },
   {
@@ -2622,6 +2668,7 @@
     "uri": "03df257120256b5f0b87d25659946d42067a094c765bff830eb66d6ffba6f4d5da@38.87.54.164:9735",
     "description": "change the message on this clock live",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1556371584
   },
   {
@@ -2631,6 +2678,7 @@
     "uri": "unknown",
     "description": "LightingHosted is an image hosting service that uses the bitcoin lightning network to share advertising revenue with users.",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1556375808
   },
   {
@@ -2740,6 +2788,7 @@
     "uri": "unknown",
     "description": "Host files on IPFS using lightning.",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1557423872
   },
   {
