@@ -864,7 +864,7 @@
     "uri": "039f01ad62e5208940faff11d0bbc997582eafad7642aaf53de6a5f6551ab73400@40.114.234.63:9735",
     "description": "Play Slots With Lightning and Win the 200X Big Win payout! Instant Payouts using the Bitcoin Lightning Network!",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods only in-store",
+    "digital_goods": "yes",
     "added": 1536444672
   },
   {
@@ -1734,7 +1734,7 @@
     "uri": "unknown",
     "description": "Gamble Bitcoins instantly using Lighting Network",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods only in-store",
+    "digital_goods": "yes",
     "added": 1548067840
   },
   {
@@ -2214,7 +2214,7 @@
     "uri": "02294ffbd3619e9dcd7e0577d1203ff06828625f421647950888a19cf30b5a635f@51.83.41.129:9735",
     "description": "LuckyThunder is a slot machine build on top of the bitcoin lightning network⚡. No login required, provably fair, high win percentage.",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods only in-store",
+    "digital_goods": "yes",
     "added": 1552938240
   },
   {
@@ -2311,7 +2311,7 @@
     "uri": "020e56a13babec99abdc2c4afbe34e1e44230d79b234c059fd4ff1e367765fdb1b@main.lightningnode.eu",
     "description": "Play pokemon using Lightning layments",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods only in-store",
+    "digital_goods": "yes",
     "added": 1554109952
   },
   {
