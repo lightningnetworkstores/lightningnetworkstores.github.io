@@ -2880,5 +2880,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1558915072
+  },
+  {
+    "id": 1847,
+    "name": "The Lightning Wall",
+    "href": "https://lightningwall.tips",
+    "uri": "031d2bbc75802689312220a017c6b51fa246efc59c7aa9355f6f7395038ffb4d6a@2.234.122.191:9735",
+    "description": "Earn satoshi with private and public posts",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1558968064
   }
 ]
