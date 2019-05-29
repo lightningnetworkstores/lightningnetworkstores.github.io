@@ -122,9 +122,9 @@ export default new Vuex.Store({
         addStore({}, { name: name, description: description, url: url, uri: uri, sector: sector, digitalGoods: digitalGoods, contributor: contributor, recaptcha: recaptcha }) {
             return axios
                 .get(
-                    `${baseUrl}addStore?name=${encodeURI(name)}&description=${encodeURI(description)}&URL=${encodeURI(url)}&URI=${encodeURI(uri)}&sector=${encodeURI(sector)}&digitalGoods=${encodeURI(
-                        digitalGoods
-                    )}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
+                    `${baseUrl}addStore?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&URL=${encodeURIComponent(url)}&URI=${encodeURIComponent(
+                        uri
+                    )}&sector=${encodeURIComponent(sector)}&digitalGoods=${encodeURIComponent(digitalGoods)}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
                 )
                 .then(response => {
                     return Promise.resolve(response);
@@ -249,7 +249,7 @@ export default new Vuex.Store({
         },
         addStoreUpdate({}, { id: id, field: field, value: value, askOwner: askOwner }) {
             return axios
-                .get(`${baseUrl}addUpdate?storeID=${id}&field=${encodeURI(field)}&newValue=${encodeURI(value)}&requestOwner=${askOwner}`)
+                .get(`${baseUrl}addUpdate?storeID=${id}&field=${encodeURIComponent(field)}&newValue=${encodeURIComponent(value)}&requestOwner=${askOwner}`)
                 .then(response => {
                     return Promise.resolve(response);
                 })
@@ -259,7 +259,7 @@ export default new Vuex.Store({
         },
         suggestBan({}, { id: id, name: name, message: message }) {
             return axios
-                .get(`${baseUrl}suggestBan?id=${id}&name=${encodeURI(name)}&message=${encodeURI(message)}`)
+                .get(`${baseUrl}suggestBan?id=${id}&name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}`)
                 .then(response => {
                     return Promise.resolve(response);
                 })
