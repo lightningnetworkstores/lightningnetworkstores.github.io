@@ -101,7 +101,7 @@ export default class Review extends Vue {
     word-break: break-all;
     word-break: break-word;
     white-space: pre-wrap;
-    max-height: 210px;
+    max-height: 330px;
     overflow-y: hidden;
 }
 </style>
