@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <StoreListFilter v-bind:sector="decodeURI(sector)" v-bind:digitalGoods="decodeURI(digitalGoods)" v-bind:sort="decodeURI(sort)" v-bind:search="decodeURI(search)" />
-        <StoreList v-bind:sector="decodeURI(sector)" v-bind:digitalGoods="decodeURI(digitalGoods)" v-bind:sort="decodeURI(sort)" v-bind:search="decodeURI(search)" />
+        <StoreListFilter v-bind:sector="decodeURIComponent(sector)" v-bind:digitalGoods="decodeURIComponent(digitalGoods)" v-bind:sort="decodeURIComponent(sort)" v-bind:search="decodeURIComponent(search)" />
+        <StoreList v-bind:sector="decodeURIComponent(sector)" v-bind:digitalGoods="decodeURIComponent(digitalGoods)" v-bind:sort="decodeURIComponent(sort)" v-bind:search="decodeURIComponent(search)" />
     </div>
 </template>
 

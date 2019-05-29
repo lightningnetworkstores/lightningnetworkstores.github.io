@@ -80,10 +80,10 @@ export default class StoreList extends Vue {
     private changeUrl() {
         this.$router.push({
             query: {
-                sector: encodeURI(this.selectedSector.prop || this.selectedSector),
-                digital_goods: encodeURI(this.selectedDigitalGood.prop || this.selectedDigitalGood),
-                sort: encodeURI(this.selectedSort.prop || this.selectedSort),
-                search: encodeURI(this.searchQuery)
+                sector: encodeURIComponent(this.selectedSector.prop || this.selectedSector),
+                digital_goods: encodeURIComponent(this.selectedDigitalGood.prop || this.selectedDigitalGood),
+                sort: encodeURIComponent(this.selectedSort.prop || this.selectedSort),
+                search: encodeURIComponent(this.searchQuery)
             }
         });
     }

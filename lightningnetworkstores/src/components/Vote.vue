@@ -270,7 +270,7 @@ export default class StoreCard extends Vue {
     }
 
     get encodedComment() {
-        return encodeURI(
+        return encodeURIComponent(
             (this.isReplyToSubComment ? `@${(this.parentComment ? this.parentComment : this.parentReview).substring(0, 5)} ${this.upvoteDialogForm.comment}` : this.upvoteDialogForm.comment).trim()
         ).replace(/%20/g, "+");
     }
