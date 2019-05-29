@@ -97,7 +97,9 @@ export default class Review extends Vue {
     color: rgba(0, 0, 0, 0.5);
 }
 .comment-text {
+    -ms-word-break: break-all;
     word-break: break-all;
+    word-break: break-word;
     white-space: pre-wrap;
     max-height: 210px;
     overflow-y: hidden;
