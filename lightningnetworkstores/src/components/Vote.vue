@@ -90,10 +90,10 @@
                                 v-if="!parentReview"
                                 v-model="upvoteDialogForm.comment"
                                 type="text"
-                                counter="160"
-                                :label="'Review (optional - minimum ' + upvoteDialogForm.amount + ' satoshis)'"
+                                counter="200"
+                                :label="'Review (optional - minimum ' + this.defaultAmount + ' satoshis)'"
                                 rows="4"
-                                :rules="[v => v.length <= 160 || 'Review has to be shorter than 160 characters']"
+                                :rules="[v => v.length <= 200 || 'Review has to be shorter than 200 characters']"
                             ></v-textarea>
                         </v-flex>
                     </v-layout>
@@ -105,10 +105,10 @@
                                 v-if="parentReview && parentComment"
                                 v-model="upvoteDialogForm.comment"
                                 type="text"
-                                counter="160"
+                                counter="200"
                                 label="Reply"
                                 rows="4"
-                                :rules="[v => v.length <= 160 || 'Reply has to be shorter than 160 characters', v => !!v || 'Reply is required']"
+                                :rules="[v => v.length <= 200 || 'Reply has to be shorter than 200 characters', v => !!v || 'Reply is required']"
                             ></v-textarea>
                         </v-flex>
                     </v-layout>
@@ -228,33 +228,45 @@ export default class StoreCard extends Vue {
     }
 
     private getInvoice() {
-        if (this.encodedComment.length < 180) {
-            this.commentAlert.message = "";
-            this.$store
-                .dispatch("getStoreVotePaymentRequest", {
-                    id: this.store.id,
-                    amount: this.upvoteDialogForm.amount,
-                    isUpvote: this.isUpvoting,
-                    comment: this.encodedComment,
-                    parent: this.parentReview
-                })
-                .then(
-                    response => {
-                        this.paymentRequest = response.data.payment_request;
-                        this.paymentID = response.data.id;
-                        let date = new Date();
-                        this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600));
-                        this.checkPaymentTimer = setInterval(() => {
-                            this.checkPayment();
-                        }, 3000);
-                    },
-                    error => {
-                        console.error(error);
-                    }
-                );
-        } else {
-            this.commentAlert.message = "Encoded review of comment is too long, please remove special characters and emoijs.";
+        // validations
+        if (this.upvoteDialogForm.comment.indexOf(">") > -1 || this.upvoteDialogForm.comment.indexOf("<") > -1 || this.upvoteDialogForm.comment.indexOf('"') > -1) {
+            this.commentAlert.message = 'Comment contains invalid characters (>, < or "), please remove them.';
+            return;
         }
+
+        if (this.encodedComment.length > 0 && this.upvoteDialogForm.amount < this.defaultAmount) {
+            this.commentAlert.message = "Vote at least " + this.defaultAmount + " satoshis to be able to write a review/reply.";
+            return;
+        }
+
+        if (this.encodedComment.length >= 225) {
+            this.commentAlert.message = "Encoded review of comment is too long, please remove special characters and emoijs.";
+            return;
+        } // end validation
+
+        this.commentAlert.message = "";
+        this.$store
+            .dispatch("getStoreVotePaymentRequest", {
+                id: this.store.id,
+                amount: this.upvoteDialogForm.amount,
+                isUpvote: this.isUpvoting,
+                comment: this.encodedComment,
+                parent: this.parentReview
+            })
+            .then(
+                response => {
+                    this.paymentRequest = response.data.payment_request;
+                    this.paymentID = response.data.id;
+                    let date = new Date();
+                    this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600));
+                    this.checkPaymentTimer = setInterval(() => {
+                        this.checkPayment();
+                    }, 3000);
+                },
+                error => {
+                    console.error(error);
+                }
+            );
     }
 
     get encodedComment() {
