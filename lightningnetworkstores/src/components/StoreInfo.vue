@@ -162,6 +162,7 @@ export default class StoreInfo extends Vue {
                 this.comments = this.store.comments.filter(comment => comment.parent == "null");
                 break;
         }
+        this.comments.sort((a, b) => Math.abs(b.score) - Math.abs(a.score));
     }
 
     mounted() {
@@ -173,6 +174,7 @@ export default class StoreInfo extends Vue {
             response => {
                 this.store = response.data;
                 this.comments = this.store.comments.filter(comment => comment.parent == "null");
+                this.comments.sort((a, b) => Math.abs(b.score) - Math.abs(a.score));
                 this.breadCrumb = [
                     {
                         text: "Stores",
