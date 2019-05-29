@@ -8,7 +8,7 @@
                         {{ comment.score | number }}
                     </v-flex>
 
-                    <v-flex pa-3 class="break-all">
+                    <v-flex pa-3 class="comment-text">
                         {{ comment.text.replace(/\+/g, " ") }}
                     </v-flex>
                 </v-layout>
@@ -28,7 +28,7 @@
                     <v-flex>
                         <v-card>
                             <v-layout row pa-2 pt-3>
-                                <v-flex pl-2 class="break-all" v-html="commentText(subComment.text.replace(/\+/g, ' '))"></v-flex>
+                                <v-flex pl-2 class="comment-text" v-html="commentText(subComment.text.replace(/\+/g, ' '))"></v-flex>
                             </v-layout>
 
                             <v-layout row pa-2 class="caption comment-extra">
@@ -96,7 +96,10 @@ export default class Review extends Vue {
 .comment-extra {
     color: rgba(0, 0, 0, 0.5);
 }
-.break-all {
+.comment-text {
     word-break: break-all;
+    white-space: pre-wrap;
+    max-height: 210px;
+    overflow-y: hidden;
 }
 </style>
