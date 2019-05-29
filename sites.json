@@ -2890,5 +2890,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1558968064
+  },
+  {
+    "id": 1857,
+    "name": "Salud Sats",
+    "href": "https://www.saludsats.com",
+    "uri": "undefined",
+    "description": "The only reason to spend sats, is on your health. Purchase Health Action Plans using Bitcoin Lightning Network. ",
+    "sector": "fitness",
+    "digital_goods": "yes",
+    "added": 1559137792
   }
 ]
