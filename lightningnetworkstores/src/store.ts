@@ -114,17 +114,6 @@ export default new Vuex.Store({
 
             return { upvotes: score[0], downvotes: score[1], trending: score[2], lastCommented: score[3], rank: rank };
         },
-        // getImage: state => (id: number) => {
-        //     try {
-        //         return require(`@/assets/images/stores/${id}_override.png`);
-        //     } catch (error) {
-        //         try {
-        //             return require(`@/assets/images/stores/${id}.png`);
-        //         } catch (error) {
-        //             return "";
-        //         }
-        //     }
-        // },
         getBaseUrl: state => () => {
             return baseUrl;
         }
@@ -133,9 +122,9 @@ export default new Vuex.Store({
         addStore({}, { name: name, description: description, url: url, uri: uri, sector: sector, digitalGoods: digitalGoods, contributor: contributor, recaptcha: recaptcha }) {
             return axios
                 .get(
-                    `${baseUrl}addStore?name=${encodeURI(name)}&description=${encodeURI(
-                        description
-                    )}&URL=${url}&URI=${uri}&sector=${sector}&digitalGoods=${digitalGoods}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
+                    `${baseUrl}addStore?name=${encodeURI(name)}&description=${encodeURI(description)}&URL=${encodeURI(url)}&URI=${encodeURI(uri)}&sector=${encodeURI(sector)}&digitalGoods=${encodeURI(
+                        digitalGoods
+                    )}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
                 )
                 .then(response => {
                     return Promise.resolve(response);
@@ -260,7 +249,7 @@ export default new Vuex.Store({
         },
         addStoreUpdate({}, { id: id, field: field, value: value, askOwner: askOwner }) {
             return axios
-                .get(`${baseUrl}addUpdate?storeID=${id}&field=${field}&newValue=${value}&requestOwner=${askOwner}`)
+                .get(`${baseUrl}addUpdate?storeID=${id}&field=${encodeURI(field)}&newValue=${encodeURI(value)}&requestOwner=${askOwner}`)
                 .then(response => {
                     return Promise.resolve(response);
                 })
@@ -270,7 +259,7 @@ export default new Vuex.Store({
         },
         suggestBan({}, { id: id, name: name, message: message }) {
             return axios
-                .get(`${baseUrl}suggestBan?id=${id}&name=${name}&message=${encodeURI(message)}`)
+                .get(`${baseUrl}suggestBan?id=${id}&name=${encodeURI(name)}&message=${encodeURI(message)}`)
                 .then(response => {
                     return Promise.resolve(response);
                 })
