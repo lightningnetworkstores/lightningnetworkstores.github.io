@@ -1,8 +1,12 @@
 <template>
     <div class="store-list-filter">
-        <v-layout justify-center class="text-xs-center">
-            <v-flex> </v-flex>
-        </v-layout>
+        <!-- <v-layout justify-center class="text-xs-center">
+            <v-flex xs11 md11 lg6 pa-3>
+                <v-alert :value="true" color="info" icon="info">
+                    This is an anouncement.
+                </v-alert></v-flex
+            >
+        </v-layout> -->
         <v-layout justify-center>
             <v-flex xs11 md11 lg6 pa-3>
                 <v-card>
