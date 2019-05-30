@@ -9,6 +9,9 @@ import numeral from "numeral";
 //@ts-ignore
 import VueAnalytics from "vue-analytics";
 
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
+
 Vue.filter("number", (value: any) => {
     return numeral(value).format("0,0");
 });

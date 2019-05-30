@@ -24,7 +24,7 @@
                                     >{{ storeWithScore.name }}<v-icon small class="pa-2 pt-1 link-icon" color="#1976d2">fa-external-link-alt</v-icon></a
                                 >
                             </div>
-                            <span class="grey--text">{{ storeWithScore.description.substring(0, 96) }}{{ storeWithScore.description.length > 96 ? "..." : "" }}</span>
+                            <span class="">{{ storeWithScore.description.substring(0, 96) }}{{ storeWithScore.description.length > 96 ? "..." : "" }}</span>
                         </div>
                     </v-card-title>
                 </v-flex>

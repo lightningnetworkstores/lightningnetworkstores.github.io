@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app :dark="darkMode">
         <v-toolbar class="toolbar" color="rgb(56, 56, 56)" dark>
             <v-toolbar-title
                 ><a href="/"><img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"/></a
@@ -45,6 +45,10 @@
             <v-btn icon :href="'https://twitter.com/bitcoinLNS'">
                 <v-icon>fab fa-twitter</v-icon>
             </v-btn>
+
+            <v-btn icon @click="toggleDarkmode">
+                <v-icon>brightness_2</v-icon>
+            </v-btn>
         </v-toolbar>
         <v-content>
             <router-view />
@@ -52,7 +56,7 @@
         <v-icon>wallet</v-icon>
         <v-footer class="pa-3" color="rgb(56, 56, 56)" dark>
             <v-layout justify-center row wrap>
-                <v-flex text-xs-center> Copyright &copy; {{ new Date().getFullYear() }} LightningNetworkStores. All rights reserved. </v-flex>
+                <v-flex text-xs-center> Copyright &copy; {{ new Date().getFullYear() }} LightningNetworkStores.</v-flex>
             </v-layout>
         </v-footer>
     </v-app>
@@ -62,9 +66,15 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component
 export default class App extends Vue {
+    darkMode: boolean = true;
+
     mounted() {
-        // this.$store.dispatch("fetchScores");
-        // this.$store.dispatch("fetchStores");
+        this.darkMode = this.$cookies.get("darkMode") == "true";
+    }
+
+    private toggleDarkmode() {
+        this.$cookies.set("darkMode", !this.darkMode, "3y");
+        this.darkMode = !this.darkMode;
     }
 }
 </script>
