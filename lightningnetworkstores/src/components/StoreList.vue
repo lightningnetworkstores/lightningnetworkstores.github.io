@@ -7,7 +7,7 @@
                         <template v-for="(store, index) in getStores.slice(0, maxCards)">
                             <store-card :key="store.id" :store="store" :baseUrl="baseUrl"></store-card>
 
-                            <div v-if="index == 10" :key="`${index}-${store.id}`" v-observe-visibility="(isVisible, entry) => visibilityChanged(isVisible, entry)"></div>
+                            <div v-if="index % addCardCount === 0" :key="`${index}-${store.id}`" v-observe-visibility="(isVisible, entry) => visibilityChanged(isVisible, entry)"></div>
                         </template>
                     </v-layout>
                 </v-container>
@@ -42,7 +42,8 @@ export default class StoreList extends Vue {
     isLoading: boolean = true;
 
     maxCards: number = 40;
-    scrolledDownCount: number = 0;
+    maxCardAtStart: number = 40;
+    addCardCount: number = 6;
 
     async mounted() {
         console.log("Sector: " + this.sector);
@@ -62,30 +63,30 @@ export default class StoreList extends Vue {
     }
 
     private visibilityChanged(isVisible: boolean, entry: any) {
-        this.scrolledDownCount++;
-        if (this.scrolledDownCount > 1) {
-            this.maxCards = this.getStores.length;
-            console.log("scrolled down");
-        }
+        this.maxCards += this.addCardCount;
     }
 
     @Watch("sector")
     private onSectorChanged(val: string, oldVal: string) {
+        this.maxCards = this.maxCardAtStart;
         this.$forceUpdate();
     }
 
     @Watch("digitalGoods")
     private onDigitalGoodsChanged(val: string, oldVal: string) {
+        this.maxCards = this.maxCardAtStart;
         this.$forceUpdate();
     }
 
     @Watch("sort")
     private onSortChanged(val: string, oldVal: string) {
+        this.maxCards = this.maxCardAtStart;
         this.$forceUpdate();
     }
 
     @Watch("search")
     private onSearchChanged(val: string, oldVal: string) {
+        this.maxCards = this.maxCardAtStart;
         this.$forceUpdate();
     }
 
