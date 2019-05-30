@@ -91,7 +91,7 @@
                                 v-model="upvoteDialogForm.comment"
                                 type="text"
                                 counter="200"
-                                :label="'Review (optional - minimum ' + this.defaultAmount + ' satoshis)'"
+                                :label="'Review (optional - minimum ' + replyReviewFee + ' satoshis)'"
                                 rows="4"
                                 :rules="[v => v.length <= 200 || 'Review has to be shorter than 200 characters']"
                             ></v-textarea>
@@ -169,14 +169,12 @@ export default class StoreCard extends Vue {
     @Prop() isReviewUpvote!: boolean;
     @Prop() isReplyToSubComment!: boolean;
 
-    defaultAmount: number = 2;
-
     score: any = {};
 
     isUpvoting: boolean = true;
 
     showDialog: boolean = false;
-    upvoteDialogForm: any = { amount: this.defaultAmount, comment: "" };
+    upvoteDialogForm: any = { amount: 0, comment: "" };
 
     paymentRequest: string = "";
     paymentID: string = "";
@@ -187,7 +185,12 @@ export default class StoreCard extends Vue {
 
     commentAlert: any = { message: "", success: false };
 
-    async created() {}
+    replyReviewFee: number = 500;
+
+    async created() {
+        this.replyReviewFee = this.$store.getters.getReplyReviewFee();
+        this.upvoteDialogForm.amount = this.replyReviewFee;
+    }
 
     private reply() {
         this.showDialog = true;
@@ -220,7 +223,7 @@ export default class StoreCard extends Vue {
     }
 
     private closeDialog() {
-        this.upvoteDialogForm = { amount: this.defaultAmount, comment: "" };
+        this.upvoteDialogForm = { amount: this.replyReviewFee, comment: "" };
         this.showDialog = false;
         this.isPaid = false;
         this.paymentID = "";
@@ -234,13 +237,13 @@ export default class StoreCard extends Vue {
             return;
         }
 
-        if (this.encodedComment.length > 0 && this.upvoteDialogForm.amount < this.defaultAmount) {
-            this.commentAlert.message = "Vote at least " + this.defaultAmount + " satoshis to be able to write a review/reply.";
+        if (this.encodedComment.length > 0 && this.upvoteDialogForm.amount < this.replyReviewFee) {
+            this.commentAlert.message = "Vote at least " + this.replyReviewFee + " satoshis to be able to write a review/reply.";
             return;
         }
 
         if (this.encodedComment.length >= 225) {
-            this.commentAlert.message = "Encoded review of comment is too long, please remove special characters and emoijs.";
+            this.commentAlert.message = "Encoded review or comment is too long, please remove special characters and emoijs.";
             return;
         } // end validation
 

@@ -5,12 +5,13 @@ import Fuse from "fuse.js";
 import { Store } from "./interfaces/Store";
 import { Score } from "./interfaces/Score";
 
-// const stores: Store[] = require("../data/sites.json");
-// const scores: any = require("../data/storeScores.json");
-
 Vue.use(Vuex);
 
-const baseUrl = "https://lightningnetworkstores.com:8443/";
+const isTestEnv = window.location.origin.toLowerCase().includes("localhost");
+const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com:/";
+const addStoreFee = isTestEnv ? 2 : 5000;
+const replyReviewFee = isTestEnv ? 2 : 500;
+
 const options = {
     shouldSort: true,
     threshold: 1,
@@ -116,6 +117,12 @@ export default new Vuex.Store({
         },
         getBaseUrl: state => () => {
             return baseUrl;
+        },
+        getAddStoreFee: state => () => {
+            return addStoreFee;
+        },
+        getReplyReviewFee: state => () => {
+            return replyReviewFee;
         }
     },
     actions: {

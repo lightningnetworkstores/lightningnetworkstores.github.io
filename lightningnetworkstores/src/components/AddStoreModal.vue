@@ -41,14 +41,14 @@
                     </v-card-title>
 
                     <v-layout row>
-                        <v-flex pl-3 pr-3 v-if="!paymentRequest.length">
-                            Amount due if not a contributor: 5000 satoshis
-                        </v-flex>
+                        <v-flex pl-3 pr-3 v-if="!paymentRequest.length"> Amount due if not a contributor: {{ addStoreFee }} satoshis </v-flex>
                     </v-layout>
 
                     <div v-if="paymentRequest">
                         <v-layout row>
-                            <v-flex pa-3 class="text-xs-center"><h3>5000 sat</h3></v-flex>
+                            <v-flex pa-3 class="text-xs-center"
+                                ><h3>{{ addStoreFee }} sat</h3></v-flex
+                            >
                         </v-layout>
                         <v-layout row>
                             <v-flex pl-3 pr-3 class="text-xs-center"><qrcode-vue class="qrcode" size="300" :value="paymentRequest"></qrcode-vue></v-flex>
@@ -228,9 +228,13 @@ export default class AddStoreModal extends Vue {
     expiryTime: Date = new Date();
     isPaid: boolean = false;
 
+    addStoreFee: number = 5000;
+
     checkPaymentTimer: any;
 
-    created() {}
+    created() {
+        this.addStoreFee = this.$store.getters.getAddStoreFee();
+    }
 
     private cancel() {
         if (this.paymentRequest.length > 0) {
