@@ -2900,5 +2900,15 @@
     "sector": "fitness",
     "digital_goods": "yes",
     "added": 1559137792
+  },
+  {
+    "id": 1877,
+    "name": "lightning-space",
+    "href": "https://lightning-space.com",
+    "uri": "03ad6cd751e6b91831a0ea19c0e84f54f17ac51b6a9d5d2e81663238701286186f@lechuck.hopto.org:9735",
+    "description": "Webhosting with PHP, MySQL and email. Chose duration and amount of space and pay with lightning",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1559256704
   }
 ]
