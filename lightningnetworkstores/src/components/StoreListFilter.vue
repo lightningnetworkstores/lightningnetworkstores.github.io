@@ -1,12 +1,12 @@
 <template>
     <div class="store-list-filter">
-        <!-- <v-layout justify-center class="text-xs-center">
+        <v-layout v-if="this.announcement" justify-center class="text-xs-center">
             <v-flex xs11 md11 lg6 pa-3>
-                <v-alert :value="true" color="info" icon="info">
-                    This is an anouncement.
+                <v-alert :value="true" :type="this.announcementType">
+                    {{ this.announcement }}
                 </v-alert></v-flex
             >
-        </v-layout> -->
+        </v-layout>
         <v-layout justify-center>
             <v-flex xs11 md11 lg6 pa-3>
                 <v-card>
@@ -79,7 +79,14 @@ export default class StoreList extends Vue {
     selectedSort: any = this.sort == "undefined" ? "best" : this.sort;
     searchQuery: string = this.search == "undefined" ? "" : this.search;
 
+    announcement: string = "";
+    announcementType: string = "";
     created() {}
+
+    mounted() {
+        this.announcement = this.$store.getters.getAnnouncement();
+        this.announcementType = this.$store.getters.getAnnouncementType();
+    }
 
     private changeUrl() {
         this.$router.push({

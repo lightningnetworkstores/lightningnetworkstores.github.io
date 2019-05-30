@@ -7,7 +7,9 @@ import { Score } from "./interfaces/Score";
 
 Vue.use(Vuex);
 
-const isTestEnv = window.location.origin.toLowerCase().includes("localhost");
+const isTestEnv = false;
+const announcement = "You can now review/comment stores!";
+const announcementType = "success";
 const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com:/";
 const addStoreFee = isTestEnv ? 2 : 5000;
 const replyReviewFee = isTestEnv ? 2 : 500;
@@ -117,6 +119,12 @@ export default new Vuex.Store({
         },
         getBaseUrl: state => () => {
             return baseUrl;
+        },
+        getAnnouncement: state => () => {
+            return announcement;
+        },
+        getAnnouncementType: state => () => {
+            return announcementType;
         },
         getAddStoreFee: state => () => {
             return addStoreFee;
