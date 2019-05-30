@@ -10,7 +10,7 @@ Vue.use(Vuex);
 const isTestEnv = false;
 const announcement = "You can now review/comment stores!";
 const announcementType = "success";
-const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com:/";
+const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com/";
 const addStoreFee = isTestEnv ? 2 : 5000;
 const replyReviewFee = isTestEnv ? 2 : 500;
 
