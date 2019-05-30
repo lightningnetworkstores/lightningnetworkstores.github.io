@@ -4,7 +4,11 @@
             <v-flex xs12 md12 lg10 xl8>
                 <v-container fluid grid-list-md style="padding-top: 0px;">
                     <v-layout row wrap>
-                        <store-card v-for="store in getStores" :key="store.id" :store="store" :baseUrl="baseUrl"></store-card>
+                        <template v-for="(store, index) in getStores.slice(0, maxCards)">
+                            <store-card :key="store.id" :store="store" :baseUrl="baseUrl"></store-card>
+
+                            <div v-if="index == 10" :key="`${index}-${store.id}`" v-observe-visibility="(isVisible, entry) => visibilityChanged(isVisible, entry)"></div>
+                        </template>
                     </v-layout>
                 </v-container>
                 <v-container fill-height v-if="isLoading">
@@ -37,6 +41,9 @@ export default class StoreList extends Vue {
 
     isLoading: boolean = true;
 
+    maxCards: number = 40;
+    scrolledDownCount: number = 0;
+
     async mounted() {
         console.log("Sector: " + this.sector);
         console.log("Digital goods: " + this.digitalGoods);
@@ -52,6 +59,14 @@ export default class StoreList extends Vue {
         this.$nextTick(() => {
             this.isLoading = false;
         });
+    }
+
+    private visibilityChanged(isVisible: boolean, entry: any) {
+        this.scrolledDownCount++;
+        if (this.scrolledDownCount > 1) {
+            this.maxCards = this.getStores.length;
+            console.log("scrolled down");
+        }
     }
 
     @Watch("sector")

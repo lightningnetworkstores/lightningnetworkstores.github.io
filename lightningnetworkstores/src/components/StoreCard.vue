@@ -20,7 +20,9 @@
                     <v-card-title primary-title class="pa-2">
                         <div>
                             <div class="headline">
-                                <a class="store-link" @click.stop :href="storeWithScore.href">{{ storeWithScore.name }}</a>
+                                <a class="store-link" @click.stop :href="storeWithScore.href"
+                                    >{{ storeWithScore.name }}<v-icon small class="pa-2 pt-1 link-icon" color="#1976d2">fa-external-link-alt</v-icon></a
+                                >
                             </div>
                             <span class="grey--text">{{ storeWithScore.description.substring(0, 96) }}{{ storeWithScore.description.length > 96 ? "..." : "" }}</span>
                         </div>
@@ -81,5 +83,10 @@ export default class StoreCard extends Vue {
     .v-chip {
         float: right;
     }
+}
+.link-icon {
+    padding-top: 9px !important;
+    padding-bottom: 7px !important;
+    text-decoration: none;
 }
 </style>

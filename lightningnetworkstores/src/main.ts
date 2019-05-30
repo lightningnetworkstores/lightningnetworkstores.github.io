@@ -8,6 +8,9 @@ import "vuetify/dist/vuetify.min.css";
 import numeral from "numeral";
 //@ts-ignore
 import VueAnalytics from "vue-analytics";
+import VueObserveVisibility from "vue-observe-visibility";
+
+Vue.use(VueObserveVisibility);
 
 Vue.filter("number", (value: any) => {
     return numeral(value).format("0,0");

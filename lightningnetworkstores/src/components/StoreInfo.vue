@@ -26,10 +26,15 @@
                         <!-- <v-chip color="orange" text-color="white" class="ma-2">{{ score.rank }}</v-chip> -->
                     </v-img>
                     <v-layout row pa-3>
-                        <v-flex pb-1>
-                            <a class="store-link" @click.stop :href="store.href"
-                                ><h1>{{ store.name }} <v-icon small class="pb-2">fa-external-link-alt</v-icon></h1></a
-                            >
+                        <v-flex pb-1 shrink>
+                            <div class="headline">
+                                <h3>
+                                    <a class="store-link" @click.stop :href="store.href">{{ store.name }}</a>
+                                </h3>
+                            </div>
+                        </v-flex>
+                        <v-flex pa-2 pl-2 grow>
+                            <a @click.stop :href="store.href" class="link-icon"><v-icon small class="pb-2" color="#1976d2">fa-external-link-alt</v-icon></a>
                         </v-flex>
                     </v-layout>
 
@@ -204,7 +209,11 @@ export default class StoreInfo extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .store-link {
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.link-icon {
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.87);
 }
 </style>
