@@ -4,11 +4,7 @@
             <v-flex xs12 md12 lg10 xl8>
                 <v-container fluid grid-list-md style="padding-top: 0px;">
                     <v-layout row wrap>
-                        <template v-for="(store, index) in getStores.slice(0, maxCards)">
-                            <store-card :key="store.id" :store="store" :baseUrl="baseUrl"></store-card>
-
-                            <div v-if="index % addCardCount === 0" :key="`${index}-${store.id}`" v-observe-visibility="(isVisible, entry) => visibilityChanged(isVisible, entry)"></div>
-                        </template>
+                        <store-card v-for="store in getStores.slice(0, maxCards)" :key="store.id" :store="store" :baseUrl="baseUrl"></store-card>
                     </v-layout>
                 </v-container>
                 <v-container fill-height v-if="isLoading">
@@ -41,8 +37,8 @@ export default class StoreList extends Vue {
 
     isLoading: boolean = true;
 
-    maxCards: number = 40;
-    maxCardAtStart: number = 40;
+    maxCards: number = 10;
+    maxCardAtStart: number = 10;
     addCardCount: number = 6;
 
     async mounted() {
@@ -55,15 +51,17 @@ export default class StoreList extends Vue {
 
         this.baseUrl = this.$store.getters.getBaseUrl();
 
+        setInterval(() => {
+            if (this.maxCards < this.getStores.length) {
+                this.maxCards += this.addCardCount;
+            }
+        }, 250);
+
         this.$forceUpdate();
 
         this.$nextTick(() => {
             this.isLoading = false;
         });
-    }
-
-    private visibilityChanged(isVisible: boolean, entry: any) {
-        this.maxCards += this.addCardCount;
     }
 
     @Watch("sector")
