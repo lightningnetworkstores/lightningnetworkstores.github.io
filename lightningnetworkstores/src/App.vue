@@ -39,10 +39,15 @@
                             <v-list-tile-title>About</v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
+                    <v-list-tile href="https://twitter.com/bitcoinLNS">
+                        <v-list-tile-content>
+                            <v-list-tile-title>Twitter</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
                 </v-list>
             </v-menu>
 
-            <v-btn icon :href="'https://twitter.com/bitcoinLNS'">
+            <v-btn icon href="https://twitter.com/bitcoinLNS" class="hidden-sm-and-down">
                 <v-icon>fab fa-twitter</v-icon>
             </v-btn>
 
@@ -109,7 +114,8 @@ export default class App extends Vue {
 .v-image__image {
     background-position: top center !important;
 }
-// .theme--light.application {
-//     background: rgb(255, 255, 255) !important;
-// }
+.datatable-layout {
+    display: inline-block;
+    width: 100%;
+}
 </style>

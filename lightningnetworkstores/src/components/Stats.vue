@@ -22,14 +22,12 @@
                         ></v-flex>
                     </v-layout>
 
-                    <v-layout row pt-3>
-                        <v-flex grow class="text-xs-center" pa-4>
+                    <v-layout row wrap pt-3>
+                        <v-flex xs12 sm6 class="text-xs-center" pa-4>
                             <v-card>
                                 <v-card-title primary-title class="justify-center">
                                     <div>
-                                        <h3 class="headline text--accent-2">
-                                            <a href="/?sort=trending">Trending stores</a>
-                                        </h3>
+                                        <h3 class="headline text--accent-2"><a href="/?sort=trending">Trending stores</a></h3>
                                     </div>
                                 </v-card-title>
                                 <v-list v-for="(store, index) in trendingStores" v-show="index < 4" :key="store.id">
@@ -38,13 +36,11 @@
                             </v-card>
                         </v-flex>
 
-                        <v-flex grow class="text-xs-center" pa-4>
+                        <v-flex xs12 sm6 class="text-xs-center" pa-4>
                             <v-card>
                                 <v-card-title primary-title class="justify-center">
                                     <div>
-                                        <h3 class="headline text--accent-2">
-                                            <a href="/?sort=newest">Newest stores</a>
-                                        </h3>
+                                        <h3 class="headline text--accent-2"><a href="/?sort=newest">Newest stores</a></h3>
                                     </div>
                                 </v-card-title>
                                 <v-list v-for="(store, index) in newestStores" v-show="index < 4" :key="store.id">

@@ -11,7 +11,7 @@
                         <i>Warning: some recent wallets might be scams. Be carefull when experimenting with new wallets.</i>
                     </v-layout>
 
-                    <v-layout row pt-3 style="overflow: auto; width: 100%" justify-center>
+                    <v-layout row pt-3 class="datatable-layout" justify-center>
                         <v-data-table :headers="headers" :items="wallets" :rows-per-page-items="[50, 100, 500]" :pagination.sync="pagination" disable-initial-sort>
                             <template slot="headerCell" slot-scope="props">
                                 <v-tooltip bottom>
@@ -26,7 +26,7 @@
                                 </v-tooltip>
                             </template>
                             <template v-slot:items="props">
-                                <td>
+                                <td class="text-xs-center">
                                     <a :href="props.item.page">{{ props.item.name }}</a>
                                 </td>
                                 <td class="text-xs-center"><a v-if="props.item.open_source" :href="props.item.open_source">yes</a><span v-else>no</span></td>
@@ -102,4 +102,8 @@ export default class About extends Vue {
 </script>
 
 <style scoped lang="scss">
+.datatable-layout {
+    display: inline-block;
+    width: 100%;
+}
 </style>

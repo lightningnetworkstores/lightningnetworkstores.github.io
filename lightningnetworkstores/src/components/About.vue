@@ -2,7 +2,7 @@
     <div class="about">
         <v-layout justify-center>
             <v-flex xs12 md12 lg10 xl8>
-                <v-container>
+                <v-container class="wrap-text">
                     <v-layout row>
                         <h1>About</h1>
                     </v-layout>
@@ -137,4 +137,9 @@ export default class About extends Vue {
 </script>
 
 <style scoped lang="scss">
+.wrap-text {
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+}
 </style>
