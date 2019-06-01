@@ -102,8 +102,4 @@ export default class About extends Vue {
 </script>
 
 <style scoped lang="scss">
-.datatable-layout {
-    display: inline-block;
-    width: 100%;
-}
 </style>
