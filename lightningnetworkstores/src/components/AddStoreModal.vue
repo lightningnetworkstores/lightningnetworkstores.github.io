@@ -262,7 +262,7 @@ export default class AddStoreModal extends Vue {
 
     private submitAdd(event: any) {
         (this.$refs.addform as Vue & { validate: () => boolean }).validate();
-        if (event.target["g-recaptcha-response"].value) {
+        if (event.target["g-recaptcha-response"].value && this.addDialogForm.agreeRemoved) {
             this.isLoading = true;
             this.addAlert = { message: "", success: true };
             this.$store

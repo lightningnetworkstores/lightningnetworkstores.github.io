@@ -28,6 +28,7 @@
                         </div>
                     </v-card-title>
                 </v-flex>
+                <!-- <div class="comments-icon pa-1"><v-icon>comments</v-icon>0</div> -->
             </v-layout>
         </v-card>
     </v-flex>
@@ -50,6 +51,7 @@ import VuetifyLazyImage from "vuetify-lazy-image";
 export default class StoreCard extends Vue {
     @Prop() store!: Store;
     @Prop() baseUrl!: string;
+
     storeWithScore: Store = this.store;
 
     mounted() {
@@ -89,4 +91,9 @@ export default class StoreCard extends Vue {
     padding-bottom: 7px !important;
     text-decoration: none;
 }
+// .comments-icon {
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+// }
 </style>
