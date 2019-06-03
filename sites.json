@@ -2920,5 +2920,15 @@
     "sector": "food",
     "digital_goods": "no, goods only in-store",
     "added": 1559585792
+  },
+  {
+    "id": 1887,
+    "name": "Kohinoor of India",
+    "href": "http://www.kohinoorofindia.nl",
+    "uri": "0231eccc6510eb2e1c97c8a190d6ea096784aa7c358355442055aac8b20654f932@83.162.211.100:9735",
+    "description": "Indian Restaurant in the center of Arnhem (Netherlands). ",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1559586560
   }
 ]
