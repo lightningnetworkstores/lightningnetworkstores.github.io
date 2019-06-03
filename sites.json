@@ -2910,5 +2910,15 @@
     "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1559256704
+  },
+  {
+    "id": 1882,
+    "name": "Stella by Starlight",
+    "href": "https://stellabystarlight.nl/",
+    "uri": "0231eccc6510eb2e1c97c8a190d6ea096784aa7c358355442055aac8b20654f932@83.162.211.100:9735",
+    "description": "Cafe/bar/restaurant in the heart of Arnhem (Netherlands) with live music.",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1559585792
   }
 ]
