@@ -251,6 +251,7 @@ export default class AddStoreModal extends Vue {
         (this.$refs.addform as Vue & { reset: () => boolean }).reset();
         this.isPaid = false;
         this.paymentID = "";
+        this.addAlert = { message: "", success: true };
     }
 
     private copy() {
@@ -263,6 +264,7 @@ export default class AddStoreModal extends Vue {
         (this.$refs.addform as Vue & { validate: () => boolean }).validate();
         if (event.target["g-recaptcha-response"].value) {
             this.isLoading = true;
+            this.addAlert = { message: "", success: true };
             this.$store
                 .dispatch("addStore", {
                     name: this.addDialogForm.name,
