@@ -14,7 +14,7 @@
                         </v-alert>
                     </v-flex>
                 </v-layout>
-                <div v-if="paymentRequest && isPaid" class="text-xs-center">
+                <div v-if="paymentRequest.length && isPaid" class="text-xs-center">
                     <!-- paymentRequest && isPaid -->
                     <v-card-title class="headline">
                         <v-layout row>
@@ -27,7 +27,7 @@
                         <v-spacer></v-spacer>
 
                         <v-btn color="green darken-1" flat="flat" @click="cancel">
-                            Cancel
+                            Close
                         </v-btn>
                     </v-card-actions>
                 </div>
@@ -265,6 +265,7 @@ export default class AddStoreModal extends Vue {
         if (event.target["g-recaptcha-response"].value && this.addDialogForm.agreeRemoved) {
             this.isLoading = true;
             this.addAlert = { message: "", success: true };
+            this.isPaid = false;
             this.$store
                 .dispatch("addStore", {
                     name: this.addDialogForm.name,
@@ -316,6 +317,8 @@ export default class AddStoreModal extends Vue {
                         this.isPaid = true;
                         this.addDialogForm = {};
                         clearInterval(this.checkPaymentTimer);
+                    } else {
+                        this.isPaid = false;
                     }
                 },
                 error => {
