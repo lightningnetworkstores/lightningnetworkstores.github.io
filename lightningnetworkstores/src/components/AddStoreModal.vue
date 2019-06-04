@@ -175,7 +175,7 @@
                             <v-spacer></v-spacer>
 
                             <v-btn color="green darken-1" flat="flat" @click="showAddDialog = false">
-                                {{ paymentRequest && isPaid ? "Close" : "Cancel" }}
+                                {{ paymentRequest && isPaid ? "Close" : "Close" }}
                             </v-btn>
 
                             <v-btn color="green darken-1" flat="flat" type="submit">
