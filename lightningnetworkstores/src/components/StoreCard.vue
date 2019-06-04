@@ -65,7 +65,7 @@ export default class StoreCard extends Vue {
     }
 
     get isNewStore(): boolean {
-        return new Date(this.store.added * 1000 + 86400000 * 20) > new Date();
+        return new Date(this.store.added * 1000 + 1000 * 60 * 60 * 24 * 8) > new Date();
     }
 }
 </script>

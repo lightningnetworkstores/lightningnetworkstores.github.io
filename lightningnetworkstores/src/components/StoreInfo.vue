@@ -167,7 +167,12 @@ export default class StoreInfo extends Vue {
                 this.comments = this.store.comments.filter(comment => comment.parent == "null");
                 break;
         }
-        this.comments.sort((a, b) => Math.abs(b.score) - Math.abs(a.score));
+        this.comments.sort((a, b) => {
+            if (Math.abs(b.score) !== Math.abs(a.score)) {
+                return Math.abs(b.score) - Math.abs(a.score);
+            }
+            return b.timestamp - a.timestamp;
+        });
     }
 
     mounted() {
@@ -178,7 +183,14 @@ export default class StoreInfo extends Vue {
         this.$store.dispatch("getStore", { id: this.storeId }).then(
             response => {
                 this.store = response.data;
-                this.comments = this.store.comments.filter(comment => comment.parent == "null");
+                this.comments = this.store.comments
+                    .filter(comment => comment.parent == "null")
+                    .sort((a, b) => {
+                        if (Math.abs(b.score) !== Math.abs(a.score)) {
+                            return Math.abs(b.score) - Math.abs(a.score);
+                        }
+                        return b.timestamp - a.timestamp;
+                    });
                 this.comments.sort((a, b) => Math.abs(b.score) - Math.abs(a.score));
                 this.breadCrumb = [
                     {
@@ -201,7 +213,7 @@ export default class StoreInfo extends Vue {
     }
 
     get isNewStore(): boolean {
-        return new Date(this.store.added * 1000 + 86400000 * 20) > new Date();
+        return new Date(this.store.added * 1000 + 1000 * 60 * 60 * 24 * 8) > new Date();
     }
 }
 </script>

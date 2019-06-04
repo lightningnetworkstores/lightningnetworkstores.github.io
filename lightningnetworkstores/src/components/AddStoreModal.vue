@@ -293,6 +293,8 @@ export default class AddStoreModal extends Vue {
                             this.addAlert.message = response.data;
                             this.addAlert.success = true;
                             this.addDialogForm = {};
+                            (this.$refs.addform as Vue & { reset: () => boolean }).reset();
+                            (window as any).grecaptcha.reset();
                         } else {
                             this.addAlert.message = response.data;
                             this.addAlert.success = false;
