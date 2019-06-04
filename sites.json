@@ -2930,5 +2930,15 @@
     "sector": "food",
     "digital_goods": "no, goods only in-store",
     "added": 1559586560
+  },
+  {
+    "id": 1902,
+    "name": "ShopinBit.de - Privat. Sicher. Einfach.",
+    "href": "https://shopinbit.de/",
+    "uri": "undefined",
+    "description": "Germanys First Crypto Only Store: 5000+ Electronics, CRYPTOWEAR and Satoshi Spirits for BTC and Lightning. Ships only within Germany.",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1559657984
   }
 ]
