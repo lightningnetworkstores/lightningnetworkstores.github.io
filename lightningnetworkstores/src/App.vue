@@ -118,4 +118,8 @@ export default class App extends Vue {
     display: inline-block;
     width: 100%;
 }
+.v-dialog {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
 </style>
