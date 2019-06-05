@@ -236,6 +236,15 @@ export default class AddStoreModal extends Vue {
         this.addStoreFee = this.$store.getters.getAddStoreFee();
     }
 
+    @Watch("showAddDialog")
+    onChildChanged(val: string, oldVal: string) {
+        if (val && !oldVal) {
+            document.getElementsByTagName("body")[0].className = "noscroll";
+        } else if (!val && oldVal) {
+            document.body.classList.remove("noscroll");
+        }
+    }
+
     private cancel() {
         if (this.paymentRequest.length > 0) {
             this.paymentRequest = "";

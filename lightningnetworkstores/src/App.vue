@@ -122,4 +122,10 @@ export default class App extends Vue {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
+
+.noscroll {
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 </style>
