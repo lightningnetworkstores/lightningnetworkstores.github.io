@@ -2950,5 +2950,15 @@
     "sector": "clothing",
     "digital_goods": "no, goods shipped",
     "added": 1559738112
+  },
+  {
+    "id": 1927,
+    "name": "Lingot Swiss",
+    "href": "https://lingot-swiss.com",
+    "uri": "undefined",
+    "description": "Buy raw metal ingots and investment jewelry.",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1559759360
   }
 ]
