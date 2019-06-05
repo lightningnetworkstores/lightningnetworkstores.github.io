@@ -2940,5 +2940,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1559657984
+  },
+  {
+    "id": 1917,
+    "name": "unii shop",
+    "href": "http://uniishop.com",
+    "uri": "undefined",
+    "description": "Unique Thai handmade handbags, wallets and hats. Leather, hand woven cotton and bamboo, traditional and modern designs",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1559738112
   }
 ]
