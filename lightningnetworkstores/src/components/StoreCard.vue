@@ -28,7 +28,7 @@
                         </div>
                     </v-card-title>
                 </v-flex>
-                <div class="comments-icon pa-1">
+                <div class="comments-icon pa-1" v-if="storeWithScore.commentCount > 0">
                     <v-icon small>fa-comment</v-icon><span class="pl-1 pr-1">{{ storeWithScore.commentCount }}</span>
                     <!-- thumbs_up_down -->
                 </div>
