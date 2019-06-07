@@ -2897,7 +2897,7 @@
     "href": "https://www.saludsats.com",
     "uri": "undefined",
     "description": "The only reason to spend sats, is on your health. Purchase Health Action Plans using Bitcoin Lightning Network. ",
-    "sector": "fitness&sports",
+    "sector": "fitness\u0026sports",
     "digital_goods": "yes",
     "added": 1559137792
   },
@@ -2960,5 +2960,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1559759360
+  },
+  {
+    "id": 1942,
+    "name": "Vin Armani’s book",
+    "href": "http://vinarmani.com",
+    "uri": "undefined",
+    "description": "Self Ownership: The Foundation Of Property ",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1559916672
   }
 ]
