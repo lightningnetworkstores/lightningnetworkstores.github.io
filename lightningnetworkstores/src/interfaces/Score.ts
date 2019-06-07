@@ -4,4 +4,5 @@ export interface Score {
     trending: number;
     lastCommented: number;
     rank: number;
+    commentCount: number;
 }

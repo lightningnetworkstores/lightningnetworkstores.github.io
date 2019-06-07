@@ -28,7 +28,9 @@
                         </div>
                     </v-card-title>
                 </v-flex>
-                <!-- <div class="comments-icon pa-1"><v-icon>comments</v-icon>0</div> -->
+                <div class="comments-icon pa-1">
+                    <v-icon size="20">thumbs_up_down</v-icon><span class="pl-1 pr-1">{{ storeWithScore.commentCount }}</span>
+                </div>
             </v-layout>
         </v-card>
     </v-flex>
@@ -56,7 +58,6 @@ export default class StoreCard extends Vue {
 
     mounted() {
         let score = this.$store.getters.getScore(this.store.id);
-
         this.storeWithScore = Object.assign({}, this.store, score);
     }
 
@@ -91,9 +92,10 @@ export default class StoreCard extends Vue {
     padding-bottom: 7px !important;
     text-decoration: none;
 }
-// .comments-icon {
-//     position: absolute;
-//     bottom: 0;
-//     right: 0;
-// }
+.comments-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 13px;
+}
 </style>

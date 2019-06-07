@@ -33,5 +33,6 @@ export interface Store {
     twitter: string;
     reddit: string;
     rank: number;
+    commentCount: number;
     comments: Comment[];
 }

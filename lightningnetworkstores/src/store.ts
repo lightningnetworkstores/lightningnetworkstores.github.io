@@ -8,7 +8,7 @@ import { Score } from "./interfaces/Score";
 Vue.use(Vuex);
 
 const isTestEnv = false;
-const announcement = "You can now review/comment stores!";
+const announcement = ""; //You can now review/comment stores!
 const announcementType = "success";
 const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com/";
 const addStoreFee = isTestEnv ? 2 : 5000;
@@ -114,8 +114,7 @@ export default new Vuex.Store({
             } else {
                 rank = "unranked";
             }
-
-            return { upvotes: score[0], downvotes: score[1], trending: score[2], lastCommented: score[3], rank: rank };
+            return { upvotes: score[0], downvotes: score[1], trending: score[2], lastCommented: score[3], rank: rank, commentCount: score[4] ? score[4] : 0 };
         },
         getBaseUrl: state => () => {
             return baseUrl;
