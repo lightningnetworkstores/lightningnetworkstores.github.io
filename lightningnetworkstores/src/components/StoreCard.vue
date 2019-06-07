@@ -29,7 +29,8 @@
                     </v-card-title>
                 </v-flex>
                 <div class="comments-icon pa-1">
-                    <v-icon size="20">thumbs_up_down</v-icon><span class="pl-1 pr-1">{{ storeWithScore.commentCount }}</span>
+                    <v-icon small>fa-comment</v-icon><span class="pl-1 pr-1">{{ storeWithScore.commentCount }}</span>
+                    <!-- thumbs_up_down -->
                 </div>
             </v-layout>
         </v-card>
