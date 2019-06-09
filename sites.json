@@ -2970,5 +2970,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1559916672
+  },
+  {
+    "id": 1947,
+    "name": "Sendbitcoin.lol",
+    "href": "https://sendbitcoin.lol",
+    "uri": "02306900ee22f1cb4932e7cf442445884721f164d11b1d34bcbe093ac24acae3dd@170.75.163.177:9735",
+    "description": "Bitcoin Sticker Shop",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1560085760
   }
 ]
