@@ -143,12 +143,13 @@
       "release":"July 2018"
     },
     {
-     "name":"Zap iOS",
+     "name":"Zap",
      "page":"https://zap.jackmallers.com/",
      "requires_node":"yes",
      "open_source":"https://github.com/LN-Zap/zap-iOS",
      "iOS_testnet_closed":"http://www.zap-ios.jackmallers.com/",
-     "iOS":"https://testflight.apple.com/join/P32C380R"
+     "iOS":"https://testflight.apple.com/join/P32C380R",
+      "android":"https://play.google.com/store/apps/details?id=zapsolutions.zap"
     },
     {
       "name":"Spark",
