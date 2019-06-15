@@ -183,6 +183,7 @@ export default class StoreInfo extends Vue {
         this.$store.dispatch("getStore", { id: this.storeId }).then(
             response => {
                 this.store = response.data;
+                this.setMetaTags();
                 this.comments = this.store.comments
                     .filter(comment => comment.parent == "null")
                     .sort((a, b) => {
@@ -210,6 +211,13 @@ export default class StoreInfo extends Vue {
                 console.error(error);
             }
         );
+    }
+
+    private setMetaTags() {
+        document.title = this.store.name + " | Lightning Network Stores";
+        document.getElementsByTagName("meta")["description"].content = this.store.description;
+        document.getElementsByTagName("meta")["twitter:description"].content = this.store.description;
+        document.getElementsByTagName("meta")["twitter:title"].content = document.title;
     }
 
     get isNewStore(): boolean {
