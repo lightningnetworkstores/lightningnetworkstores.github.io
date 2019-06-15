@@ -3010,5 +3010,15 @@
     "sector": "other",
     "digital_goods": "no, goods only in-store",
     "added": 1560608640
+  },
+  {
+    "id": 1977,
+    "name": "BitPatron",
+    "href": "https://bitpatron.co",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "The Bitcoin Patreon alternative.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1560637696
   }
 ]
