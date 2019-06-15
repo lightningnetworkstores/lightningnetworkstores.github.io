@@ -3010,5 +3010,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1560637696
+  },
+  {
+    "id": 1982,
+    "name": "Satoshitweet.com",
+    "href": "https://satoshitweet.com",
+    "uri": "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735",
+    "description": "Use Lightning to Tweet! ",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1560638848
   }
 ]
