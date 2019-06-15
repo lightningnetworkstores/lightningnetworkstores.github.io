@@ -2990,5 +2990,15 @@
     "sector": "other",
     "digital_goods": "no, goods only in-store",
     "added": 1560457856
+  },
+  {
+    "id": 1967,
+    "name": "Crypto Game Store",
+    "href": "https://crypto-game.store",
+    "uri": "undefined",
+    "description": "Buy digital games with Bitcoin and Lightning payments",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1560596736
   }
 ]
