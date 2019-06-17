@@ -55,6 +55,7 @@
     "requires_node":"no",
     "open_source":"https://github.com/breez/breezmobile",
     "android":"https://play.google.com/apps/testing/com.breez.client",
+    "iOS":"https://testflight.apple.com/join/wPju2Du7",
     "release":"April 2019"
     },
     {
