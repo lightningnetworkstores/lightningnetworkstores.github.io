@@ -3020,5 +3020,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1560638848
+  },
+  {
+    "id": 1997,
+    "name": "ThunderSats",
+    "href": "https://thundersats.com/",
+    "uri": "031021570df76a654d8fac3d1f58280d685893ce7681a9c99e2fc21dbd067c65d6@134.209.199.111:9735",
+    "description": "⚡️Simple provably fair Miniature Lightning Roulette with Instant Payouts⚡️",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1561038336
   }
 ]
