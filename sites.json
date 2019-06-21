@@ -3040,5 +3040,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1561102464
+  },
+  {
+    "id": 2012,
+    "name": "Hexagone",
+    "href": "http://hexagone.tekstur.dk/",
+    "uri": "undefined",
+    "description": "Lightning enabled puzzle game",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1561120128
   }
 ]
