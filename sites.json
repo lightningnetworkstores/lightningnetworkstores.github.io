@@ -3030,5 +3030,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1561038336
+  },
+  {
+    "id": 2002,
+    "name": "TeraCopy",
+    "href": "http://teracopy.com",
+    "uri": "undefined",
+    "description": "Copy your files faster and more securely",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1561102464
   }
 ]
