@@ -1,7 +1,19 @@
 <template>
     <div class="home">
-        <StoreListFilter v-bind:sector="decodeURIComponent(sector)" v-bind:digitalGoods="decodeURIComponent(digitalGoods)" v-bind:sort="decodeURIComponent(sort)" v-bind:search="decodeURIComponent(search)" />
-        <StoreList v-bind:sector="decodeURIComponent(sector)" v-bind:digitalGoods="decodeURIComponent(digitalGoods)" v-bind:sort="decodeURIComponent(sort)" v-bind:search="decodeURIComponent(search)" />
+        <StoreListFilter
+            v-bind:sector="decodeURIComponent(sector)"
+            v-bind:digitalGoods="decodeURIComponent(digitalGoods)"
+            v-bind:sort="decodeURIComponent(sort)"
+            v-bind:search="decodeURIComponent(search)"
+            v-bind:safeMode="safeMode"
+        />
+        <StoreList
+            v-bind:sector="decodeURIComponent(sector)"
+            v-bind:digitalGoods="decodeURIComponent(digitalGoods)"
+            v-bind:sort="decodeURIComponent(sort)"
+            v-bind:search="decodeURIComponent(search)"
+            v-bind:safeMode="safeMode"
+        />
     </div>
 </template>
 
@@ -21,5 +33,6 @@ export default class Home extends Vue {
     @Prop() digitalGoods!: string;
     @Prop() sort!: string;
     @Prop() search!: string;
+    @Prop() safeMode!: boolean;
 }
 </script>

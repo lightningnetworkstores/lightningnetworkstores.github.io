@@ -32,6 +32,7 @@ export default class StoreList extends Vue {
     @Prop() digitalGoods!: string;
     @Prop() sort!: string;
     @Prop() search!: string;
+    @Prop() safeMode!: string;
 
     baseUrl: string = "";
 
@@ -89,7 +90,7 @@ export default class StoreList extends Vue {
     }
 
     get getStores() {
-        return this.$store.getters.getStores({ sector: this.sector, digitalGoods: this.digitalGoods }, this.sort, this.search);
+        return this.$store.getters.getStores({ sector: this.sector, digitalGoods: this.digitalGoods }, this.sort, this.search, this.safeMode);
     }
 }
 </script>

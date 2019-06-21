@@ -18,7 +18,7 @@ let router: Router = new Router({
             path: "/",
             name: "home",
             component: Home,
-            props: route => ({ sector: route.query.sector, digitalGoods: route.query.digital_goods, sort: route.query.sort, search: route.query.search }),
+            props: route => ({ sector: route.query.sector, digitalGoods: route.query.digital_goods, sort: route.query.sort, search: route.query.search, safeMode: route.query.safemode }),
             meta: {
                 title: "Lightning Network Stores directory",
                 metaTags: [

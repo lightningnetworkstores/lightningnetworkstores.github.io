@@ -41,6 +41,7 @@ export default class StoreList extends Vue {
     @Prop() digitalGoods!: string;
     @Prop() sort!: string;
     @Prop() search!: string;
+    @Prop() safeMode!: boolean;
 
     digitalGoodItems: any[] = [
         { name: "All", prop: "all" },
@@ -81,7 +82,6 @@ export default class StoreList extends Vue {
 
     announcement: string = "";
     announcementType: string = "";
-    created() {}
 
     mounted() {
         this.announcement = this.$store.getters.getAnnouncement();
@@ -94,7 +94,8 @@ export default class StoreList extends Vue {
                 sector: encodeURIComponent(this.selectedSector.prop || this.selectedSector),
                 digital_goods: encodeURIComponent(this.selectedDigitalGood.prop || this.selectedDigitalGood),
                 sort: encodeURIComponent(this.selectedSort.prop || this.selectedSort),
-                search: encodeURIComponent(this.searchQuery)
+                search: encodeURIComponent(this.searchQuery),
+                safemode: this.safeMode ? this.safeMode.toString() : "false"
             }
         });
     }

@@ -36,10 +36,10 @@ export default new Vuex.Store({
         getStoreCount: state => () => {
             return state.stores.length;
         },
-        getStores: state => ({ sector, digitalGoods }: any, sort: string, search: string): Store[] => {
+        getStores: state => ({ sector, digitalGoods }: any, sort: string, search: string, safeMode: string = "false"): Store[] => {
             //filter
             let stores: Store[] = [];
-            let stateStores = state.stores.slice(0);
+            let stateStores: any = state.stores.slice(0);
             if ((!sector || sector == "undefined") && (!digitalGoods || digitalGoods == "undefined")) {
                 stores = stateStores;
             } else if (!digitalGoods || digitalGoods == "undefined") {
@@ -49,6 +49,13 @@ export default new Vuex.Store({
             } else {
                 let filteredBySector = sector !== "all" ? stateStores.filter((store: Store) => store.sector == sector) : stateStores;
                 stores = digitalGoods !== "all" ? filteredBySector.filter((store: Store) => store.digital_goods == digitalGoods) : filteredBySector;
+            }
+
+            if (safeMode === "true" && stores) {
+                let safeStores: Store[] = stores.filter((store: Store) => {
+                    return +new Date(store.added * 1000) < Date.now() + -3 * 24 * 3600 * 1000;
+                });
+                stores = safeStores;
             }
 
             //Search
@@ -96,6 +103,8 @@ export default new Vuex.Store({
                         break;
                 }
             }
+
+            console.log(new Date(stores[0].added * 1000));
 
             return stores;
         },
