@@ -137,6 +137,7 @@ import EditStoreModal from "@/components/EditStoreModal.vue";
 import EmbedModal from "@/components/EmbedModal.vue";
 import Review from "@/components/Review.vue";
 import { Comment } from "../interfaces/Comment";
+import $ from "jquery";
 
 @Component({
     components: { Vote, BanStoreModal, EditStoreModal, EmbedModal, Review }
@@ -216,6 +217,8 @@ export default class StoreInfo extends Vue {
     private setMetaTags() {
         document.title = this.store.name + " | Lightning Network Stores";
         document.getElementsByTagName("meta")["description"].content = this.store.description;
+        $('meta[property="og:description"]').attr("content", this.store.description);
+        $('meta[property="og:title"]').attr("content", document.title);
         document.getElementsByTagName("meta")["twitter:description"].content = this.store.description;
         document.getElementsByTagName("meta")["twitter:title"].content = document.title;
     }
