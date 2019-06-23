@@ -5,6 +5,7 @@ import store from "./store";
 import "./registerServiceWorker";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
+//@ts-ignore
 import numeral from "numeral";
 //@ts-ignore
 import VueAnalytics from "vue-analytics";
@@ -27,5 +28,6 @@ Vue.config.productionTip = false;
 new Vue({
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
+    mounted: () => document.dispatchEvent(new Event("x-app-rendered"))
 }).$mount("#app");

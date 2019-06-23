@@ -8,6 +8,8 @@ import Wallets from "./views/Wallets.vue";
 import Services from "./views/Services.vue";
 import Donations from "./views/Donations.vue";
 
+import $ from "jquery";
+
 Vue.use(Router);
 
 let router: Router = new Router({
@@ -25,6 +27,10 @@ let router: Router = new Router({
                     {
                         name: "description",
                         content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
+                    },
+                    {
+                        property: "og:title",
+                        content: "Lightning Network Stores directory"
                     },
                     {
                         property: "og:description",
@@ -59,6 +65,10 @@ let router: Router = new Router({
                         content: "Learn more about the website: goal, contact information, FAQ, Acknowledgements."
                     },
                     {
+                        property: "og:title",
+                        content: "Lightning Network Stores About Page"
+                    },
+                    {
                         property: "og:description",
                         content: "Learn more about the website: goal, contact information, FAQ, Acknowledgements."
                     },
@@ -83,6 +93,10 @@ let router: Router = new Router({
                     {
                         name: "description",
                         content: "The most comprehensive list of wallets that support lightning network bitcoin payments."
+                    },
+                    {
+                        property: "og:title",
+                        content: "Lightning Network Mobile Wallets"
                     },
                     {
                         property: "og:description",
@@ -111,6 +125,10 @@ let router: Router = new Router({
                         content: "Selection of services around the bitcoin lightning network."
                     },
                     {
+                        property: "og:title",
+                        content: "Lightning Network Services"
+                    },
+                    {
                         property: "og:description",
                         content: "Selection of services around the bitcoin lightning network."
                     },
@@ -137,6 +155,10 @@ let router: Router = new Router({
                         content: "List of people/entities that accept bitcoin/lightning donations."
                     },
                     {
+                        property: "og:title",
+                        content: "Bitcoin/Lightning donation addresses"
+                    },
+                    {
                         property: "og:description",
                         content: "List of people/entities that accept bitcoin/lightning donations."
                     },
@@ -161,6 +183,10 @@ let router: Router = new Router({
                     {
                         name: "description",
                         content: "Check the adoption of lightning payments by merchants as well as the latest and trending merchants."
+                    },
+                    {
+                        property: "og:title",
+                        content: "Lightning Network Merchant Adoption Statistics"
                     },
                     {
                         property: "og:description",
@@ -210,21 +236,13 @@ router.beforeEach((to, from, next) => {
     if (!nearestWithMeta) return next();
 
     // Turn the meta tag definitions into actual elements in the head.
-    nearestWithMeta.meta.metaTags
-        .map((tagDef: { [x: string]: string }) => {
-            const tag = document.createElement("meta");
-
-            Object.keys(tagDef).forEach(key => {
-                tag.setAttribute(key, tagDef[key]);
-            });
-
-            // We use this to track which meta tags we create, so we don't interfere with other ones.
-            tag.setAttribute("data-vue-router-controlled", "");
-
-            return tag;
-        })
-        // Add the meta tags to the document head.
-        .forEach((tag: any) => document.head.appendChild(tag));
+    nearestWithMeta.meta.metaTags.map((tagDef: { [x: string]: string }) => {
+        if (tagDef.hasOwnProperty("name")) {
+            document.getElementsByTagName("meta")[tagDef.name].content = tagDef.content;
+        } else if (tagDef.hasOwnProperty("property")) {
+            $(`meta[property="${tagDef.property}"]`).attr("content", tagDef.content);
+        }
+    });
 
     next();
 });
