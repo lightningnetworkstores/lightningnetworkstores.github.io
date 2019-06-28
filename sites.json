@@ -3050,5 +3050,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1561120128
+  },
+  {
+    "id": 2032,
+    "name": "Moon (paywithmoon.com)",
+    "href": "https://paywithmoon.com",
+    "uri": "02d23fa6794d8fd056c757f3c8f4877782138dafffedc831fc570cab572620dc61@54.224.118.176:9735",
+    "description": "Shop directly on Amazon.com with Lightning Network via a browser extension.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1561766272
   }
 ]
