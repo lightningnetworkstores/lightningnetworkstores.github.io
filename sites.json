@@ -3090,5 +3090,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1561796096
+  },
+  {
+    "id": 2052,
+    "name": "AHnames",
+    "href": "https://ahnames.com/",
+    "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
+    "description": "Domains register / Hosting VPS",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1561982592
   }
 ]
