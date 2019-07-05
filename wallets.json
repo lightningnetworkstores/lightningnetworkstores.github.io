@@ -167,6 +167,15 @@
 		"android": "https://github.com/shesek/spark-wallet/releases",
 		"release": "August 2018"
 	},
+ 	{
+		"name":"Zeus",
+		"requires_node":"yes",
+		"page":"https://zeusln.app/",
+		"open_source":"https://github.com/ZeusLN/zeus",
+		"android":"https://play.google.com/store/apps/details?id=com.zeusln.zeus",
+		"iOS":"https://testflight.apple.com/join/gpVFzEHN",
+		"release":"March 2019"
+	},
 	{
 		"name": "Hibana",
 		"page": "https://play.google.com/store/apps/details?id=app.hibana.hibana",
