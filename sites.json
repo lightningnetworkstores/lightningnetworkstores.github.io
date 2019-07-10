@@ -3082,6 +3082,16 @@
     "added": 1561792384
   },
   {
+    "id": 2046,
+    "name": "Niffler.co",
+    "href": "https://niffler.co",
+    "uri": "03df3f0a2fd6bea5429a596461ce784c922b2981ada1af89cfefcd9ccfb16c16a7@ln.cryptochill.com:9735",
+    "description": "Niffler.co Simulated Crypto Exchange w/ Lightning Network Payouts",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1562261488
+  },
+  {
     "id": 2047,
     "name": "Lightning Poker",
     "href": "https://lightning-poker.com",
@@ -3110,5 +3120,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1562152576
+  },
+  {
+    "id": 2072,
+    "name": "Fold",
+    "href": "https://foldapp.com",
+    "uri": "02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774@mainnet-lnd.ln.pizza:9735",
+    "description": "Shop at your favorite retailers via the Lightning Network.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1562786688
   }
 ]
