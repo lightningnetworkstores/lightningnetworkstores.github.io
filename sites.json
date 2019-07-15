@@ -3130,5 +3130,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1562786688
+  },
+  {
+    "id": 2082,
+    "name": "The Tor Project Crowdfunding",
+    "href": "https://bitcoinfortor.torproject.net",
+    "uri": "028c1da32603fce64118e469ffe2cfeec04d1c4bd88205efb4e8b4208f77a8064e@172.81.181.237:9735",
+    "description": "Stand up for the universal human rights to privacy and freedom - fundraising campaign with a $10k goal. ",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1563230208
   }
 ]
