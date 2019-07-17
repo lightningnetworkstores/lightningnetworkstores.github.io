@@ -3140,5 +3140,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1563230208
+  },
+  {
+    "id": 2097,
+    "name": "Fair Lightning Network",
+    "href": "https://fairlightning.network/",
+    "uri": "undefined",
+    "description": "List of Lightning Network gambling sites that use Provably Fair.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1563363840
   }
 ]
