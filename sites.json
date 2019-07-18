@@ -3160,5 +3160,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1563453312
+  },
+  {
+    "id": 2132,
+    "name": "BitCars",
+    "href": "https://bitcars.eu/",
+    "uri": "undefined",
+    "description": "Buy Supercars \u0026 Oldtimers with Bitcoin",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1563453568
   }
 ]
