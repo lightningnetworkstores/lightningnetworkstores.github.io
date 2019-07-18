@@ -3150,5 +3150,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1563363840
+  },
+  {
+    "id": 2127,
+    "name": "BitDials",
+    "href": "https://www.bitdials.eu",
+    "uri": "undefined",
+    "description": "The Bitcoin Luxury Boutique. Since 2016.",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1563453312
   }
 ]
