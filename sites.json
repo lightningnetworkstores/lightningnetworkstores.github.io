@@ -3170,5 +3170,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1563453568
+  },
+  {
+    "id": 2137,
+    "name": "Bitcoin Lightning Payment Gateway",
+    "href": "https://ln.mycloudware.net",
+    "uri": "03a0aaf1f9553dca05f8c9edd74c5ff6c53 83337973a47015934dece259d646e3c @81.0.209.222:9735",
+    "description": "Simple solution for annonymous receiving LN payments.",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1563570944
   }
 ]
