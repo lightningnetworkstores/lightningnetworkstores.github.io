@@ -3180,5 +3180,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1563570944
+  },
+  {
+    "id": 2147,
+    "name": "Satoshi\u0027s Games",
+    "href": "https://satoshis.games/",
+    "uri": "036e8a8efeb26f3cffce99f462839ef6ea3b1691d569d59c402be0d3d6cef9b79c@172.81.178.164:9735",
+    "description": "Earn Bitcoin by playing games",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1563892736
   }
 ]
