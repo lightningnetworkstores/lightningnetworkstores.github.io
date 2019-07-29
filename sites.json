@@ -3180,5 +3180,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1563892736
+  },
+  {
+    "id": 2157,
+    "name": "ads4satoshis",
+    "href": "https://ads4satoshis.com/",
+    "uri": "03313fba8ce0b0257d6cdc200c125be799a5dd17456e16e91c5eac7fde28ada59d@35.227.153.251:9735",
+    "description": "Get paid for viewing ads! Withdraw immediatly, no minimum amounts. Built on top of Bitcoin and the Lightning Network.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1564430464
   }
 ]
