@@ -16,7 +16,7 @@ const replyReviewFee = isTestEnv ? 2 : 500;
 
 const options = {
     shouldSort: true,
-    threshold: 1,
+    threshold: 0.5,
     location: 0,
     distance: 100,
     maxPatternLength: 32,
