@@ -3190,5 +3190,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1564430464
+  },
+  {
+    "id": 2162,
+    "name": "CryptoRefills",
+    "href": "https://www.cryptorefills.com",
+    "uri": "03b5f4b432ce0356d16f41ad4b5ec3127329188659914c9810696812687773afe5@34.241.72.104:9735",
+    "description": "Recharge your phone, buy vouchers and other products.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1564599168
   }
 ]
