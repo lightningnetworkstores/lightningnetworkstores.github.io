@@ -3210,5 +3210,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1564713984
+  },
+  {
+    "id": 2172,
+    "name": "Bitstamper.io",
+    "href": "https://bitstamper.io/",
+    "uri": "undefined",
+    "description": "Stamps, Sticker, Shirts, Posters, Socks... we redistribute 50% of our profits to NGO with Bitcoin.",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1564752000
   }
 ]
