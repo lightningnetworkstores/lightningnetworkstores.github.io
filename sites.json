@@ -3230,5 +3230,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1564860672
+  },
+  {
+    "id": 2182,
+    "name": "Hodl Hodl",
+    "href": "https://hodlhodl.com",
+    "uri": "undefined",
+    "description": "Peer to peer non-custodial bitcoin exchange.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1565114112
   }
 ]
