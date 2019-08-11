@@ -3240,5 +3240,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1565114112
+  },
+  {
+    "id": 2192,
+    "name": "POSMN Hosting",
+    "href": "https://test.posmn.com/#/hosting",
+    "uri": "03a0f15b9b44e1ce4b192a9287aa24f8596efc1a1989d12cd25d5749cc20ea195e@176.223.131.126:9735",
+    "description": "Host your masternode using our cheap service",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1565543936
   }
 ]
