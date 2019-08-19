@@ -3270,5 +3270,15 @@
     "sector": "adult",
     "digital_goods": "yes",
     "added": 1566050816
+  },
+  {
+    "id": 2222,
+    "name": "Usenet Farm",
+    "href": "https://usenet.farm",
+    "uri": "undefined",
+    "description": "Usenet group with free trial up to 10GB.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1566213504
   }
 ]
