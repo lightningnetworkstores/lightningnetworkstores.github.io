@@ -3270,5 +3270,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1566213504
+  },
+  {
+    "id": 2227,
+    "name": "koalastickers.com",
+    "href": "https://koalastickers.com/",
+    "uri": "undefined",
+    "description": "Buy bitcoin stickers, pay with lightning ⚡️",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1566236672
   }
 ]
