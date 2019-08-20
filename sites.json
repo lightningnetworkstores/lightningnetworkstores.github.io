@@ -3280,5 +3280,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1566236672
+  },
+  {
+    "id": 2232,
+    "name": "VPS Hosting",
+    "href": "https://ln-vps.remoteadmin.store/",
+    "uri": "025033fdfd6f4e0e909776f0e8250c997f75de9cb11466e3a36fb8e6c7a1abcbb9@193.105.125.115:9735",
+    "description": "Buy Virtual Private Server using Lightning Network payments. Buy without registration. Without creating an account. ",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1566287872
   }
 ]
