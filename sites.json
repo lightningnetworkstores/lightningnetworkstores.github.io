@@ -3290,5 +3290,15 @@
     "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1566287872
+  },
+  {
+    "id": 2237,
+    "name": "Satsgo",
+    "href": "https://satsgo.com/",
+    "uri": "undefined",
+    "description": "Sell virtual products, it\u0027s a Chinese website.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1566306944
   }
 ]
