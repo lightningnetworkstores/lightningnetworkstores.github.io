@@ -3300,5 +3300,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1566306944
+  },
+  {
+    "id": 2242,
+    "name": "Lightning Gifts",
+    "href": "https://lightning.gifts",
+    "uri": "undefined",
+    "description": "Create fee-less Bitcoin gift vouchers to share with friends, family, and your haters.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1566462080
   }
 ]
