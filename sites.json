@@ -3310,5 +3310,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1566462080
+  },
+  {
+    "id": 2247,
+    "name": "The Money Badger Shop",
+    "href": "https://moneybadger.shop/",
+    "uri": "undefined",
+    "description": "Bitcoin Utilities",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1566604416
   }
 ]
