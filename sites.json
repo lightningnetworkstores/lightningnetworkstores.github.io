@@ -3330,5 +3330,15 @@
     "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1567686016
+  },
+  {
+    "id": 2282,
+    "name": "AppMoon",
+    "href": "https://appmoon.io",
+    "uri": "undefined",
+    "description": "Bitcoin powered android app store.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1567967488
   }
 ]
