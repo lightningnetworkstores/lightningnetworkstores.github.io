@@ -3340,5 +3340,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1567967488
+  },
+  {
+    "id": 2287,
+    "name": "Lapps - Lightning Network apps",
+    "href": "https://www.lapps.co",
+    "uri": "undefined",
+    "description": "A curation of the best new Lightning apps",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1568029568
   }
 ]
