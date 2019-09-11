@@ -32,6 +32,16 @@
 		"open_source": "https://github.com/btcontract/lnwallet",
 		"release": "May 2018"
 	},
+ 	{
+		"name": "Sats app",
+		"page": "https://satsapp.com/",
+		"android": "https://play.google.com/store/apps/details?id=com.satsapp",
+		"iOS": "https://apps.apple.com/us/app/sats-app-with-satsback-by-casa/id1469587102",
+		"release": "September 2019",
+		"requires_node":"yes",
+		"custodial":"no"
+		
+ 	},
 	{
 		"name": "Bitlum",
 		"page": "http://bit.ly/2T5aMbH",
