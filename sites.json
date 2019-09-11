@@ -3350,5 +3350,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1568029568
+  },
+  {
+    "id": 2292,
+    "name": "Original Satoshi",
+    "href": "https://www.originalsatoshi.com",
+    "uri": "undefined",
+    "description": "Buy Stickers and other Bitcoin Goods.",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1568242688
   }
 ]
