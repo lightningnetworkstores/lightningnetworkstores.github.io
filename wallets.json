@@ -82,6 +82,14 @@
 		"android": "https://play.google.com/store/apps/details?id=engineering.lightning.LightningMainnet&ah=CxvG6LDQ7m1sh5oEpcKQofnYf5Y",
 		"iOS": "https://testflight.apple.com/join/xx23MrBp"
 	},
+ 	{
+		"name": "Budda.com",
+		"page": "https://buda.com",
+		"release": "June 2019",
+		"custodial":"yes",
+		"android": "https://play.google.com/store/apps/details?id=com.buda.crypto",
+		"iOS": "https://search.itunes.apple.com/WebObjects/MZContentLink.woa/wa/link?mt=8&path=appstore"
+	},
 	{
 		"name": "Bitpie",
 		"page": "https://bitpie.com/",
