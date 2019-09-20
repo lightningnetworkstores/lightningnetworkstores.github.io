@@ -3360,5 +3360,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1568242688
+  },
+  {
+    "id": 2297,
+    "name": "Samurai Oyster",
+    "href": "https://funabiki.info/shop/",
+    "uri": "bsxcf4ivfqv22e4sv323pu4n5ivpzzupcjmsicj2hkil7dkknnoq7byd.onion:9735",
+    "description": "Premium Wholesale Oysters (Japan Only",
+    "sector": "food",
+    "digital_goods": "no, goods shipped",
+    "added": 1568946432
   }
 ]
