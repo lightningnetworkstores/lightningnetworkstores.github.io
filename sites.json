@@ -3370,5 +3370,15 @@
     "sector": "food",
     "digital_goods": "no, goods shipped",
     "added": 1568946432
+  },
+  {
+    "id": 2312,
+    "name": "Primal Pastures",
+    "href": "https://primalpastures.com/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "Pasture raised organic chicken, pork, lamb, beef and honey",
+    "sector": "food",
+    "digital_goods": "no, goods shipped",
+    "added": 1570040576
   }
 ]
