@@ -3390,5 +3390,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1570140544
+  },
+  {
+    "id": 2322,
+    "name": "LightningPuzzle",
+    "href": "https://www.lightningpuzzle.com/",
+    "uri": "undefined",
+    "description": "An online platform for puzzles with competitions.",
+    "sector": "games\u0026casino",
+    "digital_goods": "no, goods shipped",
+    "added": 1570402048
   }
 ]
