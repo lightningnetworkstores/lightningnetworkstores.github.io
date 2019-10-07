@@ -3400,5 +3400,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "no, goods shipped",
     "added": 1570402048
+  },
+  {
+    "id": 2327,
+    "name": "PCWitchdoctor",
+    "href": "https://www.pcwitchdoctor.com",
+    "uri": "undefined",
+    "description": "A General Merchandise Store facilitating the use of Lightning Network for payments. ",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1570421120
   }
 ]
