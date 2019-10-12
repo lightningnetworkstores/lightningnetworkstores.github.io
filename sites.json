@@ -3420,5 +3420,15 @@
     "sector": "adult",
     "digital_goods": "yes",
     "added": 1570880768
+  },
+  {
+    "id": 2347,
+    "name": "thingsCBD",
+    "href": "https://thingscbd.com/",
+    "uri": "undefined",
+    "description": "buy CBD products with Bitcoin on Lightning Network",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1570899840
   }
 ]
