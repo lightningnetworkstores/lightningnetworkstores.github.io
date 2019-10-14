@@ -72,7 +72,8 @@
 		"page": "https://muun.com/",
 		"open_source": "https://github.com/muun/apollo",
 		"android": "https://play.google.com/store/apps/details?id=io.muun.apollo",
-		"release": "May 2019"
+		"release": "May 2019",
+		"iOS":"https://apps.apple.com/app/id1482037683/"
 	},
 	{
 		"name": "Lightning labs' wallet",
