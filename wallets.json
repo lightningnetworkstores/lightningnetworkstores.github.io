@@ -207,5 +207,13 @@
 		"page": "https://opennode.co/signup",
 		"requires_node": "no",
 		"release": "August 2018"
+	},
+ 	{
+		"name": "Bottle Pay",
+		"page": "http://about.bottle.li",
+		"release": "June 2019",
+		"requires_node": "no",
+		"custodial": "yes",
+		"web_wallet": "https://bottle.li"
 	}
 ]
