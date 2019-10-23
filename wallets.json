@@ -84,6 +84,13 @@
 		"iOS": "https://testflight.apple.com/join/xx23MrBp"
 	},
  	{
+		"name": "Nayuta wallet",
+		"page": "https://nayuta.co/wallet",
+		"release": "October 2019",
+		"android": "https://play.google.com/store/apps/details?id=co.nayuta.wallet&hl=pt-BR&ah=kOB8HLfa1snFo4pgNlqjyF7ebOI",
+		"iOS": "https://testflight.apple.com/join/z2kILDhM"
+	},
+ 	{
 		"name": "Budda.com",
 		"page": "https://buda.com",
 		"release": "June 2019",
