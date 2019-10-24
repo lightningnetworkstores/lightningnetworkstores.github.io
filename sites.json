@@ -3450,5 +3450,15 @@
     "sector": "food",
     "digital_goods": "no, goods only in-store",
     "added": 1571632768
+  },
+  {
+    "id": 2367,
+    "name": "ShopWithBitcoin.Online",
+    "href": "https://shopwithbitcoin.online",
+    "uri": "undefined",
+    "description": "General Merchandise",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1571901696
   }
 ]
