@@ -3460,5 +3460,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1571901696
+  },
+  {
+    "id": 2372,
+    "name": "Lightning Faucet",
+    "href": "https://lightning-faucet.com",
+    "uri": "02594c59aceeee247184ffc8abac8213dd773c789e18af2c20c4d1613db82afb0a@206.189.20.131:9735",
+    "description": "Lightning Faucet is a way to test sending and receiving from your lightning wallet and receive free bitcoin",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1572284672
   }
 ]
