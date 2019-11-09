@@ -3480,5 +3480,15 @@
     "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1572830848
+  },
+  {
+    "id": 2392,
+    "name": "crypto discretus",
+    "href": "http://cryptodiscretus.com",
+    "uri": "undefined",
+    "description": "Business card sized seed cards to record your 12 or 24 word phrases when creating new cryptocurrency wallets.",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1573335552
   }
 ]
