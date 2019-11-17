@@ -3500,5 +3500,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1574022144
+  },
+  {
+    "id": 2402,
+    "name": "bitclouds.sh",
+    "href": "https://bitclouds.sh",
+    "uri": "025a14b8ed40583d67aec92da19453e0b2d1fbbf75f96f85d3dd0ff61a51ee0490@carnikavazp6djqx.onion:9735",
+    "description": "Account-less, open-source VPS cloud platform with API",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1574033664
   }
 ]
