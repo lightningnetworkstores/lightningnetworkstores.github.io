@@ -3510,5 +3510,15 @@
     "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1574033664
+  },
+  {
+    "id": 2417,
+    "name": "Bitclouds Watchtower",
+    "href": "https://github.com/bitcoin-software/bitbsd-clouds/tree/master/client-util",
+    "uri": "025a14b8ed40583d67aec92da19453e0b2d1fbbf75f96f85d3dd0ff61a51ee0490@carnikavazp6djqx.onion:9735",
+    "description": "non-custodial CLI wallet for developers: LN support, TOR,  REST API, SSH access to nodes, encrypted backups",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1574090880
   }
 ]
