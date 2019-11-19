@@ -3520,5 +3520,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1574090880
+  },
+  {
+    "id": 2422,
+    "name": "summherum.at",
+    "href": "https://summherum.at",
+    "uri": "037e074ea4621b7ab5e83404577bc8e5b720d181be95cd0b2d77d473e5482854e1@178.191.70.45:9735",
+    "description": "Honey from the Bregenzerwald.",
+    "sector": "food",
+    "digital_goods": "no, goods shipped",
+    "added": 1574149632
   }
 ]
