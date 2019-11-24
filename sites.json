@@ -3530,5 +3530,25 @@
     "sector": "food",
     "digital_goods": "no, goods shipped",
     "added": 1574149632
+  },
+  {
+    "id": 2432,
+    "name": "Chipi Chipi Bombón",
+    "href": "https://www.chipichipibombon.com",
+    "uri": "03e27f7867cb4deae26338903ec688ebc52b92f68ec6f0b4ad5322dfaf1f801d2a@91.66.3.156:9735",
+    "description": "Ice cream all year long and Hot Chocolate during autumn/winter",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1574295168
+  },
+  {
+    "id": 2442,
+    "name": "WhosApp Online",
+    "href": "https://whosapp.online",
+    "uri": "03761da88bec6c4280b8bc9366f994570b07173a27a14b4b6985853d3c57d7f95f@188.216.48.59:9735",
+    "description": "Track anyone on WhatsApp",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1574580864
   }
 ]
