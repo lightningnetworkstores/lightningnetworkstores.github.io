@@ -3550,5 +3550,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1574580864
+  },
+  {
+    "id": 2457,
+    "name": "Bitfinex",
+    "href": "https://ln.bitfinex.com",
+    "uri": "033d8656219478701227199cbd6f670335c8d408a92ae88b962c49d4dc0e83e025@34.65.85.39:9735",
+    "description": "One of the major cryptocurrency exchanges. Deposit and withdraw with lightning.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1575378944
   }
 ]
