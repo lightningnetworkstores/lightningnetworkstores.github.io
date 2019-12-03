@@ -3560,5 +3560,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1575378944
+  },
+  {
+    "id": 2462,
+    "name": "bitcoinGD",
+    "href": "https://bitcoingd.com/",
+    "uri": "025f879b1cd27a7664bba20d25bca70360cb635117c3a71cd77e5572d2cc0628a8",
+    "description": "Get steam games cheaper than ever using Bitcoin at bitcoin GameDeals store",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1575397504
   }
 ]
