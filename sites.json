@@ -3570,5 +3570,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1575397504
+  },
+  {
+    "id": 2467,
+    "name": "Arnhem Bitcoin City",
+    "href": "https://www.arnhembitcoinstad.nl",
+    "uri": "0231eccc6510eb2e1c97c8a190d6ea096784aa7c358355442055aac8b20654f932",
+    "description": "Over 100 merchants in the city centre accepting Bitcoin + LN",
+    "sector": "other",
+    "digital_goods": "no, goods only in-store",
+    "added": 1575400960
   }
 ]
