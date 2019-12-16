@@ -3580,5 +3580,15 @@
     "sector": "other",
     "digital_goods": "no, goods only in-store",
     "added": 1575400960
+  },
+  {
+    "id": 2497,
+    "name": "Coinstop",
+    "href": "https://coinstop.io",
+    "uri": "undefined",
+    "description": "Global Hardware Wallet Seller with brands such as Ledger and Trezor. At the final step of checkout there is the choice to pay with lightning network.",
+    "sector": "security",
+    "digital_goods": "no, goods shipped",
+    "added": 1576488960
   }
 ]
