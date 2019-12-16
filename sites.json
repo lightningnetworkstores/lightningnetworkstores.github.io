@@ -3590,5 +3590,15 @@
     "sector": "security",
     "digital_goods": "no, goods shipped",
     "added": 1576488960
+  },
+  {
+    "id": 2507,
+    "name": "Meme Us",
+    "href": "https://meme.us.com",
+    "uri": "undefined",
+    "description": "Meme shirts and apparel. Use Bitcoin lightning at the end of checkout. ",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1576528128
   }
 ]
