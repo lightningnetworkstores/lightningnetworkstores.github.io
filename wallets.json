@@ -43,12 +43,11 @@
 		
  	},
 	{
-		"name": "Bitlum",
-		"page": "http://bit.ly/2T5aMbH",
-		"release": "February 2019",
-		"open_source": "https://github.com/bitlum/bitlum-front",
-		"custodial": "yes",
-		"web_wallet": "http://bit.ly/2T5aMbH"
+		"name": "Phoenix",
+		"page": "https://phoenix.acinq.co",
+		"release": "November 2019",
+		"open_source": "https://github.com/ACINQ/phoenix",
+		"android":"https://play.google.com/store/apps/details?id=fr.acinq.phoenix.mainnet"
 	},
 	{
 		"name": "LightningPeach",
