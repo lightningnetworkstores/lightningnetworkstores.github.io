@@ -3590,5 +3590,15 @@
     "sector": "clothing",
     "digital_goods": "no, goods shipped",
     "added": 1576528128
+  },
+  {
+    "id": 2512,
+    "name": "Spotlight",
+    "href": "https://spotlight.soy",
+    "uri": "02aac548b877279c30f3abbb7301de93096e3b87144fc484dc3409bb0d6bd566b1@spotlight.soy:9735",
+    "description": "platform that allows anyone to easily post articles and earn Bitcoin",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1576805888
   }
 ]
