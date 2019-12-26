@@ -3600,5 +3600,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1576805888
+  },
+  {
+    "id": 2522,
+    "name": "Lightning Scratch and Win",
+    "href": "https://lightningscratchand.win",
+    "uri": "undefined",
+    "description": "Play provably fair scratchcards on the Bitcoin Lightning Network",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1577367808
   }
 ]
