@@ -3610,5 +3610,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1577367808
+  },
+  {
+    "id": 2527,
+    "name": "Graaf One",
+    "href": "https://app.graaf.one/",
+    "uri": "02597be64d8511bd933b792629404313bb387b7014bc82703942acebaa793f538b@192.241.137.219:9735",
+    "description": "Canada\u0027s first Lightning Network Exchange",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1577469696
   }
 ]
