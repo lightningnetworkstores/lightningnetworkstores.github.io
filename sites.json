@@ -3620,5 +3620,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1577469696
+  },
+  {
+    "id": 2532,
+    "name": "TravelbyBit",
+    "href": "https://travelbybit.com/",
+    "uri": "undefined",
+    "description": "Travel the world and get rewarded in Bitcoin",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1577772672
   }
 ]
