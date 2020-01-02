@@ -12,6 +12,11 @@
                         <v-progress-circular indeterminate :size="70" :width="7" color="#fdb919"></v-progress-circular>
                     </v-layout>
                 </v-container>
+                <v-container v-if="maxCards < getStores.length">
+                    <v-layout row justify-center align-center>
+                        <v-btn color="primary" @click="loadMoreCards()">Load more</v-btn>
+                    </v-layout>
+                </v-container>
             </v-flex>
         </v-layout>
     </div>
@@ -54,7 +59,7 @@ export default class StoreList extends Vue {
 
         let interval = setInterval(() => {
             if (this.maxCards < this.maxCardAtStart) {
-                this.maxCards += this.addCardCount;
+                this.loadMoreCards();
             } else {
                 clearInterval(interval);
             }
@@ -62,7 +67,7 @@ export default class StoreList extends Vue {
 
         window.onscroll = ev => {
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-                this.maxCards += this.addCardCount;
+                this.loadMoreCards();
             }
         };
 
@@ -71,6 +76,10 @@ export default class StoreList extends Vue {
         this.$nextTick(() => {
             this.isLoading = false;
         });
+    }
+
+    private loadMoreCards() {
+        this.maxCards += this.addCardCount;
     }
 
     @Watch("sector")

@@ -13,6 +13,7 @@ const announcementType = "success";
 const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com/";
 const addStoreFee = isTestEnv ? 2 : 5000;
 const replyReviewFee = isTestEnv ? 2 : 500;
+const trendingThreshold = 15;
 
 const options = {
     shouldSort: true,
@@ -73,7 +74,7 @@ export default new Vuex.Store({
                 switch (sort) {
                     case "trending":
                         stores = stores
-                            .filter((store: Store) => (state.scores[store.id] || [0, 0, 0])[2] >= 30)
+                            .filter((store: Store) => (state.scores[store.id] || [0, 0, 0])[2] >= trendingThreshold)
                             .sort((a: Store, b: Store) => {
                                 return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
                             });
