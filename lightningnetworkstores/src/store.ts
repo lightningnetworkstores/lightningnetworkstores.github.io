@@ -38,10 +38,12 @@ export default new Vuex.Store({
         },
         getStores: state => ({ sector, digitalGoods }: any, sort: string, search: string, safeMode: string = "false"): Store[] => {
             //filter
+            let isFiltered = true;
             let stores: Store[] = [];
             let stateStores: any = state.stores.slice(0);
             if ((!sector || sector == "undefined") && (!digitalGoods || digitalGoods == "undefined")) {
                 stores = stateStores;
+                isFiltered = false;
             } else if (!digitalGoods || digitalGoods == "undefined") {
                 stores = sector !== "all" ? stateStores.filter((store: any) => store.sector == sector) : stateStores;
             } else if (!sector || sector == "undefined") {
@@ -58,31 +60,26 @@ export default new Vuex.Store({
                 stores = safeStores;
             }
 
+            if (digitalGoods == "all" || sector == "all") {
+                isFiltered = false;
+            }
+
             //Search
             if (search && search !== "undefined") {
                 let fuse = new Fuse(stores, options);
                 stores = fuse.search(search);
             } else {
-                //sort
+                // Sort
                 switch (sort) {
-                    case "best":
-                        stores.sort((a: Store, b: Store) => {
-                            let scoreB: number = (state.scores[b.id] || [0])[0] - (state.scores[b.id] || [0, 0])[1];
-                            let scoreA: number = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
-                            return scoreB - scoreA;
-                        });
-                        break;
                     case "trending":
                         stores.sort((a: Store, b: Store) => {
                             return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
                         });
                         break;
                     case "newest":
-                        stores
-                            .sort((a: Store, b: Store) => {
-                                return a.added - b.added;
-                            })
-                            .reverse();
+                        stores.sort((a: Store, b: Store) => {
+                            return a.added - b.added;
+                        }).reverse();
                         break;
                     case "controversial":
                         stores.sort((a: Store, b: Store) => {
@@ -100,11 +97,20 @@ export default new Vuex.Store({
                             let scoreA: number = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
                             return scoreB - scoreA;
                         });
+                        // Add most treding tore to top
+                        if (!isFiltered) {
+                            var mostTrendingStore = stores.slice().sort((a: Store, b: Store) => {
+                                return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
+                            })[0];
+                            // Is above trending threshold?
+                            if (state.scores[mostTrendingStore.id][2] >= 30) {
+                                stores.splice(stores.indexOf(mostTrendingStore), 1);
+                                stores.unshift(mostTrendingStore);
+                            }
+                        }
                         break;
                 }
             }
-
-            console.log(new Date(stores[0].added * 1000));
 
             return stores;
         },
