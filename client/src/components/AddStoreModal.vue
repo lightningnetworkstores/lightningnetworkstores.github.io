@@ -87,7 +87,7 @@
                                     v-model="addDialogForm.description"
                                     label="Description"
                                     hint="eg. Some description no longer than 150 characters."
-                                    :rules="[v => !!v || 'Description is required', v => (v && (v.length > 6 && v.split(/\b(\s)/).length > 1)) || 'Enter a clear description of the store']"
+                                    :rules="[v => !!v || 'Description is required', v => (v && v.length > 6 && v.split(/\b(\s)/).length > 1) || 'Enter a clear description of the store']"
                                 ></v-text-field>
                             </v-flex>
                         </v-layout>
@@ -165,7 +165,7 @@
 
                         <v-layout row>
                             <v-flex grow></v-flex>
-                            <v-flex pl-3 pr-3 shrink>
+                            <v-flex pl-3 pr-3 shrink v-if="showAddDialog">
                                 <vue-recaptcha sitekey="6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj"></vue-recaptcha>
                             </v-flex>
                             <v-flex grow></v-flex>
@@ -348,5 +348,4 @@ export default class AddStoreModal extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

@@ -72,14 +72,18 @@ export default new Vuex.Store({
                 // Sort
                 switch (sort) {
                     case "trending":
-                        stores.sort((a: Store, b: Store) => {
-                            return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
-                        });
+                        stores = stores
+                            .filter((store: Store) => (state.scores[store.id] || [0, 0, 0])[2] >= 30)
+                            .sort((a: Store, b: Store) => {
+                                return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
+                            });
                         break;
                     case "newest":
-                        stores.sort((a: Store, b: Store) => {
-                            return a.added - b.added;
-                        }).reverse();
+                        stores
+                            .sort((a: Store, b: Store) => {
+                                return a.added - b.added;
+                            })
+                            .reverse();
                         break;
                     case "controversial":
                         stores.sort((a: Store, b: Store) => {

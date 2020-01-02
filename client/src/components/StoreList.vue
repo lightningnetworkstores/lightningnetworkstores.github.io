@@ -38,9 +38,9 @@ export default class StoreList extends Vue {
 
     isLoading: boolean = true;
 
-    maxCards: number = 10;
-    maxCardAtStart: number = 10;
-    addCardCount: number = 6;
+    maxCards: number = 6;
+    maxCardAtStart: number = 18;
+    addCardCount: number = 12;
 
     async mounted() {
         console.log("Sector: " + this.sector);
@@ -52,11 +52,19 @@ export default class StoreList extends Vue {
 
         this.baseUrl = this.$store.getters.getBaseUrl();
 
-        setInterval(() => {
-            if (this.maxCards < this.getStores.length) {
+        let interval = setInterval(() => {
+            if (this.maxCards < this.maxCardAtStart) {
                 this.maxCards += this.addCardCount;
+            } else {
+                clearInterval(interval);
             }
         }, 250);
+
+        window.onscroll = ev => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                this.maxCards += this.addCardCount;
+            }
+        };
 
         this.$forceUpdate();
 
@@ -95,5 +103,4 @@ export default class StoreList extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

@@ -10,21 +10,23 @@
         <v-layout justify-center row wrap class="my-2">
             <v-flex xs11 md8 lg6>
                 <v-card>
-                    <v-img :src="`${baseUrl}thumbnails/${store.id}.png`" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
-                        ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip>
-                        <v-tooltip bottom>
-                            <template v-slot:activator="{ on }">
-                                <v-chip v-if="store.trending > 0" color="purple" text-color="white" v-on="on">
-                                    {{ store.trending }}%
+                    <a :href="store.href">
+                        <v-img :src="`${baseUrl}thumbnails/${store.id}.png`" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
+                            ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip>
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on }">
+                                    <v-chip v-if="store.trending > 0" color="purple" text-color="white" v-on="on">
+                                        {{ store.trending }}%
 
-                                    <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
-                                </v-chip>
-                            </template>
-                            <span>Trending score</span>
-                        </v-tooltip>
-                        <v-chip v-if="store.rank > 0" color="#fdb919" text-color="white" class="ma-2">#{{ store.rank }}</v-chip>
-                        <!-- <v-chip color="orange" text-color="white" class="ma-2">{{ score.rank }}</v-chip> -->
-                    </v-img>
+                                        <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
+                                    </v-chip>
+                                </template>
+                                <span>Trending score</span>
+                            </v-tooltip>
+                            <v-chip v-if="store.rank > 0" color="#fdb919" text-color="white" class="ma-2">#{{ store.rank }}</v-chip>
+                            <!-- <v-chip color="orange" text-color="white" class="ma-2">{{ score.rank }}</v-chip> -->
+                        </v-img>
+                    </a>
                     <v-layout row pa-3>
                         <v-flex pb-1 shrink>
                             <div class="headline">
