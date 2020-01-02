@@ -106,8 +106,8 @@
                     </v-layout>
                     <v-layout row>
                         <p>
-                            Currently every new store and trending stores (trending score &gt;= 30) are tweeted. A store can be tweeted again if: it hasn't been tweeted for 8 days, it's score has been
-                            increased by at least 100000 satoshis (1 mBTC) since the last tweet and has a trending score no lower than 30. Only payments can trigger tweets, no matter how small or the
+                            Currently every new store and trending stores (trending score &gt;= 10) are tweeted. A store can be tweeted again if: it hasn't been tweeted for 8 days, it's score has been
+                            increased by at least 100000 satoshis (1 mBTC) since the last tweet and has a trending score no lower than 10. Only payments can trigger tweets, no matter how small or the
                             direction. These rules are subject to change and might even be held secret if people start abusing them.
                         </p>
                     </v-layout>

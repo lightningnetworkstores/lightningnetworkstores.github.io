@@ -10,7 +10,7 @@
         <v-layout justify-center row wrap class="my-2">
             <v-flex xs11 md8 lg6>
                 <v-card>
-                    <a :href="store.href">
+                    <a class="store-image-link" :href="store.href">
                         <v-img :src="`${baseUrl}thumbnails/${store.id}.png`" max-height="500px" aspect-radio="1.6" position="top center" class="text-xs-right"
                             ><v-chip v-if="isNewStore" color="green" text-color="white" class="ma-2">New</v-chip>
                             <v-tooltip bottom>
@@ -239,6 +239,9 @@ export default class StoreInfo extends Vue {
     }
 }
 .link-icon {
+    text-decoration: none;
+}
+.store-image-link {
     text-decoration: none;
 }
 </style>

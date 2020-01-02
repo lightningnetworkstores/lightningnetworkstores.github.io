@@ -108,7 +108,7 @@ export default new Vuex.Store({
                                 return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
                             })[0];
                             // Is above trending threshold?
-                            if (state.scores[mostTrendingStore.id][2] >= 30) {
+                            if (state.scores[mostTrendingStore.id][2] >= 10) {
                                 stores.splice(stores.indexOf(mostTrendingStore), 1);
                                 stores.unshift(mostTrendingStore);
                             }
