@@ -6,185 +6,187 @@
 
         <!-- Add store modal -->
         <v-dialog v-model="showAddDialog" max-width="500" persistent>
-            <v-card>
-                <v-layout row v-if="addAlert.message.length">
-                    <v-flex pa-3>
-                        <v-alert :value="addAlert.message" :type="addAlert.success ? 'success' : 'error'" transition="scale-transition">
-                            {{ addAlert.message }}
-                        </v-alert>
-                    </v-flex>
-                </v-layout>
-                <div v-if="paymentRequest.length && isPaid" class="text-xs-center">
-                    <!-- paymentRequest && isPaid -->
-                    <v-card-title class="headline">
-                        <v-layout row>
-                            <v-flex>Payment successful</v-flex>
-                        </v-layout>
-                    </v-card-title>
-                    <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
-
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-
-                        <v-btn color="green darken-1" flat="flat" @click="cancel">
-                            Close
-                        </v-btn>
-                    </v-card-actions>
-                </div>
-
-                <div v-else>
-                    <v-card-title class="headline">
-                        <v-layout row>
-                            <v-flex grow>Automatically add new store!</v-flex>
-                            <v-flex shrink v-if="isLoading || paymentRequest.length"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
-                        </v-layout>
-                    </v-card-title>
-
-                    <v-layout row>
-                        <v-flex pl-3 pr-3 v-if="!paymentRequest.length"> Amount due if not a contributor: {{ addStoreFee }} satoshis </v-flex>
+            <template v-if="showAddDialog">
+                <v-card>
+                    <v-layout row v-if="addAlert.message.length">
+                        <v-flex pa-3>
+                            <v-alert :value="addAlert.message" :type="addAlert.success ? 'success' : 'error'" transition="scale-transition">
+                                {{ addAlert.message }}
+                            </v-alert>
+                        </v-flex>
                     </v-layout>
-
-                    <div v-if="paymentRequest">
-                        <v-layout row>
-                            <v-flex pa-3 class="text-xs-center"
-                                ><h3>{{ addStoreFee }} sat</h3></v-flex
-                            >
-                        </v-layout>
-                        <v-layout row>
-                            <v-flex pl-3 pr-3 class="text-xs-center"><qrcode-vue class="qrcode" size="300" :value="paymentRequest"></qrcode-vue></v-flex>
-                        </v-layout>
-
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-text-field :value="paymentRequest" label="Invoice" hint="" append-icon="fa-copy" type="text" id="paymentrequest" @click:append="copy"></v-text-field
-                            ></v-flex>
-                        </v-layout>
-                        <v-layout row>
-                            <v-flex pl-3 pr-3 class="text-xs-center">
-                                <a :href="'lightning:' + paymentRequest" class="link-button">Open in wallet</a>
-                            </v-flex>
-                        </v-layout>
+                    <div v-if="paymentRequest.length && isPaid" class="text-xs-center">
+                        <!-- paymentRequest && isPaid -->
+                        <v-card-title class="headline">
+                            <v-layout row>
+                                <v-flex>Payment successful</v-flex>
+                            </v-layout>
+                        </v-card-title>
+                        <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
 
                         <v-card-actions>
                             <v-spacer></v-spacer>
 
                             <v-btn color="green darken-1" flat="flat" @click="cancel">
-                                Cancel
+                                Close
                             </v-btn>
                         </v-card-actions>
                     </div>
 
-                    <v-form @submit.prevent="submitAdd" ref="addform" v-if="!paymentRequest.length">
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-text-field v-model="addDialogForm.name" label="Name" hint="eg. Some name no longer than 50 characters." :rules="[v => !!v || 'Name is required']"></v-text-field>
-                            </v-flex>
-                        </v-layout>
+                    <div v-else>
+                        <v-card-title class="headline">
+                            <v-layout row>
+                                <v-flex grow>Automatically add new store!</v-flex>
+                                <v-flex shrink v-if="isLoading || paymentRequest.length"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
+                            </v-layout>
+                        </v-card-title>
 
                         <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-text-field
-                                    v-model="addDialogForm.description"
-                                    label="Description"
-                                    hint="eg. Some description no longer than 150 characters."
-                                    :rules="[v => !!v || 'Description is required', v => (v && v.length > 6 && v.split(/\b(\s)/).length > 1) || 'Enter a clear description of the store']"
-                                ></v-text-field>
-                            </v-flex>
+                            <v-flex pl-3 pr-3 v-if="!paymentRequest.length"> Amount due if not a contributor: {{ addStoreFee }} satoshis </v-flex>
                         </v-layout>
 
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-text-field
-                                    v-model="addDialogForm.url"
-                                    label="Website URL"
-                                    hint="eg. https://lightningnetworkstores.com"
-                                    :rules="[
-                                        v => !!v || 'Website URL is required',
-                                        v =>
-                                            /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-                                                v
-                                            ) || 'Enter a valid url eg. https://lightningnetworkstores.com'
-                                    ]"
-                                ></v-text-field>
-                            </v-flex>
-                        </v-layout>
+                        <div v-if="paymentRequest">
+                            <v-layout row>
+                                <v-flex pa-3 class="text-xs-center"
+                                    ><h3>{{ addStoreFee }} sat</h3></v-flex
+                                >
+                            </v-layout>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3 class="text-xs-center"><qrcode-vue class="qrcode" size="300" :value="paymentRequest"></qrcode-vue></v-flex>
+                            </v-layout>
 
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-text-field
-                                    v-model="addDialogForm.uri"
-                                    label="Node URI (optional)"
-                                    hint="eg. 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735 (optional)"
-                                ></v-text-field>
-                            </v-flex>
-                        </v-layout>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-text-field :value="paymentRequest" label="Invoice" hint="" append-icon="fa-copy" type="text" id="paymentrequest" @click:append="copy"></v-text-field
+                                ></v-flex>
+                            </v-layout>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3 class="text-xs-center">
+                                    <a :href="'lightning:' + paymentRequest" class="link-button">Open in wallet</a>
+                                </v-flex>
+                            </v-layout>
 
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-combobox
-                                    v-model="addDialogForm.sector"
-                                    item-text="name"
-                                    item-value="prop"
-                                    label="Sector"
-                                    :items="sectorFormItems"
-                                    return-object
-                                    :rules="[v => !!v || 'Sector is required']"
-                                ></v-combobox>
-                            </v-flex>
-                        </v-layout>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
 
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-combobox
-                                    v-model="addDialogForm.digitalGoods"
-                                    item-text="name"
-                                    item-value="prop"
-                                    label="Digital goods"
-                                    :items="digitalGoodFormItems"
-                                    return-object
-                                    :rules="[v => !!v || 'Digital goods is required']"
-                                ></v-combobox>
-                            </v-flex>
-                        </v-layout>
+                                <v-btn color="green darken-1" flat="flat" @click="cancel">
+                                    Cancel
+                                </v-btn>
+                            </v-card-actions>
+                        </div>
 
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-text-field v-model="addDialogForm.contributor" label="Contributor code (optional)"></v-text-field>
-                            </v-flex>
-                        </v-layout>
+                        <v-form @submit.prevent="submitAdd" ref="addform" v-if="!paymentRequest.length">
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-text-field v-model="addDialogForm.name" label="Name" hint="eg. Some name no longer than 50 characters." :rules="[v => !!v || 'Name is required']"></v-text-field>
+                                </v-flex>
+                            </v-layout>
 
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-checkbox
-                                    v-model="addDialogForm.agreeRemoved"
-                                    label="I agree that the store may be removed later if it disables lightning payments"
-                                    :rules="[v => !!v || 'Agreeing with the sites policy is required']"
-                                ></v-checkbox>
-                            </v-flex>
-                        </v-layout>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-text-field
+                                        v-model="addDialogForm.description"
+                                        label="Description"
+                                        hint="eg. Some description no longer than 150 characters."
+                                        :rules="[v => !!v || 'Description is required', v => (v && v.length > 6 && v.split(/\b(\s)/).length > 1) || 'Enter a clear description of the store']"
+                                    ></v-text-field>
+                                </v-flex>
+                            </v-layout>
 
-                        <v-layout row>
-                            <v-flex grow></v-flex>
-                            <v-flex pl-3 pr-3 shrink v-if="showAddDialog">
-                                <vue-recaptcha sitekey="6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj"></vue-recaptcha>
-                            </v-flex>
-                            <v-flex grow></v-flex>
-                        </v-layout>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-text-field
+                                        v-model="addDialogForm.url"
+                                        label="Website URL"
+                                        hint="eg. https://lightningnetworkstores.com"
+                                        :rules="[
+                                            v => !!v || 'Website URL is required',
+                                            v =>
+                                                /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+                                                    v
+                                                ) || 'Enter a valid url eg. https://lightningnetworkstores.com'
+                                        ]"
+                                    ></v-text-field>
+                                </v-flex>
+                            </v-layout>
 
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-text-field
+                                        v-model="addDialogForm.uri"
+                                        label="Node URI (optional)"
+                                        hint="eg. 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735 (optional)"
+                                    ></v-text-field>
+                                </v-flex>
+                            </v-layout>
 
-                            <v-btn color="green darken-1" flat="flat" @click="showAddDialog = false">
-                                {{ paymentRequest && isPaid ? "Close" : "Close" }}
-                            </v-btn>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-combobox
+                                        v-model="addDialogForm.sector"
+                                        item-text="name"
+                                        item-value="prop"
+                                        label="Sector"
+                                        :items="sectorFormItems"
+                                        return-object
+                                        :rules="[v => !!v || 'Sector is required']"
+                                    ></v-combobox>
+                                </v-flex>
+                            </v-layout>
 
-                            <v-btn color="green darken-1" flat="flat" type="submit">
-                                Submit
-                            </v-btn>
-                        </v-card-actions>
-                    </v-form>
-                </div>
-            </v-card>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-combobox
+                                        v-model="addDialogForm.digitalGoods"
+                                        item-text="name"
+                                        item-value="prop"
+                                        label="Digital goods"
+                                        :items="digitalGoodFormItems"
+                                        return-object
+                                        :rules="[v => !!v || 'Digital goods is required']"
+                                    ></v-combobox>
+                                </v-flex>
+                            </v-layout>
+
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-text-field v-model="addDialogForm.contributor" label="Contributor code (optional)"></v-text-field>
+                                </v-flex>
+                            </v-layout>
+
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-checkbox
+                                        v-model="addDialogForm.agreeRemoved"
+                                        label="I agree that the store may be removed later if it disables lightning payments"
+                                        :rules="[v => !!v || 'Agreeing with the sites policy is required']"
+                                    ></v-checkbox>
+                                </v-flex>
+                            </v-layout>
+
+                            <v-layout row>
+                                <v-flex grow></v-flex>
+                                <v-flex pl-3 pr-3 shrink v-if="showAddDialog">
+                                    <vue-recaptcha sitekey="6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj"></vue-recaptcha>
+                                </v-flex>
+                                <v-flex grow></v-flex>
+                            </v-layout>
+
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+
+                                <v-btn color="green darken-1" flat="flat" @click="showAddDialog = false">
+                                    {{ paymentRequest && isPaid ? "Close" : "Close" }}
+                                </v-btn>
+
+                                <v-btn color="green darken-1" flat="flat" type="submit">
+                                    Submit
+                                </v-btn>
+                            </v-card-actions>
+                        </v-form>
+                    </div>
+                </v-card>
+            </template>
         </v-dialog>
     </div>
 </template>
