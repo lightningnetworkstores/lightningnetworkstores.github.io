@@ -1,0 +1,27 @@
+{
+    "editor.formatOnSave": true,
+    "editor.detectIndentation": false,
+    "prettier.singleQuote": false,
+    "prettier.tabWidth": 4,
+    "prettier.printWidth": 200,
+    "editor.rulers": [200],
+    "search.exclude": {
+        "node_modules": true
+    },
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
+    "vetur.format.defaultFormatter.html": "prettier",
+    "vetur.format.defaultFormatter.css": "prettier",
+    "vetur.format.defaultFormatter.postcss": "prettier",
+    "vetur.format.defaultFormatter.scss": "prettier",
+    "vetur.format.defaultFormatter.less": "prettier",
+    "vetur.format.defaultFormatter.js": "prettier",
+    "vetur.format.defaultFormatter.ts": "prettier",
+    "vetur.format.options.tabSize": 4,
+    "vetur.format.options.useTabs": false,
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {
+            "printWidth": 200,
+            "singleQuote": false
+        }
+    }
+}

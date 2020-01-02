@@ -53,7 +53,7 @@
     "href": "https://bitrefill.com/",
     "uri": "024a2e265cd66066b78a788ae615acdc84b5b0dec9efac36d7ac87513015eaf6ed@lnd.bitrefill.com:9735",
     "name": "Bitrefill",
-    "description": "Buy phone topups, steam vouchers and other products!",
+    "description": "Buy gift cards \u0026 phone refills and save 2% when you pay with Lightning.",
     "digital_goods": "yes",
     "sector": "technology",
     "added": 1521147592
@@ -79,16 +79,6 @@
     "added": 1519592392
   },
   {
-    "id": 9,
-    "href": "https://hodlmonkey.com/",
-    "uri": "039376f846cb4e137f3474baa7fbe74ec627745c7d5c54935b99fbb1b60a62c9b3@159.65.162.130:9735",
-    "name": "Hodl Monkey",
-    "description": "Buy cryptocurrency themed T-shirts",
-    "sector": "clothing",
-    "digital_goods": "no, goods shipped",
-    "added": 1520542792
-  },
-  {
     "id": 10,
     "href": "https://ludvigart.com/",
     "uri": "0357712cde38c9e82044ce5070473585e35dcb6069014a7e31a28968f5d839bab4@97.90.42.34:9735",
@@ -109,24 +99,11 @@
     "added": 1523577600
   },
   {
-    "id": 12,
-    "href": "https://www.bitstarz.com/",
-    "uri": "03b2ff042bcc564de35c2beb17e175ec1315011fee63070617fa7e11f55308d76f@35.204.246.146:9735",
-    "name": "bitStarz",
-    "description": "Cryptocurrency casino",
-    "flags": {
-      "coming_soon": 1
-    },
-    "digital_goods": "yes",
-    "sector": "games\u0026casino",
-    "added": 1521147592
-  },
-  {
     "id": 13,
-    "href": "https://www.coincards.ca/",
-    "uri": "0312c02755c6a3475f872be27e71fdb7703a61a25777401a26125e1c772c7e0f6a@192.95.29.22:9735",
-    "name": "Coincards.ca",
-    "description": "Canadian Bitcoin to Gift Card Marketplace. Over 250 Brands Physical and Digital gift cards including Amazon.ca",
+    "href": "https://www.coincards.com/",
+    "uri": "02233a3b30d7c8b08542eefe66978e45d2962ed21e857ce33ea1452b5b90173d77@54.39.133.223:9735",
+    "name": "Coincards.com",
+    "description": "Coincards offers the best selection of hundreds of gift cards, mobile top-ups and vouchers from retailers all over the world!",
     "sector": "other",
     "digital_goods": "yes",
     "added": 1522097992
@@ -152,15 +129,6 @@
     "added": 1523048392
   },
   {
-    "id": 17,
-    "href": "https://bitcoinlightning.shop",
-    "uri": "03635fa1d555e95f6d7d30783542dbe8538d80b2bd5924ccd5938f70faa826254e@52.226.75.40:9735",
-    "name": "BitcoinLightning.shop",
-    "description": "Buy domain names, lightning nodes, and web hosting services.",
-    "sector": "technology",
-    "digital_goods": "yes"
-  },
-  {
     "id": 18,
     "href": "https://moonbanking.com/promote",
     "uri": "02b3877314aff657216ceac039244fe94e7116af10cfffac0232fefa5903c62a58@104.223.94.251:9735",
@@ -179,19 +147,6 @@
     "digital_goods": "no, goods shipped",
     "sector": "security",
     "added": 1523911325
-  },
-  {
-    "id": 20,
-    "href": "https://tanjalo.com/",
-    "uri": "02f40890af885da4673f0ee9725ee74bb2c66d6491cc4334056a2701057993e61d@144.76.220.229:9735",
-    "name": "Tanjalo",
-    "description": "Buy bitcoin with nigerian naira.",
-    "digital_goods": "yes",
-    "sector": "exchange",
-    "added": 1523911325,
-    "flags": {
-      "coming_soon": 1
-    }
   },
   {
     "id": 22,
@@ -246,19 +201,6 @@
     "address": "2150 E Cactus, Phoenix, AZ 85022"
   },
   {
-    "id": 28,
-    "href": "https://www.bitwage.com/",
-    "uri": "unknown",
-    "name": "Bitwage",
-    "description": "Bitcoin payroll and international wage payment service.",
-    "added": 1524510711,
-    "sector": "technology",
-    "digital_goods": "yes",
-    "flags": {
-      "coming_soon": 1
-    }
-  },
-  {
     "id": 31,
     "href": "https://www.savouryeats.com/",
     "uri": "03f929098f02467c33f79976f6a6939db1db785814b814821302304fa8692cf3f4@40.71.4.80:9735",
@@ -276,16 +218,6 @@
     "description": "Exchange that has a bitcoin to gold trading pair.",
     "added": 1525455603,
     "sector": "exchange",
-    "digital_goods": "no, goods shipped"
-  },
-  {
-    "id": 33,
-    "href": "https://cmascremeras.store",
-    "uri": "024b8019795ec753fcdb1eb21ecd319bfab6a8b05e017f357dc5f052a181fb8c91@186.19.136.144:9735",
-    "name": "C+C Remeras",
-    "description": "Argentinian T-Shirts Lightning store.",
-    "added": 1525823764,
-    "sector": "clothing",
     "digital_goods": "no, goods shipped"
   },
   {
@@ -332,7 +264,7 @@
   {
     "id": 39,
     "href": "https://peername.com/",
-    "uri": "02e7c42ae2952d7a71398e23535b53ffc60deb269acbc7c10307e6b797b91b1e79@93.123.80.47:9735",
+    "uri": "02e7c42ae2952d7a71398e23535b53ffc60deb269acbc7c10307e6b797b91b1e79@87.121.37.156:9735",
     "name": "PeerName",
     "description": "Blockchain-Based Domain Names Registrar.",
     "sector": "technology",
@@ -342,7 +274,7 @@
   {
     "id": 40,
     "href": "https://joltfun.com/",
-    "uri": "032ebdae3314f072acd70e66e18572e6ba27f96918009369585e7cdcf36af3cf9e@54.37.22.216:9889",
+    "uri": "032ebdae3314f072acd70e66e18572e6ba27f96918009369585e7cdcf36af3cf9e@ln.joltfun.com:9889",
     "name": "Joltfun",
     "description": "Buy computer games for popular venues such as Steam/Origin/Uplay/Battle.net.",
     "sector": "technology",
@@ -380,16 +312,6 @@
     "digital_goods": "yes"
   },
   {
-    "id": 44,
-    "href": "https://artoflightning.network",
-    "uri": "033533e2db6311c1d417d41279c067d8713ad8a7d577a0d91e65df2f6a82c5b862@165.227.167.162:9735",
-    "name": "Art of Lightning",
-    "description": "Online Graffiti Wall",
-    "sector": "games\u0026casino",
-    "added": 1528773866,
-    "digital_goods": "yes"
-  },
-  {
     "id": 45,
     "href": "https://quinsolo.com/",
     "uri": "036dc6c5fc1a16171f182f48794cf3833654e8018cce0bde540854b19854448f5f@23.100.30.211:9735",
@@ -398,19 +320,6 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1529196637
-  },
-  {
-    "id": 46,
-    "href": "https://www.lncards.com/",
-    "uri": "unknown",
-    "name": "LN Cards",
-    "description": "Buy gift cards.",
-    "sector": "other",
-    "digital_goods": "yes",
-    "added": 1529275470,
-    "flags": {
-      "coming_soon": 1
-    }
   },
   {
     "id": 47,
@@ -433,16 +342,6 @@
     "added": 1529973871
   },
   {
-    "id": 49,
-    "href": "http://bitcoinplays.io/",
-    "uri": "0374ecf61ed6c1208c42339f47decde2bc0c4393ac95f07827b3471e939d7eb961@54.37.22.216:9735",
-    "name": "Bitcoin Plays",
-    "description": "Play pokemon yellow (1 move\u003d1 satoshi).",
-    "sector": "games\u0026casino",
-    "digital_goods": "yes",
-    "added": 1529973871
-  },
-  {
     "id": 50,
     "href": "https://cloudsight.ai/",
     "uri": "unknown",
@@ -458,7 +357,7 @@
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "name": "Bitlaunch",
     "description": "Launch VPS from Digital Ocean, Vultr and Linode",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1530029260
   },
@@ -477,7 +376,7 @@
     "href": "https://www.lightningspin.com/",
     "uri": "02cf3cc45d8fee5055c4ba5a58fe22ae973685fa2cb43e2c5b6454eaa1d08066a8@54.84.35.4:9735",
     "name": "Lightning Spin",
-    "description": "Provably fair lightning roulette.",
+    "description": "The original lightning roulette - Driving adoption, one spin at the time. (reckless since 2018)",
     "added": 1530063594,
     "sector": "games\u0026casino",
     "digital_goods": "yes"
@@ -508,7 +407,7 @@
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "name": "Bacloud",
     "description": "Dedicated servers, Windows/Linux VPS, free hosting domain setup.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1530499360
   },
@@ -633,26 +532,6 @@
     "added": 1531003872
   },
   {
-    "id": 68,
-    "href": "https://gullyflip.com",
-    "uri": "unknown",
-    "name": "Gullyflip.com",
-    "description": "Gaming and anime toys, collectibles, and electronics.",
-    "sector": "other",
-    "digital_goods": "no, goods shipped",
-    "added": 1531173298
-  },
-  {
-    "id": 69,
-    "href": "https://quotefrom.me/",
-    "uri": "03a5fd566492a69f3653ca464c23d8678ec19634c440baa9a1366c9b39c89512cd@85.11.37.130:9735",
-    "name": "Quote From Me",
-    "description": "Post quotes online.",
-    "sector": "other",
-    "digital_goods": "yes",
-    "added": 1531248575
-  },
-  {
     "id": 70,
     "href": "https://www.livejasmin.com",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
@@ -673,22 +552,12 @@
     "added": 1531345286
   },
   {
-    "id": 72,
-    "href": "https://t8dream.team/",
-    "uri": "02c0b38022846c6b6f45b30031859ac7c5fb0c67ec8ed5cce8409c4b438c267ffe@92.53.89.123:9735",
-    "name": "tayga8",
-    "description": "Health supplement products.",
-    "sector": "drugs\u0026supplements",
-    "digital_goods": "no, goods shipped",
-    "added": 1531667510
-  },
-  {
     "id": 77,
     "name": "CrownCloud",
     "href": "https://crowncloud.net/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "VPSes, dedicated servers and colocation services. ",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1531711232
   },
@@ -703,22 +572,12 @@
     "added": 1531711488
   },
   {
-    "id": 87,
-    "name": "Thunder message",
-    "href": "http://thundermessage.com/",
-    "uri": "0374ecf61ed6c1208c42339f47decde2bc0c4393ac95f07827b3471e939d7eb961@54.37.22.216:9735",
-    "description": "Post messages and vote for the best ones using lightning.",
-    "sector": "other",
-    "digital_goods": "yes",
-    "added": 1531761536
-  },
-  {
     "id": 92,
     "name": "LicensePal",
     "href": "https://www.licensepal.com/",
     "uri": "unknown",
     "description": "Web hosting software license reseller.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1531766528
   },
@@ -738,19 +597,9 @@
     "href": "http://www.routerhosting.com/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Linux and Windows VPS servers including SSD VPS and storage servers.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1531772544
-  },
-  {
-    "id": 107,
-    "name": "Future Hosting",
-    "href": "http://www.futurehosting.ie/",
-    "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
-    "description": "Shared hosting, VPS hosting, domain registration, SSL sertificates and other web hosting solutions. ",
-    "sector": "technology",
-    "digital_goods": "yes",
-    "added": 1531772672
   },
   {
     "id": 112,
@@ -798,7 +647,7 @@
     "href": "http://rentvip.it/en/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Rent ski equipment and mountain bikes (Livigno, Italy).",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
     "digital_goods": "no, goods only in-store",
     "added": 1531773568
   },
@@ -828,7 +677,7 @@
     "href": "http://www.lavavps.lt/en/",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "VPS hosting, domains, SSL certificates.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1531774848
   },
@@ -859,6 +708,7 @@
     "uri": "027c3b1cc5a649d5f6f7be2d591e34c37dc146fbed54d7f4c85898f9330107fe1c@206.116.15.124:9735",
     "description": "Low priced and useful products To help build and spread the ⚡ network.",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1532115712
   },
   {
@@ -868,6 +718,7 @@
     "uri": "unknown",
     "description": "Play SaruTobi arcade game",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1532158464
   },
   {
@@ -887,6 +738,7 @@
     "uri": "02f8220c901057c536fc8b4fdffd4f88b8ddd9cf811af03bbf85dd2c1eb25a7262@70.29.71.171:9735",
     "description": "Buy Crypto related products.",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1532278272
   },
   {
@@ -956,6 +808,7 @@
     "uri": "02c69a0b4cb468660348d6d457d9212563ad08fb94d424395da6796fb74a13f276@pretty-troll.creampay.io:9735",
     "description": "The only channel you will ever need",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1534129280
   },
   {
@@ -995,7 +848,7 @@
     "uri": "0321d586e0165cbde2df4a67378fcec5e941d87f18dfd4a67893329958099b7272@208.110.80.34:9735",
     "description": "For youtube addicts - a daily watch stream based on your keywords.",
     "sector": "other",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1536211200
   },
   {
@@ -1012,10 +865,10 @@
     "id": 352,
     "name": "Lightning Slot Machine",
     "href": "https://www.lightningslotmachine.com/",
-    "uri": "039f01ad62e5208940faff11d0bbc997582eafad7642aaf53de6a5f6551ab73400@40.114.234.63:9735",
+    "uri": "03469b295ded046af4771cce38cf007ab0c6ba886fa65026327353b5ac2431a034@40.114.234.63:9735",
     "description": "Play Slots With Lightning and Win the 200X Big Win payout! Instant Payouts using the Bitcoin Lightning Network!",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods only in-store",
+    "digital_goods": "yes",
     "added": 1536444672
   },
   {
@@ -1034,7 +887,8 @@
     "href": "https://bikebeltline.com",
     "uri": "02b3877314aff657216ceac039244fe94e7116af10cfffac0232fefa5903c62a58@104.223.94.251:9735",
     "description": "Buy bike parts and accessories at BikeBeltline.",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
+    "digital_goods": "no, goods shipped",
     "added": 1536635264
   },
   {
@@ -1144,7 +998,7 @@
     "uri": "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735",
     "description": "Lightning Network Based Reddit",
     "sector": "other",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1537750784
   },
   {
@@ -1263,7 +1117,7 @@
     "href": "https://malechastitydevices.us/",
     "uri": "unknown",
     "description": "Male Chastity Devices",
-    "sector": "other",
+    "sector": "adult",
     "digital_goods": "no, goods shipped",
     "added": 1538480768
   },
@@ -1313,7 +1167,8 @@
     "href": "https://www.lecyclosportif.com.au",
     "uri": "unknown",
     "description": "Noosa Cycling \u0026 Triathlon Specialists",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
+    "digital_goods": "no, goods shipped",
     "added": 1539125632
   },
   {
@@ -1372,19 +1227,9 @@
     "href": "https://www.forexvps.net/",
     "uri": "unknown",
     "description": "Reliable Forex VPS",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1539654528
-  },
-  {
-    "id": 587,
-    "name": "Lightning Casino",
-    "href": "https://lightning-casino.com",
-    "uri": "02725e5abcbf5550fc29e6b19706a1377f25d2b1502684f9be9965b6deac167520@213.91.178.177:9735",
-    "description": "Play a slot machine over lightning.",
-    "sector": "games\u0026casino",
-    "digital_goods": "yes",
-    "added": 1539788800
   },
   {
     "id": 607,
@@ -1395,15 +1240,6 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1540402560
-  },
-  {
-    "id": 612,
-    "name": "Rektless Co.",
-    "href": "https://rektless.co",
-    "uri": "unknown",
-    "description": "Lightning Network Apparel for the fearless ones  ",
-    "sector": "clothing",
-    "added": 1540419328
   },
   {
     "id": 617,
@@ -1452,6 +1288,7 @@
     "uri": "02888244029c5909593038ab19f269947c720de3423e491791b46c7c92f76279b6@82.217.214.215:9735",
     "description": "Trade about one dollar worth of bitcoin",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1541431936
   },
   {
@@ -1459,8 +1296,9 @@
     "name": "Microlancer.io",
     "href": "https://microlancer.io",
     "uri": "038df0bd2fad1bfe42d177f18ea5e33543e2b855ef369d06bd94b81d2c87187c82@178.238.237.16:9735",
-    "description": "Microtask freelancing powered by Lightning",
+    "description": "Freelancing platform powered by Lightning (upwork, freelancer, fiverr alternative)",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1541539456
   },
   {
@@ -1470,6 +1308,7 @@
     "uri": "unknown",
     "description": "A bitcoin sticker pack for $4 with free shipping!",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1541697152
   },
   {
@@ -1483,16 +1322,6 @@
     "added": 1541892608
   },
   {
-    "id": 662,
-    "name": "PeanutBTC",
-    "href": "https://peanutbtc.co.uk/",
-    "uri": "02d662ddf6e5db93b0f6bb2de8d3bb7cac0872bb9ef41740e3113e72c59315aa0a@172.81.182.140:9735",
-    "description": "Buy peanut butter using the lightning network (UK only)",
-    "sector": "food",
-    "digital_goods": "no, goods shipped",
-    "added": 1541966976
-  },
-  {
     "id": 667,
     "name": "CoolWalletS",
     "href": "https://coolwallet.io/",
@@ -1501,16 +1330,6 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1542032768
-  },
-  {
-    "id": 672,
-    "name": "YOVO Pay",
-    "href": "https://yovopay.com/",
-    "uri": "unknown",
-    "description": "Top up your mobile phone with 40+ cryptocurrencies and alt‑coins.",
-    "sector": "other",
-    "digital_goods": "yes",
-    "added": 1542159232
   },
   {
     "id": 677,
@@ -1528,7 +1347,7 @@
     "href": "https://www.empowermindbodylife.com/shop/",
     "uri": "02f9c7deb297e32fc3d3d55f336176055cd667a2fada0bd5663e7413e1aba55b86@66.110.250.130:9735",
     "description": "Yoga Training, Attire and other fitness goods",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
     "digital_goods": "no, goods shipped",
     "added": 1542418432
   },
@@ -1590,9 +1409,6 @@
     "description": "Online shop selling metal Bitcoin wallets",
     "sector": "security",
     "digital_goods": "no, goods shipped",
-    "flags": {
-      "coming_soon": 1
-    },
     "added": 1542704768
   },
   {
@@ -1626,16 +1442,6 @@
     "added": 1542989824
   },
   {
-    "id": 737,
-    "name": "Blockchains are Forever",
-    "href": "https://blockchainsareforever.com/",
-    "uri": "0376a797f509dc2a7f5b27fa6cfb6e953412c3525783d16fd2961dbaf9a2a1bc2f@54.208.58.228:9735",
-    "description": "Write a permanent message to the Bitcoin blockchain with this simple utility. Pay with Bitcoin or the Lightning Network.",
-    "sector": "technology",
-    "digital_goods": "yes",
-    "added": 1543790848
-  },
-  {
     "id": 742,
     "name": "cryptograffiti ",
     "href": "https://cryptograffiti.com",
@@ -1652,6 +1458,7 @@
     "uri": "unknown",
     "description": "Accommodation \u0026 Hotel Bookings Worldwide",
     "sector": "other",
+    "digital_goods": "no, goods only in-store",
     "added": 1544795904
   },
   {
@@ -1671,6 +1478,7 @@
     "uri": "03cbf7816667ee86a3b7077f05961542cfa9dc60078b782a230a41a5cb772f1a81",
     "description": "The lightning button is an endless auction website. Put any link you want and buy the button using lightning network micropayment.",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1545394048
   },
   {
@@ -1680,7 +1488,7 @@
     "uri": "unknown",
     "description": "Lightning games \u0026 services",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1545469056
   },
   {
@@ -1707,7 +1515,7 @@
     "id": 787,
     "name": "Denarium Bitcoin",
     "href": "https://denarium.com/",
-    "uri": "unknown",
+    "uri": "034e5fb407fc7d12ff83255e492b63b19b9cd73a4eafc6bf41e7739168b504e9c4@212.47.254.6:9735",
     "description": "Professional Physical Bitcoins Manufacturer",
     "sector": "other",
     "digital_goods": "no, goods shipped",
@@ -1730,7 +1538,7 @@
     "uri": "unknown",
     "description": "Play classic snake and climb the highscore list.",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1546211200
   },
   {
@@ -1740,17 +1548,8 @@
     "uri": "026e186f6cf00009595c9083980304f0be65c8c3736b63c1c9135ef9aa952f644e@192.168.2.20:9735",
     "description": "24/7 running node for access to make transactions on bitcoin lightning network.",
     "sector": "technology",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1546218496
-  },
-  {
-    "id": 807,
-    "name": "Lightning Auctions",
-    "href": "https://lightningauction.net/",
-    "uri": "02d11c4c4f986ff547288d873f6a33758aab744927355b01272ee560a3ba44d01e@lightningauction.net:9735",
-    "description": "Lowest Unique Bid Auctions for Bitcoins.",
-    "sector": "games\u0026casino",
-    "added": 1546379264
   },
   {
     "id": 812,
@@ -1769,6 +1568,7 @@
     "uri": "03f38829a9b9131e3a0887ca21fd042f2d07bd7f151fffefcc3d1585f24c1b3e7e@85.2.192.111:9735",
     "description": "post your message",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1546553600
   },
   {
@@ -1777,7 +1577,7 @@
     "href": "https://www.betcoin.com",
     "uri": "unknown",
     "description": "Sport Betting \u0026 Gaming",
-    "sector": "other",
+    "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1546649344
   },
@@ -1807,7 +1607,7 @@
     "href": "http://quesoselpilar.com",
     "uri": "unknown",
     "description": "Quesos manchegos realizados a mano desde hace 80 anos",
-    "sector": "other",
+    "sector": "food",
     "digital_goods": "no, goods shipped",
     "added": 1546706304
   },
@@ -1867,7 +1667,7 @@
     "href": "https://cryptoho.st/",
     "uri": "03c492f46d8e0a6256bb9c5c42f2aed24717f70a3f39e0961419dee511688e3110@lightning-network.ro:9735",
     "description": "Virtual Private Server (VPS) Shop",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1547441801
   },
@@ -1880,19 +1680,6 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1547441801
-  },
-  {
-    "id": 846,
-    "href": "https://www.cryptorefills.com",
-    "uri": "unknown",
-    "name": "Cryptorefills",
-    "description": "Buy phone recharges, steam vouchers and other products.",
-    "sector": "technology",
-    "added": 1547607543,
-    "digital_goods": "yes",
-    "flags": {
-      "coming_soon": 1
-    }
   },
   {
     "id": 857,
@@ -1911,6 +1698,7 @@
     "uri": "unknown",
     "description": "Fastest No-Logs Online VPN",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1547849472
   },
   {
@@ -1930,6 +1718,7 @@
     "uri": "031cc35d487b8fae5f24df919e8ce5ad2a6bbf489f67694e5a929f10eee0e000a5@188.68.60.152:9735",
     "description": "Play HODLman a classic pacman adaptation and climb the highscore list.",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1547989888
   },
   {
@@ -1949,7 +1738,7 @@
     "uri": "unknown",
     "description": "Gamble Bitcoins instantly using Lighting Network",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods only in-store",
+    "digital_goods": "yes",
     "added": 1548067840
   },
   {
@@ -1969,20 +1758,8 @@
     "uri": "03a8355790b89f4d96963019eb9413b9a2c884691837ac976bacfe25a5212892d7@99.71.113.187:9735",
     "description": "A BTC-themed memory game",
     "sector": "games\u0026casino",
-    "added": 1548292864
-  },
-  {
-    "id": 902,
-    "name": "Lightning Collect",
-    "href": "https://lightningcollect.com",
-    "uri": "unknown",
-    "description": "Bitcoins First Regular Payment Scheme for Businesses",
-    "sector": "technology",
     "digital_goods": "yes",
-    "flags": {
-      "coming_soon": 1
-    },
-    "added": 1548330752
+    "added": 1548292864
   },
   {
     "id": 903,
@@ -1995,22 +1772,13 @@
     "added": 1548363034
   },
   {
-    "id": 922,
-    "name": "LNWALLET.IO",
-    "href": "https://lnwallet.io/",
-    "uri": "unknown",
-    "description": "The first ever Bitcoin Lightning Network online wallet with a strong API for merchants and businesses",
-    "sector": "other",
-    "added": 1548630656
-  },
-  {
     "id": 927,
     "name": "Last PayIn Win",
     "href": "https://lightningnetwork.games/lastpaywin/",
     "uri": "03ab2157b6b046ad0f499d3b6552acedadeda7a09c6c3542df52efc2ac8d756b0f@node.lightningnetwork.games:9735",
     "description": "Simple game where last person win the pot.",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods shipped",
+    "digital_goods": "yes",
     "added": 1548762880
   },
   {
@@ -2020,6 +1788,7 @@
     "uri": "unknown",
     "description": "Trade crypto peer to peer",
     "sector": "exchange",
+    "digital_goods": "yes",
     "added": 1548886784
   },
   {
@@ -2029,6 +1798,7 @@
     "uri": "03a8355790b89f4d96963019eb9413b9a2c884691837ac976bacfe25a5212892d7@99.71.113.187:9735",
     "description": "A word guess game",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1548990336
   },
   {
@@ -2038,6 +1808,7 @@
     "uri": "unknown",
     "description": "Collection of fun ln games :D",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1549055104
   },
   {
@@ -2057,6 +1828,7 @@
     "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@52.15.79.245:9735",
     "description": "Play Chess",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1549401344
   },
   {
@@ -2066,6 +1838,7 @@
     "uri": "02a934d816a09a6658e1b1af2c6d87486eed31296cca0c5ccbf01a4464aeaccfb5@68.190.53.253:9735",
     "description": "Privacy First Social Networking",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1549416704
   },
   {
@@ -2075,6 +1848,7 @@
     "uri": "unknown",
     "description": "Space Invaders with Lightning",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1549452160
   },
   {
@@ -2092,8 +1866,9 @@
     "name": "Spendl",
     "href": "https://getspendl.com/",
     "uri": "unknown",
-    "description": "Pay with Bitcoin, Lightning and more on the stores you know and trust like Amazon, eBay and Asos.",
+    "description": "Pay anywhere online with a lightning Chrome  extension.",
     "sector": "technology",
+    "digital_goods": "yes",
     "added": 1549795072
   },
   {
@@ -2103,6 +1878,7 @@
     "uri": "unknown",
     "description": "Pass the Nanotorch lightning and add 100sats to enlarge the chain, best lightning community",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1549822080
   },
   {
@@ -2111,7 +1887,7 @@
     "href": "http://paraeasy.ch",
     "uri": "03a46be38d068c2bc5af3fc13da840790ed5643f3d6d27e5e34d67ed2aec16ce67@ulrichard.ch:9735",
     "description": "paragliding tandem flights in central Switzerland",
-    "sector": "other",
+    "sector": "fitness\u0026sports",
     "digital_goods": "no, goods shipped",
     "added": 1549921408
   },
@@ -2121,7 +1897,8 @@
     "href": "https://vapecrypto.com",
     "uri": "unknown",
     "description": "Online Vape Store",
-    "sector": "other",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
     "added": 1550023680
   },
   {
@@ -2141,6 +1918,7 @@
     "uri": "02cda8c01b2303e91bec74c43093d5f1c4fd42a95671ae27bf853d7dfea9b78c06@lightning.zapread.com:9735",
     "description": "Lightning powered social media",
     "sector": "other",
+    "digital_goods": "yes",
     "added": 1550157568
   },
   {
@@ -2158,8 +1936,9 @@
     "name": "Internet Superstore",
     "href": "https://internetsuper.store",
     "uri": "030747e32c0428d6bdfe468ab91ade9cc11daf4aab2b7033d7e7fbe39449167982@172.81.178.11:9735",
-    "description": "Your source for shopping",
+    "description": "Your source for bitcoin shopping",
     "sector": "clothing",
+    "digital_goods": "no, goods shipped",
     "added": 1550363264
   },
   {
@@ -2194,25 +1973,13 @@
   },
   {
     "id": 1057,
-    "name": "LN mini roulette",
-    "href": "https://miniroulette.lngames.net/",
+    "name": "LNGAMES.NET",
+    "href": "https://lngames.net/",
     "uri": "03952f8756c036669440e06c782c7f21732886ccf04052e0e6e792f8f5a490f6aa@207.180.252.186:9735",
-    "description": "Mini casino roulette for LN",
-    "sector": "games\u0026casino",
-    "added": 1550515840
-  },
-  {
-    "id": 1062,
-    "name": "SwC Poker",
-    "href": "https://swcpoker.eu/",
-    "uri": "unknown",
-    "description": "Play poker with bitcoin.",
+    "description": "Lightning Network Simple Provably Fair Games.",
     "sector": "games\u0026casino",
     "digital_goods": "yes",
-    "flags": {
-      "coming_soon": 1
-    },
-    "added": 1550541952
+    "added": 1550515840
   },
   {
     "id": 1072,
@@ -2221,6 +1988,7 @@
     "uri": "unknown",
     "description": "A Bitcoin-Only store, which accepts ONLY Bitcoin and Lightning.",
     "sector": "clothing",
+    "digital_goods": "no, goods shipped",
     "added": 1550644992
   },
   {
@@ -2250,6 +2018,7 @@
     "uri": "unknown",
     "description": "Buy PC games with cryptocurrencies ",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1550847232
   },
   {
@@ -2278,7 +2047,7 @@
     "href": "https://thcservers.com",
     "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
     "description": "Cheap web hosting.",
-    "sector": "technology",
+    "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1551117312
   },
@@ -2299,6 +2068,7 @@
     "uri": "unknown",
     "description": "Awesome website designs, affordable price, accepting Lightning.",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1551288448
   },
   {
@@ -2347,8 +2117,8 @@
     "href": "https://www.bitzdrapka.pl",
     "uri": "unknown",
     "description": "Zapraszamy po najtańsze i najszybsze doładowania GSM, Paysafecard, Google play, Steam, Xbox, Playstation.",
-    "sector": "inny",
-    "digital_goods": "tak",
+    "sector": "other",
+    "digital_goods": "yes",
     "added": 1551719296
   },
   {
@@ -2358,7 +2128,7 @@
     "uri": "02815410a08e922d49d9f8e74c3a4fcd7c4f1cfef2e7765e2aadb65f873d685764@199.38.81.208:9735",
     "description": "Apple Authorized Reseller \u0026 Service Provider in Colombia.",
     "sector": "technology",
-    "digital_goods": "yes",
+    "digital_goods": "no, goods shipped",
     "added": 1551759232
   },
   {
@@ -2388,6 +2158,7 @@
     "uri": "0274a542b693385f9e38d7acf4017ed31748d00693ff219c54e1b33749595a7419@18.179.20.192:9735",
     "description": "A BlockChain Game platform with provably fair,fast payouts and free faucet.",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1552116736
   },
   {
@@ -2417,6 +2188,7 @@
     "uri": "unknown",
     "description": "CSGO like provably fair roulette. Trollbox with tipbot. Autobetting.",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1552502400
   },
   {
@@ -2436,6 +2208,7 @@
     "uri": "03ce648061614b971a3a990e62cb5f782ac94e9576f2311256b2985bc05b5033e0@bitdouble.io:9735",
     "description": "BitDouble gambling site",
     "sector": "games\u0026casino",
+    "digital_goods": "yes",
     "added": 1552832384
   },
   {
@@ -2445,6 +2218,7 @@
     "uri": "unknown",
     "description": "vendita auto e noleggio",
     "sector": "other",
+    "digital_goods": "no, goods shipped",
     "added": 1552840832
   },
   {
@@ -2464,7 +2238,7 @@
     "uri": "02294ffbd3619e9dcd7e0577d1203ff06828625f421647950888a19cf30b5a635f@51.83.41.129:9735",
     "description": "LuckyThunder is a slot machine build on top of the bitcoin lightning network⚡. No login required, provably fair, high win percentage.",
     "sector": "games\u0026casino",
-    "digital_goods": "no, goods only in-store",
+    "digital_goods": "yes",
     "added": 1552938240
   },
   {
@@ -2474,16 +2248,8 @@
     "uri": "025731077fddc998300b4f358dfec833efdc412aa0bd78c06d5ab61963b60119fe@172.81.177.203:9735",
     "description": " Store focused on bitcoin Twitter culture also offer custom decals for BTC",
     "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
     "added": 1552940544
-  },
-  {
-    "id": 1317,
-    "name": "Bitcoin Lightning Faucet",
-    "href": "https://light.yuyaogawa.com/faucet",
-    "uri": "033613d280de1eba995c7545e93caf76cfba41bef88c2d6732a67ce06c168b3acb@light.yuyaogawa.com:9735",
-    "description": "Claim 200 satoshi a day",
-    "sector": "other",
-    "added": 1552994816
   },
   {
     "id": 1322,
@@ -2521,7 +2287,8 @@
     "href": "https://vapecryptocbd.com",
     "uri": "unknown",
     "description": "Buy CBD Online with Bitcoin and LN and save 10%. Sister site of Vape Crypto.com. ",
-    "sector": "other",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
     "added": 1553389568
   },
   {
@@ -2531,6 +2298,7 @@
     "uri": "unknown",
     "description": "Hotels \u0026 Accommodation WorldWide",
     "sector": "other",
+    "digital_goods": "no, goods only in-store",
     "added": 1553446144
   },
   {
@@ -2558,9 +2326,1309 @@
     "name": "CryptoShirt.io",
     "href": "https://cryptoshirt.io/",
     "uri": "unknown",
-    "description": "Wear the digital revolution",
+    "description": "Crypto t-Shirts! From Bitcoin to your favorite Shitcoins!",
     "sector": "clothing",
     "digital_goods": "no, goods shipped",
     "added": 1553884288
+  },
+  {
+    "id": 1367,
+    "name": "Pokemon using Lightning",
+    "href": "http://poke.lightningwiki.net/",
+    "uri": "020e56a13babec99abdc2c4afbe34e1e44230d79b234c059fd4ff1e367765fdb1b@main.lightningnode.eu",
+    "description": "Play pokemon using Lightning layments",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1554109952
+  },
+  {
+    "id": 1377,
+    "name": "FixedFloat",
+    "href": "https://fixedfloat.com/",
+    "uri": "037f990e61acee8a7697966afd29dd88f3b1f8a7b14d625c4f8742bd952003a590@lnd.fixedfloat.com:9735",
+    "description": "Exchange the TOP-20 сryptocurrencies with lightning network! No registration required.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1554340224
+  },
+  {
+    "id": 1382,
+    "name": "Grassroots California",
+    "href": "https://www.grassrootscalifornia.com/",
+    "uri": "unknown",
+    "description": "Hats, Apparel \u0026 Accessories",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1554349568
+  },
+  {
+    "id": 1387,
+    "name": "Boltz",
+    "href": "https://boltz.exchange",
+    "uri": "unknown",
+    "description": "Boltz exchange",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1554399232
+  },
+  {
+    "id": 1392,
+    "name": "Satoshi pictures",
+    "href": "https://satoshis.pictures/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@52.15.79.245:9735",
+    "description": "Million-dollar-page with a twist. Advertise your products in this crypto wall of fame.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1554497792
+  },
+  {
+    "id": 1397,
+    "name": "OMG LOL",
+    "href": "https://omg.lol/",
+    "uri": "031b8038e52d85f2cc49db309d2f87577601645279b4b5e83ee9a9832752356fc5@96.28.98.230:9735",
+    "description": "Buy an email address and forward it anywhere.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1554661504
+  },
+  {
+    "id": 1402,
+    "name": "Layer One Bitcoin Store",
+    "href": "https://layeronebtc.com/",
+    "uri": "unknown",
+    "description": "Bitcoin shirts, hats, hoodies \u0026 MORE!",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1554729472
+  },
+  {
+    "id": 1407,
+    "name": "Sensei.Chat",
+    "href": "https://sensei.chat",
+    "uri": "03ca61dcef76c4c35311dfd9ae5ec242e2bfb14ea100d9642e8c73f192c2b2f048@138.197.238.220:9735",
+    "description": "A lightning-powered chat bot platform, with a focus on realtime blockchain and market data.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1554736512
+  },
+  {
+    "id": 1412,
+    "name": "Lightning Lotto",
+    "href": "https://proved.win/",
+    "uri": "03a503d8e30f2ff407096d235b5db63b4fcf3f89a653acb6f43d3fc492a7674019@37.59.50.48:9735",
+    "description": "Provably fair lotto-style lottery",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1554747136
+  },
+  {
+    "id": 1417,
+    "name": "Get Satoshi",
+    "href": "https://getsatoshi.org/",
+    "uri": "unknown",
+    "description": "Get Satoshi with Visa, Mastercard with 3d secure.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1554819840
+  },
+  {
+    "id": 1422,
+    "name": "Payment Gateway for Opencart stores",
+    "href": "https://www.opencart.com/index.php?route\u003dmarketplace/extension/info\u0026extension_id\u003d36414",
+    "uri": "unknown",
+    "description": "Free and opensource payment gateway that works with your LND node",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "yes",
+    "added": 1554881280
+  },
+  {
+    "id": 1427,
+    "name": "Satoshis.club",
+    "href": "https://satoshis.club/",
+    "uri": "unknown",
+    "description": "Satoshis club",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1554993152
+  },
+  {
+    "id": 1432,
+    "name": "Hodlonaut Legal Fund",
+    "href": "https://weareallhodlonaut.com/",
+    "uri": "028c1da32603fce64118e469ffe2cfeec04d1c4bd88205efb4e8b4208f77a8064e@172.81.181.237:9735",
+    "description": "Crowdfund to help hodlnaut legal battle against Craig Wright (Faketoshi).",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1555100032
+  },
+  {
+    "id": 1437,
+    "name": "KAZARTT",
+    "href": "https://www.kazartt.com/",
+    "uri": "unknown",
+    "description": "Unconventional belts for men",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1555165824
+  },
+  {
+    "id": 1442,
+    "name": "Save my Wife",
+    "href": "https://tallyco.in/s/ux2bnj/",
+    "uri": "unknown",
+    "description": "Please help me finance my wife new haircut with lightning",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1555237760
+  },
+  {
+    "id": 1462,
+    "name": "Toshi Vision",
+    "href": "https://www.toshi.vision/",
+    "uri": "unknown",
+    "description": "Pay to edit words of the bitcoin whitepaper, inspited by Satoshis Place.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1555356928
+  },
+  {
+    "id": 1467,
+    "name": "Rotate bar (London)",
+    "href": "https://www.rotateshoreditch.com/",
+    "uri": "unknown",
+    "description": "Venue serving specialty coffee by day and craft beers, cocktails and great music by night. Located in Shoreditch, London.",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1555443840
+  },
+  {
+    "id": 1477,
+    "name": "Crypto Coffee",
+    "href": "https://crypto-coffee.org",
+    "uri": "02aecff209ee8e066e73df7b7881141007a72ab4055856b2f27b92a884bbf16aa8@170.75.175.231:9735",
+    "description": "Accelerating bitcoin adoption with the power of Lightning and caffeine",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1555461888
+  },
+  {
+    "id": 1482,
+    "name": "Lightning Network Gift Card",
+    "href": "https://www.lngiftcard.com/",
+    "uri": "unknown",
+    "description": "eGift Card on Lightning Network",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1555593984
+  },
+  {
+    "id": 1487,
+    "name": "Lucho Polleti",
+    "href": "https://luchopoletti.com/",
+    "uri": "unknown",
+    "description": "Art, clothing and accessories designed by Lucho Polleti.",
+    "sector": "art",
+    "digital_goods": "no, goods shipped",
+    "added": 1555612160
+  },
+  {
+    "id": 1492,
+    "name": "Lightning Throne",
+    "href": "https://lnthrone.io/",
+    "uri": "020d6989eaaf107a020501607aae8f489dd207cc495fbdd6b80eee14336ed3217c@45.76.165.162:9735",
+    "description": "Make the highest bid to be the king of lightning!",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1555676544
+  },
+  {
+    "id": 1497,
+    "name": "Real-Time Crypto Trading Signals",
+    "href": "https://crypto.slamtrade.com",
+    "uri": "unknown",
+    "description": "24/7 streaming of high-performance Crypto-Currency trading signals presented in a single view for professional trading.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1555731456
+  },
+  {
+    "id": 1502,
+    "name": "Hempods",
+    "href": "https://hempods.com",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@connect.opennode.co:9735",
+    "description": "CBD Pods compatible with Juul, CBD Cartbridges and more",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1555796864
+  },
+  {
+    "id": 1507,
+    "name": "Digital Marketplace",
+    "href": "https://store.billcrypto.co.in",
+    "uri": "unknown",
+    "description": "The Stock Image and Footage store",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1555896448
+  },
+  {
+    "id": 1512,
+    "name": "Bitcoinbomber",
+    "href": "https://bitcoinbomber.app",
+    "uri": "03970306a0aaa62556f51f4df8f51d8d8a62c1140d02566d49df65704a1f4fec9c@85.214.217.177:97",
+    "description": "Bomberman on lightning",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1556049792
+  },
+  {
+    "id": 1517,
+    "name": "SOPHODES",
+    "href": "https://sophodes.com/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@connect.opennode.co:9735",
+    "description": "A high end, contemporary boutique lifestyle brand",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1556111616
+  },
+  {
+    "id": 1532,
+    "name": "Unhappy.com",
+    "href": "https://unhappy.com",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@connect.opennode.co:9735",
+    "description": "Lil Pump (@lilpump) official merchandising store",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1556120064
+  },
+  {
+    "id": 34,
+    "name": "Host4Crypto",
+    "href": "https://www.host4crypto.com",
+    "uri": "028b6dc171f603467690f799b6a0d52b1f5a5b8977b1453440016ea7917f53925f@80.241.216.204:9735",
+    "description": "register your domains lightning fast with host4crypto.com",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1556132864
+  },
+  {
+    "id": 1542,
+    "name": "Nayuta Lightning Shop",
+    "href": "http://shop.nayuta.co/",
+    "uri": "unknown",
+    "description": "Try to make payments using Lightning Network!",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1556161152
+  },
+  {
+    "id": 1562,
+    "name": "ModafinilXL",
+    "href": "https://modafinilxl.com",
+    "uri": "unknown",
+    "description": "Modafinil Online Pharmacy",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1556290048
+  },
+  {
+    "id": 1567,
+    "name": "SildenafilViagra.com",
+    "href": "https://sildenafilviagra.com/",
+    "uri": "unknown",
+    "description": "SV Online Pharmacy - Viagra Cialis \u0026 Levitra Online Pharmacy. ED Pills: Sildenafil \u0026 Tadalafil delivered worldwide",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1556290816
+  },
+  {
+    "id": 1572,
+    "name": "blockclock.live",
+    "href": "https://www.blockclock.live/",
+    "uri": "03df257120256b5f0b87d25659946d42067a094c765bff830eb66d6ffba6f4d5da@38.87.54.164:9735",
+    "description": "change the message on this clock live",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1556371584
+  },
+  {
+    "id": 1577,
+    "name": "Lightning Hosted",
+    "href": "http://lightninghosted.com/",
+    "uri": "unknown",
+    "description": "LightingHosted is an image hosting service that uses the bitcoin lightning network to share advertising revenue with users.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1556375808
+  },
+  {
+    "id": 1582,
+    "name": "AutoSky North",
+    "href": "https://autoskynorth.co.uk/shop/",
+    "uri": "unknown",
+    "description": "Purchase aerial pictures using the lightning network",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1556449920
+  },
+  {
+    "id": 1587,
+    "name": "ViaBestBuys.com",
+    "href": "https://viabestbuys.com/",
+    "uri": "unknown",
+    "description": "VBB Online Pharmacy - Generic Viagra Cialis \u0026 Levitra On Sale Delivered Worldwide. Pay with Bitcoin Lightning and Save 35%",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1556477952
+  },
+  {
+    "id": 1592,
+    "name": "CialisBit.com",
+    "href": "https://cialisbit.com/",
+    "uri": "unknown",
+    "description": "Cialis Online Pharmacy - Discounted Cialis Viagra \u0026 Levitra Delivered Worldwide. Pay with Lightning Network and Save 35%",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1556478208
+  },
+  {
+    "id": 1597,
+    "name": "ViagraBit.com",
+    "href": "https://viagrabit.com/",
+    "uri": "unknown",
+    "description": "Viagra Online Pharmacy - Discounted Sildenafil \u0026 Tadalafil Generic from India Delivered Worldwide. Pay with BTC Lightning Network and Save 35%",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1556478336
+  },
+  {
+    "id": 1602,
+    "name": "⚡ PrEPGeneric.com",
+    "href": "https://prepgeneric.com/",
+    "uri": "unknown",
+    "description": "⚡ Buy Truvada Generics from India \u0026 Get PrEP Online, Low-Cost HIV, AIDS \u0026 Hepatitis Medication",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1556478592
+  },
+  {
+    "id": 1607,
+    "name": "Start2Bitcoin",
+    "href": "https://www.start2bitcoin.com/",
+    "uri": "unknown",
+    "description": "Everything you need to know about Bitcoin in one box.",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1556487296
+  },
+  {
+    "id": 1612,
+    "name": "Lightning Blackjack",
+    "href": "https://www.lnblackjack.com/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "Provably fair blackjack over lightning.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1556781440
+  },
+  {
+    "id": 1617,
+    "name": "Funraiden",
+    "href": "https://funraiden.com/",
+    "uri": "unknown",
+    "description": "Small hand-curated shop, where you can buy awesome stuff with Bitcoin/Lightning only!",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1556895232
+  },
+  {
+    "id": 1622,
+    "name": "Bloom Audio",
+    "href": "https://bloomaudio.com/",
+    "uri": "unknown",
+    "description": "Headphones and Much More",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1556987136
+  },
+  {
+    "id": 1667,
+    "name": "CheapBitcoinBuys",
+    "href": "http://www.cheapbitcoinbuys.com",
+    "uri": "unknown",
+    "description": "Buy and do silly things for micro payments",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1557398528
+  },
+  {
+    "id": 1672,
+    "name": "lndrive",
+    "href": "https://lndrive.space",
+    "uri": "037b752e68ec91b32714fd6649836b484642fef3f939fbf2a7ad365fbbd86bdb7e@144.76.107.110:9735",
+    "description": "Host files on IPFS using lightning.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1557423872
+  },
+  {
+    "id": 1682,
+    "name": "Bitstop Store",
+    "href": "https://store.bitstop.co/",
+    "uri": "02a25d19fd55ae8635905fa1009666aa24444f6aa5cb3f8dd55c68f5e1201dfc1e@172.81.180.35:9735",
+    "description": "Bitcoin Swag",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1557433344
+  },
+  {
+    "id": 1697,
+    "name": "Bitkiks",
+    "href": "https://www.bitkiks.com/",
+    "uri": "unknown",
+    "description": "Bitcoin designer sneakers and footwear.",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1557495808
+  },
+  {
+    "id": 1802,
+    "name": "MeterVPN",
+    "href": "https://metervpn.com",
+    "uri": "0246bf8422ee28ce098f77490d215564fea83cb000de8a9de7953926a4a169f3f1@159.89.121.214:9735",
+    "description": "Pay-per-hour WireGuard VPN.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1558218496
+  },
+  {
+    "id": 1807,
+    "name": "Digital Marketplace - Stock images/videos store",
+    "href": "https://billcrypto.blogspot.com",
+    "uri": "undefined",
+    "description": "We sale images and videos from stocks like Shutterstock.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1558297728
+  },
+  {
+    "id": 1812,
+    "name": "Lightning Collect ",
+    "href": "https://lightningcollect.com",
+    "uri": "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735",
+    "description": "Bitcoin Donations for Good Causes ",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1558303232
+  },
+  {
+    "id": 1817,
+    "name": "Lighttube",
+    "href": "http://light-tube.eu",
+    "uri": "02433a4392aae169249949ba4af6658e1cc985cfaf87fd3898bf58f3a543b31dd1@light-tube.eu:9735",
+    "description": "Upload and watch videos ads free",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1558343040
+  },
+  {
+    "id": 1827,
+    "name": "CryptoAlly.io - Crypto for All",
+    "href": "https://cryptoally.io",
+    "uri": "undefined",
+    "description": "CryptoAlly.io is a place to discover quotes of Satoshis and Bitcoin in 100  currencies at real time. ",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1558350720
+  },
+  {
+    "id": 1837,
+    "name": "Bottle Pay",
+    "href": "https://about.bottle.li/",
+    "uri": "026910ea11228e8dd090e3b6348ecb64dfe4387a624528b99782d202d493fd6bae@108.128.227.130:9735",
+    "description": "Effortless Bitcoin payments – Bottle Pay is the faster, simpler way to make your Bitcoin payments.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1558470400
+  },
+  {
+    "id": 1842,
+    "name": "Paid.co",
+    "href": "https://paid.co",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "Sell anything in this decentralized marketplace where sellers keep 100%.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1558915072
+  },
+  {
+    "id": 1847,
+    "name": "The Lightning Wall",
+    "href": "https://lightningwall.tips",
+    "uri": "031d2bbc75802689312220a017c6b51fa246efc59c7aa9355f6f7395038ffb4d6a@2.234.122.191:9735",
+    "description": "Earn satoshi with private and public posts",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1558968064
+  },
+  {
+    "id": 1857,
+    "name": "Salud Sats",
+    "href": "https://www.saludsats.com",
+    "uri": "undefined",
+    "description": "The only reason to spend sats, is on your health. Purchase Health Action Plans using Bitcoin Lightning Network. ",
+    "sector": "fitness\u0026sports",
+    "digital_goods": "yes",
+    "added": 1559137792
+  },
+  {
+    "id": 1877,
+    "name": "lightning-space",
+    "href": "https://lightning-space.com",
+    "uri": "03ad6cd751e6b91831a0ea19c0e84f54f17ac51b6a9d5d2e81663238701286186f@lechuck.hopto.org:9735",
+    "description": "Webhosting with PHP, MySQL and email. Chose duration and amount of space and pay with lightning",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1559256704
+  },
+  {
+    "id": 1882,
+    "name": "Stella by Starlight",
+    "href": "https://stellabystarlight.nl/",
+    "uri": "0231eccc6510eb2e1c97c8a190d6ea096784aa7c358355442055aac8b20654f932@83.162.211.100:9735",
+    "description": "Cafe/bar/restaurant in the heart of Arnhem (Netherlands) with live music.",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1559585792
+  },
+  {
+    "id": 1887,
+    "name": "Kohinoor of India",
+    "href": "http://www.kohinoorofindia.nl",
+    "uri": "0231eccc6510eb2e1c97c8a190d6ea096784aa7c358355442055aac8b20654f932@83.162.211.100:9735",
+    "description": "Indian Restaurant in the center of Arnhem (Netherlands). ",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1559586560
+  },
+  {
+    "id": 1902,
+    "name": "ShopinBit.de - Privat. Sicher. Einfach.",
+    "href": "https://shopinbit.de/",
+    "uri": "undefined",
+    "description": "Germanys First Crypto Only Store: 5000+ Electronics, CRYPTOWEAR and Satoshi Spirits for BTC and Lightning. Ships only within Germany.",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1559657984
+  },
+  {
+    "id": 1917,
+    "name": "unii shop",
+    "href": "http://uniishop.com",
+    "uri": "undefined",
+    "description": "Unique Thai handmade handbags, wallets and hats. Leather, hand woven cotton and bamboo, traditional and modern designs",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1559738112
+  },
+  {
+    "id": 1927,
+    "name": "Lingot Swiss",
+    "href": "https://lingot-swiss.com",
+    "uri": "undefined",
+    "description": "Buy raw metal ingots and investment jewelry.",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1559759360
+  },
+  {
+    "id": 1942,
+    "name": "Vin Armani’s book",
+    "href": "http://vinarmani.com",
+    "uri": "undefined",
+    "description": "Self Ownership: The Foundation Of Property ",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1559916672
+  },
+  {
+    "id": 1947,
+    "name": "Sendbitcoin.lol",
+    "href": "https://sendbitcoin.lol",
+    "uri": "02306900ee22f1cb4932e7cf442445884721f164d11b1d34bcbe093ac24acae3dd@170.75.163.177:9735",
+    "description": "Bitcoin Sticker Shop",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1560085760
+  },
+  {
+    "id": 1962,
+    "name": "Hotel Modez",
+    "href": "https://www.hotelmodez.nl",
+    "uri": "0231eccc6510eb2e1c97c8a190d6ea096784aa7c358355442055aac8b20654f932@83.162.211.100:9735",
+    "description": "Hotel/aparthotel in central Arnhem decorated by designers. ",
+    "sector": "other",
+    "digital_goods": "no, goods only in-store",
+    "added": 1560457856
+  },
+  {
+    "id": 1967,
+    "name": "Crypto Game Store",
+    "href": "https://crypto-game.store",
+    "uri": "undefined",
+    "description": "Buy digital games with Bitcoin and Lightning payments",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1560596736
+  },
+  {
+    "id": 1977,
+    "name": "BitPatron",
+    "href": "https://bitpatron.co",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "The Bitcoin Patreon alternative.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1560637696
+  },
+  {
+    "id": 1982,
+    "name": "Satoshitweet.com",
+    "href": "https://satoshitweet.com",
+    "uri": "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735",
+    "description": "Use Lightning to Tweet! ",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1560638848
+  },
+  {
+    "id": 1997,
+    "name": "ThunderSats",
+    "href": "https://thundersats.com/",
+    "uri": "031021570df76a654d8fac3d1f58280d685893ce7681a9c99e2fc21dbd067c65d6@134.209.199.111:9735",
+    "description": "⚡️Simple provably fair Miniature Lightning Roulette with Instant Payouts⚡️",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1561038336
+  },
+  {
+    "id": 2002,
+    "name": "TeraCopy",
+    "href": "http://teracopy.com",
+    "uri": "undefined",
+    "description": "Copy your files faster and more securely",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1561102464
+  },
+  {
+    "id": 2012,
+    "name": "Hexagone",
+    "href": "http://hexagone.tekstur.dk/",
+    "uri": "undefined",
+    "description": "Lightning enabled puzzle game",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1561120128
+  },
+  {
+    "id": 2032,
+    "name": "Moon (paywithmoon.com)",
+    "href": "https://paywithmoon.com",
+    "uri": "02d23fa6794d8fd056c757f3c8f4877782138dafffedc831fc570cab572620dc61@54.224.118.176:9735",
+    "description": "Shop directly on Amazon.com with Lightning Network via a browser extension.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1561766272
+  },
+  {
+    "id": 2037,
+    "name": "BitcoinGirlsFlash",
+    "href": "https://www.bitcoingirlsflash.me/en/",
+    "uri": "undefined",
+    "description": "Best Live Cam Girls For Bitcoin \u0026 Cryptocurrencies - HQ Video Chat Rooms",
+    "sector": "adult",
+    "digital_goods": "yes",
+    "added": 1561790592
+  },
+  {
+    "id": 2042,
+    "name": "BitcoinCam.org",
+    "href": "https://bitcoincam.org",
+    "uri": "undefined",
+    "description": "Adult Webcam Sex , 100% Live Shows - Accept Bitcoin and Altcoins",
+    "sector": "adult",
+    "digital_goods": "yes",
+    "added": 1561792384
+  },
+  {
+    "id": 2046,
+    "name": "Niffler.co",
+    "href": "https://niffler.co",
+    "uri": "03df3f0a2fd6bea5429a596461ce784c922b2981ada1af89cfefcd9ccfb16c16a7@ln.cryptochill.com:9735",
+    "description": "Niffler.co Simulated Crypto Exchange w/ Lightning Network Payouts",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1562261488
+  },
+  {
+    "id": 2047,
+    "name": "Lightning Poker",
+    "href": "https://lightning-poker.com",
+    "uri": "03ad156742a9a9d0e82e0022f264d6857addfd534955d5e97de4a695bf8dd12af0@35.192.129.63:9735",
+    "description": "No Accounts - Bitcoin Lightning Texas hold\u0027em Poker",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1561796096
+  },
+  {
+    "id": 2052,
+    "name": "AHnames",
+    "href": "https://ahnames.com/",
+    "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
+    "description": "Domains register / Hosting VPS",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1561982592
+  },
+  {
+    "id": 2057,
+    "name": "Lightning Connect Four",
+    "href": "https://lnc4.io/",
+    "uri": "020d6989eaaf107a020501607aae8f489dd207cc495fbdd6b80eee14336ed3217c@45.76.165.162:9735",
+    "description": "Play connect four with bitcoin, winner takes all.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1562152576
+  },
+  {
+    "id": 2072,
+    "name": "Fold",
+    "href": "https://foldapp.com",
+    "uri": "02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774@mainnet-lnd.ln.pizza:9735",
+    "description": "Shop at your favorite retailers via the Lightning Network.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1562786688
+  },
+  {
+    "id": 2082,
+    "name": "The Tor Project Crowdfunding",
+    "href": "https://bitcoinfortor.torproject.net",
+    "uri": "028c1da32603fce64118e469ffe2cfeec04d1c4bd88205efb4e8b4208f77a8064e@172.81.181.237:9735",
+    "description": "Stand up for the universal human rights to privacy and freedom - fundraising campaign with a $10k goal. ",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1563230208
+  },
+  {
+    "id": 2097,
+    "name": "Fair Lightning Network",
+    "href": "https://fairlightning.network/",
+    "uri": "undefined",
+    "description": "List of Lightning Network gambling sites that use Provably Fair.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1563363840
+  },
+  {
+    "id": 2127,
+    "name": "BitDials",
+    "href": "https://www.bitdials.eu",
+    "uri": "undefined",
+    "description": "The Bitcoin Luxury Boutique. Since 2016.",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1563453312
+  },
+  {
+    "id": 2132,
+    "name": "BitCars",
+    "href": "https://bitcars.eu/",
+    "uri": "undefined",
+    "description": "Buy Supercars \u0026 Oldtimers with Bitcoin",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1563453568
+  },
+  {
+    "id": 2137,
+    "name": "Bitcoin Lightning Payment Gateway",
+    "href": "https://ln.mycloudware.net",
+    "uri": "03a0aaf1f9553dca05f8c9edd74c5ff6c53 83337973a47015934dece259d646e3c @81.0.209.222:9735",
+    "description": "Simple solution for annonymous receiving LN payments.",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1563570944
+  },
+  {
+    "id": 2147,
+    "name": "Satoshi\u0027s Games",
+    "href": "https://satoshis.games/",
+    "uri": "036e8a8efeb26f3cffce99f462839ef6ea3b1691d569d59c402be0d3d6cef9b79c@172.81.178.164:9735",
+    "description": "Earn Bitcoin by playing games",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1563892736
+  },
+  {
+    "id": 2157,
+    "name": "ads4satoshis",
+    "href": "https://ads4satoshis.com/",
+    "uri": "03313fba8ce0b0257d6cdc200c125be799a5dd17456e16e91c5eac7fde28ada59d@35.227.153.251:9735",
+    "description": "Get paid for viewing ads! Withdraw immediatly, no minimum amounts. Built on top of Bitcoin and the Lightning Network.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1564430464
+  },
+  {
+    "id": 2162,
+    "name": "CryptoRefills",
+    "href": "https://www.cryptorefills.com",
+    "uri": "03b5f4b432ce0356d16f41ad4b5ec3127329188659914c9810696812687773afe5@34.241.72.104:9735",
+    "description": "Recharge your phone, buy vouchers and other products.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1564599168
+  },
+  {
+    "id": 2167,
+    "name": "BitKong",
+    "href": "https://beta.bitkong.com",
+    "uri": "undefined",
+    "description": "Bitcoin casino accepting Lightning ⚡️ ",
+    "sector": "games\u0026casino",
+    "digital_goods": "no, goods shipped",
+    "added": 1564713984
+  },
+  {
+    "id": 2172,
+    "name": "Bitstamper.io",
+    "href": "https://bitstamper.io/",
+    "uri": "undefined",
+    "description": "Stamps, Sticker, Shirts, Posters, Socks... we redistribute 50% of our profits to NGO with Bitcoin.",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1564752000
+  },
+  {
+    "id": 2177,
+    "name": "LN Paywall Link",
+    "href": "https://paywall.link",
+    "uri": "033868c219bdb51a33560d854d500fe7d3898a1ad9e05dd89d0007e11313588500@ln-1.slinginsats.com:9735",
+    "description": "Easily accept Lightning payments for digital goods / services with a payment-protected link.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1564860672
+  },
+  {
+    "id": 2182,
+    "name": "Hodl Hodl",
+    "href": "https://hodlhodl.com",
+    "uri": "undefined",
+    "description": "Peer to peer non-custodial bitcoin exchange.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1565114112
+  },
+  {
+    "id": 2192,
+    "name": "POSMN Hosting",
+    "href": "https://test.posmn.com/#/hosting",
+    "uri": "03a0f15b9b44e1ce4b192a9287aa24f8596efc1a1989d12cd25d5749cc20ea195e@176.223.131.126:9735",
+    "description": "Host your masternode using our cheap service",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1565543936
+  },
+  {
+    "id": 2202,
+    "name": "Lightning Chance ",
+    "href": "https://lightningchance.com",
+    "uri": "undefined",
+    "description": "Spin to win Bitcoin ",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1565882496
+  },
+  {
+    "id": 2222,
+    "name": "Usenet Farm",
+    "href": "https://usenet.farm",
+    "uri": "undefined",
+    "description": "Usenet group with free trial up to 10GB.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1566213504
+  },
+  {
+    "id": 2227,
+    "name": "koalastickers.com",
+    "href": "https://koalastickers.com/",
+    "uri": "undefined",
+    "description": "Buy bitcoin stickers, pay with lightning ⚡️",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1566236672
+  },
+  {
+    "id": 2232,
+    "name": "VPS Hosting",
+    "href": "https://ln-vps.remoteadmin.store/",
+    "uri": "025033fdfd6f4e0e909776f0e8250c997f75de9cb11466e3a36fb8e6c7a1abcbb9@193.105.125.115:9735",
+    "description": "Buy Virtual Private Server using Lightning Network payments. Buy without registration. Without creating an account. ",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1566287872
+  },
+  {
+    "id": 2237,
+    "name": "Satsgo",
+    "href": "https://satsgo.com/",
+    "uri": "undefined",
+    "description": "Sell virtual products, it\u0027s a Chinese website.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1566306944
+  },
+  {
+    "id": 2242,
+    "name": "Lightning Gifts",
+    "href": "https://lightning.gifts",
+    "uri": "undefined",
+    "description": "Create fee-less Bitcoin gift vouchers to share with friends, family, and your haters.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1566462080
+  },
+  {
+    "id": 2247,
+    "name": "The Money Badger Shop",
+    "href": "https://moneybadger.shop/",
+    "uri": "undefined",
+    "description": "Bitcoin Utilities",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1566604416
+  },
+  {
+    "id": 2277,
+    "name": "Best Forex VPS",
+    "href": "https://nextpointhost.com/forex-vps",
+    "uri": "undefined",
+    "description": "The World\u0027s Oldest Forex VPS Provider. Reliable Servers for Auto Trading",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1567686016
+  },
+  {
+    "id": 2282,
+    "name": "AppMoon",
+    "href": "https://appmoon.io",
+    "uri": "undefined",
+    "description": "Bitcoin powered android app store.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1567967488
+  },
+  {
+    "id": 2287,
+    "name": "Lapps - Lightning Network apps",
+    "href": "https://www.lapps.co",
+    "uri": "undefined",
+    "description": "A curation of the best new Lightning apps",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1568029568
+  },
+  {
+    "id": 2292,
+    "name": "Original Satoshi",
+    "href": "https://www.originalsatoshi.com",
+    "uri": "undefined",
+    "description": "Buy Stickers and other Bitcoin Goods.",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1568242688
+  },
+  {
+    "id": 2297,
+    "name": "Samurai Oyster",
+    "href": "https://funabiki.info/shop/",
+    "uri": "bsxcf4ivfqv22e4sv323pu4n5ivpzzupcjmsicj2hkil7dkknnoq7byd.onion:9735",
+    "description": "Premium Wholesale Oysters (Japan Only",
+    "sector": "food",
+    "digital_goods": "no, goods shipped",
+    "added": 1568946432
+  },
+  {
+    "id": 2312,
+    "name": "Primal Pastures",
+    "href": "https://primalpastures.com/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "Pasture raised organic chicken, pork, lamb, beef and honey",
+    "sector": "food",
+    "digital_goods": "no, goods shipped",
+    "added": 1570040576
+  },
+  {
+    "id": 2317,
+    "name": "Drawings For Lightning",
+    "href": "https://dtyt79.wixsite.com/drawingsforlightning",
+    "uri": "undefined",
+    "description": "I have an Apple Pencil andI can draw you a Basic, Decent, or Advanced for satoshis.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1570140544
+  },
+  {
+    "id": 2322,
+    "name": "LightningPuzzle",
+    "href": "https://www.lightningpuzzle.com/",
+    "uri": "undefined",
+    "description": "An online platform for puzzles with competitions.",
+    "sector": "games\u0026casino",
+    "digital_goods": "no, goods shipped",
+    "added": 1570402048
+  },
+  {
+    "id": 2327,
+    "name": "PCWitchdoctor",
+    "href": "https://www.pcwitchdoctor.com",
+    "uri": "undefined",
+    "description": "A General Merchandise Store facilitating the use of Lightning Network for payments. ",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1570421120
+  },
+  {
+    "id": 2342,
+    "name": "iStripper",
+    "href": "https://www.istripper.com",
+    "uri": "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3@18.184.237.59:9735",
+    "description": "Strip club for your desktop.",
+    "sector": "adult",
+    "digital_goods": "yes",
+    "added": 1570880768
+  },
+  {
+    "id": 2347,
+    "name": "thingsCBD",
+    "href": "https://thingscbd.com/",
+    "uri": "undefined",
+    "description": "buy CBD products with Bitcoin on Lightning Network",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1570899840
+  },
+  {
+    "id": 2346,
+    "name": "Lightnite crowdfund",
+    "href": "https://buy.lightnite.io",
+    "uri": "036e8a8efeb26f3cffce99f462839ef6ea3b1691d569d59c402be0d3d6cef9b79c@172.81.178.164:9735",
+    "description": "Contribute to Lightnite, an online multiplayer battle royale game. Buy early access and merchandise.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1571580177
+  },
+  {
+    "id": 2357,
+    "name": "Käserei Lustnau",
+    "href": "https://www.kaeserei-lustnau.ch",
+    "uri": "undefined",
+    "description": "Quality traditional cheese from Switzerland",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1571632768
+  },
+  {
+    "id": 2367,
+    "name": "ShopWithBitcoin.Online",
+    "href": "https://shopwithbitcoin.online",
+    "uri": "undefined",
+    "description": "General Merchandise",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1571901696
+  },
+  {
+    "id": 2372,
+    "name": "Lightning Faucet",
+    "href": "https://lightning-faucet.com",
+    "uri": "02594c59aceeee247184ffc8abac8213dd773c789e18af2c20c4d1613db82afb0a@206.189.20.131:9735",
+    "description": "Lightning Faucet is a way to test sending and receiving from your lightning wallet and receive free bitcoin",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1572284672
+  },
+  {
+    "id": 2387,
+    "name": "Mike Brown",
+    "href": "https://evolution-host.com/vps-hosting.php",
+    "uri": "undefined",
+    "description": "Evolution Host provide enterprise grade DDoS Protected VPS Hosting around the world and proudly accept Bitcoin on the lightning network!",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1572830848
+  },
+  {
+    "id": 2392,
+    "name": "crypto discretus",
+    "href": "http://cryptodiscretus.com",
+    "uri": "undefined",
+    "description": "Business card sized seed cards to record your 12 or 24 word phrases when creating new cryptocurrency wallets.",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1573335552
+  },
+  {
+    "id": 2397,
+    "name": "Lightning Prism",
+    "href": "https://lightningprism.rocks",
+    "uri": "02cac066b51bddffcf1e350a3130a7e060ec3ca958be605f98890c2899367e7f90@185.198.57.211:9742",
+    "description": "Change the site\u0027s color for everyone and leave a message in that color for a small fee paid in BTC through the Lightning Network!!",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1574022144
+  },
+  {
+    "id": 2402,
+    "name": "bitclouds.sh",
+    "href": "https://bitclouds.sh",
+    "uri": "025a14b8ed40583d67aec92da19453e0b2d1fbbf75f96f85d3dd0ff61a51ee0490@carnikavazp6djqx.onion:9735",
+    "description": "Account-less, open-source VPS cloud platform with API",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1574033664
+  },
+  {
+    "id": 2417,
+    "name": "Bitclouds Watchtower",
+    "href": "https://github.com/bitcoin-software/bitbsd-clouds/tree/master/client-util",
+    "uri": "025a14b8ed40583d67aec92da19453e0b2d1fbbf75f96f85d3dd0ff61a51ee0490@carnikavazp6djqx.onion:9735",
+    "description": "non-custodial CLI wallet for developers: LN support, TOR,  REST API, SSH access to nodes, encrypted backups",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1574090880
+  },
+  {
+    "id": 2422,
+    "name": "summherum.at",
+    "href": "https://summherum.at",
+    "uri": "037e074ea4621b7ab5e83404577bc8e5b720d181be95cd0b2d77d473e5482854e1@178.191.70.45:9735",
+    "description": "Honey from the Bregenzerwald.",
+    "sector": "food",
+    "digital_goods": "no, goods shipped",
+    "added": 1574149632
+  },
+  {
+    "id": 2432,
+    "name": "Chipi Chipi Bombón",
+    "href": "https://www.chipichipibombon.com",
+    "uri": "03e27f7867cb4deae26338903ec688ebc52b92f68ec6f0b4ad5322dfaf1f801d2a@91.66.3.156:9735",
+    "description": "Ice cream all year long and Hot Chocolate during autumn/winter",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1574295168
+  },
+  {
+    "id": 2442,
+    "name": "WhosApp Online",
+    "href": "https://whosapp.online",
+    "uri": "03761da88bec6c4280b8bc9366f994570b07173a27a14b4b6985853d3c57d7f95f@188.216.48.59:9735",
+    "description": "Track anyone on WhatsApp",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1574580864
+  },
+  {
+    "id": 2457,
+    "name": "Bitfinex",
+    "href": "https://ln.bitfinex.com",
+    "uri": "033d8656219478701227199cbd6f670335c8d408a92ae88b962c49d4dc0e83e025@34.65.85.39:9735",
+    "description": "One of the major cryptocurrency exchanges. Deposit and withdraw with lightning.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1575378944
+  },
+  {
+    "id": 2462,
+    "name": "bitcoinGD",
+    "href": "https://bitcoingd.com/",
+    "uri": "025f879b1cd27a7664bba20d25bca70360cb635117c3a71cd77e5572d2cc0628a8",
+    "description": "Get steam games cheaper than ever using Bitcoin at bitcoin GameDeals store",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1575397504
+  },
+  {
+    "id": 2467,
+    "name": "Arnhem Bitcoin City",
+    "href": "https://www.arnhembitcoinstad.nl",
+    "uri": "0231eccc6510eb2e1c97c8a190d6ea096784aa7c358355442055aac8b20654f932",
+    "description": "Over 100 merchants in the city centre accepting Bitcoin + LN",
+    "sector": "other",
+    "digital_goods": "no, goods only in-store",
+    "added": 1575400960
+  },
+  {
+    "id": 2497,
+    "name": "Coinstop",
+    "href": "https://coinstop.io",
+    "uri": "undefined",
+    "description": "Global Hardware Wallet Seller with brands such as Ledger and Trezor. At the final step of checkout there is the choice to pay with lightning network.",
+    "sector": "security",
+    "digital_goods": "no, goods shipped",
+    "added": 1576488960
+  },
+  {
+    "id": 2507,
+    "name": "Meme Us",
+    "href": "https://meme.us.com",
+    "uri": "undefined",
+    "description": "Meme shirts and apparel. Use Bitcoin lightning at the end of checkout. ",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1576528128
+  },
+  {
+    "id": 2512,
+    "name": "Spotlight",
+    "href": "https://spotlight.soy",
+    "uri": "02aac548b877279c30f3abbb7301de93096e3b87144fc484dc3409bb0d6bd566b1@spotlight.soy:9735",
+    "description": "platform that allows anyone to easily post articles and earn Bitcoin",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1576805888
+  },
+  {
+    "id": 2522,
+    "name": "Lightning Scratch and Win",
+    "href": "https://lightningscratchand.win",
+    "uri": "undefined",
+    "description": "Play provably fair scratchcards on the Bitcoin Lightning Network",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1577367808
+  },
+  {
+    "id": 2527,
+    "name": "Graaf One",
+    "href": "https://app.graaf.one/",
+    "uri": "02597be64d8511bd933b792629404313bb387b7014bc82703942acebaa793f538b@192.241.137.219:9735",
+    "description": "Canada\u0027s first Lightning Network Exchange",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1577469696
+  },
+  {
+    "id": 2532,
+    "name": "TravelbyBit",
+    "href": "https://travelbybit.com/",
+    "uri": "undefined",
+    "description": "Travel the world and get rewarded in Bitcoin",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1577772672
   }
 ]
