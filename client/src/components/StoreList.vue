@@ -44,7 +44,7 @@ export default class StoreList extends Vue {
     isLoading: boolean = true;
 
     maxCards: number = 6;
-    maxCardAtStart: number = 18;
+    maxCardAtStart: number = 12;
     addCardCount: number = 12;
 
     async mounted() {
