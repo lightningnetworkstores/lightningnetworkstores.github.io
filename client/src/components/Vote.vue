@@ -42,114 +42,116 @@
         <!-- Upvote store modal -->
         <v-dialog v-model="showDialog" persistent max-width="500">
             <v-card>
-                <div v-if="paymentRequest && isPaid" class="text-xs-center">
-                    <!-- paymentRequest && isPaid -->
-                    <v-card-title class="headline">
-                        <v-layout row>
-                            <v-flex>Payment successful</v-flex>
-                        </v-layout>
-                    </v-card-title>
-                    <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
-                    <v-layout row mt-2>
-                        <v-flex
-                            >Go to <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
-                        >
-                    </v-layout>
-                </div>
-
-                <div v-else>
-                    <v-layout row v-if="commentAlert.message.length">
-                        <v-flex pa-3>
-                            <v-alert :value="commentAlert.message" :type="commentAlert.success ? 'success' : 'error'" transition="scale-transition">
-                                {{ commentAlert.message }}
-                            </v-alert>
-                        </v-flex>
-                    </v-layout>
-                    <v-card-title class="headline">
-                        <v-layout row>
-                            <v-flex grow>
-                                <span v-if="isUpvoting && !parentComment && !parentReview">Upvote</span><span v-if="!isUpvoting && !parentComment && !parentReview">Downvote</span>
-                                <span v-if="!parentReview && !parentComment">&nbsp;{{ store.name }}</span>
-                                <span v-if="parentReview && !parentComment && isReviewUpvote">Reinforce positive review & upvote</span>
-                                <span v-if="parentReview && !parentComment && !isReviewUpvote">Reinforce negative review & downvote</span>
-                                <span v-if="parentComment">Reply</span>
-                            </v-flex>
-                            <v-flex shrink v-if="paymentRequest && !isPaid"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
-                        </v-layout>
-                    </v-card-title>
-                    <v-layout row>
-                        <v-flex pl-3 pr-3 v-if="!paymentRequest.length && !parentComment">
-                            <v-text-field
-                                v-model="upvoteDialogForm.amount"
-                                type="number"
-                                label="Number of upvotes (1 vote = 1 satoshi)"
-                                hint=""
-                                :rules="[v => !!v || 'Amount is required']"
-                            ></v-text-field>
-                            <v-textarea
-                                v-if="!parentReview"
-                                v-model="upvoteDialogForm.comment"
-                                type="text"
-                                counter="200"
-                                :label="'Review (optional - minimum ' + replyReviewFee + ' satoshis)'"
-                                rows="4"
-                                :rules="[v => v.length <= 200 || 'Review has to be shorter than 200 characters']"
-                            ></v-textarea>
-                        </v-flex>
-                    </v-layout>
-
-                    <v-layout row>
-                        <v-flex pl-3 pr-3 v-if="!paymentRequest.length && parentComment">
-                            Cost: {{ upvoteDialogForm.amount }} satoshis
-                            <v-textarea
-                                v-if="parentReview && parentComment"
-                                v-model="upvoteDialogForm.comment"
-                                type="text"
-                                counter="200"
-                                label="Reply"
-                                rows="4"
-                                :rules="[v => v.length <= 200 || 'Reply has to be shorter than 200 characters', v => !!v || 'Reply is required']"
-                            ></v-textarea>
-                        </v-flex>
-                    </v-layout>
-
-                    <div v-if="paymentRequest">
-                        <v-layout row>
-                            <v-flex pa-3 class="text-xs-center"
-                                ><h3>{{ upvoteDialogForm.amount | number }} sat</h3></v-flex
+                <template v-if="showDialog">
+                    <div v-if="paymentRequest && isPaid" class="text-xs-center">
+                        <!-- paymentRequest && isPaid -->
+                        <v-card-title class="headline">
+                            <v-layout row>
+                                <v-flex>Payment successful</v-flex>
+                            </v-layout>
+                        </v-card-title>
+                        <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
+                        <v-layout row mt-2>
+                            <v-flex
+                                >Go to <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
                             >
                         </v-layout>
-                        <v-layout row>
-                            <v-flex pl-3 pr-3 class="text-xs-center"><qrcode-vue class="qrcode" size="300" :value="paymentRequest"></qrcode-vue></v-flex>
-                        </v-layout>
+                    </div>
 
-                        <v-layout row>
-                            <v-flex pl-3 pr-3>
-                                <v-text-field :value="paymentRequest" label="Invoice" hint="" append-icon="fa-copy" type="text" id="paymentrequest" @click:append="copy"></v-text-field
-                            ></v-flex>
-                        </v-layout>
-                        <v-layout row>
-                            <v-flex pl-3 pr-3 class="text-xs-center">
-                                <a :href="'lightning:' + paymentRequest" class="link-button">Open in wallet</a>
+                    <div v-else>
+                        <v-layout row v-if="commentAlert.message.length">
+                            <v-flex pa-3>
+                                <v-alert :value="commentAlert.message" :type="commentAlert.success ? 'success' : 'error'" transition="scale-transition">
+                                    {{ commentAlert.message }}
+                                </v-alert>
                             </v-flex>
                         </v-layout>
+                        <v-card-title class="headline">
+                            <v-layout row>
+                                <v-flex grow>
+                                    <span v-if="isUpvoting && !parentComment && !parentReview">Upvote</span><span v-if="!isUpvoting && !parentComment && !parentReview">Downvote</span>
+                                    <span v-if="!parentReview && !parentComment">&nbsp;{{ store.name }}</span>
+                                    <span v-if="parentReview && !parentComment && isReviewUpvote">Reinforce positive review & upvote</span>
+                                    <span v-if="parentReview && !parentComment && !isReviewUpvote">Reinforce negative review & downvote</span>
+                                    <span v-if="parentComment">Reply</span>
+                                </v-flex>
+                                <v-flex shrink v-if="paymentRequest && !isPaid"><v-progress-circular indeterminate size="20" color="green"></v-progress-circular></v-flex>
+                            </v-layout>
+                        </v-card-title>
+                        <v-layout row>
+                            <v-flex pl-3 pr-3 v-if="!paymentRequest.length && !parentComment">
+                                <v-text-field
+                                    v-model="upvoteDialogForm.amount"
+                                    type="number"
+                                    label="Number of upvotes (1 vote = 1 satoshi)"
+                                    hint=""
+                                    :rules="[v => !!v || 'Amount is required']"
+                                ></v-text-field>
+                                <v-textarea
+                                    v-if="!parentReview"
+                                    v-model="upvoteDialogForm.comment"
+                                    type="text"
+                                    counter="200"
+                                    :label="'Review (optional - minimum ' + replyReviewFee + ' satoshis)'"
+                                    rows="4"
+                                    :rules="[v => v.length <= 200 || 'Review has to be shorter than 200 characters']"
+                                ></v-textarea>
+                            </v-flex>
+                        </v-layout>
+
+                        <v-layout row>
+                            <v-flex pl-3 pr-3 v-if="!paymentRequest.length && parentComment">
+                                Cost: {{ upvoteDialogForm.amount }} satoshis
+                                <v-textarea
+                                    v-if="parentReview && parentComment"
+                                    v-model="upvoteDialogForm.comment"
+                                    type="text"
+                                    counter="200"
+                                    label="Reply"
+                                    rows="4"
+                                    :rules="[v => v.length <= 200 || 'Reply has to be shorter than 200 characters', v => !!v || 'Reply is required']"
+                                ></v-textarea>
+                            </v-flex>
+                        </v-layout>
+
+                        <div v-if="paymentRequest">
+                            <v-layout row>
+                                <v-flex pa-3 class="text-xs-center"
+                                    ><h3>{{ upvoteDialogForm.amount | number }} sat</h3></v-flex
+                                >
+                            </v-layout>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3 class="text-xs-center"><qrcode-vue class="qrcode" size="300" :value="paymentRequest"></qrcode-vue></v-flex>
+                            </v-layout>
+
+                            <v-layout row>
+                                <v-flex pl-3 pr-3>
+                                    <v-text-field :value="paymentRequest" label="Invoice" hint="" append-icon="fa-copy" type="text" id="paymentrequest" @click:append="copy"></v-text-field
+                                ></v-flex>
+                            </v-layout>
+                            <v-layout row>
+                                <v-flex pl-3 pr-3 class="text-xs-center">
+                                    <a :href="'lightning:' + paymentRequest" class="link-button">Open in wallet</a>
+                                </v-flex>
+                            </v-layout>
+                        </div>
                     </div>
-                </div>
-                <v-layout row>
-                    <v-flex pl-3 pr-3> </v-flex>
-                </v-layout>
+                    <v-layout row>
+                        <v-flex pl-3 pr-3> </v-flex>
+                    </v-layout>
 
-                <v-card-actions>
-                    <v-spacer></v-spacer>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
 
-                    <v-btn color="green darken-1" flat="flat" @click="cancel">
-                        {{ paymentRequest && isPaid ? "Close" : "Cancel" }}
-                    </v-btn>
+                        <v-btn color="green darken-1" flat="flat" @click="cancel">
+                            {{ paymentRequest && isPaid ? "Close" : "Cancel" }}
+                        </v-btn>
 
-                    <v-btn color="green darken-1" flat="flat" @click="getInvoice" v-if="!paymentRequest.length">
-                        Get invoice
-                    </v-btn>
-                </v-card-actions>
+                        <v-btn color="green darken-1" flat="flat" @click="getInvoice" v-if="!paymentRequest.length">
+                            Get invoice
+                        </v-btn>
+                    </v-card-actions>
+                </template>
             </v-card>
         </v-dialog>
     </div>
