@@ -1,0 +1,11 @@
+[{"entity":"Coingate", "link":"https://coingate.com/", "description":"Lightning-enabled bitcoin payment processor"},
+{"entity":"OpenNode", "link":"https://www.opennode.co/", "description":"Lightning-enabled bitcoin payment processor"},
+{"entity":"Globee", "link":"https://globee.com/", "description":"Lightning-enabled bitcoin payment processor"},
+{"entity":"Strike", "link":"https://strike.acinq.co/", "description":"Payment processing API for lightning."},
+{"entity":"Submarine swaps", "link":"https://submarineswaps.org/", "description":"Trade on-chain tokens for Lightning invoice payments."},
+{"entity":"LNroute", "link":"https://lnroute.com/other-directories/", "description":"Comprehensive list of lightning resources with links to other lists."},
+{"entity":"LightningTo.Me", "link":"https://lightningto.me/", "description":"Inward liquidity provider for lightning nodes."},
+{"entity":"1ML", "link":"https://1ml.com/", "description":"Lightning network explorer."},
+{"entity":"BTCPay", "link":"https://btcpayserver.org/", "description":"Non-custodial open-source server to accept bitcoin payments."},
+{"entity":"Cryptochill", "link":"https://cryptochill.com/", "description":"Lightning-enabled bitcoin payment processor."}
+]
