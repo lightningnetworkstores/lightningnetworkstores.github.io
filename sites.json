@@ -1552,16 +1552,6 @@
     "added": 1548292864
   },
   {
-    "id": 903,
-    "name": "Lightning Singles",
-    "href": "https://singles.shock.network",
-    "uri": "03785c99cd75dcd0b3f2f4cedc5a82e108396abba65f107e97d93e3fdb212d38f4@96.9.244.139:9735",
-    "description": "Is your node lonely? Find channel partners for liquidity.",
-    "sector": "technology",
-    "digital_goods": "yes",
-    "added": 1548363034
-  },
-  {
     "id": 927,
     "name": "Last PayIn Win",
     "href": "https://lightningnetwork.games/lastpaywin/",
