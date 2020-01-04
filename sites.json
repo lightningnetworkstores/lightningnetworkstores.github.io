@@ -2592,16 +2592,6 @@
     "added": 1557398528
   },
   {
-    "id": 1672,
-    "name": "lndrive",
-    "href": "https://lndrive.space",
-    "uri": "037b752e68ec91b32714fd6649836b484642fef3f939fbf2a7ad365fbbd86bdb7e@144.76.107.110:9735",
-    "description": "Host files on IPFS using lightning.",
-    "sector": "technology",
-    "digital_goods": "yes",
-    "added": 1557423872
-  },
-  {
     "id": 1682,
     "name": "Bitstop Store",
     "href": "https://store.bitstop.co/",
