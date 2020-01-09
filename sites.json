@@ -3290,5 +3290,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1577772672
+  },
+  {
+    "id": 2542,
+    "name": "Onion Studio",
+    "href": "https://onion.studio",
+    "uri": "undefined",
+    "description": "Art space pixels bought via onion-routed TLV messages on the Lightning Network",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1578591872
   }
 ]
