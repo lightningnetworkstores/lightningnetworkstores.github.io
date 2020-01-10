@@ -3300,5 +3300,15 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1578591872
+  },
+  {
+    "id": 2547,
+    "name": "Loopbomb",
+    "href": "https://loopbomb.com",
+    "uri": "undefined",
+    "description": "Freeze a moment in time \u0026 claim your unique digital collectible.",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1578660992
   }
 ]
