@@ -3310,5 +3310,15 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1578660992
+  },
+  {
+    "id": 2577,
+    "name": "THNDR GAMES",
+    "href": "https://thndr.games",
+    "uri": "02d529dfc58b7f8d35ada9c3986a1526fec6347f2422b8a80b82f90fdbba5e944e",
+    "description": "Play games and win bitcoin. iOS and Android games to #stacksats",
+    "sector": "games\u0026casino",
+    "digital_goods": "no, goods shipped",
+    "added": 1578864000
   }
 ]
