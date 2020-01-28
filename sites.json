@@ -3330,5 +3330,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1580188032
+  },
+  {
+    "id": 2607,
+    "name": "Cloud Windows VPS",
+    "href": "https://cloudwindowsvps.com/",
+    "uri": "undefined",
+    "description": "Windows VPS on the cloud. RDP for personal, business and education. Available In 9 Countries.",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "no, goods shipped",
+    "added": 1580223616
   }
 ]
