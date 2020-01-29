@@ -3340,5 +3340,15 @@
     "sector": "vps\u0026web hosting",
     "digital_goods": "no, goods shipped",
     "added": 1580223616
+  },
+  {
+    "id": 2612,
+    "name": "Neutronpay",
+    "href": "https://neutronpay.com",
+    "uri": "undefined",
+    "description": "Bitcoin Lightning payment provider",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1580300288
   }
 ]
