@@ -3350,5 +3350,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1580300288
+  },
+  {
+    "id": 2617,
+    "name": "🔥 Bitpaint Club 🔥",
+    "href": "http://bitpaint.club",
+    "uri": "03c7f7ab8d129e442506b088d5a2eaf986c6bd1142243f193a57359bd48548b213@170.75.162.198:9735",
+    "description": "Crowdunded bitcoin graffiti open club ",
+    "sector": "art",
+    "digital_goods": "no, goods only in-store",
+    "added": 1580682880
   }
 ]
