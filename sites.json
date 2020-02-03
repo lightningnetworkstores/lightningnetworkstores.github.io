@@ -3350,5 +3350,15 @@
     "sector": "art",
     "digital_goods": "no, goods only in-store",
     "added": 1580682880
+  },
+  {
+    "id": 2622,
+    "name": "LIGHT NITE",
+    "href": "https://lightnite.io/",
+    "uri": "undefined",
+    "description": "Battle royale game with lightning fast Bitcoin rewards.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1580736256
   }
 ]
