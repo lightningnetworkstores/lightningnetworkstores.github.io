@@ -22,7 +22,7 @@
                     </v-layout>
 
                     <v-layout row>
-                        <p>Main developer/maintainer: Pedro FR</p>
+                        <p>Main developer/maintainer: Pedro Fernandes (<a href="https://twitter.com/pedr0fr">@pedr0fr</a>)</p>
                     </v-layout>
                     <v-layout row>
                         <p>Email: lightningnetworkstores@gmail.com</p>
@@ -51,6 +51,17 @@
                     </v-layout>
                     <v-layout row>
                         <p>Check our quick tutorial here: <tutorial-modal></tutorial-modal></p>
+                    </v-layout>
+                    <v-layout row>
+                        <h4>Why do votes disappear/decrease over time?</h4>
+                    </v-layout>
+                    <v-layout row>
+                        <p>
+                            For about 18 months the votes didn't disappear but the increase in bitcoin's price made it harder and harder for new users to make a visible impact, making the website look
+                            always the same and boring. To compensate for this, after polling our users, we decided that the best solution would be to gradually decrease the weight of each vote by
+                            about half over one year. This effect is cumulative so after two years, the weight will be one fourth, after three years one eight, etc. You can check the total score of a
+                            store over its lifetime by going to its page acnd checking under the 'Lifetime score' field.
+                        </p>
                     </v-layout>
                     <v-layout row>
                         <h4>How to get a store listed?</h4>

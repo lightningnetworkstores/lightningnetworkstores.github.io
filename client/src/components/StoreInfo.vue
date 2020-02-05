@@ -59,6 +59,11 @@
                         ><a v-else>24/Feb/2018</a></v-layout
                     >
 
+                    <v-layout row v-if="store.sector && store.sector.length > 0" pl-3 pr-3
+                        ><b>Lifetime score: &nbsp;</b><span v-if="store.lifetime"> {{ store.lifetime | number }}</span
+                        ><span v-else>0</span></v-layout
+                    >
+
                     <vote v-bind:store="store" v-bind:isInfo="true"></vote>
 
                     <v-layout row pb-3 pl-2 pr-2 pt-3>

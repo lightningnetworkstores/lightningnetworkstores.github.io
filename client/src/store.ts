@@ -8,10 +8,10 @@ import { Score } from "./interfaces/Score";
 Vue.use(Vuex);
 
 const isTestEnv = false;
-const announcement = ""; //You can now review/comment stores!
-const announcementType = "success";
+const announcement = "Votes now evaporate very slowwly"; //You can now review/comment stores!
+const announcementType = "warning";
 const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com/";
-const addStoreFee = isTestEnv ? 2 : 5000;
+const addStoreFee = isTestEnv ? 2 : 3000;
 const replyReviewFee = isTestEnv ? 2 : 500;
 const trendingThreshold = 0;
 
