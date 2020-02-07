@@ -14,7 +14,7 @@
                 class="text-xs-right"
             ></vuetify-lazy-image>
             <v-layout>
-                <vote v-bind:store="storeWithScore"></vote>
+                <vote v-bind:store="storeWithScore" :sort="sort"></vote>
 
                 <v-flex>
                     <v-card-title primary-title class="pa-2">
@@ -54,6 +54,7 @@ import VuetifyLazyImage from "vuetify-lazy-image";
 export default class StoreCard extends Vue {
     @Prop() store!: Store;
     @Prop() baseUrl!: string;
+    @Prop() sort!: string;
 
     storeWithScore: Store = this.store;
 

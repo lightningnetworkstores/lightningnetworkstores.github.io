@@ -7,10 +7,10 @@ import { Score } from "./interfaces/Score";
 
 Vue.use(Vuex);
 
-const isTestEnv = true;
-const announcement = "Votes now evaporate very slowwly"; //You can now review/comment stores!
+const isTestEnv = false;
+const announcement = "How fast should we evaporate votes?"; //You can now review/comment stores!
 const announcementType = "info";
-const announcementLink = "";
+const announcementLink = "https://twitter.com/bitcoinLNS/status/1225889074680139777";
 
 const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com/";
 const addStoreFee = isTestEnv ? 2 : 3000;
@@ -141,7 +141,7 @@ export default new Vuex.Store({
             } else {
                 rank = "unranked";
             }
-            return { upvotes: score[0], downvotes: score[1], trending: score[2], lastCommented: score[3], rank: rank, commentCount: score[4] ? score[4] : 0 };
+            return { upvotes: score[0], downvotes: score[1], trending: score[2], lastCommented: score[3], rank: rank, commentCount: score[4] ? score[4] : 0, lifetime: score[5] ? score[5] : 0 };
         },
         getBaseUrl: state => () => {
             return baseUrl;

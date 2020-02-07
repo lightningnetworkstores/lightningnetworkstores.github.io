@@ -5,4 +5,5 @@ export interface Score {
     lastCommented: number;
     rank: number;
     commentCount: number;
+    lifetime: number;
 }

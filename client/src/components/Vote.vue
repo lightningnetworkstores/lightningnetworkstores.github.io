@@ -7,7 +7,8 @@
                 </v-flex>
 
                 <v-flex xs12 pa-2>
-                    <span class="number">{{ (store.upvotes - store.downvotes) | number }}</span>
+                    <span v-if="sort != 'lifetime'" class="number">{{ (store.upvotes - store.downvotes) | number }}</span
+                    ><span v-else class="number">{{ store.lifetime | number }}</span>
                 </v-flex>
 
                 <v-flex xs12>
@@ -170,6 +171,7 @@ export default class StoreCard extends Vue {
     @Prop() parentComment!: string;
     @Prop() isReviewUpvote!: boolean;
     @Prop() isReplyToSubComment!: boolean;
+    @Prop() sort!: string;
 
     score: any = {};
 

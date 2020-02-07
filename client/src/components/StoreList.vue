@@ -4,7 +4,7 @@
             <v-flex xs12 md12 lg10 xl8>
                 <v-container fluid grid-list-md style="padding-top: 0px;">
                     <v-layout row wrap>
-                        <store-card v-for="store in getStores.slice(0, maxCards)" :key="store.id" :store="store" :baseUrl="baseUrl"></store-card>
+                        <store-card v-for="store in getStores.slice(0, maxCards)" :key="store.id" :store="store" :baseUrl="baseUrl" :sort="sort"></store-card>
                     </v-layout>
                 </v-container>
                 <v-container fill-height v-if="isLoading">
