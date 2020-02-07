@@ -2,9 +2,10 @@
     <div class="store-list-filter">
         <v-layout v-if="this.announcement" justify-center class="text-xs-center">
             <v-flex xs11 md11 lg6 pa-3>
-                <v-alert :value="true" :type="this.announcementType">
-                    {{ this.announcement }}
-                </v-alert></v-flex
+                <v-alert :value="true" :type="this.announcementType" v-if="this.announcementLink">
+                    <a :href="this.announcementLink" style="color:white">{{ this.announcement }}</a>
+                </v-alert>
+                <v-alert :value="true" :type="this.announcementType" v-else> {{ this.announcement }} </v-alert></v-flex
             >
         </v-layout>
         <v-layout justify-center>
@@ -69,6 +70,7 @@ export default class StoreList extends Vue {
         { name: "Best", prop: "best" },
         { name: "Trending", prop: "trending" },
         { name: "Newest", prop: "newest" },
+        { name: "Lifetime score", prop: "lifetime" },
         { name: "Controversial", prop: "controversial" },
         { name: "Last commented", prop: "lastcommented" }
     ];
@@ -80,10 +82,12 @@ export default class StoreList extends Vue {
 
     announcement: string = "";
     announcementType: string = "";
+    announcementLink: string = "";
 
     mounted() {
         this.announcement = this.$store.getters.getAnnouncement();
         this.announcementType = this.$store.getters.getAnnouncementType();
+        this.announcementLink = this.$store.getters.getAnnouncementLink();
     }
 
     private changeUrl() {

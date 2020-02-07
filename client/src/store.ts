@@ -7,9 +7,11 @@ import { Score } from "./interfaces/Score";
 
 Vue.use(Vuex);
 
-const isTestEnv = false;
+const isTestEnv = true;
 const announcement = "Votes now evaporate very slowwly"; //You can now review/comment stores!
-const announcementType = "warning";
+const announcementType = "info";
+const announcementLink = "";
+
 const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com/";
 const addStoreFee = isTestEnv ? 2 : 3000;
 const replyReviewFee = isTestEnv ? 2 : 500;
@@ -86,6 +88,11 @@ export default new Vuex.Store({
                             })
                             .reverse();
                         break;
+                    case "lifetime":
+                        stores.sort((a: Store, b: Store) => {
+                            return (state.scores[b.id] || [0, 0, 0, 0, 0, 0])[5] - (state.scores[a.id] || [0, 0, 0, 0, 0, 0])[5];
+                        });
+                        break;
                     case "controversial":
                         stores.sort((a: Store, b: Store) => {
                             return (state.scores[b.id] || [0, 0])[1] - (state.scores[a.id] || [0, 0])[1];
@@ -144,6 +151,9 @@ export default new Vuex.Store({
         },
         getAnnouncementType: state => () => {
             return announcementType;
+        },
+        getAnnouncementLink: state => () => {
+            return announcementLink;
         },
         getAddStoreFee: state => () => {
             return addStoreFee;
