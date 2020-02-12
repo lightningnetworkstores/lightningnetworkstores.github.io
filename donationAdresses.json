@@ -86,5 +86,11 @@
     "address":"3LrXizKejCGYyGUxYzGweyuxFVtfs3odEe",
     "address_proof":"https://jochen-hoenicke.de/queue/#1,24h",
     "contributions":"Creator of the mempool monitoring site https://jochen-hoenicke.de/queue"
+  },
+  {
+    "entity":"Tony Hawk Foundation",
+    "lightning":"https://tonyhawkfoundation.org/bitcoin",
+    "address_proof":"https://tonyhawkfoundation.org/bitcoin",
+    "contributions":"This foundations helps fund public skate parks."
   }
 ]
