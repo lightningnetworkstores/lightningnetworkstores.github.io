@@ -1914,7 +1914,7 @@
   {
     "id": 1287,
     "name": "BitDouble",
-    "href": "https://bitdouble.io",
+    "href": "https://bitcoindouble.io",
     "uri": "03ce648061614b971a3a990e62cb5f782ac94e9576f2311256b2985bc05b5033e0@bitdouble.io:9735",
     "description": "BitDouble gambling site",
     "sector": "games\u0026casino",
@@ -3360,5 +3360,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1580736256
+  },
+  {
+    "id": 2627,
+    "name": "Mikä-Art",
+    "href": "https://www.mikae-art.com/en/",
+    "uri": "undefined",
+    "description": "Finnish modern art. Sculptures, graphic art, visual art, art jewellery and artistic photos. We also sell art-related merchandise. ",
+    "sector": "art",
+    "digital_goods": "no, goods shipped",
+    "added": 1581081472
   }
 ]
