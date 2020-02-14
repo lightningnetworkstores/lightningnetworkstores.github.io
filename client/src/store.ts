@@ -8,12 +8,12 @@ import { Score } from "./interfaces/Score";
 Vue.use(Vuex);
 
 const isTestEnv = false;
-const announcement = "How fast should we evaporate votes?"; //You can now review/comment stores!
+const announcement = "Votes evaporate with a 270 day half-life. Read the FAQ.";
 const announcementType = "info";
-const announcementLink = "https://twitter.com/bitcoinLNS/status/1225889074680139777";
+const announcementLink = "https://lightningnetworkstores.com/about";
 
 const baseUrl = isTestEnv ? "https://lightningnetworkstores.com:8443/" : "https://lightningnetworkstores.com/";
-const addStoreFee = isTestEnv ? 2 : 3000;
+const addStoreFee = isTestEnv ? 2 : 2000;
 const replyReviewFee = isTestEnv ? 2 : 500;
 const trendingThreshold = 0;
 

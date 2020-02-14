@@ -22,7 +22,7 @@
                     </v-layout>
 
                     <v-layout row>
-                        <p>Main developer/maintainer: Pedro Fernandes (<a href="https://twitter.com/pedr0fr">@pedr0fr</a>)</p>
+                        <p>Team: <a href="https://twitter.com/pedr0fr">Pedro Fernandes</a> (founder) and <a href="https://twitter.com/BitcoinBram">BitcoinBram</a> (frontend development)</p>
                     </v-layout>
                     <v-layout row>
                         <p>Email: lightningnetworkstores@gmail.com</p>
@@ -58,9 +58,18 @@
                     <v-layout row>
                         <p>
                             For about 18 months the votes didn't disappear but the increase in bitcoin's price made it harder and harder for new users to make a visible impact, making the website look
-                            always the same and boring. To compensate for this, after polling our users, we decided that the best solution would be to gradually decrease the weight of each vote by
-                            about half over one year. This effect is cumulative so after two years, the weight will be one fourth, after three years one eight, etc. You can check the total score of a
-                            store over its lifetime by going to its page acnd checking under the 'Lifetime score' field.
+                            always the same and boring. To compensate for this, after <a href="https://twitter.com/bitcoinLNS/status/1225889074680139777">polling</a> our users, we decided that the
+                            best solution would be to gradually decrease the weight of each vote.
+                        </p>
+                    </v-layout>
+                    <v-layout row>
+                        <h4>How do votes disappear/decrease over time?</h4>
+                    </v-layout>
+                    <v-layout row>
+                        <p>
+                            Immedialy after being cast, votes are worth the amount of satoshis paid. After 270 days (about 9 months), they are worth half of their original value, and after another 270
+                            days they are worth one fourth of their original value. This very slow exponential decrease is updated about every 10 minutes. This rate of evaporation is equivalent to
+                            losing about 7.4% of their value per month or 60% of their value per year.
                         </p>
                     </v-layout>
                     <v-layout row>
