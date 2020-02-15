@@ -3370,5 +3370,15 @@
     "sector": "art",
     "digital_goods": "no, goods shipped",
     "added": 1581081472
+  },
+  {
+    "id": 2642,
+    "name": "DIYnodes.com - home of the RaspiBlitz metal case",
+    "href": "https://diynodes.com/",
+    "uri": "028a2cb8d51e44d7d7e108c2e80a98cc069145e05a6d2025cf554bd8866fe32993@djbeflhgdy7at33da2bgtfz4mdwdqakrkad72e4risi3ildon3rbubid.onion:9735",
+    "description": "Bitcoin and Lightning nodes, parts and accessories",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1581757056
   }
 ]
