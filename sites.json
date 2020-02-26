@@ -3380,5 +3380,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1581757056
+  },
+  {
+    "id": 2652,
+    "name": "Restaurante El Avion",
+    "href": "https://www.elavioncastelldefels.com/",
+    "uri": "0259a54ec559924a0fb66abc3517657db35980ee04e276c200797e44a809175ac1@185.123.207.109:9735",
+    "description": "Best paellas in Barcelona, near to the beach",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1582729984
   }
 ]
