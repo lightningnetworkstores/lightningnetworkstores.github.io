@@ -3390,5 +3390,15 @@
     "sector": "food",
     "digital_goods": "no, goods only in-store",
     "added": 1582729984
+  },
+  {
+    "id": 2657,
+    "name": "QuickCoinBet.com",
+    "href": "https://quickcoinbet.com/",
+    "uri": "undefined",
+    "description": "A betting site that use Bitcoin lightning and is account free",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1582825728
   }
 ]
