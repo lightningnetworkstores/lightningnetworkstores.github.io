@@ -3400,5 +3400,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1582825728
+  },
+  {
+    "id": 2672,
+    "name": "Satoshi Hunt",
+    "href": "https://21mbitcoin.com",
+    "uri": "undefined",
+    "description": "Good at crptic clues, try your luck at finding a 12 word seed that will unlock 1,000,000 sats",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1583394048
   }
 ]
