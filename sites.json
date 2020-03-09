@@ -3410,5 +3410,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1583394048
+  },
+  {
+    "id": 2682,
+    "name": "LN Markets",
+    "href": "https://lnmarkets.com/",
+    "uri": "03271338633d2d37b285dae4df40b413d8c6c791fbee7797bc5dc70812196d7d5c@3.95.117.200:9735",
+    "description": "The first LN-powered Bitcoin derivatives trading platform",
+    "sector": "exchange",
+    "digital_goods": "no, goods only in-store",
+    "added": 1583758848
   }
 ]
