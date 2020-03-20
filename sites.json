@@ -3420,5 +3420,15 @@
     "sector": "exchange",
     "digital_goods": "no, goods only in-store",
     "added": 1583758848
+  },
+  {
+    "id": 2692,
+    "name": "ln.support",
+    "href": "https://ln.support",
+    "uri": "undefined",
+    "description": "LN powered Q+A (Question and Answer). No registration. Anonymous or use their LN nodes to sign questions, answers, comment, voting. Earn reputation.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1584748672
   }
 ]
