@@ -3430,5 +3430,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1584748672
+  },
+  {
+    "id": 2697,
+    "name": "Lightning Battle",
+    "href": "https://www.lightningbattle.com",
+    "uri": "029edbb304c7a00fbe9c912eebb8a865afe96a19015e0548e8be1691f965f1ca97@54.82.218.104:9735",
+    "description": "Wager Bitcoin in PvP skill games. Stack sats \u0026 battle to the top of the leaderboard.",
+    "sector": "games\u0026casino",
+    "digital_goods": "no, goods shipped",
+    "added": 1584893568
   }
 ]
