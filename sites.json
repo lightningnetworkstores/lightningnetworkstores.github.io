@@ -3440,5 +3440,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "no, goods shipped",
     "added": 1584893568
+  },
+  {
+    "id": 2702,
+    "name": "Lightning Tweet",
+    "href": "https://lightningtweet.com/",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "Penny for your thoughts?",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1584942208
   }
 ]
