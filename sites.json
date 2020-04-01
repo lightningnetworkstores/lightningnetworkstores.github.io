@@ -3450,5 +3450,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1584942208
+  },
+  {
+    "id": 2717,
+    "name": "Save Your Sats",
+    "href": "https://saveyoursatoshis.com/",
+    "uri": "undefined",
+    "description": "10-15% off select Gift Cards",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1585762816
   }
 ]
