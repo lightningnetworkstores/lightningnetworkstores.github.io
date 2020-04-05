@@ -3460,5 +3460,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1585762816
+  },
+  {
+    "id": 2727,
+    "name": "Earn Sats",
+    "href": "https://www.earnsats.co",
+    "uri": "undefined",
+    "description": "Get paid in bitcoin to complete free offers, surveys and more. Instantly withdraw your earnings using Lightning. ",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1586118784
   }
 ]
