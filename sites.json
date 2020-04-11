@@ -3480,5 +3480,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1586631424
+  },
+  {
+    "id": 2742,
+    "name": "DMarket",
+    "href": "https://dmarket.com",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "Marketplace for in-game items \u0026 skins.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1586636416
   }
 ]
