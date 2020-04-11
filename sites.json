@@ -3470,5 +3470,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1586118784
+  },
+  {
+    "id": 2737,
+    "name": "Tanglesheep",
+    "href": "https://www.youtube.com/channel/uc58awb3tewsgumseupmds-a/live",
+    "uri": "undefined",
+    "description": "Feed live sheep  with Bitcoin and watch them live  eating pellets. ",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1586631424
   }
 ]
