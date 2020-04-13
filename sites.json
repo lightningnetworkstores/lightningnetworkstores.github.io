@@ -3490,5 +3490,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1586636416
+  },
+  {
+    "id": 2747,
+    "name": "DTMF.io",
+    "href": "https://dtmf.io",
+    "uri": "03e718b50f67b80f424f1d9d902a7b9ed0a4f40729db90691f7d028ce059e70296@stzdvktybpbn5v26kcmtacudqw6has5wzfcrdjpacn6t5ktn5byg7fqd.onion:9735",
+    "description": "Buy virtual phone numbers from 50+ countries for SMS \u0026 calls.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1586770816
   }
 ]
