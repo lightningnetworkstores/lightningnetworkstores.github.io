@@ -3500,5 +3500,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1586770816
+  },
+  {
+    "id": 2752,
+    "name": "Simpledice: Bitcoin Dice",
+    "href": "https://simpledice.com",
+    "uri": "undefined",
+    "description": "The simplest but most advanced bitcoin dice game.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1586924288
   }
 ]
