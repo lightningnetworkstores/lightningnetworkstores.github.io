@@ -3510,5 +3510,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1586924288
+  },
+  {
+    "id": 2762,
+    "name": "Future.Travel",
+    "href": "https://future.travel/",
+    "uri": "undefined",
+    "description": "Best trabel website for airline ticket",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1587481984
   }
 ]
