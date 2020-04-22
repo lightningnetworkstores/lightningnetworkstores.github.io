@@ -3516,9 +3516,19 @@
     "name": "Future.Travel",
     "href": "https://future.travel/",
     "uri": "undefined",
-    "description": "Best trabel website for airline ticket",
+    "description": "Best travel website for airline ticket",
     "sector": "other",
     "digital_goods": "yes",
     "added": 1587481984
+  },
+  {
+    "id": 2767,
+    "name": "LNcase.com",
+    "href": "https://lncase.com",
+    "uri": "033868c219bdb51a33560d854d500fe7d3898a1ad9e05dd89d0007e11313588500@ln-1.slinginsats.com:9735",
+    "description": "LNcase is a case opening site on the Lightning Network. Good luck :)",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1587484544
   }
 ]
