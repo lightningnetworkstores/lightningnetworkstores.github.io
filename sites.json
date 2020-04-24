@@ -3530,5 +3530,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1587484544
+  },
+  {
+    "id": 2772,
+    "name": "Stekking",
+    "href": "https://stekking.com",
+    "uri": "022297edebc55af78f4f472323fa8b827dacddc74bdd786cd90f77a8c845afaa68@blx3vl7lq7q2ahjf.onion:9735",
+    "description": "Earn free bitcoin shopping your favorite European shops and booking platforms.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1587752704
   }
 ]
