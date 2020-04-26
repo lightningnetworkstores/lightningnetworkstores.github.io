@@ -3540,5 +3540,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1587752704
+  },
+  {
+    "id": 2777,
+    "name": "Mullvad via Lightning",
+    "href": "https://vpn.sovereign.engineering/",
+    "uri": "undefined",
+    "description": "Pay for Mullvad VPN using Lightning",
+    "sector": "security",
+    "digital_goods": "yes",
+    "added": 1587910656
   }
 ]
