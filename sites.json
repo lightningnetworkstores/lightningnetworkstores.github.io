@@ -3550,5 +3550,15 @@
     "sector": "security",
     "digital_goods": "yes",
     "added": 1587910656
+  },
+  {
+    "id": 2782,
+    "name": "My Coconut Heart",
+    "href": "https://www.mycoconutheart.com/",
+    "uri": "undefined",
+    "description": "Women\u0027s Clothing",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1588121472
   }
 ]
