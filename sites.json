@@ -3570,5 +3570,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1588122880
+  },
+  {
+    "id": 2792,
+    "name": "CryptoParrot",
+    "href": "https://cryptoparrot.com/",
+    "uri": "undefined",
+    "description": "Cryptocurrency Trading Simulator",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1588123776
   }
 ]
