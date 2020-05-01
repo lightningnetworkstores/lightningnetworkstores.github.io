@@ -3590,5 +3590,15 @@
     "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1588305408
+  },
+  {
+    "id": 2802,
+    "name": "1x1 Indien",
+    "href": "https://1x1indien.org",
+    "uri": "027bb5147c0d060f3a13436c75c47a98514201a1a846a2e0479e079b0ac6a7ff79@92.105.197.183:9735",
+    "description": "Supporting Indian children in need and their families with food, clothes, medical expenses, and school fees.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1588336896
   }
 ]
