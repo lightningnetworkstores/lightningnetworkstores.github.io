@@ -3600,5 +3600,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1588336896
+  },
+  {
+    "id": 2807,
+    "name": "Lightning-Debrid",
+    "href": "https://lightning-debrid.com",
+    "uri": "0283d0bb4625d4006bdb60e51f495a700f6e6a487531203ed4d9b9d7e516eb9745@3.228.87.114:9735",
+    "description": "Pay per use premium link generator for one-click-hoster",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1588353664
   }
 ]
