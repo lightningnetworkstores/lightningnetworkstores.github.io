@@ -3610,5 +3610,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1588353664
+  },
+  {
+    "id": 2817,
+    "name": "HODLR.",
+    "href": "https://hodlrclothing.co",
+    "uri": "undefined",
+    "description": "An alternative lifestyle brand.",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1589598464
   }
 ]
