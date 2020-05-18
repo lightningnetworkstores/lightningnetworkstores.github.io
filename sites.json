@@ -3630,5 +3630,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1589632512
+  },
+  {
+    "id": 2827,
+    "name": "Sparkshot",
+    "href": "https://sparkshot.io",
+    "uri": "02e389d861acd9d6f5700c99c6c33dd4460d6f1e2f6ba89d1f4f36be85fc60f8d7@54.188.180.102:9735",
+    "description": "Platform for artists to monetize the release of their art.",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1589844352
   }
 ]
