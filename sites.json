@@ -3640,5 +3640,15 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1589844352
+  },
+  {
+    "id": 2857,
+    "name": "Scarce City",
+    "href": "https://scarce.city/",
+    "uri": "028f4a60dd133875e8776d5ac36e87097cf59e6e3a1d74fcd14c900270dda57c06@54.91.68.86:9735",
+    "description": "A transparent marketplace where customers gain from verifiable supply and authenticity.",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1589911040
   }
 ]
