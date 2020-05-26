@@ -3650,5 +3650,15 @@
     "sector": "clothing",
     "digital_goods": "no, goods shipped",
     "added": 1589911040
+  },
+  {
+    "id": 2872,
+    "name": "Soria Consulting",
+    "href": "https://www.soriaconsulting.co.uk/tuition/",
+    "uri": "undefined",
+    "description": "Remote, Full Stack, Web Developer course for beginners. Introduction class free.",
+    "sector": "technology",
+    "digital_goods": "no, goods only in-store",
+    "added": 1590505344
   }
 ]
