@@ -3660,5 +3660,15 @@
     "sector": "technology",
     "digital_goods": "no, goods only in-store",
     "added": 1590505344
+  },
+  {
+    "id": 2882,
+    "name": "The Man From Earth",
+    "href": "https://manfromearth.com/mfe/donate/",
+    "uri": "undefined",
+    "description": "The Man from Earth: Holocene is an American science fiction drama film ",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1591286784
   }
 ]
