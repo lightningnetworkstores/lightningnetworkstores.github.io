@@ -3670,5 +3670,15 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1591286784
+  },
+  {
+    "id": 2887,
+    "name": "Crazy Italians",
+    "href": "https://crazyitalians.com",
+    "uri": "undefined",
+    "description": "Authentic Italian Restaurant",
+    "sector": "food",
+    "digital_goods": "no, goods only in-store",
+    "added": 1592093824
   }
 ]
