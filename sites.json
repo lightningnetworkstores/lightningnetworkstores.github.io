@@ -3680,5 +3680,15 @@
     "sector": "food",
     "digital_goods": "no, goods only in-store",
     "added": 1592093824
+  },
+  {
+    "id": 2897,
+    "name": "Coinsbee",
+    "href": "https://www.coinsbee.com/",
+    "uri": "undefined",
+    "description": "Buy your favorite gift cards",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1592325632
   }
 ]
