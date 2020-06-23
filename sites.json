@@ -3700,5 +3700,15 @@
     "sector": "drugs\u0026supplements",
     "digital_goods": "no, goods shipped",
     "added": 1592333824
+  },
+  {
+    "id": 2907,
+    "name": "Shieldfolio",
+    "href": "https://shieldfolio.com",
+    "uri": "03abf6f44c355dec0d5aa155bdbdd6e0c8fefe318eff402de65c6eb2e1be55dc3e@18.221.23.28:9735",
+    "description": "Tools for recovery seed backups.",
+    "sector": "security",
+    "digital_goods": "no, goods shipped",
+    "added": 1592909440
   }
 ]
