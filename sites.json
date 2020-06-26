@@ -3710,5 +3710,15 @@
     "sector": "security",
     "digital_goods": "no, goods shipped",
     "added": 1592909440
+  },
+  {
+    "id": 2912,
+    "name": "Zenmarket",
+    "href": "https://zenmarket.jp/en/",
+    "uri": "undefined",
+    "description": "Your Preferred Japanese Proxy Shopping Service",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1593194240
   }
 ]
