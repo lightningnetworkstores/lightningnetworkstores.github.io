@@ -3750,5 +3750,15 @@
     "sector": "adult",
     "digital_goods": "yes",
     "added": 1593196288
+  },
+  {
+    "id": 2932,
+    "name": "Human Rights Foundation",
+    "href": "https://hrf.org/donate-bitcoin/",
+    "uri": "undefined",
+    "description": "Uniting the world to stand against tyranny.",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1593368960
   }
 ]
