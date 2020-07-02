@@ -3760,5 +3760,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1593368960
+  },
+  {
+    "id": 2937,
+    "name": "Moeda Rags",
+    "href": "https://moedarags.com/",
+    "uri": "undefined",
+    "description": "Bitcoin Merchandise Store",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "yes",
+    "added": 1593713536
   }
 ]
