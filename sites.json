@@ -3770,5 +3770,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "yes",
     "added": 1593713536
+  },
+  {
+    "id": 2952,
+    "name": "Wikileaks shop",
+    "href": "https://wikileaks.shop/",
+    "uri": "undefined",
+    "description": "The Wikileaks merch shop",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1594164480
   }
 ]
