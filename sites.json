@@ -3790,5 +3790,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1595595648
+  },
+  {
+    "id": 2967,
+    "name": "Mags4Sats",
+    "href": "https://mags.4sats.shop/",
+    "uri": "undefined",
+    "description": "Buy and Sell magazines for Sats",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1595610496
   }
 ]
