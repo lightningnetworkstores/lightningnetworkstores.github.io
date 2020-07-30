@@ -3800,5 +3800,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1595610496
+  },
+  {
+    "id": 2982,
+    "name": "LinkSnappy",
+    "href": "https://linksnappy.com/",
+    "uri": "undefined",
+    "description": "Premium link generator/ debrid service / multihost service which allows you to download files stored on popular filehosts",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1596134400
   }
 ]
