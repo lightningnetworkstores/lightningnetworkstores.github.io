@@ -3810,5 +3810,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1596134400
+  },
+  {
+    "id": 2987,
+    "name": "Fair Poker",
+    "href": "https://fair.poker",
+    "uri": "027070dc64b8850689b52020571d0e3173ba38cc456501ad1b5d994d6063eb0ec8@165.22.116.181:9735",
+    "description": "Provably fair lightning poker",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1596211968
   }
 ]
