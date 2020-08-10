@@ -3820,5 +3820,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1596211968
+  },
+  {
+    "id": 2992,
+    "name": "Aprycot Media",
+    "href": "https://aprycot.media/",
+    "uri": "undefined",
+    "description": "The Bitcoin Publishing House",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1597083648
   }
 ]
