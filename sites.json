@@ -3830,5 +3830,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1597083648
+  },
+  {
+    "id": 2997,
+    "name": "Coins of Nakamoto",
+    "href": "https://www.coinsofnakamoto.com/",
+    "uri": "undefined",
+    "description": "Store run by a single physical cryptocurrency enthousiast (hello!). ",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1597419520
   }
 ]
