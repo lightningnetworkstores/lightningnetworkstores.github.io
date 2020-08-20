@@ -3840,5 +3840,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1597419520
+  },
+  {
+    "id": 3002,
+    "name": "MtSocks",
+    "href": "https://www.mtsocks.com/",
+    "uri": "undefined",
+    "description": "Bitcoin socks",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1597932928
   }
 ]
