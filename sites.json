@@ -3860,5 +3860,15 @@
     "sector": "security",
     "digital_goods": "no, goods shipped",
     "added": 1597941120
+  },
+  {
+    "id": 3012,
+    "name": "Rivalry",
+    "href": "https://www.rivalry.com",
+    "uri": "undefined",
+    "description": "E-sports betting and entertainment",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1597941888
   }
 ]
