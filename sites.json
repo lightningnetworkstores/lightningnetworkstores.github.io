@@ -3870,5 +3870,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1597941888
+  },
+  {
+    "id": 3027,
+    "name": "Etleneum",
+    "href": "https://etleneum.com",
+    "uri": "02bed1812d3824f7cc4ccd38da5d66a29fcfec146fe95e26cd2e0d3f930d653a8d",
+    "description": "Centralized smart contract platform acessible through lightning payments. Prediction market at predictions.etleneum.com",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1598480768
   }
 ]
