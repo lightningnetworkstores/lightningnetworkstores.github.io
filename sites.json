@@ -3880,5 +3880,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1598480768
+  },
+  {
+    "id": 3032,
+    "name": "Poof.run",
+    "href": "https://poof.run",
+    "uri": "undefined",
+    "description": "Sell your files through the lightning network.",
+    "sector": "vps\u0026web hosting",
+    "digital_goods": "yes",
+    "added": 1598481152
   }
 ]
