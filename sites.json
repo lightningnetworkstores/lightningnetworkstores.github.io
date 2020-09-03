@@ -3890,5 +3890,15 @@
     "sector": "vps\u0026web hosting",
     "digital_goods": "yes",
     "added": 1598481152
+  },
+  {
+    "id": 3042,
+    "name": "Satotious",
+    "href": "https://satotious.com",
+    "uri": "undefined",
+    "description": "Twist on paywall, users can view ads or pay with lightning",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1599135488
   }
 ]
