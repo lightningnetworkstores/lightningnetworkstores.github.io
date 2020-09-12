@@ -3900,5 +3900,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1599135488
+  },
+  {
+    "id": 3047,
+    "name": "Diamond Venom",
+    "href": "https://diamondvenom.co/",
+    "uri": "undefined",
+    "description": "Elite Cannabis Products",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1599922176
   }
 ]
