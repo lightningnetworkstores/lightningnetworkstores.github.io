@@ -3920,5 +3920,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1599922688
+  },
+  {
+    "id": 3057,
+    "name": "BTC Pins",
+    "href": "https://btcpins.com/",
+    "uri": "undefined",
+    "description": "Bitcoin Pins",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1599923456
   }
 ]
