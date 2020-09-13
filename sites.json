@@ -3930,5 +3930,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1599923456
+  },
+  {
+    "id": 3062,
+    "name": "Shopping.io",
+    "href": "https://shopping.io/",
+    "uri": "undefined",
+    "description": "Buy Amazon, Walmart and eBay Items with 100 Different Cryptocurrencies",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1600040960
   }
 ]
