@@ -3940,5 +3940,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1600040960
+  },
+  {
+    "id": 3067,
+    "name": "Fasttech",
+    "href": "https://www.fasttech.com",
+    "uri": "undefined",
+    "description": "Large gadgets and electronics online retailer. ",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1600703232
   }
 ]
