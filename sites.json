@@ -3950,5 +3950,15 @@
     "sector": "technology",
     "digital_goods": "no, goods shipped",
     "added": 1600703232
+  },
+  {
+    "id": 3072,
+    "name": "Bitaroo",
+    "href": "http://bitaroo.exchange",
+    "uri": "undefined",
+    "description": "Australian bitcoin-only exchange.",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1600740096
   }
 ]
