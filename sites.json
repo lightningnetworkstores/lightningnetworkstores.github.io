@@ -3960,5 +3960,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1600740096
+  },
+  {
+    "id": 3077,
+    "name": "Satoshi\u0027s Party",
+    "href": "https://satoshis.party",
+    "uri": "undefined",
+    "description": "Epic Fashion for Bitcoin friends",
+    "sector": "clothing",
+    "digital_goods": "yes",
+    "added": 1601356416
   }
 ]
