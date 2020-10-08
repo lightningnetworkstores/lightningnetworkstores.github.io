@@ -3970,5 +3970,15 @@
     "sector": "clothing",
     "digital_goods": "yes",
     "added": 1601356416
+  },
+  {
+    "id": 3092,
+    "name": "Satoshidance.com",
+    "href": "https://satoshidance.com",
+    "uri": "undefined",
+    "description": "Virtual Dancers, AR / VR",
+    "sector": "adult",
+    "digital_goods": "yes",
+    "added": 1602160384
   }
 ]
