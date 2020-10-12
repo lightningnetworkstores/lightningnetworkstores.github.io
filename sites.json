@@ -3980,5 +3980,15 @@
     "sector": "adult",
     "digital_goods": "yes",
     "added": 1602160384
+  },
+  {
+    "id": 3102,
+    "name": "lnsolve",
+    "href": "https://lnsolve.com",
+    "uri": "undefined",
+    "description": "Problem solving platform with lightning rewards.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1602461952
   }
 ]
