@@ -3990,5 +3990,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1602461952
+  },
+  {
+    "id": 3107,
+    "name": "Chill Out With CBD",
+    "href": "https://chilloutwithcbd.com",
+    "uri": "undefined",
+    "description": "Chill Out With CBD offers the best CBD products and accept Lightning Network payments through OpenNode",
+    "sector": "drugs\u0026supplements",
+    "digital_goods": "no, goods shipped",
+    "added": 1602554240
   }
 ]
