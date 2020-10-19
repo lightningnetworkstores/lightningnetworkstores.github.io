@@ -4010,5 +4010,15 @@
     "sector": "other",
     "digital_goods": "no, goods only in-store",
     "added": 1603030016
+  },
+  {
+    "id": 3122,
+    "name": "LightningCentral",
+    "href": "https://lightningcentral.com/",
+    "uri": "02f727419f6756954fbf17d4ada36e6180e05c17c50d7442ef160ed50b90e6af52@3.225.115.244:9735",
+    "description": "Making small BTC payments easy using the Lighting Network",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1603121792
   }
 ]
