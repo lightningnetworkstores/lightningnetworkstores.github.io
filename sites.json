@@ -4020,5 +4020,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1603121792
+  },
+  {
+    "id": 3127,
+    "name": "Crypto Cove",
+    "href": "https://www.cryptocove.io",
+    "uri": "undefined",
+    "description": "Bitcoin Shirt and Merch Store. No.1 Shop for crypto apparel. ",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1603280384
   }
 ]
