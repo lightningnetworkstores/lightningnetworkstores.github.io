@@ -4040,5 +4040,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1603698176
+  },
+  {
+    "id": 3162,
+    "name": "Laire",
+    "href": "https://lairebyireneapolo.com/",
+    "uri": "undefined",
+    "description": "handcrafted and medicinal cosmetics",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1604491136
   }
 ]
