@@ -3954,7 +3954,7 @@
   {
     "id": 3072,
     "name": "Bitaroo",
-    "href": "http://bitaroo.exchange",
+    "href": "https://bitaroo.com.au",
     "uri": "03bce1b91fce34ed76c35d599688b620cd0043b04416a9bb6cb7871bfbf4560591@ynly76neccb6rom4myhhb3dvsw6zf5xehxznqvrh2vl7gwxuyb7hodqd.onion:9735",
     "description": "Australian bitcoin-only exchange.",
     "sector": "exchange",
@@ -4050,5 +4050,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1604491136
+  },
+  {
+    "id": 3172,
+    "name": "Lightning Trust",
+    "href": "https://lightningtrust.net",
+    "uri": "undefined",
+    "description": "Anonymous Bitcoin Lightning, Blockchain and Altcoin Escrows from .001 BTC up. Safe crypto transfers when buying crypto, services or products..",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1605123712
   }
 ]
