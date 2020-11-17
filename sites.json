@@ -4060,5 +4060,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1605123712
+  },
+  {
+    "id": 3177,
+    "name": "Bipa",
+    "href": "https://bipa.app/",
+    "uri": "undefined",
+    "description": "Compra e Venda Bitcoin",
+    "sector": "exchange",
+    "digital_goods": "yes",
+    "added": 1605640064
   }
 ]
