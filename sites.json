@@ -4070,5 +4070,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1605640064
+  },
+  {
+    "id": 3182,
+    "name": "Go2Games",
+    "href": "https://www.go2games.com/",
+    "uri": "undefined",
+    "description": "Buy Video Games Online",
+    "sector": "games\u0026casino",
+    "digital_goods": "no, goods shipped",
+    "added": 1605795328
   }
 ]
