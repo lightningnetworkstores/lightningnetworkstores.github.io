@@ -4090,5 +4090,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1605876864
+  },
+  {
+    "id": 3192,
+    "name": "lnshort.it",
+    "href": "https://lnshort.it",
+    "uri": "020c5c96420bb2dddfd0a19d26bfa30f9e6335174c0ce3bd7754b852bb5cbe333a",
+    "description": "Shortening service supported by lightning network",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1606239872
   }
 ]
