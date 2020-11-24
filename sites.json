@@ -4100,5 +4100,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1606239872
+  },
+  {
+    "id": 3202,
+    "name": "ln-ask.me",
+    "href": "https://ln-ask.me",
+    "uri": "029ef8ee0ba895e2807ac1df1987a7888116c468e70f42e7b089e06811b0e45482@ln-ask.me",
+    "description": "Microconsultations about Bitcoin and programming paid for using LN",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1606243456
   }
 ]
