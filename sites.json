@@ -4110,5 +4110,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1606243456
+  },
+  {
+    "id": 3207,
+    "name": "Hack Yourself",
+    "href": "https://hackyourself.io/shop/",
+    "uri": "undefined",
+    "description": "Online courses and books about IT, Bitcoin, privacy, Bitcoin in daily life, liberty, ...",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1606431872
   }
 ]
