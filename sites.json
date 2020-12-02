@@ -4130,5 +4130,15 @@
     "sector": "games\u0026casino",
     "digital_goods": "yes",
     "added": 1606673536
+  },
+  {
+    "id": 3217,
+    "name": "BitVoucherCZ",
+    "href": "https://bitvoucher.cz",
+    "uri": "02b5a0de34ecfbc1d456cab2897bd931d7532e3e628ce1ca0bfa57d0edabf7a475@40.115.60.86:9735",
+    "description": "Pay with bitcoin over the Lightning Network and receive an email with the voucher.",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1606900224
   }
 ]
