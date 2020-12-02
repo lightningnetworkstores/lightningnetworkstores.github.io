@@ -4140,5 +4140,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1606900224
+  },
+  {
+    "id": 3222,
+    "name": "Surfcity",
+    "href": "https://surfcity.app/",
+    "uri": "undefined",
+    "description": "Surfcity lets you find and share parking spaces in residential areas.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1606928768
   }
 ]
