@@ -4150,5 +4150,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1606928768
+  },
+  {
+    "id": 3232,
+    "name": "silent.link",
+    "href": "https://silent.link",
+    "uri": "undefined",
+    "description": "Buy burner eSIM cards with global internet access.",
+    "sector": "technology",
+    "digital_goods": "yes",
+    "added": 1607290624
   }
 ]
