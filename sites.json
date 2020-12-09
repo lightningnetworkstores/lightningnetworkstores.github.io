@@ -4170,5 +4170,15 @@
     "sector": "art",
     "digital_goods": "no, goods shipped",
     "added": 1607517696
+  },
+  {
+    "id": 3242,
+    "name": "The tything coffee club",
+    "href": "https://tythingcoffee.club",
+    "uri": "undefined",
+    "description": "Coffee shop with art, antiques and books",
+    "sector": "other",
+    "digital_goods": "no, goods only in-store",
+    "added": 1607519616
   }
 ]
