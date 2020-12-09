@@ -4160,5 +4160,15 @@
     "sector": "technology",
     "digital_goods": "yes",
     "added": 1607290624
+  },
+  {
+    "id": 3237,
+    "name": "Jain McKay",
+    "href": "https://jainmckay.live-website.com/shop",
+    "uri": "undefined",
+    "description": "Art works by artist Jain McKay",
+    "sector": "art",
+    "digital_goods": "no, goods shipped",
+    "added": 1607517696
   }
 ]
