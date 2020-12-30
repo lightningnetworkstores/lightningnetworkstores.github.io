@@ -4180,5 +4180,15 @@
     "sector": "other",
     "digital_goods": "no, goods only in-store",
     "added": 1607519616
+  },
+  {
+    "id": 3252,
+    "name": "Bitcoin Book Store",
+    "href": "https://bitcoinbook.store",
+    "uri": "undefined",
+    "description": "Books for BTC",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1609287552
   }
 ]
