@@ -4190,5 +4190,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1609287552
+  },
+  {
+    "id": 3257,
+    "name": "DGameMarket",
+    "href": "https://dgamemarket.intinte.org",
+    "uri": "undefined",
+    "description": "DGameMarket is a gaming market where you can sell and buy games using Lightning in a safe and automated way.",
+    "sector": "games\u0026casino",
+    "digital_goods": "yes",
+    "added": 1609788288
   }
 ]
