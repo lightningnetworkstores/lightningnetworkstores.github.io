@@ -4210,5 +4210,15 @@
     "sector": "clothing",
     "digital_goods": "no, goods shipped",
     "added": 1610221312
+  },
+  {
+    "id": 3267,
+    "name": "HODLshop",
+    "href": "https://hodlshop.org/",
+    "uri": "undefined",
+    "description": "Merchandise for Toxic Maximalist",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1610289664
   }
 ]
