@@ -4230,5 +4230,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1611909504
+  },
+  {
+    "id": 3287,
+    "name": "Lightning Bitcoin Shop",
+    "href": "https://lightning.co.uk",
+    "uri": "undefined",
+    "description": "A UK-only Bitcoin shop",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1612104832
   }
 ]
