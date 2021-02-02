@@ -4240,5 +4240,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1612104832
+  },
+  {
+    "id": 3292,
+    "name": "Lightning Store",
+    "href": "http://lightning.store",
+    "uri": "02bfe975eb18b29455ee6d5c3a2dc6c8097cb4d9a38fb440ded1e464b33ccc9f60@172.81.181.0:9735",
+    "description": "Bitcoin only merchandise supporting the on-chain community and second layer via Lightning Network.",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1612287104
   }
 ]
