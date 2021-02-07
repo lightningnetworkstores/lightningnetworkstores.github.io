@@ -4250,5 +4250,15 @@
     "sector": "clothing",
     "digital_goods": "no, goods shipped",
     "added": 1612287104
+  },
+  {
+    "id": 3302,
+    "name": "Kollider",
+    "href": "https://kollider.xyz/",
+    "uri": "024a5f08d112a5215bcf467c7eb001ec05b0829b6ae64340dc703fe985b6ad08d7@3.249.66.146:9735",
+    "description": "The fastest cryptocurrency derivatives exchange built on the Lightning Network. Buy and sell BTC, ETH, BCH and LTC futures with up to 100x leverage. ",
+    "sector": "exchange",
+    "digital_goods": "no, goods only in-store",
+    "added": 1612723328
   }
 ]
