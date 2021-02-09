@@ -4260,5 +4260,15 @@
     "sector": "exchange",
     "digital_goods": "no, goods only in-store",
     "added": 1612723328
+  },
+  {
+    "id": 3307,
+    "name": "Lightning Music Store",
+    "href": "http://lightningmusic.store",
+    "uri": "02bfe975eb18b29455ee6d5c3a2dc6c8097cb4d9a38fb440ded1e464b33ccc9f60@172.81.181.0:9735",
+    "description": "Buy music on Lightning!",
+    "sector": "art",
+    "digital_goods": "yes",
+    "added": 1612847872
   }
 ]
