@@ -221,5 +221,15 @@
 		"requires_node": "no",
 		"custodial": "yes",
 		"web_wallet": "https://bottle.li"
+	},
+ 	{
+		"name": "Strike.me",
+		"requires_node": "no",
+		"custodial": "yes",
+		"web_wallet": "https://chrome.google.com/webstore/detail/strike/ddlakobiikmpnaeakgbdeodclnmiablf",
+		"page":"https://strike.me/",
+		"android":"https://play.google.com/store/apps/details?id=zapsolutions.strike",
+		"iOS":"https://apps.apple.com/us/app/id1488724463",
+		"release":"January 2020"
 	}
 ]
