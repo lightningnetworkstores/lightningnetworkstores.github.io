@@ -4270,5 +4270,15 @@
     "sector": "art",
     "digital_goods": "yes",
     "added": 1612847872
+  },
+  {
+    "id": 3312,
+    "name": "Bees \u0026 Trees Manuka Honey",
+    "href": "http://www.beesandtrees.com",
+    "uri": "undefined",
+    "description": "Online retailer of New Zealand Premium New Zealand Manuka Honey",
+    "sector": "food",
+    "digital_goods": "no, goods shipped",
+    "added": 1613615232
   }
 ]
