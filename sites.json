@@ -4280,5 +4280,15 @@
     "sector": "food",
     "digital_goods": "no, goods shipped",
     "added": 1613615232
+  },
+  {
+    "id": 3322,
+    "name": "Bitcoin Silver Shop",
+    "href": "https://bitcoinsilver.shop",
+    "uri": "undefined",
+    "description": "Many items including jewlery and bullion coins. ",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1614690048
   }
 ]
