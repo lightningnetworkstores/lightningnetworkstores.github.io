@@ -4290,5 +4290,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1614690048
+  },
+  {
+    "id": 3327,
+    "name": "Bitcoin Hat Guy",
+    "href": "https://bitcoinhatguy.com/",
+    "uri": "undefined",
+    "description": "Bitcoin hats since 2013",
+    "sector": "clothing",
+    "digital_goods": "no, goods shipped",
+    "added": 1614788352
   }
 ]
