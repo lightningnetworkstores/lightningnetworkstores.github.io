@@ -4310,5 +4310,15 @@
     "sector": "exchange",
     "digital_goods": "yes",
     "added": 1614877952
+  },
+  {
+    "id": 3352,
+    "name": "Bitcoin Redux",
+    "href": "https://bitcoinredux.co.uk/shop/",
+    "uri": "undefined",
+    "description": "Shop Bitcoin Merchandise ",
+    "sector": "cryptocurrency merchandise",
+    "digital_goods": "no, goods shipped",
+    "added": 1615742848
   }
 ]
