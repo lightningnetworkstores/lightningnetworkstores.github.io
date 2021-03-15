@@ -4320,5 +4320,15 @@
     "sector": "cryptocurrency merchandise",
     "digital_goods": "no, goods shipped",
     "added": 1615742848
+  },
+  {
+    "id": 3357,
+    "name": "The Biz with John Carvalho",
+    "href": "https://thebiz.pro",
+    "uri": "undefined",
+    "description": "The ₿iz is a crowdfunded podcast featuring the professionals that are building the future of Bitcoin. Hosted by John Carvalho, AKA @bitcoinerrorlog .",
+    "sector": "other",
+    "digital_goods": "yes",
+    "added": 1615789440
   }
 ]
