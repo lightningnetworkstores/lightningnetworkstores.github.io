@@ -4330,5 +4330,15 @@
     "sector": "other",
     "digital_goods": "yes",
     "added": 1615789440
+  },
+  {
+    "id": 3372,
+    "name": "BowYoga.fit",
+    "href": "https://bowyoga.fit/",
+    "uri": "undefined",
+    "description": "Video yoga payable in Bitcoin.",
+    "sector": "fitness\u0026sports",
+    "digital_goods": "yes",
+    "added": 1616628480
   }
 ]
