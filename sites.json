@@ -4340,5 +4340,15 @@
     "sector": "fitness\u0026sports",
     "digital_goods": "yes",
     "added": 1616628480
+  },
+  {
+    "id": 3387,
+    "name": "YouBuyWithBitcoin",
+    "href": "https://youbuywithbitcoin.com/",
+    "uri": "undefined",
+    "description": "Pay What is Worth Using Bitcoin",
+    "sector": "other",
+    "digital_goods": "no, goods shipped",
+    "added": 1616770560
   }
 ]
