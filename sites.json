@@ -4350,5 +4350,15 @@
     "sector": "other",
     "digital_goods": "no, goods shipped",
     "added": 1616770560
+  },
+  {
+    "id": 3392,
+    "name": "Old City Bitcoiners",
+    "href": "https://oldcity-bitcoiners.info",
+    "uri": "0224818c362a6e6886ed1d233047dd45dd78c329e1eb20af5de9b8cf6d279c2de6@34.228.16.107:9735",
+    "description": "We\u0027re a group of avid Bitcoiners in the St. Augustine Florida area. Join us for Bitcoin \u0026 Beer.",
+    "sector": "other",
+    "digital_goods": "no, goods only in-store",
+    "added": 1616819712
   }
 ]
