@@ -4360,5 +4360,15 @@
     "sector": "other",
     "digital_goods": "no, goods only in-store",
     "added": 1616819712
+  },
+  {
+    "id": 3397,
+    "name": "ClearTalks",
+    "href": "http://cleartalks.com/",
+    "uri": "024485b23119d7962d3873f6ddea94a532d1744a82295466e34f153c600f8ab3d6@44.233.148.223:9735",
+    "description": "ClearTalks provides VOIP phone systems and IT services for businesses.",
+    "sector": "technology",
+    "digital_goods": "no, goods shipped",
+    "added": 1617209600
   }
 ]
