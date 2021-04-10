@@ -24,22 +24,22 @@ const options = {
     distance: 100,
     maxPatternLength: 32,
     minMatchCharLength: 3,
-    keys: ["name", "rank", "href", "description"]
+    keys: ["name", "rank", "href", "description"],
 };
 
 export default new Vuex.Store({
     state: {
         stores: [],
-        scores: []
+        scores: [],
     },
     getters: {
-        getStore: state => (id: number) => {
+        getStore: (state) => (id: number) => {
             return state.stores.find((store: Store) => store.id == id);
         },
-        getStoreCount: state => () => {
+        getStoreCount: (state) => () => {
             return state.stores.length;
         },
-        getStores: state => ({ sector, digitalGoods }: any, sort: string, search: string, safeMode: string = "false"): Store[] => {
+        getStores: (state) => ({ sector, digitalGoods }: any, sort: string, search: string, safeMode: string = "false"): Store[] => {
             //filter
             let isFiltered = true;
             let stores: Store[] = [];
@@ -126,7 +126,7 @@ export default new Vuex.Store({
 
             return stores;
         },
-        getScore: state => (id: number): Score => {
+        getScore: (state) => (id: number): Score => {
             let score = state.scores[id] || [0, 0, 0];
             let rank: any = 1;
             if (score[0] - score[1] !== 0) {
@@ -143,24 +143,24 @@ export default new Vuex.Store({
             }
             return { upvotes: score[0], downvotes: score[1], trending: score[2], lastCommented: score[3], rank: rank, commentCount: score[4] ? score[4] : 0, lifetime: score[5] ? score[5] : 0 };
         },
-        getBaseUrl: state => () => {
+        getBaseUrl: (state) => () => {
             return baseUrl;
         },
-        getAnnouncement: state => () => {
+        getAnnouncement: (state) => () => {
             return announcement;
         },
-        getAnnouncementType: state => () => {
+        getAnnouncementType: (state) => () => {
             return announcementType;
         },
-        getAnnouncementLink: state => () => {
+        getAnnouncementLink: (state) => () => {
             return announcementLink;
         },
-        getAddStoreFee: state => () => {
+        getAddStoreFee: (state) => () => {
             return addStoreFee;
         },
-        getReplyReviewFee: state => () => {
+        getReplyReviewFee: (state) => () => {
             return replyReviewFee;
-        }
+        },
     },
     actions: {
         addStore({}, { name: name, description: description, url: url, uri: uri, sector: sector, digitalGoods: digitalGoods, contributor: contributor, recaptcha: recaptcha }) {
@@ -170,51 +170,51 @@ export default new Vuex.Store({
                         uri
                     )}&sector=${encodeURIComponent(sector)}&digitalGoods=${encodeURIComponent(digitalGoods)}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
                 )
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
         },
         getStore({}, { id: id }) {
             return axios
                 .get(`${baseUrl}storeinfo?id=${id}`)
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
         },
         fetchStores({ commit }) {
             axios
-                .get(`${baseUrl}sites.json`)
-                .then(response => {
-                    commit("setStores", response.data);
+                .get(`${baseUrl}stores`)
+                .then((response) => {
+                    commit("setStores", response.data.data.stores);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error);
                 });
         },
         fetchScores({ commit }) {
             axios
                 .get(`${baseUrl}storeScores.json`)
-                .then(response => {
+                .then((response) => {
                     commit("setScores", response.data);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error);
                 });
         },
         getStores({ commit }) {
             return axios
-                .get(`${baseUrl}sites.json`)
-                .then(response => {
-                    commit("setStores", response.data);
+                .get(`${baseUrl}stores`)
+                .then((response) => {
+                    commit("setStores", response.data.data.stores);
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error);
                     return Promise.reject(error);
                 });
@@ -222,11 +222,11 @@ export default new Vuex.Store({
         getScores({ commit }) {
             return axios
                 .get(`${baseUrl}storeScores.json`)
-                .then(response => {
+                .then((response) => {
                     commit("setScores", response.data);
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error);
                     return Promise.reject(error);
                 });
@@ -234,83 +234,105 @@ export default new Vuex.Store({
         getWallets({}) {
             return axios
                 .get(`${baseUrl}wallets.json`)
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
         },
         getServices({}) {
             return axios
                 .get(`${baseUrl}services.json`)
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
         },
         getDonations({}) {
             return axios
                 .get(`${baseUrl}donationAdresses.json`)
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
         },
         getCoinmapData({}) {
             return axios
                 .get(`${baseUrl}coinmap.json`)
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
         },
         getStoreVotePaymentRequest({}, { id, amount, isUpvote, comment, parent }) {
             return axios
                 .get(`${baseUrl}get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}${comment ? "&comment=" + comment : ""}${parent ? "&parent=" + parent : ""}`)
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
         },
         checkPayment({}, { id: id }) {
             return axios
                 .get(`${baseUrl}check_payment?id=${id}`)
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
         },
         addStoreUpdate({}, { id: id, field: field, value: value, askOwner: askOwner }) {
             return axios
                 .get(`${baseUrl}addUpdate?storeID=${id}&field=${encodeURIComponent(field)}&newValue=${encodeURIComponent(value)}&requestOwner=${askOwner}`)
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
         },
         suggestBan({}, { id: id, name: name, message: message }) {
             return axios
                 .get(`${baseUrl}suggestBan?id=${id}&name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}`)
-                .then(response => {
+                .then((response) => {
                     return Promise.resolve(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     return Promise.reject(error);
                 });
-        }
+        },
+        suggestTag({}, { storeId: storeId, tag: tag }) {
+            const object = { taginfo: { storeID: storeId, add: [tag] } };
+            return axios
+                .post(`${baseUrl}tag`, object)
+                .then((response) => {
+                    return Promise.resolve(response);
+                })
+                .catch((error) => {
+                    return Promise.reject(error);
+                });
+        },
+        removeTag({}, { storeId: storeId, tag: tag }) {
+            const object = { taginfo: { storeID: storeId, remove: [tag] } };
+            return axios
+                .post(`${baseUrl}tag`, object)
+                .then((response) => {
+                    return Promise.resolve(response);
+                })
+                .catch((error) => {
+                    return Promise.reject(error);
+                });
+        },
     },
     mutations: {
         setStores(state, stores) {
@@ -318,6 +340,6 @@ export default new Vuex.Store({
         },
         setScores(state, scores) {
             state.scores = scores;
-        }
-    }
+        },
+    },
 });

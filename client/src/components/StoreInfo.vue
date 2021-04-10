@@ -27,7 +27,7 @@
                             <!-- <v-chip color="orange" text-color="white" class="ma-2">{{ score.rank }}</v-chip> -->
                         </v-img>
                     </a>
-                    <v-layout row pa-3>
+                    <v-layout row px-3 pt-3>
                         <v-flex pb-1 shrink>
                             <div class="headline">
                                 <h3>
@@ -39,6 +39,84 @@
                             <a @click.stop :href="store.href" class="link-icon"><v-icon small class="pb-2" color="#1976d2">fa-external-link-alt</v-icon></a>
                         </v-flex>
                     </v-layout>
+
+                    <v-layout row px-3 pb-2>
+                        <v-flex pb-1 shrink>
+                            <v-hover v-for="(tag, index) in store.tags" :key="index">
+                                <v-chip slot-scope="{ hover }" color="primary" outline>
+                                    <v-icon v-if="hover" left class="tag-icon mr-1" @click="upvoteTag(tag)">add_circle</v-icon><b>{{ tag }}</b>
+                                    <v-icon v-if="hover" right class="tag-icon ml-1" @click="downvoteTag(likely_tag)">
+                                        remove_circle
+                                    </v-icon>
+                                </v-chip>
+                            </v-hover>
+                            <v-hover v-for="(likely_tag, index) in store.likely_tags" :key="index">
+                                <v-chip slot-scope="{ hover }" color="grey lighten-1" outline>
+                                    <v-icon v-if="hover" left class="tag-icon mr-1" @click="upvoteTag(likely_tag)">add_circle</v-icon>{{ likely_tag }}
+                                    <v-icon v-if="hover" right class="tag-icon ml-1" @click="downvoteTag(likely_tag)">
+                                        remove_circle
+                                    </v-icon>
+                                </v-chip>
+                            </v-hover>
+
+                            <v-chip color="primary" outline>
+                                <b>new tag</b>
+                                <v-icon right class="tag-icon ml-1" @click="showAddTagDialog = true">
+                                    add_circle
+                                </v-icon>
+                            </v-chip>
+
+                            <v-snackbar v-model="snackbar" class="m-3">
+                                {{ snackbarText }}
+
+                                <v-btn color="red" flat text @click="snackbar = false">
+                                    Close
+                                </v-btn>
+                            </v-snackbar>
+                        </v-flex>
+                    </v-layout>
+
+                    <!-- Add store modal -->
+                    <v-dialog v-model="showAddTagDialog" max-width="500" persistent>
+                        <v-card>
+                            <!-- paymentRequest && isPaid -->
+                            <v-card-title class="headline">
+                                <v-layout row>
+                                    <v-flex>Suggest new tag</v-flex>
+                                </v-layout>
+                            </v-card-title>
+
+                            <v-form @submit.prevent="suggestTag" ref="suggestTagForm">
+                                <v-layout row>
+                                    <v-flex px-3>
+                                        <v-text-field
+                                            v-model="newTagText"
+                                            label="Tag"
+                                            hint="eg. stacking sats"
+                                            :rules="[
+                                                (v) => !!v || 'Required',
+                                                (v) => v.length > 2 || 'At least 3 letters',
+                                                (v) => v == v.toLowerCase() || 'Should be lower case',
+                                                (v) => /^[a-zA-Z0-9\s]+$/gi.test(v) || 'Only alphanumeric characters',
+                                            ]"
+                                        ></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn color="green darken-1" flat="flat" @click="showAddTagDialog = false">
+                                        Close
+                                    </v-btn>
+
+                                    <v-btn color="green darken-1" flat="flat" type="submit">
+                                        Submit
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-form>
+                        </v-card>
+                    </v-dialog>
 
                     <v-layout row pb-3 pl-3 pr-3>
                         <v-flex>{{ store.description }} </v-flex>
@@ -112,13 +190,13 @@
                             ><v-btn fab @click="filter('positive')" :outline="currentFilter !== 'positive'" color="success"
                                 ><v-icon :color="currentFilter == 'positive' ? 'white' : 'success'" large>thumb_up</v-icon></v-btn
                             >
-                            <h4>Positive: {{ store.comments.filter(comment => comment.parent == "null" && comment.score > 0).length }}</h4>
+                            <h4>Positive: {{ store.comments.filter((comment) => comment.parent == "null" && comment.score > 0).length }}</h4>
                         </v-flex>
                         <v-flex grow justify-center pa-3
                             ><v-btn fab @click="filter('all')" :outline="currentFilter !== 'all'" color="blue"
                                 ><v-icon :color="currentFilter == 'all' ? 'white' : 'blue'" large>thumbs_up_down</v-icon></v-btn
                             >
-                            <h4>All: {{ store.comments.filter(comment => comment.parent == "null").length }}</h4></v-flex
+                            <h4>All: {{ store.comments.filter((comment) => comment.parent == "null").length }}</h4></v-flex
                         >
                         <v-flex grow justify-center pa-3
                             ><v-btn fab @click="filter('negative')" :outline="currentFilter !== 'negative'" color="error"
@@ -147,7 +225,7 @@ import { Comment } from "../interfaces/Comment";
 import $ from "jquery";
 
 @Component({
-    components: { Vote, BanStoreModal, EditStoreModal, EmbedModal, Review }
+    components: { Vote, BanStoreModal, EditStoreModal, EmbedModal, Review },
 })
 export default class StoreInfo extends Vue {
     @Prop() storeId!: number;
@@ -159,20 +237,28 @@ export default class StoreInfo extends Vue {
     comments: Comment[] = [];
     currentFilter: string = "all";
 
+    snackbar = false;
+    snackbarText = "";
+    tagUpvoteText = "Tag upvoted";
+    tagDownvoteText = "Tag downvoted";
+    tagSuggestText = "Tag submitted";
+    showAddTagDialog = false;
+    newTagText = "";
+
     private filter(filter: string) {
         this.currentFilter = filter;
         switch (filter) {
             case "all":
-                this.comments = this.store.comments.filter(comment => comment.parent == "null");
+                this.comments = this.store.comments.filter((comment) => comment.parent == "null");
                 break;
             case "negative":
-                this.comments = this.store.comments.filter(comment => comment.parent == "null" && comment.score < 0);
+                this.comments = this.store.comments.filter((comment) => comment.parent == "null" && comment.score < 0);
                 break;
             case "positive":
-                this.comments = this.store.comments.filter(comment => comment.parent == "null" && comment.score > 0);
+                this.comments = this.store.comments.filter((comment) => comment.parent == "null" && comment.score > 0);
                 break;
             default:
-                this.comments = this.store.comments.filter(comment => comment.parent == "null");
+                this.comments = this.store.comments.filter((comment) => comment.parent == "null");
                 break;
         }
         this.comments.sort((a, b) => {
@@ -189,11 +275,11 @@ export default class StoreInfo extends Vue {
         this.baseUrl = this.$store.getters.getBaseUrl();
 
         this.$store.dispatch("getStore", { id: this.storeId }).then(
-            response => {
+            (response) => {
                 this.store = response.data;
                 this.setMetaTags();
                 this.comments = this.store.comments
-                    .filter(comment => comment.parent == "null")
+                    .filter((comment) => comment.parent == "null")
                     .sort((a, b) => {
                         if (Math.abs(b.score) !== Math.abs(a.score)) {
                             return Math.abs(b.score) - Math.abs(a.score);
@@ -205,17 +291,17 @@ export default class StoreInfo extends Vue {
                     {
                         text: "Stores",
                         disabled: false,
-                        href: "/"
+                        href: "/",
                     },
                     {
                         text: this.store.name,
                         disabled: false,
-                        href: location.href
-                    }
+                        href: location.href,
+                    },
                 ];
                 this.loaded = true;
             },
-            error => {
+            (error) => {
                 console.error(error);
             }
         );
@@ -233,6 +319,44 @@ export default class StoreInfo extends Vue {
     get isNewStore(): boolean {
         return new Date(this.store.added * 1000 + 1000 * 60 * 60 * 24 * 8) > new Date();
     }
+
+    upvoteTag(tag: string) {
+        this.$store.dispatch("suggestTag", { storeId: this.store.id, tag: tag }).then(
+            (response) => {
+                this.snackbarText = this.tagUpvoteText;
+                this.snackbar = true;
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+    downvoteTag(tag: string) {
+        this.$store.dispatch("removeTag", { storeId: this.store.id, tag: tag }).then(
+            (response) => {
+                this.snackbarText = this.tagDownvoteText;
+                this.snackbar = true;
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+    suggestTag() {
+        if ((this.$refs.suggestTagForm as Vue & { validate: () => boolean }).validate()) {
+            this.$store.dispatch("suggestTag", { storeId: this.store.id, tag: this.newTagText }).then(
+                (response) => {
+                    this.snackbarText = this.tagSuggestText;
+                    this.snackbar = true;
+                },
+                (error) => {
+                    console.error(error);
+                }
+            );
+        }
+    }
 }
 </script>
 
@@ -248,5 +372,12 @@ export default class StoreInfo extends Vue {
 }
 .store-image-link {
     text-decoration: none;
+}
+
+.tag-icon {
+    cursor: pointer;
+    &:hover {
+        filter: brightness(120%);
+    }
 }
 </style>

@@ -46,7 +46,7 @@ export default class StoreList extends Vue {
         { name: "All", prop: "all" },
         { name: "Yes", prop: "yes" },
         { name: "No, goods shipped", prop: "no, goods shipped" },
-        { name: "No, goods only in a physical store", prop: "no, goods only in-store" }
+        { name: "No, goods only in a physical store", prop: "no, goods only in-store" },
     ];
 
     sectorItems: any[] = [
@@ -63,7 +63,7 @@ export default class StoreList extends Vue {
         { name: "Drugs & Supplements", prop: "drugs&supplements" },
         { name: "Cryptocurrency merchandise", prop: "cryptocurrency merchandise" },
         { name: "Fitness & Sports", prop: "fitness&sports" },
-        { name: "Other", prop: "other" }
+        { name: "Other", prop: "other" },
     ];
 
     sortItems: any[] = [
@@ -72,7 +72,7 @@ export default class StoreList extends Vue {
         { name: "Newest", prop: "newest" },
         { name: "Lifetime score", prop: "lifetime" },
         { name: "Controversial", prop: "controversial" },
-        { name: "Last commented", prop: "lastcommented" }
+        { name: "Last commented", prop: "lastcommented" },
     ];
 
     selectedDigitalGood: any = this.digitalGoods == "undefined" ? "all" : this.digitalGoods;
@@ -97,8 +97,8 @@ export default class StoreList extends Vue {
                 digital_goods: encodeURIComponent(this.selectedDigitalGood.prop || this.selectedDigitalGood),
                 sort: encodeURIComponent(this.selectedSort.prop || this.selectedSort),
                 search: encodeURIComponent(this.searchQuery),
-                safemode: this.safeMode ? this.safeMode.toString() : "false"
-            }
+                safemode: this.safeMode ? this.safeMode.toString() : "false",
+            },
         });
     }
 
