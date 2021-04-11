@@ -322,6 +322,17 @@ export default new Vuex.Store({
                     return Promise.reject(error);
                 });
         },
+        suggestTags({}, { storeId: storeId, tag: tags }) {
+            const object = { taginfo: { storeID: storeId, add: tags } };
+            return axios
+                .post(`${baseUrl}tag`, object)
+                .then((response) => {
+                    return Promise.resolve(response);
+                })
+                .catch((error) => {
+                    return Promise.reject(error);
+                });
+        },
         removeTag({}, { storeId: storeId, tag: tag }) {
             const object = { taginfo: { storeID: storeId, remove: [tag] } };
             return axios

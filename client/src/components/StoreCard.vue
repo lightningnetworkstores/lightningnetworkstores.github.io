@@ -8,7 +8,7 @@
             </div>
 
             <vuetify-lazy-image
-                :src="`${baseUrl}thumbnails/${storeWithScore.id}.png`"
+                :src="`${baseUrl}thumbnails/${storeWithScore.id}.jpg`"
                 height="170px"
                 :position="!storeWithScore.img_position ? 'top center' : storeWithScore.img_position"
                 class="text-xs-right"
@@ -48,8 +48,8 @@ import VuetifyLazyImage from "vuetify-lazy-image";
 @Component({
     components: {
         Vote,
-        VuetifyLazyImage
-    }
+        VuetifyLazyImage,
+    },
 })
 export default class StoreCard extends Vue {
     @Prop() store!: Store;

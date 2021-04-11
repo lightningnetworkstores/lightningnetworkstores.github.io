@@ -86,20 +86,30 @@
                                 </v-layout>
                             </v-card-title>
 
-                            <v-form @submit.prevent="suggestTag" ref="suggestTagForm">
+                            <v-form @submit.prevent="suggestTags" ref="suggestTagForm">
                                 <v-layout row>
                                     <v-flex px-3>
-                                        <v-text-field
-                                            v-model="newTagText"
-                                            label="Tag"
-                                            hint="eg. stacking sats"
-                                            :rules="[
-                                                (v) => !!v || 'Required',
-                                                (v) => v.length > 2 || 'At least 3 letters',
-                                                (v) => v == v.toLowerCase() || 'Should be lower case',
-                                                (v) => /^[a-zA-Z0-9\s]+$/gi.test(v) || 'Only alphanumeric characters',
-                                            ]"
-                                        ></v-text-field>
+                                        <v-combobox
+                                            v-model="newTags"
+                                            :items="store.configuration.tags"
+                                            :search-input.sync="search"
+                                            hide-selected
+                                            hint="Maximum of 5 tags"
+                                            label="Add some tags"
+                                            multiple
+                                            persistent-hint
+                                            small-chips
+                                            :rules="[(v) => !!v.length || 'Required']"
+                                        >
+                                            <template v-slot:no-data>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title class="px-2"
+                                                        >No results matching "<strong>{{ search }}</strong
+                                                        >". Press <kbd>enter</kbd> to create a new one</v-list-tile-title
+                                                    >
+                                                </v-list-tile-content>
+                                            </template>
+                                        </v-combobox>
                                     </v-flex>
                                 </v-layout>
 
@@ -243,7 +253,7 @@ export default class StoreInfo extends Vue {
     tagDownvoteText = "Tag downvoted";
     tagSuggestText = "Tag submitted";
     showAddTagDialog = false;
-    newTagText = "";
+    newTags = [];
 
     private filter(filter: string) {
         this.currentFilter = filter;
@@ -344,9 +354,9 @@ export default class StoreInfo extends Vue {
         );
     }
 
-    suggestTag() {
+    suggestTags() {
         if ((this.$refs.suggestTagForm as Vue & { validate: () => boolean }).validate()) {
-            this.$store.dispatch("suggestTag", { storeId: this.store.id, tag: this.newTagText }).then(
+            this.$store.dispatch("suggestTags", { storeId: this.store.id, tag: this.newTags }).then(
                 (response) => {
                     this.snackbarText = this.tagSuggestText;
                     this.snackbar = true;
