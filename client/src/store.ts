@@ -8,7 +8,7 @@ import { Score } from "./interfaces/Score";
 Vue.use(Vuex);
 
 const isTestEnv = false;
-const announcement = "Votes evaporate with a 270 day half-life. Read the FAQ.";
+const announcement = "";
 const announcementType = "info";
 const announcementLink = "https://lightningnetworkstores.com/about";
 
@@ -29,8 +29,10 @@ const options = {
 
 export default new Vuex.Store({
     state: {
-        stores: [],
-        scores: [],
+        stores: [] as any,
+        configuration: [] as any,
+        scores: [] as any,
+        selectedTags: [] as any,
     },
     getters: {
         getStore: (state) => (id: number) => {
@@ -38,6 +40,12 @@ export default new Vuex.Store({
         },
         getStoreCount: (state) => () => {
             return state.stores.length;
+        },
+        getConfiguration: (state) => () => {
+            return state.configuration;
+        },
+        getSelectedTags: (state) => () => {
+            return state.selectedTags;
         },
         getStores: (state) => ({ sector, digitalGoods }: any, sort: string, search: string, safeMode: string = "false"): Store[] => {
             //filter
@@ -192,6 +200,7 @@ export default new Vuex.Store({
                 .get(`${baseUrl}stores`)
                 .then((response) => {
                     commit("setStores", response.data.data.stores);
+                    commit("setConfiguration", response.data.data.configuration);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -212,6 +221,8 @@ export default new Vuex.Store({
                 .get(`${baseUrl}stores`)
                 .then((response) => {
                     commit("setStores", response.data.data.stores);
+                    response.data.data.configuration.tags.sort();
+                    commit("setConfiguration", response.data.data.configuration);
                     return Promise.resolve(response);
                 })
                 .catch((error) => {
@@ -349,8 +360,14 @@ export default new Vuex.Store({
         setStores(state, stores) {
             state.stores = stores;
         },
+        setConfiguration(state, configuration) {
+            state.configuration = configuration;
+        },
         setScores(state, scores) {
             state.scores = scores;
+        },
+        setSelectedTags(state, selectedTags) {
+            state.selectedTags = selectedTags;
         },
     },
 });

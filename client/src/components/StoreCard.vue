@@ -1,5 +1,5 @@
 <template>
-    <v-flex xs12 sm6 md4 lg4 pa-3>
+    <v-flex xs12 sm6 md6 lg4 pa-3>
         <v-card hover @click.native="gotoStore()">
             <div class="chips">
                 <v-chip v-if="storeWithScore.rank !== 'unranked'" color="#fdb919" text-color="white" class="ma-2">{{ storeWithScore.rank }}</v-chip>

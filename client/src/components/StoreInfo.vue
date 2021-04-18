@@ -82,7 +82,7 @@
                             <!-- paymentRequest && isPaid -->
                             <v-card-title class="headline">
                                 <v-layout row>
-                                    <v-flex>Suggest new tag</v-flex>
+                                    <v-flex>Suggest new tags</v-flex>
                                 </v-layout>
                             </v-card-title>
 
@@ -94,7 +94,6 @@
                                             :items="store.configuration.tags"
                                             :search-input.sync="search"
                                             hide-selected
-                                            hint="Maximum of 5 tags"
                                             label="Add some tags"
                                             multiple
                                             persistent-hint
@@ -254,6 +253,7 @@ export default class StoreInfo extends Vue {
     tagSuggestText = "Tag submitted";
     showAddTagDialog = false;
     newTags = [];
+    search = "";
 
     private filter(filter: string) {
         this.currentFilter = filter;
