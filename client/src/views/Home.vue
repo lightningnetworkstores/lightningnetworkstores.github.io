@@ -54,6 +54,7 @@ export default class Home extends Vue {
         window.addEventListener("resize", () => {
             this.windowWidth = window.innerWidth;
         });
+        this.windowWidth = window.innerWidth;
     }
 
     get showPermanentDrawer(): boolean {
