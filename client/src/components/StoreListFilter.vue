@@ -103,6 +103,7 @@ export default class StoreList extends Vue {
         window.addEventListener("resize", () => {
             this.windowWidth = window.innerWidth;
         });
+        this.windowWidth = window.innerWidth;
         this.announcement = this.$store.getters.getAnnouncement();
         this.announcementType = this.$store.getters.getAnnouncementType();
         this.announcementLink = this.$store.getters.getAnnouncementLink();
