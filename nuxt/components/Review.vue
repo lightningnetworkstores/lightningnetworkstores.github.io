@@ -1,0 +1,141 @@
+<template>
+  <v-col justify-center class="mt-5 px-0" xs="11">
+    <v-card class="pa-5">
+      <v-layout row pt-4 pl-4 pr-4>
+        <v-flex shrink class="text-xs-center">
+          <vote-line
+            :store="store"
+            :isReviewUpvote="comment.score > 0"
+            :parentReview="comment.id"
+          ></vote-line>
+          {{ comment.score }}
+        </v-flex>
+
+        <v-flex pa-3 class="comment-text">
+          {{ comment.text.replace(/\+/g, ' ') }}
+        </v-flex>
+      </v-layout>
+
+      <v-layout row pl-4 pr-4 class="caption comment-extra">
+        <v-flex grow pa-2>ID: {{ comment.id.substring(0, 5) }} </v-flex>
+        <v-flex grow pa-2 class="text-right"
+          >{{
+            getISOStringWithoutSecsAndMillisecs(new Date(comment.timestamp))
+          }}
+        </v-flex>
+        <v-flex shrink pr-2 pt-2>
+          <vote-line
+            :store="store"
+            :parentReview="comment.id"
+            :parentComment="comment.id"
+            :comment="comment"
+          ></vote-line>
+        </v-flex>
+      </v-layout>
+
+      <!-- .sort((a, b) => {
+                            return Math.abs(a.score) - Math.abs(b.score);
+                        }) -->
+      <v-layout
+        row
+        pt-1
+        pb-1
+        pl-3
+        pr-3
+        v-for="subComment in comments
+          .filter((subComment) => subComment.parent == comment.id)
+          .sort((a, b) => a.timestamp - b.timestamp)"
+        :key="subComment.id"
+      >
+        <v-flex>
+          <v-card class="pa-5">
+            <v-layout row pa-2 pt-3>
+              <v-flex
+                pl-2
+                class="comment-text"
+                v-html="commentText(subComment.text.replace(/\+/g, ' '))"
+              ></v-flex>
+            </v-layout>
+
+            <v-layout row pa-2 class="caption comment-extra">
+              <v-flex grow pa-2
+                >ID: {{ subComment.id.substring(0, 5) }}
+              </v-flex>
+              <v-flex grow pa-2 class="text-right"
+                >{{
+                  getISOStringWithoutSecsAndMillisecs(
+                    new Date(subComment.timestamp)
+                  )
+                }}
+              </v-flex>
+              <v-flex shrink pr-2 pt-2>
+                <vote-line
+                  :store="store"
+                  :parentReview="comment.id"
+                  :parentComment="subComment.id"
+                  :comment="comment"
+                  :isReplyToSubComment="true"
+                ></vote-line>
+              </v-flex>
+            </v-layout>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-card>
+  </v-col>
+</template>
+
+<script>
+import VoteLine from './VoteLine.vue'
+export default {
+  components: { VoteLine },
+  props: ['store', 'comment', 'comments'],
+
+  mounted() {},
+  methods: {
+    commentText(comment) {
+      return comment.startsWith('@')
+        ? "<span class='tag'>" +
+            this.htmlEntities(comment.substring(0, 6)) +
+            '</span>' +
+            this.htmlEntities(comment.substring(6, comment.length))
+        : this.htmlEntities(comment)
+    },
+
+    htmlEntities(input) {
+      return String(input)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+    },
+
+    getISOStringWithoutSecsAndMillisecs(date) {
+      const dateAndTime = date.toISOString().split('T')
+      const time = dateAndTime[1].split(':')
+      //   return '000000'
+      return dateAndTime[0] + ' ' + time[0] + ':' + time[1]
+    },
+  },
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss">
+.score-line {
+  line-height: 30px;
+}
+.tag {
+  background-color: #dddddd;
+}
+.comment-extra {
+  // color: rgba(0, 0, 0, 0.5);
+}
+.comment-text {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  max-height: 330px;
+  overflow-y: hidden;
+}
+</style>
