@@ -1,0 +1,3 @@
+[submodule "nuxt-version"]
+	path = nuxt-version
+	url = https://github.com/lightningnetworkstores/lightningnetworkstores.github.io
