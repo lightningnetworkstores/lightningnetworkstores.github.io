@@ -3,6 +3,7 @@ import Fuse from "fuse.js";
 const options = {
   shouldSort: true,
   threshold: 0.5,
+  trendingThreshold: 0,
   location: 0,
   distance: 100,
   maxPatternLength: 32,
@@ -59,7 +60,7 @@ const getters = {
         switch (sort) {
           case "trending":
             stores = stores
-              .filter((store) => (state.scores[store.id] || [0, 0, 0])[2] > trendingThreshold)
+              .filter((store) => (state.scores[store.id] || [0, 0, 0])[2] > options.trendingThreshold)
               .sort((a, b) => {
                 return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
               });
@@ -98,7 +99,7 @@ const getters = {
                 return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
               })[0];
               // Is above trending threshold?
-              if (state.scores[mostTrendingStore.id][2] >= 10) {
+              if (mostTrendingStore && state.scores[mostTrendingStore.id][2] >= 10) {
                 stores.splice(stores.indexOf(mostTrendingStore), 1);
                 stores.unshift(mostTrendingStore);
               }

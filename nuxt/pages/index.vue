@@ -8,11 +8,28 @@
       :inset="$vuetify.breakpoint.lgAndUp"
     >
       <v-list>
-        <v-subheader class="title">Tags</v-subheader>
-        <v-list-item v-for="(tag, index) in tags" :key="tag" class="my-0 py-0">
+        <v-subheader class="title pb-2">Sort</v-subheader>
+        <v-list-item class="my-0 pb-0 sort-items">
+          <v-radio-group v-model="selectedSort">
+            <v-radio
+              v-for="sortItem in sortItems"
+              :key="sortItem.prop"
+              :label="sortItem.name"
+              :value="sortItem.prop"
+            ></v-radio>
+          </v-radio-group>
+        </v-list-item>
+      </v-list>
+      <v-list>
+        <v-subheader class="title pb-2">Filter</v-subheader>
+        <v-list-item
+          v-for="(tag, index) in tags"
+          :key="tag"
+          class="my-0 py-0 tag"
+        >
           <v-checkbox
             hide-details
-            class="text-capitalize"
+            class="text-capitalize tag"
             color="#fdb919"
             :value="tag"
             :label="tag"
@@ -106,8 +123,22 @@
                 <div class="description">
                   {{ store.description }}
                 </div>
-                <div class="comments" v-if="store.total_comments">
-                  <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
+                <div>
+                  <div class="tag-container">
+                    <v-chip
+                      v-for="(tag, index) in store.tags"
+                      :key="index"
+                      color="primary"
+                      outlined
+                      small
+                      class="mr-2"
+                    >
+                      <b>{{ tag }}</b>
+                    </v-chip>
+                  </div>
+                  <div class="comments" v-if="store.total_comments">
+                    <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -149,6 +180,15 @@ export default {
       maxCards: 15,
       addCardCount: 6,
       checkedTags: [],
+      selectedSort: 'best',
+      sortItems: [
+        { name: 'Best', prop: 'best' },
+        { name: 'Trending', prop: 'trending' },
+        { name: 'Newest', prop: 'newest' },
+        { name: 'Lifetime score', prop: 'lifetime' },
+        { name: 'Controversial', prop: 'controversial' },
+        { name: 'Last commented', prop: 'lastcommented' },
+      ],
     }
   },
   methods: {
@@ -191,17 +231,16 @@ export default {
       return this.$store.state.selectedTags
     },
     getStores() {
-      if (!this.tags.length) return this.stores
-
       return this.selectedTags.filter((x) => x !== null).length
         ? this.$store.getters
             .getStores(
               { sector: this.sector, digitalGoods: this.digitalGoods },
-              this.sort,
+              this.selectedSort,
               this.searchQuery,
               this.safeMode
             )
             .filter((x) => {
+              if (!this.tags.length) return true
               return !!x.tags.filter((y) => {
                 const tagIndex = this.tags.indexOf(y)
                 return this.checkedTags[tagIndex]
@@ -211,7 +250,7 @@ export default {
             })
         : this.$store.getters.getStores(
             { sector: this.sector, digitalGoods: this.digitalGoods },
-            this.sort,
+            this.selectedSort,
             this.searchQuery,
             this.safeMode
           )
@@ -241,6 +280,11 @@ export default {
 </script>
 
 <style lang="scss">
+.tag {
+  margin-top: -18px;
+  height: 25px;
+  display: block;
+}
 .search > .v-input__control > .v-input__slot {
   border-radius: 30px !important;
 }
@@ -257,7 +301,7 @@ export default {
   width: 100%;
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 2em;
 }
 .detail {
@@ -310,6 +354,10 @@ export default {
       font-size: 14px !important;
       margin-top: 5px;
     }
+    .tag-container {
+      position: absolute;
+      bottom: 7px;
+    }
     .comments {
       position: absolute;
       bottom: 5px;
@@ -320,5 +368,8 @@ export default {
       }
     }
   }
+}
+.sort-items {
+  height: 160px;
 }
 </style>

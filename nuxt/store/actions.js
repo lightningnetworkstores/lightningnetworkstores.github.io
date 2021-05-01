@@ -27,7 +27,6 @@ const actions = {
       })
       .then(response => {
         commit("setStores", response.data.stores);
-        response.data.configuration.tags.sort();
 
         commit("setConfiguration", response.data.configuration);
       })
