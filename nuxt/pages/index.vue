@@ -2,6 +2,7 @@
   <div>
     <v-navigation-drawer
       clipped
+      class="fixed-drawer"
       :permanent="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
       :absolute="true"
@@ -72,6 +73,7 @@
           hover
           v-for="store in getStores.slice(0, maxCards)"
           :key="'store-' + store.id"
+          @click.native="gotoStore(store.id)"
         >
           <v-card-text class="pa-0">
             <div class="detail">
@@ -371,5 +373,9 @@ export default {
 }
 .sort-items {
   height: 160px;
+}
+.fixed-drawer {
+  position: fixed !important;
+  padding-top: 64px;
 }
 </style>
