@@ -234,6 +234,8 @@ export default {
       return this.$store.state.selectedTags
     },
     getStores() {
+        console.log(this.selectedTags)
+        console.log(this.checkedTags)
       return this.selectedTags.filter((x) => x !== null).length
         ? this.$store.getters
             .getStores(
@@ -244,12 +246,10 @@ export default {
             )
             .filter((x) => {
               if (!this.tags.length) return true
-              return !!x.tags.filter((y) => {
+              return x.tags.filter((y) => {
                 const tagIndex = this.tags.indexOf(y)
                 return this.checkedTags[tagIndex]
-                  ? this.checkedTags[tagIndex]
-                  : false
-              }).length
+              }).length == this.selectedTags.length
             })
         : this.$store.getters.getStores(
             { sector: this.sector, digitalGoods: this.digitalGoods },
