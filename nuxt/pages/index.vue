@@ -7,6 +7,7 @@
       v-model="drawer"
       :absolute="true"
       :inset="$vuetify.breakpoint.lgAndUp"
+      width="300"
     >
       <v-list>
         <v-subheader class="title pb-2">Sort</v-subheader>
@@ -39,7 +40,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <div :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 256px;' : ''">
+    <div :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 300px;' : ''">
       <v-layout justify-center>
         <v-flex xs10 md18 lg6 ma-5>
           <!-- <v-card>
@@ -128,12 +129,12 @@
                 <div>
                   <div class="tag-container">
                     <v-chip
-                      v-for="(tag, index) in store.tags"
+                      v-for="(tag, index) in store.tags.slice(0, 5)"
                       :key="index"
                       color="primary"
                       outlined
                       small
-                      class="mr-2"
+                      class="mr-2 my-1"
                     >
                       <b>{{ tag }}</b>
                     </v-chip>
@@ -359,6 +360,7 @@ export default {
     .tag-container {
       position: absolute;
       bottom: 7px;
+      padding-right: 40px;
     }
     .comments {
       position: absolute;
