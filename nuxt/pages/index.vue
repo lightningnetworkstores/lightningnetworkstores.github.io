@@ -31,7 +31,7 @@
         >
           <v-checkbox
             hide-details
-            class="text-capitalize tag"
+            class="tag"
             color="#fdb919"
             :value="tag"
             :label="tag"
@@ -284,7 +284,7 @@ export default {
 
 <style lang="scss">
 .tag {
-  margin-top: -18px;
+  margin-top: -22px;
   height: 25px;
   display: block;
 }
