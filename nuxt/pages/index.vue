@@ -234,8 +234,6 @@ export default {
       return this.$store.state.selectedTags
     },
     getStores() {
-        console.log(this.selectedTags)
-        console.log(this.checkedTags)
       return this.selectedTags.filter((x) => x !== null).length
         ? this.$store.getters
             .getStores(
