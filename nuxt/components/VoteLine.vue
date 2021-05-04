@@ -28,16 +28,18 @@
       </v-layout>
 
       <v-layout row>
-        <v-flex shrink px-3>{{ store.upvotes }}</v-flex>
+        <v-flex shrink px-3>{{ store.upvotes | splitNumber }}</v-flex>
         <v-flex grow pa-1
           ><v-progress-linear
             color="success"
             background-color="error"
             height="15"
-            :value="(store.upvotes / (store.upvotes + store.downvotes)) * 100"
+            :value="
+              (store.upvotes / (store.upvotes + store.downvotes)) * 100 || 100
+            "
           ></v-progress-linear
         ></v-flex>
-        <v-flex shrink px-3>{{ store.downvotes }}</v-flex>
+        <v-flex shrink px-3>{{ store.downvotes | splitNumber }}</v-flex>
       </v-layout>
     </div>
     <div class="review" v-if="parentReview && !parentComment">

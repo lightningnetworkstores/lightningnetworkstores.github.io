@@ -61,6 +61,9 @@ export default {
   }, {
     src: '~/plugins/vue-google-charts.js',
     ssr: false
+  }, {
+    src: '~/plugins/filters.js',
+    ssr: false
   }],
 
   recaptcha: {
