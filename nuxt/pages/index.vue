@@ -169,7 +169,6 @@
 </template>
 
 <script>
-import { Component, Vue } from 'vue-property-decorator'
 import AddStoreModal from '~/components/AddStoreModal.vue'
 import VoteButton from '../components/VoteButton.vue'
 export default {
@@ -184,6 +183,7 @@ export default {
       addCardCount: 6,
       checkedTags: [],
       selectedSort: 'best',
+      safeMode: false,
       sortItems: [
         { name: 'Best', prop: 'best' },
         { name: 'Trending', prop: 'trending' },
@@ -216,6 +216,47 @@ export default {
       let score = this.$store.getters.getScore(store)
       return Object.assign({}, this.store, score)
     },
+    changeUrl() {
+      let query = {}
+      if (this.checkedTags.filter((x) => x).length) {
+        query.tags = this.checkedTags.filter((x) => x).join(',')
+      }
+      if (this.selectedSort && this.selectedSort != 'best') {
+        query.sort = encodeURIComponent(this.selectedSort)
+      }
+      if (this.searchQuery.length) {
+        query.search = encodeURIComponent(this.searchQuery)
+      }
+      if (this.safeMode) {
+        query.safemode = this.safeMode ? this.safeMode.toString() : 'false'
+      }
+
+      this.$router.push({
+        query: query,
+      })
+    },
+    setFromRoute() {
+      if (this.$route.query.safemode) {
+        this.safeMode = this.$route.query.safemode
+      }
+      if (this.$route.query.sort) {
+        this.selectedSort = this.$route.query.sort
+      }
+      if (this.$route.query.search) {
+        this.searchQuery = this.$route.query.search
+      }
+      if (this.$route.query.tags) {
+        const routeTags = this.$route.query.tags
+          .split(',')
+          .map((x) => decodeURI(x))
+
+        for (const tag of routeTags) {
+          this.checkedTags[this.tags.indexOf(tag)] = tag
+        }
+
+        this.$store.commit('setSelectedTags', routeTags)
+      }
+    },
   },
   computed: {
     baseURL() {
@@ -244,10 +285,12 @@ export default {
             )
             .filter((x) => {
               if (!this.tags.length) return true
-              return x.tags.filter((y) => {
-                const tagIndex = this.tags.indexOf(y)
-                return this.checkedTags[tagIndex]
-              }).length == this.selectedTags.length
+              return (
+                x.tags.filter((y) => {
+                  const tagIndex = this.tags.indexOf(y)
+                  return this.checkedTags[tagIndex]
+                }).length == this.selectedTags.length
+              )
             })
         : this.$store.getters.getStores(
             { sector: this.sector, digitalGoods: this.digitalGoods },
@@ -261,14 +304,22 @@ export default {
     checkedTags() {
       this.$store.commit(
         'setSelectedTags',
-        this.checkedTags.filter((t) => t !== null)
+        this.checkedTags.filter((t) => t)
       )
+      this.changeUrl()
+    },
+    selectedSort() {
+      this.changeUrl()
+    },
+    searchQuery() {
+      this.changeUrl()
     },
   },
   async mounted() {
     this.$store.commit('setLoading', true)
     await this.$store.dispatch('getScores')
     await this.$store.dispatch('getStores')
+    this.setFromRoute()
     this.$store.commit('setLoading', false)
   },
   beforeMount() {
