@@ -179,7 +179,7 @@ export default {
       group: null,
       isLoading: false,
       searchQuery: '',
-      maxCards: 15,
+      maxCards: 18,
       addCardCount: 6,
       checkedTags: [],
       selectedSort: 'best',

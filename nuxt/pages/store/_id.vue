@@ -8,7 +8,7 @@
       </v-breadcrumbs>
     </div>
     <v-container>
-      <v-row justify="center">
+      <v-row justify="center" v-if="selectedStore">
         <v-col cols="11" md="9" class="pa-0">
           <v-card class="pa-0">
             <v-img
@@ -63,7 +63,7 @@
                   </h3>
                 </div>
                 <edit-tags :store="selectedStore"></edit-tags>
-                <v-row class="pa-3 pt-0">
+                <v-row class="pt-0">
                   <v-col>
                     <p>
                       {{ selectedStore.description }}
@@ -158,7 +158,7 @@
                   </v-col>
                 </v-row>
 
-                <v-row class="pb-3 pl-2 pr-2 pt-3">
+                <v-row class="pl-2 pr-2 pt-3">
                   <v-col cols="6">
                     <v-btn
                       text
@@ -211,6 +211,42 @@
                 </v-row>
               </v-col>
             </v-row>
+          </v-card>
+
+          <v-card class="my-10 pa-2">
+            <v-card-title primary-title class="pa-3">
+              <div>
+                <div class="headline font-weight-medium">External</div>
+              </div>
+            </v-card-title>
+            <v-card-text class="body-1">
+              <v-row>
+                <v-flex px-3 pb-3>
+                  <v-card
+                    v-for="(
+                      external, propertyName, index
+                    ) in selectedStore.external"
+                    :key="index"
+                    class="my-2 py-2"
+                  >
+                    <v-layout row class="py-2">
+                      <v-flex shrink>
+                        <v-img
+                          :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
+                          class="external-image"
+                        >
+                        </v-img>
+                      </v-flex>
+                      <v-flex grow>
+                        <b>{{ propertyName }}</b
+                        ><br />
+                        <a :href="external">{{ external }}</a>
+                      </v-flex>
+                    </v-layout>
+                  </v-card>
+                </v-flex>
+              </v-row>
+            </v-card-text>
           </v-card>
 
           <v-card class="my-10 pa-2">
@@ -447,5 +483,10 @@ export default {
   &:hover {
     filter: brightness(120%);
   }
+}
+.external-image {
+  width: 24px;
+  height: 24px;
+  margin: 10px 10px 10px 25px;
 }
 </style>

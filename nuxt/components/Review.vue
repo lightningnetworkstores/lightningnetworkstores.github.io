@@ -48,7 +48,7 @@
         :key="subComment.id"
       >
         <v-flex>
-          <v-card class="pa-5">
+          <v-card class="pa-3">
             <v-layout row pa-2 pt-3>
               <v-flex
                 pl-2
