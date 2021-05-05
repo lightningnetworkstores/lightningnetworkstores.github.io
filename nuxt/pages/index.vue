@@ -111,7 +111,7 @@
               </div>
               <div class="score">
                 <vote-button :isUpvoting="true" :store="store" />
-                <span> {{ store.upvotes }}</span>
+                <span> {{ store.upvotes | splitNumber }}</span>
                 <vote-button :isUpvoting="false" :store="store" />
               </div>
               <div class="content pa-2 pl-5">
@@ -360,7 +360,7 @@ export default {
   color: #000000de;
   display: grid;
   grid-template-rows: 200px 150px;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: 80px 1fr;
   row-gap: 4px;
 
   .screenshot {

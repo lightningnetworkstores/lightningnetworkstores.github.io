@@ -1,20 +1,20 @@
 <template>
   <v-col justify-center class="mt-5 px-0" xs="11">
     <v-card class="pa-5">
-      <v-layout row pt-4 pl-4 pr-4>
-        <v-flex shrink class="text-xs-center">
+      <v-row class="pt-4 px-0">
+        <v-col cols="1" class="text-center px-0">
           <vote-line
             :store="store"
             :isReviewUpvote="comment.score > 0"
             :parentReview="comment.id"
           ></vote-line>
-          {{ comment.score }}
-        </v-flex>
+          {{ comment.score | splitNumber }}
+        </v-col>
 
-        <v-flex pa-3 class="comment-text">
+        <v-col cols="11" class="comment-text pa-3">
           {{ comment.text.replace(/\+/g, ' ') }}
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
 
       <v-layout row pl-4 pr-4 class="caption comment-extra">
         <v-flex grow pa-2>ID: {{ comment.id.substring(0, 5) }} </v-flex>
@@ -101,7 +101,6 @@ export default {
             this.htmlEntities(comment.substring(6, comment.length))
         : this.htmlEntities(comment)
     },
-
     htmlEntities(input) {
       return String(input)
         .replace(/&/g, '&amp;')
