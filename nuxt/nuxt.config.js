@@ -20,22 +20,27 @@ export default {
         content: 'width=device-width, initial-scale=1'
       },
       {
+        hid: "description",
         name: "description",
         content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
       },
       {
+        hid: "og:title",
         property: "og:title",
         content: "Lightning Network Stores directory"
       },
       {
+        hid: "og:description",
         property: "og:description",
         content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
       },
       {
+        hid: "twitter:title",
         property: "twitter:title",
         content: "Lightning Network Stores directory"
       },
       {
+        hid: "twitter:description",
         property: "twitter:description",
         content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
       }
