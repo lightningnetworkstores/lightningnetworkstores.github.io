@@ -353,7 +353,7 @@ export default {
   width: 100%;
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 2em;
 }
 .detail {
@@ -408,8 +408,9 @@ export default {
     }
     .tag-container {
       position: absolute;
-      bottom: 7px;
+      bottom: 8px;
       padding-right: 40px;
+      background-color: white;
     }
     .comments {
       position: absolute;
