@@ -353,7 +353,7 @@ export default {
   width: 100%;
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   gap: 2em;
 }
 .detail {
@@ -429,5 +429,9 @@ export default {
 .fixed-drawer {
   position: fixed !important;
   padding-top: 64px;
+}
+.v-toolbar__content,
+.v-toolbar {
+  height: 64px !important;
 }
 </style>
