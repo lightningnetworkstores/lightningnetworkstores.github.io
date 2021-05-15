@@ -1,9 +1,20 @@
 import colors from 'vuetify/es5/util/colors'
+import axios from 'axios'
 
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
-
+  generate: { interval: 100,
+    routes() {
+    return axios
+      .get(`https://LightningNetworkStores.com/stores`)
+      .then((response) => {
+        return response.data.data.stores.map((store) => {
+          return `/store/${store.id}`
+        })
+      })
+  }, exlude:[], crawler: false}, // ['/stats', '/donations', '/about', '/About', '/Stats', 'Donations', '/']
+  
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },

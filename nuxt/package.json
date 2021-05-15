@@ -6,7 +6,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "node --max-old-space-size=1024 node_modules/nuxt/bin/nuxt.js generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
