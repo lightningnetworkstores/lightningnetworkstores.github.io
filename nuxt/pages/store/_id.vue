@@ -502,7 +502,9 @@ export default {
 .external-text {
   line-height: 44px;
 }
-.external-title {
-  margin-top: 200px !important;
+@media only screen and (min-width: 600px) {
+  .external-title {
+    margin-top: 200px !important;
+  }
 }
 </style>

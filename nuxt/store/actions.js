@@ -233,6 +233,17 @@ const actions = {
         return Promise.reject(error);
       });
   },
+  getWallets({
+    state
+  }) {
+    return fetch(`${state.baseURL}wallets.json`)
+        .then(response => {
+            return Promise.resolve(response);
+        })
+        .catch(error => {
+            return Promise.reject(error);
+        });
+    },
 }
 
 
