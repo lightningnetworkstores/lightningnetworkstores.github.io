@@ -4,6 +4,7 @@ import axios from 'axios'
 
 export default {
   target: 'server',
+  server: {port: 80},
   axios: {proxy: true, proxyHeaders: true},
   proxy: {'/api/':{target: 'http://localhost:8080'}, '/thumbnails/':{target: 'http://localhost:8080'}},
   generate: { interval: 100,
