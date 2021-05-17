@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default {
   target: 'server',
-  server: { port: 80 },
+  server: { port: 3000 },
   axios: { proxy: true, proxyHeaders: true },
   proxy: {
     '/api/': { target: 'http://localhost:8080' },
