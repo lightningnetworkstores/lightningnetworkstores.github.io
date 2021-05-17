@@ -1,9 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
 import axios from 'axios'
 
+
 export default {
-  // Target (https://go.nuxtjs.dev/config-target)
-  target: 'static',
+  target: 'server',
+  axios: {proxy: true, proxyHeaders: true},
+  proxy: {'/api/':{target: 'http://localhost:8080'}, '/thumbnails/':{target: 'http://localhost:8080'}},
   generate: { interval: 100,
     routes() {
                 return axios
@@ -16,9 +18,10 @@ export default {
   }, exlude:[], crawler: true}, // ['/stats', '/donations', '/about', '/About', '/Stats', 'Donations', '/']
   
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    //baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
 
+// Target (https://go.nuxtjs.dev/config-target)
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s - lightningnetworkstores',
@@ -108,10 +111,7 @@ export default {
     '@nuxtjs/recaptcha',
     'cookie-universal-nuxt',
   ],
-
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
-
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
