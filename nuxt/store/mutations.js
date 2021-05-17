@@ -1,15 +1,9 @@
 const mutations = {
   setIsDev(state, data) {
-    if (data) {
-      state.isDev = true
-      state.baseURL = "https://lightningnetworkstores.com/"
-      //   state.baseURL = "https://lightningnetworkstores.com:8443/"
-      state.replyReviewFee = 2;
-    } else {
-      state.isDev = false
-      state.baseURL = "https://lightningnetworkstores.com/"
-      state.replyReviewFee = 500;
-    }
+    state.isDev = true
+    state.baseURL = "https://bitcoin-stores.com/"
+    //   state.baseURL = "https://lightningnetworkstores.com:8443/"
+    state.replyReviewFee = 2;
   },
   setLoading(state, data) {
     state.loading = data

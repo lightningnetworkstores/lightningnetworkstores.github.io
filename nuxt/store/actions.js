@@ -20,7 +20,7 @@ const actions = {
     state,
     commit
   }) {
-    return fetch(`${state.baseURL}stores`)
+    return fetch(`${state.baseURL}api/stores`)
       .then((response) => {
 
         return response.json();
@@ -38,7 +38,7 @@ const actions = {
     state,
     commit
   }, data) {
-    return fetch(`${state.baseURL}storeinfo?id=` + data.id)
+    return fetch(`${state.baseURL}api/storeinfo?id=` + data.id)
       .then((response) => {
 
         return response.json();
@@ -76,7 +76,7 @@ const actions = {
     recaptcha: recaptcha
   }) {
     return fetch(
-        `${state.baseURL}addStore?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&URL=${encodeURIComponent(url)}&URI=${encodeURIComponent(
+        `${state.baseURL}api/addStore?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&URL=${encodeURIComponent(url)}&URI=${encodeURIComponent(
                   uri
               )}&sector=${encodeURIComponent(sector)}&digitalGoods=${encodeURIComponent(digitalGoods)}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
       )
@@ -95,7 +95,7 @@ const actions = {
     value: value,
     askOwner: askOwner
   }) {
-    return fetch(`${state.baseURL}addUpdate?storeID=${id}&field=${encodeURIComponent(field)}&newValue=${encodeURIComponent(value)}&requestOwner=${askOwner}`)
+    return fetch(`${state.baseURL}api/addUpdate?storeID=${id}&field=${encodeURIComponent(field)}&newValue=${encodeURIComponent(value)}&requestOwner=${askOwner}`)
       .then((response) => {
 
         return response.text();
@@ -111,7 +111,7 @@ const actions = {
     name: name,
     message: message
   }) {
-    return fetch(`${state.baseURL}suggestBan?id=${id}&name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}`)
+    return fetch(`${state.baseURL}api/suggestBan?id=${id}&name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}`)
       .then((response) => {
 
         return response.text();
@@ -129,7 +129,7 @@ const actions = {
     comment,
     parent
   }) {
-    return fetch(`${state.baseURL}get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}${comment ? "&comment=" + comment : ""}${parent ? "&parent=" + parent : ""}`)
+    return fetch(`${state.baseURL}api/get_invoice?amount=${amount}&storeID=${id}&direction=${isUpvote ? "Upvote" : "Downvote"}${comment ? "&comment=" + comment : ""}${parent ? "&parent=" + parent : ""}`)
       .then((response) => {
 
         return response.json();
@@ -143,7 +143,7 @@ const actions = {
   }, {
     id: id
   }) {
-    return fetch(`${state.baseURL}check_payment?id=${id}`)
+    return fetch(`${state.baseURL}api/check_payment?id=${id}`)
       .then((response) => {
 
         return response.text();
@@ -176,7 +176,7 @@ const actions = {
         add: tags
       }
     };
-    return fetch(`${state.baseURL}tag`, {
+    return fetch(`${state.baseURL}api/tag`, {
         method: 'POST',
         body: JSON.stringify(object)
       })
@@ -199,7 +199,7 @@ const actions = {
         add: [tag]
       }
     };
-    return fetch(`${state.baseURL}tag`, {
+    return fetch(`${state.baseURL}api/tag`, {
         method: 'POST',
         body: JSON.stringify(object)
       })
@@ -222,7 +222,7 @@ const actions = {
         remove: [tag]
       }
     };
-    return fetch(`${state.baseURL}tag`, {
+    return fetch(`${state.baseURL}api/tag`, {
         method: 'POST',
         body: JSON.stringify(object)
       })

@@ -3,7 +3,13 @@ import axios from 'axios'
 
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
-  target: 'static',
+  target: 'server',
+  server: {port: 3000},
+  axios: {proxy: true, proxyHeaders: true},
+  proxy: {
+    '/api/': { target: 'https://bitcoin-stores.com' },
+    '/thumbnails/': { target: 'https://bitcoin-stores.com' },
+  },
   generate: { interval: 100,
     routes() {
                 return axios
@@ -56,15 +62,33 @@ export default {
         content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
       }
     ],
-    link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    }],
-    link: [{
-      rel: 'stylesheet',
-      href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css'
-    }]
+    link: [
+        {
+          hid: 'icon',
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon-16x16.png',
+          sizes: '16x16',
+        },
+        {
+          hid: 'icon',
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon-32x32.png',
+          sizes: '32x32',
+        },
+        {
+          hid: 'icon',
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon-48x48.png',
+          sizes: '48x48',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        },
+      ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
