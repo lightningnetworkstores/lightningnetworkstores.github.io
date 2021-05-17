@@ -1,7 +1,7 @@
 const mutations = {
   setIsDev(state, data) {
     state.isDev = true
-    state.baseURL = "http://localhost:8080/"
+    state.baseURL = "http://bitcoin-stores.com/"
     //   state.baseURL = "https://lightningnetworkstores.com:8443/"
     state.replyReviewFee = 2;
   },
