@@ -317,7 +317,7 @@ export default {
   },
   async mounted() {
     this.$store.commit('setLoading', true)
-    await this.$store.dispatch('getScores')
+    //await this.$store.dispatch('getScores')
     await this.$store.dispatch('getStores')
     this.setFromRoute()
     this.$store.commit('setLoading', false)
