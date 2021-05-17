@@ -1,95 +1,127 @@
 import colors from 'vuetify/es5/util/colors'
 import axios from 'axios'
 
-
 export default {
   target: 'server',
-  server: {port: 80},
-  axios: {proxy: true, proxyHeaders: true},
-  proxy: {'/api/':{target: 'http://localhost:8080'}, '/thumbnails/':{target: 'http://localhost:8080'}},
-  generate: { interval: 100,
+  server: { port: 80 },
+  axios: { proxy: true, proxyHeaders: true },
+  proxy: {
+    '/api/': { target: 'http://localhost:8080' },
+    '/thumbnails/': { target: 'http://localhost:8080' },
+  },
+  generate: {
+    interval: 100,
     routes() {
-                return axios
-                .get(`https://LightningNetworkStores.com/stores`)
-                .then((response) => {
-                    return response.data.data.stores.map((store) => {
-                    return `/store/${store.id}`
-                    })
-                })
-  }, exlude:[], crawler: true}, // ['/stats', '/donations', '/about', '/About', '/Stats', 'Donations', '/']
-  
+      return axios
+        .get(`https://LightningNetworkStores.com/stores`)
+        .then((response) => {
+          return response.data.data.stores.map((store) => {
+            return `/store/${store.id}`
+          })
+        })
+    },
+    exlude: [],
+    crawler: true,
+  }, // ['/stats', '/donations', '/about', '/About', '/Stats', 'Donations', '/']
+
   env: {
     //baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
 
-// Target (https://go.nuxtjs.dev/config-target)
+  // Target (https://go.nuxtjs.dev/config-target)
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s - lightningnetworkstores',
-    title: "Lightning Network Stores directory",
-    meta: [{
-        charset: 'utf-8'
+    title: 'Lightning Network Stores directory',
+    meta: [
+      {
+        charset: 'utf-8',
       },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
+        content: 'width=device-width, initial-scale=1',
       },
       {
-        hid: "description",
-        name: "description",
-        content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
+        hid: 'description',
+        name: 'description',
+        content:
+          'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
       },
       {
-        hid: "og:title",
-        property: "og:title",
-        content: "Lightning Network Stores directory"
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Lightning Network Stores directory',
       },
       {
-        hid: "og:description",
-        property: "og:description",
-        content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
+        hid: 'og:description',
+        property: 'og:description',
+        content:
+          'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
       },
       {
-        hid: "twitter:title",
-        property: "twitter:title",
-        content: "Lightning Network Stores directory"
+        hid: 'twitter:title',
+        property: 'twitter:title',
+        content: 'Lightning Network Stores directory',
       },
       {
-        hid: "twitter:description",
-        property: "twitter:description",
-        content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
-      }
+        hid: 'twitter:description',
+        property: 'twitter:description',
+        content:
+          'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
+      },
     ],
-    link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    }],
-    link: [{
-      rel: 'stylesheet',
-      href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css'
-    }]
+    link: [
+      {
+        hid: 'icon',
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon-16x16.png',
+        sizes: '16x16',
+      },
+      {
+        hid: 'icon',
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon-32x32.png',
+        sizes: '32x32',
+      },
+      {
+        hid: 'icon',
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon-48x48.png',
+        sizes: '48x48',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+      },
+    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ['~/assets/css/main.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [{
-    src: '~/plugins/qrcode.js',
-    ssr: false
-  }, {
-    src: '~/plugins/vue-google-charts.js',
-    ssr: false
-  }, {
-    src: '~/plugins/filters.js',
-    ssr: false
-  }],
+  plugins: [
+    {
+      src: '~/plugins/qrcode.js',
+      ssr: false,
+    },
+    {
+      src: '~/plugins/vue-google-charts.js',
+      ssr: false,
+    },
+    {
+      src: '~/plugins/filters.js',
+      ssr: false,
+    },
+  ],
 
   recaptcha: {
     /* reCAPTCHA options */
-    siteKey: "6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj", // Site key for requests
-    version: 2
+    siteKey: '6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj', // Site key for requests
+    version: 2,
   },
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -128,13 +160,11 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
           background: '#303030',
-        }
-      }
-    }
+        },
+      },
+    },
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-
-  }
+  build: {},
 }
