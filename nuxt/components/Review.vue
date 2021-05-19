@@ -2,7 +2,7 @@
   <v-col justify-center class="mt-5 px-0" xs="11">
     <v-card class="pa-5">
       <v-row class="pt-4 px-0">
-        <v-col cols="1" class="text-center px-0">
+        <v-col cols="2" class="text-center px-0">
           <vote-line
             :store="store"
             :isReviewUpvote="comment.score > 0"
@@ -11,7 +11,7 @@
           {{ comment.score | splitNumber }}
         </v-col>
 
-        <v-col cols="11" class="comment-text pa-3">
+        <v-col cols="10" class="comment-text pa-3">
           {{ comment.text.replace(/\+/g, ' ') }}
         </v-col>
       </v-row>
