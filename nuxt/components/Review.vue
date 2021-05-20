@@ -1,5 +1,5 @@
 <template>
-  <v-col justify-center class="mt-5 px-0" xs="11">
+  <v-col justify-center class="px-0" xs="11">
     <v-card class="pa-5">
       <v-row class="pt-4 px-0">
         <v-col cols="2" class="text-center px-0">
