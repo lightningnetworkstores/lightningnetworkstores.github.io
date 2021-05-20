@@ -2,61 +2,43 @@
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
       <nuxt-link to="/">
-        <img
-          src="@/assets/images/LightningNetworkStores.svg"
-          class="nav-logo" /></nuxt-link
-    ></v-toolbar-title>
+        <img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"
+      /></nuxt-link>
+    </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn text to="/stats">Statistics</v-btn>
-      <v-btn text to="/wallets">Wallets</v-btn>
-      <v-btn text to="/services">Services</v-btn>
-      <v-btn text to="/donations">Donations</v-btn>
-      <v-btn text to="/about">About</v-btn> </v-toolbar-items
-    ><v-menu class="hidden-md-and-up">
-      <!-- <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon> -->
+      <v-btn text v-for="route in routes" :key="route.text" :to="route.url">
+        {{ route.text }}
+      </v-btn>
+      <v-btn
+        icon
+        href="https://twitter.com/bitcoinLNS"
+        class="hidden-sm-and-down"
+      >
+        <v-icon>fab fa-twitter</v-icon>
+      </v-btn>
+    </v-toolbar-items>
+    <v-menu class="hidden-md-and-up">
+      <template v-slot:activator="{ on, attrs }">
+        <v-app-bar-nav-icon
+          class="hidden-md-and-up"
+          v-bind="attrs"
+          v-on="on"
+        ></v-app-bar-nav-icon>
+      </template>
       <v-list>
-        <v-list-tile to="/stats">
-          <v-list-tile-content>
-            <v-list-tile-title>Statistics</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile to="/wallets">
-          <v-list-tile-content>
-            <v-list-tile-title>Wallets</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile to="/services">
-          <v-list-tile-content>
-            <v-list-tile-title>Services</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile to="/donations">
-          <v-list-tile-content>
-            <v-list-tile-title>Donations</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile to="/about">
-          <v-list-tile-content>
-            <v-list-tile-title>About</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile href="https://twitter.com/bitcoinLNS">
-          <v-list-tile-content>
-            <v-list-tile-title>Twitter</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+        <v-list-item v-for="route in routes" :key="route.text" :to="route.url">
+          <v-list-item>
+            <v-list-item-title>{{ route.text }}</v-list-item-title>
+          </v-list-item>
+        </v-list-item>
+        <v-list-item href="https://twitter.com/bitcoinLNS">
+          <v-list-item>
+            <v-list-item-title>Twitter</v-list-item-title>
+          </v-list-item>
+        </v-list-item>
       </v-list>
     </v-menu>
-
-    <v-btn
-      icon
-      href="https://twitter.com/bitcoinLNS"
-      class="hidden-sm-and-down"
-    >
-      <!-- <font-awesome-icon icon="fa-twitter" /> -->
-      <v-icon>fab fa-twitter</v-icon>
-    </v-btn>
     <v-btn icon @click="toggleDarkmode" class="btndarkmode">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +60,6 @@
           fill="white"
         />
       </svg>
-      <!-- <v-icon>brightness_2</v-icon> -->
     </v-btn>
   </v-app-bar>
 </template>
@@ -86,7 +67,15 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      routes: [
+        { url: '/stats', text: 'Statistics' },
+        { url: '/wallets', text: 'Wallets' },
+        { url: '/services', text: 'Services' },
+        { url: '/donations', text: 'Donations' },
+        { url: '/about', text: 'About' },
+      ],
+    }
   },
   mounted() {},
 
