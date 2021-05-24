@@ -25,6 +25,14 @@
 		"custodial": "yes"
 	},
  	{
+		"name": "Lastbit",
+		"page": "https://lastbit.io/",
+		"android": "https://play.google.com/store/apps/details?id=com.lastbit.lite",
+		"iOS": "https://testflight.apple.com/join/AtVN0yle",
+		"release": "December 2020",
+		"custodial": "yes"
+	},
+ 	{
 		"name": "bitcoin lightning wallet",
 		"page": "http://lightning-wallet.com/",
 		"android": "https://play.google.com/store/apps/details?id=com.lightning.walletapp",
