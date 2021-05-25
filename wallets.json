@@ -58,14 +58,6 @@
 		"android":"https://play.google.com/store/apps/details?id=fr.acinq.phoenix.mainnet"
 	},
 	{
-		"name": "LightningPeach",
-		"page": "https://lightningpeach.com/peach-wallet",
-		"open_source": "https://github.com/LightningPeach/lightning-peach-wallet",
-		"android": "https://play.google.com/store/apps/details?id=com.lightningmobilewallet",
-		"iOS": "https://itunes.apple.com/app/id1407201546",
-		"release": "March 2019"
-	},
-	{
 		"name": "Breez",
 		"page": "https://breez.technology/",
 		"requires_node": "no",
@@ -125,36 +117,6 @@
 		"page": "https://denryu.hashhub.tokyo",
 		"release": "December 2018",
 		"android": "https://play.google.com/store/apps/details?id=com.lightning.denryu"
-	},
-	{
-		"name": "rawtx",
-		"page": "https://rawtx.com/",
-		"android_testnet": "https://play.google.com/store/apps/details?id=com.rtxwallet",
-		"iOS_testnet": "https://itunes.apple.com/us/app/rawtx-lightning-wallet/id1397117908?ls=1&mt=8",
-		"open_source": "https://github.com/rawtxapp/rawtxapp"
-	},
-	{
-		"name": "CoinClip",
-		"iOS_testnet": "https://itunes.apple.com/us/app/coinclip-testnet/id1372927440",
-		"page": "https://itunes.apple.com/us/app/coinclip-testnet/id1372927440"
-	},
-	{
-		"name": "SwiftLightning",
-		"page": "https://www.swiftlightning.io/",
-		"open_source": "https://github.com/biscottigelato/SwiftLightning/",
-		"iOS_testnet_closed": "https://swiftlightning.herokuapp.com/"
-	},
-	{
-		"name": "Shango",
-		"page": "https://www.shangoapp.com",
-		"open_source": "https://github.com/neogeno/shango-lightning-wallet",
-		"android_testnet": "https://play.google.com/store/apps/details?id=com.shango&hl=en-GB&ah=RLfWCJdoAACElN_m3p_mt8O6XjU",
-		"iOS_testnet": "https://testflight.apple.com/join/WwCjFnS8",
-		"custodial": "yes"
-	},
-	{
-		"name": "Cipherbook",
-		"page": "https://www.cryptotec.com/cipherbook/"
 	},
 	{
 		"name": "Thin wallet",
