@@ -176,11 +176,7 @@
                           icon
                           color="blue"
                           :disabled="!selectedStore.social.twitter"
-                          :href="
-                            selectedStore.social.twitter
-                              ? selectedStore.social.twitter.href
-                              : ''
-                          "
+                          :href="getSocialHref(selectedStore.social.twitter)"
                         >
                           <v-icon>fab fa-twitter</v-icon>
                         </v-btn>
@@ -190,11 +186,7 @@
                           icon
                           color="blue darken-3"
                           :disabled="!selectedStore.social.facebook"
-                          :href="
-                            selectedStore.social.facebook
-                              ? selectedStore.social.facebook.href
-                              : ''
-                          "
+                          :href="getSocialHref(selectedStore.social.facebook)"
                         >
                           <v-icon>fab fa-facebook</v-icon>
                         </v-btn>
@@ -204,11 +196,7 @@
                           icon
                           color="orange darken-2"
                           :disabled="!selectedStore.social.reddit"
-                          :href="
-                            selectedStore.social.reddit
-                              ? selectedStore.social.reddit.href
-                              : ''
-                          "
+                          :href="getSocialHref(selectedStore.social.reddit)"
                         >
                           <v-icon>fab fa-reddit</v-icon>
                         </v-btn>
@@ -442,6 +430,11 @@ export default {
   },
 
   methods: {
+    getSocialHref(social) {
+      if (social && social.href) return social.href
+
+      return ''
+    },
     isNewStore() {
       return (
         new Date(this.selectedStore.added * 1000 + 1000 * 60 * 60 * 24 * 8) >
