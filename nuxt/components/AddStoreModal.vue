@@ -292,16 +292,9 @@ export default {
       expiryTime: new Date(),
       isPaid: false,
 
-      addStoreFee: 5000,
-
       checkPaymentTimer: null,
     }
   },
-
-  created() {
-    // this.addStoreFee = this.$store.getters.getAddStoreFee()
-  },
-
   watch: {
     showAddDialog() {
       //           onChildChanged(val, oldVal) {
@@ -311,6 +304,11 @@ export default {
       //         document.body.classList.remove('noscroll')
       //     }
       //   }
+    },
+  },
+  computed: {
+    addStoreFee() {
+      return this.$store.state.addStoreFee
     },
   },
   methods: {
