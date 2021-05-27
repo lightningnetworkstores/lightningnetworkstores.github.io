@@ -140,6 +140,15 @@
               </v-layout>
 
               <div v-if="paymentRequest" class="text-center">
+                <v-row class="justify-center mt-3" v-show="warningMessage">
+                  <v-alert
+                    border="left"
+                    colored-border
+                    type="warning"
+                    elevation="2"
+                    >{{ warningMessage }}</v-alert
+                  >
+                </v-row>
                 <v-layout row>
                   <v-flex class="pa-3 text-xs-center"
                     ><h2>{{ upvoteDialogForm.amount }} sat</h2></v-flex
@@ -223,6 +232,8 @@ export default {
       checkPaymentTimer: null,
 
       commentAlert: { message: '', success: false },
+
+      warningMessage: false,
     }
   },
   computed: {
@@ -293,6 +304,7 @@ export default {
     },
 
     getInvoice() {
+      this.warningMessage = false
       // validations
       if (
         this.upvoteDialogForm.comment.indexOf('>') > -1 ||
@@ -333,6 +345,8 @@ export default {
         })
         .then(
           (response) => {
+            this.upvoteDialogForm.amount = response.amount
+            if (response.message) this.warningMessage = message
             this.paymentRequest = response.payment_request
             this.paymentID = response.id
             let date = new Date()
