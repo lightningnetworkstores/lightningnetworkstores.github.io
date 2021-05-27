@@ -17,6 +17,7 @@
               :md="hasExternal ? 9 : 12"
               class="pa-0 px-3"
             >
+              {{ $store.state.replyReviewFee }}
               <v-card class="pa-0 mb-3">
                 <v-img
                   :src="`${baseURL}thumbnails/${selectedStore.id}.png`"

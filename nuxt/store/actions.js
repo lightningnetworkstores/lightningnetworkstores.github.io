@@ -43,6 +43,10 @@ const actions = {
 
         return response.json();
       })
+      .then((response) => {
+        commit("setConfiguration", response.configuration);
+        return response
+      })
       .catch((error) => {
         return Promise.reject(error);
       });
