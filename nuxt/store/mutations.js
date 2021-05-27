@@ -17,6 +17,7 @@ const mutations = {
   setConfiguration(state, configuration) {
     state.configuration = configuration;
     state.tags = configuration.tags;
+    state.replyReviewFee = configuration.minimum_comment
   },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags;
