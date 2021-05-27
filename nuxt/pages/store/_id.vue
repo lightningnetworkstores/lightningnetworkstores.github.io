@@ -175,8 +175,12 @@
                           text
                           icon
                           color="blue"
-                          :disabled="!selectedStore.twitter"
-                          :href="'https://twitter.com/' + selectedStore.twitter"
+                          :disabled="!selectedStore.social.twitter"
+                          :href="
+                            selectedStore.social.twitter
+                              ? selectedStore.social.twitter.href
+                              : ''
+                          "
                         >
                           <v-icon>fab fa-twitter</v-icon>
                         </v-btn>
@@ -185,9 +189,11 @@
                           text
                           icon
                           color="blue darken-3"
-                          :disabled="!selectedStore.facebook"
+                          :disabled="!selectedStore.social.facebook"
                           :href="
-                            'https://facebook.com/' + selectedStore.facebook
+                            selectedStore.social.facebook
+                              ? selectedStore.social.facebook.href
+                              : ''
                           "
                         >
                           <v-icon>fab fa-facebook</v-icon>
@@ -197,9 +203,11 @@
                           text
                           icon
                           color="orange darken-2"
-                          :disabled="!selectedStore.reddit"
+                          :disabled="!selectedStore.social.reddit"
                           :href="
-                            'https://reddit.com/users/' + selectedStore.reddit
+                            selectedStore.social.reddit
+                              ? selectedStore.social.reddit.href
+                              : ''
                           "
                         >
                           <v-icon>fab fa-reddit</v-icon>
@@ -232,6 +240,7 @@
               <div class="ma-3 headline font-weight-medium external-title">
                 External
               </div>
+
               <v-card
                 v-for="(
                   external, propertyName, index

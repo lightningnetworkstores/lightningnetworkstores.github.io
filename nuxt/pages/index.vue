@@ -123,12 +123,10 @@
                     >
                   </a>
                 </div>
-                <div class="description">
-                  {{ store.description }}
-                </div>
+                <div class="description">{{ store.description }}</div>
                 <div>
                   <div class="tag-container">
-                    <v-chip
+                    <!-- <v-chip
                       v-for="(tag, index) in store.tags.slice(0, 5)"
                       :key="index"
                       color="primary"
@@ -137,7 +135,67 @@
                       class="mr-2 my-1"
                     >
                       <b>{{ tag }}</b>
+                    </v-chip> -->
+
+                    <!-- <v-chip
+                      v-for="(tag, index) in store.tags.slice(0, 5)"
+                      :key="index"
+                      color="primary"
+                      outlined
+                      small
+                      class="mr-2 my-1"
+                    >
+                      <b>{{ tag }}</b>
+                    </v-chip> -->
+                    <v-chip
+                      v-if="store.tags[0]"
+                      color="primary"
+                      outlined
+                      small
+                      class="mr-2 my-1"
+                    >
+                      <b>{{ store.tags[0] }}</b>
                     </v-chip>
+                    <v-menu
+                      open-on-hover
+                      top
+                      offset-y
+                      v-if="store.tags.length > 1"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-chip
+                          v-bind="attrs"
+                          v-on="on"
+                          color="primary"
+                          outlined
+                          small
+                          class="mr-2 my-1"
+                        >
+                          <b
+                            >+{{ store.tags.length - 1 }} tag{{
+                              store.tags.length - 1 == 1 ? '' : 's'
+                            }}</b
+                          >
+                        </v-chip>
+                      </template>
+
+                      <v-list>
+                        <v-list-item
+                          v-for="(tag, index) in store.tags.slice(1, 5)"
+                          :key="index"
+                          class="my-0"
+                        >
+                          <v-chip
+                            color="primary"
+                            outlined
+                            small
+                            class="mr-2 my-0"
+                          >
+                            <b>{{ tag }}</b>
+                          </v-chip>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
                   </div>
                   <div class="comments" v-if="store.total_comments">
                     <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
@@ -317,7 +375,6 @@ export default {
   },
   async mounted() {
     this.$store.commit('setLoading', true)
-    await this.$store.dispatch('getScores')
     await this.$store.dispatch('getStores')
     this.setFromRoute()
     this.$store.commit('setLoading', false)
@@ -391,9 +448,14 @@ export default {
   }
   .content {
     position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
     .title {
       font-size: 1.7rem !important;
 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       a {
         text-decoration: none;
 

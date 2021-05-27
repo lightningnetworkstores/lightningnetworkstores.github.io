@@ -12,7 +12,6 @@
               >Warning: some recent wallets might be scams. Be carefull when
               experimenting with new wallets.</i
             >
-            {{ wallets }}
           </v-layout>
 
           <v-layout row pt-3 class="datatable-layout" justify-center>
@@ -131,18 +130,16 @@ export default {
       tableOptions: {
         itemsPerPage: 50,
       },
-      wallets: [],
     }
   },
+
+  computed: {
+    wallets() {
+      return this.$store.state.wallets
+    },
+  },
   created() {
-    this.$store.dispatch('getWallets').then(
-      (response) => {
-        this.wallets = response.data
-      },
-      (error) => {
-        console.error(error)
-      }
-    )
+    this.$store.dispatch('getWallets')
   },
 }
 </script>

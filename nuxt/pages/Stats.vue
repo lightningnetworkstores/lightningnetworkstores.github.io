@@ -139,14 +139,13 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch('getScores')
     await this.$store.dispatch('getStores')
     this.coinmap = await this.$store.dispatch('getCoinmapData')
-    let scores = this.$store.state.scores
+
     let stores = this.$store.state.stores
 
     this.trendingStores = stores.slice(0).sort((a, b) => {
-      return (scores[b.id] || [0, 0, 0])[2] - (scores[a.id] || [0, 0, 0])[2]
+      return (b.score || [0, 0, 0])[2] - (a.score || [0, 0, 0])[2]
     })
 
     this.newestStores = stores

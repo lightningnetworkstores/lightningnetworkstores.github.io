@@ -60,9 +60,9 @@ const getters = {
         switch (sort) {
           case "trending":
             stores = stores
-              .filter((store) => (state.scores[store.id] || [0, 0, 0])[2] > options.trendingThreshold)
+              .filter((store) => store.score > options.trendingThreshold)
               .sort((a, b) => {
-                return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
+                return (b.score || [0, 0, 0])[2] - (a.score || [0, 0, 0])[2];
               });
             break;
           case "newest":
@@ -74,32 +74,33 @@ const getters = {
             break;
           case "lifetime":
             stores.sort((a, b) => {
-              return (state.scores[b.id] || [0, 0, 0, 0, 0, 0])[5] - (state.scores[a.id] || [0, 0, 0, 0, 0, 0])[5];
+              return (b.score || [0, 0, 0, 0, 0, 0])[5] - (a.score || [0, 0, 0, 0, 0, 0])[5];
             });
             break;
           case "controversial":
             stores.sort((a, b) => {
-              return (state.scores[b.id] || [0, 0])[1] - (state.scores[a.id] || [0, 0])[1];
+              return (b.score || [0, 0])[1] - (a.score || [0, 0])[1];
             });
             break;
           case "lastcommented":
             stores.sort((a, b) => {
-              return (state.scores[b.id] || [0, 0, 0, 0])[3] - (state.scores[a.id] || [0, 0, 0, 0])[3];
+              return (b.score || [0, 0, 0, 0])[3] - (a.score || [0, 0, 0, 0])[3];
             });
             break;
           default:
             stores.sort((a, b) => {
-              let scoreB = (state.scores[b.id] || [0])[0] - (state.scores[b.id] || [0, 0])[1];
-              let scoreA = (state.scores[a.id] || [0])[0] - (state.scores[a.id] || [0, 0])[1];
+              let scoreB = (b.score || [0])[0] - (b.score || [0, 0])[1];
+              let scoreA = (a.score || [0])[0] - (a.score || [0, 0])[1];
               return scoreB - scoreA;
             });
             // Add most treding tore to top
             if (!isFiltered) {
               var mostTrendingStore = stores.slice().sort((a, b) => {
-                return (state.scores[b.id] || [0, 0, 0])[2] - (state.scores[a.id] || [0, 0, 0])[2];
+                return (b.score || [0, 0, 0])[2] - (a.score || [0, 0, 0])[2];
               })[0];
+
               // Is above trending threshold?
-              if (mostTrendingStore && state.scores[mostTrendingStore.id][2] >= 10) {
+              if (mostTrendingStore && state.scores.length && state.scores[mostTrendingStore.id][2] >= 10) {
                 stores.splice(stores.indexOf(mostTrendingStore), 1);
                 stores.unshift(mostTrendingStore);
               }

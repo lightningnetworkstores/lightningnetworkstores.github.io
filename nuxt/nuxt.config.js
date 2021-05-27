@@ -4,23 +4,36 @@ import axios from 'axios'
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'server',
-  server: {port: 3000},
-  axios: {proxy: true, proxyHeaders: true},
-  proxy: {
-    '/api/': { target: 'https://bitcoin-stores.com' },
-    '/thumbnails/': { target: 'https://bitcoin-stores.com' },
+  server: {
+    port: 3000
   },
-  generate: { interval: 100,
+  axios: {
+    proxy: true,
+    proxyHeaders: true
+  },
+  proxy: {
+    '/api/': {
+      target: 'https://bitcoin-stores.com'
+    },
+    '/thumbnails/': {
+      target: 'https://bitcoin-stores.com'
+    },
+  },
+  generate: {
+    interval: 100,
     routes() {
-                return axios
-                .get(`https://LightningNetworkStores.com/stores`)
-                .then((response) => {
-                    return response.data.data.stores.map((store) => {
-                    return `/store/${store.id}`
-                    })
-                })
-  }, exlude:[], crawler: true}, // ['/stats', '/donations', '/about', '/About', '/Stats', 'Donations', '/']
-  
+      return axios
+        .get(`https://LightningNetworkStores.com/stores`)
+        .then((response) => {
+          return response.data.data.stores.map((store) => {
+            return `/store/${store.id}`
+          })
+        })
+    },
+    exlude: [],
+    crawler: true
+  }, // ['/stats', '/donations', '/about', '/About', '/Stats', 'Donations', '/']
+
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
@@ -62,33 +75,32 @@ export default {
         content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
       }
     ],
-    link: [
-        {
-          hid: 'icon',
-          rel: 'icon',
-          type: 'image/x-icon',
-          href: '/favicon-16x16.png',
-          sizes: '16x16',
-        },
-        {
-          hid: 'icon',
-          rel: 'icon',
-          type: 'image/x-icon',
-          href: '/favicon-32x32.png',
-          sizes: '32x32',
-        },
-        {
-          hid: 'icon',
-          rel: 'icon',
-          type: 'image/x-icon',
-          href: '/favicon-48x48.png',
-          sizes: '48x48',
-        },
-        {
-          rel: 'stylesheet',
-          href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
-        },
-      ],
+    link: [{
+        hid: 'icon',
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon-16x16.png',
+        sizes: '16x16',
+      },
+      {
+        hid: 'icon',
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon-32x32.png',
+        sizes: '32x32',
+      },
+      {
+        hid: 'icon',
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon-48x48.png',
+        sizes: '48x48',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+      },
+    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)

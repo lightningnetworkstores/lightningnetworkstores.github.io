@@ -47,22 +47,6 @@ const actions = {
         return Promise.reject(error);
       });
   },
-  getScores({
-    state,
-    commit
-  }) {
-    return fetch(`${state.baseURL}storeScores.json`)
-      .then((response) => {
-
-        return response.json();
-      })
-      .then(response => {
-        commit("setScores", response);
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
-  },
   addStore({
     state
   }, {
@@ -234,16 +218,20 @@ const actions = {
       });
   },
   getWallets({
-    state
+    state,
+    commit
   }) {
     return fetch(`${state.baseURL}wallets.json`)
-        .then(response => {
-            return Promise.resolve(response);
-        })
-        .catch(error => {
-            return Promise.reject(error);
-        });
-    },
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        commit("setWallets", response);
+      })
+      .catch(error => {
+        return Promise.reject(error);
+      });
+  },
 }
 
 

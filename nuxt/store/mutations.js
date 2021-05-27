@@ -21,6 +21,9 @@ const mutations = {
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags;
   },
+  setWallets(state, wallets) {
+    state.wallets = wallets;
+  },
 }
 
 export default mutations;
