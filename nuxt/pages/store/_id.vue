@@ -175,8 +175,8 @@
                           text
                           icon
                           color="blue"
-                          :disabled="!selectedStore.twitter"
-                          :href="'https://twitter.com/' + selectedStore.twitter"
+                          :disabled="!selectedStore.social.twitter"
+                          :href="getSocialHref(selectedStore.social.twitter)"
                         >
                           <v-icon>fab fa-twitter</v-icon>
                         </v-btn>
@@ -185,10 +185,8 @@
                           text
                           icon
                           color="blue darken-3"
-                          :disabled="!selectedStore.facebook"
-                          :href="
-                            'https://facebook.com/' + selectedStore.facebook
-                          "
+                          :disabled="!selectedStore.social.facebook"
+                          :href="getSocialHref(selectedStore.social.facebook)"
                         >
                           <v-icon>fab fa-facebook</v-icon>
                         </v-btn>
@@ -197,10 +195,8 @@
                           text
                           icon
                           color="orange darken-2"
-                          :disabled="!selectedStore.reddit"
-                          :href="
-                            'https://reddit.com/users/' + selectedStore.reddit
-                          "
+                          :disabled="!selectedStore.social.reddit"
+                          :href="getSocialHref(selectedStore.social.reddit)"
                         >
                           <v-icon>fab fa-reddit</v-icon>
                         </v-btn>
@@ -433,6 +429,11 @@ export default {
   },
 
   methods: {
+    getSocialHref(social) {
+      if (social && social.href) return social.href
+
+      return '';
+    },
     isNewStore() {
       return (
         new Date(this.selectedStore.added * 1000 + 1000 * 60 * 60 * 24 * 8) >
