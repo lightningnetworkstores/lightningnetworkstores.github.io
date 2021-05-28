@@ -5,7 +5,7 @@ export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'server',
   server: {
-    port: 3000
+    port: 3000, host: '0'
   },
   axios: {
     proxy: true,
@@ -18,6 +18,12 @@ export default {
     '/thumbnails/': {
       target: 'https://bitcoin-stores.com'
     },
+    '/api2/': {
+        target: 'https://bitcoin-stores.com'
+      },
+    '/api3/': {
+        target: 'https://bitcoin-stores.com'
+      },
   },
   generate: {
     interval: 100,
