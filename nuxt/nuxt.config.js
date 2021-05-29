@@ -13,16 +13,16 @@ export default {
   },
   proxy: {
     '/api/': {
-      target: 'https://bitcoin-stores.com'
+      target: 'https://bitcoin-stores.com', changeOrigin: false
     },
     '/thumbnails/': {
-      target: 'https://bitcoin-stores.com'
+      target: 'https://bitcoin-stores.com', changeOrigin: false
     },
     '/api2/': {
-        target: 'https://bitcoin-stores.com'
+        target: 'https://bitcoin-stores.com', changeOrigin: false
       },
     '/api3/': {
-        target: 'https://bitcoin-stores.com'
+        target: 'https://bitcoin-stores.com', changeOrigin: false
       },
   },
   generate: {
