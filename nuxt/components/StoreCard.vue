@@ -1,5 +1,5 @@
 <template>
-  <v-card hover @click.native="gotoStore(store.id)">
+  <v-card hover>
     <v-card-text class="pa-0">
       <div class="detail">
         <div class="screenshot">
@@ -38,7 +38,7 @@
           <span> {{ store.upvotes | splitNumber }}</span>
           <vote-button :isUpvoting="false" :store="store" />
         </div>
-        <div class="content pa-2 pl-5">
+        <div class="content pa-2 pl-5" @click="gotoStore(store.id)">
           <div class="title">
             <a :href="store.href" class="font-weight-regular">
               {{ store.name }}
