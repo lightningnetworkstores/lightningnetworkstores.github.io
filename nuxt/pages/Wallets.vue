@@ -19,6 +19,8 @@
               :headers="headers"
               :items="wallets"
               :options="tableOptions"
+              :footer-props="{ 'items-per-page-options': [50, 100, 500] }"
+              class="white"
             >
               <template slot="headerCell" slot-scope="props">
                 <v-tooltip bottom>
@@ -32,73 +34,54 @@
                   </span>
                 </v-tooltip>
               </template>
-              <template v-slot:items="props">
-                <td class="text-xs-center">
-                  <a :href="props.item.page">{{ props.item.name }}</a>
-                </td>
-                <td class="text-xs-center">
-                  <a
-                    v-if="props.item.open_source"
-                    :href="props.item.open_source"
-                    >yes</a
-                  ><span v-else>no</span>
-                </td>
-                <td class="text-xs-center">
-                  <span v-if="props.item.requires_node">{{
-                    props.item.requires_node
-                  }}</span
-                  ><span v-else>no</span>
-                </td>
-                <td class="text-xs-center">
-                  <span v-if="props.item.custodial">{{
-                    props.item.custodial
-                  }}</span
-                  ><span v-else>no</span>
-                </td>
-                <td class="text-xs-right">{{ props.item.release }}</td>
-                <td class="text-xs-center">
-                  <a v-if="props.item.web_wallet" :href="props.item.web_wallet"
-                    >yes</a
-                  ><span v-else>no</span>
-                </td>
-                <td class="text-xs-right">
-                  <a v-if="props.item.android" :href="props.item.android"
-                    >android</a
-                  >
-                  <a
-                    v-else-if="props.item.android_closed"
-                    :href="props.item.android_closed"
-                    >android closed-beta</a
-                  >&nbsp;
-                  <a v-if="props.item.iOS" :href="props.item.iOS">iOS</a>
-                  <a
-                    v-else-if="props.item.iOS_closed"
-                    :href="props.item.iOS_closed"
-                    >iOS closed-beta</a
-                  >
-                </td>
-                <td class="text-xs-right">
-                  <a
-                    v-if="props.item.android_testnet"
-                    :href="props.item.android_testnet"
-                    >android</a
-                  >
-                  <a
-                    v-else-if="props.item.android_testnet_closed"
-                    :href="props.item.android_testnet_closed"
-                    >android closed-beta</a
-                  >
-                  &nbsp;<a
-                    v-if="props.item.iOS_testnet"
-                    :href="props.item.iOS_testnet"
-                    >iOS</a
-                  >
-                  <a
-                    v-else-if="props.item.iOS_testnet_closed"
-                    :href="props.item.iOS_testnet_closed"
-                    >iOS closed-beta</a
-                  >
-                </td>
+
+              <template v-slot:item.name="{ item }">
+                <a v-if="item.name" :href="item.address">{{ item.name }}</a>
+              </template>
+
+              <template v-slot:item.open_source="{ item }">
+                <a v-if="item.open_source" :href="item.open_source">yes</a>
+                <span v-else>no</span>
+              </template>
+              <template v-slot:item.requires_node="{ item }">
+                <span v-if="item.requires_node">{{ item.requires_node }}</span>
+                <span v-else>no</span>
+              </template>
+              <template v-slot:item.custodial="{ item }">
+                <span v-if="item.custodial">{{ item.custodial }}</span>
+                <span v-else>no</span>
+              </template>
+              <template v-slot:item.web_wallet="{ item }">
+                <a v-if="item.web_wallet" :href="item.web_wallet">yes</a>
+                <span v-else>no</span>
+              </template>
+              <template v-slot:item.mainnet="{ item }">
+                <a v-if="item.android" :href="item.android">android</a>
+                <a v-else-if="item.android_closed" :href="item.android_closed"
+                  >android closed-beta</a
+                >&nbsp;
+                <a v-if="item.iOS" :href="item.iOS">iOS</a>
+                <a v-else-if="item.iOS_closed" :href="item.iOS_closed"
+                  >iOS closed-beta</a
+                >
+              </template>
+              <template v-slot:item.testnet="{ item }">
+                <a v-if="item.android_testnet" :href="item.android_testnet"
+                  >android</a
+                >
+                <a
+                  v-else-if="item.android_testnet_closed"
+                  :href="item.android_testnet_closed"
+                  >android closed-beta</a
+                >
+                &nbsp;<a v-if="item.iOS_testnet" :href="item.iOS_testnet"
+                  >iOS</a
+                >
+                <a
+                  v-else-if="item.iOS_testnet_closed"
+                  :href="item.iOS_testnet_closed"
+                  >iOS closed-beta</a
+                >
               </template>
             </v-data-table>
           </v-layout>
@@ -119,13 +102,13 @@ export default {
           sortable: true,
           value: 'name',
         },
-        { text: 'Open source', value: 'open_source' },
-        { text: 'Requires own node', value: 'requires_node' },
-        { text: 'Custodial', value: 'custodial' },
-        { text: 'Mainnet launch date', value: 'release' },
-        { text: 'Web wallet', value: 'web_wallet' },
-        { text: 'Mainnet', value: '' },
-        { text: 'Testnet', value: '' },
+        { text: 'Open source', value: 'open_source', align: 'center' },
+        { text: 'Requires own node', value: 'requires_node', align: 'center' },
+        { text: 'Custodial', value: 'custodial', align: 'center' },
+        { text: 'Mainnet launch date', value: 'release', align: 'right' },
+        { text: 'Web wallet', value: 'web_wallet', align: 'center' },
+        { text: 'Mainnet', value: 'mainnet', align: 'right' },
+        { text: 'Testnet', value: 'testnet', align: 'right' },
       ],
       tableOptions: {
         itemsPerPage: 50,
