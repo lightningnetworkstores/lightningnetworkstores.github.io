@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 const actions = {
   async nuxtServerInit({
     commit
@@ -20,18 +22,15 @@ const actions = {
     state,
     commit
   }) {
-    return fetch(`${state.baseURL}api/stores`)
+    return axios.get(`${state.baseURL}api/stores`)
       .then((response) => {
+        commit("setStores", response.data.data.stores);
+        commit("setConfiguration", response.data.data.configuration);
 
-        return response.json();
-      })
-      .then(response => {
-        commit("setStores", response.data.stores);
-
-        commit("setConfiguration", response.data.configuration);
+        return response.data.data;
       })
       .catch((error) => {
-        return Promise.reject(error);
+        console.log(error);
       });
   },
   getStore({
@@ -63,10 +62,12 @@ const actions = {
     contributor: contributor,
     recaptcha: recaptcha
   }) {
+
+
     return fetch(
         `${state.baseURL}api/addStore?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&URL=${encodeURIComponent(url)}&URI=${encodeURIComponent(
-                  uri
-              )}&sector=${encodeURIComponent(sector)}&digitalGoods=${encodeURIComponent(digitalGoods)}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
+                uri
+            )}&sector=${encodeURIComponent(sector)}&digitalGoods=${encodeURIComponent(digitalGoods)}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
       )
       .then((response) => {
         return response.text();
@@ -74,7 +75,30 @@ const actions = {
       .catch((error) => {
         return Promise.reject(error);
       });
+
+    // Post version
+    // let params = {
+    //   name: encodeURIComponent(name),
+    //   description: encodeURIComponent(description),
+    //   URL: encodeURIComponent(url),
+    //   URI: encodeURIComponent(uri),
+    //   sector: encodeURIComponent(sector),
+    //   digitalGoods: encodeURIComponent(digitalGoods),
+    //   contributor: contributor,
+    //   "g-recaptcha-response": recaptcha
+    // }
+    // return fetch(`${state.baseURL}api/addStore`, {
+    //     method: 'GET',
+    //     body: JSON.stringify(params)
+    //   })
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .catch((error) => {
+    //     return Promise.reject(error);
+    //   });
   },
+
   addStoreUpdate({
     state
   }, {
@@ -143,9 +167,9 @@ const actions = {
   getCoinmapData({
     state
   }) {
-    return fetch(`${state.baseURL}coinmap.json`)
+    return axios.get(`${state.baseURL}coinmap.json`)
       .then((response) => {
-        return response.json();
+        return response.data;
       })
       .catch((error) => {
         return Promise.reject(error);
@@ -225,15 +249,13 @@ const actions = {
     state,
     commit
   }) {
-    return fetch(`${state.baseURL}wallets.json`)
+    return axios.get(`${state.baseURL}wallets.json`)
       .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        commit("setWallets", response);
+        commit("setWallets", response.data);
+        return response.data;
       })
       .catch(error => {
-        return Promise.reject(error);
+        console.log(error);
       });
   },
 }

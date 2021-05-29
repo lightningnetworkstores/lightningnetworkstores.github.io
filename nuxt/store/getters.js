@@ -89,9 +89,10 @@ const getters = {
             break;
           default:
             stores.sort((a, b) => {
-              let scoreB = (b.score || [0])[0] - (b.score || [0, 0])[1];
-              let scoreA = (a.score || [0])[0] - (a.score || [0, 0])[1];
-              return scoreB - scoreA;
+              // let scoreB = (b.score || [0])[0] - (b.score || [0, 0])[1];
+              // let scoreA = (a.score || [0])[0] - (a.score || [0, 0])[1];
+              // return scoreB - scoreA;
+              return b.score - a.score;
             });
             // Add most treding tore to top
             if (!isFiltered) {

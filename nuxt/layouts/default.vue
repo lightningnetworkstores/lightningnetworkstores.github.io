@@ -2,7 +2,7 @@
   <v-app app>
     <Header />
 
-    <v-main>
+    <v-main class="grey lighten-5">
       <v-overlay :value="loading">
         <v-progress-circular
           indeterminate
