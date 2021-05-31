@@ -14,17 +14,17 @@ export default {
   },
   proxy: {
     '/api/': {
-      target: 'http://bitcoin-stores.com', onProxyRes: function(proxyRes, req, res){console.log("url=" + req.url + ', method='+req.method)},
+      target: 'https://bitcoin-stores.com', onProxyRes: function(proxyRes, req, res){console.log("url=" + req.url + ', method='+req.method)},
       onProxyReq: function(proxyRes, req, res){console.log("url=" + req.url + ', method='+req.method)}
     },
     '/thumbnails/': {
-      target: 'http://bitcoin-stores.com', changeOrigin: false
+      target: 'https://bitcoin-stores.com', changeOrigin: false
     },
     '/api2/': {
-        target: 'http://bitcoin-stores.com', changeOrigin: false
+        target: 'https://bitcoin-stores.com', changeOrigin: false
       },
     '/api3/': {
-        target: 'http://bitcoin-stores.com', changeOrigin: false
+        target: 'https://bitcoin-stores.com', changeOrigin: false
       },
   },
   generate: {
