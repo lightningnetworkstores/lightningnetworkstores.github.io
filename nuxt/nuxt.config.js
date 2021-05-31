@@ -14,7 +14,8 @@ export default {
   },
   proxy: {
     '/api/': {
-      target: 'https://bitcoin-stores.com', changeOrigin: false
+      target: 'https://bitcoin-stores.com', onProxyRes: function(proxyRes, req, res){console.log("url=" + req.url + ', method='+req.method)},
+      onProxyReq: function(proxyRes, req, res){console.log("url=" + req.url + ', method='+req.method)}
     },
     '/thumbnails/': {
       target: 'https://bitcoin-stores.com', changeOrigin: false
