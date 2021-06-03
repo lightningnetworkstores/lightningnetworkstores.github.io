@@ -164,18 +164,6 @@ const actions = {
         return Promise.reject(error);
       });
   },
-  getCoinmapData({
-    state
-  }) {
-    return axios.get(`${state.baseURL}coinmap.json`)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
-  },
-
   suggestTags({
     state
   }, {

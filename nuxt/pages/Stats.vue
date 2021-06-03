@@ -121,7 +121,6 @@ export default {
   data() {
     return {
       lightningStoreRatio: 0,
-      coinmap: [],
 
       trendingStores: [],
       newestStores: [],
@@ -140,7 +139,6 @@ export default {
 
   async mounted() {
     await this.$store.dispatch('getStores')
-    this.coinmap = await this.$store.dispatch('getCoinmapData')
 
     let stores = this.$store.state.stores
 
