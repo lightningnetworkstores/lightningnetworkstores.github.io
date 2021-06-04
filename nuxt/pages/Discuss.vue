@@ -13,10 +13,8 @@
             </store-card>
             <Review
               class="store-card"
-              v-for="comment in discussion.comments"
-              :key="comment.id"
-              :comment="comment"
-              :comments="[]"
+              :comment="discussion.comments[0]"
+              :comments="discussion.comments.slice(1)"
               :store="discussion.store">
             </Review>
         </v-row>
