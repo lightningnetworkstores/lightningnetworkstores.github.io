@@ -60,9 +60,9 @@ const getters = {
         switch (sort) {
           case "trending":
             stores = stores
-              .filter((store) => store.score > options.trendingThreshold)
+              .filter((store) => store.trending > options.trendingThreshold)
               .sort((a, b) => {
-                return (b.score || [0, 0, 0])[2] - (a.score || [0, 0, 0])[2];
+                return b.trending - a.trending;
               });
             break;
           case "newest":
@@ -74,17 +74,29 @@ const getters = {
             break;
           case "lifetime":
             stores.sort((a, b) => {
-              return (b.score || [0, 0, 0, 0, 0, 0])[5] - (a.score || [0, 0, 0, 0, 0, 0])[5];
+              return b.lifetime - a.lifetime;
             });
             break;
           case "controversial":
             stores.sort((a, b) => {
-              return (b.score || [0, 0])[1] - (a.score || [0, 0])[1];
+                let magnitudeB = b.upvotes+b.downvotes
+                let controversialB = 0;
+                if(magnitudeB!=0){
+                    controversialB = magnitudeB*Math.min(b.upvotes, b.downvotes)/Math.max(b.upvotes, b.downvotes)
+                }
+
+                let magnitudeA = a.upvotes+a.downvotes
+                let controversialA = 0;
+                if(magnitudeA!=0){
+                    controversialA = magnitudeA*Math.min(a.upvotes, a.downvotes)/Math.max(a.upvotes, a.downvotes)
+                }
+
+              return controversialB - controversialA;
             });
             break;
           case "lastcommented":
             stores.sort((a, b) => {
-              return (b.score || [0, 0, 0, 0])[3] - (a.score || [0, 0, 0, 0])[3];
+              return b.last_commented - a.last_commented;
             });
             break;
           default:
@@ -139,6 +151,27 @@ const getters = {
       lifetime: score[5] ? score[5] : 0
     };
   },
+  getDiscussions: (state) => {
+    const formattedDiscussions = state.discussions.map(discussion => {
+      const store = {
+        id: discussion.id,
+        trending: discussion.trending,
+        rank: discussion.rank,
+        upvotes: discussion.upvotes,
+        href: discussion.href,
+        name: discussion.name,
+        description: discussion.description,
+        tags: discussion.tags,
+        total_comments: discussion.total_comments,
+        added: discussion.added
+      };
+      return {
+        store: store,
+        comments: discussion.comments
+      }
+    });
+    return formattedDiscussions;
+  }
 }
 
 export default getters;

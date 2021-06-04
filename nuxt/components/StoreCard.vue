@@ -25,11 +25,11 @@
               >Trending</v-chip
             >
             <v-chip
-              v-if="store.rank !== 'unranked'"
-              color="#fdb919"
+              v-if="hasNewComment(store)"
+              color="blue"
               text-color="white"
               class="ma-2"
-              >#{{ store.rank }}</v-chip
+              >New comment</v-chip
             >
           </v-img>
         </div>
@@ -112,6 +112,9 @@ export default {
     },
     isNewStore(store) {
       return new Date(store.added * 1000 + 1000 * 60 * 60 * 24 * 8) > new Date()
+    },
+    hasNewComment(store) {
+      return new Date(store.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
     },
   },
   computed: {

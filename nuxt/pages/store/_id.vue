@@ -49,11 +49,11 @@
                   </v-tooltip>
 
                   <v-chip
-                    v-if="selectedStore.rank !== 'unranked'"
-                    color="#fdb919"
+                    v-if="hasNewComment(selectedStore)"
+                    color="blue"
                     text-color="white"
                     class="ma-2"
-                    >#{{ selectedStore.rank }}</v-chip
+                    >New comment</v-chip
                   >
                 </v-img>
                 <v-row class="pa-5">
@@ -235,7 +235,7 @@
                 ) in selectedStore.external"
                 :key="index"
                 class="mx-3 mb-3 py-2"
-                :href="external"
+                :href="external.href"
               >
                 <v-layout row class="py-2">
                   <v-flex shrink>
@@ -377,6 +377,11 @@ export default {
           property: 'twitter:description',
           content: this.selectedStore.description,
         },
+        {
+          hid: "og:image",
+          property: "og:image",
+          content: "/thumbnails/" + this.selectedStore.id + "_0.png",
+        },
       ],
     }
   },
@@ -440,6 +445,9 @@ export default {
         new Date(this.selectedStore.added * 1000 + 1000 * 60 * 60 * 24 * 8) >
         new Date()
       )
+    },
+     hasNewComment(store) {
+      return new Date(this.selectedStore.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
     },
     filter(filter) {
       this.currentFilter = filter

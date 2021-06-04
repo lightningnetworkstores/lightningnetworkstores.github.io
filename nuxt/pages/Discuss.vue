@@ -1,0 +1,54 @@
+<template>
+  <v-layout justify-center>
+    <v-flex xs12 md12 lg10 xl2 class="pa-6">
+      <v-container>
+        <v-row
+          class="store-row"
+          v-for="discussion in this.$store.getters.getDiscussions"
+          :key="'store-' + discussion.store.id">
+            <store-card
+              class="store-card"
+              :key="'store-' + discussion.store.id"
+              :store="discussion.store">
+            </store-card>
+            <Review
+              class="store-card"
+              v-for="comment in discussion.comments"
+              :key="comment.id"
+              :comment="comment"
+              :comments="[]"
+              :store="discussion.store">
+            </Review>
+        </v-row>
+      </v-container>
+    </v-flex>
+  </v-layout>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      discussions: []
+    }
+  },
+  mounted() {
+    console.log('mounted');
+    this.$store.dispatch('getDiscussions');
+  }
+}
+</script>
+<style scoped>
+  .store-row {
+    flex-direction: column;
+    align-content: center;
+    padding: 2em;
+  }
+  .store-card {
+    width: 50%;
+  }
+  @media (max-width: 600px) {
+    .store-card {
+      width: 100%;
+    }
+  }
+</style>
