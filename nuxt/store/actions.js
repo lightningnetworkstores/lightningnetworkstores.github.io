@@ -64,39 +64,40 @@ const actions = {
   }) {
 
 
-    return fetch(
-        `${state.baseURL}api/addStore?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&URL=${encodeURIComponent(url)}&URI=${encodeURIComponent(
-                uri
-            )}&sector=${encodeURIComponent(sector)}&digitalGoods=${encodeURIComponent(digitalGoods)}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
-      )
-      .then((response) => {
-        return response.text();
-      })
-      .catch((error) => {
-        return Promise.reject(error);
-      });
-
-    // Post version
-    // let params = {
-    //   name: encodeURIComponent(name),
-    //   description: encodeURIComponent(description),
-    //   URL: encodeURIComponent(url),
-    //   URI: encodeURIComponent(uri),
-    //   sector: encodeURIComponent(sector),
-    //   digitalGoods: encodeURIComponent(digitalGoods),
-    //   contributor: contributor,
-    //   "g-recaptcha-response": recaptcha
-    // }
-    // return fetch(`${state.baseURL}api/addStore`, {
-    //     method: 'GET',
-    //     body: JSON.stringify(params)
-    //   })
+    // return fetch(
+    //     `${state.baseURL}api/addStore?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&URL=${encodeURIComponent(url)}&URI=${encodeURIComponent(
+    //             uri
+    //         )}&sector=${encodeURIComponent(sector)}&digitalGoods=${encodeURIComponent(digitalGoods)}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
+    //   )
     //   .then((response) => {
-    //     return response.json();
+    //     return response.text();
     //   })
     //   .catch((error) => {
     //     return Promise.reject(error);
     //   });
+
+    // Post version
+    let params = {
+      name: encodeURIComponent(name),
+      description: encodeURIComponent(description),
+      URL: encodeURIComponent(url),
+      URI: encodeURIComponent(uri),
+      sector: encodeURIComponent(sector),
+      digitalGoods: encodeURIComponent(digitalGoods),
+      contributor: contributor,
+      "g-recaptcha-response": recaptcha
+    }
+
+    return fetch(`${state.baseURL}api/addStore`, {
+        method: 'POST',
+        body: JSON.stringify(params)
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .catch((error) => {
+        return Promise.reject(error);
+      });
   },
 
   addStoreUpdate({
