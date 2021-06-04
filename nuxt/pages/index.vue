@@ -254,7 +254,7 @@ export default {
 
 <style lang="scss">
 .tag {
-  margin-top: -22px;
+  margin-top: -22px !important;
   height: 25px;
   display: block;
 }

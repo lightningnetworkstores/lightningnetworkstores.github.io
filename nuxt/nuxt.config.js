@@ -14,18 +14,26 @@ export default {
   },
   proxy: {
     '/api/': {
-      target: 'https://bitcoin-stores.com', onProxyRes: function(proxyRes, req, res){console.log("url=" + req.url + ', method='+req.method)},
-      onProxyReq: function(proxyRes, req, res){console.log("url=" + req.url + ', method='+req.method)}
+      target: 'https://bitcoin-stores.com',
+      onProxyRes: function (proxyRes, req, res) {
+        console.log("url=" + req.url + ', method=' + req.method)
+      },
+      onProxyReq: function (proxyRes, req, res) {
+        console.log("url=" + req.url + ', method=' + req.method)
+      }
     },
     '/thumbnails/': {
-      target: 'https://bitcoin-stores.com', changeOrigin: false
+      target: 'https://bitcoin-stores.com',
+      changeOrigin: false
     },
     '/api2/': {
-        target: 'https://bitcoin-stores.com', changeOrigin: false
-      },
+      target: 'https://bitcoin-stores.com',
+      changeOrigin: false
+    },
     '/api3/': {
-        target: 'https://bitcoin-stores.com', changeOrigin: false
-      },
+      target: 'https://bitcoin-stores.com',
+      changeOrigin: false
+    },
   },
   generate: {
     interval: 100,
@@ -48,7 +56,6 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - lightningnetworkstores',
     title: "Lightning Network Stores directory",
     meta: [{
         charset: 'utf-8'
@@ -93,8 +100,8 @@ export default {
         type: 'application/opensearchdescription+xml',
         title: 'Lightning Network Stores',
         href: '/opensearch.xml'
-    },
-    {
+      },
+      {
         hid: 'icon',
         rel: 'icon',
         type: 'image/x-icon',

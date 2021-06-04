@@ -1,10 +1,9 @@
 const mutations = {
   setIsDev(state, data) {
     state.isDev = true
-    state.baseURL = "https://bitcoin-stores.com/"
+    state.baseURL = "/api/" // Proxy redirect to url set in nuxt.config.js
+    // state.baseURL = "https://bitcoin-stores.com/"
     //   state.baseURL = "https://lightningnetworkstores.com:8443/"
-    state.replyReviewFee = 2;
-    state.addStoreFee = 2;
   },
   setLoading(state, data) {
     state.loading = data
