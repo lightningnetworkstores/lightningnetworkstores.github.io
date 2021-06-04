@@ -3,8 +3,6 @@ const mutations = {
     state.isDev = true
     state.baseURL = "https://bitcoin-stores.com/"
     //   state.baseURL = "https://lightningnetworkstores.com:8443/"
-    state.replyReviewFee = 2;
-    state.addStoreFee = 2;
   },
   setLoading(state, data) {
     state.loading = data

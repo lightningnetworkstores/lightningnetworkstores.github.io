@@ -10,8 +10,8 @@ export const state = () => ({
   tags: [],
   selectedTags: [],
   configuration: null,
-  replyReviewFee: 500,
-  addStoreFee: 2000,
+  replyReviewFee: 50,
+  addStoreFee: 1000,
 })
 
 export default state;
