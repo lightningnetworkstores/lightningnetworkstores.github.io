@@ -73,6 +73,11 @@ export default {
         content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
       },
       {
+        hid: "og:image",
+        property: "og:image",
+        content: "/ogimage.png"
+      },
+      {
         hid: "twitter:title",
         property: "twitter:title",
         content: "Lightning Network Stores directory"
@@ -84,6 +89,12 @@ export default {
       }
     ],
     link: [{
+        rel: 'search',
+        type: 'application/opensearchdescription+xml',
+        title: 'Lightning Network Stores',
+        href: '/opensearch.xml'
+    },
+    {
         hid: 'icon',
         rel: 'icon',
         type: 'image/x-icon',
