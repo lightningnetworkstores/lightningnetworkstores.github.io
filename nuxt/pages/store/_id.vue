@@ -235,7 +235,7 @@
                 ) in selectedStore.external"
                 :key="index"
                 class="mx-3 mb-3 py-2"
-                :href="external"
+                :href="external.href"
               >
                 <v-layout row class="py-2">
                   <v-flex shrink>
