@@ -84,6 +84,12 @@ export default {
       }
     ],
     link: [{
+        rel: 'search',
+        type: 'application/opensearchdescription+xml',
+        title: 'Lightning Network Stores',
+        href: '/opensearch.xml'
+    },
+    {
         hid: 'icon',
         rel: 'icon',
         type: 'image/x-icon',
