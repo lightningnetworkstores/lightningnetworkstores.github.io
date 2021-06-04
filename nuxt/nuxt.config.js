@@ -10,22 +10,36 @@ export default {
   },
   axios: {
     proxy: true,
-    proxyHeaders: true
+    // proxyHeaders: true
   },
   proxy: {
     '/api/': {
-      target: 'https://bitcoin-stores.com', onProxyRes: function(proxyRes, req, res){console.log("url=" + req.url + ', method='+req.method)},
-      onProxyReq: function(proxyRes, req, res){console.log("url=" + req.url + ', method='+req.method)}
+      target: 'https://bitcoin-stores.com:8080/',
+      pathRewrite: {
+        '^/api/': ''
+      },
+      onProxyRes: function (proxyRes, req, res) {
+        console.log("url=" + req.url + ', method=' + req.method)
+      },
+      onProxyReq: function (proxyRes, req, res) {
+        console.log("url=" + req.url + ', method=' + req.method)
+      }
     },
     '/thumbnails/': {
-      target: 'https://bitcoin-stores.com', changeOrigin: false
+      target: 'https://bitcoin-stores.com/',
+      changeOrigin: false
     },
     '/api2/': {
-        target: 'https://bitcoin-stores.com', changeOrigin: false
+      target: 'https://bitcoin-stores.com/',
+      pathRewrite: {
+        '^/api2/': ''
       },
+      changeOrigin: false
+    },
     '/api3/': {
-        target: 'https://bitcoin-stores.com', changeOrigin: false
-      },
+      target: 'https://bitcoin-stores.com/',
+      changeOrigin: false
+    },
   },
   generate: {
     interval: 100,
