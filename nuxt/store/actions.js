@@ -246,6 +246,20 @@ const actions = {
         console.log(error);
       });
   },
+  getDiscussions({
+    state,
+    commit
+  }) {
+    console.log('Calling getDiscussions');
+    return axios.get(`${state.baseURL}api/discussion`)
+      .then(response => {
+        if (response.status === 200) {
+          const { data } = response;
+          commit('setDiscussions', data.data.last_active_stores);
+        }
+      })
+      .catch(console.error);
+  }
 }
 
 

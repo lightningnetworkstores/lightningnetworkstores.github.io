@@ -29,6 +29,9 @@ const mutations = {
   setWallets(state, wallets) {
     state.wallets = wallets;
   },
+  setDiscussions(state, discussions) {
+    state.discussions = discussions;
+  }
 }
 
 export default mutations;

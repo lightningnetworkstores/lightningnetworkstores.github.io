@@ -139,6 +139,27 @@ const getters = {
       lifetime: score[5] ? score[5] : 0
     };
   },
+  getDiscussions: (state) => {
+    const formattedDiscussions = state.discussions.map(discussion => {
+      const store = {
+        id: discussion.id,
+        trending: discussion.trending,
+        rank: discussion.rank,
+        upvotes: discussion.upvotes,
+        href: discussion.href,
+        name: discussion.name,
+        description: discussion.description,
+        tags: discussion.tags,
+        total_comments: discussion.total_comments,
+        added: discussion.added
+      };
+      return {
+        store: store,
+        comments: discussion.comments
+      }
+    });
+    return formattedDiscussions;
+  }
 }
 
 export default getters;
