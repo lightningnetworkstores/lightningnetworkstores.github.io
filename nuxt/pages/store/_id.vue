@@ -377,6 +377,11 @@ export default {
           property: 'twitter:description',
           content: this.selectedStore.description,
         },
+        {
+          hid: "og:image",
+          property: "og:image",
+          content: "/thumbnails/" + this.selectedStore.id + "_0.png",
+        },
       ],
     }
   },
