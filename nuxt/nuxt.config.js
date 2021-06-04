@@ -10,14 +10,11 @@ export default {
   },
   axios: {
     proxy: true,
-    // proxyHeaders: true
+    proxyHeaders: true
   },
   proxy: {
     '/api/': {
-      target: 'https://bitcoin-stores.com:8080/',
-      pathRewrite: {
-        '^/api/': ''
-      },
+      target: 'https://bitcoin-stores.com',
       onProxyRes: function (proxyRes, req, res) {
         console.log("url=" + req.url + ', method=' + req.method)
       },
@@ -26,18 +23,15 @@ export default {
       }
     },
     '/thumbnails/': {
-      target: 'https://bitcoin-stores.com/',
+      target: 'https://bitcoin-stores.com',
       changeOrigin: false
     },
     '/api2/': {
-      target: 'https://bitcoin-stores.com/',
-      pathRewrite: {
-        '^/api2/': ''
-      },
+      target: 'https://bitcoin-stores.com',
       changeOrigin: false
     },
     '/api3/': {
-      target: 'https://bitcoin-stores.com/',
+      target: 'https://bitcoin-stores.com',
       changeOrigin: false
     },
   },
@@ -106,8 +100,8 @@ export default {
         type: 'application/opensearchdescription+xml',
         title: 'Lightning Network Stores',
         href: '/opensearch.xml'
-    },
-    {
+      },
+      {
         hid: 'icon',
         rel: 'icon',
         type: 'image/x-icon',
