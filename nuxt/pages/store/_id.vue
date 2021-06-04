@@ -49,11 +49,11 @@
                   </v-tooltip>
 
                   <v-chip
-                    v-if="selectedStore.rank !== 'unranked'"
-                    color="#fdb919"
+                    v-if="hasNewComment(selectedStore)"
+                    color="blue"
                     text-color="white"
                     class="ma-2"
-                    >#{{ selectedStore.rank }}</v-chip
+                    >New comment</v-chip
                   >
                 </v-img>
                 <v-row class="pa-5">
@@ -437,9 +437,12 @@ export default {
     },
     isNewStore() {
       return (
-        new Date(this.selectedStore.added * 1000 + 1000 * 60 * 60 * 24 * 8) >
+        new Date(this.selectedStore.added * 1000 + 1000 * 60 * 60 * 24 * 300) >
         new Date()
       )
+    },
+     hasNewComment(store) {
+      return new Date(this.selectedStore.last_commented + 1000 * 60 * 60 * 24 * 300) > new Date()
     },
     filter(filter) {
       this.currentFilter = filter
