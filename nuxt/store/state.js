@@ -1,6 +1,6 @@
 export const state = () => ({
   isDev: null,
-  baseURL: "https://bitcoin-stores.com",
+  baseURL: "https://bitcoin-stores.com/",
   loading: false,
   donations: [],
   scores: [],
