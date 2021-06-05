@@ -101,17 +101,15 @@ const getters = {
             break;
           default:
             stores.sort((a, b) => {
-              // let scoreB = (b.score || [0])[0] - (b.score || [0, 0])[1];
-              // let scoreA = (a.score || [0])[0] - (a.score || [0, 0])[1];
-              // return scoreB - scoreA;
               return b.score - a.score;
             });
             // Add most treding tore to top
+            console.log('isFiltered=' + isFiltered)
             if (!isFiltered) {
               var mostTrendingStore = stores.slice().sort((a, b) => {
-                return (b.score || [0, 0, 0])[2] - (a.score || [0, 0, 0])[2];
+                return b.trending - a.trending;
               })[0];
-
+            console.log('trending='+mostTrendingStore)
               // Is above trending threshold?
               if (mostTrendingStore && state.scores.length && state.scores[mostTrendingStore.id][2] >= 10) {
                 stores.splice(stores.indexOf(mostTrendingStore), 1);
