@@ -262,6 +262,18 @@ const actions = {
         }
       })
       .catch(console.error);
+  },
+  donateFaucetsRequest({
+    state,
+    commit
+  }, { data }) {
+    return axios.post(`${state.baseURL}api/faucet_donation`)
+      .then(response => {
+        if (response.status === 200) {
+          return response;
+        }
+      })
+      .catch(console.error);
   }
 }
 
