@@ -1,6 +1,6 @@
 <template>
     <v-app :dark="darkMode">
-        <v-toolbar class="toolbar" color="rgb(56, 56, 56)" dark>
+        <v-toolbar class="toolbar" color="#272727" dark>
             <v-toolbar-title
                 ><a href="/"><img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"/></a
             ></v-toolbar-title>

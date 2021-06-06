@@ -1,5 +1,5 @@
 <template>
-    <v-flex xs12 sm6 md4 lg4 pa-3>
+    <v-flex xs12 sm6 md6 lg4 pa-3>
         <v-card hover @click.native="gotoStore()">
             <div class="chips">
                 <v-chip v-if="storeWithScore.rank !== 'unranked'" color="#fdb919" text-color="white" class="ma-2">{{ storeWithScore.rank }}</v-chip>
@@ -8,7 +8,7 @@
             </div>
 
             <vuetify-lazy-image
-                :src="`${baseUrl}thumbnails/${storeWithScore.id}.png`"
+                :src="`${baseUrl}thumbnails/${storeWithScore.id}.jpg`"
                 height="170px"
                 :position="!storeWithScore.img_position ? 'top center' : storeWithScore.img_position"
                 class="text-xs-right"
@@ -48,8 +48,8 @@ import VuetifyLazyImage from "vuetify-lazy-image";
 @Component({
     components: {
         Vote,
-        VuetifyLazyImage
-    }
+        VuetifyLazyImage,
+    },
 })
 export default class StoreCard extends Vue {
     @Prop() store!: Store;

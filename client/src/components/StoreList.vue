@@ -1,8 +1,8 @@
 <template>
     <div class="store-list">
         <v-layout justify-center>
-            <v-flex xs12 md12 lg10 xl8>
-                <v-container fluid grid-list-md style="padding-top: 0px;">
+            <v-flex xs12 md12 lg12>
+                <v-container grid-list-md style="padding-top: 0px;">
                     <v-layout row wrap>
                         <store-card v-for="store in getStores.slice(0, maxCards)" :key="store.id" :store="store" :baseUrl="baseUrl" :sort="sort"></store-card>
                     </v-layout>
@@ -29,8 +29,8 @@ import StoreCard from "@/components/StoreCard.vue";
 
 @Component({
     components: {
-        StoreCard
-    }
+        StoreCard,
+    },
 })
 export default class StoreList extends Vue {
     @Prop() sector!: string;
@@ -47,17 +47,15 @@ export default class StoreList extends Vue {
     maxCardAtStart: number = 15;
     addCardCount: number = 6;
 
-    async mounted() {
-        console.log("Sector: " + this.sector);
-        console.log("Digital goods: " + this.digitalGoods);
-        console.log("Sort: " + this.sort);
+    selectedTags: any = [];
 
+    async mounted() {
         await this.$store.dispatch("getScores");
         await this.$store.dispatch("getStores");
 
         this.baseUrl = this.$store.getters.getBaseUrl();
 
-        window.onscroll = ev => {
+        window.onscroll = (ev: any) => {
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
                 this.loadMoreCards();
             }
@@ -99,7 +97,29 @@ export default class StoreList extends Vue {
     }
 
     get getStores() {
-        return this.$store.getters.getStores({ sector: this.sector, digitalGoods: this.digitalGoods }, this.sort, this.search, this.safeMode);
+        if (!this.selectedTags.length) return [];
+
+        return this.selectedTags.filter((x: any) => x.checked).length
+            ? this.$store.getters.getStores({ sector: this.sector, digitalGoods: this.digitalGoods }, this.sort, this.search, this.safeMode).filter((x: any) => {
+                  return !!x.tags.filter((y: any) => {
+                      const tagIndex = this.getConfiguration.tags.indexOf(y);
+                      return this.selectedTags[tagIndex] ? this.selectedTags[tagIndex].checked : false;
+                  }).length;
+              })
+            : this.$store.getters.getStores({ sector: this.sector, digitalGoods: this.digitalGoods }, this.sort, this.search, this.safeMode);
+    }
+
+    @Watch("getSelectedTags", { deep: true })
+    private onSelectedTagsChanged(val: string, oldVal: string) {
+        this.selectedTags = this.getSelectedTags;
+    }
+
+    get getSelectedTags() {
+        return this.$store.getters.getSelectedTags();
+    }
+
+    get getConfiguration() {
+        return this.$store.getters.getConfiguration();
     }
 }
 </script>

@@ -1,0 +1,273 @@
+<template>
+  <div class="about">
+    <v-layout justify-center>
+      <v-flex xs12 md12 lg10 xl8 class="pa-6">
+        <v-container class="wrap-text">
+          <v-layout row>
+            <h1>About</h1>
+          </v-layout>
+          <v-layout row>
+            <h2>Goal</h2>
+          </v-layout>
+
+          <v-layout row>
+            <p>
+              The goal of this website is to track the adoption of the lightning
+              network by merchants and to inform bitcoin users where they can
+              spend their bitcoin through lightning. It tries to be most
+              complete repository of lightning merchants, while also providing a
+              comprehensive list of lightning mobile wallets.
+            </p>
+          </v-layout>
+
+          <v-layout row>
+            <h2>Contact</h2>
+          </v-layout>
+
+          <v-layout row>
+            <p>
+              Team:
+              <a href="https://twitter.com/pedr0fr">Pedro Fernandes</a>
+              (founder) and
+              <a href="https://twitter.com/BitcoinBram">BitcoinBram</a>
+              (frontend development)
+            </p>
+          </v-layout>
+          <v-layout row>
+            <p>Email: lightningnetworkstores@gmail.com</p>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Twitter: <a href="https://twitter.com/bitcoinLNS">@bitcoinLNS </a>
+            </p>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Telegram: <a href="https://t.me/LNstores">LNstores</a> (public
+              group),
+              <a href="https://t.me/bitcoinLNS"> @bitcoinLNS</a> (username)
+            </p>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Git repository:
+              <a
+                href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io"
+                >https://github.com/lightningnetworkstores/lightningnetworkstores.github.io</a
+              >
+            </p>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Our node (using Strike from Acinq):
+              03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735
+            </p>
+          </v-layout>
+
+          <v-layout row>
+            <h2>F.A.Q.</h2>
+          </v-layout>
+          <v-layout row>
+            <h4>I don't understand this website, how do I use it?</h4>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Check our quick tutorial here:
+              <tutorial-modal></tutorial-modal>
+            </p>
+          </v-layout>
+          <v-layout row>
+            <h4>Why do votes disappear/decrease over time?</h4>
+          </v-layout>
+          <v-layout row>
+            <p>
+              For about 18 months the votes didn't disappear but the increase in
+              bitcoin's price made it harder and harder for new users to make a
+              visible impact, making the website look always the same and
+              boring. To compensate for this, after
+              <a
+                href="https://twitter.com/bitcoinLNS/status/1225889074680139777"
+                >polling</a
+              >
+              our users, we decided that the best solution would be to gradually
+              decrease the weight of each vote.
+            </p>
+          </v-layout>
+          <v-layout row>
+            <h4>How do votes disappear/decrease over time?</h4>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Immedialy after being cast, votes are worth the amount of satoshis
+              paid. After 270 days (about 9 months), they are worth half of
+              their original value, and after another 270 days they are worth
+              one fourth of their original value. This very slow exponential
+              decrease is updated about every 10 minutes. This rate of
+              evaporation is equivalent to losing about 7.4% of their value per
+              month or 60% of their value per year.
+            </p>
+          </v-layout>
+          <v-layout row>
+            <h4>How to get a store listed?</h4>
+          </v-layout>
+          <v-layout row>
+            <p>
+              A store can get instantly added by using the
+              <v-btn color="green" dark fab small class="ma-2">
+                <v-icon small>mdi-plus</v-icon>
+              </v-btn>
+              button on the <a href="/">main page.</a><br />
+              If you are trustworthy or plan on adding several stores, ask for a
+              coupon code so you can add stores without paying the small entry
+              fee.
+            </p>
+          </v-layout>
+          <v-layout row>
+            <p>
+              In the rare scenario where the button doesn't work or you can't
+              route a payment, you can make a pull request to
+              <a
+                href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/sites.json"
+                >sites.json</a
+              >
+              or send an email to lightningnetworkstores@gmail.com
+            </p>
+          </v-layout>
+
+          <v-layout row>
+            <h4>How to edit or remove a store?</h4>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Use the <v-icon small>fa-edit</v-icon> and
+              <v-icon small>fa-ban</v-icon> icons on the store page.
+            </p>
+          </v-layout>
+          <v-layout row>
+            <h4>How to add/edit/remove a wallet/service/donation-address?</h4>
+          </v-layout>
+          <v-layout row>
+            <p>
+              If you are used to working with git, make a pull request to
+              <a
+                href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/wallets.json"
+                >wallets.json</a
+              >,
+              <a
+                href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/services.json"
+                >services.json</a
+              >
+              or
+              <a
+                href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/donationAddresses.json"
+                >donationAddresses.json</a
+              >
+            </p>
+          </v-layout>
+          <v-layout row>
+            <h4>How are the trending and controversial scores calculated?</h4>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Controversial scores are calculated like
+              <a
+                href="https://www.reddit.com/r/NoStupidQuestions/comments/433ayh/how_does_reddit_determine_what_is_controversial/czfbxk4/"
+                >reddit does</a
+              >. Trending scores are calculated using the formula:
+              (S-EMA)/max(40000000, min(20000,S)), where S is the current score
+              of the store in satoshis (upvotes-downvotes) and EMA is the
+              exponential moving average of the score. The half-life of the EMA
+              is currently set to 4 days. This formula may be tweaked in the
+              future.
+            </p>
+          </v-layout>
+          <v-layout row>
+            <h4>
+              When are stores tweeted in
+              <a href="https://twitter.com/bitcoinLNS">@bitcoinLNS?</a>
+            </h4>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Currently every new store and trending stores (trending score
+              &gt;= 10) are tweeted. A store can be tweeted again if: it hasn't
+              been tweeted for 8 days, it's score has been increased by at least
+              100000 satoshis (1 mBTC) since the last tweet and has a trending
+              score no lower than 10. Only payments can trigger tweets, no
+              matter how small or the direction. These rules are subject to
+              change and might even be held secret if people start abusing them.
+            </p>
+          </v-layout>
+          <v-layout row>
+            <h2>Acknowledgements</h2>
+          </v-layout>
+          <v-layout row>
+            <p>
+              A big Thanks for all the people that add new lightning stores as
+              they get announced! If you are frequent contributor, ask for a
+              coupon code to add stores without paying the small entry fee.
+            </p>
+          </v-layout>
+        </v-container>
+      </v-flex>
+    </v-layout>
+  </div>
+</template>
+
+<script lang="ts">
+import TutorialModal from '../components/TutorialModal.vue'
+
+export default {
+  components: { TutorialModal },
+  head: {
+    title: 'Lightning Network Stores About Page',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Learn more about the website: goal, contact information, FAQ, Acknowledgements.',
+      },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Lightning Network Stores About Page',
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content:
+          'Learn more about the website: goal, contact information, FAQ, Acknowledgements.',
+      },
+      {
+        hid: 'twitter:title',
+        property: 'twitter:title',
+        content: 'Lightning Network Stores About Page',
+      },
+      {
+        hid: 'twitter:description',
+        property: 'twitter:description',
+        content:
+          'Learn more about the website: goal, contact information, FAQ, Acknowledgements.',
+      },
+    ],
+  },
+  created() {},
+}
+</script>
+
+<style scoped>
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+.wrap-text {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+}
+</style>

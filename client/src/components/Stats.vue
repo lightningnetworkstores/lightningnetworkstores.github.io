@@ -14,9 +14,6 @@
                                     <div>
                                         <h3 class="headline text--accent-2">Number of stores: {{ trendingStores.length }}&nbsp;</h3>
                                     </div>
-                                    <div>
-                                        <h3 class="headline text--accent-2">Ratio of stores accepting lightning: ≃{{ lightningStoreRatio | number }}%</h3>
-                                    </div>
                                 </v-card-title>
                                 <GChart type="LineChart" :data="chartData" :options="chartOptions"/></v-card
                         ></v-flex>
@@ -71,10 +68,10 @@ export default class Stats extends Vue {
 
     chartOptions: any = {
         chart: {
-            title: "Number of merchants"
+            title: "Number of merchants",
         },
         height: 500,
-        colors: ["#3c3d3c"]
+        colors: ["#3c3d3c"],
     };
 
     chartData: any = [["Time", "Stores"]];
@@ -110,24 +107,12 @@ export default class Stats extends Vue {
         });
         addedTimes.sort();
 
-        let count = [...Array(addedTimes.length).keys()].map(x => x + 1);
+        let count = [...Array(addedTimes.length).keys()].map((x) => x + 1);
         count
-            .map(x => [new Date(addedTimes[x - 1] * 1000), x])
-            .forEach(count => {
+            .map((x) => [new Date(addedTimes[x - 1] * 1000), x])
+            .forEach((count) => {
                 this.chartData.push(count);
             });
-
-        //lightningStoreRatio
-        let daysOfRatio = 60;
-
-        let lastMonthStart = Math.round((new Date().getTime() - daysOfRatio * 24 * 60 * 60 * 1000) / 1000);
-        let LNstoresLastMonth =
-            addedTimes.length -
-            addedTimes.findIndex((el: any) => {
-                return el > lastMonthStart;
-            });
-        let coinmapLastMonth = this.coinmap[this.coinmap.length - 1][1] - this.coinmap[this.coinmap.length - 1 - LNstoresLastMonth][1];
-        this.lightningStoreRatio = Math.round((100 * LNstoresLastMonth) / coinmapLastMonth);
     }
 
     get getStores() {
@@ -136,5 +121,4 @@ export default class Stats extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

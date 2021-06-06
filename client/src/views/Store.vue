@@ -10,8 +10,8 @@ import StoreInfo from "@/components/StoreInfo.vue";
 
 @Component({
     components: {
-        StoreInfo
-    }
+        StoreInfo,
+    },
 })
 export default class Store extends Vue {
     @Prop() storeId!: number;

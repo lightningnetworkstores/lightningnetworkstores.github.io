@@ -1,0 +1,18 @@
+html {
+    font-size: 14px;
+}
+
+.page-enter-active, .page-leave-active {
+    transition: opacity .5s;
+  }
+.page-enter, .page-leave-to {
+  opacity: 0;
+}
+
+.theme--dark.v-data-table, .theme--dark.v-card, .theme--dark.v-list {
+  background-color: #424242 !important;
+}
+
+.theme--dark .detail {
+  color: white !important;
+}
