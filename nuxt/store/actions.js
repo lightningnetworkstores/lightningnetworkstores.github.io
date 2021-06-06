@@ -274,7 +274,19 @@ const actions = {
         }
       })
       .catch(console.error);
-  }
+  },
+  faucetClaim({
+    state,
+    commit
+  }, { token: token }) {
+    return axios.get(`${state.baseURL}api/lnurl1?h-captcha-response=${token}`)
+      .then(response => {
+        if (response.status === 200) {
+          return response;
+        }
+      })
+      .catch(console.error);
+  },
 }
 
 
