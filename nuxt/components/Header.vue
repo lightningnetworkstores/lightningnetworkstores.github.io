@@ -69,6 +69,7 @@ export default {
   data() {
     return {
       routes: [
+        { url: '/faucet', text: 'Faucet' },
         { url: '/stats', text: 'Statistics' },
         { url: '/wallets', text: 'Wallets' },
         { url: '/discuss', text: 'Discuss' },
