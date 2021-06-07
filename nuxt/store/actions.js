@@ -156,10 +156,10 @@ const actions = {
   }, {
     id: id
   }) {
-    return fetch(`${state.baseURL}api/check_payment?id=${id}`)
+    return fetch(`${state.baseURL}api2/check_payment?id=${id}`)
       .then((response) => {
 
-        return response.text();
+        return response.json();
       })
       .catch((error) => {
         return Promise.reject(error);

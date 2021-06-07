@@ -13,7 +13,12 @@
     </v-btn>
 
     <!-- Add store modal -->
-    <v-dialog v-model="showAddDialog" max-width="500" persistent>
+    <v-dialog
+      v-model="showAddDialog"
+      max-width="500"
+      persistent
+      style="overflow-x: hidden"
+    >
       <template v-if="showAddDialog">
         <v-card>
           <v-layout row v-if="addAlert.message.length">
@@ -27,7 +32,7 @@
               </v-alert>
             </v-flex>
           </v-layout>
-          <div v-if="paymentRequest.length && isPaid" class="text-xs-center">
+          <div v-if="paymentRequest.length && isPaid" class="text-center">
             <!-- paymentRequest && isPaid -->
             <v-card-title class="headline">
               <v-flex>Payment successful</v-flex>
@@ -400,7 +405,7 @@ export default {
       if (this.expiryTime > new Date()) {
         this.$store.dispatch('checkPayment', { id: this.paymentID }).then(
           (response) => {
-            if (response.data == true) {
+            if (response.data.paid == true) {
               this.isPaid = true
               this.addDialogForm = {}
               clearInterval(this.checkPaymentTimer)
@@ -425,4 +430,5 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

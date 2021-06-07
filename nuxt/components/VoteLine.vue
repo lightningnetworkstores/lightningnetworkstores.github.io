@@ -66,10 +66,15 @@
       <a @click="reply()">Reply</a>
     </template>
     <!-- Upvote store modal -->
-    <v-dialog v-model="showDialog" persistent max-width="500">
+    <v-dialog
+      v-model="showDialog"
+      persistent
+      max-width="500"
+      style="overflow-x: hidden"
+    >
       <v-card>
         <template v-if="showDialog">
-          <div v-if="paymentRequest && isPaid" class="text-xs-center">
+          <div v-if="paymentRequest && isPaid" class="text-center">
             <!-- paymentRequest && isPaid -->
             <v-card-title class="headline">
               <v-layout row>
@@ -411,7 +416,7 @@ export default {
       if (this.expiryTime > new Date()) {
         this.$store.dispatch('checkPayment', { id: this.paymentID }).then(
           (response) => {
-            if (response == 'true') {
+            if (response.data.paid == true) {
               this.isPaid = true
               clearInterval(this.checkPaymentTimer)
             }
