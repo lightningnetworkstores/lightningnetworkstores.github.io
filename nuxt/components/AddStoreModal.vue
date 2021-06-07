@@ -35,9 +35,20 @@
           <div v-if="paymentRequest.length && isPaid" class="text-center">
             <!-- paymentRequest && isPaid -->
             <v-card-title class="headline">
-              <v-flex>Payment successful</v-flex>
+              <v-row class="py-2">
+                <v-flex>Payment successful</v-flex>
+              </v-row>
             </v-card-title>
             <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
+
+            <blockquote class="twitter-tweet" v-if="tweet">
+              <a :href="'https://twitter.com/x/status/' + tweet"></a>
+            </blockquote>
+            <script
+              async
+              src="https://platform.twitter.com/widgets.js"
+              charset="utf-8"
+            ></script>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -296,6 +307,7 @@ export default {
       paymentID: '',
       expiryTime: new Date(),
       isPaid: false,
+      tweet: null,
 
       checkPaymentTimer: null,
     }
@@ -409,6 +421,10 @@ export default {
               this.isPaid = true
               this.addDialogForm = {}
               clearInterval(this.checkPaymentTimer)
+
+              if (response.data.tweet !== undefined) {
+                this.tweet = response.data.tweet
+              }
             } else {
               this.isPaid = false
             }

@@ -36,17 +36,27 @@
           <div v-if="paymentRequest && isPaid" class="text-center">
             <!-- paymentRequest && isPaid -->
             <v-card-title class="headline">
-              <v-layout row>
+              <v-row class="py-2">
                 <v-flex>Payment successful</v-flex>
-              </v-layout>
+              </v-row>
             </v-card-title>
             <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
-            <v-layout row mt-2>
+
+            <blockquote class="twitter-tweet" v-if="tweet">
+              <a :href="'https://twitter.com/x/status/' + tweet"></a>
+            </blockquote>
+            <script
+              async
+              src="https://platform.twitter.com/widgets.js"
+              charset="utf-8"
+            ></script>
+
+            <v-row class="ma-2 pt-2">
               <v-flex
                 >Go to
                 <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
               >
-            </v-layout>
+            </v-row>
           </div>
 
           <div v-else>
@@ -233,6 +243,7 @@ export default {
       paymentID: '',
       expiryTime: new Date(),
       isPaid: false,
+      tweet: null,
 
       checkPaymentTimer: null,
 
@@ -377,6 +388,9 @@ export default {
             if (response.data.paid == true) {
               this.isPaid = true
               clearInterval(this.checkPaymentTimer)
+            }
+            if (response.data.tweet !== undefined) {
+              this.tweet = response.data.tweet
             }
           },
           (error) => {
