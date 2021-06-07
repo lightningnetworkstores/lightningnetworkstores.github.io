@@ -168,7 +168,7 @@ const getters = {
       }
     });
     return formattedDiscussions;
-  }
+  },
 }
 
 export default getters;

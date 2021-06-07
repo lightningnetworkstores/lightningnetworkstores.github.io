@@ -9,6 +9,7 @@ export const state = () => ({
   discussions: [],
   tags: [],
   selectedTags: [],
+  faucetStats: {},
   configuration: null,
   replyReviewFee: 50,
   addStoreFee: 1000,

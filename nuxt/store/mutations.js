@@ -29,6 +29,9 @@ const mutations = {
   },
   setDiscussions(state, discussions) {
     state.discussions = discussions;
+  },
+  setFaucetStats(state, faucetStats){
+      state.faucetStats = faucetStats;
   }
 }
 
