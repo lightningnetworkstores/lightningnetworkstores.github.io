@@ -416,7 +416,7 @@ export default {
           (response) => {
             this.upvoteDialogForm.amount = response.amount
             this.paymentRequest = response.payment_request
-            if (response.message) this.warningMessage = message
+            if (response.message) this.warningMessage = response.message
             this.paymentID = response.id
             let date = new Date()
             this.expiryTime = new Date(
