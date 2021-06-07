@@ -76,28 +76,38 @@
         <template v-if="showDialog">
           <div v-if="paymentRequest && isPaid" class="text-center">
             <!-- paymentRequest && isPaid -->
-            <v-card-title class="headline">
-              <v-row class="py-2">
-                <v-flex>Payment successful</v-flex>
-              </v-row>
-            </v-card-title>
-            <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
+            <v-card flat>
+              <v-card-title class="headline">
+                <v-row class="py-2">
+                  <v-flex>Payment successful</v-flex>
+                </v-row>
+              </v-card-title>
+              <v-card-text>
+                <v-icon size="100" color="green" pa-5
+                  >fas fa-check-circle</v-icon
+                >
+              </v-card-text>
+              <v-card-text>
+                <blockquote class="twitter-tweet" v-if="tweet">
+                  <a
+                    data-width="300"
+                    :href="'https://twitter.com/x/status/' + tweet"
+                  ></a>
+                </blockquote>
+                <script
+                  async
+                  src="https://platform.twitter.com/widgets.js"
+                  charset="utf-8"
+                ></script>
 
-            <blockquote class="twitter-tweet" v-if="tweet">
-              <a :href="'https://twitter.com/x/status/' + tweet"></a>
-            </blockquote>
-            <script
-              async
-              src="https://platform.twitter.com/widgets.js"
-              charset="utf-8"
-            ></script>
-
-            <v-row class="ma-2 pt-2">
-              <v-flex
-                >Go to
-                <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
-              >
-            </v-row>
+                <v-row class="ma-2 pt-2">
+                  <v-flex
+                    >Go to
+                    <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
+                  >
+                </v-row>
+              </v-card-text>
+            </v-card>
           </div>
 
           <div v-else>
