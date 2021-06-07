@@ -39,7 +39,7 @@
                 <v-flex>Payment successful</v-flex>
               </v-row>
             </v-card-title>
-            <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
+            <v-icon size="100" color="green" pa-5>fas fa-check-circle</v-icon>
 
             <blockquote class="twitter-tweet" v-if="tweet">
               <a :href="'https://twitter.com/x/status/' + tweet"></a>
@@ -76,13 +76,13 @@
             </v-card-text>
 
             <div v-if="paymentRequest">
-              <v-layout row>
-                <v-flex pa-3 class="text-xs-center"
+              <v-layout row class="ma-0">
+                <v-flex pa-3 class="text-center"
                   ><h3>{{ addStoreFee }} sat</h3></v-flex
                 >
               </v-layout>
-              <v-layout row>
-                <v-flex pl-3 pr-3 class="text-xs-center"
+              <v-layout row class="ma-0">
+                <v-flex pl-3 pr-3 class="text-center"
                   ><qrcode-vue
                     class="qrcode"
                     size="300"
@@ -91,7 +91,7 @@
                 ></v-flex>
               </v-layout>
 
-              <v-layout row>
+              <v-layout row class="ma-0">
                 <v-flex pl-3 pr-3>
                   <v-text-field
                     :value="paymentRequest"
@@ -104,8 +104,8 @@
                   ></v-text-field
                 ></v-flex>
               </v-layout>
-              <v-layout row>
-                <v-flex pl-3 pr-3 class="text-xs-center">
+              <v-layout row class="ma-0">
+                <v-flex pl-3 pr-3 class="text-center">
                   <a :href="'lightning:' + paymentRequest" class="link-button"
                     >Open in wallet</a
                   >
@@ -307,7 +307,7 @@ export default {
       paymentID: '',
       expiryTime: new Date(),
       isPaid: false,
-      tweet: null,
+      tweet: '807811447862468608',
 
       checkPaymentTimer: null,
     }
@@ -380,10 +380,14 @@ export default {
           })
           .then(
             (response) => {
-              if (response.data.includes('Waiting for payment')) {
-                let splitResp = response.data.split('=')
-                this.paymentRequest = splitResp[splitResp.length - 2]
-                this.paymentID = splitResp[splitResp.length - 1]
+              console.log(response)
+              if (
+                response.message.includes(
+                  'Please pay this anti-spam fee or ask for a contributor code.'
+                )
+              ) {
+                this.paymentRequest = response.data.payment_request
+                this.paymentID = response.data.invoiceID
 
                 let date = new Date()
                 this.expiryTime = new Date(
@@ -392,7 +396,9 @@ export default {
                 this.checkPaymentTimer = setInterval(() => {
                   this.checkPayment()
                 }, 3000)
-              } else if (response.data.includes('Store successfully added')) {
+              } else if (
+                response.message.includes('Store successfully added')
+              ) {
                 this.addAlert.message = response.data
                 this.addAlert.success = true
                 this.addDialogForm = {}
