@@ -1,14 +1,6 @@
 <template>
   <div class="add-store-modal">
-    <v-btn
-      color="green"
-      dark
-      fab
-      fixed
-      bottom
-      right
-      @click="showAddDialog = true"
-    >
+    <v-btn color="green" dark fab fixed bottom right @click="openDialog">
       <v-icon>mdi-plus</v-icon>
     </v-btn>
 
@@ -32,11 +24,11 @@
               </v-alert>
             </v-flex>
           </v-layout>
-          <div v-if="paymentRequest.length && isPaid" class="text-center">
+          <div v-if="isPaid" class="text-center">
             <!-- paymentRequest && isPaid -->
             <v-card-title class="headline">
               <v-row class="py-2">
-                <v-flex>Payment successful</v-flex>
+                <v-flex>{{ confirm_title }}</v-flex>
               </v-row>
             </v-card-title>
             <v-icon size="100" color="green" pa-5>fas fa-check-circle</v-icon>
@@ -301,6 +293,7 @@ export default {
       showAddDialog: false,
       addDialogForm: {},
       addAlert: { message: '', success: true },
+      confirm_title: 'Store successfully added.',
       isLoading: false,
 
       paymentRequest: '',
@@ -329,6 +322,11 @@ export default {
     },
   },
   methods: {
+    openDialog() {
+      this.paymentRequest = ''
+      this.isPaid = false
+      this.showAddDialog = true
+    },
     cancel() {
       if (this.paymentRequest.length > 0) {
         this.paymentRequest = ''
@@ -380,12 +378,12 @@ export default {
           })
           .then(
             (response) => {
-              console.log(response)
               if (
                 response.message.includes(
                   'Please pay this anti-spam fee or ask for a contributor code.'
                 )
               ) {
+                this.confirm_title = 'Store successfully added.'
                 this.paymentRequest = response.data.payment_request
                 this.paymentID = response.data.invoiceID
 
@@ -396,13 +394,20 @@ export default {
                 this.checkPaymentTimer = setInterval(() => {
                   this.checkPayment()
                 }, 3000)
-              } else if (
-                response.message.includes('Store successfully added')
-              ) {
-                this.addAlert.message = response.data
-                this.addAlert.success = true
+              } else if (response.data.submitted == true) {
+                this.confirm_title = response.message
+                this.isPaid = true
+
                 this.addDialogForm = {}
-                this.$refs.addform.reset()
+
+                if (response.data.tweet !== undefined) {
+                  this.tweet = response.data.tweet
+                }
+
+                // this.addAlert.message = response.data
+                // this.addAlert.success = true
+                // this.addDialogForm = {}
+                // this.$refs.addform.reset()
               } else {
                 this.addAlert.message = response.data
                 this.addAlert.success = false
