@@ -307,7 +307,7 @@ export default {
       paymentID: '',
       expiryTime: new Date(),
       isPaid: false,
-      tweet: '807811447862468608',
+      tweet: null,
 
       checkPaymentTimer: null,
     }
