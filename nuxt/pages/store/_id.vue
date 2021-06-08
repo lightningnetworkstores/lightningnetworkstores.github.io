@@ -350,6 +350,7 @@
     <login-modal
       :enabled="showLoginModal"
       :onCancel="closeDialog"
+      :onCaptchaToken="onCaptchaToken"
       email='john@root.domain'/>
   </div>
 </template>
@@ -494,6 +495,14 @@ export default {
     },
     closeDialog(){
       this.showLoginModal = false;
+    },
+    onCaptchaToken(token) {
+      const payload = {
+        token: token,
+        recipient: 'john doe',
+        storeId: this.selectedStore.id
+      };
+      this.$store.dispatch('login', payload);
     }
   },
 }

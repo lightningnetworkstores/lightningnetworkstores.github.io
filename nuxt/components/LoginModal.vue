@@ -51,7 +51,7 @@
 <script>
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha';
 export default {
-  props: ['enabled', 'email', 'onCancel'],
+  props: ['enabled', 'email', 'onCancel', 'onCaptchaToken'],
   components: {VueHcaptcha},
   data() {
     return {
@@ -65,7 +65,7 @@ export default {
     },
     onVerify(token, ekey){
       this.token = token;
-      console.log('token: ', token);
+      this.onCaptchaToken(token);
     },
     runCaptcha(){
         this.$refs.invisibleHcaptcha.execute();
