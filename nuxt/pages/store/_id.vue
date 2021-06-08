@@ -9,7 +9,7 @@
     </div>
     <v-container>
       <v-row justify="center" v-if="selectedStore">
-        <v-col cols="11" :sm="hasExternal ? 9 : 12" :md="hasExternal ? 9 : 12" class="pa-0">
+        <v-col cols="11" :sm="hasExternal ? 9 : 9" :md="hasExternal ? 9 : 9" class="pa-0">
           <v-row justify="center">
             <v-col cols="12" sm="12" md="12" class="pa-0 px-3">
               <v-card class="pa-0 mb-3">
@@ -253,7 +253,7 @@
         </v-col>
       </v-row>
       <v-row justify="center" v-if="selectedStore">
-        <v-col cols="11" :sm="hasExternal ? 9 : 12" :md="hasExternal ? 9 : 12" class="pa-0">
+        <v-col cols="11" :sm="hasExternal ? 9 : 9" :md="hasExternal ? 9 : 9" class="pa-0">
           <v-card class="my-8 pa-2">
             <v-card-title primary-title class="pa-3">
               <div>
