@@ -228,7 +228,11 @@
               <div class="ma-3 headline font-weight-medium external-title">
                 External
               </div>
-
+              <v-card
+                @click.prevent="requestLogin"
+                class="mx-3 mb-3 py-2">
+                <b class="ml-3"><a href='#'>Login as owner</a></b>
+              </v-card>
               <v-card
                 v-for="(
                   external, propertyName, index
@@ -343,6 +347,10 @@
         </v-col>
       </v-row>
     </v-container>
+    <login-modal
+      :enabled="showLoginModal"
+      :onCancel="closeDialog"
+      email='john@root.domain'/>
   </div>
 </template>
 
@@ -390,6 +398,7 @@ export default {
       breadcrumb: [],
       store: null,
       currentFilter: 'all',
+      showLoginModal: false
     }
   },
   async asyncData({ params, store }) {
@@ -480,6 +489,12 @@ export default {
         return b.timestamp - a.timestamp
       })
     },
+    requestLogin() {
+      this.showLoginModal = true;
+    },
+    closeDialog(){
+      this.showLoginModal = false;
+    }
   },
 }
 </script>
@@ -516,5 +531,10 @@ export default {
   .external-title {
     margin-top: 200px !important;
   }
+}
+
+a {
+  text-decoration: inherit;
+  color: black;
 }
 </style>
