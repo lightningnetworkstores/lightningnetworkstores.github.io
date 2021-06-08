@@ -360,4 +360,17 @@ export default {
 .v-toolbar {
   height: 64px !important;
 }
+
+.v-navigation-drawer {
+  .v-navigation-drawer__content {
+    .v-list {
+      .tag {
+        background: #ffffff !important;
+        .v-input--selection-controls__ripple {
+          z-index: 1;
+        }
+      }
+    }
+  }
+}
 </style>
