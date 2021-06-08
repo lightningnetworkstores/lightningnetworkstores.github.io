@@ -8,7 +8,7 @@
             :isReviewUpvote="comment.score > 0"
             :parentReview="comment.id"
           ></vote-line>
-          {{ comment.score | splitNumber }}
+          {{ comment.score }}
         </v-col>
 
         <v-col cols="10" class="comment-text pa-3">
