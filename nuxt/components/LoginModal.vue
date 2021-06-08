@@ -11,6 +11,7 @@
         </v-card-title>
         <v-card-text>An e-mail will be sent to {{ email }}.</v-card-text>
         <vue-hcaptcha
+          v-if="token === null"
           ref="invisibleHcaptcha"
           sitekey="327adc75-957d-4063-9cf3-c4999bead7dd"
           size="invisible"
@@ -19,12 +20,18 @@
         />
         <div class="d-flex justify-center">
           <v-btn
-            :disabled="token !== null"
+            v-if="token === null"
             depressed
             color="primary"
             @click="runCaptcha">
             Solve Captcha
           </v-btn>
+        </div>
+        <div
+          v-if="token !== null"
+          class="ml-5 mr-5"
+        >
+          <v-text-field label="Recipient" type="text" v-model="recipient"></v-text-field>
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -39,7 +46,7 @@
             :disabled="token === null"
             color="green darken-1"
             text
-            @click="onCancel"
+            @click="onSubmit"
           >
             Send Login Link
           </v-btn>
@@ -52,7 +59,7 @@
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha';
 export default {
   props: ['enabled', 'email', 'onCancel', 'onCaptchaToken'],
-  components: {VueHcaptcha},
+  components: { VueHcaptcha },
   data() {
     return {
       recipient: '',
@@ -61,11 +68,17 @@ export default {
   },
   methods: {
     onSubmit(e) {
-      console.log('onSubmit');
+      try {
+        const { token, recipient } = this;
+        this.onCaptchaToken(token, recipient);
+      } catch(err) {
+        console.error('error: ', err);
+      } finally {
+        this.onCancel();
+      }
     },
-    onVerify(token, ekey){
+    onVerify(token, ekey) {
       this.token = token;
-      this.onCaptchaToken(token);
     },
     runCaptcha(){
         this.$refs.invisibleHcaptcha.execute();

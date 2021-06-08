@@ -496,10 +496,10 @@ export default {
     closeDialog(){
       this.showLoginModal = false;
     },
-    onCaptchaToken(token) {
+    onCaptchaToken(token, recipient) {
       const payload = {
         token: token,
-        recipient: 'john doe',
+        recipient: recipient,
         storeId: this.selectedStore.id
       };
       this.$store.dispatch('login', payload);
