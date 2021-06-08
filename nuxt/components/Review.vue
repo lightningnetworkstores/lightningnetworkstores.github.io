@@ -95,7 +95,7 @@ export default {
   methods: {
     commentText(comment) {
       return comment.startsWith('@')
-        ? "<span class='tag'>" +
+        ? "<span class='user-tag'>" +
             this.htmlEntities(comment.substring(0, 6)) +
             '</span>' +
             this.htmlEntities(comment.substring(6, comment.length))
@@ -124,7 +124,7 @@ export default {
 .score-line {
   line-height: 30px;
 }
-.tag {
+.user-tag {
   background-color: #dddddd;
 }
 .comment-extra {
