@@ -224,15 +224,11 @@
                 </v-row>
               </v-card>
             </v-col>
-            <v-col v-if="hasExternal" cols="12" sm="4" md="3" class="pa-0">
-              <div class="ma-3 headline font-weight-medium external-title">
+            <v-col v-if="hasExternal" cols="12" sm="4" md="3" class="pa-0 d-flex flex-column justify-center">
+              <v-btn class="mx-3 mb-3 py-6" large color="primary"><b>Login as owner</b></v-btn>
+              <div class="ma-3 headline font-weight-medium">
                 External
               </div>
-              <v-card
-                @click.prevent="requestLogin"
-                class="mx-3 mb-3 py-2">
-                <b class="ml-3"><a href='#'>Login as owner</a></b>
-              </v-card>
               <v-card
                 v-for="(
                   external, propertyName, index
