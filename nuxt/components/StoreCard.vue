@@ -90,8 +90,16 @@
                 </v-list>
               </v-menu>
             </div>
-            <div class="comments" v-if="store.total_comments">
-              <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
+            <div class="btn-actions">
+              <div class="comments" v-if="store.total_comments">
+                <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
+              </div>
+              <div class="likes" @click.stop="handleLike(store.id)">
+                <v-icon small :color="storeIsLiked ? `red` : `gray`"
+                  >fa-heart</v-icon
+                >
+                {{ store.likes }}
+              </div>
             </div>
           </div>
         </div>
@@ -105,6 +113,11 @@ import VoteButton from '../components/VoteButton.vue'
 export default {
   props: ['store'],
   components: { VoteButton },
+  data() {
+    return {
+      likedStores: JSON.parse(localStorage.getItem(`lns_likes`)) ?? [],
+    }
+  },
 
   methods: {
     gotoStore(store_id) {
@@ -114,12 +127,32 @@ export default {
       return new Date(store.added * 1000 + 1000 * 60 * 60 * 24 * 8) > new Date()
     },
     hasNewComment(store) {
-      return new Date(store.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
+      return (
+        new Date(store.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
+      )
+    },
+    handleLike(storeId) {
+      const isLiked = this.likedStores.some((id) => id === storeId)
+      console.log(`Like Request... ${isLiked}`)
+      if (isLiked) {
+        this.$store.dispatch(`likeStore`, { storeId, remove: true })
+        this.likedStores.pop(storeId)
+      } else {
+        this.$store.dispatch(`likeStore`, { storeId, remove: false })
+        this.likedStores.push(storeId)
+      }
     },
   },
   computed: {
     baseURL() {
       return this.$store.state.baseURL
+    },
+    storeIsLiked() {
+      if (this.likedStores) {
+        return this.likedStores.some((id) => id === this.store.id)
+      }
+
+      return false
     },
   },
 }
