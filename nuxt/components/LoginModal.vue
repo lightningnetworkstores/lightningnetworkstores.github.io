@@ -18,17 +18,7 @@
           theme="dark"
           @verify="onVerify"
         />
-        <div class="d-flex justify-center">
-          <v-btn
-            v-if="token === null"
-            depressed
-            color="primary"
-            @click="runCaptcha">
-            Solve Captcha
-          </v-btn>
-        </div>
         <div
-          v-if="token !== null"
           class="ml-5 mr-5"
         >
           <v-text-field label="Recipient" type="text" v-model="recipient"></v-text-field>
@@ -43,7 +33,6 @@
             Cancel
           </v-btn>
           <v-btn
-            :disabled="token === null"
             color="green darken-1"
             text
             @click="onSubmit"
@@ -68,6 +57,10 @@ export default {
   },
   methods: {
     onSubmit(e) {
+      this.$refs.invisibleHcaptcha.execute();
+    },
+    onVerify(token, ekey) {
+      this.token = token;
       try {
         const { token, recipient } = this;
         this.onCaptchaToken(token, recipient);
@@ -76,12 +69,6 @@ export default {
       } finally {
         this.onCancel();
       }
-    },
-    onVerify(token, ekey) {
-      this.token = token;
-    },
-    runCaptcha(){
-        this.$refs.invisibleHcaptcha.execute();
     }
   }
 }
