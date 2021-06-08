@@ -9,7 +9,7 @@
     </div>
     <v-container>
       <v-row justify="center" v-if="selectedStore">
-        <v-col cols="11" md="9" class="pa-0">
+        <v-col cols="11" :sm="hasExternal ? 8 : 12" :md="hasExternal ? 9 : 12" class="pa-0">
           <v-row justify="center">
             <v-col cols="12" sm="12" md="12" class="pa-0 px-3">
               <v-card class="pa-0 mb-3">
