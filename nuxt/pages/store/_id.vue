@@ -349,7 +349,9 @@
       :enabled="showLoginModal"
       :onCancel="closeDialog"
       :onCaptchaToken="onCaptchaToken"
-      :email="storeEmail"/>
+      :email="storeEmail"
+      :rooturl="selectedStore.rooturl"
+    />
   </div>
 </template>
 

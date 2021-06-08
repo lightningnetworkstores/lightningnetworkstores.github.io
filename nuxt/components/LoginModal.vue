@@ -9,7 +9,7 @@
         <v-card-title class="text-h5">
           Login
         </v-card-title>
-        <v-card-text>An e-mail will be sent to {{ email }}.</v-card-text>
+        <v-card-text>An e-mail will be sent to {{ destinationEmail }}.</v-card-text>
         <vue-hcaptcha
           v-if="token === null"
           ref="invisibleHcaptcha"
@@ -21,7 +21,7 @@
         <div
           class="ml-5 mr-5"
         >
-          <v-text-field label="Recipient" type="text" v-model="recipient"></v-text-field>
+          <v-text-field @input="handleChange" label="Recipient" type="text" :value="recipient"></v-text-field>
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -47,11 +47,12 @@
 <script>
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha';
 export default {
-  props: ['enabled', 'email', 'onCancel', 'onCaptchaToken'],
+  props: ['enabled', 'email', 'onCancel', 'onCaptchaToken', 'rooturl'],
   components: { VueHcaptcha },
   data() {
     return {
-      recipient: '',
+      recipient: this.email.split('@')[0],
+      domain: this.email.split('@')[1],
       token: null
     }
   },
@@ -62,13 +63,24 @@ export default {
     onVerify(token, ekey) {
       this.token = token;
       try {
-        const { token, recipient } = this;
-        this.onCaptchaToken(token, recipient);
+        const { token, destinationEmail } = this;
+        this.onCaptchaToken(token, destinationEmail);
       } catch(err) {
         console.error('error: ', err);
       } finally {
         this.onCancel();
       }
+    },
+    handleChange(value) {
+      this.recipient = value;
+      if (value.indexOf('*') !== -1) {
+        this.domain = this.rooturl;
+      }
+    }
+  },
+  computed: {
+    destinationEmail() {
+      return `${this.recipient}@${this.domain}`;
     }
   }
 }
