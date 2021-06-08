@@ -287,6 +287,18 @@ const actions = {
       })
       .catch(console.error);
   },
+  getFaucetStats({
+    state,
+    commit
+  }) {
+    return axios.get(`${state.baseURL}api/faucetstats`)
+      .then((response) => {
+        commit('setFaucetStats', response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 }
 
 

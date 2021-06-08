@@ -20,9 +20,9 @@
                 <v-card-text>
                   <GChart
                     type="LineChart"
-                    :data="chartData"
-                    :options="chartOptions"
-                    v-if="chartData.length > 1"
+                    :data="merchantChartData"
+                    :options="merchantChartOptions"
+                    v-if="merchantChartData.length > 1"
                   />
                   <v-overlay v-else>
                     <v-progress-circular
@@ -73,6 +73,36 @@
                 </v-list>
               </v-card>
             </v-flex>
+
+            <v-layout row pt-4 wrap>
+            <v-flex grow class="text-xs-center" pa-4>
+              <v-card>
+                <v-card-title primary-title class="justify-center">
+                  <div>
+                    <h3 class="headline text--accent-2">
+                      Number of faucet claims: {{ claimsChartData.length-1 }}&nbsp;
+                    </h3>
+                  </div>
+                </v-card-title>
+                <v-card-text>
+                  <GChart
+                    type="LineChart"
+                    :data="claimsChartData"
+                    :options="claimsChartOptions"
+                    v-if="claimsChartData.length > 1"
+                  />
+                  <v-overlay v-else>
+                    <v-progress-circular
+                      indeterminate
+                      size="64"
+                      color="#fdb919"
+                    ></v-progress-circular>
+                  </v-overlay>
+                </v-card-text> </v-card
+            ></v-flex>
+          </v-layout>
+
+
           </v-layout>
         </v-container>
       </v-flex>
@@ -125,25 +155,36 @@ export default {
       trendingStores: [],
       newestStores: [],
 
-      chartOptions: {
+      merchantChartOptions: {
         chart: {
           title: 'Number of merchants',
         },
         height: 500,
         colors: ['#3c3d3c'],
       },
+      merchantChartData: [['Time', 'Stores']],
 
-      chartData: [['Time', 'Stores']],
+      claimsChartOptions: {
+        chart: {
+          title: 'Number of claims',
+        },
+        height: 500,
+        colors: ['#3c3d3c', '#323aa8'],
+      },
+      claimsChartData: [['Time', 'Claims', 'Users']],
+      claims: []
     }
   },
 
   async mounted() {
     await this.$store.dispatch('getStores')
+    let faucetStats = await this.$store.dispatch('getFaucetStats');
+    //claims = faucetStats.claims
 
     let stores = this.$store.state.stores
 
     this.trendingStores = stores.slice(0).sort((a, b) => {
-      return (b.score || [0, 0, 0])[2] - (a.score || [0, 0, 0])[2]
+      return b.trending - a.trending;
     })
 
     this.newestStores = stores
@@ -154,6 +195,7 @@ export default {
       .reverse()
 
     this.getStatsData()
+    this.getFaucetStatsData()
   },
 
   methods: {
@@ -174,9 +216,18 @@ export default {
       count
         .map((x) => [new Date(addedTimes[x - 1] * 1000), x])
         .forEach((count) => {
-          this.chartData.push(count)
+          this.merchantChartData.push(count)
         })
     },
+    getFaucetStatsData(){
+        let claims = this.$store.state.faucetStats.claims;
+        let users = this.$store.state.faucetStats.users;
+        
+        let count = [...Array(claims.length).keys()].map((x) => x + 1)
+        
+        count.map((x) => [new Date(claims[x - 1] * 10000000), x, users.filter((t)=>t<=claims[x-1]).length])
+        .forEach((i) => this.claimsChartData.push(i))
+    }
   },
   computed: {
     getStores() {
