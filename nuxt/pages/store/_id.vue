@@ -11,12 +11,7 @@
       <v-row justify="center" v-if="selectedStore">
         <v-col cols="11" md="9" class="pa-0">
           <v-row justify="center">
-            <v-col
-              cols="12"
-              :sm="hasExternal ? 8 : 12"
-              :md="hasExternal ? 9 : 12"
-              class="pa-0 px-3"
-            >
+            <v-col cols="12" sm="12" md="12" class="pa-0 px-3">
               <v-card class="pa-0 mb-3">
                 <v-img
                   :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
@@ -47,7 +42,6 @@
                     </template>
                     <span>Trending score</span>
                   </v-tooltip>
-
                   <v-chip
                     v-if="hasNewComment(selectedStore)"
                     color="blue"
@@ -224,35 +218,7 @@
                 </v-row>
               </v-card>
             </v-col>
-            <v-col v-if="hasExternal" cols="12" sm="4" md="3" class="pa-0">
-              <div class="ma-3 headline font-weight-medium external-title">
-                External
-              </div>
-
-              <v-card
-                v-for="(
-                  external, propertyName, index
-                ) in selectedStore.external"
-                :key="index"
-                class="mx-3 mb-3 py-2"
-                :href="external.href"
-              >
-                <v-layout row class="py-2">
-                  <v-flex shrink>
-                    <v-img
-                      :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
-                      class="external-image"
-                    >
-                    </v-img>
-                  </v-flex>
-                  <v-flex grow class="external-text">
-                    <b>{{ propertyName }}</b>
-                  </v-flex>
-                </v-layout>
-              </v-card>
-            </v-col>
           </v-row>
-
           <v-card class="my-8 pa-2">
             <v-card-title primary-title class="pa-3">
               <div>
@@ -341,6 +307,39 @@
             :store="selectedStore"
           ></Review>
         </v-col>
+        <v-col cols="1" md="3" class="pa-0">
+          <v-col
+            v-if="hasExternal"
+            cols="9"
+            sm="9"
+            md="9"
+            class="mt-0 pa-0 float-right"
+          >
+            <div class="ma-3 headline font-weight-medium external-title">
+              External
+            </div>
+
+            <v-card
+              v-for="(external, propertyName, index) in selectedStore.external"
+              :key="index"
+              class="mx-3 mb-3 py-2"
+              :href="external.href"
+            >
+              <v-layout row class="py-2">
+                <v-flex shrink>
+                  <v-img
+                    :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
+                    class="external-image"
+                  >
+                  </v-img>
+                </v-flex>
+                <v-flex grow class="external-text">
+                  <b>{{ propertyName }}</b>
+                </v-flex>
+              </v-layout>
+            </v-card>
+          </v-col>
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -378,9 +377,9 @@ export default {
           content: this.selectedStore.description,
         },
         {
-          hid: "og:image",
-          property: "og:image",
-          content: "/thumbnails/" + this.selectedStore.id + "_0.png",
+          hid: 'og:image',
+          property: 'og:image',
+          content: '/thumbnails/' + this.selectedStore.id + '_0.png',
         },
       ],
     }
@@ -446,8 +445,11 @@ export default {
         new Date()
       )
     },
-     hasNewComment(store) {
-      return new Date(this.selectedStore.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
+    hasNewComment(store) {
+      return (
+        new Date(this.selectedStore.last_commented + 1000 * 60 * 60 * 24 * 8) >
+        new Date()
+      )
     },
     filter(filter) {
       this.currentFilter = filter
