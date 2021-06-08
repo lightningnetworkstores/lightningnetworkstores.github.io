@@ -219,6 +219,41 @@
               </v-card>
             </v-col>
           </v-row>
+        </v-col>
+        <v-col md="3" class="pa-0" v-if="hasExternal">
+          <v-col
+            cols="0"
+            sm="12"
+            md="9"
+            class="mt-4 pa-1 float-right"
+          >
+            <div class="ma-3 headline font-weight-medium external-title">
+              External
+            </div>
+            <v-card
+              v-for="(external, propertyName, index) in selectedStore.external"
+              :key="index"
+              class="mx-3 mb-3 py-2"
+              :href="external.href"
+            >
+              <v-layout row class="py-2">
+                <v-flex shrink>
+                  <v-img
+                    :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
+                    class="external-image"
+                  >
+                  </v-img>
+                </v-flex>
+                <v-flex grow class="external-text">
+                  <b>{{ propertyName }}</b>
+                </v-flex>
+              </v-layout>
+            </v-card>
+          </v-col>
+        </v-col>
+      </v-row>
+      <v-row justify="center" v-if="selectedStore">
+        <v-col cols="11" :sm="hasExternal ? 9 : 12" :md="hasExternal ? 9 : 12" class="pa-0">
           <v-card class="my-8 pa-2">
             <v-card-title primary-title class="pa-3">
               <div>
@@ -307,36 +342,8 @@
             :store="selectedStore"
           ></Review>
         </v-col>
-        <v-col cols="1" sm="3" md="3" class="pa-0" v-if="hasExternal">
-          <v-col
-            cols="9"
-            sm="9"
-            md="9"
-            class="mt-0 pa-0 float-right"
-          >
-            <div class="ma-3 headline font-weight-medium external-title">
-              External
-            </div>
-
-            <v-card
-              v-for="(external, propertyName, index) in selectedStore.external"
-              :key="index"
-              class="mx-3 mb-3 py-2"
-              :href="external.href"
-            >
-              <v-layout row class="py-2">
-                <v-flex shrink>
-                  <v-img
-                    :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
-                    class="external-image"
-                  >
-                  </v-img>
-                </v-flex>
-                <v-flex grow class="external-text">
-                  <b>{{ propertyName }}</b>
-                </v-flex>
-              </v-layout>
-            </v-card>
+        <v-col cols="0" md="3" class="pa-0" v-if="hasExternal">
+          <v-col cols="9" sm="9" md="9" class="mt-0 pa-0">
           </v-col>
         </v-col>
       </v-row>
