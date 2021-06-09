@@ -24,6 +24,19 @@
       </v-list>
       <v-list>
         <v-subheader class="title pb-2">Filter</v-subheader>
+        <!-- <v-text-field   hide-details  single-line class="pt-0 tag-search-block mt-3 mb-3">Search</v-text-field> -->
+        <v-text-field
+            class="search tag-search-block p-10"
+            v-model="tagSearchQuery"
+            flat
+            outlined
+            label="Type to search"
+            solo
+            prepend-inner-icon="mdi-magnify"
+            hide-details
+          ></v-text-field>
+        <br/>
+        <br/>
         <v-list-item
           v-for="(tag, index) in tags"
           :key="tag"
@@ -107,6 +120,7 @@ export default {
       group: null,
       isLoading: false,
       searchQuery: '',
+      tagSearchQuery: '',
       maxCards: 18,
       addCardCount: 6,
       checkedTags: [],
@@ -179,6 +193,18 @@ export default {
         this.$store.commit('setSelectedTags', routeTags)
       }
     },
+
+    tagFilterBySearch() {
+      console.log(this.tagSearchQuery);
+      if(this.tagSearchQuery) {
+        console.log('lll');
+        this.tags =  this.tags.filter((item)=>{
+          return this.tagSearchQuery.toLowerCase().split(' ').every(v => item.toLowerCase().includes(v));
+        })
+      } else {
+        return this.tags;
+      }
+    }
   },
   computed: {
     baseURL() {
@@ -191,7 +217,11 @@ export default {
       return this.$store.state.scores
     },
     tags() {
-      return this.$store.state.tags
+      let tags = this.$store.state.tags;
+      let filteredtags = tags.filter((tag) => {
+        return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase());
+      })
+      return filteredtags;
     },
     selectedTags() {
       return this.$store.state.selectedTags
@@ -235,7 +265,7 @@ export default {
     },
     searchQuery() {
       this.changeUrl()
-    },
+    }
   },
   async mounted() {
     this.$store.commit('setLoading', true)
@@ -372,5 +402,23 @@ export default {
       }
     }
   }
+}
+
+.tag-search-block {
+  .v-input__slot {
+    padding: 0px 30px !important;
+    fieldset {
+      border: 0px;
+      border-bottom: 1px solid #ccc;
+      border-radius: 0px;
+      margin-left: 20px;
+      margin-right: 30px;
+    }
+  }
+}
+
+.search-icon {
+  position: absolute;
+  top: 0px;
 }
 </style>
