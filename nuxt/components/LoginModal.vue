@@ -5,7 +5,21 @@
       persistent
       max-width="500"
     >
-      <v-card>
+      <v-card v-if="loginResponse">
+        <v-card-title>{{ loginResponseTitle }}</v-card-title>
+        <v-card-text>{{ loginResponse.message }}</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            text
+            @click="onCancel"
+          >
+            Ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+      <v-card v-if="loginResponse === null">
         <v-card-title class="text-h5">
           Login
         </v-card-title>
@@ -18,14 +32,16 @@
           theme="dark"
           @verify="onVerify"
         />
-        <div
-          class="ml-5 mr-5"
-        >
+        <div class="text-center" v-if="isWaiting && !loginResponse">
+          <v-progress-circular indeterminate color="primary"/>
+        </div>
+        <div class="ml-5 mr-5">
           <v-text-field @input="handleChange" label="Recipient" type="text" :value="recipient"></v-text-field>
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
+            :disabled="isWaiting && !loginResponse"
             color="green darken-1"
             text
             @click="onCancel"
@@ -33,6 +49,7 @@
             Cancel
           </v-btn>
           <v-btn
+            :disabled="isWaiting && !loginResponse"
             color="green darken-1"
             text
             @click="onSubmit"
@@ -47,13 +64,14 @@
 <script>
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha';
 export default {
-  props: ['enabled', 'email', 'onCancel', 'onCaptchaToken', 'rooturl'],
+  props: ['enabled', 'email', 'onCancel', 'onCaptchaToken', 'rooturl', 'loginResponse'],
   components: { VueHcaptcha },
   data() {
     return {
       recipient: this.email.split('@')[0],
       domain: this.email.split('@')[1],
-      token: null
+      token: null,
+      isWaiting: false
     }
   },
   methods: {
@@ -65,10 +83,9 @@ export default {
       try {
         const { token, destinationEmail } = this;
         this.onCaptchaToken(token, destinationEmail);
+        this.isWaiting = true;
       } catch(err) {
         console.error('error: ', err);
-      } finally {
-        this.onCancel();
       }
     },
     handleChange(value) {
@@ -81,6 +98,15 @@ export default {
   computed: {
     destinationEmail() {
       return `${this.recipient}@${this.domain}`;
+    },
+    showProgress() {
+      return this.isWaiting && this.loginResponse === null;
+    },
+    loginResponseTitle() {
+      if (this.loginResponse.status === 'success')
+        return 'Success!';
+      else
+        return loginResponse.status;
     }
   }
 }

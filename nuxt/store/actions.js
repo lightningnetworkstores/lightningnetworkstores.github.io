@@ -285,8 +285,9 @@ const actions = {
     };
     return axios.post(`${state.baseURL}api/loginattempt`, body)
       .then(response => {
-        console.log('response.status: ', response.status);
-        console.log('response.data: ', response.data);
+        if (response.status === 200) {
+          return response.data;
+        }
       })
       .catch(console.error);
   }

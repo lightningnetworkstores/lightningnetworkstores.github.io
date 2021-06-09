@@ -358,6 +358,7 @@
       :onCaptchaToken="onCaptchaToken"
       :email="storeEmail"
       :rooturl="selectedStore.rooturl"
+      :loginResponse="loginResponse"
     />
   </div>
 </template>
@@ -406,7 +407,8 @@ export default {
       breadcrumb: [],
       store: null,
       currentFilter: 'all',
-      showLoginModal: false
+      showLoginModal: false,
+      loginResponse: null
     }
   },
   async asyncData({ params, store }) {
@@ -518,7 +520,12 @@ export default {
         recipient: recipient,
         storeId: this.selectedStore.id
       };
-      this.$store.dispatch('login', payload);
+      this.$store.dispatch('login', payload)
+        .then(data => this.loginResponse = data)
+        .catch(err => {
+          console.error(err);
+          this.closeDialog();
+        });
     }
   },
 }
