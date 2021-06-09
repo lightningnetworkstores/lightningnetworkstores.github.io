@@ -24,14 +24,19 @@
                   max-height="500px"
                   aspect-radio="1.6"
                   position="top center"
+                  @click="selectedStore.images.number > 1 ? openImage() : null"
+                  :style="
+                    selectedStore.images.number > 1 ? 'cursor: pointer' : ''
+                  "
                 >
                   <v-chip
                     v-if="isNewStore(selectedStore)"
                     color="green"
                     text-color="white"
                     class="ma-2"
-                    >New</v-chip
                   >
+                    New
+                  </v-chip>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
                       <v-chip
@@ -53,19 +58,20 @@
                     color="blue"
                     text-color="white"
                     class="ma-2"
-                    >New comment</v-chip
                   >
+                    New comment
+                  </v-chip>
                 </v-img>
                 <v-row class="pa-5">
                   <v-col class="pb-1">
                     <div class="headline">
                       <h3>
-                        <a class="" @click.stop :href="selectedStore.href"
-                          >{{ selectedStore.name }}
+                        <a class="" @click.stop :href="selectedStore.href">
+                          {{ selectedStore.name }}
 
-                          <v-icon class="ml-1" color="blue darken-2"
-                            >mdi-open-in-new</v-icon
-                          >
+                          <v-icon class="ml-1" color="blue darken-2">
+                            mdi-open-in-new
+                          </v-icon>
                         </a>
                       </h3>
                     </div>
@@ -333,6 +339,14 @@
             </v-card-text>
           </v-card>
 
+          <v-dialog v-model="imageModal" width="700">
+            <ImageModal
+              :id="selectedStore.id"
+              :images="selectedStore.images.number"
+              :baseURL="baseURL"
+            />
+          </v-dialog>
+
           <Review
             v-for="comment in comments"
             :key="comment.id"
@@ -378,9 +392,9 @@ export default {
           content: this.selectedStore.description,
         },
         {
-          hid: "og:image",
-          property: "og:image",
-          content: "/thumbnails/" + this.selectedStore.id + "_0.png",
+          hid: 'og:image',
+          property: 'og:image',
+          content: '/thumbnails/' + this.selectedStore.id + '_0.png',
         },
       ],
     }
@@ -390,6 +404,7 @@ export default {
       breadcrumb: [],
       store: null,
       currentFilter: 'all',
+      imageModal: false,
     }
   },
   async asyncData({ params, store }) {
@@ -446,8 +461,11 @@ export default {
         new Date()
       )
     },
-     hasNewComment(store) {
-      return new Date(this.selectedStore.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
+    hasNewComment(store) {
+      return (
+        new Date(this.selectedStore.last_commented + 1000 * 60 * 60 * 24 * 8) >
+        new Date()
+      )
     },
     filter(filter) {
       this.currentFilter = filter
@@ -479,6 +497,9 @@ export default {
         }
         return b.timestamp - a.timestamp
       })
+    },
+    openImage() {
+      this.imageModal = true
     },
   },
 }
