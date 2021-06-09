@@ -9,14 +9,9 @@
     </div>
     <v-container>
       <v-row justify="center" v-if="selectedStore">
-        <v-col cols="11" md="9" class="pa-0">
+        <v-col cols="11" :sm="hasExternal ? 9 : 9" :md="hasExternal ? 9 : 9" class="pa-0">
           <v-row justify="center">
-            <v-col
-              cols="12"
-              :sm="hasExternal ? 8 : 12"
-              :md="hasExternal ? 9 : 12"
-              class="pa-0 px-3"
-            >
+            <v-col cols="12" sm="12" md="12" class="pa-0 px-3">
               <v-card class="pa-0 mb-3">
                 <div v-if="selectedStore.images.number > 1">
                   <v-carousel v-model="imageCarousel" hide-delimiters>
@@ -61,7 +56,6 @@
                           v-on="on"
                         >
                           {{ selectedStore.trending }}%
-
                           <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
                         </v-chip>
                       </template>
@@ -78,7 +72,6 @@
                     </v-chip>
                   </v-img>
                 </div>
-
                 <v-row class="pa-5">
                   <v-col class="pb-1">
                     <div class="headline">
@@ -168,6 +161,13 @@
                           ><a v-else>24/Feb/2018</a>
                         </div>
 
+                        <div class="px-0">
+                          <b>Likes: &nbsp;</b>{{ selectedStore.likes }}
+                          <v-icon small :color="storeIsLiked ? `red` : `gray`"
+                            >fa-heart</v-icon
+                          >
+                        </div>
+
                         <div
                           v-if="
                             selectedStore.sector &&
@@ -247,35 +247,68 @@
                 </v-row>
               </v-card>
             </v-col>
-            <v-col v-if="hasExternal" cols="12" sm="4" md="3" class="pa-0">
-              <div class="ma-3 headline font-weight-medium external-title">
-                External
-              </div>
-
-              <v-card
-                v-for="(
-                  external, propertyName, index
-                ) in selectedStore.external"
-                :key="index"
-                class="mx-3 mb-3 py-2"
-                :href="external.href"
+          </v-row>
+        </v-col>
+        <v-col md="3" class="pa-0" v-if="hasExternal">
+          <v-col
+            cols="0"
+            sm="12"
+            md="12"
+            class="mt-4 pa-1 float-right"
+          >
+            <div class="ma-3 mt-5 pt-5">
+              <v-btn @click="requestLogin" large style="background: white" block>
+                <b>Login as owner</b>
+              </v-btn>
+            </div>
+            <div class="ma-3 headline font-weight-medium">
+              External
+            </div>
+            <v-card
+              v-for="(external, propertyName, index) in selectedStore.external"
+              :key="index"
+              class="mx-3 mb-3 py-2"
+              :href="external.href"
+            >
+              <v-layout row class="py-2">
+                <v-flex shrink>
+                  <v-img
+                    :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
+                    class="external-image"
+                  >
+                  </v-img>
+                </v-flex>
+                <v-flex grow class="external-text">
+                  <b>{{ propertyName }}</b>
+                </v-flex>
+              </v-layout>
+            </v-card>
+          </v-col>
+        </v-col>
+      </v-row>
+                <v-container v-if="relatedStores.length > 0" class="pa-0 pt-4">
+          <v-layout class="mt-4 mb-2" justify-center>
+            <h1>Similar Stores</h1>
+          </v-layout>
+          <v-row no-gutters justify="center">
+            <v-col cols="12" sm="8" md="7" xl="4">
+              <store-card
+                class="mb-4"
+                v-for="store in relatedStores.slice(0, maxSimilarToShow)"
+                :key="'store-' + store.id"
+                :store="store"
               >
-                <v-layout row class="py-2">
-                  <v-flex shrink>
-                    <v-img
-                      :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
-                      class="external-image"
-                    >
-                    </v-img>
-                  </v-flex>
-                  <v-flex grow class="external-text">
-                    <b>{{ propertyName }}</b>
-                  </v-flex>
-                </v-layout>
-              </v-card>
+              </store-card>
             </v-col>
           </v-row>
-
+          <v-layout justify-center="true" v-if="relatedStores.length > 1">
+            <v-btn @click="toggleMoreSimilar()" color="primary">
+              {{ maxSimilarToShow > 1 ? 'Hide Similar' : 'Show more' }}
+            </v-btn>
+          </v-layout>
+          </v-container>
+      <v-row justify="center" v-if="selectedStore">
+        <v-col cols="11" :sm="hasExternal ? 9 : 9" :md="hasExternal ? 9 : 9" class="pa-0">
           <v-card class="my-8 pa-2">
             <v-card-title primary-title class="pa-3">
               <div>
@@ -355,7 +388,6 @@
               </v-row>
             </v-card-text>
           </v-card>
-
           <v-dialog v-model="imageModal" width="900">
             <ImageModal
               :id="selectedStore.id"
@@ -364,7 +396,6 @@
               :currentImage="imageCarousel"
             />
           </v-dialog>
-
           <Review
             v-for="comment in comments"
             :key="comment.id"
@@ -373,13 +404,26 @@
             :store="selectedStore"
           ></Review>
         </v-col>
+        <v-col cols="0" md="3" class="pa-0" v-if="hasExternal">
+          <v-col cols="9" sm="9" md="9" class="mt-0 pa-0">
+          </v-col>
+        </v-col>
       </v-row>
     </v-container>
+    <login-modal
+      :enabled="showLoginModal"
+      :onCancel="closeDialog"
+      :onCaptchaToken="onCaptchaToken"
+      :email="storeEmail"
+      :rooturl="selectedStore.rooturl"
+    />
   </div>
 </template>
 
 <script>
+import StoreCard from '~/components/StoreCard'
 export default {
+  components: { StoreCard },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -424,6 +468,8 @@ export default {
       currentFilter: 'all',
       imageCarousel: 0,
       imageModal: false,
+      maxSimilarToShow: 1,
+      showLoginModal: false
     }
   },
   async asyncData({ params, store }) {
@@ -466,9 +512,25 @@ export default {
     hasExternal() {
       return Object.keys(this.selectedStore.external).length > 0
     },
+    relatedStores() {
+      //Removes store with the same id
+      return this.selectedStore.related.filter(
+        (store) => store.id !== this.selectedStore.id
+      )
+    },
+    storeIsLiked() {
+      return false
+    },
+    storeEmail() {
+      return this.selectedStore.email;
+    }
   },
 
   methods: {
+    toggleMoreSimilar() {
+      this.maxSimilarToShow =
+        this.maxSimilarToShow !== 1 ? 1 : this.relatedStores.length
+    },
     getSocialHref(social) {
       if (social && social.href) return social.href
 
@@ -523,6 +585,20 @@ export default {
         this.imageCarousel = i
       }
     },
+    requestLogin() {
+      this.showLoginModal = true;
+    },
+    closeDialog(){
+      this.showLoginModal = false;
+    },
+    onCaptchaToken(token, recipient) {
+      const payload = {
+        token: token,
+        recipient: recipient,
+        storeId: this.selectedStore.id
+      };
+      this.$store.dispatch('login', payload);
+    }
   },
 }
 </script>
@@ -559,5 +635,10 @@ export default {
   .external-title {
     margin-top: 200px !important;
   }
+}
+
+a {
+  text-decoration: inherit;
+  color: black;
 }
 </style>

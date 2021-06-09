@@ -379,7 +379,9 @@ export default {
       padding-right: 40px;
       background-color: white;
     }
-    .comments {
+    .btn-actions {
+      display: flex;
+      gap: 8px;
       position: absolute;
       bottom: 5px;
       right: 5px;
