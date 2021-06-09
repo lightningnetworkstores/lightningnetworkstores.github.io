@@ -7,33 +7,33 @@ export default {
   server: {
     port: 3000,
     host: '0.0.0.0',
-    headers: {'Access-Control-Allow-Origin': '*'}
+    headers: { 'Access-Control-Allow-Origin': '*' },
   },
   axios: {
     proxy: true,
-    proxyHeaders: true
+    proxyHeaders: true,
   },
   proxy: {
     '/api/': {
       target: 'https://bitcoin-stores.com',
       onProxyRes: function (proxyRes, req, res) {
-        console.log("url=" + req.url + ', method=' + req.method)
+        console.log('url=' + req.url + ', method=' + req.method)
       },
       onProxyReq: function (proxyRes, req, res) {
-        console.log("url=" + req.url + ', method=' + req.method)
-      }
+        console.log('url=' + req.url + ', method=' + req.method)
+      },
     },
     '/thumbnails/': {
       target: 'https://bitcoin-stores.com',
-      changeOrigin: false
+      changeOrigin: false,
     },
     '/api2/': {
       target: 'https://bitcoin-stores.com',
-      changeOrigin: false
+      changeOrigin: false,
     },
     '/api3/': {
       target: 'https://bitcoin-stores.com',
-      changeOrigin: false
+      changeOrigin: false,
     },
   },
   generate: {
@@ -48,59 +48,64 @@ export default {
         })
     },
     exlude: [],
-    crawler: true
+    crawler: true,
   }, // ['/stats', '/donations', '/about', '/About', '/Stats', 'Donations', '/']
 
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: "Lightning Network Stores directory",
-    meta: [{
-        charset: 'utf-8'
+    title: 'Lightning Network Stores directory',
+    meta: [
+      {
+        charset: 'utf-8',
       },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
+        content: 'width=device-width, initial-scale=1',
       },
       {
-        hid: "description",
-        name: "description",
-        content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
+        hid: 'description',
+        name: 'description',
+        content:
+          'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
       },
       {
-        hid: "og:title",
-        property: "og:title",
-        content: "Lightning Network Stores directory"
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Lightning Network Stores directory',
       },
       {
-        hid: "og:description",
-        property: "og:description",
-        content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
+        hid: 'og:description',
+        property: 'og:description',
+        content:
+          'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
       },
       {
-        hid: "og:image",
-        property: "og:image",
-        content: "/ogimage.png"
+        hid: 'og:image',
+        property: 'og:image',
+        content: '/ogimage.png',
       },
       {
-        hid: "twitter:title",
-        property: "twitter:title",
-        content: "Lightning Network Stores directory"
+        hid: 'twitter:title',
+        property: 'twitter:title',
+        content: 'Lightning Network Stores directory',
       },
       {
-        hid: "twitter:description",
-        property: "twitter:description",
-        content: "The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network."
-      }
+        hid: 'twitter:description',
+        property: 'twitter:description',
+        content:
+          'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
+      },
     ],
-    link: [{
+    link: [
+      {
         rel: 'search',
         type: 'application/opensearchdescription+xml',
         title: 'Lightning Network Stores',
-        href: '/opensearch.xml'
+        href: '/opensearch.xml',
       },
       {
         hid: 'icon',
@@ -134,21 +139,25 @@ export default {
   css: ['~/assets/css/main.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [{
-    src: '~/plugins/qrcode.js',
-    ssr: false
-  }, {
-    src: '~/plugins/vue-google-charts.js',
-    ssr: false
-  }, {
-    src: '~/plugins/filters.js',
-    ssr: false
-  }],
+  plugins: [
+    {
+      src: '~/plugins/qrcode.js',
+      ssr: false,
+    },
+    {
+      src: '~/plugins/vue-google-charts.js',
+      ssr: false,
+    },
+    {
+      src: '~/plugins/filters.js',
+      ssr: false,
+    },
+  ],
 
   recaptcha: {
     /* reCAPTCHA options */
-    siteKey: "6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj", // Site key for requests
-    version: 2
+    siteKey: '6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj', // Site key for requests
+    version: 2,
   },
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -189,13 +198,11 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
           background: '#303030',
-        }
-      }
-    }
+        },
+      },
+    },
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-
-  }
+  build: {},
 }
