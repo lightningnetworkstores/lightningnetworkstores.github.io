@@ -261,6 +261,27 @@
               </v-card>
             </v-col>
           </v-row>
+          <v-container v-if="relatedStores.length > 0" class="pa-0 pt-4">
+            <v-layout class="mt-4 mb-2" justify-center>
+              <h1>Similar Stores</h1>
+            </v-layout>
+            <v-row no-gutters justify="center">
+              <v-col cols="12" sm="8" md="7" xl="4">
+                <store-card
+                  class="mb-4"
+                  v-for="store in relatedStores.slice(0, maxSimilarToShow)"
+                  :key="'store-' + store.id"
+                  :store="store"
+                >
+                </store-card>
+              </v-col>
+            </v-row>
+            <v-layout justify-center="true" v-if="relatedStores.length > 1">
+              <v-btn @click="toggleMoreSimilar()" color="primary">
+                {{ maxSimilarToShow > 1 ? 'Hide Similar' : 'Show more' }}
+              </v-btn>
+            </v-layout>
+          </v-container>
 
           <v-card class="my-8 pa-2">
             <v-card-title primary-title class="pa-3">
@@ -363,7 +384,9 @@
 </template>
 
 <script>
+import StoreCard from '~/components/StoreCard'
 export default {
+  components: { StoreCard },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -406,6 +429,7 @@ export default {
       breadcrumb: [],
       store: null,
       currentFilter: 'all',
+      maxSimilarToShow: 1,
       showLoginModal: false
     }
   },
@@ -449,6 +473,12 @@ export default {
     hasExternal() {
       return Object.keys(this.selectedStore.external).length > 0
     },
+    relatedStores() {
+      //Removes store with the same id
+      return this.selectedStore.related.filter(
+        (store) => store.id !== this.selectedStore.id
+      )
+    },
     storeIsLiked() {
       return false
     },
@@ -458,6 +488,10 @@ export default {
   },
 
   methods: {
+    toggleMoreSimilar() {
+      this.maxSimilarToShow =
+        this.maxSimilarToShow !== 1 ? 1 : this.relatedStores.length
+    },
     getSocialHref(social) {
       if (social && social.href) return social.href
 
