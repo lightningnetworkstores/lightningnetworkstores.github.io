@@ -139,6 +139,13 @@
                           ><a v-else>24/Feb/2018</a>
                         </div>
 
+                        <div class="px-0">
+                          <b>Likes: &nbsp;</b>{{ selectedStore.likes }}
+                          <v-icon small :color="storeIsLiked ? `red` : `gray`"
+                            >fa-heart</v-icon
+                          >
+                        </div>
+
                         <div
                           v-if="
                             selectedStore.sector &&
@@ -227,7 +234,12 @@
             md="12"
             class="mt-4 pa-1 float-right"
           >
-            <div class="ma-3 headline font-weight-medium external-title">
+            <div class="ma-3 mt-5 pt-5">
+              <v-btn @click="requestLogin" large style="background: white" block>
+                <b>Login as owner</b>
+              </v-btn>
+            </div>
+            <div class="ma-3 headline font-weight-medium">
               External
             </div>
             <v-card
@@ -333,7 +345,27 @@
               </v-row>
             </v-card-text>
           </v-card>
-
+          <v-container v-if="relatedStores.length > 0" class="pa-0 pt-4">
+          <v-layout class="mt-4 mb-2" justify-center>
+            <h1>Similar Stores</h1>
+          </v-layout>
+          <v-row no-gutters justify="center">
+            <v-col cols="12" sm="8" md="7" xl="4">
+              <store-card
+                class="mb-4"
+                v-for="store in relatedStores.slice(0, maxSimilarToShow)"
+                :key="'store-' + store.id"
+                :store="store"
+              >
+              </store-card>
+            </v-col>
+          </v-row>
+          <v-layout justify-center="true" v-if="relatedStores.length > 1">
+            <v-btn @click="toggleMoreSimilar()" color="primary">
+              {{ maxSimilarToShow > 1 ? 'Hide Similar' : 'Show more' }}
+            </v-btn>
+          </v-layout>
+          </v-container>
           <Review
             v-for="comment in comments"
             :key="comment.id"
@@ -348,11 +380,20 @@
         </v-col>
       </v-row>
     </v-container>
+    <login-modal
+      :enabled="showLoginModal"
+      :onCancel="closeDialog"
+      :onCaptchaToken="onCaptchaToken"
+      :email="storeEmail"
+      :rooturl="selectedStore.rooturl"
+    />
   </div>
 </template>
 
 <script>
+import StoreCard from '~/components/StoreCard'
 export default {
+  components: { StoreCard },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -395,6 +436,8 @@ export default {
       breadcrumb: [],
       store: null,
       currentFilter: 'all',
+      maxSimilarToShow: 1,
+      showLoginModal: false
     }
   },
   async asyncData({ params, store }) {
@@ -437,9 +480,25 @@ export default {
     hasExternal() {
       return Object.keys(this.selectedStore.external).length > 0
     },
+    relatedStores() {
+      //Removes store with the same id
+      return this.selectedStore.related.filter(
+        (store) => store.id !== this.selectedStore.id
+      )
+    },
+    storeIsLiked() {
+      return false
+    },
+    storeEmail() {
+      return this.selectedStore.email;
+    }
   },
 
   methods: {
+    toggleMoreSimilar() {
+      this.maxSimilarToShow =
+        this.maxSimilarToShow !== 1 ? 1 : this.relatedStores.length
+    },
     getSocialHref(social) {
       if (social && social.href) return social.href
 
@@ -488,6 +547,20 @@ export default {
         return b.timestamp - a.timestamp
       })
     },
+    requestLogin() {
+      this.showLoginModal = true;
+    },
+    closeDialog(){
+      this.showLoginModal = false;
+    },
+    onCaptchaToken(token, recipient) {
+      const payload = {
+        token: token,
+        recipient: recipient,
+        storeId: this.selectedStore.id
+      };
+      this.$store.dispatch('login', payload);
+    }
   },
 }
 </script>
@@ -524,5 +597,10 @@ export default {
   .external-title {
     margin-top: 200px !important;
   }
+}
+
+a {
+  text-decoration: inherit;
+  color: black;
 }
 </style>

@@ -8,7 +8,7 @@
             :isReviewUpvote="comment.score > 0"
             :parentReview="comment.id"
           ></vote-line>
-          {{ comment.score | splitNumber }}
+          {{ comment.score }}
         </v-col>
 
         <v-col cols="10" class="comment-text pa-3">
@@ -16,7 +16,7 @@
         </v-col>
       </v-row>
 
-      <v-layout row pl-4 pr-4 class="caption comment-extra">
+      <v-layout row pl-4 pr-4 mt-0 class="caption comment-extra">
         <v-flex grow pa-2>ID: {{ comment.id.substring(0, 5) }} </v-flex>
         <v-flex grow pa-2 class="text-right"
           >{{
@@ -95,7 +95,7 @@ export default {
   methods: {
     commentText(comment) {
       return comment.startsWith('@')
-        ? "<span class='tag'>" +
+        ? "<span class='user-tag'>" +
             this.htmlEntities(comment.substring(0, 6)) +
             '</span>' +
             this.htmlEntities(comment.substring(6, comment.length))
@@ -124,7 +124,7 @@ export default {
 .score-line {
   line-height: 30px;
 }
-.tag {
+.user-tag {
   background-color: #dddddd;
 }
 .comment-extra {
