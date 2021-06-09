@@ -145,6 +145,13 @@
                           ><a v-else>24/Feb/2018</a>
                         </div>
 
+                        <div class="px-0">
+                          <b>Likes: &nbsp;</b>{{ selectedStore.likes }}
+                          <v-icon small :color="storeIsLiked ? `red` : `gray`"
+                            >fa-heart</v-icon
+                          >
+                        </div>
+
                         <div
                           v-if="
                             selectedStore.sector &&
@@ -378,9 +385,9 @@ export default {
           content: this.selectedStore.description,
         },
         {
-          hid: "og:image",
-          property: "og:image",
-          content: "/thumbnails/" + this.selectedStore.id + "_0.png",
+          hid: 'og:image',
+          property: 'og:image',
+          content: '/thumbnails/' + this.selectedStore.id + '_0.png',
         },
       ],
     }
@@ -432,6 +439,9 @@ export default {
     hasExternal() {
       return Object.keys(this.selectedStore.external).length > 0
     },
+    storeIsLiked() {
+      return false
+    },
   },
 
   methods: {
@@ -446,8 +456,11 @@ export default {
         new Date()
       )
     },
-     hasNewComment(store) {
-      return new Date(this.selectedStore.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
+    hasNewComment(store) {
+      return (
+        new Date(this.selectedStore.last_commented + 1000 * 60 * 60 * 24 * 8) >
+        new Date()
+      )
     },
     filter(filter) {
       this.currentFilter = filter
