@@ -7,21 +7,8 @@
     <v-dialog v-model="showEditDialog" max-width="500" persistent>
       <v-form @submit.prevent="submitEdit" ref="editform">
         <v-card>
-          <!-- <v-card-text v-if="editAlert.message.length">
-            <v-flex pa-3>
-              <v-alert
-                :value="editAlert.message"
-                :type="editAlert.success ? 'success' : 'error'"
-                transition="scale-transition"
-              >
-                {{ editAlert.message }}
-              </v-alert>
-            </v-flex>
-          </v-card-text> -->
-
           <v-card-title class="headline">
             Edit&nbsp;{{ store.name }}
-
             <v-flex class="corner-loading" v-if="isLoading"
               ><v-progress-circular
                 indeterminate
@@ -84,14 +71,11 @@
               </v-layout>
             </v-form>
           </v-card-text>
-
           <v-card-actions>
             <v-spacer></v-spacer>
-
             <v-btn color="green darken-1" text @click="closeDialog">
               Cancel
             </v-btn>
-
             <v-btn color="green darken-1" text type="submit"> Submit </v-btn>
           </v-card-actions>
         </v-card>
