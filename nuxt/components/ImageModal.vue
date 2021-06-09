@@ -1,8 +1,24 @@
 <template>
   <div class="image-modal">
-    <div v-for="(img, i) in images" :key="i" class="image-modal-list">
+    <div v-if="images > 1">
+      <v-carousel v-model="liveImage" hide-delimiters height="80vh">
+        <v-carousel-item v-for="(img, i) in images" :key="i">
+          <v-img
+            :src="`${baseURL}thumbnails/${
+              i > 0 ? `${id}_${i + 1}` : `${id}`
+            }.png`"
+            height="100%"
+            contain
+          >
+          </v-img>
+        </v-carousel-item>
+      </v-carousel>
+    </div>
+    <div v-else>
       <v-img
-        :src="`${baseURL}thumbnails/${i > 0 ? `${id}_${i + 1}` : `${id}`}.png`"
+        max-height="80vh"
+        contain
+        :src="`${baseURL}thumbnails/${id}.png`"
       ></v-img>
     </div>
   </div>
@@ -10,20 +26,25 @@
 
 <script>
 export default {
-  props: ['id', 'images', 'baseURL'],
+  props: ['id', 'images', 'baseURL', 'currentImage'],
+  computed: {
+    liveImage: {
+      get() {
+        return this.currentImage
+      },
+      set(newImage) {
+        return newImage
+      },
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .image-modal {
   background: white;
-  padding: 1rem;
 }
 .image-modal-list {
-  margin-bottom: 2rem;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  height: 80vh;
 }
 </style>

@@ -18,50 +18,67 @@
               class="pa-0 px-3"
             >
               <v-card class="pa-0 mb-3">
-                <v-img
-                  :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
-                  class="text-right"
-                  max-height="500px"
-                  aspect-radio="1.6"
-                  position="top center"
-                  @click="selectedStore.images.number > 1 ? openImage() : null"
-                  :style="
-                    selectedStore.images.number > 1 ? 'cursor: pointer' : ''
-                  "
-                >
-                  <v-chip
-                    v-if="isNewStore(selectedStore)"
-                    color="green"
-                    text-color="white"
-                    class="ma-2"
+                <div v-if="selectedStore.images.number > 1">
+                  <v-carousel v-model="imageCarousel" hide-delimiters>
+                    <v-carousel-item
+                      v-for="(img, i) in selectedStore.images.number"
+                      :key="i"
+                    >
+                      <v-img
+                        :src="`${baseURL}thumbnails/${
+                          i > 0
+                            ? `${selectedStore.id}_${i + 1}`
+                            : `${selectedStore.id}`
+                        }.png`"
+                        @click="openImage(i)"
+                      ></v-img>
+                    </v-carousel-item>
+                  </v-carousel>
+                </div>
+                <div v-else>
+                  <v-img
+                    :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
+                    class="text-right"
+                    max-height="500px"
+                    aspect-radio="1.6"
+                    position="top center"
+                    @click="openImage"
                   >
-                    New
-                  </v-chip>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                      <v-chip
-                        v-if="selectedStore.trending > 0"
-                        color="purple"
-                        text-color="white"
-                        v-on="on"
-                      >
-                        {{ selectedStore.trending }}%
+                    <v-chip
+                      v-if="isNewStore(selectedStore)"
+                      color="green"
+                      text-color="white"
+                      class="ma-2"
+                    >
+                      New
+                    </v-chip>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-chip
+                          v-if="selectedStore.trending > 0"
+                          color="purple"
+                          text-color="white"
+                          v-on="on"
+                        >
+                          {{ selectedStore.trending }}%
 
-                        <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
-                      </v-chip>
-                    </template>
-                    <span>Trending score</span>
-                  </v-tooltip>
+                          <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
+                        </v-chip>
+                      </template>
+                      <span>Trending score</span>
+                    </v-tooltip>
 
-                  <v-chip
-                    v-if="hasNewComment(selectedStore)"
-                    color="blue"
-                    text-color="white"
-                    class="ma-2"
-                  >
-                    New comment
-                  </v-chip>
-                </v-img>
+                    <v-chip
+                      v-if="hasNewComment(selectedStore)"
+                      color="blue"
+                      text-color="white"
+                      class="ma-2"
+                    >
+                      New comment
+                    </v-chip>
+                  </v-img>
+                </div>
+
                 <v-row class="pa-5">
                   <v-col class="pb-1">
                     <div class="headline">
@@ -339,11 +356,12 @@
             </v-card-text>
           </v-card>
 
-          <v-dialog v-model="imageModal" width="700">
+          <v-dialog v-model="imageModal" width="900">
             <ImageModal
               :id="selectedStore.id"
               :images="selectedStore.images.number"
               :baseURL="baseURL"
+              :currentImage="imageCarousel"
             />
           </v-dialog>
 
@@ -404,6 +422,7 @@ export default {
       breadcrumb: [],
       store: null,
       currentFilter: 'all',
+      imageCarousel: 0,
       imageModal: false,
     }
   },
@@ -498,8 +517,11 @@ export default {
         return b.timestamp - a.timestamp
       })
     },
-    openImage() {
+    openImage(i) {
       this.imageModal = true
+      if (i) {
+        this.imageCarousel = i
+      }
     },
   },
 }
