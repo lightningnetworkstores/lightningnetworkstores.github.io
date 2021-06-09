@@ -277,6 +277,19 @@ const actions = {
       }
     })
   },
+  login({ state }, { token, recipient, storeId }) {
+    const body = {
+      'recipient': recipient,
+      'storeID': storeId,
+      'h-captcha-response': token
+    };
+    return axios.post(`${state.baseURL}api/loginattempt`, body)
+      .then(response => {
+        console.log('response.status: ', response.status);
+        console.log('response.data: ', response.data);
+      })
+      .catch(console.error);
+  }
 }
 
 export default actions

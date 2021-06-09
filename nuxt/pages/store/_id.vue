@@ -231,11 +231,13 @@
                 </v-row>
               </v-card>
             </v-col>
-            <v-col v-if="hasExternal" cols="12" sm="4" md="3" class="pa-0">
-              <div class="ma-3 headline font-weight-medium external-title">
+            <v-col v-if="hasExternal" cols="12" sm="4" md="3" class="pa-0 d-flex flex-column justify-center">
+              <v-btn @click="requestLogin" class="mx-3 mb-3 py-6" large style="background: white">
+                <b>Login as owner</b>
+              </v-btn>
+              <div class="ma-3 headline font-weight-medium">
                 External
               </div>
-
               <v-card
                 v-for="(
                   external, propertyName, index
@@ -350,6 +352,13 @@
         </v-col>
       </v-row>
     </v-container>
+    <login-modal
+      :enabled="showLoginModal"
+      :onCancel="closeDialog"
+      :onCaptchaToken="onCaptchaToken"
+      :email="storeEmail"
+      :rooturl="selectedStore.rooturl"
+    />
   </div>
 </template>
 
@@ -397,6 +406,7 @@ export default {
       breadcrumb: [],
       store: null,
       currentFilter: 'all',
+      showLoginModal: false
     }
   },
   async asyncData({ params, store }) {
@@ -442,6 +452,9 @@ export default {
     storeIsLiked() {
       return false
     },
+    storeEmail() {
+      return this.selectedStore.email;
+    }
   },
 
   methods: {
@@ -493,6 +506,20 @@ export default {
         return b.timestamp - a.timestamp
       })
     },
+    requestLogin() {
+      this.showLoginModal = true;
+    },
+    closeDialog(){
+      this.showLoginModal = false;
+    },
+    onCaptchaToken(token, recipient) {
+      const payload = {
+        token: token,
+        recipient: recipient,
+        storeId: this.selectedStore.id
+      };
+      this.$store.dispatch('login', payload);
+    }
   },
 }
 </script>
@@ -529,5 +556,10 @@ export default {
   .external-title {
     margin-top: 200px !important;
   }
+}
+
+a {
+  text-decoration: inherit;
+  color: black;
 }
 </style>
