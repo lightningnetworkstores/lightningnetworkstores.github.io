@@ -224,7 +224,7 @@
           <v-col
             cols="0"
             sm="12"
-            md="9"
+            md="12"
             class="mt-4 pa-1 float-right"
           >
             <div class="ma-3 headline font-weight-medium external-title">
