@@ -47,7 +47,7 @@
             class="tag"
             color="#fdb919"
             :value="tag"
-            :label="tag"
+            :label="tag +' '+storeCountByTag(tag)"
             v-model="checkedTags[index]"
           ></v-checkbox>
         </v-list-item>
@@ -204,6 +204,17 @@ export default {
       } else {
         return this.tags;
       }
+    },
+
+    storeCountByTag(tag) {
+      let count = 0;
+      this.stores.forEach((item) => {
+        if(item.tags.includes(tag)) {
+          count++;
+        }
+      })
+
+      return count;
     }
   },
   computed: {
