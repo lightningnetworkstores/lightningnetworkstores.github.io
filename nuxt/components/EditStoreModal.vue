@@ -68,11 +68,12 @@ export default {
         this.value
       ) {
         this.isLoading = false
+        const body = {};
+        body[this.property] = this.value;
         this.$store
           .dispatch('addStoreUpdate', {
             id: this.store.id,
-            field: this.property,
-            value: this.value
+            body: body
           })
           .then(
             (response) => {

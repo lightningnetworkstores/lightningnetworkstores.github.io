@@ -1,3 +1,4 @@
+require('dotenv').config()
 const axios = require('axios')
 
 const actions = {
@@ -93,13 +94,12 @@ const actions = {
 
   addStoreUpdate(
     { state },
-    { id: id, field: field, value: value }
+    { id: id, body: body }
   ) {
-    return fetch(
-      `${state.baseURL}api/addUpdate?storeID=${id}&field=${encodeURIComponent(
-        field
-      )}&newValue=${encodeURIComponent(value)}&requestOwner=false`
-    )
+    const { debugPwd } = process.env;
+    const url = `${state.baseURL}api/field?id=${id}${debugPwd ? '&pwd=' + debugPwd : ''}`
+
+    axios.put(url, JSON.stringify(body))
       .then((response) => {
         return response.text()
       })
