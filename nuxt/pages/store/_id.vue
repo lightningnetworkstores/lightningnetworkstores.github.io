@@ -31,7 +31,45 @@
                             : `${selectedStore.id}`
                         }.png`"
                         @click="openImage(i)"
-                      ></v-img>
+                        class="text-right"
+                      >
+                        <div v-if="i === 0">
+                          <v-chip
+                            v-if="isNewStore(selectedStore)"
+                            color="green"
+                            text-color="white"
+                            class="ma-2"
+                          >
+                            New
+                          </v-chip>
+                          <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                              <v-chip
+                                v-if="selectedStore.trending > 0"
+                                color="purple"
+                                text-color="white"
+                                v-on="on"
+                              >
+                                {{ selectedStore.trending }}%
+
+                                <v-icon v-on="on" pr-2 small right
+                                  >fa-fire</v-icon
+                                >
+                              </v-chip>
+                            </template>
+                            <span>Trending score</span>
+                          </v-tooltip>
+
+                          <v-chip
+                            v-if="hasNewComment(selectedStore)"
+                            color="blue"
+                            text-color="white"
+                            class="ma-2"
+                          >
+                            New comment
+                          </v-chip>
+                        </div>
+                      </v-img>
                     </v-carousel-item>
                   </v-carousel>
                 </div>
