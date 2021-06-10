@@ -71,7 +71,7 @@
                       <edit-store-modal
                         v-if="selectedStore.logged"
                         :store="selectedStore"
-                        :editAttribute="{label: 'Store Name', value: selectedStore.name, key: 'name' }"
+                        :editAttribute="editStoreName"
                         class="ml-2"
                       ></edit-store-modal>
                     </div>
@@ -459,6 +459,12 @@ export default {
     },
     storeEmail() {
       return this.selectedStore.email;
+    },
+    editStoreName() {
+      return [
+        {label: 'Store Name', value: this.selectedStore.name, key: 'name' },
+        {label: 'URL', value: this.selectedStore.href, key: 'href' }
+      ]
     }
   },
 

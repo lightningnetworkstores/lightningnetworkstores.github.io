@@ -19,12 +19,14 @@
           </v-card-title>
           <v-card-text>
             <v-form @submit.prevent="submitEdit" ref="editform">
-              <v-layout row>
+              <v-layout v-for="field in fields" :key="field.name" row>
                 <v-flex pl-3 pr-3>
                   <v-text-field
-                    v-model="value"
-                    :label="editAttribute.label"
-                  >{{ value }}</v-text-field>
+                    v-model="field.value"
+                    :label="field.label"
+                  >
+                  {{ field.value }}
+                  </v-text-field>
                 </v-flex>
               </v-layout>
             </v-form>
@@ -46,12 +48,17 @@
 export default {
   props: ['store', 'editAttribute'],
   data() {
+    let fields = [];
+    if (Array.isArray(this.editAttribute)) {
+      fields = [...this.editAttribute];
+    } else {
+      fields.push(this.editAttribute)
+    }
     return {
       editAlert: { message: '', success: true },
       showEditDialog: false,
       isLoading: false,
-      property: this.editAttribute.key,
-      value: this.editAttribute.value,
+      fields: fields
     }
   },
   methods: {
@@ -62,14 +69,13 @@ export default {
 
     submitEdit() {
       this.$refs.editform.validate()
-      if (
-        this.store.id &&
-        this.property &&
-        this.value
-      ) {
+      const body = {};
+      this.fields.forEach(field => {
+        body[field.key] = field.value
+      });
+
+      if (this.store.id) {
         this.isLoading = false
-        const body = {};
-        body[this.property] = this.value;
         this.$store
           .dispatch('addStoreUpdate', {
             id: this.store.id,
@@ -77,16 +83,10 @@ export default {
           })
           .then(
             (response) => {
-              this.editAlert.message = response
-              if (response.includes('The request was successfully recorded')) {
-                this.editAlert.success = 'success'
-                this.editDialogForm = { property: '' }
-                this.$refs.editform.reset()
-              } else {
-                this.editAlert.success = 'error'
-              }
+              this.$refs.editform.reset()
               this.isLoading = false
               this.showEditDialog = false;
+              this.closeDialog();
             },
             (error) => {
               console.error(error)

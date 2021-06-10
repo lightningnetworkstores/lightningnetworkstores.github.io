@@ -99,9 +99,10 @@ const actions = {
     const { debugPwd } = process.env;
     const url = `${state.baseURL}api/field?id=${id}${debugPwd ? '&pwd=' + debugPwd : ''}`
 
-    axios.put(url, JSON.stringify(body))
+    return axios.put(url, JSON.stringify(body))
       .then((response) => {
-        return response.text()
+        // TODO: Update the 'selected store' state
+        return response.data;
       })
       .catch((error) => {
         return Promise.reject(error)
