@@ -258,19 +258,15 @@ const actions = {
   },
   likeStore({ state, commit }, { storeId, remove }) {
     const lsKey = `lns_likes`
-    let likedStores = JSON.parse(localStorage.getItem(lsKey))
-    if (!likedStores) {
-      likedStores = []
-      localStorage.setItem(lsKey, JSON.stringify(likedStores))
-    }
+    let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? []
+
     return axios({
       method: 'post',
       url: `${state.baseURL}api/like?storeID=${storeId}&remove=${remove}`,
     }).then((res) => {
-      console.log(res)
       if (res.status !== `fail`) {
-        likedStores = likedStores
-        likedStores.push(storeId)
+        const likes = res.data.data.likes
+        likedStores = [likedStores, ...likes]
         localStorage.setItem(lsKey, JSON.stringify(likedStores))
         commit('setLikeInStore', { storeId, remove })
       }
@@ -278,16 +274,17 @@ const actions = {
   },
   login({ state }, { token, recipient, storeId }) {
     const body = {
-      'recipient': recipient,
-      'storeID': storeId,
-      'h-captcha-response': token
-    };
-    return axios.post(`${state.baseURL}api/loginattempt`, body)
-      .then(response => {
-        console.log('response.status: ', response.status);
-        console.log('response.data: ', response.data);
+      recipient: recipient,
+      storeID: storeId,
+      'h-captcha-response': token,
+    }
+    return axios
+      .post(`${state.baseURL}api/loginattempt`, body)
+      .then((response) => {
+        console.log('response.status: ', response.status)
+        console.log('response.data: ', response.data)
       })
-      .catch(console.error);
-  }
+      .catch(console.error)
+  },
 }
 export default actions

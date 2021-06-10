@@ -133,7 +133,6 @@ export default {
     },
     handleLike(storeId) {
       const isLiked = this.likedStores.some((id) => id === storeId)
-      console.log(`Like Request... ${isLiked}`)
       if (isLiked) {
         this.$store.dispatch(`likeStore`, { storeId, remove: true })
         this.likedStores.pop(storeId)
