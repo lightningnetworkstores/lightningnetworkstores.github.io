@@ -44,11 +44,12 @@
         >
           <v-checkbox
             hide-details
+            @change="selectDelectTag(tag)"
             class="tag"
             color="#fdb919"
             :value="tag"
             :label="tag +' '+storeCountByTag(tag)"
-            v-model="checkedTags[index]"
+            v-model="tagsCheckbox[tag]"
           ></v-checkbox>
         </v-list-item>
       </v-list>
@@ -134,9 +135,26 @@ export default {
         { name: 'Controversial', prop: 'controversial' },
         { name: 'Last commented', prop: 'lastcommented' },
       ],
+
+      tagsCheckbox: []
     }
   },
   methods: {
+    selectDelectTag(value) {
+      let index = this.checkedTags.indexOf(value);
+      if (index !== -1) {
+        this.checkedTags.splice(index, 1);
+      } else {
+        this.checkedTags.push(value);
+      }
+
+      this.$store.commit(
+        'setSelectedTags',
+        this.checkedTags.filter((t) => t)
+      )
+      this.changeUrl();
+    },
+
     toggleDrawer() {
       this.drawer = !this.drawer
     },
@@ -194,18 +212,6 @@ export default {
       }
     },
 
-    tagFilterBySearch() {
-      console.log(this.tagSearchQuery);
-      if(this.tagSearchQuery) {
-        console.log('lll');
-        this.tags =  this.tags.filter((item)=>{
-          return this.tagSearchQuery.toLowerCase().split(' ').every(v => item.toLowerCase().includes(v));
-        })
-      } else {
-        return this.tags;
-      }
-    },
-
     storeCountByTag(tag) {
       let count = 0;
       this.stores.forEach((item) => {
@@ -229,10 +235,12 @@ export default {
     },
     tags() {
       let tags = this.$store.state.tags;
-      let filteredtags = tags.filter((tag) => {
-        return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase());
-      })
-      return filteredtags;
+      if(this.tagSearchQuery) {
+        return  tags.filter((tag) => {
+          return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase());
+        })
+      }
+      return tags;
     },
     selectedTags() {
       return this.$store.state.selectedTags
@@ -247,13 +255,23 @@ export default {
               this.safeMode
             )
             .filter((x) => {
-              if (!this.tags.length) return true
+              if(!this.tagSearchQuery) {
+                if (!this.tags.length) return true
+              }
+
+
               return (
                 x.tags.filter((y) => {
-                  const tagIndex = this.tags.indexOf(y)
-                  return this.checkedTags[tagIndex]
+                  return this.checkedTags.includes(y);
                 }).length == this.selectedTags.length
               )
+
+              // return (
+              //   x.tags.filter((y) => {
+              //     const tagIndex = this.tags.indexOf(y)
+              //     return this.checkedTags[tagIndex]
+              //   }).length == this.selectedTags.length
+              // )
             })
         : this.$store.getters.getStores(
             { sector: this.sector, digitalGoods: this.digitalGoods },
@@ -264,13 +282,13 @@ export default {
     },
   },
   watch: {
-    checkedTags() {
-      this.$store.commit(
-        'setSelectedTags',
-        this.checkedTags.filter((t) => t)
-      )
-      this.changeUrl()
-    },
+    // checkedTags() {
+    //   this.$store.commit(
+    //     'setSelectedTags',
+    //     this.checkedTags.filter((t) => t)
+    //   )
+    //   this.changeUrl();
+    // },
     selectedSort() {
       this.changeUrl()
     },
