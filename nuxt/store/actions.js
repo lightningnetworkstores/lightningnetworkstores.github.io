@@ -185,6 +185,9 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  setStore({ commit }, store) {
+    commit(`setStore`, store)
+  },
   removeTag({ state }, { storeId: storeId, tag: tag }) {
     const object = {
       taginfo: {
@@ -266,7 +269,7 @@ const actions = {
     }).then((res) => {
       if (res.status !== `fail`) {
         const likes = res.data.data.likes
-        likedStores = [likedStores, ...likes]
+        likedStores = likedStores.concat(likes)
         localStorage.setItem(lsKey, JSON.stringify(likedStores))
         commit('setLikeInStore', { storeId, remove })
       }
@@ -285,6 +288,16 @@ const actions = {
         console.log('response.data: ', response.data)
       })
       .catch(console.error)
+  },
+  updateStoreLikes({ commit }) {
+    const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? []
+    commit('setStoreLikes', storeLikes)
+  },
+  pushStoreLike({ commit }, storeId) {
+    commit('pushToStoreLike', storeId)
+  },
+  popStoreLike({ commit }, storeId) {
+    commit('popToStoreLike', storeId)
   },
 }
 export default actions
