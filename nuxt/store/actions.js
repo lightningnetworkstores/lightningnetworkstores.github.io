@@ -93,12 +93,12 @@ const actions = {
 
   addStoreUpdate(
     { state },
-    { id: id, field: field, value: value, askOwner: askOwner }
+    { id: id, field: field, value: value }
   ) {
     return fetch(
       `${state.baseURL}api/addUpdate?storeID=${id}&field=${encodeURIComponent(
         field
-      )}&newValue=${encodeURIComponent(value)}&requestOwner=${askOwner}`
+      )}&newValue=${encodeURIComponent(value)}&requestOwner=false`
     )
       .then((response) => {
         return response.text()

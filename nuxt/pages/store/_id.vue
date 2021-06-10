@@ -58,8 +58,8 @@
                 </v-img>
                 <v-row class="pa-5">
                   <v-col class="pb-1">
-                    <div class="headline">
-                      <h3>
+                    <div class="headline d-flex">
+                      <h3 class="mt-1">
                         <a class="" @click.stop :href="selectedStore.href"
                           >{{ selectedStore.name }}
 
@@ -68,15 +68,27 @@
                           >
                         </a>
                       </h3>
+                      <edit-store-modal
+                        v-if="selectedStore.logged"
+                        :store="selectedStore"
+                        :editAttribute="{label: 'Store Name', value: selectedStore.name, key: 'name' }"
+                        class="ml-2"
+                      ></edit-store-modal>
                     </div>
                     <edit-tags :store="selectedStore"></edit-tags>
                     <v-row class="pt-0">
                       <v-col>
-                        <p>
-                          {{ selectedStore.description }}
-                        </p>
-                        <!-- <v-layout row pb-3><a @click.stop :href="selectedStore.href">Visit website</a></v-layout> -->
-
+                        <div class="d-flex">
+                          <p class="mt-2">
+                            {{ selectedStore.description }}
+                          </p>
+                          <edit-store-modal
+                            v-if="selectedStore.logged"
+                            :store="selectedStore"
+                            :editAttribute="{label: 'Description', value: selectedStore.description, key: 'description' }"
+                            class="ml-2"
+                          />
+                        </div>
                         <div
                           v-if="
                             selectedStore.uri &&
@@ -84,53 +96,27 @@
                           "
                           class="px-0"
                         >
-                          <span class="break-word"
-                            ><b>Node:&nbsp;</b
-                            ><a
-                              :href="
-                                'https://1ml.com/node/' +
-                                selectedStore.uri.split('@')[0]
-                              "
-                              >{{ selectedStore.uri }}</a
-                            ></span
-                          >
+                          <div class="d-flex">
+                            <span class="break-word mt-2"
+                              ><b>Node:&nbsp;</b
+                              ><a
+                                :href="
+                                  'https://1ml.com/node/' +
+                                  selectedStore.uri.split('@')[0]
+                                "
+                                >{{ selectedStore.uri }}</a
+                              ></span
+                            >
+                            <edit-store-modal
+                              v-if="selectedStore.logged"
+                              :store="selectedStore"
+                              :editAttribute="{label: 'Node URI', value: selectedStore.uri, key: 'uri' }"
+                              class="ml-2"
+                            />
+                          </div>
                         </div>
 
-                        <div
-                          v-if="
-                            selectedStore.digital_goods &&
-                            selectedStore.digital_goods.length > 0
-                          "
-                          class="px-0"
-                        >
-                          <b>Digital goods:&nbsp;</b
-                          >{{ selectedStore.digital_goods }}
-                        </div>
-
-                        <div
-                          v-if="
-                            selectedStore.sector &&
-                            selectedStore.sector.length > 0
-                          "
-                          class="px-0"
-                        >
-                          <b>Sector:&nbsp;</b
-                          ><router-link
-                            :to="
-                              '/?sector=' +
-                              encodeURIComponent(selectedStore.sector)
-                            "
-                            >{{ selectedStore.sector }}</router-link
-                          >
-                        </div>
-
-                        <div
-                          v-if="
-                            selectedStore.sector &&
-                            selectedStore.sector.length > 0
-                          "
-                          class="px-0"
-                        >
+                        <div class="px-0">
                           <b>Date added:&nbsp;</b
                           ><span v-if="selectedStore.added">
                             {{
@@ -176,8 +162,8 @@
                       </v-col>
                     </v-row>
 
-                    <v-row class="pl-2 pr-2 pt-3">
-                      <v-col cols="6">
+                    <v-row class="pl-2 pr-2 pt-3 d-flex justify-space-between">
+                      <div class="d-flex">
                         <v-btn
                           text
                           icon
@@ -187,7 +173,12 @@
                         >
                           <v-icon>fab fa-twitter</v-icon>
                         </v-btn>
-
+                        <edit-store-modal
+                          v-if="selectedStore.logged && selectedStore.social.twitter"
+                          :store="selectedStore"
+                          :editAttribute="{label: 'Twitter', value: selectedStore.social.twitter.href, key: 'twitter' }"
+                          class="ml-2"
+                        />
                         <v-btn
                           text
                           icon
@@ -197,7 +188,12 @@
                         >
                           <v-icon>fab fa-facebook</v-icon>
                         </v-btn>
-
+                        <edit-store-modal
+                          v-if="selectedStore.logged && selectedStore.social.facebook"
+                          :store="selectedStore"
+                          :editAttribute="{label: 'Facebook', value: selectedStore.social.facebook.href, key: 'facebook' }"
+                          class="ml-2"
+                        />
                         <v-btn
                           text
                           icon
@@ -207,25 +203,25 @@
                         >
                           <v-icon>fab fa-reddit</v-icon>
                         </v-btn>
-                      </v-col>
+                        <edit-store-modal
+                          v-if="selectedStore.logged && selectedStore.social.reddit"
+                          :store="selectedStore"
+                          :editAttribute="{label: 'Reddit', value: selectedStore.social.reddit.href, key: 'reddit' }"
+                          class="ml-2"
+                        />
+                      </div>
 
-                      <v-col cols="6">
-                        <v-row justify="end">
-                          <embed-modal
-                            :store="selectedStore"
-                            :baseURL="baseURL"
-                            class="ml-2"
-                          ></embed-modal>
-                          <edit-store-modal
-                            :store="selectedStore"
-                            class="ml-2"
-                          ></edit-store-modal>
-                          <ban-store-modal
-                            :store="selectedStore"
-                            class="ml-2"
-                          ></ban-store-modal>
-                        </v-row>
-                      </v-col>
+                      <div class="d-flex">
+                        <embed-modal
+                          :store="selectedStore"
+                          :baseURL="baseURL"
+                          class="ml-2"
+                        ></embed-modal>
+                        <ban-store-modal
+                          :store="selectedStore"
+                          class="ml-2"
+                        ></ban-store-modal>
+                      </div>
                     </v-row>
                   </v-col>
                 </v-row>
@@ -233,7 +229,7 @@
             </v-col>
             <v-col v-if="hasExternal" cols="12" sm="4" md="3" class="pa-0 d-flex flex-column justify-center">
               <v-btn @click="requestLogin" class="mx-3 mb-3 py-6" large style="background: white">
-                <b>Login as owner</b>
+                <b>{{ selectedStore.logged ? 'Logout' : 'Login as owner' }}</b>
               </v-btn>
               <div class="ma-3 headline font-weight-medium">
                 External
@@ -244,18 +240,25 @@
                 ) in selectedStore.external"
                 :key="index"
                 class="mx-3 mb-3 py-2"
-                :href="external.href"
               >
                 <v-layout row class="py-2">
                   <v-flex shrink>
                     <v-img
                       :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
                       class="external-image"
+                      @click="() => handleExternalClick(external.href)"
                     >
                     </v-img>
                   </v-flex>
                   <v-flex grow class="external-text">
                     <b>{{ propertyName }}</b>
+                  </v-flex>
+                  <v-flex shrink class="mr-4 mt-1">
+                    <edit-store-modal
+                      v-if="selectedStore.logged"
+                      :store="selectedStore"
+                      :editAttribute="{label: propertyName, value: external.href, key: propertyName }"
+                    />
                   </v-flex>
                 </v-layout>
               </v-card>
@@ -526,6 +529,9 @@ export default {
           console.error(err);
           this.closeDialog();
         });
+    },
+    handleExternalClick(url) {
+      window.open(url, '_blank', 'noopener');
     }
   },
 }
@@ -555,6 +561,7 @@ export default {
   width: 24px;
   height: 24px;
   margin: 10px 10px 10px 25px;
+  cursor: pointer;
 }
 .external-text {
   line-height: 44px;

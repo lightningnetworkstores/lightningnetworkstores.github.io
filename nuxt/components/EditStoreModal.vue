@@ -21,52 +21,10 @@
             <v-form @submit.prevent="submitEdit" ref="editform">
               <v-layout row>
                 <v-flex pl-3 pr-3>
-                  <v-combobox
-                    v-model="editDialogForm.property"
-                    item-text="name"
-                    item-value="prop"
-                    label="Property"
-                    :items="editDialogProperties"
-                    return-object
-                  ></v-combobox>
-                </v-flex>
-              </v-layout>
-
-              <v-layout row>
-                <v-flex pl-3 pr-3>
                   <v-text-field
-                    :value="
-                      editDialogForm.property && editDialogForm.property.prop
-                        ? store[editDialogForm.property.prop]
-                        : ''
-                    "
-                    label="Current value"
-                    disabled
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-
-              <v-layout row>
-                <v-flex pl-3 pr-3>
-                  <v-text-field
-                    v-model="editDialogForm.value"
-                    label="Value"
-                    :hint="
-                      editDialogForm.property && editDialogForm.property.prop
-                        ? hints[editDialogForm.property.prop]
-                        : ''
-                    "
-                    :rules="[(v) => !!v || 'Value is required']"
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-
-              <v-layout row>
-                <v-flex pl-3 pr-3>
-                  <v-checkbox
-                    v-model="editDialogForm.askOwner"
-                    label="Ask store owner for approval (email will be sent to store owner)"
-                  ></v-checkbox>
+                    v-model="value"
+                    :label="editAttribute.label"
+                  >{{ value }}</v-text-field>
                 </v-flex>
               </v-layout>
             </v-form>
@@ -86,40 +44,14 @@
 
 <script>
 export default {
-  props: ['store'],
+  props: ['store', 'editAttribute'],
   data() {
     return {
       editAlert: { message: '', success: true },
-
       showEditDialog: false,
       isLoading: false,
-      editDialogProperties: [
-        { name: 'Name', prop: 'name' },
-        { name: 'Description', prop: 'description' },
-        { name: 'URL', prop: 'href' },
-        { name: 'Node URI', prop: 'uri' },
-        { name: 'Sector', prop: 'sector' },
-        { name: 'Digital goods', prop: 'digital_goods' },
-        { name: 'Reddit URL', prop: 'reddit' },
-        { name: 'Facebook URL', prop: 'facebook' },
-        { name: 'Twitter URL', prop: 'twitter' },
-      ],
-      editDialogForm: { property: '', askOwner: true },
-
-      hints: {
-        digital_goods:
-          '"No, goods only in-store" or "No, goods shipped" or "yes"',
-        uri:
-          'e.g. 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735',
-        href: 'e.g. https://example.com',
-        sector:
-          'Lower case and without spaces around the &: e.g. vps&web hosting',
-        name: 'Some new name no longer than 50 characters.',
-        description: 'Some new description not longer than 150 characters.',
-        reddit: 'e.g. https://reddit.com/user/someuser',
-        facebook: 'e.g. https://facebook.com/somebody',
-        twitter: 'e.g. https://twitter.com/somebody',
-      },
+      property: this.editAttribute.key,
+      value: this.editAttribute.value,
     }
   },
   methods: {
@@ -132,23 +64,22 @@ export default {
       this.$refs.editform.validate()
       if (
         this.store.id &&
-        this.editDialogForm.property.prop &&
-        this.editDialogForm.value
+        this.property &&
+        this.value
       ) {
         this.isLoading = false
         this.$store
           .dispatch('addStoreUpdate', {
             id: this.store.id,
-            field: this.editDialogForm.property.prop,
-            value: this.editDialogForm.value,
-            askOwner: this.editDialogForm.askOwner,
+            field: this.property,
+            value: this.value
           })
           .then(
             (response) => {
               this.editAlert.message = response
               if (response.includes('The request was successfully recorded')) {
                 this.editAlert.success = 'success'
-                this.editDialogForm = { property: '', askOwner: true }
+                this.editDialogForm = { property: '' }
                 this.$refs.editform.reset()
               } else {
                 this.editAlert.success = 'error'
