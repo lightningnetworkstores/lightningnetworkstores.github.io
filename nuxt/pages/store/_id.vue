@@ -637,8 +637,4 @@ export default {
   }
 }
 
-a {
-  text-decoration: inherit;
-  color: black;
-}
 </style>
