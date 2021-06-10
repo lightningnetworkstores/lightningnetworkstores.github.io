@@ -22,21 +22,12 @@ export default {
   },
   methods: {
     handleLike(storeId) {
-      const stateStoreId = this.$store.state.store.id
       if (this.storeIsLiked) {
         this.$store.dispatch(`likeStore`, { storeId, remove: true })
         this.$store.dispatch(`popStoreLike`, storeId)
-
-        if (stateStoreId === storeId) {
-          // this.store.likes -= 1
-        }
       } else {
         this.$store.dispatch(`likeStore`, { storeId, remove: false })
         this.$store.dispatch(`pushStoreLike`, storeId)
-
-        if (stateStoreId === storeId) {
-          // this.store.likes += 1
-        }
       }
 
       this.$emit('likeStore', { isLiked: this.storeIsLiked, storeId })
