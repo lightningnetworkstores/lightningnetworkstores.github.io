@@ -395,6 +395,12 @@ export default {
       .likes .v-icon:hover {
         color: #f44336;
       }
+      &.sm-btn-actions {
+        font-size: 24px !important;
+        .v-icon {
+          font-size: 24px !important;
+        }
+      }
     }
   }
 }

@@ -90,7 +90,12 @@
                 </v-list>
               </v-menu>
             </div>
-            <div class="btn-actions">
+            <div
+              :class="{
+                'btn-actions': true,
+                'sm-btn-actions': $vuetify.breakpoint.mobile,
+              }"
+            >
               <div class="comments" v-if="store.total_comments">
                 <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
               </div>
