@@ -85,6 +85,7 @@ export default {
                 this.editAlert.success = 'error'
               }
               this.isLoading = false
+              this.showEditDialog = false;
             },
             (error) => {
               console.error(error)
