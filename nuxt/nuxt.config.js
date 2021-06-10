@@ -9,6 +9,11 @@ export default {
     host: '0.0.0.0',
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
+  router: {
+    scrollBehavior(to, from, savedPosition) {
+      return { x: 0, y: 0 }
+    },
+  },
   axios: {
     proxy: true,
     proxyHeaders: true,
