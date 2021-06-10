@@ -150,6 +150,10 @@ export default {
       ssr: false,
     },
     {
+      src: '~/plugins/updateStoreLikes.js',
+      ssr: false,
+    },
+    {
       src: '~/plugins/vue-google-charts.js',
       ssr: false,
     },
