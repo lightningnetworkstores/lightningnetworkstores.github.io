@@ -256,6 +256,38 @@ const actions = {
         console.log(error)
       })
   },
+  likeStore({ state, commit }, { storeId, remove }) {
+    const lsKey = `lns_likes`
+    let likedStores = JSON.parse(localStorage.getItem(lsKey))
+    if (!likedStores) {
+      likedStores = []
+      localStorage.setItem(lsKey, JSON.stringify(likedStores))
+    }
+    return axios({
+      method: 'post',
+      url: `${state.baseURL}api/like?storeID=${storeId}&remove=${remove}`,
+    }).then((res) => {
+      console.log(res)
+      if (res.status !== `fail`) {
+        likedStores = likedStores
+        likedStores.push(storeId)
+        localStorage.setItem(lsKey, JSON.stringify(likedStores))
+        commit('setLikeInStore', { storeId, remove })
+      }
+    })
+  },
+  login({ state }, { token, recipient, storeId }) {
+    const body = {
+      'recipient': recipient,
+      'storeID': storeId,
+      'h-captcha-response': token
+    };
+    return axios.post(`${state.baseURL}api/loginattempt`, body)
+      .then(response => {
+        console.log('response.status: ', response.status);
+        console.log('response.data: ', response.data);
+      })
+      .catch(console.error);
+  }
 }
-
 export default actions
