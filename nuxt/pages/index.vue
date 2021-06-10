@@ -56,6 +56,8 @@
     <div :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 300px;' : ''">
       <v-layout justify-center>
         <v-flex xs10 md18 lg6 ma-5>
+          <v-row>
+          <v-col cols="11" xs="11" sm="11" md="11">
           <!-- <v-card>
                     <v-toolbar card color="rgb(56, 56, 56)" dark dense
                         ><v-text-field v-model="searchQuery" hide-details prepend-icon="search" single-line class="pt-0"></v-text-field><v-spacer></v-spacer><tutorial-modal></tutorial-modal
@@ -79,6 +81,11 @@
             :append-icon="$vuetify.breakpoint.lgAndUp ? '' : 'mdi-filter'"
             @click:append="toggleDrawer"
           ></v-text-field>
+          </v-col>
+          <v-col cols="1" xs="1" sm="1" md="1">
+            <tutorial-modal></tutorial-modal>
+          </v-col>
+          </v-row>
         </v-flex>
       </v-layout>
 
