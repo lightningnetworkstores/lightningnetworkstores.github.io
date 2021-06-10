@@ -52,7 +52,8 @@ export default {
   }, // ['/stats', '/donations', '/about', '/About', '/Stats', 'Donations', '/']
 
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    debugPwd: process.env.API_SECRET || null
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -196,6 +197,10 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-
+    extend(config, { isDev, isClient }) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
   }
 }
