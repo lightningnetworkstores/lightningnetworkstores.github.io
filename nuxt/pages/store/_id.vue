@@ -415,26 +415,19 @@ export default {
     }
   },
   async asyncData({ params, store }) {
-    const store_id = params.id
+    const storeId = params.id
 
-    await store.dispatch('getStore', { id: store_id })
+    await store.dispatch('getStore', { id: storeId })
     const { selectedStore } = store.state
     let comments = selectedStore.comments
 
-    return { selectedStore, comments }
+    return { selectedStore, comments, storeId }
   },
 
-  mounted() {
-    // this.setMetaTags()
-    // this.comments = this.selectedStore.comments
-    //   .filter((comment) => comment.parent == 'null')
-    //   .sort((a, b) => {
-    //     if (Math.abs(b.score) !== Math.abs(a.score)) {
-    //       return Math.abs(b.score) - Math.abs(a.score)
-    //     }
-    //     return b.timestamp - a.timestamp
-    //   })
-    // this.comments.sort((a, b) => Math.abs(b.score) - Math.abs(a.score))
+  async mounted() {
+    await this.$store.dispatch('getStore', { id: this.storeId })
+    const { selectedStore } = this.$store.state
+    this.selectedStore = selectedStore;
     this.breadcrumb = [
       {
         text: 'Stores',

@@ -97,7 +97,7 @@ const actions = {
     { state, commit },
     { id: id, body: body }
   ) {
-    const { debugPwd } = process.env;
+    const debugPwd = null; //process.env.debugPwd;
     const url = `${state.baseURL}api/field?id=${id}${debugPwd ? '&pwd=' + debugPwd : ''}`
 
     return axios.put(url, JSON.stringify(body))
