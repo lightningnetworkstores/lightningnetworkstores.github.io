@@ -44,12 +44,14 @@
         >
           <v-checkbox
             hide-details
+            @change="selectDeselectTag(tag)"
             class="tag"
             color="#fdb919"
             :value="tag"
-            :label="tag + ' ' + storeCountByTag(tag)"
-            v-model="checkedTags[index]"
+            :label="tag +' '+storeCountByTag(tag)"
+            v-model="tagsCheckbox"
           ></v-checkbox>
+           <!-- v-model="checkedTags[index]"" -->
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -141,9 +143,28 @@ export default {
         { name: 'Controversial', prop: 'controversial' },
         { name: 'Last commented', prop: 'lastcommented' },
       ],
+
+      tagsCheckbox: []
     }
   },
   methods: {
+    selectDeselectTag(value) {
+      let index = this.checkedTags.indexOf(value);
+      if (index !== -1) {
+        this.checkedTags.splice(index, 1);
+      } else {
+        this.checkedTags.push(value);
+      }
+
+      console.log(this.tagsCheckbox, 'lll');
+
+      this.$store.commit(
+        'setSelectedTags',
+        this.checkedTags.filter((t) => t)
+      )
+      this.changeUrl();
+    },
+
     toggleDrawer() {
       this.drawer = !this.drawer
     },
@@ -194,13 +215,13 @@ export default {
           .map((x) => decodeURI(x))
 
         for (const tag of routeTags) {
+          this.tagsCheckbox.push(tag);
           this.checkedTags[this.tags.indexOf(tag)] = tag
         }
 
         this.$store.commit('setSelectedTags', routeTags)
       }
     },
-
     tagFilterBySearch() {
       console.log(this.tagSearchQuery)
       if (this.tagSearchQuery) {
@@ -215,7 +236,6 @@ export default {
         return this.tags
       }
     },
-
     storeCountByTag(tag) {
       let count = 0
       this.stores.forEach((item) => {
@@ -238,11 +258,17 @@ export default {
       return this.$store.state.scores
     },
     tags() {
-      let tags = this.$store.state.tags
-      let filteredtags = tags.filter((tag) => {
+        let tags = this.$store.state.tags;
+      if(this.tagSearchQuery) {
+        return  tags.filter((tag) => {
+          return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase());
+        })
+      }
+      return tags;
+      /*  let filteredtags = tags.filter((tag) => {
         return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
       })
-      return filteredtags
+      return filteredtags */
     },
     selectedTags() {
       return this.$store.state.selectedTags
@@ -257,13 +283,23 @@ export default {
               this.safeMode
             )
             .filter((x) => {
-              if (!this.tags.length) return true
+              if(!this.tagSearchQuery) {
+                if (!this.tags.length) return true
+              }
+
+
               return (
                 x.tags.filter((y) => {
-                  const tagIndex = this.tags.indexOf(y)
-                  return this.checkedTags[tagIndex]
+                  return this.checkedTags.includes(y);
                 }).length == this.selectedTags.length
               )
+
+              // return (
+              //   x.tags.filter((y) => {
+              //     const tagIndex = this.tags.indexOf(y)
+              //     return this.checkedTags[tagIndex]
+              //   }).length == this.selectedTags.length
+              // )
             })
         : this.$store.getters.getStores(
             { sector: this.sector, digitalGoods: this.digitalGoods },
@@ -274,13 +310,13 @@ export default {
     },
   },
   watch: {
-    checkedTags() {
-      this.$store.commit(
-        'setSelectedTags',
-        this.checkedTags.filter((t) => t)
-      )
-      this.changeUrl()
-    },
+    // checkedTags() {
+    //   this.$store.commit(
+    //     'setSelectedTags',
+    //     this.checkedTags.filter((t) => t)
+    //   )
+    //   this.changeUrl();
+    // },
     selectedSort() {
       this.changeUrl()
     },
