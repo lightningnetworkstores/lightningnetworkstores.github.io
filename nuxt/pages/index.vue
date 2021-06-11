@@ -26,17 +26,18 @@
         <v-subheader class="title pb-2">Filter</v-subheader>
         <!-- <v-text-field   hide-details  single-line class="pt-0 tag-search-block mt-3 mb-3">Search</v-text-field> -->
         <v-text-field
-            class="search tag-search-block p-10"
-            v-model="tagSearchQuery"
-            flat
-            outlined
-            label="Type to search"
-            solo
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-          ></v-text-field>
-        <br/>
-        <br/>
+          class="search tag-search-block p-10"
+          v-model="tagSearchQuery"
+          flat
+          outlined
+          label="Type to search"
+          solo
+          prepend-inner-icon="mdi-magnify"
+          hide-details
+        ></v-text-field>
+        <br />
+        <br />
+
         <v-list-item
           v-for="(tag, index) in tags"
           :key="tag"
@@ -47,7 +48,7 @@
             class="tag"
             color="#fdb919"
             :value="tag"
-            :label="tag +' '+storeCountByTag(tag)"
+            :label="tag + ' ' + storeCountByTag(tag)"
             v-model="checkedTags[index]"
           ></v-checkbox>
         </v-list-item>
@@ -195,27 +196,30 @@ export default {
     },
 
     tagFilterBySearch() {
-      console.log(this.tagSearchQuery);
-      if(this.tagSearchQuery) {
-        console.log('lll');
-        this.tags =  this.tags.filter((item)=>{
-          return this.tagSearchQuery.toLowerCase().split(' ').every(v => item.toLowerCase().includes(v));
+      console.log(this.tagSearchQuery)
+      if (this.tagSearchQuery) {
+        console.log('lll')
+        this.tags = this.tags.filter((item) => {
+          return this.tagSearchQuery
+            .toLowerCase()
+            .split(' ')
+            .every((v) => item.toLowerCase().includes(v))
         })
       } else {
-        return this.tags;
+        return this.tags
       }
     },
 
     storeCountByTag(tag) {
-      let count = 0;
+      let count = 0
       this.stores.forEach((item) => {
-        if(item.tags.includes(tag)) {
-          count++;
+        if (item.tags.includes(tag)) {
+          count++
         }
       })
 
-      return count;
-    }
+      return count
+    },
   },
   computed: {
     baseURL() {
@@ -227,40 +231,57 @@ export default {
     scores() {
       return this.$store.state.scores
     },
-    tags() {
-      let tags = this.$store.state.tags;
-      let filteredtags = tags.filter((tag) => {
-        return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase());
-      })
-      return filteredtags;
-    },
     selectedTags() {
       return this.$store.state.selectedTags
     },
+
     getStores() {
-      return this.selectedTags.filter((x) => x !== null).length
-        ? this.$store.getters
-            .getStores(
-              { sector: this.sector, digitalGoods: this.digitalGoods },
-              this.selectedSort,
-              this.searchQuery,
-              this.safeMode
-            )
-            .filter((x) => {
-              if (!this.tags.length) return true
-              return (
-                x.tags.filter((y) => {
-                  const tagIndex = this.tags.indexOf(y)
-                  return this.checkedTags[tagIndex]
-                }).length == this.selectedTags.length
-              )
-            })
-        : this.$store.getters.getStores(
+      if (this.selectedTags.filter((x) => x !== null).length) {
+        return this.$store.getters
+          .getStores(
             { sector: this.sector, digitalGoods: this.digitalGoods },
             this.selectedSort,
             this.searchQuery,
             this.safeMode
           )
+          .filter((x) => {
+            if (!this.tags.length) return true
+            return (
+              x.tags.filter((y) => {
+                const tagIndex = this.tags.indexOf(y)
+                return this.checkedTags[tagIndex]
+              }).length == this.selectedTags.length
+            )
+          })
+      } else {
+        return this.$store.getters.getStores(
+          { sector: this.sector, digitalGoods: this.digitalGoods },
+          this.selectedSort,
+          this.searchQuery,
+          this.safeMode
+        )
+      }
+    },
+    tags() {
+      // let filteredStores = this.$store.state.filteredStores
+      let tags = this.$store.state.tags
+
+      // if (filteredStores.length) {
+      //   let mapped = filteredStores
+      //     .map((x) => {
+      //       return x.tags
+      //     })
+      //     .flat(1)
+
+      //   let filteredTags = [...new Set(mapped)]
+      //   return filteredTags
+      // } else {
+      let filtered = tags.filter((tag) => {
+        return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
+      })
+
+      return filtered
+      // }
     },
   },
   watch: {
@@ -276,7 +297,7 @@ export default {
     },
     searchQuery() {
       this.changeUrl()
-    }
+    },
   },
   async mounted() {
     this.$store.commit('setLoading', true)
