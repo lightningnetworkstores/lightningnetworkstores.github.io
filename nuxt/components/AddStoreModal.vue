@@ -10,15 +10,16 @@
       max-width="500"
       persistent
       style="overflow-x: hidden"
+      scrollable
     >
       <template v-if="showAddDialog">
         <v-card>
-          <v-layout row v-if="addAlert.message.length">
-            <v-flex pa-3>
+          <v-layout v-if="addAlert.message.length">
+            <v-flex>
               <v-alert
-                :value="addAlert.message"
                 :type="addAlert.success ? 'success' : 'error'"
                 transition="scale-transition"
+                class="mb-0"
               >
                 {{ addAlert.message }}
               </v-alert>
@@ -49,7 +50,7 @@
             </v-card-actions>
           </div>
 
-          <div v-else>
+          <v-card-text class="pa-0 cardContent" v-else>
             <v-card-title class="headline">
               <v-flex grow>Automatically add new store!</v-flex>
               <v-flex shrink v-if="isLoading || paymentRequest.length"
@@ -249,7 +250,7 @@
                 </v-card-actions>
               </v-form>
             </v-card-text>
-          </div>
+          </v-card-text>
         </v-card>
       </template>
     </v-dialog>
@@ -408,6 +409,9 @@ export default {
                 // this.addAlert.success = true
                 // this.addDialogForm = {}
                 // this.$refs.addform.reset()
+              } else if (response.status === 'fail') {
+                this.addAlert.message = response.message
+                this.addAlert.success = false
               } else {
                 this.addAlert.message = response.data
                 this.addAlert.success = false
@@ -458,4 +462,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.cardContent {
+    max-height: 60vw
+}
 </style>
