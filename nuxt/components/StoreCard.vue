@@ -90,16 +90,16 @@
                 </v-list>
               </v-menu>
             </div>
-            <div class="btn-actions">
+            <div
+              :class="{
+                'btn-actions': true,
+                'sm-btn-actions': $vuetify.breakpoint.mobile,
+              }"
+            >
               <div class="comments" v-if="store.total_comments">
                 <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
               </div>
-              <div class="likes" @click.stop="handleLike(store.id)">
-                <v-icon small :color="storeIsLiked ? `red` : `gray`"
-                  >fa-heart</v-icon
-                >
-                {{ store.likes }}
-              </div>
+              <like-store-button :store="store" />
             </div>
           </div>
         </div>
@@ -110,15 +110,11 @@
 
 <script>
 import VoteButton from '../components/VoteButton.vue'
+import LikeStoreButton from './LikeStoreButton.vue'
+
 export default {
   props: ['store'],
-  components: { VoteButton },
-  data() {
-    return {
-      likedStores: JSON.parse(localStorage.getItem(`lns_likes`)) ?? [],
-    }
-  },
-
+  components: { VoteButton, LikeStoreButton },
   methods: {
     gotoStore(store_id) {
       this.$router.push('/store/' + store_id)
@@ -131,28 +127,10 @@ export default {
         new Date(store.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
       )
     },
-    handleLike(storeId) {
-      const isLiked = this.likedStores.some((id) => id === storeId)
-      console.log(`Like Request... ${isLiked}`)
-      if (isLiked) {
-        this.$store.dispatch(`likeStore`, { storeId, remove: true })
-        this.likedStores.pop(storeId)
-      } else {
-        this.$store.dispatch(`likeStore`, { storeId, remove: false })
-        this.likedStores.push(storeId)
-      }
-    },
   },
   computed: {
     baseURL() {
       return this.$store.state.baseURL
-    },
-    storeIsLiked() {
-      if (this.likedStores) {
-        return this.likedStores.some((id) => id === this.store.id)
-      }
-
-      return false
     },
   },
 }
