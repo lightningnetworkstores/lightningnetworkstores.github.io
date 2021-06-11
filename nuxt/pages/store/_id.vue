@@ -441,10 +441,10 @@
             />
           </v-dialog>
           <Review
-            v-for="comment in comments"
-            :key="comment.id"
-            :comment="comment"
-            :comments="selectedStore.comments"
+            v-for="review in reviews"
+            :key="review[0].id"
+            :comment="review[0]"
+            :comments="review"
             :store="selectedStore"
           ></Review>
         </v-col>
@@ -524,8 +524,9 @@ export default {
     const selectedStore = await store.dispatch('getStore', { id: store_id })
     store.dispatch('setStore', selectedStore)
     let comments = selectedStore.comments
+    let reviews = selectedStore.reviews
 
-    return { selectedStore, comments }
+    return { selectedStore, reviews }
   },
 
   mounted() {
