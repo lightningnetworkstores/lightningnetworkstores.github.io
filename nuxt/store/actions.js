@@ -37,6 +37,7 @@ const actions = {
       })
       .then((response) => {
         commit('setConfiguration', response.configuration)
+        commit('setSelectedStore', response)
         return response
       })
       .catch((error) => {
@@ -93,7 +94,7 @@ const actions = {
   },
 
   addStoreUpdate(
-    { state },
+    { state, commit },
     { id: id, body: body }
   ) {
     const { debugPwd } = process.env;
@@ -101,8 +102,14 @@ const actions = {
 
     return axios.put(url, JSON.stringify(body))
       .then((response) => {
-        // TODO: Update the 'selected store' state
-        return response.data;
+        Object.keys(response.data.data).forEach(attr => {
+          if (response.data.data[attr]) {
+            const payload = {key: attr, value: body[attr]}
+            commit('updateSelectedStore', payload);
+          } else {
+            console.log(`${attr} -> not modified!`);
+          }
+        });
       })
       .catch((error) => {
         return Promise.reject(error)

@@ -417,7 +417,8 @@ export default {
   async asyncData({ params, store }) {
     const store_id = params.id
 
-    const selectedStore = await store.dispatch('getStore', { id: store_id })
+    await store.dispatch('getStore', { id: store_id })
+    const { selectedStore } = store.state
     let comments = selectedStore.comments
 
     return { selectedStore, comments }
