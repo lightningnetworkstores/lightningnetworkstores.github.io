@@ -44,12 +44,12 @@
         >
           <v-checkbox
             hide-details
-            @change="selectDelectTag(tag)"
+            @change="selectDeselectTag(tag)"
             class="tag"
             color="#fdb919"
             :value="tag"
             :label="tag +' '+storeCountByTag(tag)"
-            v-model="tagsCheckbox[tag]"
+            v-model="tagsCheckbox"
           ></v-checkbox>
         </v-list-item>
       </v-list>
@@ -140,13 +140,15 @@ export default {
     }
   },
   methods: {
-    selectDelectTag(value) {
+    selectDeselectTag(value) {
       let index = this.checkedTags.indexOf(value);
       if (index !== -1) {
         this.checkedTags.splice(index, 1);
       } else {
         this.checkedTags.push(value);
       }
+
+      console.log(this.tagsCheckbox, 'lll');
 
       this.$store.commit(
         'setSelectedTags',
@@ -205,6 +207,7 @@ export default {
           .map((x) => decodeURI(x))
 
         for (const tag of routeTags) {
+          this.tagsCheckbox.push(tag);
           this.checkedTags[this.tags.indexOf(tag)] = tag
         }
 
