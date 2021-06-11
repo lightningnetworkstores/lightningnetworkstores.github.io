@@ -10,7 +10,6 @@
           ></vote-line>
           {{ comment.score }}
         </v-col>
-
         <v-col cols="10" class="comment-text pa-3">
           {{ comment.text.replace(/\+/g, ' ') }}
         </v-col>
@@ -42,9 +41,7 @@
         pb-1
         pl-3
         pr-3
-        v-for="subComment in comments
-          .filter((subComment) => subComment.parent == comment.id)
-          .sort((a, b) => a.timestamp - b.timestamp)"
+        v-for="subComment in comment.subComment"
         :key="subComment.id"
       >
         <v-flex>
