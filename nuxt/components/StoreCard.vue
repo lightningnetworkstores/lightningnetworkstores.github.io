@@ -8,7 +8,7 @@
             max-height="200px"
             :src="`${baseURL}thumbnails/${store.id}.jpg`"
             class="text-right"
-            @click.native="gotoStore(store.id)"
+            @click.native="gotoStore(store.rooturl)"
           >
             <v-chip
               v-if="isNewStore(store)"
