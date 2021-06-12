@@ -118,7 +118,6 @@ const getters = {
             break;
         }
       }
-
       return stores;
     }
   },

@@ -44,14 +44,17 @@
         >
           <v-checkbox
             hide-details
-            @change="selectDeselectTag(tag)"
+            @change="selectDeselectTag(tag, index)"
             class="tag"
             color="#fdb919"
+            :indeterminate="excludeTag[index].status"
+            :class="{'indeterminate':excludeTag[index].status}"
             :value="tag"
-            :label="tag +' '+storeCountByTag(tag)"
+            :label="tag + ' ' + storeCountByTag(tag)"
             v-model="tagsCheckbox"
+            @update:indeterminate="updateExclude(tag, index)"
           ></v-checkbox>
-           <!-- v-model="checkedTags[index]"" -->
+          <!-- v-model="checkedTags[index]"" -->
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -59,8 +62,8 @@
       <v-layout justify-center>
         <v-flex xs10 md18 lg6 ma-5>
           <v-row>
-          <v-col cols="11" xs="11" sm="11" md="11">
-          <!-- <v-card>
+            <v-col cols="11" xs="11" sm="11" md="11">
+              <!-- <v-card>
                     <v-toolbar card color="rgb(56, 56, 56)" dark dense
                         ><v-text-field v-model="searchQuery" hide-details prepend-icon="search" single-line class="pt-0"></v-text-field><v-spacer></v-spacer><tutorial-modal></tutorial-modal
                     ></v-toolbar>
@@ -71,22 +74,22 @@
                     </v-layout>
                 </v-card> -->
 
-          <v-text-field
-            v-model="searchQuery"
-            class="search"
-            flat
-            outlined
-            label="Type to search"
-            solo
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-            :append-icon="$vuetify.breakpoint.lgAndUp ? '' : 'mdi-filter'"
-            @click:append="toggleDrawer"
-          ></v-text-field>
-          </v-col>
-          <v-col cols="1" xs="1" sm="1" md="1">
-            <tutorial-modal></tutorial-modal>
-          </v-col>
+              <v-text-field
+                v-model="searchQuery"
+                class="search"
+                flat
+                outlined
+                label="Type to search"
+                solo
+                prepend-inner-icon="mdi-magnify"
+                hide-details
+                :append-icon="$vuetify.breakpoint.lgAndUp ? '' : 'mdi-filter'"
+                @click:append="toggleDrawer"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="1" xs="1" sm="1" md="1">
+              <tutorial-modal></tutorial-modal>
+            </v-col>
           </v-row>
         </v-flex>
       </v-layout>
@@ -133,6 +136,7 @@ export default {
       maxCards: 18,
       addCardCount: 6,
       checkedTags: [],
+      excludedTag: [],
       selectedSort: 'best',
       safeMode: false,
       sortItems: [
@@ -144,25 +148,63 @@ export default {
         { name: 'Last commented', prop: 'lastcommented' },
       ],
 
-      tagsCheckbox: []
+      tagsCheckbox: [],
     }
   },
   methods: {
-    selectDeselectTag(value) {
-      let index = this.checkedTags.indexOf(value);
+    updateExclude(value, i) {
+      console.log('updateExclude')
+      /*this.excludedTag.push(value);
+    let index = this.checkedTags.indexOf(value);
+    if (index !== -1) {
+      this.checkedTags.splice(index, 1);
+    } else {
+      this.checkedTags.push(value);
+    }*/
+    },
+    selectDeselectTag(value, i) {
+      console.log('selectDeselectTag')
+
+      let index = this.checkedTags.indexOf(value)
       if (index !== -1) {
-        this.checkedTags.splice(index, 1);
+        this.checkedTags.splice(index, 1)
       } else {
-        this.checkedTags.push(value);
+        this.checkedTags.push(value)
       }
 
-      console.log(this.tagsCheckbox, 'lll');
+      //  console.log(this.tagsCheckbox, 'lll',this.tagsCheckbox.includes(value));
+      if (!this.tagsCheckbox.includes(value)) {
+        if (this.excludeTag[i].status) {
+          this.excludeTag[i].status = false
+        } else {
+          this.excludeTag[i].status = true
+          this.excludedTag.push(value)
+        }
 
+        //this.excludeTag[i].status = false
+        this.checkedTags.splice(index, 1)
+      } else {
+        if (this.excludedTag.includes(value)) {
+          let index1 = this.tagsCheckbox.indexOf(value)
+          this.tagsCheckbox.splice(index1, 1)
+          let index2 = this.excludedTag.indexOf(value)
+          this.excludedTag.splice(index2, 1)
+          this.excludeTag[i].status = false
+          let index = this.checkedTags.indexOf(value)
+          if (index !== -1) {
+            this.checkedTags.splice(index, 1)
+          }
+        }
+      }
       this.$store.commit(
         'setSelectedTags',
         this.checkedTags.filter((t) => t)
       )
-      this.changeUrl();
+      this.$store.commit(
+        'setExludedTags',
+        this.excludedTag.filter((t) => t)
+      )
+      this.changeUrl()
     },
 
     toggleDrawer() {
@@ -185,6 +227,10 @@ export default {
       if (this.checkedTags.filter((x) => x).length) {
         query.tags = this.checkedTags.filter((x) => x).join(',')
       }
+
+      if (this.excludedTag.filter((x) => x).length) {
+        query.exclude = this.excludedTag.filter((x) => x).join(',')
+      }
       if (this.selectedSort && this.selectedSort != 'best') {
         query.sort = encodeURIComponent(this.selectedSort)
       }
@@ -194,7 +240,6 @@ export default {
       if (this.safeMode) {
         query.safemode = this.safeMode ? this.safeMode.toString() : 'false'
       }
-
       this.$router.push({
         query: query,
       })
@@ -215,11 +260,22 @@ export default {
           .map((x) => decodeURI(x))
 
         for (const tag of routeTags) {
-          this.tagsCheckbox.push(tag);
+          this.tagsCheckbox.push(tag)
           this.checkedTags[this.tags.indexOf(tag)] = tag
         }
 
         this.$store.commit('setSelectedTags', routeTags)
+      }
+
+      if (this.$route.query.exclude) {
+        const routeexcludedTags = this.$route.query.exclude
+          .split(',')
+          .map((x) => decodeURI(x))
+
+        for (const tag of routeexcludedTags) {
+          this.excludedTag.push(tag)
+        }
+        this.$store.commit('setExludedTags', routeexcludedTags)
       }
     },
     tagFilterBySearch() {
@@ -258,23 +314,37 @@ export default {
       return this.$store.state.scores
     },
     tags() {
-        let tags = this.$store.state.tags;
-      if(this.tagSearchQuery) {
-        return  tags.filter((tag) => {
-          return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase());
+      let tags = this.$store.state.tags
+      if (this.tagSearchQuery) {
+        return tags.filter((tag) => {
+          return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
         })
       }
-      return tags;
+
+      return tags
       /*  let filteredtags = tags.filter((tag) => {
         return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
       })
       return filteredtags */
     },
+    excludeTag() {
+      const excude = []
+      this.tags.forEach((e, i) => {
+        if (this.excludedTag.includes(e)) {
+          this.excludedTag.includes(e)
+          console.log(this.excludedTag, e)
+          excude.push({ status: true })
+        } else {
+          excude.push({ status: false })
+        }
+      })
+      return excude
+    },
     selectedTags() {
       return this.$store.state.selectedTags
     },
     getStores() {
-      return this.selectedTags.filter((x) => x !== null).length
+      let filtersStore = this.selectedTags.filter((x) => x !== null).length
         ? this.$store.getters
             .getStores(
               { sector: this.sector, digitalGoods: this.digitalGoods },
@@ -283,16 +353,16 @@ export default {
               this.safeMode
             )
             .filter((x) => {
-              if(!this.tagSearchQuery) {
+              if (!this.tagSearchQuery) {
                 if (!this.tags.length) return true
               }
 
-
               return (
                 x.tags.filter((y) => {
-                  return this.checkedTags.includes(y);
+                  return this.checkedTags.includes(y)
                 }).length == this.selectedTags.length
               )
+              //console.log(this.excludedTag)
 
               // return (
               //   x.tags.filter((y) => {
@@ -307,6 +377,14 @@ export default {
             this.searchQuery,
             this.safeMode
           )
+
+      if (this.excludedTag.length > 0) {
+        filtersStore = filtersStore.filter((x) => {
+          return !x.tags.some((item) => this.excludedTag.includes(item))
+        })
+      }
+
+      return filtersStore
     },
   },
   watch: {
@@ -488,5 +566,10 @@ export default {
 .search-icon {
   position: absolute;
   top: 0px;
+}
+.indeterminate{
+  .v-icon.theme--light{
+    color: #f34444;
+  }
 }
 </style>

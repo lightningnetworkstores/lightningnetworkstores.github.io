@@ -15,7 +15,7 @@
         <router-view />
       </transition>
     </v-main>
-    <v-footer class="pa-3" color="rgb(56, 56, 56)" dark>
+    <v-footer class="pa-3 mt-8" color="rgb(56, 56, 56)" dark>
       <v-row class="justify-center">
         <v-col class="text-center">
           Copyright &copy;
