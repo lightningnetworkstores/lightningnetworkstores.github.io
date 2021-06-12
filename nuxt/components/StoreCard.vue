@@ -35,7 +35,7 @@
         </div>
         <div class="score">
           <vote-button :isUpvoting="true" :store="store" />
-          <span> {{ store.upvotes | splitNumber }}</span>
+          <span> {{ store.upvotes }}</span>
           <vote-button :isUpvoting="false" :store="store" />
         </div>
         <div class="content pa-2 pl-5" @click="gotoStore(store.id)">
