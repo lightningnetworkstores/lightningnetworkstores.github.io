@@ -328,27 +328,36 @@
           </v-col>
         </v-col>
       </v-row>
-      <v-container v-if="relatedStores.length > 0" class="pa-0 pt-4">
-        <v-layout class="mt-4 mb-2" justify-center>
-          <h1>Similar Stores</h1>
-        </v-layout>
-        <v-row no-gutters justify="center">
-          <v-col cols="12" sm="8" md="7" xl="4">
-            <store-card
-              class="mb-4"
-              v-for="store in relatedStores.slice(0, maxSimilarToShow)"
-              :key="'store-' + store.id"
-              :store="store"
-            >
-            </store-card>
-          </v-col>
-        </v-row>
-        <v-layout justify-center="true" v-if="relatedStores.length > 1">
-          <v-btn @click="toggleMoreSimilar()" color="primary">
-            {{ maxSimilarToShow > 1 ? 'Hide Similar' : 'Show more' }}
-          </v-btn>
-        </v-layout>
-      </v-container>
+      <v-row justify="center">
+        <v-col
+          cols="11"
+          :sm="hasExternal ? 9 : 9"
+          :md="hasExternal ? 9 : 9"
+          class="pa-0"
+        >
+          <v-layout class="mt-4 mb-2" justify-center>
+            <h1>Similar Stores</h1>
+          </v-layout>
+          <v-row no-gutters justify="center">
+            <v-col cols="9" sm="8" md="7" xl="4">
+              <store-card
+                class="mb-4"
+                v-for="store in relatedStores.slice(0, maxSimilarToShow)"
+                :key="'store-' + store.id"
+                :store="store"
+              >
+              </store-card>
+            </v-col>
+          </v-row>
+          <v-layout justify-center="true" v-if="relatedStores.length > 1">
+            <v-btn @click="toggleMoreSimilar()" color="primary">
+              {{ maxSimilarToShow > 1 ? 'Hide Similar' : 'Show more' }}
+            </v-btn>
+          </v-layout>
+        </v-col>
+        <v-col md="3" class="pa-0">
+        </v-col>
+      </v-row>
       <v-row justify="center" v-if="selectedStore">
         <v-col
           cols="11"
@@ -451,7 +460,7 @@
             :store="selectedStore"
           ></Review>
         </v-col>
-        <v-col cols="0" md="3" class="pa-0" v-if="hasExternal">
+        <v-col cols="0" md="3" class="pa-0">
           <v-col cols="9" sm="9" md="9" class="mt-0 pa-0"> </v-col>
         </v-col>
       </v-row>
