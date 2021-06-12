@@ -298,7 +298,7 @@
               class="mx-3 mb3 py-6" large style="background: white">
               <b>Logout</b>
             </v-btn>
-            <div class="ma-3 headline font-weight-medium">External</div>
+            <div v-if="hasExternal" class="ma-3 headline font-weight-medium">External</div>
             <v-card
               v-for="(external, propertyName, index) in selectedStore.external"
               :key="index"
