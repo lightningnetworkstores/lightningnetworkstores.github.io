@@ -35,7 +35,7 @@
         <div class="text-center" v-if="isWaiting && !loginResponse">
           <v-progress-circular indeterminate color="primary"/>
         </div>
-        <div v-if="editRecipient" class="ml-5 mr-5">
+        <div class="ml-5 mr-5">
           <v-text-field @input="handleChange" label="Recipient" type="text" :value="recipient"></v-text-field>
         </div>
         <v-card-actions>
@@ -68,11 +68,10 @@ export default {
   components: { VueHcaptcha },
   data() {
     return {
-      recipient: this.email.split('@')[0],
+      recipient: this.email.endsWith(this.rooturl) ? this.email.split('@')[0] : '',
       domain: this.email.split('@')[1],
       token: null,
-      isWaiting: false,
-      editRecipient: this.email.endsWith(this.rooturl)
+      isWaiting: false
     }
   },
   methods: {
