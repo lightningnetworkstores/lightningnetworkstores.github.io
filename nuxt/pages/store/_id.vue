@@ -446,7 +446,8 @@
             :comment="comment"
             :comments="selectedStore.comments"
             :store="selectedStore"
-          > </Review>
+          >
+          </Review>
         </v-col>
         <v-col cols="0" md="3" class="pa-0" v-if="hasExternal">
           <v-col cols="9" sm="9" md="9" class="mt-0 pa-0"> </v-col>
@@ -523,40 +524,39 @@ export default {
 
     const selectedStore = await store.dispatch('getStore', { id: store_id })
     store.dispatch('setStore', selectedStore)
-    let comments = selectedStore.comments;
-    const subcomment = [];
-    let parentComments = [];
-  if(comments.length>0){
-    comments.forEach((e)=>{
-
-      if(e.parent!=null){
-          subcomment.push(e);
-      }
-      if(e.parent=='null'){
+    let comments = selectedStore.comments
+    console.log(selectedStore)
+    const subcomment = []
+    let parentComments = []
+    if (comments.length > 0) {
+      comments.forEach((e) => {
+        if (e.parent != null) {
+          subcomment.push(e)
+        }
+        if (e.parent == 'null') {
           parentComments.push(e)
-      }
-    });
-    subcomment.forEach((e1)=>{
-      parentComments.forEach((e)=>{
-      if(e.subComment===undefined){
-        e.subComment = [];
         }
-        if(e.id==e1.parent){
-          e.subComment.push(e);
-        }
-      });
-    });
-
-  }
-  parentComments.sort(function(a, b) {
-  return parseFloat(b.score) - parseFloat(a.score);
-});
-parentComments.forEach((e)=>{
-e.subComment.sort(function(a, b) {
-return parseFloat(b.score) - parseFloat(a.score);
-});
-});
-comments = parentComments;
+      })
+      subcomment.forEach((e1) => {
+        parentComments.forEach((e) => {
+          if (e.subComment === undefined) {
+            e.subComment = []
+          }
+          if (e.id == e1.parent) {
+            e.subComment.push(e1)
+          }
+        })
+      })
+    }
+    parentComments.sort(function (a, b) {
+      return parseFloat(b.score) - parseFloat(a.score)
+    })
+    parentComments.forEach((e) => {
+      e.subComment.sort(function (a, b) {
+        return parseFloat(b.score) - parseFloat(a.score)
+      })
+    })
+    comments = parentComments
     return { selectedStore, comments }
   },
 
@@ -605,9 +605,8 @@ comments = parentComments;
   },
 
   methods: {
-    createParentComments(comments){
-
-    return parentComments;
+    createParentComments(comments) {
+      return parentComments
     },
     toggleMoreSimilar() {
       this.maxSimilarToShow =
