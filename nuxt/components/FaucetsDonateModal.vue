@@ -10,7 +10,7 @@
 			<v-text-field
 				v-model="totalDays"
         type="number"
-				label="Timeout Days"
+				label="Distribute in the next days"
 				required
 				></v-text-field>
 			<v-text-field
@@ -27,7 +27,7 @@
 				label="URL"
 				></v-text-field>
 			<v-btn class="mr-4" type="submit">submit</v-btn>
-			<v-btn @click="clear">clear</v-btn>
+			<v-btn @click="clear">Close</v-btn>
 		</form>
 	</div>
 </template>
@@ -36,8 +36,8 @@
   	export default {
 		  name: "FaucetsDonateModal",
     	data: () => ({
-        amount: '',
-        totalDays: '',
+        amount: null,
+        totalDays: null,
         name: '',
         message: '',
         url: '',
@@ -67,11 +67,12 @@
         },
 
         clear () {
-          this.totalDays = ''
           this.amount = ''
+					this.totalDays = ''
           this.name = ''
           this.message = ''
           this.url = ''
+					this.$emit('closeDialog');
         },
     	},
   	}

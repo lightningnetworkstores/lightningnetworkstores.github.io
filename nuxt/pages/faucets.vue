@@ -11,21 +11,22 @@
 						<v-data-table
 						:headers="headers"
 						:items="topDonors"
-						:items-per-page="5"
+						:items-per-page="20"
+						:hide-default-footer="true"
 						class="elevation-1"
 						></v-data-table>
 					</v-layout>
 					<v-layout row pt-3 justify-center>
-						<v-btn depressed color="primary">Get {{ claim }} Sats</v-btn>
+						<v-btn depressed color="primary">Get Sats</v-btn>
 					</v-layout>
 				</v-container>
 			</v-flex>
 		</v-layout>
 		<v-dialog persistent v-model="donarDialog" max-width="500">
 			<v-card>
-				<v-card-title class="text-h5">Donate Faucets</v-card-title>
+				<v-card-title class="text-h5">Donate Faucet</v-card-title>
         <v-card-text>
-          <faucets-donate-modal />
+          <faucets-donate-modal v-on:closeDialog="donarDialog = false" />
         </v-card-text>
 			</v-card>
 		</v-dialog>
@@ -55,9 +56,19 @@ export default {
           claim: 13
         },
       ],
-      claim: 67,
       donarDialog: false,
     }),
+		created() {
+			this.$store.dispatch('getFaucetDonars').then(
+				(response) => {
+					console.log('response', response);
+					this.donations = response
+				},
+				(error) => {
+					console.error(error)
+				}
+			)
+		}
 }
 </script>
 <style scoped>

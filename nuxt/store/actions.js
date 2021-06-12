@@ -277,7 +277,20 @@ const actions = {
     .catch((error) => {
       return Promise.reject(error);
     });
-  }
+  },
+  getFaucetDonars({
+    state,
+    commit
+  }) {
+    return axios.get(`${state.baseURL}api/faucetinfo`)
+      .then(response => {
+        if (response.status === 200) {
+          console.log('response', response);
+          return response;
+        }
+      })
+      .catch(console.error);
+  },
 }
 
 export default actions;
