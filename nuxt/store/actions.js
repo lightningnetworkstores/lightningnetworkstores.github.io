@@ -267,15 +267,17 @@ const actions = {
     state,
     commit
   }, { data }) {
-    return axios.post(`${state.baseURL}api/faucet_donation`)
-      .then(response => {
-        if (response.status === 200) {
-          return response;
-        }
-      })
-      .catch(console.error);
+    return fetch(`${state.baseURL}api/faucet_donation`, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
   }
 }
-
 
 export default actions;

@@ -46,19 +46,26 @@
         submit () {
           const requestObj = {
             timeout_days: this.totalDays,
-            amount: this.amount,
-            name: this.name,
-            message: this.message,
-            URL: this.url
+            amount: this.amount
           };
+
+					if (this.name) {
+						requestObj = { ...requestObj, name: this.name }
+					}
+					if (this.message) {
+						requestObj = { ...requestObj, message: this.message }
+					}
+					if (this.URL) {
+						requestObj = { ...requestObj, URL: this.URL }
+					}
+
           this.$store.dispatch('donateFaucetsRequest', { data: requestObj } ).then((response) => {
-              console.log(response)
               this.clear();
           }, (error) => {
-              console.error(error)
               this.clear();
           });
         },
+
         clear () {
           this.totalDays = ''
           this.amount = ''
