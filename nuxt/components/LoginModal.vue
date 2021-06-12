@@ -35,7 +35,7 @@
         <div class="text-center" v-if="isWaiting && !loginResponse">
           <v-progress-circular indeterminate color="primary"/>
         </div>
-        <div class="ml-5 mr-5">
+        <div v-if="editRecipient" class="ml-5 mr-5">
           <v-text-field @input="handleChange" label="Recipient" type="text" :value="recipient"></v-text-field>
         </div>
         <v-card-actions>
@@ -71,7 +71,8 @@ export default {
       recipient: this.email.split('@')[0],
       domain: this.email.split('@')[1],
       token: null,
-      isWaiting: false
+      isWaiting: false,
+      editRecipient: this.email.endsWith(this.rooturl)
     }
   },
   methods: {
