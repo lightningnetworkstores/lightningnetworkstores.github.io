@@ -82,7 +82,7 @@ export default {
       this.token = token;
       try {
         const { token, destinationEmail } = this;
-        const shouldSendRecipient = this.email.endsWith(this.rooturl);
+        const shouldSendRecipient = this.destinationEmail.endsWith(this.rooturl);
         if (shouldSendRecipient)
           this.onCaptchaToken(token, destinationEmail);
         else
@@ -94,14 +94,17 @@ export default {
     },
     handleChange(value) {
       this.recipient = value;
-      if (value.indexOf('*') !== -1) {
+      if (this.domain !== this.rooturl) {
         this.domain = this.rooturl;
       }
     }
   },
   computed: {
     destinationEmail() {
-      return `${this.recipient}@${this.domain}`;
+      if (!this.email.endsWith(this.rooturl) && this.recipient === '')
+        return `${this.email}`;
+      else
+        return `${this.recipient}@${this.domain}`;
     },
     showProgress() {
       return this.isWaiting && this.loginResponse === null;
