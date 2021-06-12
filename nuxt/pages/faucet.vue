@@ -1,10 +1,10 @@
 <template>
-	<div class="faucets">
+	<div class="faucet">
 		<v-layout justify-center>
 			<v-flex xs12 md12 lg10 xl8 class="pa-6">
 				<v-container>
 					<v-layout row class="donor-head">
-						<h1>Faucets</h1>
+						<h1>Faucet</h1>
 						<v-btn depressed color="primary" @click="donarDialog = true">Donate</v-btn>
 					</v-layout>
 					<v-layout row pt-3 justify-center class="datatable-layout">
@@ -17,14 +17,17 @@
 						></v-data-table>
 					</v-layout>
 					<v-layout row pt-3 justify-center>
-						<v-btn depressed color="primary">Get Sats</v-btn>
+					<vue-hcaptcha ref="invisibleHcaptcha" sitekey="327adc75-957d-4063-9cf3-c4999bead7dd" size="invisible" theme="dark" @verify="onVerify"/>
+					<v-btn depressed color="primary" @click="runCaptcha">
+						Get Sats
+					</v-btn>
 					</v-layout>
 				</v-container>
 			</v-flex>
 		</v-layout>
 		<v-dialog persistent v-model="donarDialog" max-width="500">
 			<v-card>
-				<v-card-title class="text-h5">Donate Faucet</v-card-title>
+				<v-card-title class="text-h5">Donate to Faucet</v-card-title>
         <v-card-text>
           <faucets-donate-modal v-on:closeDialog="donarDialog = false" />
         </v-card-text>
@@ -33,8 +36,10 @@
 	</div>
 </template>
 <script>
+import VueHcaptcha from '@hcaptcha/vue-hcaptcha';
 export default {
-	name: "Faucets",
+    name: "Faucet",
+    components: {VueHcaptcha},
     data: () => ({
       headers: [
         { text: 'Name', value: 'name' },
@@ -57,6 +62,7 @@ export default {
         },
       ],
       donarDialog: false,
+      token: null
     }),
 		created() {
 			this.$store.dispatch('getFaucetDonars').then(
@@ -68,8 +74,19 @@ export default {
 					console.error(error)
 				}
 			)
-		}
+		},
+    mounted(){},
+    methods: {
+        onVerify(token, ekey){
+            this.token = token;
+            this.$store.dispatch('faucetClaim', {token: this.token}).then((resp)=>{console.log(resp.data.data['lnurl-withdraw'])});
+        },
+        runCaptcha(){
+            this.$refs.invisibleHcaptcha.execute();
+        }
+    },
 }
+
 </script>
 <style scoped>
 	.donor-head {
