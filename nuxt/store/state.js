@@ -11,6 +11,7 @@ export const state = () => ({
   discussions: [],
   tags: [],
   selectedTags: [],
+  excludedTags: [],
   faucetStats: {},
   configuration: null,
   replyReviewFee: 50,
