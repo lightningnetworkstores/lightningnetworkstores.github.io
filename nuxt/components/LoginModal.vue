@@ -83,7 +83,11 @@ export default {
       this.token = token;
       try {
         const { token, destinationEmail } = this;
-        this.onCaptchaToken(token, destinationEmail);
+        const shouldSendRecipient = this.email.endsWith(this.rooturl);
+        if (shouldSendRecipient)
+          this.onCaptchaToken(token, destinationEmail);
+        else
+          this.onCaptchaToken(token);
         this.isWaiting = true;
       } catch(err) {
         console.error('error: ', err);

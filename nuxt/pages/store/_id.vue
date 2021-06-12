@@ -531,9 +531,11 @@ export default {
     onCaptchaToken(token, recipient) {
       const payload = {
         token: token,
-        recipient: recipient,
         storeId: this.selectedStore.id
       };
+      if (recipient) {
+        payload['recipient'] = recipient;
+      }
       this.$store.dispatch('login', payload)
         .then(data => this.loginResponse = data)
         .catch(err => {
