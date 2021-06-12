@@ -1,3 +1,4 @@
+require('dotenv').config()
 const axios = require('axios')
 
 const actions = {
@@ -36,6 +37,7 @@ const actions = {
       })
       .then((response) => {
         commit('setConfiguration', response.configuration)
+        commit('setSelectedStore', response)
         return response
       })
       .catch((error) => {
@@ -92,16 +94,22 @@ const actions = {
   },
 
   addStoreUpdate(
-    { state },
-    { id: id, field: field, value: value, askOwner: askOwner }
+    { state, commit },
+    { id: id, body: body }
   ) {
-    return fetch(
-      `${state.baseURL}api/addUpdate?storeID=${id}&field=${encodeURIComponent(
-        field
-      )}&newValue=${encodeURIComponent(value)}&requestOwner=${askOwner}`
-    )
+    const debugPwd = null; //process.env.debugPwd;
+    const url = `${state.baseURL}api/field?id=${id}${debugPwd ? '&pwd=' + debugPwd : ''}`
+
+    return axios.put(url, JSON.stringify(body))
       .then((response) => {
-        return response.text()
+        Object.keys(response.data.data).forEach(attr => {
+          if (response.data.data[attr]) {
+            const payload = {key: attr, value: body[attr]}
+            commit('updateSelectedStore', payload);
+          } else {
+            console.log(`${attr} -> not modified!`);
+          }
+        });
       })
       .catch((error) => {
         return Promise.reject(error)
@@ -277,15 +285,35 @@ const actions = {
   },
   login({ state }, { token, recipient, storeId }) {
     const body = {
-      recipient: recipient,
-      storeID: storeId,
-      'h-captcha-response': token,
-    }
-    return axios
-      .post(`${state.baseURL}api/loginattempt`, body)
-      .then((response) => {
-        console.log('response.status: ', response.status)
-        console.log('response.data: ', response.data)
+      'recipient': recipient,
+      'storeID': storeId,
+      'h-captcha-response': token
+    };
+    return axios.post(`${state.baseURL}api/loginattempt`, body)
+      .then(response => {
+        if (response.status === 200) {
+          return response.data;
+        }
+      })
+      .catch(console.error);
+  },
+  getStatus({ state, commit }, { storeId }) {
+    return axios.get(`${state.baseURL}api/logstatus?id=${storeId}`)
+      .then(response => {
+        if (response.status === 200) {
+          const payload = { key: 'logged', value: response.data.data.logged }
+          commit('updateSelectedStore', payload);
+        }
+      })
+      .catch(console.error)
+  },
+  logout({ state, commit }) {
+    return axios.get(`${state.baseURL}api/logout`)
+      .then(response => {
+        if (response.status === 200) {
+          commit('logout');
+          return response.data;
+        }
       })
       .catch(console.error)
   },

@@ -24,6 +24,12 @@ const mutations = {
       state.addStoreFee = configuration.listing_fee
     }
   },
+  setSelectedStore(state, selectedStore) {
+    state.selectedStore = selectedStore
+  },
+  updateSelectedStore(state, { key, value }) {
+    state.selectedStore[key] = value
+  },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },
@@ -58,6 +64,9 @@ const mutations = {
   popToStoreLike(state, storeId) {
     state.likedStores.pop(storeId)
   },
+  logout(state) {
+    state.selectedStore.logged = false
+  }
 }
 
 export default mutations
