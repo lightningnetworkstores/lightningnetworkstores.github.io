@@ -229,7 +229,7 @@ export default {
       }
 
       if (this.excludedTag.filter((x) => x).length) {
-        query.excludedtags = this.excludedTag.filter((x) => x).join(',')
+        query.exclude = this.excludedTag.filter((x) => x).join(',')
       }
       if (this.selectedSort && this.selectedSort != 'best') {
         query.sort = encodeURIComponent(this.selectedSort)
@@ -267,8 +267,8 @@ export default {
         this.$store.commit('setSelectedTags', routeTags)
       }
 
-      if (this.$route.query.excludedtags) {
-        const routeexcludedTags = this.$route.query.excludedtags
+      if (this.$route.query.exclude) {
+        const routeexcludedTags = this.$route.query.exclude
           .split(',')
           .map((x) => decodeURI(x))
 
