@@ -47,6 +47,9 @@ const mutations = {
       state.stores[storeIndex] = store
     }
   },
+  logout(state) {
+    state.selectedStore.logged = false
+  }
 }
 
 export default mutations

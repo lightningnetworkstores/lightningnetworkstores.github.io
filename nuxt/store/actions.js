@@ -303,11 +303,21 @@ const actions = {
     return axios.get(`${state.baseURL}api/logstatus?id=${storeId}`)
       .then(response => {
         if (response.status === 200) {
-          const payload = { key:'logged', value: response.data.data.logged}
+          const payload = { key: 'logged', value: response.data.data.logged }
           commit('updateSelectedStore', payload);
         }
       })
       .catch(console.error)
+  },
+  logout({ state, commit }) {
+    return axios.get(`${state.baseURL}api/logout`)
+      .then(response => {
+        if (response.status === 200) {
+          commit('logout');
+          return response.data;
+        }
+      })
+      .catch(console.error);
   }
 }
 

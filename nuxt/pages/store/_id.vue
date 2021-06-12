@@ -228,8 +228,15 @@
               </v-card>
             </v-col>
             <v-col v-if="hasExternal" cols="12" sm="4" md="3" class="pa-0 d-flex flex-column justify-center">
-              <v-btn @click="requestLogin" class="mx-3 mb-3 py-6" large style="background: white">
+              <v-btn
+                v-if="!selectedStore.logged"
+                @click="requestLogin"
+                class="mx-3 mb-3 py-6" large style="background: white">
                 <b>{{ selectedStore.logged ? 'Logout' : 'Login as owner' }}</b>
+              </v-btn>
+              <v-btn v-else @click="requestLogout"
+                class="mx-3 mb3 py-6" large style="background: white">
+                <b>Logout</b>
               </v-btn>
               <div class="ma-3 headline font-weight-medium">
                 External
@@ -363,6 +370,11 @@
       :rooturl="selectedStore.rooturl"
       :loginResponse="loginResponse"
     />
+    <logout-modal
+      :enabled="showLogoutModal"
+      :onCancel="handleCancelLogout"
+      :onConfirm="handleLogoutConfirm">
+    </logout-modal>
   </div>
 </template>
 
@@ -411,6 +423,7 @@ export default {
       store: null,
       currentFilter: 'all',
       showLoginModal: false,
+      showLogoutModal: false,
       loginResponse: null
     }
   },
@@ -530,6 +543,20 @@ export default {
     },
     handleExternalClick(url) {
       window.open(url, '_blank', 'noopener');
+    },
+    handleLogoutConfirm() {
+      this.$store.dispatch('logout')
+        .then(() => this.showLogoutModal = false)
+        .catch(err => {
+          console.error(err);
+          this.showLogoutModal = false;
+        })
+    },
+    requestLogout() {
+      this.showLogoutModal = true;
+    },
+    handleCancelLogout() {
+      this.showLogoutModal = false;
     }
   },
 }
