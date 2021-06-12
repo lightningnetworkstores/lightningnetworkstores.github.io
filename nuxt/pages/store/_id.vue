@@ -425,9 +425,7 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch('getStore', { id: this.storeId })
-    const { selectedStore } = this.$store.state
-    this.selectedStore = selectedStore;
+    await this.$store.dispatch('getStatus', { storeId: this.storeId })
     this.breadcrumb = [
       {
         text: 'Stores',

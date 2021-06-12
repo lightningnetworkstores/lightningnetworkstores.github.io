@@ -298,6 +298,16 @@ const actions = {
         }
       })
       .catch(console.error);
+  },
+  getStatus({ state, commit }, { storeId }) {
+    return axios.get(`${state.baseURL}api/logstatus?id=${storeId}`)
+      .then(response => {
+        if (response.status === 200) {
+          const payload = { key:'logged', value: response.data.data.logged}
+          commit('updateSelectedStore', payload);
+        }
+      })
+      .catch(console.error)
   }
 }
 
