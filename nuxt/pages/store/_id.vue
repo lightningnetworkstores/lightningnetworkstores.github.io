@@ -286,16 +286,16 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col md="3" class="pa-0">
+        <v-col md="3" class="pa-0 mt-3">
           <v-col cols="0" sm="12" md="12" class="pa-0 d-flex flex-column justify-center">
             <v-btn
               v-if="!selectedStore.logged"
               @click="requestLogin"
-              class="mx-3 mb-3 py-6" large style="background: white">
+              class="mx-3 mb-3 py-6 mt-3" large style="background: white">
               <b>Login as owner</b>
             </v-btn>
             <v-btn v-else @click="requestLogout"
-              class="mx-3 mb3 py-6" large style="background: white">
+              class="mx-3 mb3 py-6 mt-3" large style="background: white">
               <b>Logout</b>
             </v-btn>
             <div v-if="hasExternal" class="ma-3 headline font-weight-medium">External</div>
