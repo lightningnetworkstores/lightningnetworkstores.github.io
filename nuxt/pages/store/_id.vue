@@ -544,7 +544,7 @@ export default {
     const storeId = selectedStore.id
 
     //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
-    let reviews = selectedStore.reviews.sort((a, b) => {
+    let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort((a, b) => {
         if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
           return Math.abs(b[0].score) - Math.abs(a[0].score)
         }

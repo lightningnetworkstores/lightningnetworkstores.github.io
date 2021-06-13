@@ -226,7 +226,6 @@ const actions = {
       })
   },
   getDiscussions({ state, commit }) {
-    console.log('Calling getDiscussions')
     return axios
       .get(`${state.baseURL}api/discussion`)
       .then((response) => {

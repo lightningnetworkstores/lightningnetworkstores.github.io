@@ -163,7 +163,7 @@ const getters = {
       };
       return {
         store: store,
-        comments: discussion.comments
+        reviews: discussion.reviews
       }
     });
     return formattedDiscussions;
