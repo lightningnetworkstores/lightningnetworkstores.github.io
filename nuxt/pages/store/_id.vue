@@ -204,7 +204,7 @@
                         >
                           <b>Lifetime score: &nbsp;</b
                           ><span v-if="selectedStore.lifetime">
-                            {{ selectedStore.lifetime }}</span
+                            {{ Number(selectedStore.lifetime).toLocaleString() }}</span
                           ><span v-else>0</span>
                         </div>
                       </v-col>

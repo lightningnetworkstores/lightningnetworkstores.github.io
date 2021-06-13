@@ -28,7 +28,7 @@
       </v-layout>
 
       <v-layout row>
-        <v-flex shrink px-3>{{ store.upvotes }}</v-flex>
+        <v-flex shrink px-3>{{ Number(store.upvotes).toLocaleString() }}</v-flex>
         <v-flex grow pa-1
           ><v-progress-linear
             color="success"
@@ -39,7 +39,7 @@
             "
           ></v-progress-linear
         ></v-flex>
-        <v-flex shrink px-3>{{ store.downvotes }}</v-flex>
+        <v-flex shrink px-3>{{ Number(store.downvotes).toLocaleString() }}</v-flex>
       </v-layout>
     </div>
     <div class="review" v-if="parentReview && !parentComment">
