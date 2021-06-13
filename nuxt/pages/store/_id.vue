@@ -552,8 +552,6 @@ export default {
         return b[0].timestamp - a[0].timestamp
       });
 
-    const storeId = selectedStore.id
-
     return { selectedStore, reviews, storeId }
   },
 
