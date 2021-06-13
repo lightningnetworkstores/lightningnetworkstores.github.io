@@ -15,7 +15,7 @@
       src="https://platform.twitter.com/widgets.js"
       charset="utf-8"
     ></script>
-    <v-row v-if="Object.keys(store).length" class="ma-2 pt-2">
+    <v-row v-if="store && Object.keys(store).length" class="ma-2 pt-2">
       <v-flex
         >Go to <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
       >

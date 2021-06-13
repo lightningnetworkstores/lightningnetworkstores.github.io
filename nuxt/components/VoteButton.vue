@@ -135,12 +135,12 @@
                 </v-flex>
               </v-layout>
 
-              <CheckoutModal
+              <Checkout
+                v-if="paymentRequest"
                 :warningMessage="warningMessage"
                 :paymentRequest="paymentRequest"
                 :satoshi="upvoteDialogForm.amount"
                 @cancel="cancel"
-                v-if="paymentRequest"
               />
             </v-card-text>
           </div>
