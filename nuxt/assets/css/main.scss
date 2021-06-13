@@ -16,3 +16,13 @@ html {
 .theme--dark .detail {
   color: white !important;
 }
+
+.carousel-style {
+  height: auto !important;
+}
+
+@media screen and (min-width:768px) {
+  .carousel-style {
+    height: 500px !important;
+  }
+}

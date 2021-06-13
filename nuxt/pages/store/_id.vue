@@ -23,6 +23,7 @@
                     <v-carousel-item
                       v-for="(img, i) in selectedStore.images.number"
                       :key="i"
+                      class="carousel-style"
                     >
                       <v-img
                         :src="`${baseURL}thumbnails/${
