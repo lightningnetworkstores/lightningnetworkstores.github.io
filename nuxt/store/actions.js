@@ -75,8 +75,6 @@ const actions = {
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),
       URI: encodeURIComponent(uri),
-      sector: encodeURIComponent(sector),
-      digitalGoods: encodeURIComponent(digitalGoods),
       contributor: contributor,
       'g-recaptcha-response': recaptcha,
     }
