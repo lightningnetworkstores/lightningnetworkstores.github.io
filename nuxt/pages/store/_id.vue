@@ -328,7 +328,7 @@
           </v-col>
         </v-col>
       </v-row>
-      <v-row justify="center">
+      <v-row justify="center" v-if="relatedStores.length>0">
         <v-col
           cols="11"
           :sm="hasExternal ? 9 : 9"
@@ -336,7 +336,7 @@
           class="pa-0"
         >
           <v-layout class="mt-4 mb-2" justify-center>
-            <h1>Similar Stores</h1>
+            <h1>Similar</h1>
           </v-layout>
           <v-row no-gutters justify="center">
             <v-col cols="9" sm="8" md="7" xl="4">
