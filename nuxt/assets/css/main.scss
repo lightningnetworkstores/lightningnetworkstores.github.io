@@ -26,3 +26,9 @@ html {
     height: 500px !important;
   }
 }
+
+@media screen and (max-width:420px) {
+  .v-window__container, .v-responsive__content, .v-window{
+    height: 312px !important;
+  }
+}
