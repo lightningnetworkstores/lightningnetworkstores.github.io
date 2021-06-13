@@ -8,6 +8,7 @@
       :absolute="true"
       :inset="$vuetify.breakpoint.lgAndUp"
       width="300"
+      disable-route-watcher
     >
       <v-list>
         <v-subheader class="title pb-2">Sort</v-subheader>
