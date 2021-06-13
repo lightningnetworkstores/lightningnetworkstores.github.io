@@ -25,30 +25,12 @@
               </v-alert>
             </v-flex>
           </v-layout>
-          <div v-if="isPaid" class="text-center">
-            <!-- paymentRequest && isPaid -->
-            <v-card-title class="headline">
-              <v-row class="py-2">
-                <v-flex>{{ confirm_title }}</v-flex>
-              </v-row>
-            </v-card-title>
-            <v-icon size="100" color="green" pa-5>fas fa-check-circle</v-icon>
-
-            <blockquote class="twitter-tweet" v-if="tweet">
-              <a :href="'https://twitter.com/x/status/' + tweet"></a>
-            </blockquote>
-            <script
-              async
-              src="https://platform.twitter.com/widgets.js"
-              charset="utf-8"
-            ></script>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn color="green darken-1" text @click="cancel"> Close </v-btn>
-            </v-card-actions>
-          </div>
+          <Success
+            v-if="isPaid"
+            :tweet="tweet"
+            :confirm_title="confirm_title"
+            @cancel="cancel"
+          />
 
           <v-card-text class="pa-0 cardContent" v-else>
             <v-card-title class="headline">
@@ -67,53 +49,12 @@
                 Amount due if not a contributor: {{ addStoreFee }} satoshis
               </v-flex>
             </v-card-text>
-
-            <div v-if="paymentRequest">
-              <v-layout row class="ma-0">
-                <v-flex pa-3 class="text-center"
-                  ><h3>{{ addStoreFee }} sat</h3></v-flex
-                >
-              </v-layout>
-              <v-layout row class="ma-0">
-                <v-flex pl-3 pr-3 class="text-center"
-                  ><qrcode-vue
-                    class="qrcode"
-                    size="300"
-                    :value="paymentRequest"
-                  ></qrcode-vue
-                ></v-flex>
-              </v-layout>
-
-              <v-layout row class="ma-0">
-                <v-flex pl-3 pr-3>
-                  <v-text-field
-                    :value="paymentRequest"
-                    label="Invoice"
-                    hint=""
-                    append-icon="fa-copy"
-                    type="text"
-                    id="paymentrequest"
-                    @click:append="copy"
-                  ></v-text-field
-                ></v-flex>
-              </v-layout>
-              <v-layout row class="ma-0">
-                <v-flex pl-3 pr-3 class="text-center">
-                  <a :href="'lightning:' + paymentRequest" class="link-button"
-                    >Open in wallet</a
-                  >
-                </v-flex>
-              </v-layout>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-
-                <v-btn color="green darken-1" text @click="cancel">
-                  Cancel
-                </v-btn>
-              </v-card-actions>
-            </div>
-
+            <Checkout
+              v-if="paymentRequest"
+              :satoshi="addStoreFee"
+              :paymentRequest="paymentRequest"
+              @cancel="cancel"
+            />
             <v-card-text>
               <v-form
                 @submit.prevent="submitAdd"
@@ -241,7 +182,7 @@
                     text
                     @click="showAddDialog = false"
                   >
-                    {{ paymentRequest && isPaid ? 'Close' : 'Close' }}
+                   Close
                   </v-btn>
 
                   <v-btn color="green darken-1" text type="submit">
@@ -259,8 +200,13 @@
 
 <script>
 // import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-
+import Checkout from '@/components/Checkout.vue'
+import Success from '@/components/Success.vue'
 export default {
+  components: {
+    Checkout,
+    Success,
+  },
   data() {
     return {
       digitalGoodFormItems: [
@@ -463,6 +409,6 @@ export default {
 
 <style scoped lang="scss">
 .cardContent {
-    max-height: 60vw
+  max-height: 60vw;
 }
 </style>
