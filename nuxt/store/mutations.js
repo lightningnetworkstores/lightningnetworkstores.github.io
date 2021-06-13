@@ -11,6 +11,12 @@ const mutations = {
     state.stores = stores
   },
   setStore(state, store) {
+    store.reviews.sort((a, b) => {
+        if (Math.abs(b.score) !== Math.abs(a.score)) {
+          return Math.abs(b.score) - Math.abs(a.score)
+        }
+        return b.timestamp - a.timestamp
+      })  
     state.store = store
   },
   setScores(state, scores) {
