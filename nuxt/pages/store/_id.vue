@@ -330,6 +330,7 @@
         </v-col>
       </v-row>
       <v-row justify="center" v-if="relatedStores.length>0">
+        <!-- <v-col sm=1></v-col> -->
         <v-col
           cols="11"
           :sm="hasExternal ? 9 : 9"
@@ -340,7 +341,7 @@
             <h1>Similar</h1>
           </v-layout>
           <v-row no-gutters justify="center">
-            <v-col cols="9" sm="8" md="7" xl="4">
+            <v-col sm="12" md="7" xl="4">
               <store-card
                 class="mb-4"
                 v-for="store in relatedStores.slice(0, maxSimilarToShow)"
@@ -356,8 +357,7 @@
             </v-btn>
           </v-layout>
         </v-col>
-        <v-col md="3" class="pa-0">
-        </v-col>
+        <v-col md="3" cols="0" class="pa-0"></v-col>
       </v-row>
       <v-row justify="center" v-if="selectedStore">
         <v-col
