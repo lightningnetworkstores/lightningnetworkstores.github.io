@@ -19,10 +19,11 @@
             <v-col cols="12" sm="12" md="12" class="pa-0 px-3">
               <v-card class="pa-0 mb-3">
                 <div v-if="selectedStore.images.number > 1">
-                  <v-carousel v-model="imageCarousel" hide-delimiters>
+                  <v-carousel v-model="imageCarousel" hide-delimiters height="auto">
                     <v-carousel-item
                       v-for="(img, i) in selectedStore.images.number"
                       :key="i"
+                      class="carousel-style"
                     >
                       <v-img
                         :src="`${baseURL}thumbnails/${
