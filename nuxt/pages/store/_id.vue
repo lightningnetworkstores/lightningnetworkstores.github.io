@@ -395,9 +395,9 @@
                   <h4>
                     Positive:
                     {{
-                      selectedStore.comments.filter(
-                        (comment) =>
-                          comment.parent == 'null' && comment.score > 0
+                      selectedStore.reviews.filter(
+                        (review) =>
+                          review[0].score > 0
                       ).length
                     }}
                   </h4>
@@ -418,9 +418,7 @@
                   <h4>
                     All:
                     {{
-                      selectedStore.comments.filter(
-                        (comment) => comment.parent == 'null'
-                      ).length
+                      selectedStore.reviews.length
                     }}
                   </h4></v-flex
                 >
@@ -439,7 +437,7 @@
                   >
                   <h4>
                     Negative:
-                    {{ selectedStore.comments.filter(comment => comment.parent == "null" && comment.score &lt; 0).length }}
+                    {{ selectedStore.reviews.filter(review => review[0].score &lt; 0).length }}
                   </h4></v-flex
                 >
               </v-row>
@@ -543,7 +541,16 @@ export default {
 
     const selectedStore = await store.dispatch('getStore', { id: params.id })
     store.dispatch('setStore', selectedStore)
-    let reviews = selectedStore.reviews
+    
+    const storeId = selectedStore.id
+
+    //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
+    let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort((a, b) => {
+        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
+          return Math.abs(b[0].score) - Math.abs(a[0].score)
+        }
+        return b[0].timestamp - a[0].timestamp
+      });
 
     const storeId = selectedStore.id
 
@@ -591,6 +598,15 @@ export default {
   },
 
   methods: {
+    sortReviewThreads(reviewThreads){ //can't use?
+        reviewThreads.sort((a, b) => {
+        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
+          return Math.abs(b[0].score) - Math.abs(a[0].score)
+        }
+        return b[0].timestamp - a[0].timestamp
+      })
+      return reviewThreads;
+    },  
     toggleMoreSimilar() {
       this.maxSimilarToShow =
         this.maxSimilarToShow !== 1 ? 1 : this.relatedStores.length
@@ -616,32 +632,28 @@ export default {
       this.currentFilter = filter
       switch (filter) {
         case 'all':
-          this.comments = this.selectedStore.comments.filter(
-            (comment) => comment.parent == 'null'
-          )
+          this.reviews = this.selectedStore.reviews.filter(r=>true);
           break
         case 'negative':
-          this.comments = this.selectedStore.comments.filter(
-            (comment) => comment.parent == 'null' && comment.score < 0
+          this.reviews = this.selectedStore.reviews.filter(
+            (review) => review[0].score < 0
           )
           break
         case 'positive':
-          this.comments = this.selectedStore.comments.filter(
-            (comment) => comment.parent == 'null' && comment.score > 0
+          this.reviews = this.selectedStore.reviews.filter(
+            (review) => review[0].score > 0
           )
           break
         default:
-          this.comments = this.selectedStore.comments.filter(
-            (comment) => comment.parent == 'null'
-          )
+          this.reviews = this.reviews = this.selectedStore.reviews.filter(r=>true);
           break
       }
-      this.comments.sort((a, b) => {
-        if (Math.abs(b.score) !== Math.abs(a.score)) {
-          return Math.abs(b.score) - Math.abs(a.score)
+      this.reviews = this.reviews.sort((a, b) => {
+        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
+          return Math.abs(b[0].score) - Math.abs(a[0].score)
         }
-        return b.timestamp - a.timestamp
-      })
+        return b[0].timestamp - a[0].timestamp
+      });
     },
     openImage(i) {
       this.imageModal = true
@@ -686,8 +698,7 @@ export default {
     },
     handleCancelLogout() {
       this.showLogoutModal = false;
-    }
-
+    },
   },
 }
 </script>

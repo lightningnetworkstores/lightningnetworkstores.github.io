@@ -8,7 +8,7 @@
             :isReviewUpvote="comment.score > 0"
             :parentReview="comment.id"
           ></vote-line>
-          {{ comment.score }}
+          {{ Number(Math.abs(comment.score)).toLocaleString() }}
         </v-col>
 
         <v-col cols="10" class="comment-text pa-3">
@@ -127,9 +127,9 @@ export default {
 .user-tag {
   background-color: #dddddd;
 }
-.comment-extra {
+//.comment-extra {
   // color: rgba(0, 0, 0, 0.5);
-}
+//}
 .comment-text {
   -ms-word-break: break-all;
   word-break: break-all;
