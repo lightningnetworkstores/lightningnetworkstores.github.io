@@ -154,6 +154,7 @@ const getters = {
         trending: discussion.trending,
         rank: discussion.rank,
         upvotes: discussion.upvotes,
+        downvotes: discussion.downvotes,
         href: discussion.href,
         name: discussion.name,
         description: discussion.description,
