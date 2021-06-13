@@ -55,13 +55,9 @@ const mutations = {
     const storeIndex = state.stores.findIndex((store) => store.id === storeId)
     if (storeIndex !== -1) {
       const store = state.stores[storeIndex]
-      store.likes = remove ? (store.likes -= 1) : (store.likes += 1)
+      const delta = remove ? -1 : 1
+      store.likes += delta
       state.stores[storeIndex] = store
-    }
-
-    if (state.store.id === storeId) {
-      const likes = remove ? (state.store.likes -= 1) : (state.store.likes += 1)
-      state.store.likes = likes
     }
   },
   setStoreLikes(state, likes) {
