@@ -543,14 +543,13 @@ export default {
     
     const storeId = selectedStore.id
 
-    let temp = selectedStore.reviews
-    temp.sort((a, b) => {
-        if (Math.abs(b.score) !== Math.abs(a.score)) {
-          return Math.abs(b.score) - Math.abs(a.score)
+    //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
+    let reviews = selectedStore.reviews.sort((a, b) => {
+        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
+          return Math.abs(b[0].score) - Math.abs(a[0].score)
         }
-        return b.timestamp - a.timestamp
-      })
-    let reviews = temp
+        return b[0].timestamp - a[0].timestamp
+      });
 
     return { selectedStore, reviews, storeId }
   },
@@ -596,6 +595,15 @@ export default {
   },
 
   methods: {
+    sortReviewThreads(reviewThreads){ //can't use?
+        reviewThreads.sort((a, b) => {
+        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
+          return Math.abs(b[0].score) - Math.abs(a[0].score)
+        }
+        return b[0].timestamp - a[0].timestamp
+      })
+      return reviewThreads;
+    },  
     toggleMoreSimilar() {
       this.maxSimilarToShow =
         this.maxSimilarToShow !== 1 ? 1 : this.relatedStores.length
@@ -621,7 +629,7 @@ export default {
       this.currentFilter = filter
       switch (filter) {
         case 'all':
-          this.reviews = this.selectedStore.reviews;
+          this.reviews = this.selectedStore.reviews.filter(r=>true);
           break
         case 'negative':
           this.reviews = this.selectedStore.reviews.filter(
@@ -634,15 +642,15 @@ export default {
           )
           break
         default:
-          this.reviews = this.selectedStore.reviews;
+          this.reviews = this.reviews = this.selectedStore.reviews.filter(r=>true);
           break
       }
-      this.reviews.sort((a, b) => {
-        if (Math.abs(b.score) !== Math.abs(a.score)) {
-          return Math.abs(b.score) - Math.abs(a.score)
+      this.reviews = this.reviews.sort((a, b) => {
+        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
+          return Math.abs(b[0].score) - Math.abs(a[0].score)
         }
-        return b.timestamp - a.timestamp
-      })
+        return b[0].timestamp - a[0].timestamp
+      });
     },
     openImage(i) {
       this.imageModal = true
@@ -687,8 +695,7 @@ export default {
     },
     handleCancelLogout() {
       this.showLogoutModal = false;
-    }
-
+    },
   },
 }
 </script>
