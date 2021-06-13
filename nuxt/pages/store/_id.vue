@@ -539,11 +539,12 @@ export default {
     }
   },
   async asyncData({ params, store }) {
-    const storeId = params.id
 
-    const selectedStore = await store.dispatch('getStore', { id: storeId })
+    const selectedStore = await store.dispatch('getStore', { id: params.id })
     store.dispatch('setStore', selectedStore)
     let reviews = selectedStore.reviews
+
+    const storeId = selectedStore.id
 
     return { selectedStore, reviews, storeId }
   },
