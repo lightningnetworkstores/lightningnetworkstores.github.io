@@ -23,68 +23,87 @@
                     <v-carousel-item
                       v-for="(img, i) in selectedStore.images.number"
                       :key="i"
-                      class="carousel-style"
-                    >  <v-sheet
-
-                        height="100%"
-                        tile
-                      >
-                      <v-img
-                        :src="`${baseURL}thumbnails/${
-                          i > 0
-                            ? `${selectedStore.id}_${i + 1}`
-                            : `${selectedStore.id}`
-                        }.png`"
-                        @click="openImage(i)"
-                        class="text-right" >
-                        <div v-if="i === 0">
-                          <v-chip
-                            v-if="isNewStore(selectedStore)"
-                            color="green"
-                            text-color="white"
-                            class="ma-2"
-                          >
-                            New
-                          </v-chip>
-                          <v-tooltip bottom>
-                            <template v-slot:activator="{ on }">
-                              <v-chip
-                                v-if="selectedStore.trending > 0"
-                                color="purple"
-                                text-color="white"
-                                v-on="on"
-                              >
-                                {{ selectedStore.trending }}%
-
-                                <v-icon v-on="on" pr-2 small right
-                                  >fa-fire</v-icon
+                      class="carousel-style">
+                      <v-sheet height="100%" tile>
+                        <v-img
+                          :src="`${baseURL}thumbnails/${
+                            i > 0
+                              ? `${selectedStore.id}_${i + 1}`
+                              : `${selectedStore.id}`
+                          }.png`"
+                          @click="openImage(i)"
+                          class="text-right" >
+                          <div v-if="i === 0">
+                            <v-chip
+                              v-if="isNewStore(selectedStore)"
+                              color="green"
+                              text-color="white"
+                              class="ma-2"
+                            >
+                              New
+                            </v-chip>
+                            <v-tooltip bottom>
+                              <template v-slot:activator="{ on }">
+                                <v-chip
+                                  v-if="selectedStore.trending > 0"
+                                  color="purple"
+                                  text-color="white"
+                                  v-on="on"
                                 >
-                              </v-chip>
-                            </template>
-                            <span>Trending score</span>
-                          </v-tooltip>
+                                  {{ selectedStore.trending }}%
 
-                          <v-chip
-                            v-if="hasNewComment(selectedStore)"
-                            color="blue"
-                            text-color="white"
-                            class="ma-2"
-                          >
-                            New comment
-                          </v-chip>
-                        </div>
-                      </v-img>
-                      <v-btn
-                        color="white lighten-2"
-                        dark
-                        class="float-right edit_image"
-                        @click="openImageEditoDialog(i)"
-                      >
-                        <v-icon class="ml-1 " color="blue darken-2">
-                          fas fa-edit
-                        </v-icon></v-btn>
-                        </v-sheet>
+                                  <v-icon v-on="on" pr-2 small right
+                                    >fa-fire</v-icon
+                                  >
+                                </v-chip>
+                              </template>
+                              <span>Trending score</span>
+                            </v-tooltip>
+
+                            <v-chip
+                              v-if="hasNewComment(selectedStore)"
+                              color="blue"
+                              text-color="white"
+                              class="ma-2"
+                            >
+                              New comment
+                            </v-chip>
+                          </div>
+                        </v-img>
+                        <v-btn
+                          color="white lighten-2"
+                          dark
+                          class="float-right edit_image"
+                          @click="openImageEditoDialog(i+1)"
+                        >
+                          <v-icon class="ml-1 " color="blue darken-2">
+                            fas fa-edit
+                          </v-icon></v-btn>
+                      </v-sheet>
                     </v-carousel-item>
+                    <template >
+                    <v-carousel-item
+                      v-if="selectedStore.logged &&  selectedStore.images.number < selectedStore.configuration.max_images"
+                      class="carousel-style">
+                      <v-sheet height="100%" tile>
+                        <v-img
+                           :src="`http://bitcoin-stores.com/noimage.png`"
+
+                          class="text-right" >
+
+                        </v-img>
+                        <v-btn
+                          color="white lighten-2"
+                          dark
+                          class="float-right edit_image"
+                          @click="openImageEditoDialog(null)"
+                        >
+                          <v-icon class="ml-1 " color="blue darken-2">
+                            fas fa-edit
+                          </v-icon></v-btn>
+                      </v-sheet>
+                    </v-carousel-item>
+                  </template>
                   </v-carousel>
 
 
@@ -130,7 +149,7 @@
                                   <v-btn class="ma-2" color="success" @click="updateImage('capture')">Take ScreenShot</v-btn>
                                 </v-col>
                               </v-row>
-                              <v-row justify="center" class="mt-0">
+                              <v-row justify="center" class="mt-0" v-if="position!=null">
                                 <v-col cols="5"
                                 sm="5"
                                 md="5" class="d-flex justify-center">
