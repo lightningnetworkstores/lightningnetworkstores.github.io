@@ -272,11 +272,24 @@ const actions = {
       method: 'post',
       url: `${state.baseURL}api/like?storeID=${storeId}&remove=${remove}`,
     }).then((res) => {
-      if (res.status !== `fail`) {
+      if (res.status === 202) {
+        // Store was already liked/unliked, we just didn't know about this
         const likes = res.data.data.likes
+        likes.forEach(id => likedStores[id] = true)
         likedStores[storeId] = remove ? false : true
         localStorage.setItem(lsKey, JSON.stringify(likedStores))
-        commit('setLikeInStore', { storeId, remove })
+        commit('updateLikedStores', { storeId, remove })
+        likes.forEach(id => {
+          commit('updateLikedStores', {storeId: id, remove: false})
+        });
+      } else if (res.status === 200) {
+        // Store 'like' status was changed successfully
+        likedStores[storeId] = remove ? false : true
+        localStorage.setItem(lsKey, JSON.stringify(likedStores))
+        commit('setLikeCounter', {storeId, remove })
+        commit('updateLikedStores', { storeId, remove })
+      } else {
+        console.warn('Unhndled case')
       }
     })
   },

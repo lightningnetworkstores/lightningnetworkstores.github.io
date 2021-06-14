@@ -51,7 +51,10 @@ const mutations = {
   setFaucetStats(state, faucetStats) {
     state.faucetStats = faucetStats
   },
-  setLikeInStore(state, { storeId, remove }) {
+  updateLikedStores(state, { storeId, remove }) {
+    state.likedStores = {...state.likedStores, [`${storeId}`]: remove ? false : true}
+  },
+  setLikeCounter(state, { storeId, remove }) {
     const storeIndex = state.stores.findIndex((store) => store.id === storeId)
     if (storeIndex !== -1) {
       const store = state.stores[storeIndex]
@@ -59,7 +62,6 @@ const mutations = {
       store.likes += delta
       state.stores[storeIndex] = store
     }
-    state.likedStores[storeId] = remove ? false : true
   },
   setStoreLikes(state, likes) {
     state.likedStores = likes
