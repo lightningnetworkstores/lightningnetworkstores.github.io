@@ -318,5 +318,13 @@ const actions = {
     const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
     commit('setStoreLikes', storeLikes)
   },
+  updateImage({ commit,state },data) {
+    console.log(data)
+    return axios.post(`${state.baseURL}api/image`,data)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(console.error)
+  },
 }
 export default actions

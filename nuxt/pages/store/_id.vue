@@ -19,11 +19,16 @@
               <v-card class="pa-0 mb-3">
                 <div v-if="selectedStore.images.number > 1">
                   <v-carousel v-model="imageCarousel" hide-delimiters height="auto">
+
                     <v-carousel-item
                       v-for="(img, i) in selectedStore.images.number"
                       :key="i"
                       class="carousel-style"
-                    >
+                    >  <v-sheet
+
+                        height="100%"
+                        tile
+                      >
                       <v-img
                         :src="`${baseURL}thumbnails/${
                           i > 0
@@ -31,8 +36,7 @@
                             : `${selectedStore.id}`
                         }.png`"
                         @click="openImage(i)"
-                        class="text-right"
-                      >
+                        class="text-right" >
                         <div v-if="i === 0">
                           <v-chip
                             v-if="isNewStore(selectedStore)"
@@ -70,8 +74,85 @@
                           </v-chip>
                         </div>
                       </v-img>
+                      <v-btn
+                        color="white lighten-2"
+                        dark
+                        class="float-right edit_image"
+                        @click="openImageEditoDialog(i)"
+                      >
+                        <v-icon class="ml-1 " color="blue darken-2">
+                          fas fa-edit
+                        </v-icon></v-btn>
+                        </v-sheet>
                     </v-carousel-item>
                   </v-carousel>
+
+
+                  <v-dialog
+                    v-model="Editdialog"
+                    width="500">
+                      <v-card>
+                          <v-card-title class="text-h5 grey lighten-2">
+                            Update Image
+                          </v-card-title>
+
+                          <v-card-text>
+                            <v-container>
+                              <v-form
+                                ref="form"
+                                v-model="valid"
+                                lazy-validation
+                              >
+                              <v-row>
+                                <v-col
+                                  cols="12"
+                                  sm="12"
+                                  md="12"
+                                >
+                                  <v-text-field
+                                    label="New Image Url*"
+                                    required
+                                    :rules="urlRules"
+                                    v-model="imagePath"
+                                  ></v-text-field>
+                                </v-col>
+                              </v-row>
+                            </v-form>
+                              <v-row justify="center">
+                                <v-col cols="5"
+                                sm="5"
+                                md="5">
+                                  <v-btn class="ma-2" color="success" @click="updateImage('replace')">Replace Image</v-btn>
+                                </v-col>
+                                <v-col cols="5"
+                                sm="5"
+                                md="5">
+                                  <v-btn class="ma-2" color="success" @click="updateImage('capture')">Take ScreenShot</v-btn>
+                                </v-col>
+                              </v-row>
+                              <v-row justify="center" class="mt-0">
+                                <v-col cols="5"
+                                sm="5"
+                                md="5" class="d-flex justify-center">
+                                <v-btn class="" color="red" @click="updateImage('delete')">Delete Image</v-btn>
+                              </v-col>
+                              </v-row>
+                            </v-container>
+                          </v-card-text>
+                          <v-divider></v-divider>
+
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              color="primary"
+                              text
+                              @click="Editdialog = false"
+                            >
+                              Close
+                            </v-btn>
+                          </v-card-actions>
+                      </v-card>
+                  </v-dialog>
                 </div>
                 <div v-else>
                   <v-img
@@ -472,6 +553,8 @@
       :onCancel="handleCancelLogout"
       :onConfirm="handleLogoutConfirm">
     </logout-modal>
+
+
   </div>
 </template>
 
@@ -529,14 +612,21 @@ export default {
       maxSimilarToShow: 1,
       showLoginModal: false,
       showLogoutModal: false,
-      loginResponse: null
+      loginResponse: null,
+      Editdialog: false,
+      imagePath:'',
+      position:null,
+      valid: true,
+      urlRules: [
+        v => !!v || 'Url is required',
+      ],
     }
   },
   async asyncData({ params, store }) {
 
     const selectedStore = await store.dispatch('getStore', { id: params.id })
     store.dispatch('setStore', selectedStore)
-    
+
     const storeId = selectedStore.id
 
     //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
@@ -591,6 +681,32 @@ export default {
   },
 
   methods: {
+    openImageEditoDialog(number){
+      this.Editdialog = true;
+      this.position = number
+    },
+    updateImage(e){
+      console.log(e,this.imagePath)
+      let valid = true;
+      let data = {storeID: this.storeId,position:this.position};
+      if(e=='capture'){
+        data.capture = true
+      }
+      if(e=='delete'){
+        data.delete = true
+      }
+      if(e=='replace'){
+        data.update = true
+        data.source = this.imagePath
+        if(this.imagePath==''){
+          valid = false
+          this.$refs.form.validate()
+        }
+      }
+      if(valid){
+        this.$store.dispatch('updateImage', data)
+      }
+    },
     sortReviewThreads(reviewThreads){ //can't use?
         reviewThreads.sort((a, b) => {
         if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
@@ -599,7 +715,7 @@ export default {
         return b[0].timestamp - a[0].timestamp
       })
       return reviewThreads;
-    },  
+    },
     toggleMoreSimilar() {
       this.maxSimilarToShow =
         this.maxSimilarToShow !== 1 ? 1 : this.relatedStores.length
@@ -729,5 +845,14 @@ export default {
   .external-title {
     margin-top: 200px !important;
   }
+}
+.float-right{
+  float: right;
+}
+.edit_image{
+  position: absolute;
+    z-index: 10101;
+    bottom: 43.8%;
+    right: 0;
 }
 </style>
