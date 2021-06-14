@@ -7,7 +7,7 @@
     </v-row>
     <v-layout row class="ma-0">
       <v-flex pa-3 class="text-center"
-        ><h3>{{ statoshi }} sat</h3></v-flex
+        ><h3>{{ satoshi }} sat</h3></v-flex
       >
     </v-layout>
     <v-layout row class="ma-0">
@@ -61,7 +61,7 @@ export default {
       type: String,
       default: '',
     },
-    statoshi: {
+    satoshi: {
       type: Number,
       default: 0,
     },

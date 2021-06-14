@@ -134,7 +134,6 @@
                   ></v-textarea>
                 </v-flex>
               </v-layout>
-
               <Checkout
                 v-if="paymentRequest"
                 :warningMessage="warningMessage"
