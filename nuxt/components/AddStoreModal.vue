@@ -115,35 +115,6 @@
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
-                    <v-combobox
-                      v-model="addDialogForm.sector"
-                      item-text="name"
-                      item-value="prop"
-                      label="Sector"
-                      :items="sectorFormItems"
-                      return-object
-                      :rules="[(v) => !!v || 'Sector is required']"
-                    ></v-combobox>
-                  </v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
-                    <v-combobox
-                      v-model="addDialogForm.digitalGoods"
-                      item-text="name"
-                      item-value="prop"
-                      label="Digital goods"
-                      :items="digitalGoodFormItems"
-                      return-object
-                      :rules="[(v) => !!v || 'Digital goods is required']"
-                    ></v-combobox>
-                  </v-flex>
-                </v-layout>
-
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <v-text-field
@@ -318,8 +289,6 @@ export default {
             description: this.addDialogForm.description,
             url: this.addDialogForm.url,
             uri: this.addDialogForm.uri,
-            sector: this.addDialogForm.sector.prop,
-            digitalGoods: this.addDialogForm.digitalGoods.prop,
             contributor: this.addDialogForm.contributor,
             recaptcha: token,
           })

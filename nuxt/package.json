@@ -26,8 +26,10 @@
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
     "@nuxtjs/vuetify": "^1.11.3",
+    "dotenv": "^10.0.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "sass": "^1.34.1"
   }
 }

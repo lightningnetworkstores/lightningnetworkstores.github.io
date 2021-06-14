@@ -1,6 +1,8 @@
 <template>
-  <div class="ban-store-modal">
-    <v-icon @click.stop="showTutorialDialog = true">fa-question</v-icon>
+  <div class="">
+    <v-btn color="secondary" fab x-small dark class="mt-2">
+      <v-icon class="float-left" @click.stop="showTutorialDialog = true">fa-question</v-icon>
+    </v-btn>
     <!-- <v-icon @click.stop="showTutorialDialog = true">help</v-icon> -->
 
     <!-- Ban store modal -->

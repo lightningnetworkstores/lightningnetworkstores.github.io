@@ -1,3 +1,4 @@
+require('dotenv').config()
 const axios = require('axios')
 
 const actions = {
@@ -36,6 +37,7 @@ const actions = {
       })
       .then((response) => {
         commit('setConfiguration', response.configuration)
+        commit('setSelectedStore', response)
         return response
       })
       .catch((error) => {
@@ -73,8 +75,6 @@ const actions = {
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),
       URI: encodeURIComponent(uri),
-      sector: encodeURIComponent(sector),
-      digitalGoods: encodeURIComponent(digitalGoods),
       contributor: contributor,
       'g-recaptcha-response': recaptcha,
     }
@@ -92,16 +92,22 @@ const actions = {
   },
 
   addStoreUpdate(
-    { state },
-    { id: id, field: field, value: value, askOwner: askOwner }
+    { state, commit },
+    { id: id, body: body }
   ) {
-    return fetch(
-      `${state.baseURL}api/addUpdate?storeID=${id}&field=${encodeURIComponent(
-        field
-      )}&newValue=${encodeURIComponent(value)}&requestOwner=${askOwner}`
-    )
+    const debugPwd = null; //process.env.debugPwd;
+    const url = `${state.baseURL}api/field?id=${id}${debugPwd ? '&pwd=' + debugPwd : ''}`
+
+    return axios.put(url, JSON.stringify(body))
       .then((response) => {
-        return response.text()
+        Object.keys(response.data.data).forEach(attr => {
+          if (response.data.data[attr]) {
+            const payload = {key: attr, value: body[attr]}
+            commit('updateSelectedStore', payload);
+          } else {
+            console.log(`${attr} -> not modified!`);
+          }
+        });
       })
       .catch((error) => {
         return Promise.reject(error)
@@ -185,6 +191,9 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  setStore({ commit }, store) {
+    commit(`setStore`, store)
+  },
   removeTag({ state }, { storeId: storeId, tag: tag }) {
     const object = {
       taginfo: {
@@ -215,7 +224,6 @@ const actions = {
       })
   },
   getDiscussions({ state, commit }) {
-    console.log('Calling getDiscussions')
     return axios
       .get(`${state.baseURL}api/discussion`)
       .then((response) => {
@@ -256,6 +264,59 @@ const actions = {
         console.log(error)
       })
   },
-}
+  likeStore({ state, commit }, { storeId, remove }) {
+    const lsKey = `lns_likes`
+    let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? {}
 
+    return axios({
+      method: 'post',
+      url: `${state.baseURL}api/like?storeID=${storeId}&remove=${remove}`,
+    }).then((res) => {
+      if (res.status !== `fail`) {
+        const likes = res.data.data.likes
+        likedStores[storeId] = remove ? false : true
+        localStorage.setItem(lsKey, JSON.stringify(likedStores))
+        commit('setLikeInStore', { storeId, remove })
+      }
+    })
+  },
+  login({ state }, { token, recipient, storeId }) {
+    const body = {
+      'recipient': recipient,
+      'storeID': storeId,
+      'h-captcha-response': token
+    };
+    return axios.post(`${state.baseURL}api/loginattempt`, body)
+      .then(response => {
+        if (response.status === 200) {
+          return response.data;
+        }
+      })
+      .catch(console.error);
+  },
+  getStatus({ state, commit }, { storeId }) {
+    return axios.get(`${state.baseURL}api/logstatus?id=${storeId}`)
+      .then(response => {
+        if (response.status === 200) {
+          const payload = { key: 'logged', value: response.data.data.logged }
+          commit('updateSelectedStore', payload);
+        }
+      })
+      .catch(console.error)
+  },
+  logout({ state, commit }) {
+    return axios.get(`${state.baseURL}api/logout`)
+      .then(response => {
+        if (response.status === 200) {
+          commit('logout');
+          return response.data;
+        }
+      })
+      .catch(console.error)
+  },
+  updateStoreLikes({ commit }) {
+    const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
+    commit('setStoreLikes', storeLikes)
+  },
+}
 export default actions

@@ -9,6 +9,11 @@ export default {
     host: '0.0.0.0',
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
+  router: {
+    scrollBehavior(to, from, savedPosition) {
+      return { x: 0, y: 0 }
+    },
+  },
   axios: {
     proxy: true,
     proxyHeaders: true,
@@ -53,6 +58,7 @@ export default {
 
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    debugPwd: process.env.API_SECRET || null
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -136,12 +142,16 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ['~/assets/css/main.scss'],
+  css: ['./assets/css/main.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     {
       src: '~/plugins/qrcode.js',
+      ssr: false,
+    },
+    {
+      src: '~/plugins/updateStoreLikes.js',
       ssr: false,
     },
     {
@@ -204,5 +214,11 @@ export default {
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    extend(config, { isDev, isClient }) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
+  }
 }

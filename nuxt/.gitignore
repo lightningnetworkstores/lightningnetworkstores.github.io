@@ -2,3 +2,4 @@
 /.nuxt
 /static/sw.js
 dist/
+.env

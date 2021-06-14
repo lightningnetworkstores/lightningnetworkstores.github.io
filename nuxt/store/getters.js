@@ -118,7 +118,6 @@ const getters = {
             break;
         }
       }
-
       return stores;
     }
   },
@@ -155,6 +154,7 @@ const getters = {
         trending: discussion.trending,
         rank: discussion.rank,
         upvotes: discussion.upvotes,
+        downvotes: discussion.downvotes,
         href: discussion.href,
         name: discussion.name,
         description: discussion.description,
@@ -164,7 +164,7 @@ const getters = {
       };
       return {
         store: store,
-        comments: discussion.comments
+        reviews: discussion.reviews
       }
     });
     return formattedDiscussions;

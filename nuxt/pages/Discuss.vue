@@ -13,8 +13,8 @@
             </store-card>
             <Review
               class="store-card"
-              :comment="discussion.comments[0]"
-              :comments="discussion.comments.slice(1)"
+              :comment="discussion.reviews[0]"
+              :comments="discussion.reviews.slice(1)"
               :store="discussion.store">
             </Review>
         </v-row>

@@ -74,7 +74,7 @@
               </v-card>
             </v-flex>
 
-            <v-layout row pt-4 wrap>
+            <!-- <v-layout row pt-4 wrap>
             <v-flex grow class="text-xs-center" pa-4>
               <v-card>
                 <v-card-title primary-title class="justify-center">
@@ -100,7 +100,7 @@
                   </v-overlay>
                 </v-card-text> </v-card
             ></v-flex>
-          </v-layout>
+          </v-layout> -->
 
 
           </v-layout>
