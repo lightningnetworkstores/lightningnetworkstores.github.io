@@ -12,11 +12,11 @@ const mutations = {
   },
   setStore(state, store) {
     store.reviews.sort((a, b) => {
-        if (Math.abs(b.score) !== Math.abs(a.score)) {
-          return Math.abs(b.score) - Math.abs(a.score)
-        }
-        return b.timestamp - a.timestamp
-      })  
+      if (Math.abs(b.score) !== Math.abs(a.score)) {
+        return Math.abs(b.score) - Math.abs(a.score)
+      }
+      return b.timestamp - a.timestamp
+    })
     state.store = store
   },
   setScores(state, scores) {
@@ -66,7 +66,24 @@ const mutations = {
   },
   logout(state) {
     state.selectedStore.logged = false
-  }
+  },
+  setFilteredTags(state, filteredTags) {
+    state.filteredTags = filteredTags
+  },
+  updateExcludedTag(state, { tag, remove = false }) {
+    if (remove) {
+      state.excludedTags.pop(tag)
+    } else {
+      state.excludedTags.push(tag)
+    }
+  },
+  updateSelectedTag(state, { tag, remove = false }) {
+    if (remove) {
+      state.selectedTags.pop(tag)
+    } else {
+      state.selectedTags.push(tag)
+    }
+  },
 }
 
 export default mutations

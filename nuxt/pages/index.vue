@@ -23,63 +23,19 @@
           </v-radio-group>
         </v-list-item>
       </v-list>
-      <v-list>
-        <v-subheader class="title pb-2">Filter</v-subheader>
-        <!-- <v-text-field   hide-details  single-line class="pt-0 tag-search-block mt-3 mb-3">Search</v-text-field> -->
-        <v-text-field
-          class="search tag-search-block p-10"
-          v-model="tagSearchQuery"
-          flat
-          outlined
-          label="Type to search"
-          solo
-          prepend-inner-icon="mdi-magnify"
-          hide-details
-        ></v-text-field>
-        <br />
-        <br />
-        <v-list-item
-          v-for="(tag, index) in tags"
-          :key="tag"
-          class="my-0 py-0 tag"
-        >
-          <v-checkbox
-            hide-details
-            @change="selectDeselectTag(tag, index)"
-            class="tag"
-            color="#fdb919"
-            :indeterminate="excludeTag[index].status"
-            :class="{ indeterminate: excludeTag[index].status }"
-            :value="tag"
-            :label="tag + ' ' + storeCountByTag(tag)"
-            v-model="tagsCheckbox"
-            @update:indeterminate="updateExclude(tag, index)"
-          ></v-checkbox>
-        </v-list-item>
-        <!-- <filter-stores
-          :tagSearchQuery="tagSearchQuery"
-          :searchQuery="searchQuery"
-          :selectedSort="selectedSort"
-          @onQueryChange="queryChange"
-        /> -->
-      </v-list>
+      <filter-stores
+        :tags="[]"
+        :tagSearchQuery="tagSearchQuery"
+        :searchQuery="searchQuery"
+        :selectedSort="selectedSort"
+        @onQueryChange="queryChange"
+      />
     </v-navigation-drawer>
     <div :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 300px;' : ''">
       <v-layout justify-center>
         <v-flex xs10 md18 lg6 ma-5>
           <v-row>
             <v-col cols="11" xs="11" sm="11" md="11">
-              <!-- <v-card>
-                    <v-toolbar card color="rgb(56, 56, 56)" dark dense
-                        ><v-text-field v-model="searchQuery" hide-details prepend-icon="search" single-line class="pt-0"></v-text-field><v-spacer></v-spacer><tutorial-modal></tutorial-modal
-                    ></v-toolbar>
-                    <v-layout row style="padding: 20px 20px 14px 20px;" wrap>
-                        <v-flex grow pa-1><v-select v-model="selectedSort" item-text="name" item-value="prop" label="Sort" :items="sortItems" return-object></v-select></v-flex>
-                        <v-flex grow pa-1><v-select v-model="selectedSector" item-text="name" item-value="prop" label="Sector" :items="sectorItems" return-object></v-select></v-flex>
-                        <v-flex grow pa-1><v-select v-model="selectedDigitalGood" item-text="name" item-value="prop" label="Digital goods" :items="digitalGoodItems" return-object></v-select></v-flex>
-                    </v-layout>
-                </v-card> -->
-
               <v-text-field
                 v-model="searchQuery"
                 class="search"
@@ -131,6 +87,8 @@
 import AddStoreModal from '~/components/AddStoreModal.vue'
 import FilterStores from '~/components/FilterStores.vue'
 import StoreCard from '../components/StoreCard.vue'
+import { mapState } from 'vuex'
+
 export default {
   components: { AddStoreModal, StoreCard, FilterStores },
   data() {
@@ -159,19 +117,15 @@ export default {
     }
   },
   methods: {
+    queryChange() {
+      console.log(`queryChange`)
+    },
     onTagsChange() {
       console.log('tag change')
       this.changeUrl()
     },
     updateExclude(value, i) {
       console.log('updateExclude')
-      /*this.excludedTag.push(value);
-    let index = this.checkedTags.indexOf(value);
-    if (index !== -1) {
-      this.checkedTags.splice(index, 1);
-    } else {
-      this.checkedTags.push(value);
-    }*/
     },
     selectDeselectTag(value, i) {
       console.log({ value, index: i })
@@ -212,16 +166,16 @@ export default {
       // 1 - agregar un action para esto
       // 1.1 agregar logica en el action para agregar el tag
       // 1.2 verifcar los stores
-      this.$store.dispatch(
-        'setSelectedTags',
-        this.checkedTags.filter((t) => t)
-      )
+      this.$store.dispatch('setSelectedTags', {
+        selectedTags: this.checkedTags.filter((t) => t),
+        excludedTags: this.excludedTag.filter((t) => t),
+      })
 
       // 2 - agregar un action para esto
-      this.$store.commit(
+      /*this.$store.commit(
         'setExludedTags',
         this.excludedTag.filter((t) => t)
-      )
+      ) */
       this.changeUrl()
     },
 
@@ -310,6 +264,7 @@ export default {
         return this.tags
       }
     },
+
     storeCountByTag(tag) {
       let count = 0
       this.stores.forEach((item) => {
@@ -319,9 +274,17 @@ export default {
       })
 
       return count
+
+      // return this.stores.reduce((accum, store) => {
+      //   console.log('s')
+      //   store.tags.includes(tag) ? accum++ : accum
+
+      //   return accum
+      // }, 0)
     },
   },
   computed: {
+    ...mapState(['filteredTags']),
     baseURL() {
       return this.$store.state.baseURL
     },
@@ -332,7 +295,11 @@ export default {
       return this.$store.state.scores
     },
     tags() {
-      let tags = this.$store.state.tags
+      const tags =
+        this.filteredTags.length !== 0
+          ? this.filteredTags
+          : this.$store.state.tags
+
       if (this.tagSearchQuery) {
         return tags.filter((tag) => {
           return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
@@ -357,6 +324,7 @@ export default {
     selectedTags() {
       return this.$store.state.selectedTags
     },
+
     getStores() {
       let filtersStore = this.selectedTags.filter((x) => x !== null).length
         ? this.$store.getters

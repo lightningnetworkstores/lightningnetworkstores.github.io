@@ -1,35 +1,71 @@
 <template>
-  <div>
+  <v-list>
+    <v-subheader class="title pb-2">Filter</v-subheader>
+    <!-- <v-text-field   hide-details  single-line class="pt-0 tag-search-block mt-3 mb-3">Search</v-text-field> -->
+    <v-text-field
+      class="search tag-search-block p-10"
+      v-model="tagSearchQuery"
+      flat
+      outlined
+      label="Type to search"
+      solo
+      prepend-inner-icon="mdi-magnify"
+      hide-details
+    ></v-text-field>
+    <br />
+    <br />
     <v-list-item v-for="(tag, index) in tags" :key="tag" class="my-0 py-0 tag">
       <v-checkbox
-        hide-details
-        @change="selectDeselectTag(tag, index)"
+        @change="handleTagState(tag, index)"
         class="tag"
         color="#fdb919"
-        :indeterminate="excludeTag[index].status"
-        :class="{ indeterminate: excludeTag[index].status }"
+        :indeterminate="excludeTagsTest.includes(tag)"
+        :class="{
+          indeterminate: excludeTagsTest.includes(tag),
+        }"
         :value="tag"
+        v-model="tagsChecked"
         :label="tag + ' ' + storeCountByTag(tag)"
-        v-model="tagsCheckbox"
       ></v-checkbox>
     </v-list-item>
-  </div>
+  </v-list>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
     tagSearchQuery: '',
     searchQuery: '',
     selectedSort: '',
   },
+
+  data() {
+    return {
+      checkedTags: [],
+      excludedTag: [],
+      tagsCheckbox: [],
+      tagsChecked: [],
+    }
+  },
+
   computed: {
+    ...mapState({
+      excludeTagsTest(state) {
+        return state.excludedTags
+      },
+
+      selectedTagsTest(state) {
+        return state.selectedTags
+      },
+    }),
+
     excludeTag() {
       const excude = []
       this.tags.forEach((e, i) => {
         if (this.excludedTag.includes(e)) {
-          this.excludedTag.includes(e)
           console.log(this.excludedTag, e)
+
           excude.push({ status: true })
         } else {
           excude.push({ status: false })
@@ -51,14 +87,18 @@ export default {
       return tags
     },
   },
-  data() {
-    return {
-      checkedTags: [],
-      excludedTag: [],
-      tagsCheckbox: [],
-    }
-  },
+
   methods: {
+    handleTagState(value) {
+      console.log(value)
+
+      if (this.excludeTagsTest.includes(value)) {
+        this.tagsChecked.splice(this.tagsChecked.indexOf(value), 1)
+      }
+
+      this.$store.dispatch('setSelectedTag2', { tag: value })
+    },
+
     selectDeselectTag(value, i) {
       console.log({ value, index: i })
 

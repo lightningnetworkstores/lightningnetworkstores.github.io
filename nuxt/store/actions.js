@@ -321,14 +321,34 @@ const actions = {
     const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
     commit('setStoreLikes', storeLikes)
   },
-  setSelectedTags({ state, commit }, checkedTags) {
-    commit('setSelectedTags', checkedTags)
-    const filteredStoresTags = state.stores
-      .filter((store) => checkedTags.some((tag) => store.tags.includes(tag)))
+  setSelectedTags({ state, commit }, { selectedTags, excludedTags }) {
+    commit('setSelectedTags', selectedTags)
+    commit('setExludedTags', excludedTags)
+
+    const filterExcludedStores = state.stores.filter(
+      (store) => !excludedTags.some((tag) => store.tags.includes(tag))
+    )
+
+    const filteredStoresTags = filterExcludedStores
+      .filter((store) => selectedTags.some((tag) => store.tags.includes(tag)))
       .flatMap((store) => store.tags)
 
     const uniqueTags = [...new Set(filteredStoresTags)]
-    console.log(uniqueTags)
+    commit('setFilteredTags', uniqueTags)
+  },
+
+  setSelectedTag2({ state, commit }, { tag }) {
+    if (
+      !state.selectedTags.includes(tag) &&
+      !state.excludedTags.includes(tag)
+    ) {
+      commit('updateSelectedTag', { tag, remove: false })
+    } else if (state.selectedTags.includes(tag)) {
+      commit('updateSelectedTag', { tag, remove: true })
+      commit('updateExcludedTag', { tag, remove: false })
+    } else if (state.excludedTags.includes(tag)) {
+      commit('updateExcludedTag', { tag, remove: true })
+    }
   },
 }
 export default actions
