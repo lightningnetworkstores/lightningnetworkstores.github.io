@@ -268,7 +268,7 @@ const actions = {
   },
   likeStore({ state, commit }, { storeId, remove }) {
     const lsKey = `lns_likes`
-    let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? []
+    let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? {}
 
     return axios({
       method: 'post',
@@ -276,7 +276,7 @@ const actions = {
     }).then((res) => {
       if (res.status !== `fail`) {
         const likes = res.data.data.likes
-        likedStores = likedStores.concat(likes)
+        likedStores[storeId] = remove ? false : true
         localStorage.setItem(lsKey, JSON.stringify(likedStores))
         commit('setLikeInStore', { storeId, remove })
       }
@@ -317,14 +317,8 @@ const actions = {
       .catch(console.error)
   },
   updateStoreLikes({ commit }) {
-    const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? []
+    const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
     commit('setStoreLikes', storeLikes)
-  },
-  pushStoreLike({ commit }, storeId) {
-    commit('pushToStoreLike', storeId)
-  },
-  popStoreLike({ commit }, storeId) {
-    commit('popToStoreLike', storeId)
   },
 }
 export default actions

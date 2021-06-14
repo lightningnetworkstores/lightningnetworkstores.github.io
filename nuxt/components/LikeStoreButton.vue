@@ -12,11 +12,7 @@ export default {
   props: ['store', 'likes'],
   computed: {
     storeIsLiked() {
-      if (this.likedStores) {
-        return this.likedStores.some((id) => id === this.store.id)
-      }
-
-      return false
+      return this.likedStores[this.store.id]
     },
     ...mapState(['likedStores']),
   },
@@ -24,10 +20,8 @@ export default {
     handleLike(storeId) {
       if (this.storeIsLiked) {
         this.$store.dispatch(`likeStore`, { storeId, remove: true })
-        this.$store.dispatch(`popStoreLike`, storeId)
       } else {
         this.$store.dispatch(`likeStore`, { storeId, remove: false })
-        this.$store.dispatch(`pushStoreLike`, storeId)
       }
 
       this.$emit('likeStore', { isLiked: this.storeIsLiked, storeId })

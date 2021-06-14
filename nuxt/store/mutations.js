@@ -59,15 +59,10 @@ const mutations = {
       store.likes += delta
       state.stores[storeIndex] = store
     }
+    state.likedStores[storeId] = remove ? false : true
   },
   setStoreLikes(state, likes) {
     state.likedStores = likes
-  },
-  pushToStoreLike(state, storeId) {
-    state.likedStores.push(storeId)
-  },
-  popToStoreLike(state, storeId) {
-    state.likedStores.pop(storeId)
   },
   logout(state) {
     state.selectedStore.logged = false
