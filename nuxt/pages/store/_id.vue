@@ -10,13 +10,12 @@
     <v-container>
       <v-row justify="center" v-if="selectedStore">
         <v-col
-          cols="11"
-          :sm="hasExternal ? 9 : 9"
-          :md="hasExternal ? 9 : 9"
-          class="pa-0"
+          cols="12"
+          sm="9"
+          xl="6"
         >
           <v-row justify="center">
-            <v-col cols="12" sm="12" md="12" class="pa-0 px-3">
+            <v-col cols="12" sm="12">
               <v-card class="pa-0 mb-3">
                 <div v-if="selectedStore.images.number > 1">
                   <v-carousel v-model="imageCarousel" hide-delimiters height="auto">
@@ -287,7 +286,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col md="3" class="pa-0 mt-3">
+        <v-col sm="3" xl="2" class="pa-0 mt-3">
           <v-col cols="0" sm="12" md="12" class="pa-0 d-flex flex-column justify-center">
             <v-btn
               v-if="!selectedStore.logged"
@@ -332,15 +331,13 @@
       <v-row justify="center" v-if="relatedStores.length>0">
         <v-col
           cols="11"
-          :sm="hasExternal ? 9 : 9"
-          :md="hasExternal ? 9 : 9"
-          class="pa-0"
+          sm="9"
         >
           <v-layout class="mt-4 mb-2" justify-center>
             <h1>Similar</h1>
           </v-layout>
           <v-row no-gutters justify="center">
-            <v-col cols="9" sm="8" md="7" xl="4">
+            <v-col cols="10" sm="8" md="7" xl="6">
               <store-card
                 class="mb-4"
                 v-for="store in relatedStores.slice(0, maxSimilarToShow)"
@@ -356,15 +353,14 @@
             </v-btn>
           </v-layout>
         </v-col>
-        <v-col md="3" class="pa-0">
+        <v-col cols="0" sm="3" xl="2" class="pa-0">
         </v-col>
       </v-row>
       <v-row justify="center" v-if="selectedStore">
         <v-col
-          cols="11"
-          :sm="hasExternal ? 9 : 9"
-          :md="hasExternal ? 9 : 9"
-          class="pa-0"
+          cols="12"
+          sm="9"
+          xl="6"
         >
           <v-card class="my-8 pa-2">
             <v-card-title primary-title class="pa-3">
@@ -459,8 +455,7 @@
             :store="selectedStore"
           ></Review>
         </v-col>
-        <v-col cols="0" md="3" class="pa-0">
-          <v-col cols="9" sm="9" md="9" class="mt-0 pa-0"> </v-col>
+        <v-col cols="0" sm="3" xl="2" class="pa-0">
         </v-col>
       </v-row>
     </v-container>
