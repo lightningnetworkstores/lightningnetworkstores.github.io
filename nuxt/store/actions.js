@@ -91,23 +91,23 @@ const actions = {
       })
   },
 
-  addStoreUpdate(
-    { state, commit },
-    { id: id, body: body }
-  ) {
-    const debugPwd = null; //process.env.debugPwd;
-    const url = `${state.baseURL}api/field?id=${id}${debugPwd ? '&pwd=' + debugPwd : ''}`
+  addStoreUpdate({ state, commit }, { id: id, body: body }) {
+    const debugPwd = null //process.env.debugPwd;
+    const url = `${state.baseURL}api/field?id=${id}${
+      debugPwd ? '&pwd=' + debugPwd : ''
+    }`
 
-    return axios.put(url, JSON.stringify(body))
+    return axios
+      .put(url, JSON.stringify(body))
       .then((response) => {
-        Object.keys(response.data.data).forEach(attr => {
+        Object.keys(response.data.data).forEach((attr) => {
           if (response.data.data[attr]) {
-            const payload = {key: attr, value: body[attr]}
-            commit('updateSelectedStore', payload);
+            const payload = { key: attr, value: body[attr] }
+            commit('updateSelectedStore', payload)
           } else {
-            console.log(`${attr} -> not modified!`);
+            console.log(`${attr} -> not modified!`)
           }
-        });
+        })
       })
       .catch((error) => {
         return Promise.reject(error)
@@ -282,34 +282,37 @@ const actions = {
   },
   login({ state }, { token, recipient, storeId }) {
     const body = {
-      'recipient': recipient,
-      'storeID': storeId,
-      'h-captcha-response': token
-    };
-    return axios.post(`${state.baseURL}api/loginattempt`, body)
-      .then(response => {
+      recipient: recipient,
+      storeID: storeId,
+      'h-captcha-response': token,
+    }
+    return axios
+      .post(`${state.baseURL}api/loginattempt`, body)
+      .then((response) => {
         if (response.status === 200) {
-          return response.data;
+          return response.data
         }
       })
-      .catch(console.error);
+      .catch(console.error)
   },
   getStatus({ state, commit }, { storeId }) {
-    return axios.get(`${state.baseURL}api/logstatus?id=${storeId}`)
-      .then(response => {
+    return axios
+      .get(`${state.baseURL}api/logstatus?id=${storeId}`)
+      .then((response) => {
         if (response.status === 200) {
           const payload = { key: 'logged', value: response.data.data.logged }
-          commit('updateSelectedStore', payload);
+          commit('updateSelectedStore', payload)
         }
       })
       .catch(console.error)
   },
   logout({ state, commit }) {
-    return axios.get(`${state.baseURL}api/logout`)
-      .then(response => {
+    return axios
+      .get(`${state.baseURL}api/logout`)
+      .then((response) => {
         if (response.status === 200) {
-          commit('logout');
-          return response.data;
+          commit('logout')
+          return response.data
         }
       })
       .catch(console.error)
@@ -317,6 +320,15 @@ const actions = {
   updateStoreLikes({ commit }) {
     const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
     commit('setStoreLikes', storeLikes)
+  },
+  setSelectedTags({ state, commit }, checkedTags) {
+    commit('setSelectedTags', checkedTags)
+    const filteredStoresTags = state.stores
+      .filter((store) => checkedTags.some((tag) => store.tags.includes(tag)))
+      .flatMap((store) => store.tags)
+
+    const uniqueTags = [...new Set(filteredStoresTags)]
+    console.log(uniqueTags)
   },
 }
 export default actions

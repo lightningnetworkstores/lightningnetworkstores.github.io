@@ -49,14 +49,19 @@
             class="tag"
             color="#fdb919"
             :indeterminate="excludeTag[index].status"
-            :class="{'indeterminate':excludeTag[index].status}"
+            :class="{ indeterminate: excludeTag[index].status }"
             :value="tag"
             :label="tag + ' ' + storeCountByTag(tag)"
             v-model="tagsCheckbox"
             @update:indeterminate="updateExclude(tag, index)"
           ></v-checkbox>
-          <!-- v-model="checkedTags[index]"" -->
         </v-list-item>
+        <!-- <filter-stores
+          :tagSearchQuery="tagSearchQuery"
+          :searchQuery="searchQuery"
+          :selectedSort="selectedSort"
+          @onQueryChange="queryChange"
+        /> -->
       </v-list>
     </v-navigation-drawer>
     <div :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 300px;' : ''">
@@ -124,9 +129,10 @@
 
 <script>
 import AddStoreModal from '~/components/AddStoreModal.vue'
+import FilterStores from '~/components/FilterStores.vue'
 import StoreCard from '../components/StoreCard.vue'
 export default {
-  components: { AddStoreModal, StoreCard },
+  components: { AddStoreModal, StoreCard, FilterStores },
   data() {
     return {
       drawer: false,
@@ -153,6 +159,10 @@ export default {
     }
   },
   methods: {
+    onTagsChange() {
+      console.log('tag change')
+      this.changeUrl()
+    },
     updateExclude(value, i) {
       console.log('updateExclude')
       /*this.excludedTag.push(value);
@@ -164,6 +174,7 @@ export default {
     }*/
     },
     selectDeselectTag(value, i) {
+      console.log({ value, index: i })
       console.log('selectDeselectTag')
 
       let index = this.checkedTags.indexOf(value)
@@ -197,10 +208,16 @@ export default {
           }
         }
       }
-      this.$store.commit(
+
+      // 1 - agregar un action para esto
+      // 1.1 agregar logica en el action para agregar el tag
+      // 1.2 verifcar los stores
+      this.$store.dispatch(
         'setSelectedTags',
         this.checkedTags.filter((t) => t)
       )
+
+      // 2 - agregar un action para esto
       this.$store.commit(
         'setExludedTags',
         this.excludedTag.filter((t) => t)
@@ -323,10 +340,6 @@ export default {
       }
 
       return tags
-      /*  let filteredtags = tags.filter((tag) => {
-        return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
-      })
-      return filteredtags */
     },
     excludeTag() {
       const excude = []
@@ -389,13 +402,6 @@ export default {
     },
   },
   watch: {
-    // checkedTags() {
-    //   this.$store.commit(
-    //     'setSelectedTags',
-    //     this.checkedTags.filter((t) => t)
-    //   )
-    //   this.changeUrl();
-    // },
     selectedSort() {
       this.changeUrl()
     },
@@ -568,8 +574,8 @@ export default {
   position: absolute;
   top: 0px;
 }
-.indeterminate{
-  .v-icon.theme--light{
+.indeterminate {
+  .v-icon.theme--light {
     color: #f34444;
   }
 }
