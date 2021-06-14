@@ -638,10 +638,10 @@ export default {
           )
           break
         default:
-          this.reviews = this.reviews = this.selectedStore.reviews.filter(r=>true);
+          this.reviews = this.selectedStore.reviews.filter(r=>true);
           break
       }
-      this.reviews = this.reviews.sort((a, b) => {
+      this.reviews.sort((a, b) => {
         if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
           return Math.abs(b[0].score) - Math.abs(a[0].score)
         }
