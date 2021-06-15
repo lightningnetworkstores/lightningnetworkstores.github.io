@@ -1,6 +1,6 @@
 <template>
-  <div v-if="availableOptions.length > 0">
-    <v-btn icon @click.stop="openDialog()">
+  <div>
+    <v-btn icon @click.stop="openDialog()" :disabled="availableOptions.length === 0">
       <v-icon>fa-plus-circle</v-icon>
     </v-btn>
     <v-dialog v-model="showDialog" max-width="500" persistent>
@@ -39,7 +39,7 @@
           <v-btn
             color="green"
             @click="closeDialog"
-            :disabled="formError || isProcessing"
+            :disabled="isProcessing"
             text
           >
             Cancel
@@ -81,6 +81,7 @@ export default {
     closeDialog() {
       this.serverError = null;
       this.showDialog = false;
+      this.formError = false;
     },
     async onAddClicked() {
       const payload = {
@@ -106,6 +107,7 @@ export default {
     rules() {
       return this.options.map(() => {
         return (value) => {
+          if (value === null) return true;
           const index = this.options.findIndex(item => item === value)
           if (index !== -1) {
             this.formError = false;
