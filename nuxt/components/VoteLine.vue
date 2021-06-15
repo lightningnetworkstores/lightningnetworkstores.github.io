@@ -74,42 +74,13 @@
     >
       <v-card>
         <template v-if="showDialog">
-          <div v-if="paymentRequest && isPaid" class="text-center">
-            <!-- paymentRequest && isPaid -->
-            <v-card flat>
-              <v-card-title class="headline">
-                <v-row class="py-2">
-                  <v-flex>Payment successful</v-flex>
-                </v-row>
-              </v-card-title>
-              <v-card-text>
-                <v-icon size="100" color="green" pa-5
-                  >fas fa-check-circle</v-icon
-                >
-              </v-card-text>
-              <v-card-text>
-                <blockquote class="twitter-tweet" v-if="tweet">
-                  <a
-                    data-width="300"
-                    :href="'https://twitter.com/x/status/' + tweet"
-                  ></a>
-                </blockquote>
-                <script
-                  async
-                  src="https://platform.twitter.com/widgets.js"
-                  charset="utf-8"
-                ></script>
-
-                <v-row class="ma-2 pt-2">
-                  <v-flex
-                    >Go to
-                    <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
-                  >
-                </v-row>
-              </v-card-text>
-            </v-card>
-          </div>
-
+          <Success
+            v-if="paymentRequest && isPaid"
+            :tweet="tweet"
+            :store="store"
+            :confirm_title="'Payment successful'"
+            @cancel="cancel"
+          />
           <div v-else>
             <v-layout row v-if="commentAlert.message.length">
               <v-flex pa-3>
@@ -205,64 +176,22 @@
                 </v-flex>
               </v-layout>
 
-              <div v-if="paymentRequest" class="text-center">
-                <v-row class="justify-center mt-3" v-show="warningMessage">
-                  <v-alert
-                    border="left"
-                    colored-border
-                    type="warning"
-                    elevation="2"
-                    >{{ warningMessage }}</v-alert
-                  >
-                </v-row>
-                <v-layout row>
-                  <v-flex class="pa-3 text-xs-center"
-                    ><h2>{{ upvoteDialogForm.amount }} sat</h2></v-flex
-                  >
-                </v-layout>
-                <v-layout row>
-                  <v-flex pl-3 pr-3 class="text-xs-center"
-                    ><qrcode-vue
-                      class="qrcode"
-                      size="300"
-                      :value="paymentRequest"
-                    ></qrcode-vue
-                  ></v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
-                    <v-text-field
-                      :value="paymentRequest"
-                      label="Invoice"
-                      hint=""
-                      append-icon="fa-copy"
-                      type="text"
-                      id="paymentrequest"
-                      @click:append="copy"
-                    ></v-text-field
-                  ></v-flex>
-                </v-layout>
-                <a :href="'lightning:' + paymentRequest" class="link-button"
-                  >Open in wallet</a
-                >
-              </div>
+              <Checkout
+                v-if="paymentRequest"
+                :warningMessage="warningMessage"
+                :paymentRequest="paymentRequest"
+                :satoshi="upvoteDialogForm.amount"
+                @cancel="cancel"
+              />
             </v-card-text>
           </div>
 
-          <v-card-actions>
+          <v-card-actions v-if="!paymentRequest">
             <v-spacer></v-spacer>
 
-            <v-btn color="green darken-1" text @click="cancel">
-              {{ paymentRequest && isPaid ? 'Close' : 'Cancel' }}
-            </v-btn>
+            <v-btn color="green darken-1" text @click="cancel"> Cancel </v-btn>
 
-            <v-btn
-              color="green darken-1"
-              text
-              v-if="!paymentRequest.length"
-              @click="getInvoice"
-            >
+            <v-btn color="green darken-1" text @click="getInvoice">
               Get invoice
             </v-btn>
           </v-card-actions>
@@ -274,9 +203,10 @@
 
 <script>
 import VoteButton from './VoteButton.vue'
-
+import Checkout from '@/components/Checkout.vue'
+import Success from '@/components/Success.vue'
 export default {
-  components: { VoteButton },
+  components: { VoteButton, Checkout, Success },
   props: {
     store: { required: true },
     isInfo: { required: false },
