@@ -334,7 +334,7 @@ export default {
 
       if (this.selectedTags.length !== 0) {
         filteredStores = filteredStores.filter((store) =>
-          store.tags.some((tag) => this.selectedTags.includes(tag))
+          this.selectedTags.every((tag) => store.tags.includes(tag))
         )
       }
 

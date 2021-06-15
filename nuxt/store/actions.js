@@ -358,7 +358,7 @@ const actions = {
 
     const filteredStoresTags = state.stores
       .filter((store) =>
-        state.selectedTags.some((tag) => store.tags.includes(tag))
+        state.selectedTags.every((tag) => store.tags.includes(tag))
       )
       .flatMap((store) => store.tags)
 
