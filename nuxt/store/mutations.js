@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const mutations = {
   setIsDev(state, data) {
     state.isDev = true
@@ -36,6 +38,12 @@ const mutations = {
   updateSelectedStore(state, { key, value }) {
     state.selectedStore[key] = value
   },
+  confirmStoreFieldRemoval(state, { field }) {
+    Vue.delete(state.selectedStore.external, field)
+  },
+  confirmStoreFieldAddition(state, { field, value }) {
+    Vue.set(state.selectedStore.external, field, {href: value});
+  },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },
@@ -51,27 +59,25 @@ const mutations = {
   setFaucetStats(state, faucetStats) {
     state.faucetStats = faucetStats
   },
-  setLikeInStore(state, { storeId, remove }) {
-    const storeIndex = state.stores.findIndex((store) => store.id === storeId)
-    if (storeIndex !== -1) {
-      const store = state.stores[storeIndex]
-      store.likes = remove ? (store.likes -= 1) : (store.likes += 1)
-      state.stores[storeIndex] = store
+  updateLikedStores(state, { storeId, remove }) {
+    state.likedStores = {...state.likedStores, [`${storeId}`]: remove ? false : true}
+  },
+  setLikeCounter(state, { storeId, remove }) {
+    const delta = remove ? -1 : 1
+    if (state.stores.length > 0) {
+      const storeIndex = state.stores.findIndex((store) => store.id === storeId)
+      if (storeIndex !== -1) {
+        const store = state.stores[storeIndex]
+        store.likes += delta
+        state.stores[storeIndex] = store
+      }
     }
-
-    if (state.store.id === storeId) {
-      const likes = remove ? (state.store.likes -= 1) : (state.store.likes += 1)
-      state.store.likes = likes
+    if (state.store) {
+      state.store.likes += delta
     }
   },
   setStoreLikes(state, likes) {
     state.likedStores = likes
-  },
-  pushToStoreLike(state, storeId) {
-    state.likedStores.push(storeId)
-  },
-  popToStoreLike(state, storeId) {
-    state.likedStores.pop(storeId)
   },
   logout(state) {
     state.selectedStore.logged = false

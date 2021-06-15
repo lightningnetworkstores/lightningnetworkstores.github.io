@@ -10,27 +10,29 @@ import { mapState } from 'vuex'
 
 export default {
   props: ['store', 'likes'],
+  data() {
+    return {
+      isProcessing: false
+    }
+  },
   computed: {
     storeIsLiked() {
-      if (this.likedStores) {
-        return this.likedStores.some((id) => id === this.store.id)
-      }
-
-      return false
+      return this.likedStores[this.store.id]
     },
     ...mapState(['likedStores']),
   },
   methods: {
-    handleLike(storeId) {
+    async handleLike(storeId) {
+      if (this.isProcessing) return
+      this.isProcessing = true
       if (this.storeIsLiked) {
-        this.$store.dispatch(`likeStore`, { storeId, remove: true })
-        this.$store.dispatch(`popStoreLike`, storeId)
+        await this.$store.dispatch(`likeStore`, { storeId, remove: true })
       } else {
-        this.$store.dispatch(`likeStore`, { storeId, remove: false })
-        this.$store.dispatch(`pushStoreLike`, storeId)
+        await this.$store.dispatch(`likeStore`, { storeId, remove: false })
       }
 
       this.$emit('likeStore', { isLiked: this.storeIsLiked, storeId })
+      this.isProcessing = false
     },
   },
 }

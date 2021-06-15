@@ -10,13 +10,12 @@
     <v-container>
       <v-row justify="center" v-if="selectedStore">
         <v-col
-          cols="11"
-          :sm="hasExternal ? 9 : 9"
-          :md="hasExternal ? 9 : 9"
-          class="pa-0"
+          cols="12"
+          sm="9"
+          xl="6"
         >
           <v-row justify="center">
-            <v-col cols="12" sm="12" md="12" class="pa-0 px-3">
+            <v-col cols="12" sm="12">
               <v-card class="pa-0 mb-3">
                 <div v-if="selectedStore.images.number > 1">
                   <v-carousel v-model="imageCarousel" hide-delimiters height="auto">
@@ -287,7 +286,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col md="3" class="pa-0 mt-3">
+        <v-col sm="3" xl="2" class="pa-0 mt-3">
           <v-col cols="0" sm="12" md="12" class="pa-0 d-flex flex-column justify-center">
             <v-btn
               v-if="!selectedStore.logged"
@@ -317,11 +316,24 @@
                 <v-flex grow class="external-text">
                   <b>{{ propertyName }}</b>
                 </v-flex>
-                <v-flex shrink class="mr-4 mt-1">
+                <v-flex shrink class="mr-4 mt-1 d-flex">
                   <edit-store-modal
                     v-if="selectedStore.logged"
                     :store="selectedStore"
                     :editAttribute="{label: propertyName, value: external.href, key: propertyName }"
+                  />
+                  <delete-external-modal
+                    :store="selectedStore"
+                    :field="propertyName"
+                  />
+                </v-flex>
+              </v-layout>
+            </v-card>
+            <v-card class="mx-3 py-2">
+              <v-layout row class="py-2 d-flex" justify-center>
+                <v-flex shrink class="mt-1">
+                  <add-external-modal
+                    :store="selectedStore"
                   />
                 </v-flex>
               </v-layout>
@@ -333,8 +345,7 @@
         <!-- <v-col sm=1></v-col> -->
         <v-col
           cols="11"
-          :sm="hasExternal ? 9 : 9"
-          :md="hasExternal ? 9 : 9"
+          sm="11"
           class="pa-0"
         >
           <v-layout class="mt-4 mb-2" justify-center>
@@ -361,10 +372,9 @@
       </v-row>
       <v-row justify="center" v-if="selectedStore">
         <v-col
-          cols="11"
-          :sm="hasExternal ? 9 : 9"
-          :md="hasExternal ? 9 : 9"
-          class="pa-0"
+          cols="12"
+          sm="9"
+          xl="6"
         >
           <v-card class="my-8 pa-2">
             <v-card-title primary-title class="pa-3">
@@ -459,8 +469,7 @@
             :store="selectedStore"
           ></Review>
         </v-col>
-        <v-col cols="0" md="3" class="pa-0">
-          <v-col cols="9" sm="9" md="9" class="mt-0 pa-0"> </v-col>
+        <v-col cols="0" sm="3" xl="2" class="pa-0">
         </v-col>
       </v-row>
     </v-container>
@@ -482,12 +491,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import AddExternalModal from '~/components/AddExternalModal.vue'
 
 import StoreCard from '~/components/StoreCard'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 
 export default {
-  components: { StoreCard, LikeStoreButton },
+  components: { StoreCard, LikeStoreButton, AddExternalModal },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -643,10 +653,10 @@ export default {
           )
           break
         default:
-          this.reviews = this.reviews = this.selectedStore.reviews.filter(r=>true);
+          this.reviews = this.selectedStore.reviews.filter(r=>true);
           break
       }
-      this.reviews = this.reviews.sort((a, b) => {
+      this.reviews.sort((a, b) => {
         if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
           return Math.abs(b[0].score) - Math.abs(a[0].score)
         }

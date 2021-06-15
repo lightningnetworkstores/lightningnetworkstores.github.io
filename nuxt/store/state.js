@@ -16,7 +16,7 @@ export const state = () => ({
   configuration: null,
   replyReviewFee: 50,
   addStoreFee: 1000,
-  likedStores: [],
+  likedStores: {},
 })
 
 export default state
