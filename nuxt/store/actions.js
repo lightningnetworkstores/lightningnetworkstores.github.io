@@ -320,7 +320,7 @@ const actions = {
   },
   updateImage({ commit,state },data) {
     console.log(data)
-    return axios.post(`${state.baseURL}api/image`,data)
+    return axios.post(`${state.baseURL}api/image`,null,{params:data})
       .then(response => {
         console.log(response)
       })
