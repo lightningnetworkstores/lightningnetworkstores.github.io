@@ -9,13 +9,13 @@
         <v-card-title class="headline">
           Please confirm
         </v-card-title>
-        <v-flex class="corner-loading" v-if="isLoading">
+        <v-layout row class="mx-3 my-3" justify-center>
           <v-progress-circular
+            v-if="isLoading"
             indeterminate
-            size="20"
-            color="green"
-          ></v-progress-circular
-        ></v-flex>
+            size="30"
+          />
+        </v-layout>
         <v-card-text>
           Please confirm you want to remove this external link.
         </v-card-text>
@@ -61,5 +61,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-</style>
