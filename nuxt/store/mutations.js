@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const mutations = {
   setIsDev(state, data) {
     state.isDev = true
@@ -35,6 +37,9 @@ const mutations = {
   },
   updateSelectedStore(state, { key, value }) {
     state.selectedStore[key] = value
+  },
+  confirmStoreFieldRemoval(state, { field }) {
+    Vue.delete(state.selectedStore.external, field)
   },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags

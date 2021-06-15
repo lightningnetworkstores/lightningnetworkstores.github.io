@@ -316,11 +316,15 @@
                 <v-flex grow class="external-text">
                   <b>{{ propertyName }}</b>
                 </v-flex>
-                <v-flex shrink class="mr-4 mt-1">
+                <v-flex shrink class="mr-4 mt-1 d-flex">
                   <edit-store-modal
                     v-if="selectedStore.logged"
                     :store="selectedStore"
                     :editAttribute="{label: propertyName, value: external.href, key: propertyName }"
+                  />
+                  <delete-external-modal
+                    :store="selectedStore"
+                    :field="propertyName"
                   />
                 </v-flex>
               </v-layout>
