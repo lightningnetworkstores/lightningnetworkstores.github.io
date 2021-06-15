@@ -23,7 +23,7 @@
                     <v-carousel-item
                       v-for="(img, i) in selectedStore.images.number"
                       :key="i"
-                      class="carousel-style">
+                      class="carousel-style store_craousel">
                       <v-sheet height="100%" tile>
                         <v-img
                           :src="`${baseURL}thumbnails/${
@@ -74,6 +74,7 @@
                           color="white lighten-2"
                           dark
                           class="float-right edit_image"
+                          v-if="selectedStore.logged"
                           @click="openImageEditoDialog(i+1)"
                         >
                           <v-icon class="ml-1 " color="blue darken-2">
@@ -83,20 +84,18 @@
                     </v-carousel-item>
                     <template >
                     <v-carousel-item
-                      v-if="selectedStore.logged &&  selectedStore.images.number < selectedStore.configuration.max_images"
-                      class="carousel-style">
-                      <v-sheet height="100%" tile>
+                      v-if="selectedStore.logged && selectedStore.images.number < selectedStore.configuration.max_images"
+                      class="carousel-style store_craousel">
+                      <v-sheet height="100%"  tile>
                         <v-img
                            :src="`http://bitcoin-stores.com/noimage.png`"
-
                           class="text-right" >
-
                         </v-img>
                         <v-btn
                           color="white lighten-2"
                           dark
                           class="float-right edit_image"
-                          @click="openImageEditoDialog(null)"
+                          @click="openImageEditoDialog(selectedStore.images.number.length+1)"
                         >
                           <v-icon class="ml-1 " color="blue darken-2">
                             fas fa-edit
@@ -871,7 +870,17 @@ export default {
 .edit_image{
   position: absolute;
     z-index: 10101;
-    bottom: 43.8%;
+    bottom: 4px;
     right: 0;
+}
+.store_craousel{
+.v-sheet{
+  position: relative;
+  max-height: 500px;
+}
+.v-image__image{
+  max-height: 500px;
+  background-size: 100% 500px;
+}
 }
 </style>
