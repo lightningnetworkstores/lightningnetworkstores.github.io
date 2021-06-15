@@ -11,6 +11,8 @@
 				v-model="totalDays"
         type="number"
 				label="Distribute in the next days"
+        min="1"
+        max="99"
 				required
 				></v-text-field>
 			<v-text-field
