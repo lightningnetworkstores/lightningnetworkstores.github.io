@@ -346,6 +346,7 @@
         <v-col
           cols="11"
           sm="11"
+          md="9"
           class="pa-0"
         >
           <v-layout class="mt-4 mb-2" justify-center>
