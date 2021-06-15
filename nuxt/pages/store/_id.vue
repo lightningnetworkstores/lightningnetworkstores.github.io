@@ -323,13 +323,14 @@
                     :editAttribute="{label: propertyName, value: external.href, key: propertyName }"
                   />
                   <delete-external-modal
+                    v-if="selectedStore.logged"
                     :store="selectedStore"
                     :field="propertyName"
                   />
                 </v-flex>
               </v-layout>
             </v-card>
-            <v-card class="mx-3 py-2">
+            <v-card v-if="selectedStore.logged" class="mx-3 py-2">
               <v-layout row class="py-2 d-flex" justify-center>
                 <v-flex shrink class="mt-1">
                   <add-external-modal
