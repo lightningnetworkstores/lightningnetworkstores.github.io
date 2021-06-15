@@ -42,7 +42,7 @@ const mutations = {
     Vue.delete(state.selectedStore.external, field)
   },
   confirmStoreFieldAddition(state, { field, value }) {
-    Vue.set(state.selectedStore.external, field, {href: value});
+    Vue.set(state.selectedStore.external, field, { href: value })
   },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
@@ -60,7 +60,10 @@ const mutations = {
     state.faucetStats = faucetStats
   },
   updateLikedStores(state, { storeId, remove }) {
-    state.likedStores = {...state.likedStores, [`${storeId}`]: remove ? false : true}
+    state.likedStores = {
+      ...state.likedStores,
+      [`${storeId}`]: remove ? false : true,
+    }
   },
   setLikeCounter(state, { storeId, remove }) {
     const delta = remove ? -1 : 1

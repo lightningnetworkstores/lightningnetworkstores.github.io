@@ -58,7 +58,7 @@ export default {
 
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
-    debugPwd: process.env.API_SECRET || null
+    debugPwd: process.env.API_SECRET || null,
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -217,8 +217,8 @@ export default {
   build: {
     extend(config, { isDev, isClient }) {
       config.node = {
-        fs: 'empty'
+        fs: 'empty',
       }
-    }
-  }
+    },
+  },
 }
