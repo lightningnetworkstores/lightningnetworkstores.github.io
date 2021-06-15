@@ -11,21 +11,14 @@
             Edit&nbsp;{{ store.name }}
           </v-card-title>
           <v-layout row class="mx-3 my-3" justify-center>
-            <v-progress-circular
-              v-if="isLoading"
-              indeterminate
-              size="30"
-            />
+            <v-progress-circular v-if="isLoading" indeterminate size="30" />
           </v-layout>
           <v-card-text>
             <v-form @submit.prevent="submitEdit" ref="editform">
               <v-layout v-for="field in fields" :key="field.name" row>
                 <v-flex pl-3 pr-3>
-                  <v-text-field
-                    v-model="field.value"
-                    :label="field.label"
-                  >
-                  {{ field.value }}
+                  <v-text-field v-model="field.value" :label="field.label">
+                    {{ field.value }}
                   </v-text-field>
                 </v-flex>
               </v-layout>
@@ -48,9 +41,9 @@
 export default {
   props: ['store', 'editAttribute'],
   data() {
-    let fields = [];
+    let fields = []
     if (Array.isArray(this.editAttribute)) {
-      fields = [...this.editAttribute];
+      fields = [...this.editAttribute]
     } else {
       fields.push(this.editAttribute)
     }
@@ -58,7 +51,7 @@ export default {
       editAlert: { message: '', success: true },
       showEditDialog: false,
       isLoading: false,
-      fields: fields
+      fields: fields,
     }
   },
   methods: {
@@ -68,25 +61,25 @@ export default {
     },
 
     submitEdit() {
-      this.isLoading = true;
+      this.isLoading = true
       this.$refs.editform.validate()
-      const body = {};
-      this.fields.forEach(field => {
+      const body = {}
+      this.fields.forEach((field) => {
         body[field.key] = field.value
-      });
+      })
 
       if (this.store.id) {
         this.$store
           .dispatch('addStoreUpdate', {
             id: this.store.id,
-            body: body
+            body: body,
           })
           .then(
             (response) => {
               this.$refs.editform.reset()
               this.isLoading = false
-              this.showEditDialog = false;
-              this.closeDialog();
+              this.showEditDialog = false
+              this.closeDialog()
             },
             (error) => {
               console.error(error)

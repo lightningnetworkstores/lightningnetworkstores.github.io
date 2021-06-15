@@ -35,7 +35,9 @@
         </div>
         <div class="score">
           <vote-button :isUpvoting="true" :store="store" />
-          <span> {{ Number(store.upvotes -store.downvotes).toLocaleString()}}</span>
+          <span>
+            {{ Number(store.upvotes - store.downvotes).toLocaleString() }}</span
+          >
           <vote-button :isUpvoting="false" :store="store" />
         </div>
         <div class="content pa-2 pl-5" @click="gotoStore(store.id)">

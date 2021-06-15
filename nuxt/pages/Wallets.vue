@@ -3,16 +3,16 @@
     <v-layout justify-center>
       <v-flex xs12 md12 lg10 xl8>
         <v-container>
-					<v-layout row>
-						<v-flex pa-3>
-							<v-alert
-								class="text-center"
-								type="success"
-							>
-								Wallets can also be found by <nuxt-link class="tag-link" to="/?tags=wallet">filtering via tags</nuxt-link>
-							</v-alert>
-						</v-flex>
-					</v-layout>
+          <v-layout row>
+            <v-flex pa-3>
+              <v-alert class="text-center" type="success">
+                Wallets can also be found by
+                <nuxt-link class="tag-link" to="/?tags=wallet"
+                  >filtering via tags</nuxt-link
+                >
+              </v-alert>
+            </v-flex>
+          </v-layout>
           <v-layout row>
             <h1>Lightning mobile wallets</h1>
           </v-layout>
@@ -139,6 +139,6 @@ export default {
 
 <style scoped lang="scss">
 .tag-link {
-	color: white;
+  color: white;
 }
 </style>

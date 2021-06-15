@@ -128,7 +128,7 @@ export default {
   background-color: #dddddd;
 }
 //.comment-extra {
-  // color: rgba(0, 0, 0, 0.5);
+// color: rgba(0, 0, 0, 0.5);
 //}
 .comment-text {
   -ms-word-break: break-all;

@@ -101,8 +101,6 @@
                 </v-card-text> </v-card
             ></v-flex>
           </v-layout> -->
-
-
           </v-layout>
         </v-container>
       </v-flex>
@@ -172,19 +170,19 @@ export default {
         colors: ['#3c3d3c', '#323aa8'],
       },
       claimsChartData: [['Time', 'Claims', 'Users']],
-      claims: []
+      claims: [],
     }
   },
 
   async mounted() {
     await this.$store.dispatch('getStores')
-    let faucetStats = await this.$store.dispatch('getFaucetStats');
+    let faucetStats = await this.$store.dispatch('getFaucetStats')
     //claims = faucetStats.claims
 
     let stores = this.$store.state.stores
 
     this.trendingStores = stores.slice(0).sort((a, b) => {
-      return b.trending - a.trending;
+      return b.trending - a.trending
     })
 
     this.newestStores = stores
@@ -219,15 +217,20 @@ export default {
           this.merchantChartData.push(count)
         })
     },
-    getFaucetStatsData(){
-        let claims = this.$store.state.faucetStats.claims;
-        let users = this.$store.state.faucetStats.users;
-        
-        let count = [...Array(claims.length).keys()].map((x) => x + 1)
-        
-        count.map((x) => [new Date(claims[x - 1] * 10000000), x, users.filter((t)=>t<=claims[x-1]).length])
+    getFaucetStatsData() {
+      let claims = this.$store.state.faucetStats.claims
+      let users = this.$store.state.faucetStats.users
+
+      let count = [...Array(claims.length).keys()].map((x) => x + 1)
+
+      count
+        .map((x) => [
+          new Date(claims[x - 1] * 10000000),
+          x,
+          users.filter((t) => t <= claims[x - 1]).length,
+        ])
         .forEach((i) => this.claimsChartData.push(i))
-    }
+    },
   },
   computed: {
     getStores() {

@@ -1,29 +1,19 @@
 <template>
   <v-row justify="center">
-    <v-dialog
-      v-model="enabled"
-      persistent
-      max-width="500"
-    >
+    <v-dialog v-model="enabled" persistent max-width="500">
       <v-card v-if="loginResponse">
         <v-card-title>{{ loginResponseTitle }}</v-card-title>
         <v-card-text>{{ loginResponse.message }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="green darken-1"
-            text
-            @click="onCancel"
-          >
-            Ok
-          </v-btn>
+          <v-btn color="green darken-1" text @click="onCancel"> Ok </v-btn>
         </v-card-actions>
       </v-card>
       <v-card v-if="loginResponse === null">
-        <v-card-title class="text-h5">
-          Login
-        </v-card-title>
-        <v-card-text>An e-mail will be sent to {{ destinationEmail }}.</v-card-text>
+        <v-card-title class="text-h5"> Login </v-card-title>
+        <v-card-text
+          >An e-mail will be sent to {{ destinationEmail }}.</v-card-text
+        >
         <vue-hcaptcha
           v-if="token === null"
           ref="invisibleHcaptcha"
@@ -33,10 +23,15 @@
           @verify="onVerify"
         />
         <div class="text-center" v-if="isWaiting && !loginResponse">
-          <v-progress-circular indeterminate color="primary"/>
+          <v-progress-circular indeterminate color="primary" />
         </div>
         <div class="ml-5 mr-5">
-          <v-text-field @input="handleChange" label="Recipient" type="text" :value="recipient"></v-text-field>
+          <v-text-field
+            @input="handleChange"
+            label="Recipient"
+            type="text"
+            :value="recipient"
+          ></v-text-field>
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -62,64 +57,68 @@
   </v-row>
 </template>
 <script>
-import VueHcaptcha from '@hcaptcha/vue-hcaptcha';
+import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
 export default {
-  props: ['enabled', 'email', 'onCancel', 'onCaptchaToken', 'rooturl', 'loginResponse'],
+  props: [
+    'enabled',
+    'email',
+    'onCancel',
+    'onCaptchaToken',
+    'rooturl',
+    'loginResponse',
+  ],
   components: { VueHcaptcha },
   data() {
     return {
-      recipient: this.email.endsWith(this.rooturl) ? this.email.split('@')[0] : '',
+      recipient: this.email.endsWith(this.rooturl)
+        ? this.email.split('@')[0]
+        : '',
       domain: this.email.split('@')[1],
       token: null,
-      isWaiting: false
+      isWaiting: false,
     }
   },
   methods: {
     onSubmit(e) {
-      this.$refs.invisibleHcaptcha.execute();
+      this.$refs.invisibleHcaptcha.execute()
     },
     onVerify(token, ekey) {
-      this.token = token;
+      this.token = token
       try {
-        const { token, destinationEmail } = this;
-        const shouldSendRecipient = this.destinationEmail.endsWith(this.rooturl);
-        if (shouldSendRecipient)
-          this.onCaptchaToken(token, destinationEmail);
-        else
-          this.onCaptchaToken(token);
-        this.isWaiting = true;
-      } catch(err) {
-        console.error('error: ', err);
+        const { token, destinationEmail } = this
+        const shouldSendRecipient = this.destinationEmail.endsWith(this.rooturl)
+        if (shouldSendRecipient) this.onCaptchaToken(token, destinationEmail)
+        else this.onCaptchaToken(token)
+        this.isWaiting = true
+      } catch (err) {
+        console.error('error: ', err)
       }
     },
     handleChange(value) {
-      this.recipient = value;
+      this.recipient = value
       if (this.domain !== this.rooturl) {
-        this.domain = this.rooturl;
+        this.domain = this.rooturl
       }
-    }
+    },
   },
   computed: {
     destinationEmail() {
       if (!this.email.endsWith(this.rooturl) && this.recipient === '')
-        return `${this.email}`;
-      else
-        return `${this.recipient}@${this.domain}`;
+        return `${this.email}`
+      else return `${this.recipient}@${this.domain}`
     },
     showProgress() {
-      return this.isWaiting && this.loginResponse === null;
+      return this.isWaiting && this.loginResponse === null
     },
     loginResponseTitle() {
-      if (this.loginResponse.status === 'success')
-        return 'Success!';
-      else
-        return loginResponse.status;
-    }
-  }
+      if (this.loginResponse.status === 'success') return 'Success!'
+      else return loginResponse.status
+    },
+  },
 }
 </script>
 <style scoped>
-  .login-modal {
-    width: 20px;
-  }
+.login-modal {
+  width: 20px;
+}
 </style>

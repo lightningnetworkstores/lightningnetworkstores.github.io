@@ -9,16 +9,16 @@
     </div>
     <v-container>
       <v-row justify="center" v-if="selectedStore">
-        <v-col
-          cols="12"
-          sm="9"
-          xl="6"
-        >
+        <v-col cols="12" sm="9" xl="6">
           <v-row justify="center">
             <v-col cols="12" sm="12">
               <v-card class="pa-0 mb-3">
                 <div v-if="selectedStore.images.number > 1">
-                  <v-carousel v-model="imageCarousel" hide-delimiters height="auto">
+                  <v-carousel
+                    v-model="imageCarousel"
+                    hide-delimiters
+                    height="auto"
+                  >
                     <v-carousel-item
                       v-for="(img, i) in selectedStore.images.number"
                       :key="i"
@@ -144,7 +144,11 @@
                           <edit-store-modal
                             v-if="selectedStore.logged"
                             :store="selectedStore"
-                            :editAttribute="{label: 'Description', value: selectedStore.description, key: 'description' }"
+                            :editAttribute="{
+                              label: 'Description',
+                              value: selectedStore.description,
+                              key: 'description',
+                            }"
                             class="ml-2"
                           />
                         </div>
@@ -169,7 +173,11 @@
                             <edit-store-modal
                               v-if="selectedStore.logged"
                               :store="selectedStore"
-                              :editAttribute="{label: 'Node URI', value: selectedStore.uri, key: 'uri' }"
+                              :editAttribute="{
+                                label: 'Node URI',
+                                value: selectedStore.uri,
+                                key: 'uri',
+                              }"
                               class="ml-2"
                             />
                           </div>
@@ -204,7 +212,9 @@
                         >
                           <b>Lifetime score: &nbsp;</b
                           ><span v-if="selectedStore.lifetime">
-                            {{ Number(selectedStore.lifetime).toLocaleString() }}</span
+                            {{
+                              Number(selectedStore.lifetime).toLocaleString()
+                            }}</span
                           ><span v-else>0</span>
                         </div>
                       </v-col>
@@ -231,9 +241,15 @@
                           <v-icon>fab fa-twitter</v-icon>
                         </v-btn>
                         <edit-store-modal
-                          v-if="selectedStore.logged && selectedStore.social.twitter"
+                          v-if="
+                            selectedStore.logged && selectedStore.social.twitter
+                          "
                           :store="selectedStore"
-                          :editAttribute="{label: 'Twitter', value: selectedStore.social.twitter.href, key: 'twitter' }"
+                          :editAttribute="{
+                            label: 'Twitter',
+                            value: selectedStore.social.twitter.href,
+                            key: 'twitter',
+                          }"
                           class="ml-2"
                         />
                         <v-btn
@@ -246,9 +262,16 @@
                           <v-icon>fab fa-facebook</v-icon>
                         </v-btn>
                         <edit-store-modal
-                          v-if="selectedStore.logged && selectedStore.social.facebook"
+                          v-if="
+                            selectedStore.logged &&
+                            selectedStore.social.facebook
+                          "
                           :store="selectedStore"
-                          :editAttribute="{label: 'Facebook', value: selectedStore.social.facebook.href, key: 'facebook' }"
+                          :editAttribute="{
+                            label: 'Facebook',
+                            value: selectedStore.social.facebook.href,
+                            key: 'facebook',
+                          }"
                           class="ml-2"
                         />
                         <v-btn
@@ -261,9 +284,15 @@
                           <v-icon>fab fa-reddit</v-icon>
                         </v-btn>
                         <edit-store-modal
-                          v-if="selectedStore.logged && selectedStore.social.reddit"
+                          v-if="
+                            selectedStore.logged && selectedStore.social.reddit
+                          "
                           :store="selectedStore"
-                          :editAttribute="{label: 'Reddit', value: selectedStore.social.reddit.href, key: 'reddit' }"
+                          :editAttribute="{
+                            label: 'Reddit',
+                            value: selectedStore.social.reddit.href,
+                            key: 'reddit',
+                          }"
                           class="ml-2"
                         />
                       </div>
@@ -287,18 +316,33 @@
           </v-row>
         </v-col>
         <v-col sm="3" xl="2" class="pa-0 mt-3">
-          <v-col cols="0" sm="12" md="12" class="pa-0 d-flex flex-column justify-center">
+          <v-col
+            cols="0"
+            sm="12"
+            md="12"
+            class="pa-0 d-flex flex-column justify-center"
+          >
             <v-btn
               v-if="!selectedStore.logged"
               @click="requestLogin"
-              class="mx-3 mb-3 py-6 mt-3" large style="background: white">
+              class="mx-3 mb-3 py-6 mt-3"
+              large
+              style="background: white"
+            >
               <b>Login as owner</b>
             </v-btn>
-            <v-btn v-else @click="requestLogout"
-              class="mx-3 mb3 py-6 mt-3" large style="background: white">
+            <v-btn
+              v-else
+              @click="requestLogout"
+              class="mx-3 mb3 py-6 mt-3"
+              large
+              style="background: white"
+            >
               <b>Logout</b>
             </v-btn>
-            <div v-if="hasExternal" class="ma-3 headline font-weight-medium">External</div>
+            <div v-if="hasExternal" class="ma-3 headline font-weight-medium">
+              External
+            </div>
             <v-card
               v-for="(external, propertyName, index) in selectedStore.external"
               :key="index"
@@ -320,7 +364,11 @@
                   <edit-store-modal
                     v-if="selectedStore.logged"
                     :store="selectedStore"
-                    :editAttribute="{label: propertyName, value: external.href, key: propertyName }"
+                    :editAttribute="{
+                      label: propertyName,
+                      value: external.href,
+                      key: propertyName,
+                    }"
                   />
                   <delete-external-modal
                     v-if="selectedStore.logged"
@@ -333,20 +381,15 @@
             <v-card v-if="selectedStore.logged" class="mx-3 py-2">
               <v-layout row class="py-2 d-flex" justify-center>
                 <v-flex shrink class="mt-1">
-                  <add-external-modal
-                    :store="selectedStore"
-                  />
+                  <add-external-modal :store="selectedStore" />
                 </v-flex>
               </v-layout>
             </v-card>
           </v-col>
         </v-col>
       </v-row>
-      <v-row justify="center" v-if="relatedStores.length>0">
-        <v-col
-          cols="11"
-          sm="9"
-        >
+      <v-row justify="center" v-if="relatedStores.length > 0">
+        <v-col cols="11" sm="9">
           <v-layout class="mt-4 mb-2" justify-center>
             <h1>Similar</h1>
           </v-layout>
@@ -367,15 +410,10 @@
             </v-btn>
           </v-layout>
         </v-col>
-        <v-col cols="0" sm="3" xl="2" class="pa-0">
-        </v-col>
+        <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
       </v-row>
       <v-row justify="center" v-if="selectedStore">
-        <v-col
-          cols="12"
-          sm="9"
-          xl="6"
-        >
+        <v-col cols="12" sm="9" xl="6">
           <v-card class="my-8 pa-2">
             <v-card-title primary-title class="pa-3">
               <div>
@@ -406,8 +444,7 @@
                     Positive:
                     {{
                       selectedStore.reviews.filter(
-                        (review) =>
-                          review[0].score > 0
+                        (review) => review[0].score > 0
                       ).length
                     }}
                   </h4>
@@ -427,9 +464,7 @@
                   >
                   <h4>
                     All:
-                    {{
-                      selectedStore.reviews.length
-                    }}
+                    {{ selectedStore.reviews.length }}
                   </h4></v-flex
                 >
                 <v-flex grow justify-center pa-3
@@ -469,8 +504,7 @@
             :store="selectedStore"
           ></Review>
         </v-col>
-        <v-col cols="0" sm="3" xl="2" class="pa-0">
-        </v-col>
+        <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
       </v-row>
     </v-container>
     <login-modal
@@ -484,7 +518,8 @@
     <logout-modal
       :enabled="showLogoutModal"
       :onCancel="handleCancelLogout"
-      :onConfirm="handleLogoutConfirm">
+      :onConfirm="handleLogoutConfirm"
+    >
     </logout-modal>
   </div>
 </template>
@@ -544,23 +579,24 @@ export default {
       maxSimilarToShow: 1,
       showLoginModal: false,
       showLogoutModal: false,
-      loginResponse: null
+      loginResponse: null,
     }
   },
   async asyncData({ params, store }) {
-
     const selectedStore = await store.dispatch('getStore', { id: params.id })
     store.dispatch('setStore', selectedStore)
-    
+
     const storeId = selectedStore.id
 
     //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
-    let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort((a, b) => {
+    let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
+      (a, b) => {
         if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
           return Math.abs(b[0].score) - Math.abs(a[0].score)
         }
         return b[0].timestamp - a[0].timestamp
-      });
+      }
+    )
 
     return { selectedStore, reviews, storeId }
   },
@@ -598,23 +634,24 @@ export default {
     },
     editStoreName() {
       return [
-        {label: 'Store Name', value: this.selectedStore.name, key: 'name' },
-        {label: 'URL', value: this.selectedStore.href, key: 'href' }
+        { label: 'Store Name', value: this.selectedStore.name, key: 'name' },
+        { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
     ...mapState(['likedStores', 'store']),
   },
 
   methods: {
-    sortReviewThreads(reviewThreads){ //can't use?
-        reviewThreads.sort((a, b) => {
+    sortReviewThreads(reviewThreads) {
+      //can't use?
+      reviewThreads.sort((a, b) => {
         if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
           return Math.abs(b[0].score) - Math.abs(a[0].score)
         }
         return b[0].timestamp - a[0].timestamp
       })
-      return reviewThreads;
-    },  
+      return reviewThreads
+    },
     toggleMoreSimilar() {
       this.maxSimilarToShow =
         this.maxSimilarToShow !== 1 ? 1 : this.relatedStores.length
@@ -640,7 +677,7 @@ export default {
       this.currentFilter = filter
       switch (filter) {
         case 'all':
-          this.reviews = this.selectedStore.reviews.filter(r=>true);
+          this.reviews = this.selectedStore.reviews.filter((r) => true)
           break
         case 'negative':
           this.reviews = this.selectedStore.reviews.filter(
@@ -653,7 +690,7 @@ export default {
           )
           break
         default:
-          this.reviews = this.selectedStore.reviews.filter(r=>true);
+          this.reviews = this.selectedStore.reviews.filter((r) => true)
           break
       }
       this.reviews.sort((a, b) => {
@@ -661,7 +698,7 @@ export default {
           return Math.abs(b[0].score) - Math.abs(a[0].score)
         }
         return b[0].timestamp - a[0].timestamp
-      });
+      })
     },
     openImage(i) {
       this.imageModal = true
@@ -678,34 +715,36 @@ export default {
     onCaptchaToken(token, recipient) {
       const payload = {
         token: token,
-        storeId: this.selectedStore.id
-      };
-      if (recipient) {
-        payload['recipient'] = recipient;
+        storeId: this.selectedStore.id,
       }
-      this.$store.dispatch('login', payload)
-        .then(data => this.loginResponse = data)
-        .catch(err => {
-          console.error(err);
-          this.closeDialog();
-        });
+      if (recipient) {
+        payload['recipient'] = recipient
+      }
+      this.$store
+        .dispatch('login', payload)
+        .then((data) => (this.loginResponse = data))
+        .catch((err) => {
+          console.error(err)
+          this.closeDialog()
+        })
     },
     handleExternalClick(url) {
-      window.open(url, '_blank', 'noopener');
+      window.open(url, '_blank', 'noopener')
     },
     handleLogoutConfirm() {
-      this.$store.dispatch('logout')
-        .then(() => this.showLogoutModal = false)
-        .catch(err => {
-          console.error(err);
-          this.showLogoutModal = false;
+      this.$store
+        .dispatch('logout')
+        .then(() => (this.showLogoutModal = false))
+        .catch((err) => {
+          console.error(err)
+          this.showLogoutModal = false
         })
     },
     requestLogout() {
-      this.showLogoutModal = true;
+      this.showLogoutModal = true
     },
     handleCancelLogout() {
-      this.showLogoutModal = false;
+      this.showLogoutModal = false
     },
   },
 }
