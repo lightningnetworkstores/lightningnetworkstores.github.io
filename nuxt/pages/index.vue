@@ -29,6 +29,7 @@
         :searchQuery="searchQuery"
         :selectedSort="selectedSort"
         @onQueryChange="queryChange"
+        :filteredStores="getStores"
       />
     </v-navigation-drawer>
     <div :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 300px;' : ''">
@@ -253,7 +254,6 @@ export default {
     tagFilterBySearch() {
       console.log(this.tagSearchQuery)
       if (this.tagSearchQuery) {
-        console.log('lll')
         this.tags = this.tags.filter((item) => {
           return this.tagSearchQuery
             .toLowerCase()
@@ -284,7 +284,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['filteredTags']),
+    ...mapState(['filteredTags', 'selectedTags', 'excludedTags']),
     baseURL() {
       return this.$store.state.baseURL
     },
@@ -321,12 +321,30 @@ export default {
       })
       return excude
     },
-    selectedTags() {
-      return this.$store.state.selectedTags
-    },
 
     getStores() {
-      let filtersStore = this.selectedTags.filter((x) => x !== null).length
+      const stores = this.$store.getters.getStores(
+        { sector: this.sector, digitalGoods: this.digitalGoods },
+        this.selectedSort,
+        this.searchQuery,
+        this.safeMode
+      )
+
+      let filteredStores = stores
+
+      if (this.selectedTags.length !== 0) {
+        filteredStores = filteredStores.filter((store) =>
+          store.tags.some((tag) => this.selectedTags.includes(tag))
+        )
+      }
+
+      if (this.excludedTags.length !== 0) {
+        filteredStores = filteredStores.filter(
+          (store) => !store.tags.some((tag) => this.excludedTags.includes(tag))
+        )
+      }
+
+      /* let filtersStore = this.selectedTags.filter((x) => x !== null).length
         ? this.$store.getters
             .getStores(
               { sector: this.sector, digitalGoods: this.digitalGoods },
@@ -341,7 +359,7 @@ export default {
 
               return (
                 x.tags.filter((y) => {
-                  return this.checkedTags.includes(y)
+                  return this.selectedTags.includes(y)
                 }).length == this.selectedTags.length
               )
               //console.log(this.excludedTag)
@@ -364,9 +382,9 @@ export default {
         filtersStore = filtersStore.filter((x) => {
           return !x.tags.some((item) => this.excludedTag.includes(item))
         })
-      }
+      } */
 
-      return filtersStore
+      return filteredStores
     },
   },
   watch: {

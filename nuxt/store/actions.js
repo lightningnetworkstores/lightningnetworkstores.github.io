@@ -350,5 +350,21 @@ const actions = {
       commit('updateExcludedTag', { tag, remove: true })
     }
   },
+
+  setFilteredTags({ state, commit }) {
+    /* const filterExcludedStores = state.stores.filter(
+      (store) => !state.excludedTags.some((tag) => store.tags.includes(tag))
+    ) */
+
+    const filteredStoresTags = state.stores
+      .filter((store) =>
+        state.selectedTags.some((tag) => store.tags.includes(tag))
+      )
+      .flatMap((store) => store.tags)
+
+    const uniqueTags = [...new Set(filteredStoresTags)]
+
+    commit('setFilteredTags', uniqueTags)
+  },
 }
 export default actions

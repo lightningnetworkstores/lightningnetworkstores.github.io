@@ -38,6 +38,10 @@ export default {
     tagSearchQuery: '',
     searchQuery: '',
     selectedSort: '',
+    filteredStores: {
+      type: Array,
+      default: [],
+    },
   },
 
   data() {
@@ -51,13 +55,11 @@ export default {
 
   computed: {
     ...mapState({
-      excludeTagsTest(state) {
-        return state.excludedTags
-      },
+      excludeTagsTest: (state) => state.excludedTags,
 
-      selectedTagsTest(state) {
-        return state.selectedTags
-      },
+      selectedTagsTest: (state) => state.selectedTags,
+
+      filteredTags: (state) => state.filteredTags,
     }),
 
     excludeTag() {
@@ -73,11 +75,16 @@ export default {
       })
       return excude
     },
+
     stores() {
       return this.$store.state.stores
     },
     tags() {
-      let tags = this.$store.state.tags
+      const tags =
+        this.filteredTags.length !== 0
+          ? this.filteredTags
+          : this.$store.state.tags
+
       if (this.tagSearchQuery) {
         return tags.filter((tag) => {
           return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
@@ -90,13 +97,12 @@ export default {
 
   methods: {
     handleTagState(value) {
-      console.log(value)
-
       if (this.excludeTagsTest.includes(value)) {
         this.tagsChecked.splice(this.tagsChecked.indexOf(value), 1)
       }
 
       this.$store.dispatch('setSelectedTag2', { tag: value })
+      this.$store.dispatch('setFilteredTags')
     },
 
     selectDeselectTag(value, i) {
@@ -149,7 +155,7 @@ export default {
     },
     storeCountByTag(tag) {
       let count = 0
-      this.stores.forEach((item) => {
+      this.filteredStores.forEach((item) => {
         if (item.tags.includes(tag)) {
           count++
         }
