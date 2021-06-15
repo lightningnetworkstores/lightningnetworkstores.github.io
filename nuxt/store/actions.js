@@ -331,5 +331,15 @@ const actions = {
     const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
     commit('setStoreLikes', storeLikes)
   },
+  deleteStoreField({ state, commit }, { id, field }) {
+    const body = { fields: [field] };
+    return axios.delete(`${state.baseURL}api/field?id=${id}`, {data: body})
+      .then(response => {
+        if (response.status === 200) {
+          commit('confirmStoreFieldRemoval', { field })
+        }
+      })
+      .catch(console.error)
+  }
 }
 export default actions

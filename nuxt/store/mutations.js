@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const mutations = {
   setIsDev(state, data) {
     state.isDev = true
@@ -36,6 +38,9 @@ const mutations = {
   updateSelectedStore(state, { key, value }) {
     state.selectedStore[key] = value
   },
+  confirmStoreFieldRemoval(state, { field }) {
+    Vue.delete(state.selectedStore.external, field)
+  },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },
@@ -55,12 +60,17 @@ const mutations = {
     state.likedStores = {...state.likedStores, [`${storeId}`]: remove ? false : true}
   },
   setLikeCounter(state, { storeId, remove }) {
-    const storeIndex = state.stores.findIndex((store) => store.id === storeId)
-    if (storeIndex !== -1) {
-      const store = state.stores[storeIndex]
-      const delta = remove ? -1 : 1
-      store.likes += delta
-      state.stores[storeIndex] = store
+    const delta = remove ? -1 : 1
+    if (state.stores.length > 0) {
+      const storeIndex = state.stores.findIndex((store) => store.id === storeId)
+      if (storeIndex !== -1) {
+        const store = state.stores[storeIndex]
+        store.likes += delta
+        state.stores[storeIndex] = store
+      }
+    }
+    if (state.store) {
+      state.store.likes += delta
     }
   },
   setStoreLikes(state, likes) {
