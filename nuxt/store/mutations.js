@@ -41,6 +41,9 @@ const mutations = {
   confirmStoreFieldRemoval(state, { field }) {
     Vue.delete(state.selectedStore.external, field)
   },
+  confirmStoreFieldAddition(state, { field, value }) {
+    Vue.set(state.selectedStore.external, field, {href: value});
+  },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },
