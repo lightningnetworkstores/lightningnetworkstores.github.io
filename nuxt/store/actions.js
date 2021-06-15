@@ -272,11 +272,24 @@ const actions = {
       method: 'post',
       url: `${state.baseURL}api/like?storeID=${storeId}&remove=${remove}`,
     }).then((res) => {
-      if (res.status !== `fail`) {
+      if (res.status === 202) {
+        // Store was already liked/unliked, we just didn't know about this
         const likes = res.data.data.likes
+        likes.forEach((id) => (likedStores[id] = true))
         likedStores[storeId] = remove ? false : true
         localStorage.setItem(lsKey, JSON.stringify(likedStores))
-        commit('setLikeInStore', { storeId, remove })
+        commit('updateLikedStores', { storeId, remove })
+        likes.forEach((id) => {
+          commit('updateLikedStores', { storeId: id, remove: false })
+        })
+      } else if (res.status === 200) {
+        // Store 'like' status was changed successfully
+        likedStores[storeId] = remove ? false : true
+        localStorage.setItem(lsKey, JSON.stringify(likedStores))
+        commit('setLikeCounter', { storeId, remove })
+        commit('updateLikedStores', { storeId, remove })
+      } else {
+        console.warn('Unhndled case')
       }
     })
   },
@@ -320,6 +333,46 @@ const actions = {
   updateStoreLikes({ commit }) {
     const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
     commit('setStoreLikes', storeLikes)
+  },
+  deleteStoreField({ state, commit }, { id, field }) {
+    const body = { fields: [field] }
+    return axios
+      .delete(`${state.baseURL}api/field?id=${id}`, { data: body })
+      .then((response) => {
+        if (response.status === 200) {
+          commit('confirmStoreFieldRemoval', { field })
+        }
+      })
+      .catch(console.error)
+  },
+  addExternalAttribute({ state, commit }, { id, name, value }) {
+    const body = { [`${name}`]: value }
+    return axios
+      .put(`${state.baseURL}api/field?id=${id}`, body)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response.data
+          if (data[name]) {
+            commit('confirmStoreFieldAddition', { field: name, value })
+            return {
+              result: response.data.status,
+            }
+          }
+        }
+        return {}
+      })
+      .catch((err) => {
+        console.error(err)
+        if (err.response && err.response.data) {
+          return {
+            error: err.response.data.message,
+          }
+        } else {
+          return {
+            error: 'Undefined error',
+          }
+        }
+      })
   },
   setSelectedTags({ state, commit }, { selectedTags, excludedTags }) {
     commit('setSelectedTags', selectedTags)
