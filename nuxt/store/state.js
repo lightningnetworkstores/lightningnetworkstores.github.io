@@ -18,6 +18,7 @@ export const state = () => ({
   addStoreFee: 1000,
   likedStores: {},
   filteredTags: [],
+  filteredStores: [],
 })
 
 export default state

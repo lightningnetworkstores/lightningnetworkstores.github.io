@@ -342,29 +342,42 @@ const actions = {
       !state.selectedTags.includes(tag) &&
       !state.excludedTags.includes(tag)
     ) {
+      console.log(`Add ${tag} to selectedTags`)
       commit('updateSelectedTag', { tag, remove: false })
     } else if (state.selectedTags.includes(tag)) {
       commit('updateSelectedTag', { tag, remove: true })
       commit('updateExcludedTag', { tag, remove: false })
+
+      console.log(`Add ${tag} to excludedTags`)
     } else if (state.excludedTags.includes(tag)) {
       commit('updateExcludedTag', { tag, remove: true })
+      console.log(`Delete ${tag} from excludedTags`)
     }
   },
 
   setFilteredTags({ state, commit }) {
-    /* const filterExcludedStores = state.stores.filter(
-      (store) => !state.excludedTags.some((tag) => store.tags.includes(tag))
-    ) */
+    const stores =
+      state.filteredStores.length !== 0 ? state.filteredStores : state.stores
 
-    const filteredStoresTags = state.stores
-      .filter((store) =>
-        state.selectedTags.every((tag) => store.tags.includes(tag))
-      )
+    console.log(`stores:`, state.filteredStores.length, state.stores.length)
+
+    const filteredTags = stores
+      .filter((store) => {
+        const test = state.selectedTags.every((tag) => store.tags.includes(tag))
+        // console.log(test)
+
+        return test
+      })
       .flatMap((store) => store.tags)
 
-    const uniqueTags = [...new Set(filteredStoresTags)]
+    const uniqueTags = [...new Set(filteredTags.concat(state.excludedTags))]
+    console.log(uniqueTags.length, state.tags.length)
 
     commit('setFilteredTags', uniqueTags)
+  },
+
+  setFilteredStores({ commit }, stores) {
+    commit('updateFilteredStores', stores)
   },
 }
 export default actions

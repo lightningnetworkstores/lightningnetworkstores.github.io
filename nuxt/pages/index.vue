@@ -344,45 +344,7 @@ export default {
         )
       }
 
-      /* let filtersStore = this.selectedTags.filter((x) => x !== null).length
-        ? this.$store.getters
-            .getStores(
-              { sector: this.sector, digitalGoods: this.digitalGoods },
-              this.selectedSort,
-              this.searchQuery,
-              this.safeMode
-            )
-            .filter((x) => {
-              if (!this.tagSearchQuery) {
-                if (!this.tags.length) return true
-              }
-
-              return (
-                x.tags.filter((y) => {
-                  return this.selectedTags.includes(y)
-                }).length == this.selectedTags.length
-              )
-              //console.log(this.excludedTag)
-
-              // return (
-              //   x.tags.filter((y) => {
-              //     const tagIndex = this.tags.indexOf(y)
-              //     return this.checkedTags[tagIndex]
-              //   }).length == this.selectedTags.length
-              // )
-            })
-        : this.$store.getters.getStores(
-            { sector: this.sector, digitalGoods: this.digitalGoods },
-            this.selectedSort,
-            this.searchQuery,
-            this.safeMode
-          )
-
-      if (this.excludedTag.length > 0) {
-        filtersStore = filtersStore.filter((x) => {
-          return !x.tags.some((item) => this.excludedTag.includes(item))
-        })
-      } */
+      this.$store.dispatch('setFilteredStores', filteredStores)
 
       return filteredStores
     },

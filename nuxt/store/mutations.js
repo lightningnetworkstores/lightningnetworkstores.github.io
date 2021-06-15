@@ -84,6 +84,9 @@ const mutations = {
       state.selectedTags.push(tag)
     }
   },
+  updateFilteredStores(state, stores) {
+    state.filteredStores = stores
+  },
 }
 
 export default mutations
