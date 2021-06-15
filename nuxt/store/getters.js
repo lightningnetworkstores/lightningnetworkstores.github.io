@@ -104,14 +104,13 @@ const getters = {
               return b.score - a.score;
             });
             // Add most treding tore to top
-            console.log('isFiltered=' + isFiltered)
             if (!isFiltered) {
               var mostTrendingStore = stores.slice().sort((a, b) => {
                 return b.trending - a.trending;
               })[0];
-            console.log('trending='+mostTrendingStore)
+
               // Is above trending threshold?
-              if (mostTrendingStore && state.scores.length && state.scores[mostTrendingStore.id][2] >= 10) {
+              if (mostTrendingStore && stores.length > 0 && mostTrendingStore.trending >= 10) {
                 stores.splice(stores.indexOf(mostTrendingStore), 1);
                 stores.unshift(mostTrendingStore);
               }
@@ -119,7 +118,6 @@ const getters = {
             break;
         }
       }
-
       return stores;
     }
   },
@@ -156,6 +154,7 @@ const getters = {
         trending: discussion.trending,
         rank: discussion.rank,
         upvotes: discussion.upvotes,
+        downvotes: discussion.downvotes,
         href: discussion.href,
         name: discussion.name,
         description: discussion.description,
@@ -165,11 +164,11 @@ const getters = {
       };
       return {
         store: store,
-        comments: discussion.comments
+        reviews: discussion.reviews
       }
     });
     return formattedDiscussions;
-  }
+  },
 }
 
 export default getters;

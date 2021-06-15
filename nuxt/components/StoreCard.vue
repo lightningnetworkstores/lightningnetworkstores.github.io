@@ -8,7 +8,7 @@
             max-height="200px"
             :src="`${baseURL}thumbnails/${store.id}.jpg`"
             class="text-right"
-            @click.native="gotoStore(store.id)"
+            @click.native="gotoStore(store.rooturl)"
           >
             <v-chip
               v-if="isNewStore(store)"
@@ -35,7 +35,7 @@
         </div>
         <div class="score">
           <vote-button :isUpvoting="true" :store="store" />
-          <span> {{ store.upvotes | splitNumber }}</span>
+          <span> {{ Number(store.upvotes -store.downvotes).toLocaleString()}}</span>
           <vote-button :isUpvoting="false" :store="store" />
         </div>
         <div class="content pa-2 pl-5" @click="gotoStore(store.id)">
@@ -90,8 +90,16 @@
                 </v-list>
               </v-menu>
             </div>
-            <div class="comments" v-if="store.total_comments">
-              <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
+            <div
+              :class="{
+                'btn-actions': true,
+                'sm-btn-actions': $vuetify.breakpoint.mobile,
+              }"
+            >
+              <div class="comments" v-if="store.total_comments">
+                <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
+              </div>
+              <like-store-button :store="store" />
             </div>
           </div>
         </div>
@@ -102,10 +110,11 @@
 
 <script>
 import VoteButton from '../components/VoteButton.vue'
+import LikeStoreButton from './LikeStoreButton.vue'
+
 export default {
   props: ['store'],
-  components: { VoteButton },
-
+  components: { VoteButton, LikeStoreButton },
   methods: {
     gotoStore(store_id) {
       this.$router.push('/store/' + store_id)
@@ -114,7 +123,9 @@ export default {
       return new Date(store.added * 1000 + 1000 * 60 * 60 * 24 * 8) > new Date()
     },
     hasNewComment(store) {
-      return new Date(store.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
+      return (
+        new Date(store.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
+      )
     },
   },
   computed: {

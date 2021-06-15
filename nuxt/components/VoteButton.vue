@@ -25,23 +25,48 @@
       </span>
     </template>
 
-    <v-dialog v-model="showDialog" persistent max-width="500">
+    <v-dialog
+      v-model="showDialog"
+      persistent
+      max-width="500"
+      style="overflow-x: hidden"
+    >
       <v-card>
         <template v-if="showDialog">
-          <div v-if="paymentRequest && isPaid" class="text-xs-center">
+          <div v-if="paymentRequest && isPaid" class="text-center">
             <!-- paymentRequest && isPaid -->
-            <v-card-title class="headline">
-              <v-layout row>
-                <v-flex>Payment successful</v-flex>
-              </v-layout>
-            </v-card-title>
-            <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
-            <v-layout row mt-2>
-              <v-flex
-                >Go to
-                <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
-              >
-            </v-layout>
+            <v-card flat>
+              <v-card-title class="headline">
+                <v-row class="py-2">
+                  <v-flex>Payment successful</v-flex>
+                </v-row>
+              </v-card-title>
+              <v-card-text>
+                <v-icon size="100" color="green" pa-5
+                  >fas fa-check-circle</v-icon
+                >
+              </v-card-text>
+              <v-card-text>
+                <blockquote class="twitter-tweet" v-if="tweet">
+                  <a
+                    data-width="300"
+                    :href="'https://twitter.com/x/status/' + tweet"
+                  ></a>
+                </blockquote>
+                <script
+                  async
+                  src="https://platform.twitter.com/widgets.js"
+                  charset="utf-8"
+                ></script>
+
+                <v-row class="ma-2 pt-2">
+                  <v-flex
+                    >Go to
+                    <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
+                  >
+                </v-row>
+              </v-card-text>
+            </v-card>
           </div>
 
           <div v-else>
@@ -228,6 +253,7 @@ export default {
       paymentID: '',
       expiryTime: new Date(),
       isPaid: false,
+      tweet: null,
 
       checkPaymentTimer: null,
 
@@ -368,9 +394,13 @@ export default {
       if (this.expiryTime > new Date()) {
         this.$store.dispatch('checkPayment', { id: this.paymentID }).then(
           (response) => {
-            if (response == 'true') {
+            console.log(response.data.paid)
+            if (response.data.paid == true) {
               this.isPaid = true
               clearInterval(this.checkPaymentTimer)
+            }
+            if (response.data.tweet !== undefined) {
+              this.tweet = response.data.tweet
             }
           },
           (error) => {

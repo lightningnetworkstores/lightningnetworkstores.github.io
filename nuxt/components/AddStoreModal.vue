@@ -1,38 +1,47 @@
 <template>
   <div class="add-store-modal">
-    <v-btn
-      color="green"
-      dark
-      fab
-      fixed
-      bottom
-      right
-      @click="showAddDialog = true"
-    >
+    <v-btn color="green" dark fab fixed bottom right @click="openDialog">
       <v-icon>mdi-plus</v-icon>
     </v-btn>
 
     <!-- Add store modal -->
-    <v-dialog v-model="showAddDialog" max-width="500" persistent>
+    <v-dialog
+      v-model="showAddDialog"
+      max-width="500"
+      persistent
+      style="overflow-x: hidden"
+      scrollable
+    >
       <template v-if="showAddDialog">
         <v-card>
-          <v-layout row v-if="addAlert.message.length">
-            <v-flex pa-3>
+          <v-layout v-if="addAlert.message.length">
+            <v-flex>
               <v-alert
-                :value="addAlert.message"
                 :type="addAlert.success ? 'success' : 'error'"
                 transition="scale-transition"
+                class="mb-0"
               >
                 {{ addAlert.message }}
               </v-alert>
             </v-flex>
           </v-layout>
-          <div v-if="paymentRequest.length && isPaid" class="text-xs-center">
+          <div v-if="isPaid" class="text-center">
             <!-- paymentRequest && isPaid -->
             <v-card-title class="headline">
-              <v-flex>Payment successful</v-flex>
+              <v-row class="py-2">
+                <v-flex>{{ confirm_title }}</v-flex>
+              </v-row>
             </v-card-title>
-            <v-icon size="200" color="green" pa-5>fas fa-check-circle</v-icon>
+            <v-icon size="100" color="green" pa-5>fas fa-check-circle</v-icon>
+
+            <blockquote class="twitter-tweet" v-if="tweet">
+              <a :href="'https://twitter.com/x/status/' + tweet"></a>
+            </blockquote>
+            <script
+              async
+              src="https://platform.twitter.com/widgets.js"
+              charset="utf-8"
+            ></script>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -41,7 +50,7 @@
             </v-card-actions>
           </div>
 
-          <div v-else>
+          <v-card-text class="pa-0 cardContent" v-else>
             <v-card-title class="headline">
               <v-flex grow>Automatically add new store!</v-flex>
               <v-flex shrink v-if="isLoading || paymentRequest.length"
@@ -60,13 +69,13 @@
             </v-card-text>
 
             <div v-if="paymentRequest">
-              <v-layout row>
-                <v-flex pa-3 class="text-xs-center"
+              <v-layout row class="ma-0">
+                <v-flex pa-3 class="text-center"
                   ><h3>{{ addStoreFee }} sat</h3></v-flex
                 >
               </v-layout>
-              <v-layout row>
-                <v-flex pl-3 pr-3 class="text-xs-center"
+              <v-layout row class="ma-0">
+                <v-flex pl-3 pr-3 class="text-center"
                   ><qrcode-vue
                     class="qrcode"
                     size="300"
@@ -75,7 +84,7 @@
                 ></v-flex>
               </v-layout>
 
-              <v-layout row>
+              <v-layout row class="ma-0">
                 <v-flex pl-3 pr-3>
                   <v-text-field
                     :value="paymentRequest"
@@ -88,8 +97,8 @@
                   ></v-text-field
                 ></v-flex>
               </v-layout>
-              <v-layout row>
-                <v-flex pl-3 pr-3 class="text-xs-center">
+              <v-layout row class="ma-0">
+                <v-flex pl-3 pr-3 class="text-center">
                   <a :href="'lightning:' + paymentRequest" class="link-button"
                     >Open in wallet</a
                   >
@@ -165,35 +174,6 @@
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
-                    <v-combobox
-                      v-model="addDialogForm.sector"
-                      item-text="name"
-                      item-value="prop"
-                      label="Sector"
-                      :items="sectorFormItems"
-                      return-object
-                      :rules="[(v) => !!v || 'Sector is required']"
-                    ></v-combobox>
-                  </v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
-                    <v-combobox
-                      v-model="addDialogForm.digitalGoods"
-                      item-text="name"
-                      item-value="prop"
-                      label="Digital goods"
-                      :items="digitalGoodFormItems"
-                      return-object
-                      :rules="[(v) => !!v || 'Digital goods is required']"
-                    ></v-combobox>
-                  </v-flex>
-                </v-layout>
-
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <v-text-field
@@ -241,7 +221,7 @@
                 </v-card-actions>
               </v-form>
             </v-card-text>
-          </div>
+          </v-card-text>
         </v-card>
       </template>
     </v-dialog>
@@ -285,12 +265,14 @@ export default {
       showAddDialog: false,
       addDialogForm: {},
       addAlert: { message: '', success: true },
+      confirm_title: 'Store successfully added.',
       isLoading: false,
 
       paymentRequest: '',
       paymentID: '',
       expiryTime: new Date(),
       isPaid: false,
+      tweet: null,
 
       checkPaymentTimer: null,
     }
@@ -312,6 +294,11 @@ export default {
     },
   },
   methods: {
+    openDialog() {
+      this.paymentRequest = ''
+      this.isPaid = false
+      this.showAddDialog = true
+    },
     cancel() {
       if (this.paymentRequest.length > 0) {
         this.paymentRequest = ''
@@ -356,17 +343,19 @@ export default {
             description: this.addDialogForm.description,
             url: this.addDialogForm.url,
             uri: this.addDialogForm.uri,
-            sector: this.addDialogForm.sector.prop,
-            digitalGoods: this.addDialogForm.digitalGoods.prop,
             contributor: this.addDialogForm.contributor,
             recaptcha: token,
           })
           .then(
             (response) => {
-              if (response.data.includes('Waiting for payment')) {
-                let splitResp = response.data.split('=')
-                this.paymentRequest = splitResp[splitResp.length - 2]
-                this.paymentID = splitResp[splitResp.length - 1]
+              if (
+                response.message.includes(
+                  'Please pay this anti-spam fee or ask for a contributor code.'
+                )
+              ) {
+                this.confirm_title = 'Store successfully added.'
+                this.paymentRequest = response.data.payment_request
+                this.paymentID = response.data.invoiceID
 
                 let date = new Date()
                 this.expiryTime = new Date(
@@ -375,11 +364,23 @@ export default {
                 this.checkPaymentTimer = setInterval(() => {
                   this.checkPayment()
                 }, 3000)
-              } else if (response.data.includes('Store successfully added')) {
-                this.addAlert.message = response.data
-                this.addAlert.success = true
+              } else if (response.data.submitted == true) {
+                this.confirm_title = response.message
+                this.isPaid = true
+
                 this.addDialogForm = {}
-                this.$refs.addform.reset()
+
+                if (response.data.tweet !== undefined) {
+                  this.tweet = response.data.tweet
+                }
+
+                // this.addAlert.message = response.data
+                // this.addAlert.success = true
+                // this.addDialogForm = {}
+                // this.$refs.addform.reset()
+              } else if (response.status === 'fail') {
+                this.addAlert.message = response.message
+                this.addAlert.success = false
               } else {
                 this.addAlert.message = response.data
                 this.addAlert.success = false
@@ -400,10 +401,14 @@ export default {
       if (this.expiryTime > new Date()) {
         this.$store.dispatch('checkPayment', { id: this.paymentID }).then(
           (response) => {
-            if (response.data == true) {
+            if (response.data.paid == true) {
               this.isPaid = true
               this.addDialogForm = {}
               clearInterval(this.checkPaymentTimer)
+
+              if (response.data.tweet !== undefined) {
+                this.tweet = response.data.tweet
+              }
             } else {
               this.isPaid = false
             }
@@ -425,4 +430,8 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.cardContent {
+    max-height: 60vw
+}
+</style>

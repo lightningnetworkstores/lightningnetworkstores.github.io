@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs12 md12 lg10 xl2 class="pa-6">
+    <v-flex xs12 md12 lg10 xl2 class="pa-2">
       <v-container>
         <v-row
           class="store-row"
@@ -13,8 +13,8 @@
             </store-card>
             <Review
               class="store-card"
-              :comment="discussion.comments[0]"
-              :comments="discussion.comments.slice(1)"
+              :comment="discussion.reviews[0]"
+              :comments="discussion.reviews.slice(1)"
               :store="discussion.store">
             </Review>
         </v-row>
@@ -45,6 +45,9 @@ export default {
     width: 50%;
   }
   @media (max-width: 600px) {
+    .store-row {
+      padding: 1.5em 0;
+    }
     .store-card {
       width: 100%;
     }
