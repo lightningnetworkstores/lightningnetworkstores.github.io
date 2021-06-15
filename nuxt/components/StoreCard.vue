@@ -59,7 +59,7 @@
               >
                 <b>{{ store.tags[0] }}</b>
               </v-chip>
-              <v-menu open-on-hover top offset-y v-if="store.tags.length > 1">
+              <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
                 <template v-slot:activator="{ on, attrs }">
                   <v-chip
                     v-bind="attrs"
