@@ -9,6 +9,8 @@ export const state = () => ({
   selectedStore: null,
   wallets: [],
   discussions: [],
+  lastDiscussions: [],
+  activeStoreDiscussions: [],
   tags: [],
   selectedTags: [],
   excludedTags: [],

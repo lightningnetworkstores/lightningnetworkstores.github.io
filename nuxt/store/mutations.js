@@ -46,7 +46,8 @@ const mutations = {
     state.wallets = wallets
   },
   setDiscussions(state, discussions) {
-    state.discussions = discussions
+    state.activeStoreDiscussions = discussions.last_active_stores
+    state.lastDiscussions = discussions.last_discussions
   },
   setFaucetStats(state, faucetStats) {
     state.faucetStats = faucetStats

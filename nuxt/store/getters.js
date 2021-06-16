@@ -147,8 +147,8 @@ const getters = {
       lifetime: score[5] ? score[5] : 0
     };
   },
-  getDiscussions: (state) => {
-    const formattedDiscussions = state.discussions.map(discussion => {
+  getActiveStoreDiscussions: (state) => {
+    const formattedDiscussions = state.activeStoreDiscussions.map(discussion => {
       const store = {
         id: discussion.id,
         trending: discussion.trending,

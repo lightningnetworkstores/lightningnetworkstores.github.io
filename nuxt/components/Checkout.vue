@@ -14,7 +14,7 @@
       <v-flex pl-3 pr-3 class="text-center"
         ><qrcode-vue
           class="qrcode"
-          size="300"
+          :size="$vuetify.breakpoint.name === 'xs' ? 240 : 300"
           :value="paymentRequest"
         ></qrcode-vue
       ></v-flex>

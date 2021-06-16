@@ -223,17 +223,27 @@ const actions = {
         console.log(error)
       })
   },
-  getDiscussions({ state, commit }) {
-    return axios
-      .get(`${state.baseURL}api/discussion`)
-      .then((response) => {
-        if (response.status === 200) {
-          const { data } = response
-          commit('setDiscussions', data.data.last_active_stores)
-        }
-      })
-      .catch(console.error)
-  },
+	addDiscussion({ state }, payload) {
+			return axios
+					.post(`${state.baseURL}api/discussion`, payload)
+					.then((response) => {
+							if (response.status === 200) {
+									return response.data
+							}
+					})
+					.catch(console.error)
+    },
+	getDiscussions({ state, commit }) {
+			return axios
+					.get(`${state.baseURL}api/discussion`)
+					.then((response) => {
+							if (response.status === 200) {
+									const { data } = response.data
+									commit('setDiscussions', data)
+							}
+					})
+					.catch(console.error)
+	},
   donateFaucetsRequest({ state, commit }, { data }) {
     return axios
       .post(`${state.baseURL}api/faucet_donation`)
