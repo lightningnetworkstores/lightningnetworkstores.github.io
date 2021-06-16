@@ -59,7 +59,7 @@
 
             <v-layout row pa-2 class="caption comment-extra">
               <v-flex grow pa-2
-                >ID: {{ subComment.id.substring(0, 5) }}
+                >ID: {{ subComment.id.substring(0, 8) }}
               </v-flex>
               <v-flex grow pa-2 class="text-right"
                 >{{
