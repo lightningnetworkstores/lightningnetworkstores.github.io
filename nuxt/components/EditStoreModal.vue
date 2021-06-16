@@ -9,14 +9,14 @@
         <v-card>
           <v-card-title class="headline">
             Edit&nbsp;{{ store.name }}
-            <v-flex class="corner-loading" v-if="isLoading"
-              ><v-progress-circular
-                indeterminate
-                size="20"
-                color="green"
-              ></v-progress-circular
-            ></v-flex>
           </v-card-title>
+          <v-layout row class="mx-3 my-3" justify-center>
+            <v-progress-circular
+              v-if="isLoading"
+              indeterminate
+              size="30"
+            />
+          </v-layout>
           <v-card-text>
             <v-form @submit.prevent="submitEdit" ref="editform">
               <v-layout v-for="field in fields" :key="field.name" row>
@@ -68,6 +68,7 @@ export default {
     },
 
     submitEdit() {
+      this.isLoading = true;
       this.$refs.editform.validate()
       const body = {};
       this.fields.forEach(field => {
@@ -75,7 +76,6 @@ export default {
       });
 
       if (this.store.id) {
-        this.isLoading = false
         this.$store
           .dispatch('addStoreUpdate', {
             id: this.store.id,
@@ -98,11 +98,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-.corner-loading {
-  position: absolute;
-  right: 10px;
-  top: 4px;
-}
-</style>

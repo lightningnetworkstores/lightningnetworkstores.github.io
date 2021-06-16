@@ -359,6 +359,34 @@ const actions = {
         }
       })
       .catch(console.error)
+  },
+  addExternalAttribute({ state, commit }, { id, name, value }) {
+    const body = { [`${name}`]: value };
+    return axios.put(`${state.baseURL}api/field?id=${id}`, body)
+      .then(response => {
+        if (response.status === 200) {
+          const { data } = response.data;
+          if (data[name]) {
+            commit('confirmStoreFieldAddition', { field: name, value })
+            return {
+              result: response.data.status
+            }
+          }
+        }
+        return {}
+      })
+      .catch(err => {
+        console.error(err)
+        if (err.response && err.response.data) {
+          return {
+            error: err.response.data.message
+          }
+        } else {
+          return {
+            error: 'Undefined error'
+          }
+        }
+      })
   }
 }
 

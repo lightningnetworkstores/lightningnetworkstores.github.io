@@ -323,8 +323,18 @@
                     :editAttribute="{label: propertyName, value: external.href, key: propertyName }"
                   />
                   <delete-external-modal
+                    v-if="selectedStore.logged"
                     :store="selectedStore"
                     :field="propertyName"
+                  />
+                </v-flex>
+              </v-layout>
+            </v-card>
+            <v-card v-if="selectedStore.logged" class="mx-3 py-2">
+              <v-layout row class="py-2 d-flex" justify-center>
+                <v-flex shrink class="mt-1">
+                  <add-external-modal
+                    :store="selectedStore"
                   />
                 </v-flex>
               </v-layout>
@@ -481,12 +491,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import AddExternalModal from '~/components/AddExternalModal.vue'
 
 import StoreCard from '~/components/StoreCard'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 
 export default {
-  components: { StoreCard, LikeStoreButton },
+  components: { StoreCard, LikeStoreButton, AddExternalModal },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
