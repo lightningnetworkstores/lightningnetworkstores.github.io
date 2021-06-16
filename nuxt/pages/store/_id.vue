@@ -95,11 +95,11 @@
                           color="white lighten-2"
                           dark
                           class="float-right edit_image"
-                          @click="openImageEditoDialog(selectedStore.images.number.length+1)"
+                          @click="openImageEditoDialog(selectedStore.images.number+1,true)"
                         >
                           <v-icon class="ml-1 " color="blue darken-2">
                             fas fa-edit
-                          </v-icon></v-btn>
+                          </v-icon> </v-btn>
                       </v-sheet>
                     </v-carousel-item>
                   </template>
@@ -148,11 +148,19 @@
                                   <v-btn class="ma-2" color="success" @click="updateImage('capture')">Take ScreenShot</v-btn>
                                 </v-col>
                               </v-row>
-                              <v-row justify="center" class="mt-0" v-if="position!=null">
+                              <v-row justify="center" class="mt-0" v-if="!isFakeImage">
                                 <v-col cols="5"
                                 sm="5"
                                 md="5" class="d-flex justify-center">
                                 <v-btn class="" color="red" @click="updateImage('delete')">Delete Image</v-btn>
+                              </v-col>
+                              </v-row>
+                              <v-row justify="center" class="mt-0" v-if="position!=null">
+                                <v-col cols="12"
+                                sm="12"
+                                md="12" class="d-flex justify-center">
+                                <v-alert type="success" v-if="successMessage"  >{{successMessage}}</v-alert>
+                                <v-alert type="error" v-if="errorMessage"  >{{errorMessage}}</v-alert>
                               </v-col>
                               </v-row>
                             </v-container>
@@ -635,6 +643,9 @@ export default {
       imagePath:'',
       position:null,
       valid: true,
+      successMessage:'',
+      errorMessage:'',
+      isFakeImage:false,
       urlRules: [
         v => !!v || 'Url is required',
       ],
@@ -699,16 +710,23 @@ export default {
   },
 
   methods: {
-    openImageEditoDialog(number){
+    openImageEditoDialog(number,isfakeimage=false){
       this.Editdialog = true;
+      this.errorMessage = ''
+      this.successMessage = ''
+      this.imagePath = ''
+      this.isFakeImage = isfakeimage
       this.position = number
     },
-    updateImage(e){
+     updateImage(e){
       console.log(e,this.imagePath)
+        this.successMessage = '';
+        this.errorMessage = '';
       let valid = true;
       let data = {storeID: this.storeId,position:this.position};
       if(e=='capture'){
         data.capture = true
+        data.rooturl = window.location.pathname
       }
       if(e=='delete'){
         data.delete = true
@@ -722,7 +740,28 @@ export default {
         }
       }
       if(valid){
-        this.$store.dispatch('updateImage', data)
+        this.$store.dispatch('updateImage', data).then(response => {
+                if(response.data.status=='success'){
+                  this.successMessage = response.data.message;
+                  setTimeout(()=>{
+                    window.location.reload();
+                  },2000)
+
+                }
+                if(response.data.status=='fail'){
+                  this.errorMessage =  response.data.message
+                }
+              })
+              .catch((error)=>{
+                console.log(error)
+                const {response} = error;
+                if(response.data.status=='fail'){
+                  this.errorMessage =  response.data.message;
+                  setTimeout(()=>{
+                    window.location.reload();
+                  },2000)
+                }
+              })
       }
     },
     sortReviewThreads(reviewThreads){ //can't use?

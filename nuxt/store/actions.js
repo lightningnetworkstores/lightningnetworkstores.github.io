@@ -321,10 +321,7 @@ const actions = {
   updateImage({ commit,state },data) {
     console.log(data)
     return axios.post(`${state.baseURL}api/image`,null,{params:data})
-      .then(response => {
-        console.log(response)
-      })
-      .catch(console.error)
+
   },
 }
 export default actions
