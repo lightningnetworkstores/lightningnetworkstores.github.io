@@ -1,7 +1,6 @@
 <template>
   <v-list>
     <v-subheader class="title pb-2">Filter</v-subheader>
-    <!-- <v-text-field   hide-details  single-line class="pt-0 tag-search-block mt-3 mb-3">Search</v-text-field> -->
     <v-text-field
       class="search tag-search-block p-10"
       v-model="tagSearchQuery"
@@ -14,29 +13,51 @@
     ></v-text-field>
     <br />
     <br />
-    <v-list-item v-for="(tag, index) in tags" :key="tag" class="my-0 py-0 tag">
-      <v-checkbox
-        @change="handleTagState(tag, index)"
-        class="tag"
-        color="#fdb919"
-        :indeterminate="excludeTagsTest.includes(tag)"
-        :class="{
-          indeterminate: excludeTagsTest.includes(tag),
-        }"
-        :value="tag"
-        :checked="selectedTagsTest.includes(tag)"
-        :label="tag + ' ' + storeCountByTag(tag)"
-      ></v-checkbox>
+    <v-list-item
+      v-for="(tag, index) in tags"
+      :key="index"
+      class="my-0 py-0 tag"
+    >
+      <div class="checkbox-container" :for="tag">
+        <v-simple-checkbox
+          :id="tag"
+          color="#fdb919"
+          :value="selectedTags.includes(tag)"
+          @input="handleTagState(tag)"
+          :indeterminate="excludeTags.includes(tag)"
+          :class="{
+            indeterminate: excludeTags.includes(tag),
+          }"
+          :ripple="false"
+        />
+        <span @click="handleTagState(tag)" class="clickable"
+          >{{ tag }} ({{ filterTags[tag] }})</span
+        >
+      </div>
     </v-list-item>
   </v-list>
 </template>
+
+<style scoped>
+.checkbox-container {
+  display: flex;
+}
+.clickable {
+  cursor: pointer;
+}
+.v-list-item {
+  min-height: 0;
+}
+</style>
 
 <script>
 import { mapState } from 'vuex'
 export default {
   props: {
-    searchQuery: '',
-    selectedSort: '',
+    filterTags: {
+      type: Object,
+      default: {},
+    },
   },
 
   data() {
@@ -47,20 +68,15 @@ export default {
 
   computed: {
     ...mapState({
-      excludeTagsTest: (state) => state.excludedTags,
+      excludeTags: (state) => state.excludedTags,
 
-      selectedTagsTest: (state) => state.selectedTags,
+      selectedTags: (state) => state.selectedTags,
 
       filteredTags: (state) => state.filteredTags,
-
-      filteredStores: (state) => state.filteredStores,
     }),
 
     tags() {
-      const tags =
-        this.filteredTags.length !== 0
-          ? this.filteredTags
-          : this.$store.state.tags
+      const tags = Object.keys(this.filterTags).sort()
 
       if (this.tagSearchQuery) {
         return tags.filter((tag) => {
@@ -74,8 +90,14 @@ export default {
 
   methods: {
     handleTagState(value) {
-      this.$store.dispatch('setSelectedTag2', { tag: value })
-      this.$store.dispatch('setFilteredTags')
+      if (this.selectedTags.includes(value)) {
+        this.$store.dispatch('unsetSelectedTag', value)
+        this.$store.dispatch('setExcludedTag', value)
+      } else if (this.excludeTags.includes(value)) {
+        this.$store.dispatch('unsetExcludedTag', value)
+      } else {
+        this.$store.dispatch('setSelectedTag', value)
+      }
     },
 
     storeCountByTag(tag) {
@@ -91,5 +113,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped></style>

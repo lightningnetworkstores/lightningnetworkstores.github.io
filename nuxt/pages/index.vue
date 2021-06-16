@@ -23,14 +23,7 @@
           </v-radio-group>
         </v-list-item>
       </v-list>
-      <filter-stores
-        :tags="[]"
-        :tagSearchQuery="tagSearchQuery"
-        :searchQuery="searchQuery"
-        :selectedSort="selectedSort"
-        @onQueryChange="queryChange"
-        :filteredStores="getStores"
-      />
+      <filter-stores :filterTags="filtertags" />
     </v-navigation-drawer>
     <div :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 300px;' : ''">
       <v-layout justify-center>
@@ -59,7 +52,7 @@
 
       <v-container class="full-list">
         <store-card
-          v-for="store in getStores.slice(0, maxCards)"
+          v-for="store in filteredStores.slice(0, maxCards)"
           :key="'store-' + store.id"
           :store="store"
         ></store-card>
@@ -74,7 +67,7 @@
           ></v-progress-circular>
         </v-layout>
       </v-container>
-      <v-container v-if="maxCards < getStores.length" class="py-10">
+      <v-container v-if="maxCards < filteredStores.length" class="py-10">
         <v-layout row justify-center align-center class="py-5">
           <v-btn color="primary" @click="loadMoreCards()">Load more</v-btn>
         </v-layout>
@@ -98,7 +91,6 @@ export default {
       group: null,
       isLoading: false,
       searchQuery: '',
-      tagSearchQuery: '',
       maxCards: 18,
       addCardCount: 6,
       checkedTags: [],
@@ -118,68 +110,6 @@ export default {
     }
   },
   methods: {
-    queryChange() {
-      console.log(`queryChange`)
-    },
-    onTagsChange() {
-      console.log('tag change')
-      this.changeUrl()
-    },
-    updateExclude(value, i) {
-      console.log('updateExclude')
-    },
-    selectDeselectTag(value, i) {
-      console.log({ value, index: i })
-      console.log('selectDeselectTag')
-
-      let index = this.checkedTags.indexOf(value)
-      if (index !== -1) {
-        this.checkedTags.splice(index, 1)
-      } else {
-        this.checkedTags.push(value)
-      }
-
-      //  console.log(this.tagsCheckbox, 'lll',this.tagsCheckbox.includes(value));
-      if (!this.tagsCheckbox.includes(value)) {
-        if (this.excludeTag[i].status) {
-          this.excludeTag[i].status = false
-        } else {
-          this.excludeTag[i].status = true
-          this.excludedTag.push(value)
-        }
-
-        //this.excludeTag[i].status = false
-        this.checkedTags.splice(index, 1)
-      } else {
-        if (this.excludedTag.includes(value)) {
-          let index1 = this.tagsCheckbox.indexOf(value)
-          this.tagsCheckbox.splice(index1, 1)
-          let index2 = this.excludedTag.indexOf(value)
-          this.excludedTag.splice(index2, 1)
-          this.excludeTag[i].status = false
-          let index = this.checkedTags.indexOf(value)
-          if (index !== -1) {
-            this.checkedTags.splice(index, 1)
-          }
-        }
-      }
-
-      // 1 - agregar un action para esto
-      // 1.1 agregar logica en el action para agregar el tag
-      // 1.2 verifcar los stores
-      this.$store.dispatch('setSelectedTags', {
-        selectedTags: this.checkedTags.filter((t) => t),
-        excludedTags: this.excludedTag.filter((t) => t),
-      })
-
-      // 2 - agregar un action para esto
-      /*this.$store.commit(
-        'setExludedTags',
-        this.excludedTag.filter((t) => t)
-      ) */
-      this.changeUrl()
-    },
-
     toggleDrawer() {
       this.drawer = !this.drawer
     },
@@ -199,6 +129,10 @@ export default {
       let query = {}
       if (this.checkedTags.filter((x) => x).length) {
         query.tags = this.checkedTags.filter((x) => x).join(',')
+      }
+
+      if (this.selectedTags.filter((x) => x).length) {
+        query.tags = this.selectedTags.filter((x) => x).join(',')
       }
 
       if (this.excludedTag.filter((x) => x).length) {
@@ -234,7 +168,7 @@ export default {
 
         for (const tag of routeTags) {
           this.tagsCheckbox.push(tag)
-          this.checkedTags[this.tags.indexOf(tag)] = tag
+          this.checkedTags.push(tag)
         }
 
         this.$store.commit('setSelectedTags', routeTags)
@@ -251,102 +185,47 @@ export default {
         this.$store.commit('setExludedTags', routeexcludedTags)
       }
     },
-    tagFilterBySearch() {
-      console.log(this.tagSearchQuery)
-      if (this.tagSearchQuery) {
-        this.tags = this.tags.filter((item) => {
-          return this.tagSearchQuery
-            .toLowerCase()
-            .split(' ')
-            .every((v) => item.toLowerCase().includes(v))
-        })
-      } else {
-        return this.tags
-      }
-    },
-
-    storeCountByTag(tag) {
-      let count = 0
-      this.stores.forEach((item) => {
-        if (item.tags.includes(tag)) {
-          count++
-        }
-      })
-
-      return count
-
-      // return this.stores.reduce((accum, store) => {
-      //   console.log('s')
-      //   store.tags.includes(tag) ? accum++ : accum
-
-      //   return accum
-      // }, 0)
-    },
   },
   computed: {
-    ...mapState(['filteredTags', 'selectedTags', 'excludedTags']),
-    baseURL() {
-      return this.$store.state.baseURL
-    },
-    stores() {
-      return this.$store.state.stores
-    },
-    scores() {
-      return this.$store.state.scores
-    },
-    tags() {
-      const tags =
-        this.filteredTags.length !== 0
-          ? this.filteredTags
-          : this.$store.state.tags
+    ...mapState([
+      'filteredTags',
+      'selectedTags',
+      'excludedTags',
+      'baseURL',
+      'stores',
+      'scores',
+    ]),
 
-      if (this.tagSearchQuery) {
-        return tags.filter((tag) => {
-          return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
-        })
-      }
-
-      return tags
-    },
-    excludeTag() {
-      const excude = []
-      this.tags.forEach((e, i) => {
-        if (this.excludedTag.includes(e)) {
-          this.excludedTag.includes(e)
-          console.log(this.excludedTag, e)
-          excude.push({ status: true })
-        } else {
-          excude.push({ status: false })
-        }
-      })
-      return excude
-    },
-
-    getStores() {
+    filteredStores() {
       const stores = this.$store.getters.getStores(
         { sector: this.sector, digitalGoods: this.digitalGoods },
         this.selectedSort,
         this.searchQuery,
         this.safeMode
       )
+      return stores
+        .filter((store) => {
+          return this.selectedTags.every((tag) => store.tags.includes(tag))
+        })
+        .filter((store) => {
+          return !this.excludedTags.some((tag) => store.tags.includes(tag))
+        })
+    },
 
-      let filteredStores = stores
+    filtertags() {
+      const data = this.filteredStores.reduce((acc, currentStore) => {
+        currentStore.tags.forEach((tag) => {
+          acc[tag] = acc[tag] ? acc[tag] + 1 : 1
+        })
 
-      if (this.selectedTags.length !== 0) {
-        filteredStores = filteredStores.filter((store) =>
-          this.selectedTags.every((tag) => store.tags.includes(tag))
-        )
-      }
+        return acc
+      }, {})
 
-      if (this.excludedTags.length !== 0) {
-        filteredStores = filteredStores.filter(
-          (store) => !store.tags.some((tag) => this.excludedTags.includes(tag))
-        )
-      }
+      this.excludedTags.forEach((tag) => {
+        data[tag] = 0
+      })
 
-      this.$store.dispatch('setFilteredStores', filteredStores)
-
-      return filteredStores
+      return data
     },
   },
   watch: {
@@ -354,6 +233,12 @@ export default {
       this.changeUrl()
     },
     searchQuery() {
+      this.changeUrl()
+    },
+    excludedTags() {
+      this.changeUrl()
+    },
+    selectedTags() {
       this.changeUrl()
     },
   },

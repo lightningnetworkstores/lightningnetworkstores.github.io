@@ -374,63 +374,21 @@ const actions = {
         }
       })
   },
-  setSelectedTags({ state, commit }, { selectedTags, excludedTags }) {
-    commit('setSelectedTags', selectedTags)
-    commit('setExludedTags', excludedTags)
 
-    const filterExcludedStores = state.stores.filter(
-      (store) => !excludedTags.some((tag) => store.tags.includes(tag))
-    )
-
-    const filteredStoresTags = filterExcludedStores
-      .filter((store) => selectedTags.some((tag) => store.tags.includes(tag)))
-      .flatMap((store) => store.tags)
-
-    const uniqueTags = [...new Set(filteredStoresTags)]
-    commit('setFilteredTags', uniqueTags)
+  setSelectedTag({ commit }, tag) {
+    commit('updateSelectedTag', { tag, remove: false })
   },
 
-  setSelectedTag2({ state, commit }, { tag }) {
-    if (
-      !state.selectedTags.includes(tag) &&
-      !state.excludedTags.includes(tag)
-    ) {
-      console.log(`Add ${tag} to selectedTags`)
-      commit('updateSelectedTag', { tag, remove: false })
-    } else if (state.selectedTags.includes(tag)) {
-      commit('updateSelectedTag', { tag, remove: true })
-      commit('updateExcludedTag', { tag, remove: false })
-
-      console.log(`Add ${tag} to excludedTags`)
-    } else if (state.excludedTags.includes(tag)) {
-      commit('updateExcludedTag', { tag, remove: true })
-      console.log(`Delete ${tag} from excludedTags`)
-    }
+  unsetSelectedTag({ commit }, tag) {
+    commit('updateSelectedTag', { tag, remove: true })
   },
 
-  setFilteredTags({ state, commit }) {
-    const stores =
-      state.filteredStores.length !== 0 ? state.filteredStores : state.stores
-
-    console.log(`stores:`, state.filteredStores.length, state.stores.length)
-
-    const filteredTags = stores
-      .filter((store) => {
-        const test = state.selectedTags.every((tag) => store.tags.includes(tag))
-        // console.log(test)
-
-        return test
-      })
-      .flatMap((store) => store.tags)
-
-    const uniqueTags = [...new Set(filteredTags.concat(state.excludedTags))]
-    console.log(uniqueTags.length, state.tags.length)
-
-    commit('setFilteredTags', uniqueTags)
+  setExcludedTag({ commit }, tag) {
+    commit('updateExcludedTag', { tag, remove: false })
   },
 
-  setFilteredStores({ commit }, stores) {
-    commit('updateFilteredStores', stores)
+  unsetExcludedTag({ commit }, tag) {
+    commit('updateExcludedTag', { tag, remove: true })
   },
 }
 export default actions
