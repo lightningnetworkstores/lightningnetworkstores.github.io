@@ -38,16 +38,18 @@
           <span> {{ Number(store.upvotes -store.downvotes).toLocaleString()}}</span>
           <vote-button :isUpvoting="false" :store="store" />
         </div>
-        <div class="content pa-2 pl-5" @click="gotoStore(store.id)">
-          <div class="title">
-            <a :href="store.href" class="font-weight-regular">
-              {{ store.name }}
-              <v-icon class="ml-1" color="blue darken-2"
-                >mdi-open-in-new</v-icon
-              >
-            </a>
+        <div class="content pa-2 pl-5">
+          <div @click="gotoStore(store.id)">
+            <div class="title">
+              <a :href="store.href" class="font-weight-regular">
+                {{ store.name }}
+                <v-icon class="ml-1" color="blue darken-2"
+                  >mdi-open-in-new</v-icon
+                >
+              </a>
+            </div>
+            <div class="description">{{ store.description }}</div>
           </div>
-          <div class="description">{{ store.description }}</div>
           <div>
             <div class="tag-container">
               <v-chip
@@ -57,7 +59,7 @@
                 small
                 class="mr-2 my-1"
               >
-                <b>{{ store.tags[0] }}</b>
+                <b><nuxt-link :to="'tags/'+store.tags[0]">{{ store.tags[0] }}</nuxt-link></b>
               </v-chip>
               <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
                 <template v-slot:activator="{ on, attrs }">
@@ -84,7 +86,7 @@
                     class="my-0"
                   >
                     <v-chip color="primary" outlined small class="mr-2 my-0">
-                      <b>{{ tag }}</b>
+                      <b><nuxt-link :to="'tags/'+tag">{{ tag }}</nuxt-link></b>
                     </v-chip>
                   </v-list-item>
                 </v-list>
