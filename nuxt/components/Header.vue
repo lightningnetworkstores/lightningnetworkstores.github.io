@@ -39,7 +39,7 @@
         </v-list-item>
       </v-list>
     </v-menu>
-    <v-btn icon @click="toggleDarkmode" class="btndarkmode">
+    <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -60,7 +60,7 @@
           fill="white"
         />
       </svg>
-    </v-btn>
+    </v-btn> -->
   </v-app-bar>
 </template>
 
