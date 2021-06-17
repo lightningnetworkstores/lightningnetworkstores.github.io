@@ -18,5 +18,4 @@ export default (context, inject) => {
     }
   }
   inject('getSocialMediaColor', getSocialMediaColor);
-  context.$getSocialMediaColor = getSocialMediaColor;
 }
