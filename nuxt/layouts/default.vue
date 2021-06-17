@@ -2,7 +2,7 @@
   <v-app app>
     <Header />
 
-    <v-main class="grey lighten-5">
+    <v-main>
       <v-overlay :value="loading">
         <v-progress-circular
           indeterminate
@@ -54,6 +54,7 @@ export default {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #fafafa !important;
 }
 
 .theme--dark.v-application {

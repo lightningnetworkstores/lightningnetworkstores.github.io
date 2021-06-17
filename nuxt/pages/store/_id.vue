@@ -310,25 +310,20 @@
           </v-col>
         </v-col>
       </v-row>
-      <v-row justify="center" v-if="relatedStores.length>0">
-        <v-col
-          cols="11"
-          sm="9"
-        >
+      <v-row class="justify-center" v-if="relatedStores.length>0">
+        <v-col cols="12" sm="9" xl="6" >
           <v-layout class="mt-4 mb-2" justify-center>
             <h1>Similar</h1>
           </v-layout>
-          <v-row no-gutters justify="center">
-            <v-col cols="10" sm="8" md="7" xl="6">
-              <store-card
-                class="mb-4"
-                v-for="store in relatedStores.slice(0, maxSimilarToShow)"
-                :key="'store-' + store.id"
-                :store="store"
-              >
-              </store-card>
-            </v-col>
-          </v-row>
+          <v-layout class="wrap justify-center">
+            <v-flex
+              class="my-3 mx-sm-3 similar-item"
+              v-for="store in relatedStores.slice(0, maxSimilarToShow)"
+              :key="'store-' + store.id"
+            >
+              <store-card :store="store"> </store-card>
+            </v-flex>
+          </v-layout>
           <v-layout justify-center="true" v-if="relatedStores.length > 1">
             <v-btn @click="toggleMoreSimilar()" color="primary">
               {{ maxSimilarToShow > 1 ? 'Hide Similar' : 'Show more' }}
@@ -680,6 +675,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+.similar-item {
+  min-width: 330px; 
+  max-width: 500px; 
+  flex: 1 1 0px;
+}
+
 .store-link {
   &:hover {
     text-decoration: underline;
