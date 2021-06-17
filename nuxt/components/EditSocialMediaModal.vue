@@ -11,8 +11,11 @@
             outlined
             v-model="options[index].url"
             :label="social.name"
-            :prepend-inner-icon="social.icon"
-          />
+          >
+          <template v-slot:prepend-inner>
+            <v-icon :color="$getSocialMediaColor(social.name)"> {{ social.icon }} </v-icon>
+          </template>
+          </v-text-field>
         </v-layout>
         <v-layout row class="mx-3 my-3" justify-center>
           <v-progress-circular

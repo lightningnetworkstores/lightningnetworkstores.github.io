@@ -226,7 +226,7 @@
                           :key="index"
                           text
                           icon
-                          color="blue"
+                          :color="$getSocialMediaColor(name)"
                           :href="getSocialHref(selectedStore.social[name])"
                         >
                           <v-icon>fab fa-{{name}}</v-icon>
