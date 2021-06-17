@@ -506,9 +506,9 @@
               <store-card :store="store"> </store-card>
             </v-flex>
           </v-layout>
-          <v-layout justify-center="true" v-if="relatedStores.length > 1">
+            <v-layout justify-center="true" v-if="relatedStores.length > minSimilarToShow">
             <v-btn @click="toggleMoreSimilar()" color="primary">
-              {{ maxSimilarToShow > 1 ? 'Hide Similar' : 'Show more' }}
+              {{showSimilarBtnMessage }}
             </v-btn>
           </v-layout>
         </v-col>
@@ -746,7 +746,6 @@ export default {
       currentFilter: 'all',
       imageCarousel: 0,
       imageModal: false,
-      maxSimilarToShow: 1,
       showLoginModal: false,
       showLogoutModal: false,
       loginResponse: null,
@@ -758,6 +757,7 @@ export default {
       errorMessage: '',
       isFakeImage: false,
       urlRules: [(v) => !!v || 'Url is required'],
+      similarExpanded: false
     }
   },
   async asyncData({ params, store }) {
@@ -795,6 +795,18 @@ export default {
     ]
   },
   computed: {
+    showSimilarBtnMessage() {
+      return this.similarExpanded? 'Hide Similar' : 'Show more' 
+    },
+    maxSimilarToShow() {
+      if (this.similarExpanded) {
+        return this.relatedStores.length 
+      } 
+      return this.minSimilarToShow;
+    },
+    minSimilarToShow(){ 
+       return this.$vuetify.breakpoint.lgAndUp? 2: 1;
+    },
     baseURL() {
       return this.$store.state.baseURL
     },
@@ -890,8 +902,7 @@ export default {
       return reviewThreads
     },
     toggleMoreSimilar() {
-      this.maxSimilarToShow =
-        this.maxSimilarToShow !== 1 ? 1 : this.relatedStores.length
+      this.similarExpanded = !this.similarExpanded
     },
     getSocialHref(social) {
       if (social && social.href) return social.href
