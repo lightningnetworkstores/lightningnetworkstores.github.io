@@ -330,8 +330,7 @@
             </v-btn>
           </v-layout>
         </v-col>
-        <v-col cols="0" sm="3" xl="2" class="pa-0">
-        </v-col>
+        <v-col md="3" cols="0" class="pa-0"></v-col>
       </v-row>
       <v-row justify="center" v-if="selectedStore">
         <v-col
