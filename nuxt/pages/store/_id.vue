@@ -119,7 +119,8 @@
                     </template>
                   </v-carousel>
                 </div>
-                <div v-else>
+                <div class="store_craousel" v-else>
+                  <v-sheet height="100%" tile>
                   <v-img
                     :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
                     class="text-right"
@@ -136,17 +137,7 @@
                     >
                       New
                     </v-chip>
-                    <v-btn
-                      color="white lighten-2"
-                      dark
-                      class="float-right edit_image"
-                      v-if="selectedStore.logged"
-                      @click="openImageEditoDialog(2)"
-                    >
-                      <v-icon class="ml-1" color="blue darken-2">
-                        fas fa-edit
-                      </v-icon>
-                    </v-btn>
+                    
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
                         <v-chip
@@ -171,6 +162,18 @@
                       New comment
                     </v-chip>
                   </v-img>
+                  <v-btn
+                      color="white lighten-2"
+                      dark
+                      class="float-right edit_image"
+                      v-if="selectedStore.logged"
+                      @click="openImageEditoDialog(2)"
+                    >
+                      <v-icon class="ml-1" color="blue darken-2">
+                        fas fa-edit
+                      </v-icon>
+                    </v-btn>
+                  </v-sheet>
                 </div>
                 <v-row class="pa-5">
                   <v-col class="pb-1">
@@ -964,7 +967,7 @@ export default {
 }
 .edit_image {
   position: absolute;
-  z-index: 10101;
+  z-index: 101;
   bottom: 4px;
   right: 0;
 }
