@@ -222,49 +222,17 @@
                     <v-row class="pl-2 pr-2 pt-3 d-flex justify-space-between">
                       <div class="d-flex">
                         <v-btn
+                          v-for="(name, index) in Object.keys(selectedStore.social)"
+                          :key="index"
                           text
                           icon
-                          color="blue"
-                          :disabled="!selectedStore.social.twitter"
-                          :href="getSocialHref(selectedStore.social.twitter)"
+                          :color="$getSocialMediaColor(name)"
+                          :href="getSocialHref(selectedStore.social[name])"
                         >
-                          <v-icon>fab fa-twitter</v-icon>
+                          <v-icon>fab fa-{{name}}</v-icon>
                         </v-btn>
-                        <edit-store-modal
-                          v-if="selectedStore.logged && selectedStore.social.twitter"
+                        <edit-social-media-modal
                           :store="selectedStore"
-                          :editAttribute="{label: 'Twitter', value: selectedStore.social.twitter.href, key: 'twitter' }"
-                          class="ml-2"
-                        />
-                        <v-btn
-                          text
-                          icon
-                          color="blue darken-3"
-                          :disabled="!selectedStore.social.facebook"
-                          :href="getSocialHref(selectedStore.social.facebook)"
-                        >
-                          <v-icon>fab fa-facebook</v-icon>
-                        </v-btn>
-                        <edit-store-modal
-                          v-if="selectedStore.logged && selectedStore.social.facebook"
-                          :store="selectedStore"
-                          :editAttribute="{label: 'Facebook', value: selectedStore.social.facebook.href, key: 'facebook' }"
-                          class="ml-2"
-                        />
-                        <v-btn
-                          text
-                          icon
-                          color="orange darken-2"
-                          :disabled="!selectedStore.social.reddit"
-                          :href="getSocialHref(selectedStore.social.reddit)"
-                        >
-                          <v-icon>fab fa-reddit</v-icon>
-                        </v-btn>
-                        <edit-store-modal
-                          v-if="selectedStore.logged && selectedStore.social.reddit"
-                          :store="selectedStore"
-                          :editAttribute="{label: 'Reddit', value: selectedStore.social.reddit.href, key: 'reddit' }"
-                          class="ml-2"
                         />
                       </div>
 
@@ -621,7 +589,6 @@ export default {
     },
     getSocialHref(social) {
       if (social && social.href) return social.href
-
       return ''
     },
     isNewStore() {

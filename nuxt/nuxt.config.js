@@ -162,6 +162,10 @@ export default {
       src: '~/plugins/filters.js',
       ssr: false,
     },
+    {
+      src: '~/plugins/socialMediaColors.js',
+      ssr: true
+    }
   ],
 
   recaptcha: {
