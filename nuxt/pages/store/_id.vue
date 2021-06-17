@@ -394,7 +394,8 @@
                         >
                           <v-icon>fab fa-{{name}}</v-icon>
                         </v-btn>
-                        <edit-social-media-modal
+                        <edit-social-media-modal 
+                           v-if="selectedStore.logged"
                           :store="selectedStore"
                         />
                       </div>
