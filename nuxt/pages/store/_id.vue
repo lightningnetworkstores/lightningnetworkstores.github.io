@@ -120,60 +120,153 @@
                   </v-carousel>
                 </div>
                 <div class="store_craousel" v-else>
-                  <v-sheet height="100%" tile>
-                  <v-img
-                    :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
-                    class="text-right"
-                    max-height="500px"
-                    aspect-radio="1.6"
-                    position="top center"
-                    @click="openImage"
-                  >
-                    <v-chip
-                      v-if="isNewStore(selectedStore)"
-                      color="green"
-                      text-color="white"
-                      class="ma-2"
-                    >
-                      New
-                    </v-chip>
-                    
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-chip
-                          v-if="selectedStore.trending > 0"
-                          color="purple"
-                          text-color="white"
-                          v-on="on"
-                        >
-                          {{ selectedStore.trending }}%
-                          <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
-                        </v-chip>
-                      </template>
-                      <span>Trending score</span>
-                    </v-tooltip>
+                  <v-carousel hide-delimiters
+                    height="auto" v-if="selectedStore.logged">
+                      <v-carousel-item class="carousel-style store_craousel" >
+                        <v-sheet height="100%" tile>
+                          <v-img
+                            :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
+                            class="text-right"
+                            max-height="500px"
+                            aspect-radio="1.6"
+                            position="top center"
+                            @click="openImage"
+                          >
+                            <v-chip
+                              v-if="isNewStore(selectedStore)"
+                              color="green"
+                              text-color="white"
+                              class="ma-2"
+                            >
+                              New
+                            </v-chip>
+                            
+                            <v-tooltip bottom>
+                              <template v-slot:activator="{ on }">
+                                <v-chip
+                                  v-if="selectedStore.trending > 0"
+                                  color="purple"
+                                  text-color="white"
+                                  v-on="on"
+                                >
+                                  {{ selectedStore.trending }}%
+                                  <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
+                                </v-chip>
+                              </template>
+                              <span>Trending score</span>
+                            </v-tooltip>
 
-                    <v-chip
-                      v-if="hasNewComment(selectedStore)"
-                      color="blue"
-                      text-color="white"
-                      class="ma-2"
-                    >
-                      New comment
-                    </v-chip>
-                  </v-img>
-                  <v-btn
-                      color="white lighten-2"
-                      dark
-                      class="float-right edit_image"
-                      v-if="selectedStore.logged"
-                      @click="openImageEditoDialog(2)"
-                    >
-                      <v-icon class="ml-1" color="blue darken-2">
-                        fas fa-edit
-                      </v-icon>
-                    </v-btn>
-                  </v-sheet>
+                            <v-chip
+                              v-if="hasNewComment(selectedStore)"
+                              color="blue"
+                              text-color="white"
+                              class="ma-2"
+                            >
+                              New comment
+                            </v-chip>
+                          </v-img>
+                          <v-btn
+                              color="white lighten-2"
+                              dark
+                              class="float-right edit_image"
+                              v-if="selectedStore.logged"
+                              @click="openImageEditoDialog(2)"
+                            >
+                              <v-icon class="ml-1" color="blue darken-2">
+                                fas fa-edit
+                              </v-icon>
+                            </v-btn>
+                        </v-sheet>
+                      </v-carousel-item>
+                      <template>
+                      <v-carousel-item
+                        v-if="
+                          selectedStore.logged &&
+                          selectedStore.images.number <
+                            selectedStore.configuration.max_images
+                        "
+                        class="carousel-style store_craousel"
+                      >
+                        <v-sheet height="100%" tile>
+                          <v-img
+                            :src="`http://bitcoin-stores.com/noimage.png`"
+                            class="text-right"
+                          >
+                          </v-img>
+                          <v-btn
+                            color="white lighten-2"
+                            dark
+                            class="float-right edit_image"
+                            @click="
+                              openImageEditoDialog(
+                                2,
+                                true
+                              )
+                            "
+                          >
+                            <v-icon class="ml-1" color="blue darken-2">
+                              fas fa-edit
+                            </v-icon>
+                          </v-btn>
+                        </v-sheet>
+                      </v-carousel-item>
+                    </template>
+                  </v-carousel>
+                   <v-sheet height="100%" v-if="!selectedStore.logged" tile>
+                          <v-img
+                            :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
+                            class="text-right"
+                            max-height="500px"
+                            aspect-radio="1.6"
+                            position="top center"
+                            @click="openImage"
+                          >
+                            <v-chip
+                              v-if="isNewStore(selectedStore)"
+                              color="green"
+                              text-color="white"
+                              class="ma-2"
+                            >
+                              New
+                            </v-chip>
+                            
+                            <v-tooltip bottom>
+                              <template v-slot:activator="{ on }">
+                                <v-chip
+                                  v-if="selectedStore.trending > 0"
+                                  color="purple"
+                                  text-color="white"
+                                  v-on="on"
+                                >
+                                  {{ selectedStore.trending }}%
+                                  <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
+                                </v-chip>
+                              </template>
+                              <span>Trending score</span>
+                            </v-tooltip>
+
+                            <v-chip
+                              v-if="hasNewComment(selectedStore)"
+                              color="blue"
+                              text-color="white"
+                              class="ma-2"
+                            >
+                              New comment
+                            </v-chip>
+                          </v-img>
+                          <v-btn
+                              color="white lighten-2"
+                              dark
+                              class="float-right edit_image"
+                              v-if="selectedStore.logged"
+                              @click="openImageEditoDialog(2)"
+                            >
+                              <v-icon class="ml-1" color="blue darken-2">
+                                fas fa-edit
+                              </v-icon>
+                            </v-btn>
+                        </v-sheet>
+                  
                 </div>
                 <v-row class="pa-5">
                   <v-col class="pb-1">
@@ -780,8 +873,12 @@ export default {
       let valid = true
       let data = { storeID: this.storeId, position: this.position }
       if (e == 'capture') {
-        data.capture = true
-        data.rooturl = window.location.pathname
+        data.capture = true;
+        data.source = this.imagePath
+        if (this.imagePath == '') {
+            valid = false
+            this.$refs.form.validate()
+        }
       }
       if (e == 'delete') {
         data.delete = true
@@ -801,7 +898,7 @@ export default {
             if (response.data.status == 'success') {
               this.successMessage = response.data.message
               setTimeout(() => {
-                window.location.reload()
+               // window.location.reload()
               }, 2000)
             }
             if (response.data.status == 'fail') {
@@ -814,7 +911,7 @@ export default {
             if (response.data.status == 'fail') {
               this.errorMessage = response.data.message
               setTimeout(() => {
-               // window.location.reload()
+               //window.location.reload()
               }, 2000)
             }
           })
