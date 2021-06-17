@@ -95,7 +95,6 @@ export default {
       }
     )
   },
-  mounted() {},
   methods: {
     onVerify(token, ekey) {
       this.token = token
