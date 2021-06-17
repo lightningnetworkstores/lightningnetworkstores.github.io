@@ -385,7 +385,7 @@
             <v-card-text class="body-1">
               <v-row>
                 <v-flex px-3 pb-3
-                  >To leave a review, up or downvote the selectedStore.</v-flex
+                  >To leave a review, up or downvote the selected store.</v-flex
                 >
               </v-row>
               <v-row pa-2 class="text-center">
