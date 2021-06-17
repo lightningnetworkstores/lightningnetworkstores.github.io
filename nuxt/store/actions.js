@@ -319,7 +319,6 @@ const actions = {
     return axios.get(`${state.baseURL}api/faucetinfo`)
       .then(response => {
         if (response.status === 200) {
-          console.log('response', response);
           return response;
         }
       })
@@ -386,6 +385,24 @@ const actions = {
             error: 'Undefined error'
           }
         }
+      })
+  },
+  verifyInvoiceRequest({ state }, { id: id }) {
+    return fetch(`${state.baseURL}api2/check_invoice?id=${id}`)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  checkClaimRequest ({ state }, { id: id }) {
+    return fetch(`${state.baseURL}api/check_claim?id=${id}`)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
       })
   }
 }

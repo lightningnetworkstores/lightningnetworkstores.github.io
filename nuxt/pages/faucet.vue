@@ -41,13 +41,36 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-dialog persistent v-model="satsDialog" max-width="500">
+      <v-card>
+        <v-card-title class="text-h5">Get Sats</v-card-title>
+        <v-card-text>
+          <Checkout
+            v-if="checkClaim"
+            :satoshi="totalClaims"
+            :paymentRequest="paymentRequest"
+            @cancel="cancel"
+          />
+          <Success
+            v-if="claimVerified"
+            @cancel="cancel"
+          />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
+import Checkout from '@/components/Checkout.vue'
+import Success from '@/components/Success.vue'
 export default {
   name: 'Faucet',
-  components: { VueHcaptcha },
+  components: {
+    VueHcaptcha,
+    Checkout,
+    Success
+  },
   data: () => ({
     headers: [
       { text: 'Name', value: 'name' },
@@ -58,11 +81,15 @@ export default {
     totalClaims: null,
     donarDialog: false,
     token: null,
+    satsDialog: false,
+    checkClaim: false,
+    claimVerified: false,
+    paymentRequest: '',
+    interval: null
   }),
   created() {
     this.$store.dispatch('getFaucetDonars').then(
       (response) => {
-        console.log('response', response.data.data)
         this.topDonors = response.data.data.top_donors
         this.totalClaims = response.data.data.claim
       }
@@ -75,8 +102,23 @@ export default {
       this.$store
         .dispatch('faucetClaim', { token: this.token })
         .then((resp) => {
+          this.satsDialog = true
+          this.paymentRequest = resp.data.data['lnurl-withdraw']
+          this.checkClaimMethod(resp.data.data.claimID)
           console.log(resp.data.data['lnurl-withdraw'])
         })
+    },
+    checkClaimMethod (claimID) {
+      this.interval = setInterval(() => {
+        this.$store.dispatch('checkClaimRequest', { id: claimID } ).then((response) => {
+          let data = response.data
+          if (data.status == success) {
+            clearInterval(this.interval);
+          }
+        }, (error) => {
+          console.log('yes');
+        });
+      }, 5000);
     },
     runCaptcha() {
       this.$refs.invisibleHcaptcha.execute()
