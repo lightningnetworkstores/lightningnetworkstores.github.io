@@ -102,6 +102,7 @@ export default {
         .dispatch('faucetClaim', { token: this.token })
         .then((resp) => {
           this.satsDialog = true
+          this.checkClaim = true
           this.paymentRequest = resp.data.data['lnurl-withdraw']
           this.checkClaimMethod(resp.data.data.claimID)
           console.log(resp.data.data['lnurl-withdraw'])
