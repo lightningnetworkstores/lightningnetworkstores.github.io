@@ -48,8 +48,8 @@
     import Success from '@/components/Success.vue'
 
   	export default {
-		  name: "FaucetsDonateModal",
-      components: {
+		name: "FaucetsDonateModal",
+        components: {
         Checkout,
         Success,
       },

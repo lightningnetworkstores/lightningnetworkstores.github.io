@@ -388,7 +388,7 @@ const actions = {
       })
   },
   verifyInvoiceRequest({ state }, { id: id }) {
-    return fetch(`${state.baseURL}api2/check_invoice?id=${id}`)
+    return fetch(`${state.baseURL}api2/check_payment?id=${id}`)
       .then((response) => {
         return response.json()
       })

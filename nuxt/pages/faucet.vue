@@ -5,7 +5,7 @@
         <v-container>
           <v-layout row class="donor-head">
             <h1>Faucet</h1>
-            <v-btn depressed color="primary" @click="donarDialog = true"
+            <v-btn depressed color="primary" @click="donorDialog = true"
               >Donate</v-btn
             >
           </v-layout>
@@ -33,11 +33,11 @@
         </v-container>
       </v-flex>
     </v-layout>
-    <v-dialog persistent v-model="donarDialog" max-width="500">
+    <v-dialog persistent v-model="donorDialog" max-width="500">
       <v-card>
         <v-card-title class="text-h5">Donate to Faucet</v-card-title>
         <v-card-text>
-          <faucets-donate-modal v-on:closeDialog="donarDialog = false" />
+          <faucets-donate-modal v-on:closeDialog="donorDialog = false" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -79,7 +79,7 @@ export default {
     ],
     topDonors: [],
     totalClaims: null,
-    donarDialog: false,
+    donorDialog: false,
     token: null,
     satsDialog: false,
     checkClaim: false,
