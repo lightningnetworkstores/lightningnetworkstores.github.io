@@ -421,6 +421,11 @@ const actions = {
           return { error: 'Undefined error' }
         }
       })
-  }
+  },
+  updateImage({ commit,state },data) {
+    console.log(data)
+    return axios.post(`${state.baseURL}api/image`,null,{params:data})
+
+  },
 }
 export default actions
