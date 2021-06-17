@@ -1,7 +1,7 @@
 <template>
   <div class="image-modal">
     <div v-if="images > 1">
-      <v-carousel v-model="liveImage" hide-delimiters height="80vh">
+      <v-carousel v-model="liveImage" hide-delimiters height="auto">
         <v-carousel-item v-for="(img, i) in images" :key="i">
           <v-img
             :src="`${baseURL}thumbnails/${
