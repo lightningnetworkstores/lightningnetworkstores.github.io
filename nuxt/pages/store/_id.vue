@@ -810,6 +810,11 @@ export default {
           property: 'og:image',
           content: '/thumbnails/' + this.selectedStore.id + '_0.png',
         },
+         {
+        hid: 'twitter:image:src',
+        property: 'twitter:image:src',
+        content: '/thumbnails/' + this.selectedStore.id + '_0.png',
+      }
       ],
     }
   },

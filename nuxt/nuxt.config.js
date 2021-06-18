@@ -83,6 +83,11 @@ export default {
           'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
       },
       {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: 'lightningnetworkstores.com'
+      },
+      {
         hid: 'og:title',
         property: 'og:title',
         content: 'Lightning Network Stores directory',
@@ -109,6 +114,16 @@ export default {
         content:
           'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
       },
+      {
+        hid: 'twitter:description',
+        property: 'twitter:description',
+        content: '/ogimage.png',
+      },
+      {
+        hid: 'twitter:image:src',
+        property: 'twitter:image:src',
+        content: '/ogimage.png',
+      }
     ],
     link: [
       {
