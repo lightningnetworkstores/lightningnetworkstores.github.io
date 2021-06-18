@@ -65,7 +65,7 @@ export default {
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'lightningnetworkstores.com'
+        content: 'LightningNetworkStores.com'
       },
       {
         hid: 'og:title',
