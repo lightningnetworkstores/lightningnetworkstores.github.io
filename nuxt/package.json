@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "BASE_URL=https://bitcoin-stores.com/ nuxt",
-    "build": "nuxt build",
+    "build": "BASE_URL=https://bitcoin-stores.com/ nuxt build",
     "start": "nuxt start",
     "generate": "node --max-old-space-size=1024 node_modules/nuxt/bin/nuxt.js generate"
   },
