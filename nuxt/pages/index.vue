@@ -403,11 +403,11 @@ export default {
       this.changeUrl()
     },
   },
+  async asyncData({ store }) {
+    await store.dispatch('getStores')
+  },
   async mounted() {
-    this.$store.commit('setLoading', true)
-    await this.$store.dispatch('getStores')
     this.setFromRoute()
-    this.$store.commit('setLoading', false)
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
