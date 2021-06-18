@@ -816,8 +816,8 @@ export default {
           content: this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
         },
         {
-        hid: 'twitter:image:src',
-        property: 'twitter:image:src',
+        hid: 'twitter:image',
+        property: 'twitter:image',
         content: this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
         }
       ],
