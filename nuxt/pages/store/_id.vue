@@ -128,7 +128,7 @@
                               color="orange"
                               text-color="white"
                               class="ma-2"
-                              x-large="true"
+                              :x-large="true"
                             >
                               <b>Homepage image</b>
                             </v-chip>
@@ -158,7 +158,7 @@
                       <v-carousel-item class="carousel-style store_craousel" >
                         <v-sheet height="100%" tile>
                           <v-img
-                            :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
+                            :src="`${baseURL}thumbnails/${selectedStore.images.names[0]}`"
                             class="text-right"
                             max-height="500px"
                             aspect-radio="1.6"
@@ -203,7 +203,7 @@
                               dark
                               class="float-right edit_image"
                               v-if="selectedStore.logged"
-                              @click="openImageEditoDialog(2)"
+                              @click="openImageEditoDialog(1)"
                             >
                               <v-icon class="ml-1" color="blue darken-2">
                                 fas fa-edit
@@ -261,7 +261,7 @@
                               color="orange"
                               text-color="white"
                               class="ma-2"
-                              x-large="true"
+                              :x-large="true"
                             >
                               <b>Homepage image</b>
                             </v-chip>
@@ -286,7 +286,7 @@
                   </v-carousel>
                    <v-sheet height="100%" v-if="!selectedStore.logged" tile>
                           <v-img
-                            :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
+                            :src="`${baseURL}thumbnails/${selectedStore.images.names[0]}`"
                             class="text-right"
                             max-height="500px"
                             aspect-radio="1.6"
