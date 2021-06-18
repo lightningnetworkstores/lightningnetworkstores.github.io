@@ -91,7 +91,7 @@
                       >
                         <v-sheet height="100%" tile>
                           <v-img
-                            :src="`http://bitcoin-stores.com/noimage.png`"
+                            :src="`${baseURL}noimage.png`"
                             class="text-right"
                           >
                           </v-img>
@@ -102,7 +102,7 @@
                             @click="
                               openImageEditoDialog(
                                 selectedStore.images.number + 1,
-                                true
+                                false
                               )
                             "
                           >
@@ -113,6 +113,43 @@
                         </v-sheet>
                       </v-carousel-item>
                     </template>
+                    <v-carousel-item
+                        v-if="
+                          selectedStore.logged
+                        "
+                        class="carousel-style store_craousel"
+                      >
+                        <v-sheet height="100%" tile>
+                          <v-img
+                            :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
+                            class="text-right"
+                          >
+                           <v-chip
+                              color="orange"
+                              text-color="white"
+                              class="ma-2"
+                              x-large="true"
+                            >
+                              <b>Homepage image</b>
+                            </v-chip>
+                          </v-img>
+                          <v-btn
+                            color="white lighten-2"
+                            dark
+                            class="float-right edit_image"
+                            @click="
+                              openImageEditoDialog(
+                                0,
+                                false
+                              )
+                            "
+                          >
+                            <v-icon class="ml-1" color="blue darken-2">
+                              fas fa-edit
+                            </v-icon>
+                          </v-btn>
+                        </v-sheet>
+                      </v-carousel-item>
                   </v-carousel>
                 </div>
                 <div class="store_craousel" v-else>
@@ -185,7 +222,7 @@
                       >
                         <v-sheet height="100%" tile>
                           <v-img
-                            :src="`http://bitcoin-stores.com/noimage.png`"
+                            :src="`${baseURL}noimage.png`"
                             class="text-right"
                           >
                           </v-img>
@@ -196,7 +233,7 @@
                             @click="
                               openImageEditoDialog(
                                 2,
-                                true
+                                false
                               )
                             "
                           >
@@ -207,6 +244,45 @@
                         </v-sheet>
                       </v-carousel-item>
                     </template>
+                     <v-carousel-item
+                        v-if="
+                          selectedStore.logged &&
+                          selectedStore.images.number <
+                            selectedStore.configuration.max_images
+                        "
+                        class="carousel-style store_craousel"
+                      >
+                        <v-sheet height="100%" tile>
+                          <v-img
+                            :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
+                            class="text-right"
+                          >
+                          <v-chip
+                              color="orange"
+                              text-color="white"
+                              class="ma-2"
+                              x-large="true"
+                            >
+                              <b>Homepage image</b>
+                            </v-chip>
+                          </v-img>
+                          <v-btn
+                            color="white lighten-2"
+                            dark
+                            class="float-right edit_image"
+                            @click="
+                              openImageEditoDialog(
+                                0,
+                                false
+                              )
+                            "
+                          >
+                            <v-icon class="ml-1" color="blue darken-2">
+                              fas fa-edit
+                            </v-icon>
+                          </v-btn>
+                        </v-sheet>
+                      </v-carousel-item>
                   </v-carousel>
                    <v-sheet height="100%" v-if="!selectedStore.logged" tile>
                           <v-img
@@ -659,7 +735,7 @@
                 >
               </v-col>
             </v-row>
-            <v-row justify="center" class="mt-0" v-if="!isFakeImage">
+            <v-row justify="center" class="mt-0" v-if="showImageDeleteButton">
               <v-col cols="5" sm="5" md="5" class="d-flex justify-center">
                 <v-btn class="" color="red" @click="updateImage('delete')"
                   >Delete Image</v-btn
@@ -752,7 +828,7 @@ export default {
       valid: true,
       successMessage: '',
       errorMessage: '',
-      isFakeImage: false,
+      showImageDeleteButton: false,
       urlRules: [(v) => !!v || 'Url is required'],
       similarExpanded: false
     }
@@ -829,12 +905,12 @@ export default {
   },
 
   methods: {
-    openImageEditoDialog(number, isfakeimage = false) {
+    openImageEditoDialog(number, showImageDeleteButton = true) {
       this.Editdialog = true
       this.errorMessage = ''
       this.successMessage = ''
       this.imagePath = ''
-      this.isFakeImage = isfakeimage
+      this.showImageDeleteButton = showImageDeleteButton
       this.position = number
     },
     updateImage(e) {
