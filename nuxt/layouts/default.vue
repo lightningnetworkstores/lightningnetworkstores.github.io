@@ -39,6 +39,7 @@ export default {
   beforeCreate() {
     if (this.$cookies.get('darkMode') !== undefined) {
       this.$vuetify.theme.dark = this.$cookies.get('darkMode')
+      this.$vuetify.theme.dark = false // turn it off always for now
     } else this.$vuetify.theme.dark = false
   },
   mounted() {},

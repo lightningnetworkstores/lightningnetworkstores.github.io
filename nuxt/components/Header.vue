@@ -84,6 +84,7 @@ export default {
     toggleDarkmode() {
       this.$cookies.set('darkMode', !this.$vuetify.theme.dark, '3y')
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      this.$vuetify.theme.dark = false // turn it off always
     },
   },
 }
