@@ -100,6 +100,7 @@
           v-for="store in getStores.slice(0, maxCards)"
           :key="'store-' + store.id"
           :store="store"
+          :selectDeselectTag="selectDeselectTag"
         ></store-card>
       </v-container>
       <v-container fill-height v-if="isLoading">
@@ -163,7 +164,7 @@ export default {
       this.checkedTags.push(value);
     }*/
     },
-    selectDeselectTag(value, i) {
+    selectDeselectTag(value, i, selectOnly = false) {
       console.log('selectDeselectTag')
 
       let index = this.checkedTags.indexOf(value)
@@ -172,9 +173,14 @@ export default {
       } else {
         this.checkedTags.push(value)
       }
-
+      if (selectOnly) {
+        this.checkedTags = [];
+        this.tagsCheckbox = [];
+        this.checkedTags.push(value)
+        this.tagsCheckbox.push(value)
+      }
       //  console.log(this.tagsCheckbox, 'lll',this.tagsCheckbox.includes(value));
-      if (!this.tagsCheckbox.includes(value)) {
+      if (!this.tagsCheckbox.includes(value) && !selectOnly) {
         if (this.excludeTag[i].status) {
           this.excludeTag[i].status = false
         } else {
@@ -201,10 +207,12 @@ export default {
         'setSelectedTags',
         this.checkedTags.filter((t) => t)
       )
-      this.$store.commit(
-        'setExludedTags',
-        this.excludedTag.filter((t) => t)
-      )
+      if (!selectOnly) {
+        this.$store.commit(
+          'setExludedTags',
+          this.excludedTag.filter((t) => t)
+        )
+      }
       this.changeUrl()
     },
 
