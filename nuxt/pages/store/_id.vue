@@ -20,17 +20,13 @@
                     height="auto"
                   >
                     <v-carousel-item
-                      v-for="(img, i) in selectedStore.images.number"
-                      :key="i"
+                      v-for="(imgName, i) in selectedStore.images.names"
+                      :key="imgName"
                       class="carousel-style store_craousel"
                     >
                       <v-sheet height="100%" tile>
                         <v-img
-                          :src="`${baseURL}thumbnails/${
-                            i > 0
-                              ? `${selectedStore.id}_${i + 1}`
-                              : `${selectedStore.id}`
-                          }.png`"
+                          :src="`${baseURL}thumbnails/${imgName}`"
                           @click="openImage(i)"
                           class="text-right"
                         >
@@ -594,7 +590,7 @@
           <v-dialog v-model="imageModal" width="900">
             <ImageModal
               :id="selectedStore.id"
-              :images="selectedStore.images.number"
+              :images="selectedStore.images.names"
               :baseURL="baseURL"
               :currentImage="imageCarousel"
             />

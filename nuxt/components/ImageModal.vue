@@ -1,12 +1,10 @@
 <template>
   <div class="image-modal">
-    <div v-if="images > 1">
+    <div v-if="images.length > 1">
       <v-carousel v-model="liveImage" hide-delimiters height="auto">
-        <v-carousel-item v-for="(img, i) in images" :key="i">
+        <v-carousel-item v-for="(imageName, i) in images" :key="imageName">
           <v-img
-            :src="`${baseURL}thumbnails/${
-              i > 0 ? `${id}_${i + 1}` : `${id}`
-            }.png`"
+            :src="`${baseURL}thumbnails/${imageName}`"
             height="100%"
             contain
           >
