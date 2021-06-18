@@ -100,7 +100,6 @@
           v-for="store in getStores.slice(0, maxCards)"
           :key="'store-' + store.id"
           :store="store"
-          :selectDeselectTag="selectDeselectTag"
         ></store-card>
       </v-container>
       <v-container fill-height v-if="isLoading">
@@ -164,7 +163,7 @@ export default {
       this.checkedTags.push(value);
     }*/
     },
-    selectDeselectTag(value, i, selectOnly = false) {
+    selectDeselectTag(value, i) {
       console.log('selectDeselectTag')
 
       let index = this.checkedTags.indexOf(value)
@@ -173,14 +172,9 @@ export default {
       } else {
         this.checkedTags.push(value)
       }
-      if (selectOnly) {
-        this.checkedTags = [];
-        this.tagsCheckbox = [];
-        this.checkedTags.push(value)
-        this.tagsCheckbox.push(value)
-      }
+
       //  console.log(this.tagsCheckbox, 'lll',this.tagsCheckbox.includes(value));
-      if (!this.tagsCheckbox.includes(value) && !selectOnly) {
+      if (!this.tagsCheckbox.includes(value)) {
         if (this.excludeTag[i].status) {
           this.excludeTag[i].status = false
         } else {
@@ -207,12 +201,10 @@ export default {
         'setSelectedTags',
         this.checkedTags.filter((t) => t)
       )
-      if (!selectOnly) {
-        this.$store.commit(
-          'setExludedTags',
-          this.excludedTag.filter((t) => t)
-        )
-      }
+      this.$store.commit(
+        'setExludedTags',
+        this.excludedTag.filter((t) => t)
+      )
       this.changeUrl()
     },
 
@@ -274,6 +266,11 @@ export default {
         }
 
         this.$store.commit('setSelectedTags', routeTags)
+      }else{
+        this.$store.commit('setSelectedTags', [])
+        this.tagsCheckbox = []
+        this.checkedTags = []
+
       }
 
       if (this.$route.query.exclude) {
@@ -285,6 +282,10 @@ export default {
           this.excludedTag.push(tag)
         }
         this.$store.commit('setExludedTags', routeexcludedTags)
+      }else{
+        this.$store.commit('setExludedTags', [])
+        this.excludedTag = []
+        // this.excludeTag = []
       }
     },
     tagFilterBySearch() {
@@ -397,6 +398,12 @@ export default {
     },
   },
   watch: {
+    $route (to){
+     if(to.name=='index' && Object.keys(to.query).length==0){
+       this.selectedSort = 'best',
+       this.setFromRoute()
+     }
+   },
     // checkedTags() {
     //   this.$store.commit(
     //     'setSelectedTags',
@@ -411,11 +418,11 @@ export default {
       this.changeUrl()
     },
   },
-  async asyncData({ store }) {
-    await store.dispatch('getStores')
-  },
   async mounted() {
+    this.$store.commit('setLoading', true)
+    await this.$store.dispatch('getStores')
     this.setFromRoute()
+    this.$store.commit('setLoading', false)
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
