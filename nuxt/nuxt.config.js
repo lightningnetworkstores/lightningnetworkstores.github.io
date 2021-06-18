@@ -2,7 +2,6 @@ import colors from 'vuetify/es5/util/colors'
 import axios from 'axios'
 
 export default {
-  // Target (https://go.nuxtjs.dev/config-target)
   target: 'server',
   server: {
     port: 3000,
@@ -24,7 +23,7 @@ export default {
   },
   proxy: {
     '/api/': {
-      target: 'https://bitcoin-stores.com',
+      target: process.env.BASE_URL,
       onProxyRes: function (proxyRes, req, res) {
         console.log('url=' + req.url + ', method=' + req.method)
       },
@@ -33,40 +32,21 @@ export default {
       },
     },
     '/thumbnails/': {
-      target: 'https://bitcoin-stores.com',
+      target: process.env.BASE_URL,
       changeOrigin: false,
     },
     '/api2/': {
-      target: 'https://bitcoin-stores.com',
+      target: process.env.BASE_URL,
       changeOrigin: false,
     },
     '/api3/': {
-      target: 'https://bitcoin-stores.com',
+      target: process.env.BASE_URL,
       changeOrigin: false,
     },
   },
-  generate: {
-    interval: 100,
-    routes() {
-      return axios
-        .get(`https://LightningNetworkStores.com/stores`)
-        .then((response) => {
-          return response.data.data.stores.map((store) => {
-            return `/store/${store.id}`
-          })
-        })
-    },
-    exlude: [],
-    crawler: true,
-  }, // ['/stats', '/donations', '/about', '/About', '/Stats', 'Donations', '/']
-
-  env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
-    debugPwd: process.env.API_SECRET || null
-  },
-
-  // Global page headers (https://go.nuxtjs.dev/config-head)
-  head: {
+  generate: {},
+  env: {},
+  head: { // Global page headers (https://go.nuxtjs.dev/config-head)
     title: 'Lightning Network Stores directory',
     meta: [
       {
@@ -80,7 +60,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
+          'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
       },
       {
         hid: 'og:site_name',
@@ -96,12 +76,17 @@ export default {
         hid: 'og:description',
         property: 'og:description',
         content:
-          'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
+          'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
+      },
+      {
+        hid: 'image',
+        property: 'image',
+        content: process.env.BASE_URL + 'ogimage.png',
       },
       {
         hid: 'og:image',
         property: 'og:image',
-        content: '/ogimage.png',
+        content: process.env.BASE_URL + 'ogimage.png',
       },
       {
         hid: 'twitter:title',
@@ -112,17 +97,12 @@ export default {
         hid: 'twitter:description',
         property: 'twitter:description',
         content:
-          'The most comprehensive directory of stores/games/venues/shops that accept bitcoin through the lightning network.',
-      },
-      {
-        hid: 'twitter:description',
-        property: 'twitter:description',
-        content: '/ogimage.png',
+          'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
       },
       {
         hid: 'twitter:image:src',
         property: 'twitter:image:src',
-        content: '/ogimage.png',
+        content: process.env.BASE_URL + 'ogimage.png',
       }
     ],
     link: [
@@ -159,12 +139,8 @@ export default {
       },
     ],
   },
-
-  // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ['./assets/css/main.scss'],
-
-  // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
+  css: ['./assets/css/main.scss'], // Global CSS (https://go.nuxtjs.dev/config-css)
+  plugins: [ // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     {
       src: '~/plugins/qrcode.js',
       ssr: false,
@@ -192,20 +168,13 @@ export default {
     siteKey: '6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj', // Site key for requests
     version: 2,
   },
-
-  // Auto import components (https://go.nuxtjs.dev/config-components)
-  components: true,
-
-  // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-  buildModules: [
-    // https://go.nuxtjs.dev/typescript
-    // '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+  components: true, // Auto import components (https://go.nuxtjs.dev/config-components)
+  buildModules: [ // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
+    // '@nuxt/typescript-build', // https://go.nuxtjs.dev/typescript
+    '@nuxtjs/vuetify', // https://go.nuxtjs.dev/vuetify
   ],
 
-  // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [
+  modules: [ // Modules (https://go.nuxtjs.dev/config-modules)
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
@@ -213,11 +182,7 @@ export default {
     '@nuxtjs/recaptcha',
     'cookie-universal-nuxt',
   ],
-
-  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-
-  // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
-  vuetify: {
+  vuetify: { // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
     customVariables: ['~/assets/variables.scss'],
     treeShake: true,
     theme: {
@@ -236,8 +201,7 @@ export default {
     },
   },
 
-  // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
+  build: { // Build Configuration (https://go.nuxtjs.dev/config-build)
     extend(config, { isDev, isClient }) {
       config.node = {
         fs: 'empty'

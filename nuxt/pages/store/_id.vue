@@ -806,15 +806,20 @@ export default {
           content: this.selectedStore.description,
         },
         {
+          hid: 'image',
+          property: 'image',
+          content: this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
+        },
+        {
           hid: 'og:image',
           property: 'og:image',
-          content: '/thumbnails/' + this.selectedStore.id + '_0.png',
+          content: this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
         },
-         {
+        {
         hid: 'twitter:image:src',
         property: 'twitter:image:src',
-        content: '/thumbnails/' + this.selectedStore.id + '_0.png',
-      }
+        content: this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
+        }
       ],
     }
   },

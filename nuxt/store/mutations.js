@@ -3,8 +3,7 @@ import Vue from 'vue'
 const mutations = {
   setIsDev(state, data) {
     state.isDev = true
-    state.baseURL = 'https://bitcoin-stores.com/'
-    //   state.baseURL = "https://lightningnetworkstores.com:8443/"
+    state.baseURL = process.env.BASE_URL
   },
   setLoading(state, data) {
     state.loading = data
