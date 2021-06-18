@@ -65,7 +65,7 @@ export default {
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'lightningnetworkstores.com'
+        content: 'LightningNetworkStores.com'
       },
       {
         hid: 'og:title',
@@ -100,8 +100,8 @@ export default {
           'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
       },
       {
-        hid: 'twitter:image:src',
-        property: 'twitter:image:src',
+        hid: 'twitter:image',
+        property: 'twitter:image',
         content: process.env.BASE_URL + 'ogimage.png',
       }
     ],
