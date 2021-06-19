@@ -47,10 +47,10 @@ export default {
   render:{
       static:{
           setHeaders(res, path, stat){
-            if(path.includes('sites.json')){
-                console.log('answering to old sites.json')
+            if(path.includes('sites.json') || path.includes('storeScores.json')){
+                console.log('answering to old sites.json/storeScores.json')
                 res.setHeader('Clear-Site-Data', 'cache');
-                res.setHeader('Last-Modified', 'Sat, 19 Jun 2021 21:48:52 GMT');
+                res.setHeader('Last-Modified', 'Sat, 19 Jun 2021 22:30:52 GMT');
             }
           }
       }
