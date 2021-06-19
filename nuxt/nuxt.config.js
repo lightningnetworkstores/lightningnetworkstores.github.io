@@ -44,6 +44,16 @@ export default {
       changeOrigin: false,
     },
   },
+  render:{
+      static:{
+          setHeaders(res, path, stat){
+            if(path.includes('sites.json')){
+                res.setHeader('Clear-Site-Data', 'cache');
+                res.setHeader('Last-Modified', 'Sat, 19 Jun 2021 21:48:52 GMT');
+            }
+          }
+      }
+  },
   generate: {},
   env: {},
   head: { // Global page headers (https://go.nuxtjs.dev/config-head)
