@@ -48,6 +48,7 @@ export default {
       static:{
           setHeaders(res, path, stat){
             if(path.includes('sites.json')){
+                console.log('answering to old sites.json')
                 res.setHeader('Clear-Site-Data', 'cache');
                 res.setHeader('Last-Modified', 'Sat, 19 Jun 2021 21:48:52 GMT');
             }
