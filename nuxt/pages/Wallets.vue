@@ -9,7 +9,7 @@
 								class="text-center"
 								type="success"
 							>
-								Wallets can also be found by <nuxt-link class="tag-link" to="/?tags=wallet">filtering via tags</nuxt-link>
+								<nuxt-link class="wallets-link" to="/?tags=wallet">Wallets can also be found by tag filtering</nuxt-link>
 							</v-alert>
 						</v-flex>
 					</v-layout>
@@ -177,7 +177,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.tag-link {
+.wallets-link {
 	color: white;
 }
 </style>

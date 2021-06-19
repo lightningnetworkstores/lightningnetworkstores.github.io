@@ -1,9 +1,10 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
-      <nuxt-link to="/">
-        <img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"
-      /></nuxt-link>
+      <!-- <nuxt-link to="/"> -->
+        <a href="https://lightningnetworkstores.com"><img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"
+      /></a>
+      <!-- </nuxt-link> -->
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">

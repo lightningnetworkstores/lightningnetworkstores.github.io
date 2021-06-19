@@ -23,7 +23,7 @@
                 1. This website lists stores that accept bitcoin through the
                 lightning network. Any user can vote up or down on the stores
                 listed. To actively participate you should have a
-                <a :href="`${baseUrl}wallets`"
+                <a :href="`/?tags=wallet`"
                   >lightning-enabled bitcoin wallet</a
                 >.
               </p>
