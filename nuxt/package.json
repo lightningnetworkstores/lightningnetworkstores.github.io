@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/vuetify": "^1.11.3",
     "dotenv": "^10.0.0",
     "eslint-config-prettier": "^6.12.0",

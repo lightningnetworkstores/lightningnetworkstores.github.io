@@ -49,7 +49,7 @@ export default {
           setHeaders(res, path, stat){
             if(path.includes('sites.json') || path.includes('storeScores.json')){
                 console.log('answering to old sites.json/storeScores.json')
-                res.setHeader('Clear-Site-Data', 'cache');
+                res.setHeader('Clear-Site-Data', '*');
                 res.setHeader('Last-Modified', 'Sat, 19 Jun 2021 22:30:52 GMT');
             }
           }
@@ -183,6 +183,7 @@ export default {
   buildModules: [ // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
     // '@nuxt/typescript-build', // https://go.nuxtjs.dev/typescript
     '@nuxtjs/vuetify', // https://go.nuxtjs.dev/vuetify
+    '@nuxtjs/google-analytics'
   ],
 
   modules: [ // Modules (https://go.nuxtjs.dev/config-modules)
@@ -211,6 +212,7 @@ export default {
       },
     },
   },
+  googleAnalytics:{id: 'UA-74119866-1'},
 
   build: { // Build Configuration (https://go.nuxtjs.dev/config-build)
     extend(config, { isDev, isClient }) {
