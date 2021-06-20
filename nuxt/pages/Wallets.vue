@@ -46,7 +46,7 @@
               </template>
 
               <template v-slot:item.name="{ item }">
-                <a v-if="item.name" :href="item.address">{{ item.name }}</a>
+                <a v-if="item.name" :href="item.page">{{ item.name }}</a>
               </template>
 
               <template v-slot:item.open_source="{ item }">
