@@ -1,9 +1,10 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
-      <nuxt-link to="/">
-        <img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"
-      /></nuxt-link>
+      <!-- <nuxt-link to="/"> -->
+        <a href="https://lightningnetworkstores.com"><img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"
+      /></a>
+      <!-- </nuxt-link> -->
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -39,7 +40,7 @@
         </v-list-item>
       </v-list>
     </v-menu>
-    <v-btn icon @click="toggleDarkmode" class="btndarkmode">
+    <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -60,7 +61,7 @@
           fill="white"
         />
       </svg>
-    </v-btn>
+    </v-btn> -->
   </v-app-bar>
 </template>
 
@@ -84,6 +85,7 @@ export default {
     toggleDarkmode() {
       this.$cookies.set('darkMode', !this.$vuetify.theme.dark, '3y')
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      this.$vuetify.theme.dark = false // turn it off always
     },
   },
 }

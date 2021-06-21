@@ -7,16 +7,13 @@
             <h1>About</h1>
           </v-layout>
           <v-layout row>
-            <h2>Goal</h2>
+            <h2>Summary</h2>
           </v-layout>
 
           <v-layout row>
             <p>
-              The goal of this website is to track the adoption of the lightning
-              network by merchants and to inform bitcoin users where they can
-              spend their bitcoin through lightning. It tries to be most
-              complete repository of lightning merchants, while also providing a
-              comprehensive list of lightning mobile wallets.
+              We track the adoption of the bitcoin lightning network by merchants and allow users to find and review them.
+              The website is mostly automated and community maintained: adding stores, tagging and updating (most/all updates done by website owners).
             </p>
           </v-layout>
 
@@ -34,7 +31,7 @@
             </p>
           </v-layout>
           <v-layout row>
-            <p>Email: lightningnetworkstores@gmail.com</p>
+            <p>Email: hi@lightningnetworkstores.com</p>
           </v-layout>
           <v-layout row>
             <p>
@@ -44,8 +41,12 @@
           <v-layout row>
             <p>
               Telegram: <a href="https://t.me/LNstores">LNstores</a> (public
-              group),
-              <a href="https://t.me/bitcoinLNS"> @bitcoinLNS</a> (username)
+              group)
+            </p>
+          </v-layout>
+          <v-layout row>
+            <p>
+              Development slack: <a href="https://lnstores.slack.com">LNstores</a> (ask us for an invitation)
             </p>
           </v-layout>
           <v-layout row>
@@ -59,8 +60,8 @@
           </v-layout>
           <v-layout row>
             <p>
-              Our node (using Strike from Acinq):
-              03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735
+              Our node (using OpenNode):
+              <a href='https://1ml.com/node/0259f78fc608eba4d974177493deb68b885c1016ab8fbf69bc87a8edd7e3739894'>0259f78fc608eba4d974177493deb68b885c1016ab8fbf69bc87a8edd7e3739894@178.62.81.192:9735</a>
             </p>
           </v-layout>
 
@@ -118,19 +119,12 @@
               </v-btn>
               button on the <a href="/">main page.</a><br />
               If you are trustworthy or plan on adding several stores, ask for a
-              coupon code so you can add stores without paying the small entry
-              fee.
+              contributor code so you can add stores without paying the anti-spam listing fee.
             </p>
           </v-layout>
           <v-layout row>
             <p>
-              In the rare scenario where the button doesn't work or you can't
-              route a payment, you can make a pull request to
-              <a
-                href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/sites.json"
-                >sites.json</a
-              >
-              or send an email to lightningnetworkstores@gmail.com
+              If you have any issue you can send us an email: hi@lightningnetworkstores.com
             </p>
           </v-layout>
 
@@ -139,29 +133,9 @@
           </v-layout>
           <v-layout row>
             <p>
-              Use the <v-icon small>fa-edit</v-icon> and
-              <v-icon small>fa-ban</v-icon> icons on the store page.
-            </p>
-          </v-layout>
-          <v-layout row>
-            <h4>How to add/edit/remove a wallet/service/donation-address?</h4>
-          </v-layout>
-          <v-layout row>
-            <p>
-              If you are used to working with git, make a pull request to
-              <a
-                href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/wallets.json"
-                >wallets.json</a
-              >,
-              <a
-                href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/services.json"
-                >services.json</a
-              >
-              or
-              <a
-                href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io/blob/master/donationAddresses.json"
-                >donationAddresses.json</a
-              >
+              Website owners can updated their information by logging in on the website with a link sent to their company email.
+              They can request this link by clicking "Login as owner" from their own page.
+              You can suggest for a store to be banned by clicking the <v-icon small>fa-ban</v-icon> icon on the store page.
             </p>
           </v-layout>
           <v-layout row>

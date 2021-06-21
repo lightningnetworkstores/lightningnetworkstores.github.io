@@ -27,6 +27,44 @@
 </template>
 <script>
 export default {
+    head(){return {
+      title:'Lightning Network Discussion page',
+      meta: [{
+          hid: 'description',
+          name: 'description',
+          content: 'Discuss and review stores/apps/projects about the Lightning Network',
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: 'Lightning Network wallets',
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: 'Discuss and review stores/apps/projects about the Lightning Network',
+        },
+        {
+          hid: 'twitter:title',
+          property: 'twitter:title',
+          content: 'Lightning Network Discussion page',
+        },
+        {
+          hid: 'twitter:description',
+          property: 'twitter:description',
+          content: 'Discuss and review stores/apps/projects about the Lightning Network',
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: '/ogimage.png',
+        },
+         {
+        hid: 'twitter:image:src',
+        property: 'twitter:image:src',
+        content: '/ogimage.png',
+      }]
+  };},
   data() {
     return {
       discussions: [],

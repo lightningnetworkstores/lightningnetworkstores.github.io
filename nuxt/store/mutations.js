@@ -3,8 +3,7 @@ import Vue from 'vue'
 const mutations = {
   setIsDev(state, data) {
     state.isDev = true
-    state.baseURL = 'https://bitcoin-stores.com/'
-    //   state.baseURL = "https://lightningnetworkstores.com:8443/"
+    state.baseURL = process.env.BASE_URL
   },
   setLoading(state, data) {
     state.loading = data
@@ -43,6 +42,16 @@ const mutations = {
   },
   confirmStoreFieldAddition(state, { field, value }) {
     Vue.set(state.selectedStore.external, field, { href: value })
+  },
+  updateSocialLink(state, { name, href }) {
+    if (state.selectedStore[name]) {
+      state.selectedStore[name] = {href}
+    } else {
+      Vue.set(state.selectedStore.social, name, {href});
+    }
+  },
+  removeSocialLink(state, { name }) {
+    Vue.delete(state.selectedStore.social, name)
   },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags

@@ -3,6 +3,16 @@
     <v-layout justify-center>
       <v-flex xs12 md12 lg10 xl8>
         <v-container>
+					<v-layout row>
+						<v-flex pa-3>
+							<v-alert
+								class="text-center"
+								type="success"
+							>
+								<nuxt-link class="wallets-link" to="/?tags=wallet">Wallets can also be found by tag filtering</nuxt-link>
+							</v-alert>
+						</v-flex>
+					</v-layout>
           <v-layout row>
             <v-flex pa-3>
               <v-alert class="text-center" type="success">
@@ -46,7 +56,7 @@
               </template>
 
               <template v-slot:item.name="{ item }">
-                <a v-if="item.name" :href="item.address">{{ item.name }}</a>
+                <a v-if="item.name" :href="item.page">{{ item.name }}</a>
               </template>
 
               <template v-slot:item.open_source="{ item }">
@@ -103,6 +113,45 @@
 
 <script lang="ts">
 export default {
+    
+  head(){return {
+      title:'Lightning Network wallets',
+      meta: [{
+          hid: 'description',
+          name: 'description',
+          content: 'List of wallets that support the bitcoin Lightning Network',
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: 'Lightning Network wallets',
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: 'List of wallets that support the bitcoin Lightning Network',
+        },
+        {
+          hid: 'twitter:title',
+          property: 'twitter:title',
+          content: 'Lightning Network wallets',
+        },
+        {
+          hid: 'twitter:description',
+          property: 'twitter:description',
+          content: 'List of wallets that support the bitcoin Lightning Network',
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: '/ogimage.png',
+        },
+         {
+        hid: 'twitter:image:src',
+        property: 'twitter:image:src',
+        content: '/ogimage.png',
+      }]
+  };},
   data() {
     return {
       headers: [
@@ -138,7 +187,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.tag-link {
-  color: white;
+.wallets-link {
+	color: white;
 }
 </style>

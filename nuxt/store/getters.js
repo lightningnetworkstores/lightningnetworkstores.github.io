@@ -116,8 +116,8 @@ const getters = {
             break
           default:
             stores.sort((a, b) => {
-              return b.score - a.score
-            })
+              return b.sorting - a.sorting;
+            });
             // Add most treding tore to top
             if (!isFiltered) {
               var mostTrendingStore = stores.slice().sort((a, b) => {

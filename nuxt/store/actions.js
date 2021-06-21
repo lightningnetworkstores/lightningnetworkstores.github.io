@@ -390,5 +390,75 @@ const actions = {
   unsetExcludedTag({ commit }, tag) {
     commit('updateExcludedTag', { tag, remove: true })
   },
+
+  selectOneTag({ commit }, tag) {
+    commit('setSelectedTags', [])
+    commit('setExludedTags', [])
+
+    commit('updateSelectedTag', { tag })
+  },
+
+  updateSocialMedia({ state, commit }, { id, socialArray }) {
+    const body = {}
+    socialArray.forEach((social) => {
+      body[`${social.name}`] = social.url
+    })
+    return axios
+      .put(`${state.baseURL}api/field?id=${id}`, body)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response.data
+          socialArray
+            .filter((social) => data[social.name])
+            .forEach((social) => {
+              commit('updateSocialLink', {
+                name: social.name,
+                href: social.url,
+              })
+            })
+          return response.data
+        } else {
+          return response.data
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  },
+  removeSocialMedia({ state, commit }, { id, socialToRemove }) {
+    const body = {
+      fields: socialToRemove,
+    }
+    return axios
+      .delete(`${state.baseURL}api/field?id=${id}`, { data: body })
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response.data
+          Object.keys(data)
+            .filter((name) => data[name])
+            .forEach((name) => {
+              commit('removeSocialLink', { name })
+            })
+        }
+        return response.data
+      })
+      .catch((err) => {
+        console.error('delete error: ', err)
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  },
+  updateImage({ commit, state }, data) {
+    console.log(data)
+    return axios.post(`${state.baseURL}api/image`, null, { params: data })
+  },
 }
 export default actions
