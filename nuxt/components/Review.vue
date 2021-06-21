@@ -25,7 +25,7 @@
       </v-row>
 
       <v-layout row pl-4 pr-4 mt-0 class="caption comment-extra">
-        <v-flex grow pa-2>ID: {{ comment.id.substring(0, 5) }} </v-flex>
+        <v-flex grow pa-2>ID: {{ comment.id.substring(0, 8) }} </v-flex>
         <v-flex grow pa-2 class="text-right"
           >{{
             getISOStringWithoutSecsAndMillisecs(new Date(comment.timestamp))

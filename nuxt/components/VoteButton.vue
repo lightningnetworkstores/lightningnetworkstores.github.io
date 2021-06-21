@@ -299,7 +299,7 @@ export default {
         .then(
           (response) => {
             this.upvoteDialogForm.amount = response.amount
-            if (response.message) this.warningMessage = message
+            if (response.message) this.warningMessage = response.message
             this.paymentRequest = response.payment_request
             this.paymentID = response.id
             let date = new Date()

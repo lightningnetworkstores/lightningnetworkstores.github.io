@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-btn icon @click.stop="openDialog()" :disabled="availableOptions.length === 0">
+    <v-btn
+      icon
+      @click.stop="openDialog()"
+      :disabled="availableOptions.length === 0"
+    >
       <v-icon>fa-plus-circle</v-icon>
     </v-btn>
     <v-dialog v-model="showDialog" max-width="500" persistent>
@@ -13,11 +17,7 @@
           External link could not be updated
         </v-alert>
         <v-layout row class="mx-3 my-3" justify-center>
-          <v-progress-circular
-            v-if="isProcessing"
-            indeterminate
-            size="30"
-          />
+          <v-progress-circular v-if="isProcessing" indeterminate size="30" />
         </v-layout>
         <v-layout row class="mx-3 mt-3">
           <v-combobox
@@ -29,10 +29,7 @@
           />
         </v-layout>
         <v-layout row class="mx-3 mt-3">
-          <v-text-field
-            label="Field Value"
-            v-model="value"
-          />
+          <v-text-field label="Field Value" v-model="value" />
         </v-layout>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -59,73 +56,79 @@
 </template>
 <script>
 export default {
-  props: ["store"],
+  props: ['store'],
   data() {
     return {
       showDialog: false,
       isProcessing: false,
       selected: null,
       options: [
-        'git', 'android', 'iphone', 'producthunt', 'trustpilot', 'steam', 'chrome'
+        'git',
+        'android',
+        'iphone',
+        'producthunt',
+        'trustpilot',
+        'steam',
+        'chrome',
       ],
       value: null,
       formError: false,
       serverError: null,
-      changed: null
-    } 
+      changed: null,
+    }
   },
   methods: {
     openDialog() {
-      this.showDialog = true;
+      this.showDialog = true
     },
     closeDialog() {
-      this.serverError = null;
-      this.showDialog = false;
-      this.formError = false;
+      this.serverError = null
+      this.showDialog = false
+      this.formError = false
     },
     async onAddClicked() {
       const payload = {
         id: this.store.id,
         name: this.selected,
-        value: this.value
+        value: this.value,
       }
-      this.isProcessing = true;
-      const resp = await this.$store.dispatch('addExternalAttribute', payload);
+      this.isProcessing = true
+      const resp = await this.$store.dispatch('addExternalAttribute', payload)
       if (resp.result) {
-        this.selected = null;
-        this.value = null;
-        this.closeDialog();
+        this.selected = null
+        this.value = null
+        this.closeDialog()
       } else if (resp.error) {
-        this.serverError = resp.error;
+        this.serverError = resp.error
       } else {
-        this.changed = false;
+        this.changed = false
       }
-      this.isProcessing = false;
-    }
+      this.isProcessing = false
+    },
   },
   computed: {
     rules() {
       return this.options.map(() => {
         return (value) => {
-          if (value === null) return true;
-          const index = this.options.findIndex(item => item === value)
+          if (value === null) return true
+          const index = this.options.findIndex((item) => item === value)
           if (index !== -1) {
-            this.formError = false;
-            return true;
+            this.formError = false
+            return true
           } else {
-            this.formError = true;
-            return 'Invalid attribute';
+            this.formError = true
+            return 'Invalid attribute'
           }
         }
       })
     },
     availableOptions() {
-      const presentLinks = Object.keys(this.store.external);
-      return this.options.filter(item => {
-        const index = presentLinks.findIndex(present => present === item);
-        return index === -1;
+      const presentLinks = Object.keys(this.store.external)
+      return this.options.filter((item) => {
+        const index = presentLinks.findIndex((present) => present === item)
+        return index === -1
       })
-    }
-  }
+    },
+  },
 }
 </script>

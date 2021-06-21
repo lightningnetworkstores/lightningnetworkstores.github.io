@@ -31,4 +31,15 @@ html {
   .v-window__container, .v-responsive__content, .v-window{
     height: 312px !important;
   }
+  .hide-col-mobile {
+    width: 0px;
+    height: 0px;
+    padding: 0px;
+    margin: 0px;
+  }
+}
+
+.tag-link {
+  text-decoration: none;
+  cursor: pointer;
 }

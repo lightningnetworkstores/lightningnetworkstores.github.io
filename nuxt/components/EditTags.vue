@@ -2,7 +2,12 @@
   <v-row class="pa-2">
     <v-col class="pb-1">
       <v-hover v-for="(tag, index) in store.tags" :key="index">
-        <v-chip slot-scope="{ hover }" color="primary" outlined class="mr-2">
+        <v-chip
+          slot-scope="{ hover }"
+          color="primary"
+          outlined
+          class="mr-1 mb-1"
+        >
           <v-icon
             v-if="hover"
             left
@@ -43,7 +48,7 @@
         </v-chip>
       </v-hover>
 
-      <v-chip color="primary" outlined class="my-2">
+      <v-chip color="primary" outlined class="mb-1">
         <b>new tag</b>
         <v-icon right class="tag-icon ml-1" @click="showAddTagDialog = true">
           mdi-plus-circle
