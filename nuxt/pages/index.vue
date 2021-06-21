@@ -224,6 +224,11 @@ export default {
       this.excludedTags.forEach((tag) => {
         data[tag] = 0
       })
+      this.selectedTags.forEach((tag) => {
+        if (!data[tag]) {
+          data[tag] = 0
+        }
+      })
 
       return data
     },

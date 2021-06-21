@@ -71,12 +71,12 @@ export default {
       excludeTags: (state) => state.excludedTags,
 
       selectedTags: (state) => state.selectedTags,
-
-      filteredTags: (state) => state.filteredTags,
     }),
 
     tags() {
-      const tags = Object.keys(this.filterTags).sort()
+      const tags = Object.keys(this.filterTags).sort(
+        (tag1, tag2) => this.filterTags[tag2] - this.filterTags[tag1]
+      )
 
       if (this.tagSearchQuery) {
         return tags.filter((tag) => {
