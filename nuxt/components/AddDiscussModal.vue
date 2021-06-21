@@ -182,39 +182,41 @@ export default {
         this.isLoading = true
         this.addAlert = { message: '', success: true }
         this.isPaid = false
-        this.$store
-          .dispatch('addDiscussion', {
-            title: this.addDiscussionForm.title,
-            comment: this.addDiscussionForm.comment,
-          })
-          .then(
-            (response) => {
-              console.log(response, 'addDiscussionFeeaddDiscussionFee')
-              if (response.status === 'success') {
-                this.addDiscussionFee = response.data.amount
-                this.paymentRequest = response.data.payment_request
-                this.paymentID = response.data.id
-                //     this.confirm_title = 'Store successfully added.'
+        const payload = {
+          title: this.addDiscussionForm.title,
+          comment: this.addDiscussionForm.comment,
+        }
+        if (this.addDiscussionForm.storeId) {
+          payload.storeID = this.addDiscussionForm.storeId
+        }
+        this.$store.dispatch('addDiscussion', payload).then(
+          (response) => {
+            console.log(response, 'addDiscussionFeeaddDiscussionFee')
+            if (response.status === 'success') {
+              this.addDiscussionFee = response.data.amount
+              this.paymentRequest = response.data.payment_request
+              this.paymentID = response.data.id
+              //     this.confirm_title = 'Store successfully added.'
 
-                let date = new Date()
-                this.expiryTime = new Date(
-                  date.setSeconds(date.getSeconds() + 3600)
-                )
-                this.checkPaymentTimer = setInterval(() => {
-                  this.checkPayment()
-                }, 3000)
-              } else if (response.status === 'fail') {
-                this.addAlert.message = response.message
-                this.addAlert.success = false
-              }
-
-              this.isLoading = false
-            },
-            (error) => {
-              console.error(error)
-              this.isLoading = false
+              let date = new Date()
+              this.expiryTime = new Date(
+                date.setSeconds(date.getSeconds() + 3600)
+              )
+              this.checkPaymentTimer = setInterval(() => {
+                this.checkPayment()
+              }, 3000)
+            } else if (response.status === 'fail') {
+              this.addAlert.message = response.message
+              this.addAlert.success = false
             }
-          )
+
+            this.isLoading = false
+          },
+          (error) => {
+            console.error(error)
+            this.isLoading = false
+          }
+        )
       }
     },
 

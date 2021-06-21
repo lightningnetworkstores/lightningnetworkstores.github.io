@@ -233,6 +233,16 @@ const actions = {
 					})
 					.catch(console.error)
     },
+	getDiscussionReplyPaymentRequest({ state }, payload){
+		return axios
+		.post(`${state.baseURL}api/discussion`, payload)
+		.then((response) => {
+				if (response.status === 200) {
+						return response.data
+				}
+		})
+		.catch(console.error)
+	},
 	getDiscussions({ state, commit }) {
 			return axios
 					.get(`${state.baseURL}api/discussion`)
@@ -244,6 +254,18 @@ const actions = {
 					})
 					.catch(console.error)
 	},
+    getDiscussion({ state }, id) {
+        return axios
+            .get(`${state.baseURL}api/discussion?id=${id}`)
+            .then((response) => {
+                    if (response.status === 200) {
+                            const { data } = response.data
+                            return data
+                    }   
+            })
+            .catch(console.error)
+    },
+
   donateFaucetsRequest({ state, commit }, { data }) {
     return axios
       .post(`${state.baseURL}api/faucet_donation`)

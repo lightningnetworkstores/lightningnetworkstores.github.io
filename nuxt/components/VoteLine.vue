@@ -28,7 +28,9 @@
       </v-layout>
 
       <v-layout row>
-        <v-flex shrink px-3>{{ Number(store.upvotes).toLocaleString() }}</v-flex>
+        <v-flex shrink px-3>{{
+          Number(store.upvotes).toLocaleString()
+        }}</v-flex>
         <v-flex grow pa-1
           ><v-progress-linear
             color="success"
@@ -39,7 +41,9 @@
             "
           ></v-progress-linear
         ></v-flex>
-        <v-flex shrink px-3>{{ Number(store.downvotes).toLocaleString() }}</v-flex>
+        <v-flex shrink px-3>{{
+          Number(store.downvotes).toLocaleString()
+        }}</v-flex>
       </v-layout>
     </div>
     <div class="review" v-if="parentReview && !parentComment">
@@ -63,7 +67,7 @@
       >
     </div>
     <template class="comment" v-if="parentComment">
-      <a @click="reply()">Reply</a>
+      <a @click.stop="reply()">Reply</a>
     </template>
     <!-- Upvote store modal -->
     <v-dialog
@@ -108,7 +112,13 @@
               <span v-if="parentReview && !parentComment && !isReviewUpvote"
                 >Reinforce negative review & downvote</span
               >
-              <span v-if="parentComment">Reply</span>
+              <span
+                v-if="
+                  (parentComment && type === 'comment') ||
+                  type === 'comment reply'
+                "
+                >Reply</span
+              >
 
               <v-flex class="corner-loading" v-if="paymentRequest && !isPaid"
                 ><v-progress-circular
@@ -158,9 +168,15 @@
                   pr-3
                   v-if="!paymentRequest.length && parentComment"
                 >
-                  Cost: {{ upvoteDialogForm.amount }} satoshis
+                  <div v-if="type === 'comment' || type === 'comment reply'">
+                    Cost: {{ upvoteDialogForm.amount }} satoshis
+                  </div>
                   <v-textarea
-                    v-if="parentReview && parentComment"
+                    v-if="
+                      (parentReview && parentComment) ||
+                      type === 'discussion' ||
+                      type === 'discussion reply'
+                    "
                     v-model="upvoteDialogForm.comment"
                     type="text"
                     counter="200"
@@ -215,6 +231,10 @@ export default {
     isReviewUpvote: { required: false },
     isReplyToSubComment: { required: false },
     sort: { required: false },
+    type: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -233,7 +253,7 @@ export default {
       checkPaymentTimer: null,
 
       commentAlert: { message: '', success: false },
-      warningMessage: false,
+      warningMessage: '',
     }
   },
   computed: {
@@ -302,8 +322,70 @@ export default {
       this.commentAlert.message = ''
     },
 
+    storeVotePaymentRequest() {
+      this.$store
+        .dispatch('getStoreVotePaymentRequest', {
+          id: this.store.id,
+          amount: this.upvoteDialogForm.amount,
+          isUpvote: this.isUpvoting,
+          comment: this.encodedComment,
+          parent: this.parentReview,
+        })
+        .then(
+          (response) => {
+            this.upvoteDialogForm.amount = response.amount
+            this.paymentRequest = response.payment_request
+            if (response.message) this.warningMessage = response.message
+            this.paymentID = response.id
+            let date = new Date()
+            this.expiryTime = new Date(
+              date.setSeconds(date.getSeconds() + 3600)
+            )
+            this.checkPaymentTimer = setInterval(() => {
+              this.checkPayment()
+            }, 3000)
+          },
+          (error) => {
+            console.error(error)
+          }
+        )
+    },
+
+    discussionReplyPaymentRequest() {
+      console.log(
+        this.parentComment,
+        this.encodedComment,
+        'this.encodedComment,this.encodedComment,'
+      )
+      this.$store
+        .dispatch('getDiscussionReplyPaymentRequest', {
+          parent: this.parentComment,
+          comment: this.encodedComment,
+        })
+        .then(
+          (response) => {
+            console.log('responseresponse', response)
+            if (response.status === 'success') {
+              this.upvoteDialogForm.amount = response.data.amount
+              this.paymentRequest = response.data.payment_request
+              this.paymentID = response.data.id
+              let date = new Date()
+              this.expiryTime = new Date(
+                date.setSeconds(date.getSeconds() + 3600)
+              )
+              this.checkPaymentTimer = setInterval(() => {
+                this.checkPayment()
+              }, 3000)
+            }
+          },
+          (error) => {
+            console.error(error)
+          }
+        )
+    },
+
     getInvoice() {
-      this.warningMessage = false
+      this.warningMessage = ''
       // validations
       if (
         this.upvoteDialogForm.comment.indexOf('>') > -1 ||
@@ -333,33 +415,15 @@ export default {
       } // end validation
 
       this.commentAlert.message = ''
-
-      this.$store
-        .dispatch('getStoreVotePaymentRequest', {
-          id: this.store.id,
-          amount: this.upvoteDialogForm.amount,
-          isUpvote: this.isUpvoting,
-          comment: this.encodedComment,
-          parent: this.parentReview,
-        })
-        .then(
-          (response) => {
-            this.upvoteDialogForm.amount = response.amount
-            this.paymentRequest = response.payment_request
-            if (response.message) this.warningMessage = response.message
-            this.paymentID = response.id
-            let date = new Date()
-            this.expiryTime = new Date(
-              date.setSeconds(date.getSeconds() + 3600)
-            )
-            this.checkPaymentTimer = setInterval(() => {
-              this.checkPayment()
-            }, 3000)
-          },
-          (error) => {
-            console.error(error)
-          }
-        )
+      console.log(this.type, 'typetype')
+      if (this.type === 'comment' || this.type === 'comment reply') {
+        this.storeVotePaymentRequest()
+      } else if (
+        this.type === 'discussion' ||
+        this.type === 'discussion reply'
+      ) {
+        this.discussionReplyPaymentRequest()
+      }
     },
 
     checkPayment() {

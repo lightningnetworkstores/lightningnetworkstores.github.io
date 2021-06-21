@@ -1,18 +1,26 @@
 <template>
   <v-col justify-center class="px-0" xs="11">
-    <v-card class="pa-5">
-      <v-row class="pt-4 px-0">
-        <v-col cols="2" class="text-center px-0">
+    <v-card class="pa-5" @click="gotoDiscussion(comment.thread_id)">
+      <v-row class="px-0">
+        <v-col cols="2" class="text-center px-0 pt-4" v-if="type === 'comment'">
           <vote-line
             :store="store"
             :isReviewUpvote="comment.score > 0"
             :parentReview="comment.id"
+            :type="type"
           ></vote-line>
           {{ Number(Math.abs(comment.score)).toLocaleString() }}
         </v-col>
 
-        <v-col cols="10" class="comment-text pa-3">
+        <v-col cols="10" class="comment-text pa-3" v-if="type === 'comment'">
           {{ comment.text.replace(/\+/g, ' ') }}
+        </v-col>
+
+        <v-col cols="12" class="comment-text pa-3" v-if="type === 'discussion'">
+          <div class="discussion-title">
+            {{ comment.title }}
+          </div>
+          <div class="pt-2">{{ comment.comment.replace(/\+/g, ' ') }}</div>
         </v-col>
       </v-row>
 
@@ -27,12 +35,14 @@
           <vote-line
             :store="store"
             :parentReview="comment.id"
-            :parentComment="comment.id"
+            :parentComment="
+              type === 'discussion' ? comment.thread_id : comment.id
+            "
             :comment="comment"
+            :type="type"
           ></vote-line>
         </v-flex>
       </v-layout>
-
       <!-- .sort((a, b) => {
                             return Math.abs(a.score) - Math.abs(b.score);
                         }) -->
@@ -42,44 +52,15 @@
         pb-1
         pl-3
         pr-3
-        v-for="subComment in comments
-          .filter((subComment) => subComment.parent == comment.id)
-          .sort((a, b) => a.timestamp - b.timestamp)"
+        v-for="subComment in commentsArr"
         :key="subComment.id"
       >
-        <v-flex>
-          <v-card class="pa-3">
-            <v-layout row pa-2 pt-3>
-              <v-flex
-                pl-2
-                class="comment-text"
-                v-html="commentText(subComment.text.replace(/\+/g, ' '))"
-              ></v-flex>
-            </v-layout>
-
-            <v-layout row pa-2 class="caption comment-extra">
-              <v-flex grow pa-2
-                >ID: {{ subComment.id.substring(0, 8) }}
-              </v-flex>
-              <v-flex grow pa-2 class="text-right"
-                >{{
-                  getISOStringWithoutSecsAndMillisecs(
-                    new Date(subComment.timestamp)
-                  )
-                }}
-              </v-flex>
-              <v-flex shrink pr-2 pt-2>
-                <vote-line
-                  :store="store"
-                  :parentReview="comment.id"
-                  :parentComment="subComment.id"
-                  :comment="comment"
-                  :isReplyToSubComment="true"
-                ></vote-line>
-              </v-flex>
-            </v-layout>
-          </v-card>
-        </v-flex>
+        <PostCard
+          :post="subComment"
+          :parentReview="comment.id"
+          :store="store"
+          :type="type === 'comment' ? 'comment reply' : 'discussion reply'"
+        />
       </v-layout>
     </v-card>
   </v-col>
@@ -87,10 +68,21 @@
 
 <script>
 import VoteLine from './VoteLine.vue'
+import PostCard from '@/components/PostCard.vue'
 export default {
-  components: { VoteLine },
-  props: ['store', 'comment', 'comments'],
-
+  components: { VoteLine, PostCard },
+  props: ['store', 'comment', 'comments', 'type'],
+  computed: {
+    commentsArr() {
+      if (this.type === 'comment') {
+        return this.comments
+          .filter((subComment) => subComment.parent == this.comment.id)
+          .sort((a, b) => a.timestamp - b.timestamp)
+      } else {
+        return this.comments
+      }
+    },
+  },
   mounted() {},
   methods: {
     commentText(comment) {
@@ -115,6 +107,11 @@ export default {
       //   return '000000'
       return dateAndTime[0] + ' ' + time[0] + ':' + time[1]
     },
+    gotoDiscussion(discussion_id) {
+      if (this.type === 'discussion') {
+        this.$router.push(`/discuss/${discussion_id}`)
+      }
+    },
   },
 }
 </script>
@@ -128,7 +125,7 @@ export default {
   background-color: #dddddd;
 }
 //.comment-extra {
-  // color: rgba(0, 0, 0, 0.5);
+// color: rgba(0, 0, 0, 0.5);
 //}
 .comment-text {
   -ms-word-break: break-all;

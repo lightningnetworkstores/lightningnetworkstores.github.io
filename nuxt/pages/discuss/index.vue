@@ -5,11 +5,19 @@
       <v-container>
         <AddDiscussModal />
         <v-row
+          class="store-row"
           justify="center"
           v-for="(discussion, index) in $store.state.lastDiscussions"
           :key="index"
         >
-          <DiscussionCard :discussion="discussion[0]" class="mb-5" />
+          <Review
+            class="store-card"
+            :store="{}"
+            :comment="discussion[0]"
+            :comments="discussion.slice(1)"
+            :type="'discussion'"
+          >
+          </Review>
         </v-row>
         <v-row
           class="store-row"
@@ -27,6 +35,7 @@
             :comment="discussion.reviews[0]"
             :comments="discussion.reviews.slice(1)"
             :store="discussion.store"
+            :type="'comment'"
           >
           </Review>
         </v-row>
