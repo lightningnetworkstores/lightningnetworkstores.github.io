@@ -55,7 +55,6 @@
           v-for="store in filteredStores.slice(0, maxCards)"
           :key="'store-' + store.id"
           :store="store"
-          :selectDeselectTag="selectDeselectTag"
         ></store-card>
       </v-container>
       <v-container fill-height v-if="isLoading">
