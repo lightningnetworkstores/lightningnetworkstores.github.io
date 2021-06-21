@@ -427,5 +427,49 @@ const actions = {
     return axios.post(`${state.baseURL}api/image`,null,{params:data})
 
   },
+  processRoute({ commit, state }, route) {
+    const tagsCheckbox = []
+    const checkedTags = []
+    const excludedTags = []
+    let safeMode = false
+    let selectedSort = 'best'
+    let searchQuery = ''
+    if (route.query.safemode) {
+      safeMode = route.query.safemode
+    }
+    if (route.query.sort) {
+      selectedSort = route.query.sort
+    }
+    if (route.query.search) {
+      searchQuery = route.query.search
+    }
+    if (route.query.tags) {
+      const routeTags = route.query.tags
+        .split(',')
+        .map((x) => decodeURI(x))
+
+      for (const tag of routeTags) {
+        tagsCheckbox.push(tag)
+        checkedTags[state.tags.indexOf(tag)] = tag
+      }
+
+      commit('setSelectedTags', routeTags)
+    }
+
+    if (route.query.exclude) {
+      const routeExcludedTags = route.query.exclude
+        .split(',')
+        .map((x) => decodeURI(x))
+
+      for (const tag of routeExcludedTags) {
+        excludedTags.push(tag)
+      }
+      commit('setExludedTags', routeExcludedTags)
+    }
+    return {
+      safeMode, selectedSort, searchQuery,
+      tagsCheckbox, checkedTags, excludedTags
+    }
+  }
 }
 export default actions
