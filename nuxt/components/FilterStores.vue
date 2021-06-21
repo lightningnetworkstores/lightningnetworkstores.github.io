@@ -30,7 +30,7 @@
           }"
           :ripple="false"
         />
-        <span @click="handleTagState(tag.name)" class="clickable"
+        <span @click="handleTagState(tag.name)" class="tag-label clickable"
           >{{ tag.name }} ({{ tag.quantity }})</span
         >
       </div>
@@ -47,6 +47,10 @@
 }
 .v-list-item {
   min-height: 0;
+}
+.tag-label {
+  font-family: 'Roboto', Helvetica, Arial;
+  color: rgba(0, 0, 0, 0.6);
 }
 </style>
 
