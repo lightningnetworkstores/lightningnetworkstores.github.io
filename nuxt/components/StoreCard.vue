@@ -35,7 +35,9 @@
         </div>
         <div class="score">
           <vote-button :isUpvoting="true" :store="store" />
-          <span> {{ Number(store.upvotes -store.downvotes).toLocaleString()}}</span>
+          <span>
+            {{ Number(store.upvotes - store.downvotes).toLocaleString() }}</span
+          >
           <vote-button :isUpvoting="false" :store="store" />
         </div>
         <div class="content pa-2 pl-5">
@@ -60,6 +62,11 @@
                 class="mr-2 my-1"
               >
                 <b @click="updateTagSearch(store.tags[0], 0)" class="tag-link">{{ store.tags[0] }}</b>
+                <b
+                  @click="updateTagSearch(store.tags[0], 0)"
+                  class="tag-link"
+                  >{{ store.tags[0] }}</b
+                >
               </v-chip>
               <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
                 <template v-slot:activator="{ on, attrs }">
@@ -87,6 +94,11 @@
                   >
                     <v-chip color="primary" outlined small class="mr-2 my-0">
                       <b @click="updateTagSearch(tag, index)" class="tag-link">{{ tag }}</b>
+                      <b
+                        @click="updateTagSearch(tag, index)"
+                        class="tag-link"
+                        >{{ tag }}</b
+                      >
                     </v-chip>
                   </v-list-item>
                 </v-list>
@@ -115,14 +127,14 @@ import VoteButton from '../components/VoteButton.vue'
 import LikeStoreButton from './LikeStoreButton.vue'
 
 export default {
-  props: ['store','selectDeselectTag', 'changeUrl', 'setFromRoute'],
+  props: ['store', 'changeUrl', 'setFromRoute'],
   components: { VoteButton, LikeStoreButton },
   methods: {
     gotoStore(store_id) {
       this.$router.push('/store/' + store_id)
     },
-    updateTagSearch(tag, index) {
-      this.selectDeselectTag(tag, index, true)
+    updateTagSearch(tag) {
+      this.$store.dispatch('selectOneTag', tag)
     },
     isNewStore(store) {
       return new Date(store.added * 1000 + 1000 * 60 * 60 * 24 * 8) > new Date()

@@ -556,9 +556,7 @@
             <v-card v-if="selectedStore.logged" class="mx-3 mt-3 py-2">
               <v-layout row class="py-2 d-flex" justify-center>
                 <v-flex shrink class="mt-1">
-                  <add-external-modal
-                    :store="selectedStore"
-                  />
+                  <add-external-modal :store="selectedStore" />
                 </v-flex>
               </v-layout>
             </v-card>
