@@ -20,18 +20,18 @@
     >
       <div class="checkbox-container" :for="tag">
         <v-simple-checkbox
-          :id="tag"
+          :id="tag.name"
           color="#fdb919"
-          :value="selectedTags.includes(tag)"
-          @input="handleTagState(tag)"
-          :indeterminate="excludeTags.includes(tag)"
+          :value="selectedTags.includes(tag.name)"
+          @input="handleTagState(tag.name)"
+          :indeterminate="excludeTags.includes(tag.name)"
           :class="{
-            indeterminate: excludeTags.includes(tag),
+            indeterminate: excludeTags.includes(tag.name),
           }"
           :ripple="false"
         />
-        <span @click="handleTagState(tag)" class="clickable"
-          >{{ tag }} ({{ filterTags[tag] }})</span
+        <span @click="handleTagState(tag.name)" class="clickable"
+          >{{ tag.name }} ({{ tag.quantity }})</span
         >
       </div>
     </v-list-item>
@@ -55,8 +55,8 @@ import { mapState } from 'vuex'
 export default {
   props: {
     filterTags: {
-      type: Object,
-      default: {},
+      type: Array,
+      default: [],
     },
   },
 
@@ -74,17 +74,13 @@ export default {
     }),
 
     tags() {
-      const tags = Object.keys(this.filterTags).sort(
-        (tag1, tag2) => this.filterTags[tag2] - this.filterTags[tag1]
-      )
-
       if (this.tagSearchQuery) {
-        return tags.filter((tag) => {
-          return tag.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
+        return this.filterTags.filter(({ name }) => {
+          return name.toLowerCase().includes(this.tagSearchQuery.toLowerCase())
         })
       }
 
-      return tags
+      return this.filterTags
     },
   },
 
@@ -98,17 +94,6 @@ export default {
       } else {
         this.$store.dispatch('setSelectedTag', value)
       }
-    },
-
-    storeCountByTag(tag) {
-      let count = 0
-      this.filteredStores.forEach((item) => {
-        if (item.tags.includes(tag)) {
-          count++
-        }
-      })
-
-      return count
     },
   },
 }

@@ -213,22 +213,42 @@ export default {
     },
 
     filtertags() {
-      const data = this.filteredStores.reduce((acc, currentStore) => {
-        currentStore.tags.forEach((tag) => {
-          acc[tag] = acc[tag] ? acc[tag] + 1 : 1
+      const data = this.filteredStores
+        .reduce((acc, currentStore) => {
+          currentStore.tags.forEach((tag) => {
+            const index = acc.findIndex((_tag) => {
+              return _tag.name === tag
+            })
+
+            if (index > -1) {
+              acc[index].quantity += 1
+            } else {
+              acc.push({ name: tag, quantity: 1 })
+            }
+          })
+
+          return acc
+        }, [])
+        .sort(
+          ({ quantity: quantity1 }, { quantity: quantity2 }) =>
+            quantity2 - quantity1
+        )
+
+      if (this.excludedTags.length) {
+        const excludeTags = this.excludedTags.map((tag) => {
+          return { name: tag, quantity: 0 }
         })
 
-        return acc
-      }, {})
+        data.unshift(...excludeTags)
+      }
 
-      this.excludedTags.forEach((tag) => {
-        data[tag] = 0
-      })
-      this.selectedTags.forEach((tag) => {
-        if (!data[tag]) {
-          data[tag] = 0
-        }
-      })
+      if (this.selectedTags.length) {
+        const selectedTags = this.selectedTags
+          .filter((tag) => !data.some((_tag) => _tag.name === tag))
+          .map((tag) => ({ name: tag, quantity: 0 }))
+
+        data.unshift(...selectedTags)
+      }
 
       return data
     },

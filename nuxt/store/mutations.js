@@ -45,9 +45,9 @@ const mutations = {
   },
   updateSocialLink(state, { name, href }) {
     if (state.selectedStore[name]) {
-      state.selectedStore[name] = {href}
+      state.selectedStore[name] = { href }
     } else {
-      Vue.set(state.selectedStore.social, name, {href});
+      Vue.set(state.selectedStore.social, name, { href })
     }
   },
   removeSocialLink(state, { name }) {
@@ -99,14 +99,20 @@ const mutations = {
   },
   updateExcludedTag(state, { tag, remove = false }) {
     if (remove) {
-      state.excludedTags.pop(tag)
+      const index = state.excludedTags.indexOf(tag)
+      if (index > -1) {
+        state.excludedTags.splice(index, 1)
+      }
     } else {
       state.excludedTags.push(tag)
     }
   },
   updateSelectedTag(state, { tag, remove = false }) {
     if (remove) {
-      state.selectedTags.pop(tag)
+      const index = state.selectedTags.indexOf(tag)
+      if (index > -1) {
+        state.selectedTags.splice(index, 1)
+      }
     } else {
       state.selectedTags.push(tag)
     }
