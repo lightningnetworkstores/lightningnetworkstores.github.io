@@ -61,6 +61,7 @@
                 small
                 class="mr-2 my-1"
               >
+                <b @click="updateTagSearch(store.tags[0], 0)" class="tag-link">{{ store.tags[0] }}</b>
                 <b
                   @click="updateTagSearch(store.tags[0], 0)"
                   class="tag-link"
@@ -92,6 +93,7 @@
                     class="my-0"
                   >
                     <v-chip color="primary" outlined small class="mr-2 my-0">
+                      <b @click="updateTagSearch(tag, index)" class="tag-link">{{ tag }}</b>
                       <b
                         @click="updateTagSearch(tag, index)"
                         class="tag-link"
@@ -125,7 +127,7 @@ import VoteButton from '../components/VoteButton.vue'
 import LikeStoreButton from './LikeStoreButton.vue'
 
 export default {
-  props: ['store', 'selectDeselectTag', 'changeUrl', 'setFromRoute'],
+  props: ['store', 'changeUrl', 'setFromRoute'],
   components: { VoteButton, LikeStoreButton },
   methods: {
     gotoStore(store_id) {

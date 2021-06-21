@@ -53,6 +53,16 @@ const mutations = {
   removeSocialLink(state, { name }) {
     Vue.delete(state.selectedStore.social, name)
   },
+  updateSocialLink(state, { name, href }) {
+    if (state.selectedStore[name]) {
+      state.selectedStore[name] = {href}
+    } else {
+      Vue.set(state.selectedStore.social, name, {href});
+    }
+  },
+  removeSocialLink(state, { name }) {
+    Vue.delete(state.selectedStore.social, name)
+  },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },
