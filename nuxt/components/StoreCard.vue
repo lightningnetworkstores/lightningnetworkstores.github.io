@@ -62,11 +62,6 @@
                 class="mr-2 my-1"
               >
                 <b @click="updateTagSearch(store.tags[0], 0)" class="tag-link">{{ store.tags[0] }}</b>
-                <b
-                  @click="updateTagSearch(store.tags[0], 0)"
-                  class="tag-link"
-                  >{{ store.tags[0] }}</b
-                >
               </v-chip>
               <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
                 <template v-slot:activator="{ on, attrs }">
