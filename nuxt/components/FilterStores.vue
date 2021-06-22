@@ -1,6 +1,7 @@
 <template>
   <v-list>
     <v-subheader class="title pb-2">Filter</v-subheader>
+    <favorites-store-filter />
     <v-text-field
       class="search tag-search-block p-10"
       v-model="tagSearchQuery"
@@ -56,7 +57,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import FavoritesStoreFilter from './FavoritesStoreFilter.vue'
+
 export default {
+  components: {
+    FavoritesStoreFilter
+  },
   props: {
     filterTags: {
       type: Array,
@@ -67,6 +73,7 @@ export default {
   data() {
     return {
       tagSearchQuery: '',
+      filteredByFavorites: false,
     }
   },
 

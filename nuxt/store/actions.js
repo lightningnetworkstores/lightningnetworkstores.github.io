@@ -460,5 +460,8 @@ const actions = {
     console.log(data)
     return axios.post(`${state.baseURL}api/image`, null, { params: data })
   },
+  toggleFilterByFavoritesStores({ commit, state }) {
+    commit('updateFilterFavoriteStores', !state.filterByFavorites)
+  }
 }
 export default actions
