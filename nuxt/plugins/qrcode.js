@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from 'vue'
 import QrcodeVue from 'qrcode.vue'
 
-Vue.component('qrcode-vue', QrcodeVue);
+Vue.component('qrcode-vue', QrcodeVue)

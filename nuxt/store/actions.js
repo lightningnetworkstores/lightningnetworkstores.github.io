@@ -91,23 +91,23 @@ const actions = {
       })
   },
 
-  addStoreUpdate(
-    { state, commit },
-    { id: id, body: body }
-  ) {
-    const debugPwd = null; //process.env.debugPwd;
-    const url = `${state.baseURL}api/field?id=${id}${debugPwd ? '&pwd=' + debugPwd : ''}`
+  addStoreUpdate({ state, commit }, { id: id, body: body }) {
+    const debugPwd = null //process.env.debugPwd;
+    const url = `${state.baseURL}api/field?id=${id}${
+      debugPwd ? '&pwd=' + debugPwd : ''
+    }`
 
-    return axios.put(url, JSON.stringify(body))
+    return axios
+      .put(url, JSON.stringify(body))
       .then((response) => {
-        Object.keys(response.data.data).forEach(attr => {
+        Object.keys(response.data.data).forEach((attr) => {
           if (response.data.data[attr]) {
-            const payload = {key: attr, value: body[attr]}
-            commit('updateSelectedStore', payload);
+            const payload = { key: attr, value: body[attr] }
+            commit('updateSelectedStore', payload)
           } else {
-            console.log(`${attr} -> not modified!`);
+            console.log(`${attr} -> not modified!`)
           }
-        });
+        })
       })
       .catch((error) => {
         return Promise.reject(error)
@@ -275,18 +275,18 @@ const actions = {
       if (res.status === 202) {
         // Store was already liked/unliked, we just didn't know about this
         const likes = res.data.data.likes
-        likes.forEach(id => likedStores[id] = true)
+        likes.forEach((id) => (likedStores[id] = true))
         likedStores[storeId] = remove ? false : true
         localStorage.setItem(lsKey, JSON.stringify(likedStores))
         commit('updateLikedStores', { storeId, remove })
-        likes.forEach(id => {
-          commit('updateLikedStores', {storeId: id, remove: false})
-        });
+        likes.forEach((id) => {
+          commit('updateLikedStores', { storeId: id, remove: false })
+        })
       } else if (res.status === 200) {
         // Store 'like' status was changed successfully
         likedStores[storeId] = remove ? false : true
         localStorage.setItem(lsKey, JSON.stringify(likedStores))
-        commit('setLikeCounter', {storeId, remove })
+        commit('setLikeCounter', { storeId, remove })
         commit('updateLikedStores', { storeId, remove })
       } else {
         console.warn('Unhndled case')
@@ -295,34 +295,37 @@ const actions = {
   },
   login({ state }, { token, recipient, storeId }) {
     const body = {
-      'recipient': recipient,
-      'storeID': storeId,
-      'h-captcha-response': token
-    };
-    return axios.post(`${state.baseURL}api/loginattempt`, body)
-      .then(response => {
+      recipient: recipient,
+      storeID: storeId,
+      'h-captcha-response': token,
+    }
+    return axios
+      .post(`${state.baseURL}api/loginattempt`, body)
+      .then((response) => {
         if (response.status === 200) {
-          return response.data;
+          return response.data
         }
       })
-      .catch(console.error);
+      .catch(console.error)
   },
   getStatus({ state, commit }, { storeId }) {
-    return axios.get(`${state.baseURL}api/logstatus?id=${storeId}`)
-      .then(response => {
+    return axios
+      .get(`${state.baseURL}api/logstatus?id=${storeId}`)
+      .then((response) => {
         if (response.status === 200) {
           const payload = { key: 'logged', value: response.data.data.logged }
-          commit('updateSelectedStore', payload);
+          commit('updateSelectedStore', payload)
         }
       })
       .catch(console.error)
   },
   logout({ state, commit }) {
-    return axios.get(`${state.baseURL}api/logout`)
-      .then(response => {
+    return axios
+      .get(`${state.baseURL}api/logout`)
+      .then((response) => {
         if (response.status === 200) {
-          commit('logout');
-          return response.data;
+          commit('logout')
+          return response.data
         }
       })
       .catch(console.error)
@@ -332,9 +335,10 @@ const actions = {
     commit('setStoreLikes', storeLikes)
   },
   deleteStoreField({ state, commit }, { id, field }) {
-    const body = { fields: [field] };
-    return axios.delete(`${state.baseURL}api/field?id=${id}`, {data: body})
-      .then(response => {
+    const body = { fields: [field] }
+    return axios
+      .delete(`${state.baseURL}api/field?id=${id}`, { data: body })
+      .then((response) => {
         if (response.status === 200) {
           commit('confirmStoreFieldRemoval', { field })
         }
@@ -342,54 +346,83 @@ const actions = {
       .catch(console.error)
   },
   addExternalAttribute({ state, commit }, { id, name, value }) {
-    const body = { [`${name}`]: value };
-    return axios.put(`${state.baseURL}api/field?id=${id}`, body)
-      .then(response => {
+    const body = { [`${name}`]: value }
+    return axios
+      .put(`${state.baseURL}api/field?id=${id}`, body)
+      .then((response) => {
         if (response.status === 200) {
-          const { data } = response.data;
+          const { data } = response.data
           if (data[name]) {
             commit('confirmStoreFieldAddition', { field: name, value })
             return {
-              result: response.data.status
+              result: response.data.status,
             }
           }
         }
         return {}
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err)
         if (err.response && err.response.data) {
           return {
-            error: err.response.data.message
+            error: err.response.data.message,
           }
         } else {
           return {
-            error: 'Undefined error'
+            error: 'Undefined error',
           }
         }
       })
   },
+
+  setSelectedTag({ commit }, tag) {
+    commit('updateSelectedTag', { tag, remove: false })
+  },
+
+  unsetSelectedTag({ commit }, tag) {
+    commit('updateSelectedTag', { tag, remove: true })
+  },
+
+  setExcludedTag({ commit }, tag) {
+    commit('updateExcludedTag', { tag, remove: false })
+  },
+
+  unsetExcludedTag({ commit }, tag) {
+    commit('updateExcludedTag', { tag, remove: true })
+  },
+
+  selectOneTag({ commit }, tag) {
+    commit('setSelectedTags', [])
+    commit('setExludedTags', [])
+
+    commit('updateSelectedTag', { tag })
+  },
+
   updateSocialMedia({ state, commit }, { id, socialArray }) {
-    const body = {};
-    socialArray.forEach(social => {
-      body[`${social.name}`] = social.url;
-    });
-    return axios.put(`${state.baseURL}api/field?id=${id}`, body)
-      .then(response => {
+    const body = {}
+    socialArray.forEach((social) => {
+      body[`${social.name}`] = social.url
+    })
+    return axios
+      .put(`${state.baseURL}api/field?id=${id}`, body)
+      .then((response) => {
         if (response.status === 200) {
-          const { data } = response.data;
+          const { data } = response.data
           socialArray
-            .filter(social => data[social.name])
-            .forEach(social => {
-            commit('updateSocialLink', {name: social.name, href: social.url})
-          })
-          return response.data;
+            .filter((social) => data[social.name])
+            .forEach((social) => {
+              commit('updateSocialLink', {
+                name: social.name,
+                href: social.url,
+              })
+            })
+          return response.data
         } else {
-          return response.data;
+          return response.data
         }
       })
-      .catch(err => {
-        console.error(err);
+      .catch((err) => {
+        console.error(err)
         if (err.response && err.response.data) {
           return { error: err.response.data.message }
         } else {
@@ -399,21 +432,22 @@ const actions = {
   },
   removeSocialMedia({ state, commit }, { id, socialToRemove }) {
     const body = {
-      fields: socialToRemove
-    };
-    return axios.delete(`${state.baseURL}api/field?id=${id}`, { data: body })
-      .then(response => {
+      fields: socialToRemove,
+    }
+    return axios
+      .delete(`${state.baseURL}api/field?id=${id}`, { data: body })
+      .then((response) => {
         if (response.status === 200) {
-          const { data } = response.data;
+          const { data } = response.data
           Object.keys(data)
-            .filter(name => data[name])
-            .forEach(name => {
-            commit('removeSocialLink', {name})
+            .filter((name) => data[name])
+            .forEach((name) => {
+              commit('removeSocialLink', { name })
             })
         }
         return response.data
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('delete error: ', err)
         if (err.response && err.response.data) {
           return { error: err.response.data.message }
@@ -422,10 +456,9 @@ const actions = {
         }
       })
   },
-  updateImage({ commit,state },data) {
+  updateImage({ commit, state }, data) {
     console.log(data)
-    return axios.post(`${state.baseURL}api/image`,null,{params:data})
-
+    return axios.post(`${state.baseURL}api/image`, null, { params: data })
   },
 }
 export default actions

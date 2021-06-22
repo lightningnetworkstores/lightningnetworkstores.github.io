@@ -14,6 +14,16 @@
 						</v-flex>
 					</v-layout>
           <v-layout row>
+            <v-flex pa-3>
+              <v-alert class="text-center" type="success">
+                Wallets can also be found by
+                <nuxt-link class="tag-link" to="/?tags=wallet"
+                  >filtering via tags</nuxt-link
+                >
+              </v-alert>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
             <h1>Lightning mobile wallets</h1>
           </v-layout>
 

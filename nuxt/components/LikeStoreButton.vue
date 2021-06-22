@@ -12,7 +12,7 @@ export default {
   props: ['store', 'likes'],
   data() {
     return {
-      isProcessing: false
+      isProcessing: false,
     }
   },
   computed: {

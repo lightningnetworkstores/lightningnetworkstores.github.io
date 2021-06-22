@@ -217,8 +217,8 @@ export default {
   build: { // Build Configuration (https://go.nuxtjs.dev/config-build)
     extend(config, { isDev, isClient }) {
       config.node = {
-        fs: 'empty'
+        fs: 'empty',
       }
-    }
-  }
+    },
+  },
 }
