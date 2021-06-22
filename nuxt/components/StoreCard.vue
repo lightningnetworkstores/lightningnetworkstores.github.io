@@ -88,7 +88,6 @@
                     class="my-0"
                   >
                     <v-chip color="primary" outlined small class="mr-2 my-0">
-                      <b @click="updateTagSearch(tag, index)" class="tag-link">{{ tag }}</b>
                       <b
                         @click="updateTagSearch(tag, index)"
                         class="tag-link"
