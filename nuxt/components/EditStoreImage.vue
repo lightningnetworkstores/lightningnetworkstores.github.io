@@ -20,7 +20,6 @@
           <ul>
             <li><b>Website URL:</b> introduce a webpage of your own website. We will take a printscreen of it.</li>
             <li><b>External image URL:</b> link to a .jpg or .png image</li>
-            <li><b>Youtube video:</b> youtube link to the video</li>
           </ul>
         </v-card-text>
         <v-layout row class="mx-3 my-3" justify-center>
