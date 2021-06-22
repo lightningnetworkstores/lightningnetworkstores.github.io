@@ -1,26 +1,39 @@
 <template>
-  <div class="favorites-filter ml-4" @click="onFilterByFavorites">
-    <label :class="{'lb-fav-active': filterByFavorites}">Show favorites</label>
-    <v-icon class="ml-1" dense :color="filterByFavorites ? `red` : `gray`">fa-heart</v-icon>
+  <div
+    :class="{
+      'favorites-filter': true,
+      'ml-4': true,
+      active: filterByFavorites,
+    }"
+    @click="onFilterByFavorites"
+  >
+    <label :class="{ 'lb-fav-active': filterByFavorites }"
+      >Show favorites</label
+    >
+    <v-icon class="ml-1" dense :color="filterByFavorites ? `red` : `gray`"
+      >fa-heart</v-icon
+    >
   </div>
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
-  export default {
-    computed: {
-      ...mapState(['filterByFavorites'])
+export default {
+  computed: {
+    ...mapState(['filterByFavorites']),
+  },
+  methods: {
+    onFilterByFavorites() {
+      this.$store.dispatch('toggleFilterByFavoritesStores')
     },
-    methods: {
-      onFilterByFavorites() {
-        this.$store.dispatch('toggleFilterByFavoritesStores')
-      }
-    }
-  }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
+$activeBackground: #eaeaea;
+
 .favorites-filter {
   cursor: pointer;
   font-size: 16px;
@@ -37,11 +50,15 @@
   }
 
   &:hover {
-    background: #e4e4e4;
+    background: $activeBackground;
   }
 
   &:hover .v-icon {
     color: red;
+  }
+
+  &.active {
+    background-color: $activeBackground;
   }
 }
 </style>
