@@ -15,11 +15,32 @@
         <v-list-item class="my-0 pb-0 sort-items">
           <v-radio-group v-model="selectedSort">
             <v-radio
-              v-for="sortItem in sortItems"
+              v-for="sortItem in sortItems.slice(0, 3)"
               :key="sortItem.prop"
               :label="sortItem.name"
               :value="sortItem.prop"
-            ></v-radio>
+            />
+            <div v-if="sortItems.slice(3).length">
+              <v-list-group no-action sub-group class="sort-items-more">
+                <template v-slot:activator>
+                  <v-list-item-content class="pa-0">
+                    <v-list-item-title class="pa-0">More</v-list-item-title>
+                  </v-list-item-content>
+                </template>
+
+                <v-list-item
+                  v-for="sortItem in sortItems.slice(3)"
+                  :key="sortItem.prop"
+                  class="pa-0 my-0"
+                >
+                  <v-radio
+                    :key="sortItem.prop"
+                    :label="sortItem.name"
+                    :value="sortItem.prop"
+                  />
+                </v-list-item>
+              </v-list-group>
+            </div>
           </v-radio-group>
         </v-list-item>
       </v-list>
@@ -194,15 +215,22 @@ export default {
       'baseURL',
       'stores',
       'scores',
+      'likedStores',
+      'filterByFavorites',
     ]),
 
     filteredStores() {
-      const stores = this.$store.getters.getStores(
+      const getStores = this.$store.getters.getStores(
         { sector: this.sector, digitalGoods: this.digitalGoods },
         this.selectedSort,
         this.searchQuery,
         this.safeMode
       )
+
+      const stores = this.filterByFavorites
+        ? getStores.filter((store) => !!this.likedStores[store.id])
+        : getStores
+
       return stores
         .filter((store) => {
           return this.selectedTags.every((tag) => store.tags.includes(tag))
@@ -390,8 +418,13 @@ export default {
     }
   }
 }
-.sort-items {
-  height: 160px;
+.sort-items-more {
+  .v-list-group__header {
+    padding: 0 !important;
+  }
+  .v-list-item {
+    min-height: 36px;
+  }
 }
 .fixed-drawer {
   position: fixed !important;
