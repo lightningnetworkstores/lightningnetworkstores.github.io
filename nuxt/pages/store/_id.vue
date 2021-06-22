@@ -67,17 +67,10 @@
                             </v-chip>
                           </div>
                         </v-img>
-                        <v-btn
-                          color="white lighten-2"
-                          dark
-                          class="float-right edit_image"
-                          v-if="selectedStore.logged"
-                          @click="openImageEditoDialog(i + 1)"
-                        >
-                          <v-icon class="ml-1" color="blue darken-2">
-                            fas fa-edit
-                          </v-icon>
-                        </v-btn>
+                        <edit-store-image
+                          :storeId="selectedStore.id"
+                          :position="i + 1"
+                        />
                       </v-sheet>
                     </v-carousel-item>
                     <template>
@@ -95,21 +88,11 @@
                             class="text-right"
                           >
                           </v-img>
-                          <v-btn
-                            color="white lighten-2"
-                            dark
-                            class="float-right edit_image"
-                            @click="
-                              openImageEditoDialog(
-                                selectedStore.images.number + 1,
-                                false
-                              )
-                            "
-                          >
-                            <v-icon class="ml-1" color="blue darken-2">
-                              fas fa-edit
-                            </v-icon>
-                          </v-btn>
+                          <edit-store-image
+                            :storeId="selectedStore.id"
+                            :position="selectedStore.images.number + 1"
+                            :showDelete="false"
+                          />
                         </v-sheet>
                       </v-carousel-item>
                     </template>
@@ -133,21 +116,11 @@
                               <b>Homepage image</b>
                             </v-chip>
                           </v-img>
-                          <v-btn
-                            color="white lighten-2"
-                            dark
-                            class="float-right edit_image"
-                            @click="
-                              openImageEditoDialog(
-                                0,
-                                false
-                              )
-                            "
-                          >
-                            <v-icon class="ml-1" color="blue darken-2">
-                              fas fa-edit
-                            </v-icon>
-                          </v-btn>
+                          <edit-store-image
+                            :storeId="selectedStore.id"
+                            :position="0"
+                            :showDelete="false"
+                          />
                         </v-sheet>
                       </v-carousel-item>
                   </v-carousel>
@@ -198,17 +171,10 @@
                               New comment
                             </v-chip>
                           </v-img>
-                          <v-btn
-                              color="white lighten-2"
-                              dark
-                              class="float-right edit_image"
-                              v-if="selectedStore.logged"
-                              @click="openImageEditoDialog(1)"
-                            >
-                              <v-icon class="ml-1" color="blue darken-2">
-                                fas fa-edit
-                              </v-icon>
-                            </v-btn>
+                          <edit-store-image
+                            :storeId="selectedStore.id"
+                            :position="1"
+                          />
                         </v-sheet>
                       </v-carousel-item>
                       <template>
@@ -226,21 +192,11 @@
                             class="text-right"
                           >
                           </v-img>
-                          <v-btn
-                            color="white lighten-2"
-                            dark
-                            class="float-right edit_image"
-                            @click="
-                              openImageEditoDialog(
-                                2,
-                                false
-                              )
-                            "
-                          >
-                            <v-icon class="ml-1" color="blue darken-2">
-                              fas fa-edit
-                            </v-icon>
-                          </v-btn>
+                          <edit-store-image
+                            :storeId="selectedStore.id"
+                            :position="2"
+                            :showDelete="false"
+                          />
                         </v-sheet>
                       </v-carousel-item>
                     </template>
@@ -266,21 +222,11 @@
                               <b>Homepage image</b>
                             </v-chip>
                           </v-img>
-                          <v-btn
-                            color="white lighten-2"
-                            dark
-                            class="float-right edit_image"
-                            @click="
-                              openImageEditoDialog(
-                                0,
-                                false
-                              )
-                            "
-                          >
-                            <v-icon class="ml-1" color="blue darken-2">
-                              fas fa-edit
-                            </v-icon>
-                          </v-btn>
+                          <edit-store-image
+                            :storeId="selectedStore.id"
+                            :position="0"
+                            :showDelete="false"
+                          />
                         </v-sheet>
                       </v-carousel-item>
                   </v-carousel>
@@ -326,17 +272,7 @@
                               New comment
                             </v-chip>
                           </v-img>
-                          <v-btn
-                              color="white lighten-2"
-                              dark
-                              class="float-right edit_image"
-                              v-if="selectedStore.logged"
-                              @click="openImageEditoDialog(2)"
-                            >
-                              <v-icon class="ml-1" color="blue darken-2">
-                                fas fa-edit
-                              </v-icon>
-                            </v-btn>
+                          <edit-store-image :storeId="selectedStore.id" :position="2"/>
                         </v-sheet>
                   
                 </div>
@@ -696,74 +632,6 @@
       :onConfirm="handleLogoutConfirm"
     >
     </logout-modal>
-
-    <v-dialog v-model="Editdialog" width="500">
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Update Image
-        </v-card-title>
-
-        <v-card-text>
-          <v-container>
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-row>
-                <v-col cols="12" sm="12" md="12">
-                  <v-text-field
-                    label="New Image Url*"
-                    required
-                    :rules="urlRules"
-                    v-model="imagePath"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </v-form>
-            <v-row justify="center">
-              <v-col cols="5" sm="5" md="5">
-                <v-btn
-                  class="ma-2"
-                  color="success"
-                  @click="updateImage('replace')"
-                  >Replace Image</v-btn
-                >
-              </v-col>
-              <v-col cols="5" sm="5" md="5">
-                <v-btn
-                  class="ma-2"
-                  color="success"
-                  @click="updateImage('capture')"
-                  >Take ScreenShot</v-btn
-                >
-              </v-col>
-            </v-row>
-            <v-row justify="center" class="mt-0" v-if="showImageDeleteButton">
-              <v-col cols="5" sm="5" md="5" class="d-flex justify-center">
-                <v-btn class="" color="red" @click="updateImage('delete')"
-                  >Delete Image</v-btn
-                >
-              </v-col>
-            </v-row>
-            <v-row justify="center" class="mt-0" v-if="position != null">
-              <v-col cols="12" sm="12" md="12" class="d-flex justify-center">
-                <v-alert type="success" v-if="successMessage">{{
-                  successMessage
-                }}</v-alert>
-                <v-alert type="error" v-if="errorMessage">{{
-                  errorMessage
-                }}</v-alert>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="Editdialog = false">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -832,14 +700,6 @@ export default {
       showLoginModal: false,
       showLogoutModal: false,
       loginResponse: null,
-      Editdialog: false,
-      imagePath: '',
-      position: null,
-      valid: true,
-      successMessage: '',
-      errorMessage: '',
-      showImageDeleteButton: false,
-      urlRules: [(v) => !!v || 'Url is required'],
       similarExpanded: false
     }
   },
@@ -915,65 +775,6 @@ export default {
   },
 
   methods: {
-    openImageEditoDialog(number, showImageDeleteButton = true) {
-      this.Editdialog = true
-      this.errorMessage = ''
-      this.successMessage = ''
-      this.imagePath = ''
-      this.showImageDeleteButton = showImageDeleteButton
-      this.position = number
-    },
-    updateImage(e) {
-      console.log(e, this.imagePath)
-      this.successMessage = ''
-      this.errorMessage = ''
-      let valid = true
-      let data = { storeID: this.storeId, position: this.position }
-      if (e == 'capture') {
-        data.capture = true;
-        data.source = this.imagePath
-        if (this.imagePath == '') {
-            valid = false
-            this.$refs.form.validate()
-        }
-      }
-      if (e == 'delete') {
-        data.delete = true
-      }
-      if (e == 'replace') {
-        data.update = true
-        data.source = this.imagePath
-        if (this.imagePath == '') {
-          valid = false
-          this.$refs.form.validate()
-        }
-      }
-      if (valid) {
-        this.$store
-          .dispatch('updateImage', data)
-          .then((response) => {
-            if (response.data.status == 'success') {
-              this.successMessage = response.data.message
-              setTimeout(() => {
-               // window.location.reload()
-              }, 2000)
-            }
-            if (response.data.status == 'fail') {
-              this.errorMessage = response.data.message
-            }
-          })
-          .catch((error) => {
-            console.log(error)
-            const { response } = error
-            if (response.data.status == 'fail') {
-              this.errorMessage = response.data.message
-              setTimeout(() => {
-               //window.location.reload()
-              }, 2000)
-            }
-          })
-      }
-    },
     sortReviewThreads(reviewThreads) {
       //can't use?
       reviewThreads.sort((a, b) => {
@@ -1120,15 +921,6 @@ export default {
   .external-title {
     margin-top: 200px !important;
   }
-}
-.float-right {
-  float: right;
-}
-.edit_image {
-  position: absolute;
-  z-index: 101;
-  bottom: 4px;
-  right: 0;
 }
 .store_craousel {
   .v-sheet {
