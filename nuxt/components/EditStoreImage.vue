@@ -11,7 +11,7 @@
     <v-dialog v-model="showDialog" width="500">
       <v-card>
         <v-card-title class="headline">
-          Update Image
+          Update Media
         </v-card-title>
         <v-card-subtitle class="mt-2">
           Accepted resources:
@@ -20,6 +20,7 @@
           <ul>
             <li><b>Website URL:</b> introduce a webpage of your own website. We will take a printscreen of it.</li>
             <li><b>External image URL:</b> link to a .jpg or .png image</li>
+            <li><b>Youtube Vide:</b> youtube link to the video</li>
           </ul>
         </v-card-text>
         <v-layout row class="mx-3 my-3" justify-center>
@@ -35,7 +36,7 @@
               <v-row>
                 <v-col cols="12" sm="12" md="12">
                   <v-text-field
-                    label="Image Url"
+                    label="Media URL"
                     required
                     :rules="urlRules"
                     v-model="imagePath"
@@ -44,28 +45,34 @@
               </v-row>
             </v-form>
             <v-row justify="center">
-              <v-col cols="5" sm="5" md="5">
-                <v-btn
-                  class="ma-2"
-                  color="success"
-                  @click="updateImage('replace')"
-                  >Replace Image</v-btn
-                >
-              </v-col>
-              <v-col cols="5" sm="5" md="5">
-                <v-btn
-                  class="ma-2"
-                  color="success"
-                  @click="updateImage('capture')"
-                  >Take ScreenShot</v-btn
-                >
-              </v-col>
+              <iframe
+                v-if="mediaType === 'youtube'"
+                width="560"
+                height="315"
+                :src="previewURL"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+              </iframe>
+              <v-sheet v-else color="white" elevation="1" height="310" width="560">
+              </v-sheet>
             </v-row>
-            <v-row justify="center" class="mt-0" v-if="showDelete">
-              <v-col cols="5" sm="5" md="5" class="d-flex justify-center">
-                <v-btn class="" color="red" @click="updateImage('delete')"
-                  >Delete Image</v-btn
+            <v-row justify="center">
+              <v-col cols="5" sm="5" md="5">
+                <v-btn
+                  v-if="!isMediaCorrect"
+                  :disabled="imagePath === ''"
+                  class="ma-2 preview-button"
+                  @click="loadImagePreview"
                 >
+                  Load Preview
+                </v-btn>
+                <v-btn
+                  v-else
+                  class="ma-2 preview-button"
+                  @click="resetImagePreview"
+                >
+                  Clear
+                </v-btn>
               </v-col>
             </v-row>
             <v-row justify="center" class="mt-0" v-if="position != null">
@@ -85,7 +92,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="showDialog = false">
-            Close
+            Cancel
+          </v-btn>
+          <v-btn color="primary" :disabled="!isMediaCorrect" text @click="showDialog = false">
+            Confirm
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -110,13 +120,20 @@ export default {
   },
   data() {
     return {
+      mediaType: null,
       isLoading: false,
       showDialog: false,
       imagePath: '',
       successMessage: '',
       errorMessage: '',
       valid: true,
-      urlRules: [(v) => !!v || 'Url is required']
+      urlRules: [(v) => !!v || 'Url is required'],
+      previewURL: null
+    }
+  },
+  computed: {
+    isMediaCorrect() {
+      return this.previewURL !== null && this.mediaType === 'youtube'
     }
   },
   methods: {
@@ -124,6 +141,16 @@ export default {
       this.showDialog = true
       this.errorMessage = ''
       this.successMessage = ''
+      this.imagePath = ''
+    },
+    async loadImagePreview() {
+      const preview = await this.$store.dispatch('loadImagePreview', this.imagePath)
+      this.mediaType = preview.type
+      this.previewURL = preview.url
+    },
+    resetImagePreview() {
+      this.mediaType = null
+      this.previewURL = null
       this.imagePath = ''
     },
     updateImage(e) {
@@ -186,5 +213,7 @@ export default {
   bottom: 4px;
   right: 0;
 }
-
+.preview-button {
+  width: 12em;
+}
 </style>

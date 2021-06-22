@@ -422,6 +422,20 @@ const actions = {
         }
       })
   },
+  loadImagePreview({ commit, state }, imagePath) {
+    const ytRegex = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/))([\w\-]+)(\S+)?$/
+    if (ytRegex.test(imagePath)) {
+      const videoId = ytRegex.exec(imagePath)[5]
+      return {
+        type: 'youtube',
+        url: `https://youtube.com/embed/${videoId}`
+      }
+    }
+    return {
+      type: 'unknown',
+      url: null
+    }
+  },
   updateImage({ commit,state },data) {
     console.log(data)
     return axios.post(`${state.baseURL}api/image`,null,{params:data})
