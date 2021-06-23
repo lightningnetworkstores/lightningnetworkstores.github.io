@@ -4,8 +4,8 @@
       <v-flex xs12 md12 lg10 xl8 class="pa-6">
         <v-container>
           <v-layout row class="donor-head">
-            <h1>Faucet</h1>
-            <v-btn depressed color="primary" @click="donorDialog = true"
+            <h1>Lightning faucet</h1>
+            <v-btn depressed color="orange" @click="donorDialog = true"
               >Donate</v-btn
             >
           </v-layout>
@@ -18,6 +18,7 @@
               class="elevation-1"
             ></v-data-table>
           </v-layout>
+          <v-layout v-if="message"><h3>Message here</h3></v-layout>
           <v-layout row pt-3 justify-center>
             <vue-hcaptcha
               ref="invisibleHcaptcha"
@@ -26,8 +27,8 @@
               theme="dark"
               @verify="onVerify"
             />
-            <v-btn depressed color="primary" @click="runCaptcha">
-              Get Sats
+            <v-btn depressed color="orange" @click="runCaptcha">
+              Get {{claimAmount}} sat
             </v-btn>
           </v-layout>
         </v-container>
@@ -37,23 +38,24 @@
       <v-card>
         <v-card-title class="text-h5">Donate to Faucet</v-card-title>
         <v-card-text>
-          <faucets-donate-modal v-on:closeDialog="donorDialog = false" />
+          <faucet-donation-modal @closeDialog="closeDonationDialog" />
         </v-card-text>
       </v-card>
     </v-dialog>
     <v-dialog persistent v-model="showDialog" max-width="500">
       <v-card>
-        <v-card-title class="text-h5">Get Sats</v-card-title>
+        <v-card-title v-if="openClaim" class="text-h5">Get sats via LNURL</v-card-title>
+        <v-card-title v-else="openClaim" class="text-h5">You got sats!</v-card-title>
+
         <v-card-text>
           <Checkout
             v-if="openClaim"
-            :satoshi="totalClaims"
+            :satoshi="claimAmount"
             :paymentRequest="paymentRequest"
             @cancel="handleCancel"
           />
           <Success
             v-if="successfulClaim"
-            confirm_title="You got sats!"
             @cancel="handleCancel"
           />
         </v-card-text>
@@ -75,11 +77,13 @@ export default {
   data: () => ({
     headers: [
       { text: 'Name', value: 'name' },
-      { text: 'Total Sats Donated', value: 'total_donated' },
-      { text: 'Sats/Claim', value: 'sats_per_claim' },
+      { text: 'Message', value: 'message' },
+      { text: 'Total donated', value: 'total_donated' },
+      { text: 'Sats/claim', value: 'sats_per_claim' },
     ],
+    message: '',
     topDonors: [],
-    totalClaims: null,
+    claimAmount: null,
     donorDialog: false,
     token: null,
     openClaim: false,
@@ -87,13 +91,18 @@ export default {
     paymentRequest: '',
     interval: null
   }),
-  created() {
+  created() {},
+  mounted(){
     this.$store.dispatch('getFaucetDonors').then(
       (response) => {
         this.topDonors = response.data.data.top_donors
-        this.totalClaims = response.data.data.claim
+        this.topDonors.map(e=>e["sats_per_claim"]=Math.round(e['sats_per_claim']*100)/100)
+        this.topDonors.sort((d1,d2)=>d2["sats_per_claim"]-d1["sats_per_claim"])
+
+        this.claimAmount = response.data.data.claim
+        this.message = response.data.message
       }
-    )
+    )  
   },
   computed: {
       showDialog(){return this.openClaim || this.successfulClaim}
@@ -132,7 +141,11 @@ export default {
         this.openClaim = false
         this.paymentRequest = ''
         if(this.interval!=null) clearInterval(this.interval)
-}
+    },
+    closeDonationDialog(){
+      console.log('closing...')
+      this.donorDialog=false
+    }
   },
 }
 </script>

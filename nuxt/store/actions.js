@@ -297,7 +297,7 @@ const actions = {
       })
       .catch(console.error);
   },
-  donateFaucetsRequest({
+  doFaucetDonation({
     state,
     commit
   }, { data }) {
