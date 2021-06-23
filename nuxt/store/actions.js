@@ -223,6 +223,7 @@ const actions = {
         console.log(error)
       })
   },
+<<<<<<< HEAD
 	addDiscussion({ state }, payload) {
 			return axios
 					.post(`${state.baseURL}api/discussion`, payload)
@@ -272,6 +273,15 @@ const actions = {
       .then((response) => {
         if (response.status === 200) {
           return response
+=======
+  getDiscussions({ state, commit }) {
+    return axios
+      .get(`${state.baseURL}api/discussion`)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response
+          commit('setDiscussions', data.data.last_active_stores)
+>>>>>>> 6a9251e1be96a63b4317a14129ce39ff0ac2f8a5
         }
       })
       .catch(console.error)
@@ -340,6 +350,34 @@ const actions = {
       })
       .catch(console.error)
   },
+  doFaucetDonation({
+    state,
+    commit
+  }, { data }) {
+    return fetch(`${state.baseURL}api/faucet_donation`, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+  },
+  getFaucetDonors({
+    state,
+    commit
+  }) {
+    return axios.get(`${state.baseURL}api/faucetinfo`)
+      .then(response => {
+        if (response.status === 200) {
+          return response;
+        }
+      })
+      .catch(console.error)
+  },
+
   getStatus({ state, commit }, { storeId }) {
     return axios
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
@@ -406,7 +444,24 @@ const actions = {
         }
       })
   },
-
+  verifyInvoiceRequest({ state }, { id: id }) {
+    return fetch(`${state.baseURL}api2/check_payment?id=${id}`)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  checkClaimRequest ({ state }, { id: id }) {
+    return fetch(`${state.baseURL}api/check_claim?id=${id}`)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
   setSelectedTag({ commit }, tag) {
     commit('updateSelectedTag', { tag, remove: false })
   },
@@ -493,4 +548,5 @@ const actions = {
     return axios.post(`${state.baseURL}api/image`, null, { params: data })
   },
 }
+
 export default actions
