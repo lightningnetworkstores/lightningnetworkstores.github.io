@@ -223,7 +223,6 @@ const actions = {
         console.log(error)
       })
   },
-<<<<<<< HEAD
 	addDiscussion({ state }, payload) {
 			return axios
 					.post(`${state.baseURL}api/discussion`, payload)
@@ -273,15 +272,6 @@ const actions = {
       .then((response) => {
         if (response.status === 200) {
           return response
-=======
-  getDiscussions({ state, commit }) {
-    return axios
-      .get(`${state.baseURL}api/discussion`)
-      .then((response) => {
-        if (response.status === 200) {
-          const { data } = response
-          commit('setDiscussions', data.data.last_active_stores)
->>>>>>> 6a9251e1be96a63b4317a14129ce39ff0ac2f8a5
         }
       })
       .catch(console.error)
