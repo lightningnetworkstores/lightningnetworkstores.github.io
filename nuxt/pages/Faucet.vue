@@ -41,19 +41,20 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <v-dialog persistent v-model="satsDialog" max-width="500">
+    <v-dialog persistent v-model="showDialog" max-width="500">
       <v-card>
         <v-card-title class="text-h5">Get Sats</v-card-title>
         <v-card-text>
           <Checkout
-            v-if="checkClaim"
+            v-if="openClaim"
             :satoshi="totalClaims"
             :paymentRequest="paymentRequest"
-            @cancel="cancel"
+            @cancel="handleCancel"
           />
           <Success
-            v-if="claimVerified"
-            @cancel="cancel"
+            v-if="successfulClaim"
+            confirm_title="You got sats!"
+            @cancel="handleCancel"
           />
         </v-card-text>
       </v-card>
@@ -81,19 +82,21 @@ export default {
     totalClaims: null,
     donorDialog: false,
     token: null,
-    satsDialog: false,
-    checkClaim: false,
-    claimVerified: false,
+    openClaim: false,
+    successfulClaim: false,
     paymentRequest: '',
     interval: null
   }),
   created() {
-    this.$store.dispatch('getFaucetDonars').then(
+    this.$store.dispatch('getFaucetDonors').then(
       (response) => {
         this.topDonors = response.data.data.top_donors
         this.totalClaims = response.data.data.claim
       }
     )
+  },
+  computed: {
+      showDialog(){return this.openClaim || this.successfulClaim}
   },
   methods: {
     onVerify(token, ekey) {
@@ -101,8 +104,7 @@ export default {
       this.$store
         .dispatch('faucetClaim', { token: this.token })
         .then((resp) => {
-          this.satsDialog = true
-          this.checkClaim = true
+          this.openClaim = true
           this.paymentRequest = resp.data.data['lnurl-withdraw']
           this.checkClaimMethod(resp.data.data.claimID)
           console.log(resp.data.data['lnurl-withdraw'])
@@ -111,18 +113,26 @@ export default {
     checkClaimMethod (claimID) {
       this.interval = setInterval(() => {
         this.$store.dispatch('checkClaimRequest', { id: claimID } ).then((response) => {
-          let data = response.data
-          if (data.status == success) {
+          if (response.data.claim_status=='PAID') {
             clearInterval(this.interval);
+            this.successfulClaim = true;
+            this.openClaim = false
           }
+          
         }, (error) => {
-          console.log('yes');
+          console.log(error);
         });
       }, 5000);
     },
     runCaptcha() {
       this.$refs.invisibleHcaptcha.execute()
     },
+    handleCancel(){
+        this.successfulClaim = false;
+        this.openClaim = false
+        this.paymentRequest = ''
+        if(this.interval!=null) clearInterval(this.interval)
+}
   },
 }
 </script>

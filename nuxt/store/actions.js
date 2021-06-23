@@ -312,7 +312,7 @@ const actions = {
       return Promise.reject(error);
     });
   },
-  getFaucetDonars({
+  getFaucetDonors({
     state,
     commit
   }) {
