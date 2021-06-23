@@ -352,36 +352,39 @@ export default {
     },
 
     discussionReplyPaymentRequest() {
-      console.log(
-        this.parentComment,
-        this.encodedComment,
-        'this.encodedComment,this.encodedComment,'
-      )
-      this.$store
-        .dispatch('getDiscussionReplyPaymentRequest', {
+      let payload
+      if (this.type === 'store discussion reply') {
+        payload = {
+          storeID: this.store.id,
           parent: this.parentComment,
           comment: this.encodedComment,
-        })
-        .then(
-          (response) => {
-            console.log('responseresponse', response)
-            if (response.status === 'success') {
-              this.upvoteDialogForm.amount = response.data.amount
-              this.paymentRequest = response.data.payment_request
-              this.paymentID = response.data.id
-              let date = new Date()
-              this.expiryTime = new Date(
-                date.setSeconds(date.getSeconds() + 3600)
-              )
-              this.checkPaymentTimer = setInterval(() => {
-                this.checkPayment()
-              }, 3000)
-            }
-          },
-          (error) => {
-            console.error(error)
+        }
+      } else {
+        payload = {
+          parent: this.parentComment,
+          comment: this.encodedComment,
+        }
+      }
+      this.$store.dispatch('getDiscussionReplyPaymentRequest', payload).then(
+        (response) => {
+          console.log('responseresponse', response)
+          if (response.status === 'success') {
+            this.upvoteDialogForm.amount = response.data.amount
+            this.paymentRequest = response.data.payment_request
+            this.paymentID = response.data.id
+            let date = new Date()
+            this.expiryTime = new Date(
+              date.setSeconds(date.getSeconds() + 3600)
+            )
+            this.checkPaymentTimer = setInterval(() => {
+              this.checkPayment()
+            }, 3000)
           }
-        )
+        },
+        (error) => {
+          console.error(error)
+        }
+      )
     },
 
     getInvoice() {
@@ -420,7 +423,8 @@ export default {
         this.storeVotePaymentRequest()
       } else if (
         this.type === 'discussion' ||
-        this.type === 'discussion reply'
+        this.type === 'discussion reply' ||
+        this.type === 'store discussion reply'
       ) {
         this.discussionReplyPaymentRequest()
       }

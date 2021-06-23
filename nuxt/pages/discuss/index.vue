@@ -16,6 +16,7 @@
             :comment="discussion[0]"
             :comments="discussion.slice(1)"
             :type="'discussion'"
+            :onlyShowLast="2"
           >
           </Review>
         </v-row>
@@ -32,10 +33,18 @@
           </store-card>
           <Review
             class="store-card"
-            :comment="discussion.reviews[0]"
-            :comments="discussion.reviews.slice(1)"
+            :comment="
+              discussion.reviews
+                ? discussion.reviews[0]
+                : discussion.discussions[0]
+            "
+            :comments="
+              discussion.reviews
+                ? discussion.reviews.slice(1)
+                : discussion.discussions.slice(1)
+            "
             :store="discussion.store"
-            :type="'comment'"
+            :type="discussion.reviews ? 'comment' : 'store discussion reply'"
           >
           </Review>
         </v-row>

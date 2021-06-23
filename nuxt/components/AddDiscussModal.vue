@@ -87,7 +87,7 @@
                       rows="4"
                       :rules="[
                         (v) =>
-                          v.length <= 200 ||
+                          (v && v.length <= 200) ||
                           'Comment has to be shorter than 200 characters',
                       ]"
                     ></v-textarea>
@@ -105,11 +105,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
-                  <v-btn
-                    color="green darken-1"
-                    text
-                    @click="showAddDialog = false"
-                  >
+                  <v-btn color="green darken-1" text @click="cancel">
                     Close
                   </v-btn>
 
@@ -169,12 +165,15 @@ export default {
     },
 
     closeDialog() {
+      if (this.$refs && this.$refs.addform) {
+        this.$refs.addform.reset()
+      }
       this.addDiscussionForm = {}
       this.showAddDialog = false
-      this.$refs.addform.reset()
       this.isPaid = false
       this.paymentID = ''
       this.addAlert = { message: '', success: true }
+      this.isLoading = false
     },
 
     async submitAdd(event) {

@@ -19,10 +19,9 @@
       <v-layout row pa-2 class="caption comment-extra">
         <v-flex grow pa-2
           >ID: {{ post.id.substring(0, 8) }}
-          <span class="ml-6">
+          <span v-if="post && post.user_id" class="ml-6">
             user:
             <v-chip
-              v-if="post && post.user_id"
               :color="getPillColor(post.user_id)"
               text-color="white"
               small

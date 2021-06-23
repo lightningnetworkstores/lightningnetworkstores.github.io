@@ -187,6 +187,7 @@ const getters = {
             return {
                 store: store,
                 reviews: discussion.reviews,
+                discussions: discussion.discussions
             }
         })
         return formattedDiscussions

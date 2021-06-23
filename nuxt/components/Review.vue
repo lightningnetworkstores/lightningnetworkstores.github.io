@@ -12,11 +12,19 @@
           {{ Number(Math.abs(comment.score)).toLocaleString() }}
         </v-col>
 
-        <v-col cols="10" class="comment-text pa-3" v-if="type === 'comment'">
+        <v-col
+          cols="10"
+          class="comment-text pa-3"
+          v-if="comment && comment.text"
+        >
           {{ comment.text.replace(/\+/g, ' ') }}
         </v-col>
 
-        <v-col cols="12" class="comment-text pa-3" v-if="type === 'discussion'">
+        <v-col
+          cols="12"
+          class="comment-text pa-3"
+          v-if="comment && comment.comment"
+        >
           <div class="discussion-title">
             {{ comment.title }}
           </div>
@@ -36,7 +44,9 @@
             :store="store"
             :parentReview="comment.id"
             :parentComment="
-              type === 'discussion' ? comment.thread_id : comment.id
+              type === 'discussion' || type === 'store discussion reply'
+                ? comment.thread_id
+                : comment.id
             "
             :comment="comment"
             :type="type"
@@ -71,7 +81,7 @@ import VoteLine from './VoteLine.vue'
 import PostCard from '@/components/PostCard.vue'
 export default {
   components: { VoteLine, PostCard },
-  props: ['store', 'comment', 'comments', 'type'],
+  props: ['store', 'comment', 'comments', 'type', 'onlyShowLast'],
   computed: {
     commentsArr() {
       if (this.type === 'comment') {
@@ -79,7 +89,11 @@ export default {
           .filter((subComment) => subComment.parent == this.comment.id)
           .sort((a, b) => a.timestamp - b.timestamp)
       } else {
-        return this.comments
+        if (this.comments.length > this.onlyShowLast) {
+          return this.comments.splice(0, this.onlyShowLast)
+        } else {
+          return this.comments
+        }
       }
     },
   },
