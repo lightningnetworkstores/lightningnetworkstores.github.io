@@ -132,7 +132,6 @@ export default {
         { name: 'Controversial', prop: 'controversial' },
         { name: 'Last commented', prop: 'lastcommented' },
       ],
-.v-list-item
       tagsCheckbox: [],
     }
   },
