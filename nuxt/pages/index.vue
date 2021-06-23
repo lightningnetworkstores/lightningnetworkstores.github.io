@@ -21,7 +21,14 @@
               :value="sortItem.prop"
             />
             <div v-if="sortItems.slice(3).length">
-              <v-list-group no-action sub-group class="sort-items-more">
+              <v-list-group
+                no-action
+                sub-group
+                class="sort-items-more"
+                :ripple="false"
+                color="gray"
+                background-color="white"
+              >
                 <template v-slot:activator>
                   <v-list-item-content class="pa-0">
                     <v-list-item-title class="pa-0">More</v-list-item-title>
