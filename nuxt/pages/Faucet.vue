@@ -18,7 +18,7 @@
               class="elevation-1"
             ></v-data-table>
           </v-layout>
-          <v-layout v-if="message"><h3>Message here</h3></v-layout>
+          <v-layout v-if="message"><h3>{{message}}</h3></v-layout>
           <v-layout row pt-3 justify-center>
             <vue-hcaptcha
               ref="invisibleHcaptcha"
@@ -100,7 +100,7 @@ export default {
         this.topDonors.sort((d1,d2)=>d2["sats_per_claim"]-d1["sats_per_claim"])
 
         this.claimAmount = response.data.data.claim
-        this.message = response.data.message
+        if(response.data.message) this.message = response.data.message
       }
     )  
   },
