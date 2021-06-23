@@ -234,16 +234,6 @@ const actions = {
       })
       .catch(console.error)
   },
-  donateFaucetsRequest({ state, commit }, { data }) {
-    return axios
-      .post(`${state.baseURL}api/faucet_donation`)
-      .then((response) => {
-        if (response.status === 200) {
-          return response
-        }
-      })
-      .catch(console.error)
-  },
   faucetClaim({ state, commit }, { token: token }) {
     return axios
       .get(`${state.baseURL}api/lnurl1?h-captcha-response=${token}`)
@@ -308,6 +298,34 @@ const actions = {
       })
       .catch(console.error)
   },
+  doFaucetDonation({
+    state,
+    commit
+  }, { data }) {
+    return fetch(`${state.baseURL}api/faucet_donation`, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+  },
+  getFaucetDonors({
+    state,
+    commit
+  }) {
+    return axios.get(`${state.baseURL}api/faucetinfo`)
+      .then(response => {
+        if (response.status === 200) {
+          return response;
+        }
+      })
+      .catch(console.error)
+  },
+
   getStatus({ state, commit }, { storeId }) {
     return axios
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
@@ -374,7 +392,24 @@ const actions = {
         }
       })
   },
-
+  verifyInvoiceRequest({ state }, { id: id }) {
+    return fetch(`${state.baseURL}api2/check_payment?id=${id}`)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  checkClaimRequest ({ state }, { id: id }) {
+    return fetch(`${state.baseURL}api/check_claim?id=${id}`)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
   setSelectedTag({ commit }, tag) {
     commit('updateSelectedTag', { tag, remove: false })
   },
@@ -461,4 +496,5 @@ const actions = {
     return axios.post(`${state.baseURL}api/image`, null, { params: data })
   },
 }
+
 export default actions
