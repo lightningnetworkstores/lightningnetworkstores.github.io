@@ -27,7 +27,6 @@
                 class="sort-items-more"
                 :ripple="false"
                 color="gray"
-                background-color="white"
               >
                 <template v-slot:activator>
                   <v-list-item-content class="pa-0">
@@ -133,7 +132,7 @@ export default {
         { name: 'Controversial', prop: 'controversial' },
         { name: 'Last commented', prop: 'lastcommented' },
       ],
-
+.v-list-item
       tagsCheckbox: [],
     }
   },
@@ -431,6 +430,10 @@ export default {
   }
   .v-list-item {
     min-height: 36px;
+  }
+
+  .v-list-item::before {
+    background: none;
   }
 }
 .fixed-drawer {
