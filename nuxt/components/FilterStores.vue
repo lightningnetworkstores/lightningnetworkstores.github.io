@@ -1,9 +1,9 @@
 <template>
   <v-list>
-    <v-subheader class="title pb-2">Filter</v-subheader>
+    <v-subheader class="title mb-3 filter-label">Filter</v-subheader>
     <favorites-store-filter />
     <v-text-field
-      class="search tag-search-block p-10"
+      class="search tag-search-block p-10 mb-4"
       v-model="tagSearchQuery"
       flat
       outlined
@@ -12,8 +12,6 @@
       prepend-inner-icon="mdi-magnify"
       hide-details
     ></v-text-field>
-    <br />
-    <br />
     <v-list-item
       v-for="(tag, index) in tags"
       :key="index"
@@ -53,6 +51,9 @@
   font-family: 'Roboto', Helvetica, Arial;
   color: rgba(0, 0, 0, 0.6);
 }
+.filter-label {
+  height: 10px;
+}
 </style>
 
 <script>
@@ -61,7 +62,7 @@ import FavoritesStoreFilter from './FavoritesStoreFilter.vue'
 
 export default {
   components: {
-    FavoritesStoreFilter
+    FavoritesStoreFilter,
   },
   props: {
     filterTags: {
