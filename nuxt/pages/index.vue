@@ -151,40 +151,6 @@ export default {
         query: query,
       })
     },
-    setFromRoute() {
-      if (this.$route.query.safemode) {
-        this.safeMode = this.$route.query.safemode
-      }
-      if (this.$route.query.sort) {
-        this.selectedSort = this.$route.query.sort
-      }
-      if (this.$route.query.search) {
-        this.searchQuery = this.$route.query.search
-      }
-      if (this.$route.query.tags) {
-        const routeTags = this.$route.query.tags
-          .split(',')
-          .map((x) => decodeURI(x))
-
-        for (const tag of routeTags) {
-          this.tagsCheckbox.push(tag)
-          this.checkedTags.push(tag)
-        }
-
-        this.$store.commit('setSelectedTags', routeTags)
-      }
-
-      if (this.$route.query.exclude) {
-        const routeexcludedTags = this.$route.query.exclude
-          .split(',')
-          .map((x) => decodeURI(x))
-
-        for (const tag of routeexcludedTags) {
-          this.excludedTag.push(tag)
-        }
-        this.$store.commit('setExludedTags', routeexcludedTags)
-      }
-    },
   },
   computed: {
     ...mapState([
@@ -267,11 +233,9 @@ export default {
       this.changeUrl()
     },
   },
-  async asyncData({ store }) {
+  async asyncData({ store, route }) {
     await store.dispatch('getStores')
-  },
-  async mounted() {
-    this.setFromRoute()
+    return await store.dispatch('processRoute', route)
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
