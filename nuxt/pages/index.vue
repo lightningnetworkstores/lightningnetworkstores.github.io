@@ -135,8 +135,8 @@ export default {
         query.tags = this.selectedTags.filter((x) => x).join(',')
       }
 
-      if (this.excludedTag.filter((x) => x).length) {
-        query.exclude = this.excludedTag.filter((x) => x).join(',')
+      if (this.excludedTags.filter((x) => x).length) {
+        query.exclude = this.excludedTags.filter((x) => x).join(',')
       }
       if (this.selectedSort && this.selectedSort != 'best') {
         query.sort = encodeURIComponent(this.selectedSort)
