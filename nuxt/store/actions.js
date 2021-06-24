@@ -1,6 +1,18 @@
 require('dotenv').config()
 const axios = require('axios')
 
+function syncLikesFromServer(serverLikes, likedStores, lsKey) {
+  const likes = serverLikes.reduce((acc, id) => {
+    acc[id] = true
+    return acc
+  }, {})
+
+  Object.assign(likedStores, likes)
+  localStorage.setItem(lsKey, JSON.stringify(likedStores))
+
+  return likedStores
+}
+
 const actions = {
   async nuxtServerInit({ commit }) {
     process.env.NODE_ENV == 'development'
@@ -264,14 +276,11 @@ const actions = {
     }).then((res) => {
       if (res.status === 202) {
         // Store was already liked/unliked, we just didn't know about this
-        const likes = res.data.data.likes
-        likes.forEach((id) => (likedStores[id] = true))
-        likedStores[storeId] = remove ? false : true
-        localStorage.setItem(lsKey, JSON.stringify(likedStores))
         commit('updateLikedStores', { storeId, remove })
-        likes.forEach((id) => {
-          commit('updateLikedStores', { storeId: id, remove: false })
-        })
+        const likes = res.data.data.likes
+
+        // This line sync the likes from the server with the localStorage
+        // commit('setStoreLikes', syncLikesFromServer(likes, likedStores, lsKey))
       } else if (res.status === 200) {
         // Store 'like' status was changed successfully
         likedStores[storeId] = remove ? false : true
@@ -298,29 +307,24 @@ const actions = {
       })
       .catch(console.error)
   },
-  doFaucetDonation({
-    state,
-    commit
-  }, { data }) {
+  doFaucetDonation({ state, commit }, { data }) {
     return fetch(`${state.baseURL}api/faucet_donation`, {
       method: 'POST',
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((error) => {
-      return Promise.reject(error);
-    });
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
   },
-  getFaucetDonors({
-    state,
-    commit
-  }) {
-    return axios.get(`${state.baseURL}api/faucetinfo`)
-      .then(response => {
+  getFaucetDonors({ state, commit }) {
+    return axios
+      .get(`${state.baseURL}api/faucetinfo`)
+      .then((response) => {
         if (response.status === 200) {
-          return response;
+          return response
         }
       })
       .catch(console.error)
@@ -401,7 +405,7 @@ const actions = {
         return Promise.reject(error)
       })
   },
-  checkClaimRequest ({ state }, { id: id }) {
+  checkClaimRequest({ state }, { id: id }) {
     return fetch(`${state.baseURL}api/check_claim?id=${id}`)
       .then((response) => {
         return response.json()
@@ -512,9 +516,7 @@ const actions = {
       searchQuery = route.query.search
     }
     if (route.query.tags) {
-      const routeTags = route.query.tags
-        .split(',')
-        .map((x) => decodeURI(x))
+      const routeTags = route.query.tags.split(',').map((x) => decodeURI(x))
 
       for (const tag of routeTags) {
         tagsCheckbox.push(tag)
@@ -535,13 +537,17 @@ const actions = {
       commit('setExludedTags', routeExcludedTags)
     }
     return {
-      safeMode, selectedSort, searchQuery,
-      tagsCheckbox, checkedTags, excludedTags
+      safeMode,
+      selectedSort,
+      searchQuery,
+      tagsCheckbox,
+      checkedTags,
+      excludedTags,
     }
   },
   toggleFilterByFavoritesStores({ commit, state }) {
     commit('updateFilterFavoriteStores', !state.filterByFavorites)
-  }
+  },
 }
 
 export default actions
