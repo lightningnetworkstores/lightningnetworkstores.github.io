@@ -87,16 +87,14 @@ export default {
   components: { AddStoreModal, StoreCard, FilterStores },
   data() {
     return {
+      addCardCount: 6,
       drawer: false,
       group: null,
       isLoading: false,
-      searchQuery: '',
       maxCards: 18,
-      addCardCount: 6,
-      checkedTags: [],
-      excludedTag: [],
-      selectedSort: 'best',
       safeMode: false,
+      searchQuery: '',
+      selectedSort: 'best',
       sortItems: [
         { name: 'Best', prop: 'best' },
         { name: 'Trending', prop: 'trending' },
@@ -105,10 +103,10 @@ export default {
         { name: 'Controversial', prop: 'controversial' },
         { name: 'Last commented', prop: 'lastcommented' },
       ],
-
       tagsCheckbox: [],
     }
   },
+
   methods: {
     toggleDrawer() {
       this.drawer = !this.drawer
@@ -126,17 +124,14 @@ export default {
       return Object.assign({}, this.store, score)
     },
     changeUrl() {
-      let query = {}
-      if (this.checkedTags.filter((x) => x).length) {
-        query.tags = this.checkedTags.filter((x) => x).join(',')
-      }
+      const query = {}
 
       if (this.selectedTags.filter((x) => x).length) {
         query.tags = this.selectedTags.filter((x) => x).join(',')
       }
 
-      if (this.excludedTags.filter((x) => x).length) {
-        query.exclude = this.excludedTags.filter((x) => x).join(',')
+      if (this.excludedTags.length) {
+        query.exclude = this.excludedTags.join(',')
       }
       if (this.selectedSort && this.selectedSort != 'best') {
         query.sort = encodeURIComponent(this.selectedSort)
