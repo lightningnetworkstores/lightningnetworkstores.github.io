@@ -114,16 +114,14 @@ export default {
   components: { AddStoreModal, StoreCard, FilterStores },
   data() {
     return {
+      addCardCount: 6,
       drawer: false,
       group: null,
       isLoading: false,
-      searchQuery: '',
       maxCards: 18,
-      addCardCount: 6,
-      checkedTags: [],
-      excludedTag: [],
-      selectedSort: 'best',
       safeMode: false,
+      searchQuery: '',
+      selectedSort: 'best',
       sortItems: [
         { name: 'Best', prop: 'best' },
         { name: 'Trending', prop: 'trending' },
@@ -135,6 +133,7 @@ export default {
       tagsCheckbox: [],
     }
   },
+
   methods: {
     toggleDrawer() {
       this.drawer = !this.drawer
@@ -152,17 +151,14 @@ export default {
       return Object.assign({}, this.store, score)
     },
     changeUrl() {
-      let query = {}
-      if (this.checkedTags.filter((x) => x).length) {
-        query.tags = this.checkedTags.filter((x) => x).join(',')
-      }
+      const query = {}
 
       if (this.selectedTags.filter((x) => x).length) {
         query.tags = this.selectedTags.filter((x) => x).join(',')
       }
 
-      if (this.excludedTag.filter((x) => x).length) {
-        query.exclude = this.excludedTag.filter((x) => x).join(',')
+      if (this.excludedTags.length) {
+        query.exclude = this.excludedTags.join(',')
       }
       if (this.selectedSort && this.selectedSort != 'best') {
         query.sort = encodeURIComponent(this.selectedSort)
@@ -176,40 +172,6 @@ export default {
       this.$router.push({
         query: query,
       })
-    },
-    setFromRoute() {
-      if (this.$route.query.safemode) {
-        this.safeMode = this.$route.query.safemode
-      }
-      if (this.$route.query.sort) {
-        this.selectedSort = this.$route.query.sort
-      }
-      if (this.$route.query.search) {
-        this.searchQuery = this.$route.query.search
-      }
-      if (this.$route.query.tags) {
-        const routeTags = this.$route.query.tags
-          .split(',')
-          .map((x) => decodeURI(x))
-
-        for (const tag of routeTags) {
-          this.tagsCheckbox.push(tag)
-          this.checkedTags.push(tag)
-        }
-
-        this.$store.commit('setSelectedTags', routeTags)
-      }
-
-      if (this.$route.query.exclude) {
-        const routeexcludedTags = this.$route.query.exclude
-          .split(',')
-          .map((x) => decodeURI(x))
-
-        for (const tag of routeexcludedTags) {
-          this.excludedTag.push(tag)
-        }
-        this.$store.commit('setExludedTags', routeexcludedTags)
-      }
     },
   },
   computed: {
@@ -300,11 +262,9 @@ export default {
       this.changeUrl()
     },
   },
-  async asyncData({ store }) {
+  async asyncData({ store, route }) {
     await store.dispatch('getStores')
-  },
-  async mounted() {
-    this.setFromRoute()
+    return await store.dispatch('processRoute', route)
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
