@@ -441,5 +441,26 @@ const actions = {
     return axios.post(`${state.baseURL}api/image`,null,{params:data})
 
   },
+  deleteStoreImage({ commit, state }, data) {
+    return axios.post(`${state.baseURL}api/image`, null, {params: data})
+      .then(response => {
+        if (response.status === 200) {
+          console.log('Image deleted with success!');
+        } else {
+          console.log('Image removal failure');
+        }
+        return {
+          //TODO: Implement return value
+        }
+      })
+      .catch(err => {
+        console.error('Got an error')
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      });
+  }
 }
 export default actions

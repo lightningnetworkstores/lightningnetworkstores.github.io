@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn
-      color="gray"
+      color="rgba(0,0,0,0.80)"
       dark
       class="edit-image-icon"
       @click="openDialog"

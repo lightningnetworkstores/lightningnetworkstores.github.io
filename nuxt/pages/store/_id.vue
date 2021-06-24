@@ -71,6 +71,10 @@
                           :storeId="selectedStore.id"
                           :position="i + 1"
                         />
+                        <delete-image-modal
+                          :store="selectedStore"
+                          :position="i"
+                        />
                       </v-sheet>
                     </v-carousel-item>
                     <template>
@@ -638,12 +642,13 @@
 <script>
 import { mapState } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
+import DeleteImageModal from '~/components/DeleteImageModal.vue'
 
 import StoreCard from '~/components/StoreCard'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 
 export default {
-  components: { StoreCard, LikeStoreButton, AddExternalModal },
+  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
