@@ -68,7 +68,7 @@
                           </div>
                         </v-img>
                         <edit-store-image
-                          :storeId="selectedStore.id"
+                          :store="selectedStore"
                           :position="i + 1"
                         />
                         <delete-image-modal
@@ -93,7 +93,7 @@
                           >
                           </v-img>
                           <edit-store-image
-                            :storeId="selectedStore.id"
+                            :store="selectedStore"
                             :position="selectedStore.images.number + 1"
                             :showDelete="false"
                           />
@@ -121,7 +121,7 @@
                             </v-chip>
                           </v-img>
                           <edit-store-image
-                            :storeId="selectedStore.id"
+                            :store="selectedStore"
                             :position="0"
                             :showDelete="false"
                           />
@@ -176,7 +176,7 @@
                             </v-chip>
                           </v-img>
                           <edit-store-image
-                            :storeId="selectedStore.id"
+                            :store="selectedStore"
                             :position="1"
                           />
                         </v-sheet>
@@ -197,7 +197,7 @@
                           >
                           </v-img>
                           <edit-store-image
-                            :storeId="selectedStore.id"
+                            :store="selectedStore"
                             :position="2"
                             :showDelete="false"
                           />
@@ -227,7 +227,7 @@
                             </v-chip>
                           </v-img>
                           <edit-store-image
-                            :storeId="selectedStore.id"
+                            :store="selectedStore"
                             :position="0"
                             :showDelete="false"
                           />
@@ -276,7 +276,7 @@
                               New comment
                             </v-chip>
                           </v-img>
-                          <edit-store-image :storeId="selectedStore.id" :position="2"/>
+                          <edit-store-image :store="selectedStore" :position="2"/>
                         </v-sheet>
                   
                 </div>

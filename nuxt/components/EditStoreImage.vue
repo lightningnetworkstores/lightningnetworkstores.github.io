@@ -23,12 +23,6 @@
             <li><b>Youtube Vide:</b> youtube link to the video</li>
           </ul>
         </v-card-text>
-        <v-layout row class="mx-3 my-3" justify-center>
-          <v-progress-circular
-            v-if="isLoading"
-            indeterminate
-            size="30"
-          />
         </v-layout>
         <v-card-text>
           <v-container>
@@ -53,8 +47,21 @@
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
               </iframe>
-              <v-sheet v-else color="white" elevation="1" height="310" width="560">
+              <v-sheet v-else-if="mediaType === 'image'" class="d-flex justify-center">
+                <v-img
+                  :src="previewURL"
+                  width="450"
+                  min-height="300"
+                />
               </v-sheet>
+              <v-sheet v-else color="white" elevation="2" height="310" width="560">
+              </v-sheet>
+            </v-row>
+            <v-row>
+              <v-progress-linear
+                v-if="isLoading"
+                indeterminate
+              />
             </v-row>
             <v-row justify="center">
               <v-col cols="5" sm="5" md="5">
@@ -109,8 +116,8 @@ export default {
       type: Number,
       required: true
     },
-    storeId: {
-      type: Number,
+    store: {
+      type: Object,
       required: true
     },
     showDelete: {
@@ -133,7 +140,7 @@ export default {
   },
   computed: {
     isMediaCorrect() {
-      return this.previewURL !== null && this.mediaType === 'youtube'
+      return this.previewURL !== null && (this.mediaType === 'youtube' || this.mediaType === 'image')
     }
   },
   methods: {
@@ -144,9 +151,14 @@ export default {
       this.imagePath = ''
     },
     async loadImagePreview() {
-      const preview = await this.$store.dispatch('loadImagePreview', this.imagePath)
-      this.mediaType = preview.type
-      this.previewURL = preview.url
+      this.isLoading = true
+      const data = { store: this.store, imagePath: this.imagePath }
+      const preview = await this.$store.dispatch('loadImagePreview', data)
+      if (!preview.error) {
+        this.mediaType = preview.type
+        this.previewURL = preview.url
+      }
+      this.isLoading = false
     },
     resetImagePreview() {
       this.mediaType = null
@@ -158,7 +170,7 @@ export default {
       this.successMessage = ''
       this.errorMessage = ''
       let valid = true
-      let data = { storeID: this.storeId, position: this.position }
+      let data = { storeID: this.store.id, position: this.position }
       if (e == 'capture') {
         data.capture = true;
         data.source = this.imagePath

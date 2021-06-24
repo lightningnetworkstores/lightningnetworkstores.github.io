@@ -422,13 +422,30 @@ const actions = {
         }
       })
   },
-  loadImagePreview({ commit, state }, imagePath) {
+  async loadImagePreview({ commit, state }, { store, imagePath }) {
     const ytRegex = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/))([\w\-]+)(\S+)?$/
     if (ytRegex.test(imagePath)) {
       const videoId = ytRegex.exec(imagePath)[5]
       return {
         type: 'youtube',
         url: `https://youtube.com/embed/${videoId}`
+      }
+    } else {
+      try {
+        const response = await axios.post(`${state.baseURL}api/image?storeID=${store.id}&source=${imagePath}`)
+        if (response.status === 200) {
+          return {
+            type: 'image',
+            url: `${state.baseURL}thumbnails/${response.data.data.media}`
+          }
+        }
+      } catch(err) {
+        console.error('set preview image error: ', err)
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
       }
     }
     return {
