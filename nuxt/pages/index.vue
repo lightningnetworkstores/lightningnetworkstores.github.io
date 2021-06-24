@@ -264,7 +264,7 @@ export default {
   },
   async asyncData({ store, route }) {
     await store.dispatch('getStores')
-    return await store.dispatch('processRoute', route)
+    await store.dispatch('processRoute', route)
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
@@ -383,6 +383,17 @@ export default {
     }
   }
 }
+.sort-items {
+  .v-input--selection-controls {
+    margin-top: 0;
+  }
+  .v-messages {
+    display: none;
+  }
+  .v-input__slot {
+    margin-bottom: 0;
+  }
+}
 .sort-items-more {
   .v-list-group__header {
     padding: 0 !important;
@@ -393,6 +404,11 @@ export default {
 
   .v-list-item::before {
     background: none;
+  }
+
+  .v-list-group__header__prepend-icon {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
   }
 }
 .fixed-drawer {
@@ -438,5 +454,9 @@ export default {
   .v-icon.theme--light {
     color: #f34444;
   }
+}
+
+.sort-title {
+  height: 14px;
 }
 </style>
