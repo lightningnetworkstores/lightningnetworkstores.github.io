@@ -23,5 +23,6 @@
       "printWidth": 200,
       "singleQuote": false
     }
-  }
+},
+"git.ignoreLimitWarning": true
 }
