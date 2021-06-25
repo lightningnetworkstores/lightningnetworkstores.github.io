@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "BASE_URL=https://bitcoin-stores.com/ nuxt",
-    "build": "BASE_URL=https://bitcoin-stores.com/ nuxt build",
+    "dev": "BASE_URL=https://lightningnetworkstores.com/ nuxt",
+    "build": "BASE_URL=https://lightningnetworkstores.com/ nuxt build",
     "start": "nuxt start",
     "format": "prettier --write \"**/*.{js,json,vue}\" \"{.babelrc,.eslintrc}\"",
     "generate": "node --max-old-space-size=1024 node_modules/nuxt/bin/nuxt.js generate"
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/vuetify": "^1.11.3",
     "dotenv": "^10.0.0",
     "eslint-config-prettier": "^6.12.0",
