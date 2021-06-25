@@ -185,7 +185,7 @@ export default {
       const data = {
         storeId: this.store.id,
         position: this.position,
-        filename: this.filename,
+        media: this.filename || this.previewURL,
         isHomepage: this.isHomepageImage
       }
       const result = await this.$store.dispatch('confirmImageSelection', data)
