@@ -96,13 +96,13 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn v-if="!finalStage" color="primary" text @click="showDialog = false">
+          <v-btn v-if="!finalStage" color="primary" text @click="closeDialog">
             Cancel
           </v-btn>
           <v-btn v-if="!finalStage" color="primary" :disabled="!isMediaCorrect" text @click="confirmImageSelection">
             Confirm
           </v-btn>
-          <v-btn v-if="finalStage" color="primary" text @click="showDialog = false">
+          <v-btn v-if="finalStage" color="primary" text @click="closeDialog">
             Close
           </v-btn>
         </v-card-actions>
@@ -154,6 +154,10 @@ export default {
       this.errorMessage = null
       this.successMessage = null
       this.imagePath = ''
+    },
+    closeDialog() {
+      this.resetImagePreview()
+      this.showDialog = false
     },
     async loadImagePreview() {
       this.isLoading = true
