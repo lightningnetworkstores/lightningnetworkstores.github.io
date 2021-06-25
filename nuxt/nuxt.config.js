@@ -178,6 +178,7 @@ export default {
 
   recaptcha: {
     /* reCAPTCHA options */
+    hideBadge: true,
     siteKey: '6LdgSxsbAAAAAP4lpnFPCCyDhfyupt3lpI3sFBPi', // Site key for requests
     version: 3,
   },
