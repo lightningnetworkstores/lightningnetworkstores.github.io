@@ -61,7 +61,11 @@
                 small
                 class="mr-2 my-1"
               >
-                <b @click="updateTagSearch(store.tags[0], 0)" class="tag-link">{{ store.tags[0] }}</b>
+                <b
+                  @click="updateTagSearch(store.tags[0], 0)"
+                  class="tag-link"
+                  >{{ store.tags[0] }}</b
+                >
               </v-chip>
               <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
                 <template v-slot:activator="{ on, attrs }">
@@ -146,3 +150,89 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.detail {
+  color: #000000de;
+  display: grid;
+  grid-template-rows: 200px 150px;
+  grid-template-columns: 80px 1fr;
+  row-gap: 4px;
+
+  .screenshot {
+    grid-column: 1 / 3;
+  }
+  .score {
+    display: grid;
+    grid: 1fr;
+    justify-items: center;
+    padding: 5px;
+    font-size: 15px !important;
+
+    span {
+      display: block;
+    }
+    .arrow {
+      border: 1px solid;
+      border-radius: 50%;
+      padding: 5px;
+
+      &.up:hover {
+        background-color: rgba(76, 175, 80, 0.12);
+      }
+      &.down:hover {
+        background-color: rgba(255, 82, 82, 0.12);
+      }
+    }
+  }
+  .content {
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    .title {
+      font-size: 1.7rem !important;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      a {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    .description {
+      font-size: 14px !important;
+      margin-top: 5px;
+    }
+    .tag-container {
+      position: absolute;
+      bottom: 8px;
+      padding-right: 40px;
+      background-color: white;
+    }
+    .btn-actions {
+      display: flex;
+      gap: 8px;
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      font-size: 14px !important;
+      .v-icon {
+        margin-top: -4px;
+      }
+      .likes .v-icon:hover {
+        color: #f44336;
+      }
+      &.sm-btn-actions {
+        font-size: 24px !important;
+        .v-icon {
+          font-size: 24px !important;
+        }
+      }
+    }
+  }
+}
+</style>
