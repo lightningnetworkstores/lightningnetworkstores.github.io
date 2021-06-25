@@ -478,7 +478,7 @@ const actions = {
         const { data } = response
         if (response.status === 200) {
           if (data.status === 'success') {
-            // TODO: commit to store
+            commit('removeStoreMedia', {position})
             return {
               message: data.message
             }

@@ -61,6 +61,10 @@ const mutations = {
     state.selectedStore.images.names.splice(index, 0, media.link)
     state.selectedStore.images.number++
   },
+  removeStoreMedia(state, { position }) {
+    state.selectedStore.media.main.splice(position, 1)
+    state.selectedStore.images.names.splice(position, 1)
+  },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },
