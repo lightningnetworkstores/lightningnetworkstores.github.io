@@ -82,6 +82,11 @@
                 >
                   Clear
                 </v-btn>
+                <v-checkbox
+                  v-model="isHomepageImage"
+                  :disabled="imagePath === '' || finalStage"
+                  label="Homepage"
+                />
               </v-col>
             </v-row>
             <v-alert type="success" v-if="successMessage">
@@ -128,6 +133,7 @@ export default {
   },
   data() {
     return {
+      isHomepageImage: false,
       mediaType: null,
       isLoading: false,
       showDialog: false,
@@ -179,7 +185,8 @@ export default {
       const data = {
         storeId: this.store.id,
         position: this.position,
-        filename: this.filename
+        filename: this.filename,
+        isHomepage: this.isHomepageImage
       }
       const result = await this.$store.dispatch('confirmImageSelection', data)
       if (result.status === 'success') {

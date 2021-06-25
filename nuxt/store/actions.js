@@ -454,8 +454,9 @@ const actions = {
       url: null
     }
   },
-  confirmImageSelection({ state, commit }, { storeId, position, filename }) {
-    return axios.put(`${state.baseURL}api/image?storeID=${storeId}&position=${position}&media=${filename}`)
+  confirmImageSelection({ state, commit }, { storeId, position, filename, isHomepage }) {
+    const url = `${state.baseURL}api/image?storeID=${storeId}&position=${position}&media=${filename}&homepage=${isHomepage}`
+    return axios.put(url)
       .then(response => {
         if (response.status === 200) {
           commit('addStoreMedia', { homepage: false, link: filename, type: 'IMAGE' })
