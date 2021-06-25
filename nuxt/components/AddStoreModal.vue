@@ -124,7 +124,10 @@
                   <v-flex pl-3 pr-3>
                     <v-text-field
                       v-model="addDialogForm.contributor"
+                      :append-icon="showContributorCode ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showContributorCode ? 'text' : 'password'"
                       label="Contributor code (optional)"
+                       @click:append="showContributorCode = !showContributorCode"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -141,14 +144,6 @@
                     ></v-checkbox>
                   </v-flex>
                 </v-layout>
-
-                <v-row class="my-3">
-                  <v-flex grow></v-flex>
-                  <v-flex pl-3 pr-3 shrink v-if="showAddDialog">
-                    <recaptcha />
-                  </v-flex>
-                  <v-flex grow></v-flex>
-                </v-row>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -215,6 +210,7 @@ export default {
       ],
 
       showAddDialog: false,
+      showContributorCode: true,
       addDialogForm: { name: '', description: '', url: '' },
       addAlert: { message: '', success: true },
       confirm_title: 'Store successfully added.',
