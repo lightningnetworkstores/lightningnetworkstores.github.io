@@ -15,11 +15,38 @@
         <v-list-item class="my-0 pb-0 sort-items">
           <v-radio-group v-model="selectedSort">
             <v-radio
-              v-for="sortItem in sortItems"
+              v-for="sortItem in sortItems.slice(0, 3)"
               :key="sortItem.prop"
               :label="sortItem.name"
               :value="sortItem.prop"
-            ></v-radio>
+            />
+            <div v-if="sortItems.slice(3).length">
+              <v-list-group
+                no-action
+                sub-group
+                class="sort-items-more"
+                :ripple="false"
+                color="gray"
+              >
+                <template v-slot:activator>
+                  <v-list-item-content class="pa-0">
+                    <v-list-item-title class="pa-0">More</v-list-item-title>
+                  </v-list-item-content>
+                </template>
+
+                <v-list-item
+                  v-for="sortItem in sortItems.slice(3)"
+                  :key="sortItem.prop"
+                  class="pa-0 my-0"
+                >
+                  <v-radio
+                    :key="sortItem.prop"
+                    :label="sortItem.name"
+                    :value="sortItem.prop"
+                  />
+                </v-list-item>
+              </v-list-group>
+            </div>
           </v-radio-group>
         </v-list-item>
       </v-list>
@@ -87,16 +114,14 @@ export default {
   components: { AddStoreModal, StoreCard, FilterStores },
   data() {
     return {
+      addCardCount: 6,
       drawer: false,
       group: null,
       isLoading: false,
-      searchQuery: '',
       maxCards: 18,
-      addCardCount: 6,
-      checkedTags: [],
-      excludedTag: [],
-      selectedSort: 'best',
       safeMode: false,
+      searchQuery: '',
+      selectedSort: 'best',
       sortItems: [
         { name: 'Best', prop: 'best' },
         { name: 'Trending', prop: 'trending' },
@@ -105,10 +130,10 @@ export default {
         { name: 'Controversial', prop: 'controversial' },
         { name: 'Last commented', prop: 'lastcommented' },
       ],
-
       tagsCheckbox: [],
     }
   },
+
   methods: {
     toggleDrawer() {
       this.drawer = !this.drawer
@@ -126,17 +151,14 @@ export default {
       return Object.assign({}, this.store, score)
     },
     changeUrl() {
-      let query = {}
-      if (this.checkedTags.filter((x) => x).length) {
-        query.tags = this.checkedTags.filter((x) => x).join(',')
-      }
+      const query = {}
 
       if (this.selectedTags.filter((x) => x).length) {
         query.tags = this.selectedTags.filter((x) => x).join(',')
       }
 
-      if (this.excludedTags.filter((x) => x).length) {
-        query.exclude = this.excludedTags.filter((x) => x).join(',')
+      if (this.excludedTags.length) {
+        query.exclude = this.excludedTags.join(',')
       }
       if (this.selectedSort && this.selectedSort != 'best') {
         query.sort = encodeURIComponent(this.selectedSort)
@@ -160,15 +182,22 @@ export default {
       'baseURL',
       'stores',
       'scores',
+      'likedStores',
+      'filterByFavorites',
     ]),
 
     filteredStores() {
-      const stores = this.$store.getters.getStores(
+      const getStores = this.$store.getters.getStores(
         { sector: this.sector, digitalGoods: this.digitalGoods },
         this.selectedSort,
         this.searchQuery,
         this.safeMode
       )
+
+      const stores = this.filterByFavorites
+        ? getStores.filter((store) => !!this.likedStores[store.id])
+        : getStores
+
       return stores
         .filter((store) => {
           return this.selectedTags.every((tag) => store.tags.includes(tag))
@@ -235,7 +264,7 @@ export default {
   },
   async asyncData({ store, route }) {
     await store.dispatch('getStores')
-    return await store.dispatch('processRoute', route)
+    await store.dispatch('processRoute', route)
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
@@ -355,7 +384,32 @@ export default {
   }
 }
 .sort-items {
-  height: 160px;
+  .v-input--selection-controls {
+    margin-top: 0;
+  }
+  .v-messages {
+    display: none;
+  }
+  .v-input__slot {
+    margin-bottom: 0;
+  }
+}
+.sort-items-more {
+  .v-list-group__header {
+    padding: 0 !important;
+  }
+  .v-list-item {
+    min-height: 36px;
+  }
+
+  .v-list-item::before {
+    background: none;
+  }
+
+  .v-list-group__header__prepend-icon {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+  }
 }
 .fixed-drawer {
   position: fixed !important;
@@ -400,5 +454,9 @@ export default {
   .v-icon.theme--light {
     color: #f34444;
   }
+}
+
+.sort-title {
+  height: 14px;
 }
 </style>

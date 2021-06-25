@@ -19,6 +19,7 @@ export const state = () => ({
   likedStores: {},
   filteredTags: [],
   filteredStores: [],
+  filterByFavorites: false,
 })
 
 export default state
