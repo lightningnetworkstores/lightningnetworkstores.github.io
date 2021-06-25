@@ -55,9 +55,10 @@ const mutations = {
   },
   addStoreMedia(state, media) {
     const index = state.selectedStore.media.main.length
+    // TODO: Migrate to use of 'media' only
     state.selectedStore.media.main.splice(index, 0, media)
     state.selectedStore.media.number++
-    state.selectedStore.images.names.splice(index, 0, media)
+    state.selectedStore.images.names.splice(index, 0, media.link)
     state.selectedStore.images.number++
   },
   setSelectedTags(state, selectedTags) {
