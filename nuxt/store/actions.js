@@ -548,6 +548,9 @@ const actions = {
   toggleFilterByFavoritesStores({ commit, state }) {
     commit('updateFilterFavoriteStores', !state.filterByFavorites)
   },
+  setScrolledStores({ commit }, storesCount) {
+    commit('updateScrolledStores', storesCount)
+  },
 }
 
 export default actions

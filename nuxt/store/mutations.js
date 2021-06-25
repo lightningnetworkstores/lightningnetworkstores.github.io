@@ -55,9 +55,9 @@ const mutations = {
   },
   updateSocialLink(state, { name, href }) {
     if (state.selectedStore[name]) {
-      state.selectedStore[name] = {href}
+      state.selectedStore[name] = { href }
     } else {
-      Vue.set(state.selectedStore.social, name, {href});
+      Vue.set(state.selectedStore.social, name, { href })
     }
   },
   removeSocialLink(state, { name }) {
@@ -132,7 +132,10 @@ const mutations = {
   },
   updateFilterFavoriteStores(state, flag) {
     state.filterByFavorites = flag
-  }
+  },
+  updateScrolledStores(state, number) {
+    state.scrolledStores = number
+  },
 }
 
 export default mutations

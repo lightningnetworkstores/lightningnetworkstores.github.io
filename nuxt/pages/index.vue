@@ -140,6 +140,7 @@ export default {
     },
     loadMoreCards() {
       this.maxCards += this.addCardCount
+      this.$store.dispatch('setScrolledStores', this.maxCards)
     },
     handleScroll() {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -184,6 +185,7 @@ export default {
       'scores',
       'likedStores',
       'filterByFavorites',
+      'scrolledStores',
     ]),
 
     filteredStores() {
@@ -268,6 +270,9 @@ export default {
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
+    if (this.scrolledStores) {
+      this.maxCards = this.scrolledStores
+    }
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
