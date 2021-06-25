@@ -53,12 +53,12 @@ const mutations = {
   removeSocialLink(state, { name }) {
     Vue.delete(state.selectedStore.social, name)
   },
-  addStoreMedia(state, media) {
-    const index = state.selectedStore.media.main.length
+  addStoreMedia(state, { homepage, link, type, position }) {
+    const media = { link: link, type: type, homepage: homepage }
     // TODO: Migrate to use of 'media' only
-    state.selectedStore.media.main.splice(index, 0, media)
+    state.selectedStore.media.main.splice(position, 1, media)
     state.selectedStore.media.number++
-    state.selectedStore.images.names.splice(index, 0, media.link)
+    state.selectedStore.images.names.splice(position, 1, link)
     state.selectedStore.images.number++
   },
   removeStoreMedia(state, { position }) {

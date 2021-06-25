@@ -460,7 +460,13 @@ const actions = {
       .then(response => {
         if (response.status === 200) {
           const type = mediaType === 'image' ? 'IMAGE' : 'VIDEO'
-          commit('addStoreMedia', { homepage: false, link: media, type: type })
+          const data = {
+            homepage: isHomepage,
+            link: media,
+            type: type,
+            position: position
+          }
+          commit('addStoreMedia', data)
           return response.data
         }
         return { error: 'Undefined error with status 200' }
