@@ -32,6 +32,7 @@
                   <v-text-field
                     label="Media URL"
                     required
+                    :disabled="finalStage"
                     :rules="urlRules"
                     v-model="imagePath"
                   ></v-text-field>
@@ -67,7 +68,7 @@
               <v-col cols="5" sm="5" md="5">
                 <v-btn
                   v-if="!isMediaCorrect"
-                  :disabled="imagePath === ''"
+                  :disabled="imagePath === '' || finalStage"
                   class="ma-2 preview-button"
                   @click="loadImagePreview"
                 >
@@ -75,6 +76,7 @@
                 </v-btn>
                 <v-btn
                   v-else
+                  :disabled="finalStage"
                   class="ma-2 preview-button"
                   @click="resetImagePreview"
                 >
@@ -82,27 +84,26 @@
                 </v-btn>
               </v-col>
             </v-row>
-            <v-row justify="center" class="mt-0" v-if="position != null">
-              <v-col cols="12" sm="12" md="12" class="d-flex justify-center">
-                <v-alert type="success" v-if="successMessage">{{
-                  successMessage
-                }}</v-alert>
-                <v-alert type="error" v-if="errorMessage">{{
-                  errorMessage
-                }}</v-alert>
-              </v-col>
-            </v-row>
+            <v-alert type="success" v-if="successMessage">
+              {{successMessage}}
+            </v-alert>
+            <v-alert type="error" v-if="errorMessage">
+              {{errorMessage}}
+            </v-alert>
           </v-container>
         </v-card-text>
         <v-divider></v-divider>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="showDialog = false">
+          <v-btn v-if="!finalStage" color="primary" text @click="showDialog = false">
             Cancel
           </v-btn>
-          <v-btn color="primary" :disabled="!isMediaCorrect" text @click="showDialog = false">
+          <v-btn v-if="!finalStage" color="primary" :disabled="!isMediaCorrect" text @click="confirmImageSelection">
             Confirm
+          </v-btn>
+          <v-btn v-if="finalStage" color="primary" text @click="showDialog = false">
+            Close
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -131,23 +132,27 @@ export default {
       isLoading: false,
       showDialog: false,
       imagePath: '',
-      successMessage: '',
-      errorMessage: '',
+      successMessage: null,
+      errorMessage: null,
       valid: true,
       urlRules: [(v) => !!v || 'Url is required'],
-      previewURL: null
+      previewURL: null,
+      filename: null
     }
   },
   computed: {
     isMediaCorrect() {
       return this.previewURL !== null && (this.mediaType === 'youtube' || this.mediaType === 'image')
+    },
+    finalStage() {
+      return this.successMessage !== null || this.errorMessage !== null
     }
   },
   methods: {
     openDialog() {
       this.showDialog = true
-      this.errorMessage = ''
-      this.successMessage = ''
+      this.errorMessage = null
+      this.successMessage = null
       this.imagePath = ''
     },
     async loadImagePreview() {
@@ -157,6 +162,7 @@ export default {
       if (!preview.error) {
         this.mediaType = preview.type
         this.previewURL = preview.url
+        this.filename = preview.filename
       }
       this.isLoading = false
     },
@@ -165,52 +171,17 @@ export default {
       this.previewURL = null
       this.imagePath = ''
     },
-    updateImage(e) {
-      console.log(e, this.imagePath)
-      this.successMessage = ''
-      this.errorMessage = ''
-      let valid = true
-      let data = { storeID: this.store.id, position: this.position }
-      if (e == 'capture') {
-        data.capture = true;
-        data.source = this.imagePath
-        if (this.imagePath == '') {
-            valid = false
-            this.$refs.form.validate()
-        }
+    async confirmImageSelection() {
+      const data = {
+        storeId: this.store.id,
+        position: this.position,
+        filename: this.filename
       }
-      if (e == 'delete') {
-        data.delete = true
-      }
-      if (e == 'replace') {
-        data.update = true
-        data.source = this.imagePath
-        if (this.imagePath == '') {
-          valid = false
-          this.$refs.form.validate()
-        }
-      }
-      if (valid) {
-        this.isLoading = true
-        this.$store
-          .dispatch('updateImage', data)
-          .then((response) => {
-            if (response.data.status == 'success') {
-              this.successMessage = response.data.message
-            }
-            if (response.data.status == 'fail') {
-              this.errorMessage = response.data.message
-            }
-            this.isLoading = false
-          })
-          .catch((error) => {
-            console.log(error)
-            const { response } = error
-            if (response.data.status == 'fail') {
-              this.errorMessage = response.data.message
-            }
-            this.isLoading = false
-          })
+      const result = await this.$store.dispatch('confirmImageSelection', data)
+      if (result.status === 'success') {
+        this.successMessage = result.message
+      } else {
+        this.errorMessage = result.error
       }
     },
   }

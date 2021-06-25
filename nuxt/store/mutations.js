@@ -53,6 +53,13 @@ const mutations = {
   removeSocialLink(state, { name }) {
     Vue.delete(state.selectedStore.social, name)
   },
+  addStoreMedia(state, media) {
+    const index = state.selectedStore.media.main.length
+    state.selectedStore.media.main.splice(index, 0, media)
+    state.selectedStore.media.number++
+    state.selectedStore.images.names.splice(index, 0, media)
+    state.selectedStore.images.number++
+  },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },

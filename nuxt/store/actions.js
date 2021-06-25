@@ -453,10 +453,23 @@ const actions = {
       url: null
     }
   },
-  updateImage({ commit,state },data) {
-    console.log(data)
-    return axios.post(`${state.baseURL}api/image`,null,{params:data})
-
+  confirmImageSelection({ state, commit }, { storeId, position, filename }) {
+    return axios.put(`${state.baseURL}api/image?storeID=${storeId}&position=${position}&media=${filename}`)
+      .then(response => {
+        if (response.status === 200) {
+          commit('addStoreMedia', { homepage: false, link: filename, type: 'IMAGE' })
+          return response.data
+        }
+        return { error: 'Undefined error with status 200' }
+      })
+      .catch(err => {
+        console.error('confirm image error: ', err)
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
   },
   deleteStoreImage({ commit, state }, {id, position}) {
     return axios.delete(`${state.baseURL}api/image?storeID=${id}&position=${position}`)
