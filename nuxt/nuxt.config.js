@@ -10,11 +10,11 @@ export default {
   },
   router: {
     scrollBehavior(to, from, savedPosition) {
-        if (savedPosition) {
-            return savedPosition
-          } else {
-            return { x: 0, y: 0 }
-          }
+      if (savedPosition) {
+        return savedPosition
+      } else {
+        return { x: 0, y: 0 }
+      }
     },
   },
   axios: {
@@ -44,20 +44,21 @@ export default {
       changeOrigin: false,
     },
   },
-  render:{
-      static:{
-          setHeaders(res, path, stat){
-            if(path.includes('sites.json') || path.includes('storeScores.json')){
-                console.log('answering to old sites.json/storeScores.json')
-                res.setHeader('Clear-Site-Data', '*');
-                res.setHeader('Last-Modified', 'Sat, 19 Jun 2021 22:30:52 GMT');
-            }
-          }
-      }
+  render: {
+    static: {
+      setHeaders(res, path, stat) {
+        if (path.includes('sites.json') || path.includes('storeScores.json')) {
+          console.log('answering to old sites.json/storeScores.json')
+          res.setHeader('Clear-Site-Data', '*')
+          res.setHeader('Last-Modified', 'Sat, 19 Jun 2021 22:30:52 GMT')
+        }
+      },
+    },
   },
   generate: {},
   env: {},
-  head: { // Global page headers (https://go.nuxtjs.dev/config-head)
+  head: {
+    // Global page headers (https://go.nuxtjs.dev/config-head)
     title: 'Lightning Network Stores directory',
     meta: [
       {
@@ -76,7 +77,7 @@ export default {
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'LightningNetworkStores.com'
+        content: 'LightningNetworkStores.com',
       },
       {
         hid: 'og:title',
@@ -114,7 +115,7 @@ export default {
         hid: 'twitter:image',
         property: 'twitter:image',
         content: process.env.BASE_URL + 'ogimage.png',
-      }
+      },
     ],
     link: [
       {
@@ -151,7 +152,8 @@ export default {
     ],
   },
   css: ['./assets/css/main.scss'], // Global CSS (https://go.nuxtjs.dev/config-css)
-  plugins: [ // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
+  plugins: [
+    // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     {
       src: '~/plugins/qrcode.js',
       ssr: false,
@@ -170,23 +172,25 @@ export default {
     },
     {
       src: '~/plugins/socialMediaColors.js',
-      ssr: true
-    }
+      ssr: true,
+    },
   ],
 
   recaptcha: {
     /* reCAPTCHA options */
-    siteKey: '6LddfGMUAAAAAG75Ke0N_iVtWh1QwwGFlByKpoMj', // Site key for requests
-    version: 2,
+    siteKey: '6LdgSxsbAAAAAP4lpnFPCCyDhfyupt3lpI3sFBPi', // Site key for requests
+    version: 3,
   },
   components: true, // Auto import components (https://go.nuxtjs.dev/config-components)
-  buildModules: [ // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
+  buildModules: [
+    // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
     // '@nuxt/typescript-build', // https://go.nuxtjs.dev/typescript
     '@nuxtjs/vuetify', // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics',
   ],
 
-  modules: [ // Modules (https://go.nuxtjs.dev/config-modules)
+  modules: [
+    // Modules (https://go.nuxtjs.dev/config-modules)
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
@@ -194,7 +198,8 @@ export default {
     '@nuxtjs/recaptcha',
     'cookie-universal-nuxt',
   ],
-  vuetify: { // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
+  vuetify: {
+    // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
     customVariables: ['~/assets/variables.scss'],
     treeShake: true,
     theme: {
@@ -212,9 +217,10 @@ export default {
       },
     },
   },
-  googleAnalytics:{id: 'UA-74119866-1'},
+  googleAnalytics: { id: 'UA-74119866-1' },
 
-  build: { // Build Configuration (https://go.nuxtjs.dev/config-build)
+  build: {
+    // Build Configuration (https://go.nuxtjs.dev/config-build)
     extend(config, { isDev, isClient }) {
       config.node = {
         fs: 'empty',
