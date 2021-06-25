@@ -436,6 +436,7 @@ const actions = {
         if (response.status === 200) {
           return {
             type: 'image',
+            filename: response.data.data.media,
             url: `${state.baseURL}thumbnails/${response.data.data.media}`
           }
         }
