@@ -458,16 +458,23 @@ const actions = {
     return axios.post(`${state.baseURL}api/image`,null,{params:data})
 
   },
-  deleteStoreImage({ commit, state }, data) {
-    return axios.post(`${state.baseURL}api/image`, null, {params: data})
+  deleteStoreImage({ commit, state }, {id, position}) {
+    return axios.delete(`${state.baseURL}api/image?storeID=${id}&position=${position}`)
       .then(response => {
+        const { data } = response
         if (response.status === 200) {
-          console.log('Image deleted with success!');
-        } else {
-          console.log('Image removal failure');
+          if (data.status === 'success') {
+            // TODO: commit to store
+            return {
+              message: data.message
+            }
+          }
+          return {
+            error: data.message
+          }
         }
         return {
-          //TODO: Implement return value
+          error: data.message ? data.message : 'Unknown error'
         }
       })
       .catch(err => {
