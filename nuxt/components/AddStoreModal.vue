@@ -64,34 +64,8 @@
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <v-text-field
-                      v-model="addDialogForm.name"
-                      label="Name"
-                      hint="eg. Some name no longer than 50 characters."
-                      :rules="[(v) => !!v || 'Name is required']"
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
-                    <v-text-field
-                      v-model="addDialogForm.description"
-                      label="Description"
-                      hint="eg. Some description no longer than 150 characters."
-                      :rules="[
-                        (v) => !!v || 'Description is required',
-                        (v) =>
-                          (v && v.length > 6 && v.split(/\b(\s)/).length > 1) ||
-                          'Enter a clear description of the store',
-                      ]"
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
-                    <v-text-field
                       v-model="addDialogForm.url"
+                      @input="getSuggestedNameDescription()"
                       label="Website URL"
                       hint="eg. https://lightningnetworkstores.com"
                       :rules="[
@@ -105,6 +79,39 @@
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
+
+                <v-layout row>
+                  <v-flex pl-3 pr-3>
+                    <v-text-field
+                      v-model="addDialogForm.name"
+                      class="dialogform-name"
+                      :disabled="checkValidUrl()"
+                      label="Name"
+                      hint="eg. Some name no longer than 50 characters."
+                      :rules="[(v) => !!v || 'Name is required']"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <v-layout row>
+                  <v-flex pl-3 pr-3>
+                    <v-text-field
+                      v-model="addDialogForm.description"
+                      class="dialogform-description"
+                      :disabled="checkValidUrl()"
+                      label="Description"
+                      hint="eg. Some description no longer than 150 characters."
+                      :rules="[
+                        (v) => !!v || 'Description is required',
+                        (v) =>
+                          (v && v.length > 6 && v.split(/\b(\s)/).length > 1) ||
+                          'Enter a clear description of the store',
+                      ]"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+
 
                 <v-layout row>
                   <v-flex pl-3 pr-3>
@@ -173,6 +180,7 @@
 // import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+import axios from 'axios';
 export default {
   components: {
     Checkout,
@@ -209,7 +217,7 @@ export default {
       ],
 
       showAddDialog: false,
-      addDialogForm: {},
+      addDialogForm: { name: '', description: '', url: ''},
       addAlert: { message: '', success: true },
       confirm_title: 'Store successfully added.',
       isLoading: false,
@@ -267,6 +275,32 @@ export default {
       // let input = document.getElementById('paymentrequest')!.focus()
       document.execCommand('SelectAll')
       document.execCommand('copy')
+    },
+
+    async getSuggestedNameDescription() {
+        let name = '';
+        let description = '';
+        if(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(this.addDialogForm.url)) {
+          await axios.get(`https://bitcoin-stores.com/api/preview?url=${this.addDialogForm.url}`)
+          .then(function(response) {
+            name = response.data.data.name?response.data.data.name:'';
+            description = response.data.data.description?response.data.data.description:'';
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+
+          this.addDialogForm.name = name;
+          this.addDialogForm.description = description;
+        }
+    },
+
+    checkValidUrl() {
+        if(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(this.addDialogForm.url)) {
+          return false;
+        } else {
+          return true;
+        }
     },
 
     async submitAdd(event) {
