@@ -454,12 +454,13 @@ const actions = {
       url: null
     }
   },
-  confirmImageSelection({ state, commit }, { storeId, position, media, isHomepage }) {
+  confirmImageSelection({ state, commit }, { storeId, position, media, isHomepage, mediaType }) {
     const url = `${state.baseURL}api/image?storeID=${storeId}&position=${position}&media=${media}&homepage=${isHomepage}`
     return axios.put(url)
       .then(response => {
         if (response.status === 200) {
-          commit('addStoreMedia', { homepage: false, link: media, type: 'IMAGE' })
+          const type = mediaType === 'image' ? 'IMAGE' : 'VIDEO'
+          commit('addStoreMedia', { homepage: false, link: media, type: type })
           return response.data
         }
         return { error: 'Undefined error with status 200' }
