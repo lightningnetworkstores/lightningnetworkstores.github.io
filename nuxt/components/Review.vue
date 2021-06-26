@@ -1,6 +1,6 @@
 <template>
   <v-col justify-center class="px-0" xs="11">
-    <v-card class="pa-5" @click="gotoDiscussion(comment.thread_id)">
+    <v-card class="pa-5" @click.native="gotoDiscussion(comment.thread_id)">
       <v-row class="px-0">
         <v-col cols="2" class="text-center px-0 pt-4" v-if="type === 'comment'">
           <vote-line

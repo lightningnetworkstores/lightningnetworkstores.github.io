@@ -675,7 +675,19 @@
             :comment="review[0]"
             :comments="review"
             :store="selectedStore"
+            :type="'comment'"
           ></Review>
+
+          <div class="headline font-weight-medium"> Discussions</div>
+          <div v-for="(discussion, index) in discussions" :key="index">
+            <Review
+              :comment="discussion[0]"
+              :comments="discussion.slice(1)"
+              :store="selectedStore"
+              :type="'store discussion reply'"
+              :onlyShowLast="2"
+            ></Review>
+          </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
       </v-row>
@@ -857,7 +869,9 @@ export default {
       }
     )
 
-    return { selectedStore, reviews, storeId }
+    let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
+
+    return { selectedStore, reviews, storeId, discussions }
   },
 
   async mounted() {
