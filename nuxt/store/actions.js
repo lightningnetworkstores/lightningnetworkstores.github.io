@@ -486,7 +486,7 @@ const actions = {
         const { data } = response
         if (response.status === 200) {
           if (data.status === 'success') {
-            commit('removeStoreMedia', {position})
+            commit('removeStoreMedia', {position: position - 1})
             return {
               message: data.message
             }
