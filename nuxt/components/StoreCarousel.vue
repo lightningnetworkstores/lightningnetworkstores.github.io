@@ -121,7 +121,10 @@ export default {
       }
     },
     isNewStore() {
-      return true
+      return (
+        new Date(this.selectedStore.added * 1000 + 1000 * 60 * 60 * 24 * 8) >
+        new Date()
+      )
     }
   },
   computed: {
