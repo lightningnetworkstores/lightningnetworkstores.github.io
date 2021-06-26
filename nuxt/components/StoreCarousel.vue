@@ -1,6 +1,5 @@
 <template>
   <v-carousel
-    v-model="imageCarousel"
     hide-delimiters
     height="auto"
   >
@@ -106,11 +105,6 @@ export default {
     selectedStore: {
       type: Object,
       required: true
-    }
-  },
-  data() {
-    return {
-      imageCarousel: 0
     }
   },
   methods: {
