@@ -32,7 +32,7 @@
           <v-btn color="green darken-1" text @click="closeDialog">
             Cancel
           </v-btn>
-          <v-btn color="green darken-1" :disabled="error" text @click="confirm">
+          <v-btn color="green darken-1" :disabled="error !== null" text @click="confirm">
             Confirm
           </v-btn>
         </v-card-actions>
