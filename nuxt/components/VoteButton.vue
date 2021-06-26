@@ -362,4 +362,16 @@ export default {
   right: 10px;
   top: 4px;
 }
+.arrow {
+  border: 1px solid;
+  border-radius: 50%;
+  padding: 5px;
+
+  &.up:hover {
+    background-color: rgba(76, 175, 80, 0.12);
+  }
+  &.down:hover {
+    background-color: rgba(255, 82, 82, 0.12);
+  }
+}
 </style>

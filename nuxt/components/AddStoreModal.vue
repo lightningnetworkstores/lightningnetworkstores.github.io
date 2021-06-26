@@ -64,7 +64,28 @@
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <v-text-field
+                      v-model="addDialogForm.url"
+                      @input="getSuggestedNameDescription()"
+                      label="Website URL"
+                      hint="eg. https://lightningnetworkstores.com"
+                      :rules="[
+                        (v) => !!v || 'Website URL is required',
+                        (v) =>
+                          /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+                            v
+                          ) ||
+                          'Enter a valid url eg. https://lightningnetworkstores.com',
+                      ]"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <v-layout row>
+                  <v-flex pl-3 pr-3>
+                    <v-text-field
                       v-model="addDialogForm.name"
+                      class="dialogform-name"
+                      :disabled="checkValidUrl()"
                       label="Name"
                       hint="eg. Some name no longer than 50 characters."
                       :rules="[(v) => !!v || 'Name is required']"
@@ -76,6 +97,8 @@
                   <v-flex pl-3 pr-3>
                     <v-text-field
                       v-model="addDialogForm.description"
+                      class="dialogform-description"
+                      :disabled="checkValidUrl()"
                       label="Description"
                       hint="eg. Some description no longer than 150 characters."
                       :rules="[
@@ -83,24 +106,6 @@
                         (v) =>
                           (v && v.length > 6 && v.split(/\b(\s)/).length > 1) ||
                           'Enter a clear description of the store',
-                      ]"
-                    ></v-text-field>
-                  </v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
-                    <v-text-field
-                      v-model="addDialogForm.url"
-                      label="Website URL"
-                      hint="eg. https://lightningnetworkstores.com"
-                      :rules="[
-                        (v) => !!v || 'Website URL is required',
-                        (v) =>
-                          /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-                            v
-                          ) ||
-                          'Enter a valid url eg. https://lightningnetworkstores.com',
                       ]"
                     ></v-text-field>
                   </v-flex>
@@ -119,7 +124,10 @@
                   <v-flex pl-3 pr-3>
                     <v-text-field
                       v-model="addDialogForm.contributor"
+                      :append-icon="showContributorCode ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showContributorCode ? 'text' : 'password'"
                       label="Contributor code (optional)"
+                       @click:append="showContributorCode = !showContributorCode"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -136,14 +144,6 @@
                     ></v-checkbox>
                   </v-flex>
                 </v-layout>
-
-                <v-row class="my-3">
-                  <v-flex grow></v-flex>
-                  <v-flex pl-3 pr-3 shrink v-if="showAddDialog">
-                    <recaptcha />
-                  </v-flex>
-                  <v-flex grow></v-flex>
-                </v-row>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -173,6 +173,7 @@
 // import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+import axios from 'axios'
 export default {
   components: {
     Checkout,
@@ -209,7 +210,8 @@ export default {
       ],
 
       showAddDialog: false,
-      addDialogForm: {},
+      showContributorCode: true,
+      addDialogForm: { name: '', description: '', url: '' },
       addAlert: { message: '', success: true },
       confirm_title: 'Store successfully added.',
       isLoading: false,
@@ -269,12 +271,50 @@ export default {
       document.execCommand('copy')
     },
 
-    async submitAdd(event) {
+    async getSuggestedNameDescription() {
+      let name = ''
+      let description = ''
+      if (
+        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+          this.addDialogForm.url
+        )
+      ) {
+        await axios
+          .get(
+            `https://bitcoin-stores.com/api/preview?url=${this.addDialogForm.url}`
+          )
+          .then(function (response) {
+            name = response.data.data.name ? response.data.data.name : ''
+            description = response.data.data.description
+              ? response.data.data.description
+              : ''
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+
+        this.addDialogForm.name = name
+        this.addDialogForm.description = description
+      }
+    },
+
+    checkValidUrl() {
+      if (
+        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+          this.addDialogForm.url
+        )
+      ) {
+        return false
+      } else {
+        return true
+      }
+    },
+
+    async submitAdd() {
       let token = null
       this.$refs.addform.validate()
       try {
-        token = await this.$recaptcha.getResponse()
-        await this.$recaptcha.reset()
+        token = await this.$recaptcha.execute('addStore')
       } catch (error) {
         return
       }
@@ -372,6 +412,16 @@ export default {
       clearInterval(this.checkPaymentTimer)
       this.paymentRequest = ''
     },
+  },
+  beforeDestroy() {
+    this.$recaptcha.destroy()
+  },
+  async mounted() {
+    try {
+      await this.$recaptcha.init()
+    } catch (e) {
+      console.error(e)
+    }
   },
 }
 </script>
