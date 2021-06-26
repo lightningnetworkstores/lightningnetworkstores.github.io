@@ -107,7 +107,8 @@ export default {
       required: true
     },
     logged: {
-      type: Boolean
+      type: Boolean,
+      required: true
     }
   },
   methods: {

@@ -16,7 +16,7 @@
                 <store-carousel
                   @imageClicked="handleImageClick"
                   :selectedStore="selectedStore"
-                  :logged="selectedStore.logged"
+                  :logged="selectedStore.logged === true"
                 />
                 <v-row class="pa-5">
                   <v-col class="pb-1">
