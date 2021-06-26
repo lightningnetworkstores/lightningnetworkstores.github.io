@@ -77,6 +77,7 @@
                           'Enter a valid url eg. https://lightningnetworkstores.com',
                       ]"
                     ></v-text-field>
+                    <!-- <small v-if="validUrlFlag">Incorrect Url 111</small> -->
                   </v-flex>
                 </v-layout>
 
@@ -85,7 +86,7 @@
                     <v-text-field
                       v-model="addDialogForm.name"
                       class="dialogform-name"
-                      :disabled="checkValidUrl()"
+                      :disabled="inValidUrl"
                       label="Name"
                       hint="eg. Some name no longer than 50 characters."
                       :rules="[(v) => !!v || 'Name is required']"
@@ -98,7 +99,7 @@
                     <v-text-field
                       v-model="addDialogForm.description"
                       class="dialogform-description"
-                      :disabled="checkValidUrl()"
+                      :disabled="inValidUrl"
                       label="Description"
                       hint="eg. Some description no longer than 150 characters."
                       :rules="[
@@ -221,7 +222,8 @@ export default {
       expiryTime: new Date(),
       isPaid: false,
       tweet: null,
-
+      inValidUrl: true,
+      validUrlFlag: false,
       checkPaymentTimer: null,
     }
   },
@@ -272,42 +274,50 @@ export default {
     },
 
     async getSuggestedNameDescription() {
-      let name = ''
-      let description = ''
+      // this.inValidUrl = true;
+      let name = '';
+      let description = '';
+      this.inValidUrl = true;
+      let inValidUrl = true;
+
       if (
         /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
           this.addDialogForm.url
         )
       ) {
         await axios
-          .get(
-            `https://bitcoin-stores.com/api/preview?url=${this.addDialogForm.url}`
-          )
-          .then(function (response) {
-            name = response.data.data.name ? response.data.data.name : ''
-            description = response.data.data.description
-              ? response.data.data.description
-              : ''
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-
+        .get(
+          `https://bitcoin-stores.com/api/preview?url=${this.addDialogForm.url}`
+        )
+        .then(function (response) {
+          name = response.data.data.name ? response.data.data.name : ''
+          description = response.data.data.description
+            ? response.data.data.description
+            : ''
+          inValidUrl = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        this.inValidUrl = inValidUrl;
         this.addDialogForm.name = name
         this.addDialogForm.description = description
       }
     },
 
-    checkValidUrl() {
-      if (
-        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-          this.addDialogForm.url
+    async checkValidUrl() {
+        let data = await axios
+        .get(
+          `https://bitcoin-stores.com/api/preview?url=${this.addDialogForm.url}`
         )
-      ) {
-        return false
-      } else {
-        return true
-      }
+        .then(function (response) {
+          return true;
+        })
+        .catch((error) => {
+          return false;
+        })
+        console.log(data, 'lll');
+        return data;
     },
 
     async submitAdd() {
