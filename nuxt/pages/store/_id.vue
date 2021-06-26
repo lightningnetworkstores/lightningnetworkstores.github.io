@@ -68,10 +68,12 @@
                           </div>
                         </v-img>
                         <edit-store-image
+                          v-if="selectedStore.logged"
                           :store="selectedStore"
                           :position="i + 1"
                         />
                         <delete-image-modal
+                          v-if="selectedStore.logged"
                           :store="selectedStore"
                           :position="i"
                         />
@@ -93,6 +95,7 @@
                           >
                           </v-img>
                           <edit-store-image
+                            v-if="selectedStore.logged"
                             :store="selectedStore"
                             :position="selectedStore.images.number + 1"
                             :showDelete="false"
@@ -121,6 +124,7 @@
                             </v-chip>
                           </v-img>
                           <edit-store-image
+                            v-if="selectedStore.logged"
                             :store="selectedStore"
                             :position="0"
                             :showDelete="false"
@@ -176,6 +180,7 @@
                             </v-chip>
                           </v-img>
                           <edit-store-image
+                            v-if="selectedStore.logged"
                             :store="selectedStore"
                             :position="1"
                           />
@@ -197,6 +202,7 @@
                           >
                           </v-img>
                           <edit-store-image
+                            v-if="selectedStore.logged"
                             :store="selectedStore"
                             :position="2"
                             :showDelete="false"
@@ -227,6 +233,7 @@
                             </v-chip>
                           </v-img>
                           <edit-store-image
+                            v-if="selectedStore.logged"
                             :store="selectedStore"
                             :position="0"
                             :showDelete="false"
@@ -276,7 +283,10 @@
                               New comment
                             </v-chip>
                           </v-img>
-                          <edit-store-image :store="selectedStore" :position="2"/>
+                          <edit-store-image
+                            v-if="selectedStore.logged"
+                            :store="selectedStore" :position="2"
+                          />
                         </v-sheet>
                   
                 </div>
