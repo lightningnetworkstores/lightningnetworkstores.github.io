@@ -13,7 +13,7 @@
         <v-img
           v-if="media.type === 'IMAGE'"
           :src="`${baseURL}thumbnails/${media.link}`"
-          @click="openImage(i)"
+          @click="handleImageClick(i)"
           class="text-right"
         >
           <v-chip
@@ -114,11 +114,8 @@ export default {
     }
   },
   methods: {
-    openImage(index) {
-      this.imageModal = true
-      if (i) {
-        this.imageCarousel = i
-      }
+    handleImageClick(index) {
+      this.$emit('imageClicked', index)
     },
     isNewStore() {
       return (
