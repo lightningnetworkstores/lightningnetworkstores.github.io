@@ -126,10 +126,6 @@ export default {
       type: Object,
       required: true
     },
-    showDelete: {
-      type: Boolean,
-      default: true
-    }
   },
   data() {
     return {
