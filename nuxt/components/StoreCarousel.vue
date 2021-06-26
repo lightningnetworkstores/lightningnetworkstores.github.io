@@ -64,19 +64,19 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
         </iframe>
         <edit-store-image
-          v-if="selectedStore.logged"
+          v-if="logged"
           :store="selectedStore"
           :position="i"
         />
         <delete-image-modal
-          v-if="selectedStore.logged && selectedStore.media.main.length > 1"
+          v-if="showDelete"
           :store="selectedStore"
           :position="i"
         />
       </v-sheet>
     </v-carousel-item>
     <v-carousel-item
-      v-if="selectedStore.logged"
+      v-if="logged"
       key="last"
       class="carousel-style lns-carousel"
     >
@@ -105,6 +105,9 @@ export default {
     selectedStore: {
       type: Object,
       required: true
+    },
+    logged: {
+      type: Boolean
     }
   },
   methods: {
@@ -128,6 +131,9 @@ export default {
         new Date()
       )
     },
+    showDelete() {
+      return this.logged && this.selectedStore.media.main.length > 1
+    }
   }
 }
 </script>
