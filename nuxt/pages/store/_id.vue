@@ -13,333 +13,11 @@
           <v-row justify="center">
             <v-col cols="12" sm="12">
               <v-card class="pa-0 mb-3">
-                <div v-if="selectedStore.images.number > 1">
-                  <v-carousel
-                    v-model="imageCarousel"
-                    hide-delimiters
-                    height="auto"
-                  >
-                    <v-carousel-item
-                      v-for="(imgName, i) in selectedStore.images.names"
-                      :key="imgName"
-                      class="carousel-style store_craousel"
-                    >
-                      <v-sheet height="100%" tile>
-                        <v-img
-                          :src="`${baseURL}thumbnails/${imgName}`"
-                          @click="openImage(i)"
-                          class="text-right"
-                        >
-                          <div v-if="i === 0">
-                            <v-chip
-                              v-if="isNewStore(selectedStore)"
-                              color="green"
-                              text-color="white"
-                              class="ma-2"
-                            >
-                              New
-                            </v-chip>
-                            <v-tooltip bottom>
-                              <template v-slot:activator="{ on }">
-                                <v-chip
-                                  v-if="selectedStore.trending > 0"
-                                  color="purple"
-                                  text-color="white"
-                                  v-on="on"
-                                >
-                                  {{ selectedStore.trending }}%
-
-                                  <v-icon v-on="on" pr-2 small right
-                                    >fa-fire</v-icon
-                                  >
-                                </v-chip>
-                              </template>
-                              <span>Trending score</span>
-                            </v-tooltip>
-
-                            <v-chip
-                              v-if="hasNewComment(selectedStore)"
-                              color="blue"
-                              text-color="white"
-                              class="ma-2"
-                            >
-                              New comment
-                            </v-chip>
-                          </div>
-                        </v-img>
-                        <v-btn
-                          color="white lighten-2"
-                          dark
-                          class="float-right edit_image"
-                          v-if="selectedStore.logged"
-                          @click="openImageEditoDialog(i + 1)"
-                        >
-                          <v-icon class="ml-1" color="blue darken-2">
-                            fas fa-edit
-                          </v-icon>
-                        </v-btn>
-                      </v-sheet>
-                    </v-carousel-item>
-                    <template>
-                      <v-carousel-item
-                        v-if="
-                          selectedStore.logged &&
-                          selectedStore.images.number <
-                            selectedStore.configuration.max_images
-                        "
-                        class="carousel-style store_craousel"
-                      >
-                        <v-sheet height="100%" tile>
-                          <v-img
-                            :src="`${baseURL}noimage.png`"
-                            class="text-right"
-                          >
-                          </v-img>
-                          <v-btn
-                            color="white lighten-2"
-                            dark
-                            class="float-right edit_image"
-                            @click="
-                              openImageEditoDialog(
-                                selectedStore.images.number + 1,
-                                false
-                              )
-                            "
-                          >
-                            <v-icon class="ml-1" color="blue darken-2">
-                              fas fa-edit
-                            </v-icon>
-                          </v-btn>
-                        </v-sheet>
-                      </v-carousel-item>
-                    </template>
-                    <v-carousel-item
-                        v-if="
-                          selectedStore.logged
-                        "
-                        class="carousel-style store_craousel"
-                      >
-                        <v-sheet height="100%" tile>
-                          <v-img
-                            :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
-                            class="text-right"
-                          >
-                           <v-chip
-                              color="orange"
-                              text-color="white"
-                              class="ma-2"
-                              :x-large="true"
-                            >
-                              <b>Homepage image</b>
-                            </v-chip>
-                          </v-img>
-                          <v-btn
-                            color="white lighten-2"
-                            dark
-                            class="float-right edit_image"
-                            @click="
-                              openImageEditoDialog(
-                                0,
-                                false
-                              )
-                            "
-                          >
-                            <v-icon class="ml-1" color="blue darken-2">
-                              fas fa-edit
-                            </v-icon>
-                          </v-btn>
-                        </v-sheet>
-                      </v-carousel-item>
-                  </v-carousel>
-                </div>
-                <div class="store_craousel" v-else>
-                  <v-carousel hide-delimiters
-                    height="auto" v-if="selectedStore.logged">
-                      <v-carousel-item class="carousel-style store_craousel" >
-                        <v-sheet height="100%" tile>
-                          <v-img
-                            :src="`${baseURL}thumbnails/${selectedStore.images.names[0]}`"
-                            class="text-right"
-                            max-height="500px"
-                            aspect-radio="1.6"
-                            position="top center"
-                            @click="openImage"
-                          >
-                            <v-chip
-                              v-if="isNewStore(selectedStore)"
-                              color="green"
-                              text-color="white"
-                              class="ma-2"
-                            >
-                              New
-                            </v-chip>
-                            
-                            <v-tooltip bottom>
-                              <template v-slot:activator="{ on }">
-                                <v-chip
-                                  v-if="selectedStore.trending > 0"
-                                  color="purple"
-                                  text-color="white"
-                                  v-on="on"
-                                >
-                                  {{ selectedStore.trending }}%
-                                  <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
-                                </v-chip>
-                              </template>
-                              <span>Trending score</span>
-                            </v-tooltip>
-
-                            <v-chip
-                              v-if="hasNewComment(selectedStore)"
-                              color="blue"
-                              text-color="white"
-                              class="ma-2"
-                            >
-                              New comment
-                            </v-chip>
-                          </v-img>
-                          <v-btn
-                              color="white lighten-2"
-                              dark
-                              class="float-right edit_image"
-                              v-if="selectedStore.logged"
-                              @click="openImageEditoDialog(1)"
-                            >
-                              <v-icon class="ml-1" color="blue darken-2">
-                                fas fa-edit
-                              </v-icon>
-                            </v-btn>
-                        </v-sheet>
-                      </v-carousel-item>
-                      <template>
-                      <v-carousel-item
-                        v-if="
-                          selectedStore.logged &&
-                          selectedStore.images.number <
-                            selectedStore.configuration.max_images
-                        "
-                        class="carousel-style store_craousel"
-                      >
-                        <v-sheet height="100%" tile>
-                          <v-img
-                            :src="`${baseURL}noimage.png`"
-                            class="text-right"
-                          >
-                          </v-img>
-                          <v-btn
-                            color="white lighten-2"
-                            dark
-                            class="float-right edit_image"
-                            @click="
-                              openImageEditoDialog(
-                                2,
-                                false
-                              )
-                            "
-                          >
-                            <v-icon class="ml-1" color="blue darken-2">
-                              fas fa-edit
-                            </v-icon>
-                          </v-btn>
-                        </v-sheet>
-                      </v-carousel-item>
-                    </template>
-                     <v-carousel-item
-                        v-if="
-                          selectedStore.logged &&
-                          selectedStore.images.number <
-                            selectedStore.configuration.max_images
-                        "
-                        class="carousel-style store_craousel"
-                      >
-                        <v-sheet height="100%" tile>
-                          <v-img
-                            :src="`${baseURL}thumbnails/${selectedStore.id}.png`"
-                            class="text-right"
-                          >
-                          <v-chip
-                              color="orange"
-                              text-color="white"
-                              class="ma-2"
-                              :x-large="true"
-                            >
-                              <b>Homepage image</b>
-                            </v-chip>
-                          </v-img>
-                          <v-btn
-                            color="white lighten-2"
-                            dark
-                            class="float-right edit_image"
-                            @click="
-                              openImageEditoDialog(
-                                0,
-                                false
-                              )
-                            "
-                          >
-                            <v-icon class="ml-1" color="blue darken-2">
-                              fas fa-edit
-                            </v-icon>
-                          </v-btn>
-                        </v-sheet>
-                      </v-carousel-item>
-                  </v-carousel>
-                   <v-sheet height="100%" v-if="!selectedStore.logged" tile>
-                          <v-img
-                            :src="`${baseURL}thumbnails/${selectedStore.images.names[0]}`"
-                            class="text-right"
-                            max-height="500px"
-                            aspect-radio="1.6"
-                            position="top center"
-                            @click="openImage"
-                          >
-                            <v-chip
-                              v-if="isNewStore(selectedStore)"
-                              color="green"
-                              text-color="white"
-                              class="ma-2"
-                            >
-                              New
-                            </v-chip>
-                            
-                            <v-tooltip bottom>
-                              <template v-slot:activator="{ on }">
-                                <v-chip
-                                  v-if="selectedStore.trending > 0"
-                                  color="purple"
-                                  text-color="white"
-                                  v-on="on"
-                                >
-                                  {{ selectedStore.trending }}%
-                                  <v-icon v-on="on" pr-2 small right>fa-fire</v-icon>
-                                </v-chip>
-                              </template>
-                              <span>Trending score</span>
-                            </v-tooltip>
-
-                            <v-chip
-                              v-if="hasNewComment(selectedStore)"
-                              color="blue"
-                              text-color="white"
-                              class="ma-2"
-                            >
-                              New comment
-                            </v-chip>
-                          </v-img>
-                          <v-btn
-                              color="white lighten-2"
-                              dark
-                              class="float-right edit_image"
-                              v-if="selectedStore.logged"
-                              @click="openImageEditoDialog(2)"
-                            >
-                              <v-icon class="ml-1" color="blue darken-2">
-                                fas fa-edit
-                              </v-icon>
-                            </v-btn>
-                        </v-sheet>
-                  
-                </div>
+                <store-carousel
+                  @imageClicked="handleImageClick"
+                  :selectedStore="selectedStore"
+                  :logged="selectedStore.logged === true"
+                />
                 <v-row class="pa-5">
                   <v-col class="pb-1">
                     <div class="headline d-flex">
@@ -664,9 +342,9 @@
           <v-dialog v-model="imageModal" width="900">
             <ImageModal
               :id="selectedStore.id"
-              :images="selectedStore.images.names"
+              :mediaArray="selectedStore.media.main"
               :baseURL="baseURL"
-              :currentImage="imageCarousel"
+              :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
           <Review
@@ -694,86 +372,19 @@
       :onConfirm="handleLogoutConfirm"
     >
     </logout-modal>
-
-    <v-dialog v-model="Editdialog" width="500">
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Update Image
-        </v-card-title>
-
-        <v-card-text>
-          <v-container>
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-row>
-                <v-col cols="12" sm="12" md="12">
-                  <v-text-field
-                    label="New Image Url*"
-                    required
-                    :rules="urlRules"
-                    v-model="imagePath"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </v-form>
-            <v-row justify="center">
-              <v-col cols="5" sm="5" md="5">
-                <v-btn
-                  class="ma-2"
-                  color="success"
-                  @click="updateImage('replace')"
-                  >Replace Image</v-btn
-                >
-              </v-col>
-              <v-col cols="5" sm="5" md="5">
-                <v-btn
-                  class="ma-2"
-                  color="success"
-                  @click="updateImage('capture')"
-                  >Take ScreenShot</v-btn
-                >
-              </v-col>
-            </v-row>
-            <v-row justify="center" class="mt-0" v-if="showImageDeleteButton">
-              <v-col cols="5" sm="5" md="5" class="d-flex justify-center">
-                <v-btn class="" color="red" @click="updateImage('delete')"
-                  >Delete Image</v-btn
-                >
-              </v-col>
-            </v-row>
-            <v-row justify="center" class="mt-0" v-if="position != null">
-              <v-col cols="12" sm="12" md="12" class="d-flex justify-center">
-                <v-alert type="success" v-if="successMessage">{{
-                  successMessage
-                }}</v-alert>
-                <v-alert type="error" v-if="errorMessage">{{
-                  errorMessage
-                }}</v-alert>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="Editdialog = false">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
-
+import DeleteImageModal from '~/components/DeleteImageModal.vue'
+import StoreCarousel from '~/components/StoreCarousel.vue'
 import StoreCard from '~/components/StoreCard'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 
 export default {
-  components: { StoreCard, LikeStoreButton, AddExternalModal },
+  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -825,19 +436,11 @@ export default {
     return {
       breadcrumb: [],
       currentFilter: 'all',
-      imageCarousel: 0,
+      selectedMediaIndex: 0,
       imageModal: false,
       showLoginModal: false,
       showLogoutModal: false,
       loginResponse: null,
-      Editdialog: false,
-      imagePath: '',
-      position: null,
-      valid: true,
-      successMessage: '',
-      errorMessage: '',
-      showImageDeleteButton: false,
-      urlRules: [(v) => !!v || 'Url is required'],
       similarExpanded: false
     }
   },
@@ -913,65 +516,6 @@ export default {
   },
 
   methods: {
-    openImageEditoDialog(number, showImageDeleteButton = true) {
-      this.Editdialog = true
-      this.errorMessage = ''
-      this.successMessage = ''
-      this.imagePath = ''
-      this.showImageDeleteButton = showImageDeleteButton
-      this.position = number
-    },
-    updateImage(e) {
-      console.log(e, this.imagePath)
-      this.successMessage = ''
-      this.errorMessage = ''
-      let valid = true
-      let data = { storeID: this.storeId, position: this.position }
-      if (e == 'capture') {
-        data.capture = true;
-        data.source = this.imagePath
-        if (this.imagePath == '') {
-            valid = false
-            this.$refs.form.validate()
-        }
-      }
-      if (e == 'delete') {
-        data.delete = true
-      }
-      if (e == 'replace') {
-        data.update = true
-        data.source = this.imagePath
-        if (this.imagePath == '') {
-          valid = false
-          this.$refs.form.validate()
-        }
-      }
-      if (valid) {
-        this.$store
-          .dispatch('updateImage', data)
-          .then((response) => {
-            if (response.data.status == 'success') {
-              this.successMessage = response.data.message
-              setTimeout(() => {
-               // window.location.reload()
-              }, 2000)
-            }
-            if (response.data.status == 'fail') {
-              this.errorMessage = response.data.message
-            }
-          })
-          .catch((error) => {
-            console.log(error)
-            const { response } = error
-            if (response.data.status == 'fail') {
-              this.errorMessage = response.data.message
-              setTimeout(() => {
-               //window.location.reload()
-              }, 2000)
-            }
-          })
-      }
-    },
     sortReviewThreads(reviewThreads) {
       //can't use?
       reviewThreads.sort((a, b) => {
@@ -1028,12 +572,6 @@ export default {
         return b[0].timestamp - a[0].timestamp
       })
     },
-    openImage(i) {
-      this.imageModal = true
-      if (i) {
-        this.imageCarousel = i
-      }
-    },
     requestLogin() {
       this.showLoginModal = true
     },
@@ -1074,6 +612,10 @@ export default {
     handleCancelLogout() {
       this.showLogoutModal = false
     },
+    handleImageClick(index) {
+      this.imageModal = true
+      this.selectedMediaIndex = index
+    }
   },
 }
 </script>
@@ -1118,15 +660,6 @@ export default {
   .external-title {
     margin-top: 200px !important;
   }
-}
-.float-right {
-  float: right;
-}
-.edit_image {
-  position: absolute;
-  z-index: 101;
-  bottom: 4px;
-  right: 0;
 }
 .store_craousel {
   .v-sheet {
