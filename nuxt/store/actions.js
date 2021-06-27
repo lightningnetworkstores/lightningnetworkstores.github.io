@@ -511,6 +511,24 @@ const actions = {
           return { error: 'Undefined error' }
         }
       });
+  },
+  setHomeImage({ commit, state }, { position, storeID }) {
+    return axios.put(`${state.baseURL}api/image?storeID=${storeID}&position=${position}&homepage=true`)
+      .then(response => {
+        if (response.status === 200) {
+          const { data } = response.data
+          console.log('data: ', data)
+          commit('updateStoreHomeImage', {position})
+        }
+      })
+      .catch(err => {
+        console.error('Got an error while trying to set homepage image')
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
   }
 }
 export default actions

@@ -63,6 +63,11 @@
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
         </iframe>
+        <select-home-image-modal
+          v-if="logged"
+          :store="selectedStore"
+          :position="i"
+        />
         <edit-store-image
           v-if="logged"
           :store="selectedStore"
@@ -99,8 +104,9 @@
 <script>
 import DeleteImageModal from '~/components/DeleteImageModal'
 import EditStoreImage from '~/components/EditStoreImage'
+import SelectHomeImageModal from '~/components/SelectHomeImageModal.vue'
 export default {
-  components: { DeleteImageModal, EditStoreImage },
+  components: { DeleteImageModal, EditStoreImage, SelectHomeImageModal },
   props: {
     selectedStore: {
       type: Object,
