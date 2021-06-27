@@ -1,6 +1,5 @@
 <template>
   <v-carousel
-    hide-delimiters
     height="auto"
   >
     <v-carousel-item
