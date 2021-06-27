@@ -16,7 +16,7 @@
           class="text-right"
         >
           <v-chip
-            v-if="media.homepage"
+            v-if="media.homepage && selectedStore.logged"
             color="orange"
             text-color="white"
             class="ma-2"
