@@ -1,5 +1,6 @@
 <template>
   <v-carousel
+    hide-delimiters
     height="auto"
   >
    <!-- hide-delimiter-background
