@@ -64,7 +64,7 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
         </iframe>
         <select-home-image-modal
-          v-if="logged"
+          v-if="logged && media.homepage !== true"
           :store="selectedStore"
           :position="i"
         />
