@@ -517,8 +517,11 @@ const actions = {
       .then(response => {
         if (response.status === 200) {
           const { data } = response.data
-          console.log('data: ', data)
-          commit('updateStoreHomeImage', {position})
+          if (data.status === 'success') {
+            commit('updateStoreHomeImage', {position})
+            return { message: data.status.message }
+          }
+          return { error: 'Unknown error while trying to update image' }
         }
       })
       .catch(err => {

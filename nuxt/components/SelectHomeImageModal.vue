@@ -22,6 +22,9 @@
             size="30"
           />
         </v-layout>
+        <v-alert v-if="error" type="error" class="mx-3">
+          {{ error }}
+        </v-alert>
         <v-card-text>
           Please confirm you want to set this image as home.
         </v-card-text>
@@ -53,7 +56,8 @@ export default {
   data() {
     return {
       showDialog: false,
-      isLoading: false
+      isLoading: false,
+      error: null
     }
   },
   methods: {
@@ -62,16 +66,23 @@ export default {
     },
     closeDialog() {
       this.showDialog = false
+      this.error = null
     },
     async confirm() {
+      this.error = null
       const data = {
         position: this.position,
         storeID: this.store.id
       }
       this.isLoading = true
-      await this.$store.dispatch('setHomeImage', data)
+      const resp = await this.$store.dispatch('setHomeImage', data)
+      if (resp.message) {
+        this.showDialog = false
+      }
+      if (resp.error) {
+        this.error = resp.error
+      }
       this.isLoading = false
-      this.showDialog = false
     }
   }
 }
