@@ -66,12 +66,12 @@
         <edit-store-image
           v-if="logged"
           :store="selectedStore"
-          :position="i + 1"
+          :position="i"
         />
         <delete-image-modal
           v-if="showDelete"
           :store="selectedStore"
-          :position="i + 1"
+          :position="i"
         />
       </v-sheet>
     </v-carousel-item>
