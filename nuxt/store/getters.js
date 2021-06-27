@@ -124,6 +124,12 @@ const getters = {
                 return b.trending - a.trending
               })[0]
 
+              var newestStore = stores.slice().sort((a, b) => {
+                return b.added - a.added
+              })[0]
+              stores.splice(stores.indexOf(newestStore), 1)
+              stores.splice(1, 0, newestStore)
+
               // Is above trending threshold?
               if (
                 mostTrendingStore &&
@@ -131,8 +137,9 @@ const getters = {
                 mostTrendingStore.trending >= 10
               ) {
                 stores.splice(stores.indexOf(mostTrendingStore), 1)
-                stores.unshift(mostTrendingStore)
+                stores.splice(1, 0, mostTrendingStore)
               }
+              
             }
             break
         }
