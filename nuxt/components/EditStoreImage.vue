@@ -169,6 +169,8 @@ export default {
         this.mediaType = preview.type
         this.previewURL = preview.url
         this.filename = preview.filename
+      } else {
+        this.errorMessage = preview.error
       }
       this.isLoading = false
     },
