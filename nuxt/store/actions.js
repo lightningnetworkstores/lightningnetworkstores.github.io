@@ -548,6 +548,116 @@ const actions = {
   toggleFilterByFavoritesStores({ commit, state }) {
     commit('updateFilterFavoriteStores', !state.filterByFavorites)
   },
+  async loadImagePreview({ commit, state }, { store, imagePath }) {
+    const ytRegex = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/))([\w\-]+)(\S+)?$/
+    if (ytRegex.test(imagePath)) {
+      const videoId = ytRegex.exec(imagePath)[5]
+      return {
+        type: 'youtube',
+        url: `https://youtube.com/embed/${videoId}`
+      }
+    } else {
+      try {
+        const response = await axios.post(`${state.baseURL}api/image?storeID=${store.id}&source=${imagePath}`)
+        if (response.status === 200) {
+          return {
+            type: 'image',
+            filename: response.data.data.media,
+            url: `${state.baseURL}thumbnails/${response.data.data.media}`
+          }
+        }
+      } catch(err) {
+        console.error('set preview image error: ', err)
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      }
+    }
+    return {
+      type: 'unknown',
+      url: null
+    }
+  },
+  confirmImageSelection({ state, commit }, { storeId, position, media, isHomepage, mediaType }) {
+    const maxPosition = state.selectedStore.media.main.length
+    if (position > maxPosition) {
+      position = maxPosition
+    }
+    const url = `${state.baseURL}api/image?storeID=${storeId}&position=${position}&media=${media}&homepage=${isHomepage}`
+    return axios.put(url)
+      .then(response => {
+        if (response.status === 200) {
+          const type = mediaType === 'image' ? 'IMAGE' : 'VIDEO'
+          const data = {
+            homepage: isHomepage,
+            link: media,
+            type: type,
+            position: position
+          }
+          commit('addStoreMedia', data)
+          return response.data
+        }
+        return { error: 'Undefined error with status 200' }
+      })
+      .catch(err => {
+        console.error('confirm image error: ', err)
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  },
+  deleteStoreImage({ commit, state }, {id, position}) {
+    return axios.delete(`${state.baseURL}api/image?storeID=${id}&position=${position}`)
+      .then(response => {
+        const { data } = response
+        if (response.status === 200) {
+          if (data.status === 'success') {
+            commit('removeStoreMedia', {position: position})
+            return {
+              message: data.message
+            }
+          }
+          return {
+            error: data.message
+          }
+        }
+        return {
+          error: data.message ? data.message : 'Unknown error'
+        }
+      })
+      .catch(err => {
+        console.error('Got an error')
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      });
+  },
+  setHomeImage({ commit, state }, { position, storeID }) {
+    return axios.put(`${state.baseURL}api/image?storeID=${storeID}&position=${position}&homepage=true`)
+      .then(response => {
+        if (response.status === 200) {
+          const { data } = response
+          commit('updateStoreHomeImage', {position})
+          return { message: data.status.message }
+        } else {
+          return { error: 'Unknown error while trying to update image' }
+        }
+      })
+      .catch(err => {
+        console.error('Got an error while trying to set homepage image. err: ', err)
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  }
 }
 
 export default actions
