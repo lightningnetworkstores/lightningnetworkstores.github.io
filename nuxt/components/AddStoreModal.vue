@@ -279,11 +279,7 @@ export default {
           this.addDialogForm.url
         )
       ) {
-        await axios
-          .get(
-            `https://bitcoin-stores.com/api/preview?url=${this.addDialogForm.url}`
-          )
-          .then(function (response) {
+        await this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
             name = response.data.data.name ? response.data.data.name : ''
             description = response.data.data.description
               ? response.data.data.description

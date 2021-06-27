@@ -657,6 +657,9 @@ const actions = {
           return { error: 'Undefined error' }
         }
       })
+  },
+  getPreview({commit, state}, {url}){
+    return axios.get(`${state.baseURL}api/preview?url=${url}`);
   }
 }
 
