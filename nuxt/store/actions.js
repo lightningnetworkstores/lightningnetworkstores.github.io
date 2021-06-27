@@ -516,16 +516,15 @@ const actions = {
     return axios.put(`${state.baseURL}api/image?storeID=${storeID}&position=${position}&homepage=true`)
       .then(response => {
         if (response.status === 200) {
-          const { data } = response.data
-          if (data.status === 'success') {
-            commit('updateStoreHomeImage', {position})
-            return { message: data.status.message }
-          }
+          const { data } = response
+          commit('updateStoreHomeImage', {position})
+          return { message: data.status.message }
+        } else {
           return { error: 'Unknown error while trying to update image' }
         }
       })
       .catch(err => {
-        console.error('Got an error while trying to set homepage image')
+        console.error('Got an error while trying to set homepage image. err: ', err)
         if (err.response && err.response.data) {
           return { error: err.response.data.message }
         } else {
