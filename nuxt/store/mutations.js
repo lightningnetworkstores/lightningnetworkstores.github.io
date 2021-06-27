@@ -147,6 +147,9 @@ const mutations = {
   updateFilteredStores(state, stores) {
     state.filteredStores = stores
   },
+  updateFilterFavoriteStores(state, flag) {
+    state.filterByFavorites = flag
+  }
 }
 
 export default mutations

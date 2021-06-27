@@ -15,11 +15,38 @@
         <v-list-item class="my-0 pb-0 sort-items">
           <v-radio-group v-model="selectedSort">
             <v-radio
-              v-for="sortItem in sortItems"
+              v-for="sortItem in sortItems.slice(0, 3)"
               :key="sortItem.prop"
               :label="sortItem.name"
               :value="sortItem.prop"
-            ></v-radio>
+            />
+            <div v-if="sortItems.slice(3).length">
+              <v-list-group
+                no-action
+                sub-group
+                class="sort-items-more"
+                :ripple="false"
+                color="gray"
+              >
+                <template v-slot:activator>
+                  <v-list-item-content class="pa-0">
+                    <v-list-item-title class="pa-0">More</v-list-item-title>
+                  </v-list-item-content>
+                </template>
+
+                <v-list-item
+                  v-for="sortItem in sortItems.slice(3)"
+                  :key="sortItem.prop"
+                  class="pa-0 my-0"
+                >
+                  <v-radio
+                    :key="sortItem.prop"
+                    :label="sortItem.name"
+                    :value="sortItem.prop"
+                  />
+                </v-list-item>
+              </v-list-group>
+            </div>
           </v-radio-group>
         </v-list-item>
       </v-list>
@@ -87,16 +114,14 @@ export default {
   components: { AddStoreModal, StoreCard, FilterStores },
   data() {
     return {
+      addCardCount: 6,
       drawer: false,
       group: null,
       isLoading: false,
-      searchQuery: '',
       maxCards: 18,
-      addCardCount: 6,
-      checkedTags: [],
-      excludedTag: [],
-      selectedSort: 'best',
       safeMode: false,
+      searchQuery: '',
+      selectedSort: 'best',
       sortItems: [
         { name: 'Best', prop: 'best' },
         { name: 'Trending', prop: 'trending' },
@@ -105,10 +130,10 @@ export default {
         { name: 'Controversial', prop: 'controversial' },
         { name: 'Last commented', prop: 'lastcommented' },
       ],
-
       tagsCheckbox: [],
     }
   },
+
   methods: {
     toggleDrawer() {
       this.drawer = !this.drawer
@@ -126,17 +151,14 @@ export default {
       return Object.assign({}, this.store, score)
     },
     changeUrl() {
-      let query = {}
-      if (this.checkedTags.filter((x) => x).length) {
-        query.tags = this.checkedTags.filter((x) => x).join(',')
-      }
+      const query = {}
 
       if (this.selectedTags.filter((x) => x).length) {
         query.tags = this.selectedTags.filter((x) => x).join(',')
       }
 
-      if (this.excludedTag.filter((x) => x).length) {
-        query.exclude = this.excludedTag.filter((x) => x).join(',')
+      if (this.excludedTags.length) {
+        query.exclude = this.excludedTags.join(',')
       }
       if (this.selectedSort && this.selectedSort != 'best') {
         query.sort = encodeURIComponent(this.selectedSort)
@@ -151,40 +173,6 @@ export default {
         query: query,
       })
     },
-    setFromRoute() {
-      if (this.$route.query.safemode) {
-        this.safeMode = this.$route.query.safemode
-      }
-      if (this.$route.query.sort) {
-        this.selectedSort = this.$route.query.sort
-      }
-      if (this.$route.query.search) {
-        this.searchQuery = this.$route.query.search
-      }
-      if (this.$route.query.tags) {
-        const routeTags = this.$route.query.tags
-          .split(',')
-          .map((x) => decodeURI(x))
-
-        for (const tag of routeTags) {
-          this.tagsCheckbox.push(tag)
-          this.checkedTags.push(tag)
-        }
-
-        this.$store.commit('setSelectedTags', routeTags)
-      }
-
-      if (this.$route.query.exclude) {
-        const routeexcludedTags = this.$route.query.exclude
-          .split(',')
-          .map((x) => decodeURI(x))
-
-        for (const tag of routeexcludedTags) {
-          this.excludedTag.push(tag)
-        }
-        this.$store.commit('setExludedTags', routeexcludedTags)
-      }
-    },
   },
   computed: {
     ...mapState([
@@ -194,15 +182,22 @@ export default {
       'baseURL',
       'stores',
       'scores',
+      'likedStores',
+      'filterByFavorites',
     ]),
 
     filteredStores() {
-      const stores = this.$store.getters.getStores(
+      const getStores = this.$store.getters.getStores(
         { sector: this.sector, digitalGoods: this.digitalGoods },
         this.selectedSort,
         this.searchQuery,
         this.safeMode
       )
+
+      const stores = this.filterByFavorites
+        ? getStores.filter((store) => !!this.likedStores[store.id])
+        : getStores
+
       return stores
         .filter((store) => {
           return this.selectedTags.every((tag) => store.tags.includes(tag))
@@ -267,11 +262,9 @@ export default {
       this.changeUrl()
     },
   },
-  async asyncData({ store }) {
+  async asyncData({ store, route }) {
     await store.dispatch('getStores')
-  },
-  async mounted() {
-    this.setFromRoute()
+    await store.dispatch('processRoute', route)
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
@@ -307,91 +300,33 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   gap: 2em;
 }
-.detail {
-  color: #000000de;
-  display: grid;
-  grid-template-rows: 200px 150px;
-  grid-template-columns: 80px 1fr;
-  row-gap: 4px;
-
-  .screenshot {
-    grid-column: 1 / 3;
+.sort-items {
+  .v-input--selection-controls {
+    margin-top: 0;
   }
-  .score {
-    display: grid;
-    grid: 1fr;
-    justify-items: center;
-    padding: 5px;
-    font-size: 15px !important;
-
-    span {
-      display: block;
-    }
-    .arrow {
-      border: 1px solid;
-      border-radius: 50%;
-      padding: 5px;
-
-      &.up:hover {
-        background-color: rgba(76, 175, 80, 0.12);
-      }
-      &.down:hover {
-        background-color: rgba(255, 82, 82, 0.12);
-      }
-    }
+  .v-messages {
+    display: none;
   }
-  .content {
-    position: relative;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    .title {
-      font-size: 1.7rem !important;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      a {
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-    .description {
-      font-size: 14px !important;
-      margin-top: 5px;
-    }
-    .tag-container {
-      position: absolute;
-      bottom: 8px;
-      padding-right: 40px;
-      background-color: white;
-    }
-    .btn-actions {
-      display: flex;
-      gap: 8px;
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      font-size: 14px !important;
-      .v-icon {
-        margin-top: -4px;
-      }
-      .likes .v-icon:hover {
-        color: #f44336;
-      }
-      &.sm-btn-actions {
-        font-size: 24px !important;
-        .v-icon {
-          font-size: 24px !important;
-        }
-      }
-    }
+  .v-input__slot {
+    margin-bottom: 0;
   }
 }
-.sort-items {
-  height: 160px;
+.sort-items-more {
+  .v-list-group__header {
+    padding: 0 !important;
+  }
+  .v-list-item {
+    min-height: 36px;
+  }
+
+  .v-list-item::before {
+    background: none;
+  }
+
+  .v-list-group__header__prepend-icon {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+  }
 }
 .fixed-drawer {
   position: fixed !important;
@@ -436,5 +371,9 @@ export default {
   .v-icon.theme--light {
     color: #f34444;
   }
+}
+
+.sort-title {
+  height: 14px;
 }
 </style>

@@ -1,6 +1,18 @@
 require('dotenv').config()
 const axios = require('axios')
 
+function syncLikesFromServer(serverLikes, likedStores, lsKey) {
+  const likes = serverLikes.reduce((acc, id) => {
+    acc[id] = true
+    return acc
+  }, {})
+
+  Object.assign(likedStores, likes)
+  localStorage.setItem(lsKey, JSON.stringify(likedStores))
+
+  return likedStores
+}
+
 const actions = {
   async nuxtServerInit({ commit }) {
     process.env.NODE_ENV == 'development'
@@ -234,16 +246,6 @@ const actions = {
       })
       .catch(console.error)
   },
-  donateFaucetsRequest({ state, commit }, { data }) {
-    return axios
-      .post(`${state.baseURL}api/faucet_donation`)
-      .then((response) => {
-        if (response.status === 200) {
-          return response
-        }
-      })
-      .catch(console.error)
-  },
   faucetClaim({ state, commit }, { token: token }) {
     return axios
       .get(`${state.baseURL}api/lnurl1?h-captcha-response=${token}`)
@@ -274,14 +276,11 @@ const actions = {
     }).then((res) => {
       if (res.status === 202) {
         // Store was already liked/unliked, we just didn't know about this
-        const likes = res.data.data.likes
-        likes.forEach((id) => (likedStores[id] = true))
-        likedStores[storeId] = remove ? false : true
-        localStorage.setItem(lsKey, JSON.stringify(likedStores))
         commit('updateLikedStores', { storeId, remove })
-        likes.forEach((id) => {
-          commit('updateLikedStores', { storeId: id, remove: false })
-        })
+        const likes = res.data.data.likes
+
+        // This line sync the likes from the server with the localStorage
+        // commit('setStoreLikes', syncLikesFromServer(likes, likedStores, lsKey))
       } else if (res.status === 200) {
         // Store 'like' status was changed successfully
         likedStores[storeId] = remove ? false : true
@@ -308,6 +307,29 @@ const actions = {
       })
       .catch(console.error)
   },
+  doFaucetDonation({ state, commit }, { data }) {
+    return fetch(`${state.baseURL}api/faucet_donation`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  getFaucetDonors({ state, commit }) {
+    return axios
+      .get(`${state.baseURL}api/faucetinfo`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response
+        }
+      })
+      .catch(console.error)
+  },
+
   getStatus({ state, commit }, { storeId }) {
     return axios
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
@@ -374,7 +396,24 @@ const actions = {
         }
       })
   },
-
+  verifyInvoiceRequest({ state }, { id: id }) {
+    return fetch(`${state.baseURL}api2/check_payment?id=${id}`)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
+  checkClaimRequest({ state }, { id: id }) {
+    return fetch(`${state.baseURL}api/check_claim?id=${id}`)
+      .then((response) => {
+        return response.json()
+      })
+      .catch((error) => {
+        return Promise.reject(error)
+      })
+  },
   setSelectedTag({ commit }, tag) {
     commit('updateSelectedTag', { tag, remove: false })
   },
@@ -459,6 +498,55 @@ const actions = {
   updateImage({ commit, state }, data) {
     console.log(data)
     return axios.post(`${state.baseURL}api/image`, null, { params: data })
+  },
+  processRoute({ commit, state }, route) {
+    const tagsCheckbox = []
+    const checkedTags = []
+    const excludedTags = []
+    let safeMode = false
+    let selectedSort = 'best'
+    let searchQuery = ''
+    if (route.query.safemode) {
+      safeMode = route.query.safemode
+    }
+    if (route.query.sort) {
+      selectedSort = route.query.sort
+    }
+    if (route.query.search) {
+      searchQuery = route.query.search
+    }
+    if (route.query.tags) {
+      const routeTags = route.query.tags.split(',').map((x) => decodeURI(x))
+
+      for (const tag of routeTags) {
+        tagsCheckbox.push(tag)
+        checkedTags[state.tags.indexOf(tag)] = tag
+      }
+
+      commit('setSelectedTags', routeTags)
+    }
+
+    if (route.query.exclude) {
+      const routeExcludedTags = route.query.exclude
+        .split(',')
+        .map((x) => decodeURI(x))
+
+      for (const tag of routeExcludedTags) {
+        excludedTags.push(tag)
+      }
+      commit('setExludedTags', routeExcludedTags)
+    }
+    return {
+      safeMode,
+      selectedSort,
+      searchQuery,
+      tagsCheckbox,
+      checkedTags,
+      excludedTags,
+    }
+  },
+  toggleFilterByFavoritesStores({ commit, state }) {
+    commit('updateFilterFavoriteStores', !state.filterByFavorites)
   },
   async loadImagePreview({ commit, state }, { store, imagePath }) {
     const ytRegex = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/))([\w\-]+)(\S+)?$/
@@ -571,4 +659,5 @@ const actions = {
       })
   }
 }
+
 export default actions
