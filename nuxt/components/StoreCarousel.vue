@@ -2,6 +2,8 @@
   <v-carousel
     height="auto"
   >
+   <!-- hide-delimiter-background
+    delimiter-icon="mdi-minus" -->
     <v-carousel-item
       v-for="(media, i) in selectedStore.media.main"
       :key="media.link"
