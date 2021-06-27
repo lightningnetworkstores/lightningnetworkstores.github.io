@@ -455,6 +455,10 @@ const actions = {
     }
   },
   confirmImageSelection({ state, commit }, { storeId, position, media, isHomepage, mediaType }) {
+    const maxPosition = state.selectedStore.media.main.length
+    if (position > maxPosition) {
+      position = maxPosition
+    }
     const url = `${state.baseURL}api/image?storeID=${storeId}&position=${position}&media=${media}&homepage=${isHomepage}`
     return axios.put(url)
       .then(response => {
