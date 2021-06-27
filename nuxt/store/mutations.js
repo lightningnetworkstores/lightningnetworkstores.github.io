@@ -55,15 +55,11 @@ const mutations = {
   },
   addStoreMedia(state, { homepage, link, type, position }) {
     const media = { link: link, type: type, homepage: homepage }
-    // TODO: Migrate to use of 'media' only
     state.selectedStore.media.main.splice(position, 1, media)
     state.selectedStore.media.number++
-    state.selectedStore.images.names.splice(position, 1, link)
-    state.selectedStore.images.number++
   },
   removeStoreMedia(state, { position }) {
     state.selectedStore.media.main.splice(position, 1)
-    state.selectedStore.images.names.splice(position, 1)
   },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
