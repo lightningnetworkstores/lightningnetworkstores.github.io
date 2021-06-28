@@ -261,10 +261,27 @@ export default {
     selectedTags() {
       this.changeUrl()
     },
+    $route(to, from) {
+      if (
+        Object.keys(to.query).length === 0 &&
+        Object.keys(from.query).length !== 0
+      ) {
+        this.$store.dispatch('processRoute', to)
+
+        this.safeMode = false
+        this.selectedSort = 'best'
+        this.searchQuery = ''
+      }
+    },
   },
   async asyncData({ store, route }) {
     await store.dispatch('getStores')
-    await store.dispatch('processRoute', route)
+    const { safeMode, selectedSort, searchQuery } = await store.dispatch(
+      'processRoute',
+      route
+    )
+
+    return { safeMode, selectedSort, searchQuery }
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
