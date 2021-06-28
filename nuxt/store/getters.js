@@ -1,14 +1,16 @@
 import Fuse from 'fuse.js'
 
 const options = {
+  // https://fusejs.io/api/options
   shouldSort: true,
-  threshold: 0.5,
-  trendingThreshold: 0,
+  threshold: 0.2,
   location: 0,
-  distance: 100,
+  distance: 10000,
+  ignoreLocation: false,
   maxPatternLength: 32,
-  minMatchCharLength: 3,
-  keys: ['name', 'rank', 'href', 'description'],
+  minMatchCharLength: 4,
+  keys: ['name', 'href', 'description', 'tags', 'likely_tags'],
+  trendingThreshold: 0,
 }
 
 const getters = {
@@ -61,6 +63,8 @@ const getters = {
       if (digitalGoods == 'all' || sector == 'all') {
         isFiltered = false
       }
+
+      isFiltered = state.selectedTags.length!=0 || state.excludedTags.length!=0 || state.filterByFavorites;
 
       //Search
       if (search && search !== 'undefined') {
@@ -124,6 +128,12 @@ const getters = {
                 return b.trending - a.trending
               })[0]
 
+              var newestStore = stores.slice().sort((a, b) => {
+                return b.added - a.added
+              })[0]
+              stores.splice(stores.indexOf(newestStore), 1)
+              stores.splice(1, 0, newestStore)
+
               // Is above trending threshold?
               if (
                 mostTrendingStore &&
@@ -131,8 +141,9 @@ const getters = {
                 mostTrendingStore.trending >= 10
               ) {
                 stores.splice(stores.indexOf(mostTrendingStore), 1)
-                stores.unshift(mostTrendingStore)
+                stores.splice(1, 0, mostTrendingStore)
               }
+              
             }
             break
         }

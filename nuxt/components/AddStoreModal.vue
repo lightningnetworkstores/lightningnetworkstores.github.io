@@ -111,8 +111,6 @@
                   </v-flex>
                 </v-layout>
 
-
-
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <v-text-field
@@ -126,7 +124,10 @@
                   <v-flex pl-3 pr-3>
                     <v-text-field
                       v-model="addDialogForm.contributor"
+                      :append-icon="showContributorCode ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showContributorCode ? 'text' : 'password'"
                       label="Contributor code (optional)"
+                       @click:append="showContributorCode = !showContributorCode"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -143,14 +144,6 @@
                     ></v-checkbox>
                   </v-flex>
                 </v-layout>
-
-                <v-row class="my-3">
-                  <v-flex grow></v-flex>
-                  <v-flex pl-3 pr-3 shrink v-if="showAddDialog">
-                    <recaptcha />
-                  </v-flex>
-                  <v-flex grow></v-flex>
-                </v-row>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -180,7 +173,7 @@
 // import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
-import axios from 'axios';
+import axios from 'axios'
 export default {
   components: {
     Checkout,
@@ -217,7 +210,8 @@ export default {
       ],
 
       showAddDialog: false,
-      addDialogForm: { name: '', description: '', url: ''},
+      showContributorCode: true,
+      addDialogForm: { name: '', description: '', url: '' },
       addAlert: { message: '', success: true },
       confirm_title: 'Store successfully added.',
       isLoading: false,
@@ -278,37 +272,45 @@ export default {
     },
 
     async getSuggestedNameDescription() {
-        let name = '';
-        let description = '';
-        if(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(this.addDialogForm.url)) {
-          await axios.get(`https://bitcoin-stores.com/api/preview?url=${this.addDialogForm.url}`)
-          .then(function(response) {
-            name = response.data.data.name?response.data.data.name:'';
-            description = response.data.data.description?response.data.data.description:'';
+      let name = ''
+      let description = ''
+      if (
+        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+          this.addDialogForm.url
+        )
+      ) {
+        await this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
+            name = response.data.data.name ? response.data.data.name : ''
+            description = response.data.data.description
+              ? response.data.data.description
+              : ''
           })
           .catch((error) => {
-            console.log(error);
+            console.log(error)
           })
 
-          this.addDialogForm.name = name;
-          this.addDialogForm.description = description;
-        }
+        this.addDialogForm.name = name
+        this.addDialogForm.description = description
+      }
     },
 
     checkValidUrl() {
-        if(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(this.addDialogForm.url)) {
-          return false;
-        } else {
-          return true;
-        }
+      if (
+        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+          this.addDialogForm.url
+        )
+      ) {
+        return false
+      } else {
+        return true
+      }
     },
 
-    async submitAdd(event) {
+    async submitAdd() {
       let token = null
       this.$refs.addform.validate()
       try {
-        token = await this.$recaptcha.getResponse()
-        await this.$recaptcha.reset()
+        token = await this.$recaptcha.execute('addStore')
       } catch (error) {
         return
       }
@@ -406,6 +408,16 @@ export default {
       clearInterval(this.checkPaymentTimer)
       this.paymentRequest = ''
     },
+  },
+  beforeDestroy() {
+    this.$recaptcha.destroy()
+  },
+  async mounted() {
+    try {
+      await this.$recaptcha.init()
+    } catch (e) {
+      console.error(e)
+    }
   },
 }
 </script>
