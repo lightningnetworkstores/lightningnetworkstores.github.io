@@ -1,6 +1,7 @@
 <template>
   <v-carousel
     height="auto"
+    :show-arrows="selectedStore.media.main.length > 1"
   >
     <v-carousel-item
       v-for="(media, i) in selectedStore.media.main"
