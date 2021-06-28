@@ -10,15 +10,11 @@ export default {
   },
   router: {
     scrollBehavior(to, from, savedPosition) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (savedPosition) {
-            resolve(savedPosition)
-          } else {
-            resolve({ x: 0, y: 0 })
-          }
-        }, 700)
-      })
+      if (savedPosition && to.name !== 'index') {
+        return savedPosition
+      } else {
+        return { x: 0, y: 0 }
+      }
     },
   },
   axios: {
