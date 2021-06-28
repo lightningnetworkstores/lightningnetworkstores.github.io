@@ -83,7 +83,7 @@ const mutations = {
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },
-  setExludedTags(state, selectedTags) {
+  setExcludedTags(state, selectedTags) {
     state.excludedTags = selectedTags
   },
   setWallets(state, wallets) {
