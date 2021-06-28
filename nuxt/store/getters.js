@@ -62,6 +62,8 @@ const getters = {
         isFiltered = false
       }
 
+      isFiltered = state.selectedTags.length!=0 || state.excludedTags.length!=0 || state.filterByFavorites;
+
       //Search
       if (search && search !== 'undefined') {
         let fuse = new Fuse(stores, options)
