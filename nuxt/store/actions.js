@@ -38,22 +38,29 @@ const actions = {
 
         return response.data.data
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(({ response }) => {
+        return Promise.reject({
+          statusCode: response.status,
+          message: response.data.message,
+        })
       })
   },
   getStore({ state, commit }, data) {
-    return fetch(`${state.baseURL}api/storeinfo?id=` + data.id)
+    return axios
+      .get(`${state.baseURL}api/storeinfo?id=` + data.id)
       .then((response) => {
-        return response.json()
+        return response.data
       })
       .then((response) => {
         commit('setConfiguration', response.configuration)
         commit('setSelectedStore', response)
         return response
       })
-      .catch((error) => {
-        return Promise.reject(error)
+      .catch(({ response }) => {
+        return Promise.reject({
+          statusCode: response.status,
+          message: response.data.message,
+        })
       })
   },
   addStore(
@@ -432,7 +439,7 @@ const actions = {
 
   selectOneTag({ commit }, tag) {
     commit('setSelectedTags', [])
-    commit('setExludedTags', [])
+    commit('setExcludedTags', [])
 
     commit('updateSelectedTag', { tag })
   },
@@ -522,8 +529,6 @@ const actions = {
         tagsCheckbox.push(tag)
         checkedTags[state.tags.indexOf(tag)] = tag
       }
-
-      commit('setSelectedTags', routeTags)
     }
 
     if (route.query.exclude) {
@@ -534,39 +539,42 @@ const actions = {
       for (const tag of routeExcludedTags) {
         excludedTags.push(tag)
       }
-      commit('setExludedTags', routeExcludedTags)
     }
+
+    commit('setSelectedTags', tagsCheckbox)
+    commit('setExcludedTags', excludedTags)
+
     return {
       safeMode,
       selectedSort,
       searchQuery,
-      tagsCheckbox,
-      checkedTags,
-      excludedTags,
     }
   },
   toggleFilterByFavoritesStores({ commit, state }) {
     commit('updateFilterFavoriteStores', !state.filterByFavorites)
   },
   async loadImagePreview({ commit, state }, { store, imagePath }) {
-    const ytRegex = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/))([\w\-]+)(\S+)?$/
+    const ytRegex =
+      /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/))([\w\-]+)(\S+)?$/
     if (ytRegex.test(imagePath)) {
       const videoId = ytRegex.exec(imagePath)[5]
       return {
         type: 'youtube',
-        url: `https://youtube.com/embed/${videoId}`
+        url: `https://youtube.com/embed/${videoId}`,
       }
     } else {
       try {
-        const response = await axios.post(`${state.baseURL}api/image?storeID=${store.id}&source=${imagePath}`)
+        const response = await axios.post(
+          `${state.baseURL}api/image?storeID=${store.id}&source=${imagePath}`
+        )
         if (response.status === 200) {
           return {
             type: 'image',
             filename: response.data.data.media,
-            url: `${state.baseURL}thumbnails/${response.data.data.media}`
+            url: `${state.baseURL}thumbnails/${response.data.data.media}`,
           }
         }
-      } catch(err) {
+      } catch (err) {
         console.error('set preview image error: ', err)
         if (err.response && err.response.data) {
           return { error: err.response.data.message }
@@ -577,31 +585,35 @@ const actions = {
     }
     return {
       type: 'unknown',
-      url: null
+      url: null,
     }
   },
-  confirmImageSelection({ state, commit }, { storeId, position, media, isHomepage, mediaType }) {
+  confirmImageSelection(
+    { state, commit },
+    { storeId, position, media, isHomepage, mediaType }
+  ) {
     const maxPosition = state.selectedStore.media.main.length
     if (position > maxPosition) {
       position = maxPosition
     }
     const url = `${state.baseURL}api/image?storeID=${storeId}&position=${position}&media=${media}&homepage=${isHomepage}`
-    return axios.put(url)
-      .then(response => {
+    return axios
+      .put(url)
+      .then((response) => {
         if (response.status === 200) {
           const type = mediaType === 'image' ? 'IMAGE' : 'VIDEO'
           const data = {
             homepage: isHomepage,
             link: media,
             type: type,
-            position: position
+            position: position,
           }
           commit('addStoreMedia', data)
           return response.data
         }
         return { error: 'Undefined error with status 200' }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('confirm image error: ', err)
         if (err.response && err.response.data) {
           return { error: err.response.data.message }
@@ -610,47 +622,54 @@ const actions = {
         }
       })
   },
-  deleteStoreImage({ commit, state }, {id, position}) {
-    return axios.delete(`${state.baseURL}api/image?storeID=${id}&position=${position}`)
-      .then(response => {
+  deleteStoreImage({ commit, state }, { id, position }) {
+    return axios
+      .delete(`${state.baseURL}api/image?storeID=${id}&position=${position}`)
+      .then((response) => {
         const { data } = response
         if (response.status === 200) {
           if (data.status === 'success') {
-            commit('removeStoreMedia', {position: position})
+            commit('removeStoreMedia', { position: position })
             return {
-              message: data.message
+              message: data.message,
             }
           }
           return {
-            error: data.message
+            error: data.message,
           }
         }
         return {
-          error: data.message ? data.message : 'Unknown error'
+          error: data.message ? data.message : 'Unknown error',
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Got an error')
         if (err.response && err.response.data) {
           return { error: err.response.data.message }
         } else {
           return { error: 'Undefined error' }
         }
-      });
+      })
   },
   setHomeImage({ commit, state }, { position, storeID }) {
-    return axios.put(`${state.baseURL}api/image?storeID=${storeID}&position=${position}&homepage=true`)
-      .then(response => {
+    return axios
+      .put(
+        `${state.baseURL}api/image?storeID=${storeID}&position=${position}&homepage=true`
+      )
+      .then((response) => {
         if (response.status === 200) {
           const { data } = response
-          commit('updateStoreHomeImage', {position})
+          commit('updateStoreHomeImage', { position })
           return { message: data.status.message }
         } else {
           return { error: 'Unknown error while trying to update image' }
         }
       })
-      .catch(err => {
-        console.error('Got an error while trying to set homepage image. err: ', err)
+      .catch((err) => {
+        console.error(
+          'Got an error while trying to set homepage image. err: ',
+          err
+        )
         if (err.response && err.response.data) {
           return { error: err.response.data.message }
         } else {
@@ -660,7 +679,10 @@ const actions = {
   },
   getPreview({commit, state}, {url}){
     return axios.get(`${state.baseURL}api/preview?url=${url}`);
-  }
+  },
+  setScrolledStores({ commit }, storesCount) {
+    commit('updateScrolledStores', storesCount)
+  },
 }
 
 export default actions

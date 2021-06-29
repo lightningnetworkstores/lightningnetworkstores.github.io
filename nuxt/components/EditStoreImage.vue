@@ -201,7 +201,7 @@ export default {
 .edit-image-icon {
   float: right;
   position: absolute;
-  margin: 0 0.5em 0;
+  margin: 0 0.5em 4em;
   z-index: 101;
   bottom: 4px;
   right: 0;
