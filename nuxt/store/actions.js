@@ -670,8 +670,11 @@ const actions = {
         }
       })
   },
-  getPreview({ commit, state }, { url }) {
-    return axios.get(`${state.baseURL}api/preview?url=${url}`)
+  getPreview({commit, state}, {url}){
+    return axios.get(`${state.baseURL}api/preview?url=${url}`);
+  },
+  setScrolledStores({ commit }, storesCount) {
+    commit('updateScrolledStores', storesCount)
   },
 }
 
