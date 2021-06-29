@@ -1,6 +1,7 @@
 <template>
   <v-carousel
     height="auto"
+    hide-delimiter-background
     :show-arrows="logged || selectedStore.media.main.length > 1"
   >
     <v-carousel-item
