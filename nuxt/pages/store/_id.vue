@@ -841,7 +841,8 @@ export default {
       similarExpanded: false
     }
   },
-  async asyncData({ params, store }) {
+  async asyncData({ params, store, error }) {
+    try {
     const selectedStore = await store.dispatch('getStore', { id: params.id })
     store.dispatch('setStore', selectedStore)
 
@@ -858,6 +859,9 @@ export default {
     )
 
     return { selectedStore, reviews, storeId }
+    } catch(err) {
+      error(err)
+    }
   },
 
   async mounted() {

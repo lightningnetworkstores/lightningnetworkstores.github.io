@@ -26,22 +26,29 @@ const actions = {
 
         return response.data.data
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(({ response }) => {
+        return Promise.reject({
+          statusCode: response.status,
+          message: response.data.message,
+        })
       })
   },
   getStore({ state, commit }, data) {
-    return fetch(`${state.baseURL}api/storeinfo?id=` + data.id)
+    return axios
+      .get(`${state.baseURL}api/storeinfo?id=` + data.id)
       .then((response) => {
-        return response.json()
+        return response.data
       })
       .then((response) => {
         commit('setConfiguration', response.configuration)
         commit('setSelectedStore', response)
         return response
       })
-      .catch((error) => {
-        return Promise.reject(error)
+      .catch(({ response }) => {
+        return Promise.reject({
+          statusCode: response.status,
+          message: response.data.message,
+        })
       })
   },
   addStore(

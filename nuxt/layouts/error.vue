@@ -1,12 +1,10 @@
 <template>
   <v-layout class="justify-center error-wrapper column align-center">
-    <div v-if="error.statusCode === 404">
-      <h1 class="error-code">404</h1>
-      <p class="error-message">{{ pageNotFound }}</p>
+    <div v-if="error.statusCode">
+      <h1 class="error-code">{{ error.statusCode }}</h1>
     </div>
-    <div v-else>
-      <p class="error-message">{{ otherError }}</p>
-    </div>
+    <p class="error-message">{{ errorTitle }}</p>
+    <p class="error-message">{{ error.message }}</p>
     <v-btn depressed to="/">Back to home page</v-btn>
   </v-layout>
 </template>
@@ -22,13 +20,15 @@ export default {
   },
   data() {
     return {
-      pageNotFound: 'Page not found...',
-      otherError: 'An error occurred...',
+      errorTitle:
+        this.error.statusCode == 404
+          ? 'Page not found...'
+          : 'An error occurred...',
     }
   },
   head() {
-    const title =
-      this.error.statusCode === 404 ? this.pageNotFound : this.otherError
+    const title = this.errorTitle
+
     return {
       title,
     }
