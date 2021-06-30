@@ -11,7 +11,8 @@ Should be done using the button on the bottom right corner of the main page that
 
 ```
 git clone https://github.com/lightningnetworkstores/lightningnetworkstores.github.io.git
-cd nuxt/
+cd lightningnetworkstores.github.io/nuxt
+git checkout develop
 sudo yarn install
 sudo yarn dev
 ```
