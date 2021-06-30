@@ -60,7 +60,7 @@
         <iframe
           v-if="media.type === 'VIDEO'"
           class="video-iframe"
-          :src="media.link"
+          :src="$createEmbedLink(media.link)"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
         </iframe>
@@ -86,14 +86,10 @@
       key="last"
       class="carousel-style lns-carousel"
     >
-      <v-sheet height="100%" tile>
-        <v-img
-          :src="`${baseURL}noimage.png`"
-          class="text-right"
-        >
-        </v-img>
+      <v-sheet height="500px" class="d-flex justify-center align-center" color="white">
         <edit-store-image
           v-if="selectedStore.logged"
+          isNew
           :store="selectedStore"
           :position="selectedStore.images.number + 1"
         />
@@ -127,7 +123,7 @@ export default {
         new Date(this.selectedStore.added * 1000 + 1000 * 60 * 60 * 24 * 8) >
         new Date()
       )
-    }
+    },
   },
   computed: {
     baseURL() {
