@@ -30,7 +30,7 @@
           <ul>
             <li><b>Website URL:</b> introduce a webpage of your own website. We will take a printscreen of it.</li>
             <li><b>External image URL:</b> link to a .jpg or .png image</li>
-            <!-- <li><b>Youtube Vide:</b> youtube link to the video</li> -->
+            <li><b>Youtube video:</b> youtube link to the video</li>
           </ul>
         </v-card-text>
         </v-layout>
@@ -54,7 +54,7 @@
                 v-if="mediaType === 'youtube'"
                 width="560"
                 height="315"
-                :src="previewURL"
+                :src="$createEmbedLink(previewURL)"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
               </iframe>

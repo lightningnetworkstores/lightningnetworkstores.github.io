@@ -60,7 +60,7 @@
         <iframe
           v-if="media.type === 'VIDEO'"
           class="video-iframe"
-          :src="media.link"
+          :src="$createEmbedLink(media.link)"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
         </iframe>
@@ -123,7 +123,7 @@ export default {
         new Date(this.selectedStore.added * 1000 + 1000 * 60 * 60 * 24 * 8) >
         new Date()
       )
-    }
+    },
   },
   computed: {
     baseURL() {
