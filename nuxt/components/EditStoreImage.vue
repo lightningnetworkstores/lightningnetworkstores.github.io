@@ -1,12 +1,22 @@
 <template>
   <div>
     <v-btn
+      v-if="!isNew"
       color="rgba(0,0,0,0.80)"
       dark
       class="edit-image-icon"
       @click="openDialog"
     >
       <v-icon>fa-edit</v-icon>
+    </v-btn>
+    <v-btn
+      v-if="isNew"
+      color="orange"
+      fab
+      large
+      @click="openDialog"
+    >
+      <v-icon>fa-plus</v-icon>
     </v-btn>
     <v-dialog v-model="showDialog" width="500">
       <v-card>
@@ -126,6 +136,10 @@ export default {
       type: Object,
       required: true
     },
+    isNew: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
