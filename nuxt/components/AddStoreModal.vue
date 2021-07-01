@@ -14,7 +14,7 @@
     >
       <template v-if="showAddDialog">
         <v-card>
-          <v-layout v-if="addAlert.message.length">
+          <v-layout v-if="addAlert.message">
             <v-flex>
               <v-alert
                 :type="addAlert.success ? 'success' : 'error'"
@@ -278,41 +278,42 @@ export default {
     },
 
     async getSuggestedNameDescription() {
-      this.urlPreviewErrorMessage = [];
-      this.inValidUrl = true;
-      let name = '';
-      let description = '';
-      let flag = true;
-      let message = 'Incorrect Url';
-
+      let name = ''
+      let description = ''
+      let previewResponse = {message: '', success: true}
       if (
         /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
           this.addDialogForm.url
         )
       ) {
-        clearTimeout(this.debounce)
-        this.debounce = setTimeout( async() => {
-          await this.$store.dispatch('getPreview', {url: this.addDialogForm.url})
-          .then((response) => {
+        await this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
             name = response.data.data.name ? response.data.data.name : ''
             description = response.data.data.description
               ? response.data.data.description
               : ''
-            flag = true;
-          }).catch((err) => {
-            flag = false;
-            message = err.response.data.message? err.response.data.message : message;
-          });
 
-          if(!flag) {
-            this.urlPreviewErrorMessage = message;
-          } else {
-            this.inValidUrl = false;
-            this.urlPreviewErrorMessage = [];
-          }
-          this.addDialogForm.name = name;
-          this.addDialogForm.description = description;
-        }, 600);
+            previewResponse = response
+          })
+          .catch((error) => {
+            console.log(error)
+            previewResponse = error.response.data
+
+          })
+        this.addAlert = previewResponse
+        this.addDialogForm.name = name
+        this.addDialogForm.description = description
+      }
+    },
+
+    checkValidUrl() {
+      if (
+        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+          this.addDialogForm.url
+        )
+      ) {
+        return false
+      } else {
+        return true
       }
     },
 

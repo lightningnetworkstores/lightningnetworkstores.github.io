@@ -5,7 +5,6 @@ export const state = () => ({
   donations: [],
   scores: [],
   stores: [],
-  store: null,
   selectedStore: null,
   wallets: [],
   discussions: [],
@@ -20,6 +19,7 @@ export const state = () => ({
   filteredTags: [],
   filteredStores: [],
   filterByFavorites: false,
+  scrolledStores: 0,
 })
 
 export default state

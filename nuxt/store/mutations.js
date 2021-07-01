@@ -11,14 +11,14 @@ const mutations = {
   setStores(state, stores) {
     state.stores = stores
   },
-  setStore(state, store) {
+  setSelectedStore(state, store) {
     store.reviews.sort((a, b) => {
       if (Math.abs(b.score) !== Math.abs(a.score)) {
         return Math.abs(b.score) - Math.abs(a.score)
       }
       return b.timestamp - a.timestamp
     })
-    state.store = store
+    state.selectedStore = store
   },
   setScores(state, scores) {
     state.scores = scores
@@ -55,9 +55,9 @@ const mutations = {
   },
   updateSocialLink(state, { name, href }) {
     if (state.selectedStore[name]) {
-      state.selectedStore[name] = {href}
+      state.selectedStore[name] = { href }
     } else {
-      Vue.set(state.selectedStore.social, name, {href});
+      Vue.set(state.selectedStore.social, name, { href })
     }
   },
   removeSocialLink(state, { name }) {
@@ -83,7 +83,7 @@ const mutations = {
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },
-  setExludedTags(state, selectedTags) {
+  setExcludedTags(state, selectedTags) {
     state.excludedTags = selectedTags
   },
   setWallets(state, wallets) {
@@ -149,7 +149,10 @@ const mutations = {
   },
   updateFilterFavoriteStores(state, flag) {
     state.filterByFavorites = flag
-  }
+  },
+  updateScrolledStores(state, number) {
+    state.scrolledStores = number
+  },
 }
 
 export default mutations

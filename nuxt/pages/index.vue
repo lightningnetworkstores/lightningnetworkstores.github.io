@@ -77,8 +77,9 @@
         </v-flex>
       </v-layout>
 
-      <v-container class="full-list">
+      <v-container class="full-list" ref="list">
         <store-card
+          :data-storeId="store.id"
           v-for="store in filteredStores.slice(0, maxCards)"
           :key="'store-' + store.id"
           :store="store"
@@ -140,6 +141,7 @@ export default {
     },
     loadMoreCards() {
       this.maxCards += this.addCardCount
+      this.$store.dispatch('setScrolledStores', this.maxCards)
     },
     handleScroll() {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -184,6 +186,7 @@ export default {
       'scores',
       'likedStores',
       'filterByFavorites',
+      'scrolledStores',
     ]),
 
     filteredStores() {
@@ -261,14 +264,50 @@ export default {
     selectedTags() {
       this.changeUrl()
     },
+    $route(to, from) {
+      if (
+        Object.keys(to.query).length === 0 &&
+        Object.keys(from.query).length !== 0
+      ) {
+        this.$store.dispatch('processRoute', to)
+
+        this.safeMode = false
+        this.selectedSort = 'best'
+        this.searchQuery = ''
+      }
+    },
   },
   async asyncData({ store, route }) {
     await store.dispatch('getStores')
-    await store.dispatch('processRoute', route)
+    const { safeMode, selectedSort, searchQuery } = await store.dispatch(
+      'processRoute',
+      route
+    )
+
+    return { safeMode, selectedSort, searchQuery }
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
+    if (this.scrolledStores) {
+      this.$route.meta.scrolledStores = this.maxCards
+      this.maxCards = this.scrolledStores
+    }
   },
+  mounted() {
+    const data = Array.from(this.$refs.list.children)
+
+    const store = data.find(
+      (store) => Number(store.dataset.storeid) === this.$route.meta.storeId
+    )
+
+    if (store) {
+      setTimeout(
+        () => window.scrollTo({ top: store.offsetTop, behavior: 'smooth' }),
+        50
+      )
+    }
+  },
+
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
   },

@@ -103,7 +103,7 @@
 
                         <div class="px-0">
                           <b>Likes: &nbsp;</b>
-                          <like-store-button :store="store" />
+                          <like-store-button :store="selectedStore" />
                         </div>
 
                         <div
@@ -444,9 +444,10 @@ export default {
       similarExpanded: false
     }
   },
-  async asyncData({ params, store }) {
+  async asyncData({ params, store, error }) {
+    try {
     const selectedStore = await store.dispatch('getStore', { id: params.id })
-    store.dispatch('setStore', selectedStore)
+    store.dispatch('setSelectedStore', selectedStore)
 
     const storeId = selectedStore.id
 
@@ -460,7 +461,10 @@ export default {
       }
     )
 
-    return { selectedStore, reviews, storeId }
+    return { reviews, storeId }
+    } catch(err) {
+      error(err)
+    }
   },
 
   async mounted() {
@@ -512,7 +516,7 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'store']),
+    ...mapState(['likedStores', 'selectedStore']),
   },
 
   methods: {

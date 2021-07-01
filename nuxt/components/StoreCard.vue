@@ -8,7 +8,7 @@
             max-height="200px"
             :src="`${baseURL}thumbnails/${store.id}.jpg`"
             class="text-right"
-            @click.native="gotoStore(store.rooturl)"
+            @click.native="gotoStore(store)"
           >
             <v-chip
               v-if="isNewStore(store)"
@@ -41,7 +41,7 @@
           <vote-button :isUpvoting="false" :store="store" />
         </div>
         <div class="content pa-2 pl-5">
-          <div @click="gotoStore(store.id)">
+          <div @click="gotoStore(store)">
             <div class="title">
               <a :href="store.href" class="font-weight-regular">
                 {{ store.name }}
@@ -128,8 +128,10 @@ export default {
   props: ['store', 'changeUrl', 'setFromRoute'],
   components: { VoteButton, LikeStoreButton },
   methods: {
-    gotoStore(store_id) {
-      this.$router.push('/store/' + store_id)
+    gotoStore(store) {
+      const { id, rooturl } = store
+      this.$route.meta.storeId = id
+      this.$router.push(`/store/${rooturl}`)
     },
     updateTagSearch(tag) {
       this.$store.dispatch('selectOneTag', tag)
