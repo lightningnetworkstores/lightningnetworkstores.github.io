@@ -9,30 +9,35 @@
       <v-dialog v-model="showModal" max-width="700" persistent>
         <v-card>
           <v-card-title class="headline justify-center">{{
-            announcement.title
+            notification.title
           }}</v-card-title>
           <v-card-text>
             <div>
               <p v-html="htmlBody" class="text-md-body-1"></p>
               <img
-                v-if="announcement.image"
-                :src="announcement.image"
-                :alt="announcement.title"
+                v-if="notification.image"
+                :src="notification.image"
+                :alt="notification.title"
               />
               <div class="text-center">
                 <v-btn
-                  v-if="announcement.href"
+                  v-if="notification.href"
                   color="blue darken-1"
                   class="text-md-h6"
                   text
                   x-large
-                  href="announcement.href"
+                  :href="notification.href"
                   >Learn More</v-btn
                 >
               </div>
             </div>
           </v-card-text>
           <v-card-actions>
+            <v-checkbox
+              v-if="!notification.important && !warningMessage"
+              v-model="announcementsConfig.enabled"
+              label="I want to keep seeing these notifications"
+            ></v-checkbox>
             <v-spacer></v-spacer>
 
             <v-btn color="green darken-1" text @click="showModal = false">
@@ -59,12 +64,18 @@ export default {
       initModal: true,
       excludedRoutes: ['test'],
       announcementsConfig: {},
+      notification: {},
+      newVersionMessage: {
+        title: 'Warning: the website you are seeing is outdated',
+        body: `Please refresh your browser's cache. You can easily do this by pressing CTRL+R`,
+      },
+      warningMessage: false,
     }
   },
 
   computed: {
     htmlBody() {
-      const body = this.announcement.body.replace(/(?:\r\n|\r|\n)/g, '<br>')
+      const body = this.notification.body?.replace(/(?:\r\n|\r|\n)/g, '<br>')
       console.log(body)
       return body
     },
@@ -76,12 +87,18 @@ export default {
         )
         return announcement
       },
+      configuration: 'configuration',
     }),
   },
 
   methods: {
     submitAnnounce() {
-      this.announcementsConfig.lastAnnouncementSeen = this.announcement.id
+      if (!this.warningMessage) {
+        this.announcementsConfig.lastAnnouncementSeen = this.announcement.id
+      } else {
+        this.announcementsConfig.lastVersionWarning = this.notification.version
+      }
+
       this.showModal = false
       localStorage.setItem(
         'announcements_config',
@@ -116,11 +133,25 @@ export default {
         this.showModal = openDialog
       }
     },
+
+    setNotificationMessage() {
+      const announcementVersion = this.announcement.version
+
+      if (announcementVersion > this.configuration.version) {
+        this.notification = this.newVersionMessage
+        this.warningMessage = true
+      } else {
+        this.notification = this.announcement
+      }
+
+      console.log(this.notification)
+    },
   },
 
   watch: {
     announcement() {
       if (this.initModal) {
+        this.setNotificationMessage()
         this.setIsModalOpen()
         this.initModal = false
       }
