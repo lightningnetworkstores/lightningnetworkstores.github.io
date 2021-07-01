@@ -76,7 +76,6 @@ export default {
   computed: {
     htmlBody() {
       const body = this.notification.body?.replace(/(?:\r\n|\r|\n)/g, '<br>')
-      console.log(body)
       return body
     },
 
@@ -96,7 +95,7 @@ export default {
       if (!this.warningMessage) {
         this.announcementsConfig.lastAnnouncementSeen = this.announcement.id
       } else {
-        this.announcementsConfig.lastVersionWarning = this.notification.version
+        this.announcementsConfig.lastVersionWarning = this.announcement.version
       }
 
       this.showModal = false
@@ -126,6 +125,15 @@ export default {
         JSON.parse(localStorage.getItem('announcements_config')) ??
         defaultConfig
 
+      const isWarningLastVersion =
+        this.warningMessage &&
+        this.announcement.version ===
+          this.announcementsConfig.lastVersionWarning
+
+      if (isWarningLastVersion) {
+        return
+      }
+
       if (this.announcementsConfig.enabled) {
         const openDialog =
           this.announcement.id > this.announcementsConfig.lastAnnouncementSeen
@@ -143,8 +151,6 @@ export default {
       } else {
         this.notification = this.announcement
       }
-
-      console.log(this.notification)
     },
   },
 
