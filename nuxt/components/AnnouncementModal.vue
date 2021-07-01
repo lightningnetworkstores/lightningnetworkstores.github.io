@@ -20,6 +20,17 @@
                 :alt="notification.title"
                 class="w-100"
               />
+              <div v-if="notification.tweet">
+                <blockquote class="twitter-tweet">
+                  <a :href="notification.tweet"></a>
+                </blockquote>
+                <script
+                  async
+                  src="https://platform.twitter.com/widgets.js"
+                  charset="utf-8"
+                ></script>
+              </div>
+
               <div class="text-center">
                 <v-btn
                   v-if="notification.href"
