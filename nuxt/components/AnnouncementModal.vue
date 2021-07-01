@@ -18,6 +18,7 @@
                 v-if="notification.image"
                 :src="notification.image"
                 :alt="notification.title"
+                class="w-100"
               />
               <div class="text-center">
                 <v-btn
@@ -58,7 +59,11 @@ export default {
       showModal: false,
       initModal: true,
       excludedRoutes: ['test'],
-      announcementsConfig: {},
+      announcementsConfig: {
+        enabled: true,
+        lastAnnouncementSeen: 0,
+        lastVersionWarning: 0,
+      },
       notification: {},
       newVersionMessage: {
         title: 'Warning: the website you are seeing is outdated',
@@ -110,15 +115,9 @@ export default {
         return
       }
 
-      const defaultConfig = {
-        enabled: true,
-        lastAnnouncementSeen: 0,
-        lastVersionWarning: 0,
-      }
-
       this.announcementsConfig =
         JSON.parse(localStorage.getItem('announcements_config')) ??
-        defaultConfig
+        this.announcementsConfig
 
       const isWarningLastVersion =
         this.warningMessage &&
@@ -162,4 +161,8 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.w-100 {
+  width: 100%;
+}
+</style>
