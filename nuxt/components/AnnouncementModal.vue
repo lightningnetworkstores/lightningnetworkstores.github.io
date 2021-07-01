@@ -39,11 +39,6 @@
               label="I want to keep seeing these notifications"
             ></v-checkbox>
             <v-spacer></v-spacer>
-
-            <v-btn color="green darken-1" text @click="showModal = false">
-              Cancel
-            </v-btn>
-
             <v-btn color="green darken-1" text @click="submitAnnounce">
               Ok
             </v-btn>
@@ -144,11 +139,12 @@ export default {
 
     setNotificationMessage() {
       const announcementVersion = this.announcement.version
+      const configurationVersion = this.configuration?.version
 
-      if (announcementVersion > this.configuration.version) {
+      if (announcementVersion > configurationVersion) {
         this.notification = this.newVersionMessage
         this.warningMessage = true
-      } else {
+      } else if (configurationVersion) {
         this.notification = this.announcement
       }
     },
