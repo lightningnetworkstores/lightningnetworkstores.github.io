@@ -5,7 +5,6 @@ export const state = () => ({
   donations: [],
   scores: [],
   stores: [],
-  store: null,
   selectedStore: null,
   wallets: [],
   discussions: [],

@@ -210,8 +210,8 @@ const actions = {
         return Promise.reject(error)
       })
   },
-  setStore({ commit }, store) {
-    commit(`setStore`, store)
+  setSelectedStore({ commit }, store) {
+    commit('setSelectedStore', store)
   },
   removeTag({ state }, { storeId: storeId, tag: tag }) {
     const object = {
