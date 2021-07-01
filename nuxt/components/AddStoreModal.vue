@@ -64,18 +64,12 @@
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <v-text-field
+                      @input="getSuggestedNameDescription"
                       v-model="addDialogForm.url"
-                      @input="getSuggestedNameDescription()"
                       label="Website URL"
                       hint="eg. https://lightningnetworkstores.com"
-                      :rules="[
-                        (v) => !!v || 'Website URL is required',
-                        (v) =>
-                          /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-                            v
-                          ) ||
-                          'Enter a valid url eg. https://lightningnetworkstores.com',
-                      ]"
+                      :rules="[rules.required, rules.validUrl]"
+                      :error-messages="urlPreviewErrorMessage"
                     ></v-text-field>
                     <!-- <small v-if="validUrlFlag">Incorrect Url 111</small> -->
                   </v-flex>
@@ -180,8 +174,7 @@ export default {
     Checkout,
     Success,
   },
-  data() {
-    return {
+  data: () => ({
       digitalGoodFormItems: [
         { name: 'Yes', prop: 'yes' },
         { name: 'No, goods shipped', prop: 'no, goods shipped' },
@@ -210,6 +203,9 @@ export default {
         { name: 'Other', prop: 'other' },
       ],
 
+
+      urlPreviewErrorMessage: [],
+
       showAddDialog: false,
       showContributorCode: true,
       addDialogForm: { name: '', description: '', url: '' },
@@ -225,8 +221,16 @@ export default {
       inValidUrl: true,
       validUrlFlag: false,
       checkPaymentTimer: null,
-    }
-  },
+      rules: {
+        required: (v) => !!v || 'Website URL is required',
+        validUrl: (v) =>
+          /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+          v
+        )  ||
+        'Enter a valid url eg. https://lightningnetworkstores.com',
+      },
+      debounce: null
+  }),
   watch: {
     showAddDialog() {
       //           onChildChanged(val, oldVal) {
@@ -274,44 +278,42 @@ export default {
     },
 
     async getSuggestedNameDescription() {
-      // this.inValidUrl = true;
+      this.urlPreviewErrorMessage = [];
+      this.inValidUrl = true;
       let name = '';
       let description = '';
-      this.inValidUrl = true;
+      let flag = true;
+      let message = 'Incorrect Url';
 
       if (
         /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
           this.addDialogForm.url
         )
       ) {
-        await this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
+        clearTimeout(this.debounce)
+        this.debounce = setTimeout( async() => {
+          await this.$store.dispatch('getPreview', {url: this.addDialogForm.url})
+          .then((response) => {
             name = response.data.data.name ? response.data.data.name : ''
             description = response.data.data.description
               ? response.data.data.description
               : ''
-             this.inValidUrl = false;
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-        this.addDialogForm.name = name
-        this.addDialogForm.description = description
-      }
-    },
+            flag = true;
+          }).catch((err) => {
+            flag = false;
+            message = err.response.data.message? err.response.data.message : message;
+          });
 
-    async checkValidUrl() {
-        let data = await axios
-        .get(
-          `https://bitcoin-stores.com/api/preview?url=${this.addDialogForm.url}`
-        )
-        .then(function (response) {
-          return true;
-        })
-        .catch((error) => {
-          return false;
-        })
-        console.log(data, 'lll');
-        return data;
+          if(!flag) {
+            this.urlPreviewErrorMessage = message;
+          } else {
+            this.inValidUrl = false;
+            this.urlPreviewErrorMessage = [];
+          }
+          this.addDialogForm.name = name;
+          this.addDialogForm.description = description;
+        }, 600);
+      }
     },
 
     async submitAdd() {
