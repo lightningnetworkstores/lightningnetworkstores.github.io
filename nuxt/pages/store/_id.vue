@@ -560,6 +560,15 @@
                 </v-flex>
               </v-layout>
             </v-card>
+            <div v-if="selectedStore.logged" class="mx-3 mt-3 py-2">
+                <AddEventModal :storeId="selectedStore.id" />
+                <div v-if="selectedStore.event && Object.keys(selectedStore.event).length">
+                  <div class="ma-3 headline font-weight-medium">
+                  Ongoing Event
+                  </div>
+                  <EventCard :event="selectedStore.event" />
+                </div>
+            </div>
           </v-col>
         </v-col>
       </v-row>
@@ -780,12 +789,13 @@
 <script>
 import { mapState } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
-
 import StoreCard from '~/components/StoreCard'
+import EventCard from '~/components/EventCard'
+import AddEventModal from '~/components/AddEventModal.vue'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 
 export default {
-  components: { StoreCard, LikeStoreButton, AddExternalModal },
+  components: { StoreCard, LikeStoreButton, AddExternalModal, EventCard, AddEventModal },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -850,32 +860,17 @@ export default {
       errorMessage: '',
       showImageDeleteButton: false,
       urlRules: [(v) => !!v || 'Url is required'],
-      similarExpanded: false
+      similarExpanded: false,
+      discussions: [],
+      reviews: []
     }
   },
   async asyncData({ params, store }) {
-    const selectedStore = await store.dispatch('getStore', { id: params.id })
-    store.dispatch('setStore', selectedStore)
-
-    const storeId = selectedStore.id
-
-    //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
-    let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
-      (a, b) => {
-        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
-          return Math.abs(b[0].score) - Math.abs(a[0].score)
-        }
-        return b[0].timestamp - a[0].timestamp
-      }
-    )
-
-    let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
-
-    return { selectedStore, reviews, storeId, discussions }
+    await store.dispatch('getStore', { id: params.id })
   },
 
   async mounted() {
-    await this.$store.dispatch('getStatus', { storeId: this.storeId })
+    await this.$store.dispatch('getStatus', { storeId: this.selectedStore.id })
     this.breadcrumb = [
       {
         text: 'Stores',
@@ -923,9 +918,25 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'store']),
+    ...mapState(['likedStores', 'store', 'selectedStore']),
   },
-
+  watch:{
+     async selectedStore(newVal){
+        if(newVal) {
+        this.$store.dispatch('setStore', newVal)
+        await this.$store.dispatch('getStatus', { storeId: newVal.id })
+        this.reviews = JSON.parse(JSON.stringify(newVal.reviews)).sort(
+            (a, b) => {
+                if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
+                return Math.abs(b[0].score) - Math.abs(a[0].score)
+                }
+                return b[0].timestamp - a[0].timestamp
+            }
+            )
+        this.discussions = JSON.parse(JSON.stringify(newVal.discussions))
+        }
+      }
+  },
   methods: {
     openImageEditoDialog(number, showImageDeleteButton = true) {
       this.Editdialog = true
@@ -940,7 +951,7 @@ export default {
       this.successMessage = ''
       this.errorMessage = ''
       let valid = true
-      let data = { storeID: this.storeId, position: this.position }
+      let data = { storeID: this.selectedStore.id, position: this.position }
       if (e == 'capture') {
         data.capture = true;
         data.source = this.imagePath

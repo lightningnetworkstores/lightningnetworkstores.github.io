@@ -277,6 +277,18 @@ const actions = {
             })
             .catch(console.error)
     },
+    addEvent({ state }, payload) {
+        return axios
+            .post(`${state.baseURL}api/event`, payload)
+            .then((response) => {
+                if (response.status === 200) {
+                        return response.data
+                }
+            })
+            .catch(e =>{
+                return e.response.data
+            })
+},
 
   donateFaucetsRequest({ state, commit }, { data }) {
     return axios

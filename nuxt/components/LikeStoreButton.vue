@@ -1,5 +1,5 @@
 <template>
-  <div class="likes" @click.stop="handleLike(store.id)">
+  <div v-if="store && Object.keys(store).length" class="likes" @click.stop="handleLike(store.id)">
     <v-icon small :color="storeIsLiked ? `red` : `gray`">fa-heart</v-icon>
     {{ store.likes }}
   </div>
@@ -9,7 +9,12 @@
 import { mapState } from 'vuex'
 
 export default {
-  props: ['store', 'likes'],
+  props:{
+      store:{
+          type: Object,
+          default: () => {}
+      }
+  },
   data() {
     return {
       isProcessing: false,

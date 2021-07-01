@@ -148,4 +148,17 @@ export default {
   max-height: 330px;
   overflow-y: hidden;
 }
+.discussion-title {
+  font-size: 1.7rem !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
 </style>

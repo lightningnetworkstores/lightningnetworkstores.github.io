@@ -54,16 +54,14 @@
 </template>
 <script>
 import AddDiscussModal from '@/components/AddDiscussModal.vue'
-import DiscussionCard from '@/components/DiscussionCard.vue'
 export default {
-  components: { AddDiscussModal, DiscussionCard },
+  components: { AddDiscussModal },
   data() {
     return {
       discussions: [],
     }
   },
   mounted() {
-    console.log('mounted')
     this.$store.dispatch('getDiscussions')
   },
 }
