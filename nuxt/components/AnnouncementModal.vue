@@ -20,7 +20,7 @@
                 :alt="notification.title"
                 class="w-100"
               />
-              <div v-if="notification.tweet">
+              <div v-if="notification.tweet" class="tweet-box">
                 <blockquote class="twitter-tweet">
                   <a :href="notification.tweet"></a>
                 </blockquote>
@@ -175,5 +175,9 @@ export default {
 <style scoped lang="scss">
 .w-100 {
   width: 100%;
+}
+.tweet-box {
+  width: 75%;
+  margin: auto;
 }
 </style>
