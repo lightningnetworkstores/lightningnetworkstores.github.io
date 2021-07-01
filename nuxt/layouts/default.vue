@@ -12,7 +12,7 @@
       </v-overlay>
 
       <transition name="fade">
-        <router-view />
+        <Nuxt />
       </transition>
     </v-main>
     <v-footer class="pa-3 mt-8" color="rgb(56, 56, 56)" dark>

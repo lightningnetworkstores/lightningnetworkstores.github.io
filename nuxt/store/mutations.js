@@ -55,18 +55,35 @@ const mutations = {
   },
   updateSocialLink(state, { name, href }) {
     if (state.selectedStore[name]) {
-      state.selectedStore[name] = {href}
+      state.selectedStore[name] = { href }
     } else {
-      Vue.set(state.selectedStore.social, name, {href});
+      Vue.set(state.selectedStore.social, name, { href })
     }
   },
   removeSocialLink(state, { name }) {
     Vue.delete(state.selectedStore.social, name)
   },
+  addStoreMedia(state, { homepage, link, type, position }) {
+    const media = { link: link, type: type, homepage: homepage }
+    state.selectedStore.media.main.splice(position, 1, media)
+    state.selectedStore.media.number++
+  },
+  removeStoreMedia(state, { position }) {
+    state.selectedStore.media.main.splice(position, 1)
+  },
+  updateStoreHomeImage(state, { position }) {
+    // Disabling previous home
+    const currentIndex = state.selectedStore.media.main.findIndex(item => item.homepage)
+    const currentHome = state.selectedStore.media.main.find(item => item.homepage)
+    Vue.set(state.selectedStore.media.main, currentIndex, {...currentHome, homepage: false})
+    // Enabling new home image
+    const newHome = state.selectedStore.media.main[position]
+    Vue.set(state.selectedStore.media.main, position, {...newHome, homepage: true})
+  },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
   },
-  setExludedTags(state, selectedTags) {
+  setExcludedTags(state, selectedTags) {
     state.excludedTags = selectedTags
   },
   setWallets(state, wallets) {
@@ -133,7 +150,10 @@ const mutations = {
   },
   updateFilterFavoriteStores(state, flag) {
     state.filterByFavorites = flag
-  }
+  },
+  updateScrolledStores(state, number) {
+    state.scrolledStores = number
+  },
 }
 
 export default mutations

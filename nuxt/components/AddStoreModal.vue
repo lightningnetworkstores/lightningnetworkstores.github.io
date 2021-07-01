@@ -14,7 +14,7 @@
     >
       <template v-if="showAddDialog">
         <v-card>
-          <v-layout v-if="addAlert.message.length">
+          <v-layout v-if="addAlert.message">
             <v-flex>
               <v-alert
                 :type="addAlert.success ? 'success' : 'error'"
@@ -274,25 +274,26 @@ export default {
     async getSuggestedNameDescription() {
       let name = ''
       let description = ''
+      let previewResponse = {message: '', success: true}
       if (
         /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
           this.addDialogForm.url
         )
       ) {
-        await axios
-          .get(
-            `https://bitcoin-stores.com/api/preview?url=${this.addDialogForm.url}`
-          )
-          .then(function (response) {
+        await this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
             name = response.data.data.name ? response.data.data.name : ''
             description = response.data.data.description
               ? response.data.data.description
               : ''
+
+            previewResponse = response 
           })
           .catch((error) => {
             console.log(error)
+            previewResponse = error.response.data
+            
           })
-
+        this.addAlert = previewResponse
         this.addDialogForm.name = name
         this.addDialogForm.description = description
       }

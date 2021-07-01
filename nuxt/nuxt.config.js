@@ -10,7 +10,7 @@ export default {
   },
   router: {
     scrollBehavior(to, from, savedPosition) {
-      if (savedPosition) {
+      if (savedPosition && to.name !== 'index') {
         return savedPosition
       } else {
         return { x: 0, y: 0 }
@@ -174,6 +174,10 @@ export default {
       src: '~/plugins/socialMediaColors.js',
       ssr: true,
     },
+    {
+      src: '~/plugins/utils.js',
+      ssr: true
+    }
   ],
 
   recaptcha: {

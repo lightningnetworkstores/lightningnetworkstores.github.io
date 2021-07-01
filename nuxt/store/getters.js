@@ -1,14 +1,16 @@
 import Fuse from 'fuse.js'
 
 const options = {
-    shouldSort: true,
-    threshold: 0.5,
-    trendingThreshold: 0,
-    location: 0,
-    distance: 100,
-    maxPatternLength: 32,
-    minMatchCharLength: 3,
-    keys: ['name', 'rank', 'href', 'description'],
+  // https://fusejs.io/api/options
+  shouldSort: true,
+  threshold: 0.2,
+  location: 0,
+  distance: 10000,
+  ignoreLocation: false,
+  maxPatternLength: 32,
+  minMatchCharLength: 4,
+  keys: ['name', 'href', 'description', 'tags', 'likely_tags'],
+  trendingThreshold: 0,
 }
 
 const getters = {
@@ -62,41 +64,43 @@ const getters = {
                 isFiltered = false
             }
 
-            //Search
-            if (search && search !== 'undefined') {
-                let fuse = new Fuse(stores, options)
-                stores = fuse.search(search)
-            } else {
-                // Sort
-                switch (sort) {
-                    case 'trending':
-                        stores = stores
-                            .filter((store) => store.trending > options.trendingThreshold)
-                            .sort((a, b) => {
-                                return b.trending - a.trending
-                            })
-                        break
-                    case 'newest':
-                        stores
-                            .sort((a, b) => {
-                                return a.added - b.added
-                            })
-                            .reverse()
-                        break
-                    case 'lifetime':
-                        stores.sort((a, b) => {
-                            return b.lifetime - a.lifetime
-                        })
-                        break
-                    case 'controversial':
-                        stores.sort((a, b) => {
-                            let magnitudeB = b.upvotes + b.downvotes
-                            let controversialB = 0
-                            if (magnitudeB != 0) {
-                                controversialB =
-                                    (magnitudeB * Math.min(b.upvotes, b.downvotes)) /
-                                    Math.max(b.upvotes, b.downvotes)
-                            }
+      isFiltered = state.selectedTags.length!=0 || state.excludedTags.length!=0 || state.filterByFavorites;
+
+      //Search
+      if (search && search !== 'undefined') {
+        let fuse = new Fuse(stores, options)
+        stores = fuse.search(search)
+      } else {
+        // Sort
+        switch (sort) {
+          case 'trending':
+            stores = stores
+              .filter((store) => store.trending > options.trendingThreshold)
+              .sort((a, b) => {
+                return b.trending - a.trending
+              })
+            break
+          case 'newest':
+            stores
+              .sort((a, b) => {
+                return a.added - b.added
+              })
+              .reverse()
+            break
+          case 'lifetime':
+            stores.sort((a, b) => {
+              return b.lifetime - a.lifetime
+            })
+            break
+          case 'controversial':
+            stores.sort((a, b) => {
+              let magnitudeB = b.upvotes + b.downvotes
+              let controversialB = 0
+              if (magnitudeB != 0) {
+                controversialB =
+                  (magnitudeB * Math.min(b.upvotes, b.downvotes)) /
+                  Math.max(b.upvotes, b.downvotes)
+              }
 
                             let magnitudeA = a.upvotes + a.downvotes
                             let controversialA = 0
@@ -136,6 +140,22 @@ const getters = {
                         }
                         break
                 }
+              var newestStore = stores.slice().sort((a, b) => {
+                return b.added - a.added
+              })[0]
+              stores.splice(stores.indexOf(newestStore), 1)
+              stores.splice(1, 0, newestStore)
+
+              // Is above trending threshold?
+              if (
+                mostTrendingStore &&
+                stores.length > 0 &&
+                mostTrendingStore.trending >= 10
+              ) {
+                stores.splice(stores.indexOf(mostTrendingStore), 1)
+                stores.splice(1, 0, mostTrendingStore)
+              }
+              
             }
             return stores
         }
