@@ -1,10 +1,5 @@
 <template>
-  <div class="ban-store-modal">
-    <v-btn text icon color="grey darken-2" @click.stop="showModal = true">
-      <v-icon>fa-ban</v-icon>
-    </v-btn>
-
-    <!-- Ban store modal -->
+  <div class="announcement-modal">
     <template v-if="announcement">
       <v-dialog v-model="showModal" max-width="700" persistent>
         <v-card>

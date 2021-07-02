@@ -26,7 +26,7 @@
             >
               <template v-slot:item="{ item }">
                 <tr
-                  :style="{ cursor: 'pointer' }"
+                  :class="{ [$style.clickable]: !!item.url }"
                   @click="handleDonorClick(item)"
                 >
                   <td>{{ item.name }}</td>
@@ -180,8 +180,11 @@ export default {
   },
 }
 </script>
-<style scoped>
-.donor-head {
-  justify-content: space-between;
+<style module lang="scss">
+tr.clickable {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 </style>
