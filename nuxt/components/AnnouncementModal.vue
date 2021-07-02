@@ -129,6 +129,10 @@ export default {
     },
 
     setIsModalOpen() {
+      this.announcementsConfig =
+        JSON.parse(localStorage.getItem('announcements_config')) ??
+        this.announcementsConfig
+
       if (this.excludedRoutes.includes(this.$route.name)) {
         return
       }
@@ -137,10 +141,6 @@ export default {
         this.showModal = true
         return
       }
-
-      this.announcementsConfig =
-        JSON.parse(localStorage.getItem('announcements_config')) ??
-        this.announcementsConfig
 
       const isWarningLastVersion =
         this.warningMessage &&
