@@ -133,7 +133,10 @@ export default {
         JSON.parse(localStorage.getItem('announcements_config')) ??
         this.announcementsConfig
 
-      if (this.excludedRoutes.includes(this.$route.name)) {
+      if (
+        this.excludedRoutes.includes(this.$route.name) ||
+        !this.configuration
+      ) {
         return
       }
 
