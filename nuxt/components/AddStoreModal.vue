@@ -78,7 +78,7 @@
                     <v-text-field
                       v-model="addDialogForm.name"
                       class="dialogform-name"
-                      :disabled="isValidUrl(addDialogForm.url)"
+                      :disabled="!isValidUrl(addDialogForm.url)"
                       label="Name"
                       hint="eg. Some name no longer than 50 characters."
                       :rules="[(v) => !!v || 'Name is required']"
@@ -91,7 +91,7 @@
                     <v-text-field
                       v-model="addDialogForm.description"
                       class="dialogform-description"
-                      :disabled="isValidUrl(addDialogForm.url)"
+                      :disabled="!isValidUrl(addDialogForm.url)"
                       label="Description"
                       hint="eg. Some description no longer than 150 characters."
                       :rules="[
@@ -163,7 +163,6 @@
 </template>
 
 <script>
-// import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
 import regexMixin from '~/mixins/regex.js'
@@ -172,7 +171,7 @@ export default {
     Checkout,
     Success,
   },
-  mixins: [ regexMixin],
+  mixins: [ regexMixin ],
   data() {
     return {
       digitalGoodFormItems: [
@@ -219,17 +218,6 @@ export default {
       checkPaymentTimer: null,
     }
   },
-  watch: {
-    showAddDialog() {
-      //           onChildChanged(val, oldVal) {
-      //               if (val && !oldVal) {
-      //                   document.getElementsByTagName('body')[0].className = 'noscroll'
-      //     } else if (!val && oldVal) {
-      //         document.body.classList.remove('noscroll')
-      //     }
-      //   }
-    },
-  },
   computed: {
     addStoreFee() {
       return this.$store.state.addStoreFee
@@ -237,7 +225,7 @@ export default {
     urlRules() {
       return [
         (v) => !!v || 'Website URL is required',
-        (v) => isValidUrl(v) || 'Enter a valid url eg. https://lightningnetworkstores.com',
+        (v) => this.isValidUrl(v) || 'Enter a valid url eg. https://lightningnetworkstores.com',
       ]
     }
   },
