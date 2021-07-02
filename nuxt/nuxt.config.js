@@ -177,6 +177,10 @@ export default {
     {
       src: '~/plugins/utils.js',
       ssr: true
+    },
+    {
+      src: '~/plugins/vue-debounce.js',
+      ssr: true
     }
   ],
 

@@ -65,7 +65,7 @@
                   <v-flex pl-3 pr-3>
                     <v-text-field
                       v-model="addDialogForm.url"
-                      @input="getSuggestedNameDescription()"
+                      v-debounce:800ms="getSuggestedNameDescription"
                       label="Website URL"
                       hint="eg. https://lightningnetworkstores.com"
                       :rules="[
