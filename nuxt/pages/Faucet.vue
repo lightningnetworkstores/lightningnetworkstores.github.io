@@ -37,10 +37,10 @@
               </template>
             </v-data-table>
           </v-layout>
-          <v-layout v-if="message"
+          <v-layout v-if="message" ma-4 justify-center
             ><h3>{{ message }}</h3></v-layout
           >
-          <v-layout row pt-3 justify-center>
+          <v-layout row pa-3 justify-center>
             <vue-hcaptcha
               ref="invisibleHcaptcha"
               sitekey="327adc75-957d-4063-9cf3-c4999bead7dd"
