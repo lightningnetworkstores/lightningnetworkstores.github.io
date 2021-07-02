@@ -91,7 +91,7 @@
           v-if="selectedStore.logged"
           isNew
           :store="selectedStore"
-          :position="selectedStore.images.number + 1"
+          :position="selectedStore.media.number + 1"
         />
       </v-sheet>
     </v-carousel-item>

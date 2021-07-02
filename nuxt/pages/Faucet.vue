@@ -38,7 +38,10 @@
       <v-card>
         <v-card-title class="text-h5">Donate to Faucet</v-card-title>
         <v-card-text>
-          <faucet-donation-modal @closeDialog="closeDonationDialog" />
+          <faucet-donation-modal 
+          :maximumDonationTimeoutDays="this.configuration.maximum_donation_timeout_days"
+          :minDonationAmount="this.configuration.minimum_donation"
+          @closeDialog="closeDonationDialog" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -89,7 +92,8 @@ export default {
     openClaim: false,
     successfulClaim: false,
     paymentRequest: '',
-    interval: null
+    interval: null,
+    configuration: {maximum_donation_timeout_days: 50, minimum_donation: 5000}
   }),
   created() {},
   mounted(){
@@ -101,6 +105,7 @@ export default {
 
         this.claimAmount = response.data.data.claim
         if(response.data.message) this.message = response.data.message
+        this.configuration=response.data.data.configuration
       }
     )  
   },
