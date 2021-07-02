@@ -46,7 +46,7 @@
             </div>
 
             <v-card-text>
-              <v-flex pl-3 pr-3 v-if="!paymentRequest.length">
+              <v-flex v-if="!paymentRequest.length">
                 Amount due if not a contributor: {{ addStoreFee }} satoshis
               </v-flex>
             </v-card-text>
@@ -145,7 +145,7 @@
                   <v-btn
                     color="green darken-1"
                     text
-                    @click="showAddDialog = false"
+                    @click="closeDialog"
                   >
                     Close
                   </v-btn>
@@ -244,11 +244,10 @@ export default {
       clearInterval(this.checkPaymentTimer)
       this.closeDialog()
     },
-
     closeDialog() {
       this.addDialogForm = {}
       this.showAddDialog = false
-      this.$refs.addform.reset()
+      if (this.$refs.addform) this.$refs.addform.reset()
       this.isPaid = false
       this.paymentID = ''
       this.addAlert = { message: '', success: true }
