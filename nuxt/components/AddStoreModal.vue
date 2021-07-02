@@ -68,14 +68,7 @@
                       v-debounce:800ms="getSuggestedNameDescription"
                       label="Website URL"
                       hint="eg. https://lightningnetworkstores.com"
-                      :rules="[
-                        (v) => !!v || 'Website URL is required',
-                        (v) =>
-                          /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-                            v
-                          ) ||
-                          'Enter a valid url eg. https://lightningnetworkstores.com',
-                      ]"
+                      :rules="urlRules"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -85,7 +78,7 @@
                     <v-text-field
                       v-model="addDialogForm.name"
                       class="dialogform-name"
-                      :disabled="checkValidUrl()"
+                      :disabled="isValidUrl(addDialogForm.url)"
                       label="Name"
                       hint="eg. Some name no longer than 50 characters."
                       :rules="[(v) => !!v || 'Name is required']"
@@ -98,7 +91,7 @@
                     <v-text-field
                       v-model="addDialogForm.description"
                       class="dialogform-description"
-                      :disabled="checkValidUrl()"
+                      :disabled="isValidUrl(addDialogForm.url)"
                       label="Description"
                       hint="eg. Some description no longer than 150 characters."
                       :rules="[
@@ -173,12 +166,13 @@
 // import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
-import axios from 'axios'
+import regexMixin from '~/mixins/regex.js'
 export default {
   components: {
     Checkout,
     Success,
   },
+  mixins: [ regexMixin],
   data() {
     return {
       digitalGoodFormItems: [
@@ -240,6 +234,12 @@ export default {
     addStoreFee() {
       return this.$store.state.addStoreFee
     },
+    urlRules() {
+      return [
+        (v) => !!v || 'Website URL is required',
+        (v) => isValidUrl(v) || 'Enter a valid url eg. https://lightningnetworkstores.com',
+      ]
+    }
   },
   methods: {
     openDialog() {
@@ -275,11 +275,7 @@ export default {
       let name = ''
       let description = ''
       let previewResponse = {message: '', success: true}
-      if (
-        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-          this.addDialogForm.url
-        ) && !this.isLoading
-      ) {
+      if (this.isValidUrl(this.addDialogForm.url) && !this.isLoading) {
         this.isLoading = true
         this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
             name = response.data.data.name ? response.data.data.name : ''
@@ -298,18 +294,6 @@ export default {
         this.addAlert = previewResponse
         this.addDialogForm.name = name
         this.addDialogForm.description = description
-      }
-    },
-
-    checkValidUrl() {
-      if (
-        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-          this.addDialogForm.url
-        )
-      ) {
-        return false
-      } else {
-        return true
       }
     },
 
