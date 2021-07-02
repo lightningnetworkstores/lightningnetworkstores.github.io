@@ -31,8 +31,12 @@
                 >
                   <td>{{ item.name }}</td>
                   <td>{{ item.message }}</td>
-                  <td>{{ item.total_donated }}</td>
-                  <td>{{ item.sats_per_claim }}</td>
+                  <td :class="$style.underline_none">
+                    {{ item.total_donated }}
+                  </td>
+                  <td :class="$style.underline_none">
+                    {{ item.sats_per_claim }}
+                  </td>
                 </tr>
               </template>
             </v-data-table>
@@ -183,8 +187,11 @@ export default {
 <style module lang="scss">
 tr.clickable {
   cursor: pointer;
-  &:hover {
+  &:hover td {
     text-decoration: underline;
   }
+}
+.clickable:hover td.underline_none {
+  text-decoration: none;
 }
 </style>
