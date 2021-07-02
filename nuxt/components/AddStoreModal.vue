@@ -35,14 +35,15 @@
           <v-card-text class="pa-0 cardContent" v-else>
             <v-card-title class="headline">
               <v-flex grow>Automatically add new store!</v-flex>
-              <v-flex shrink v-if="isLoading || paymentRequest.length"
-                ><v-progress-circular
-                  indeterminate
-                  size="20"
-                  color="green"
-                ></v-progress-circular
-              ></v-flex>
             </v-card-title>
+            <div class="progress-container">
+              <v-progress-circular
+                v-if="isLoading || paymentRequest.length"
+                indeterminate
+                size="20"
+                color="green"
+              />
+            </div>
 
             <v-card-text>
               <v-flex pl-3 pr-3 v-if="!paymentRequest.length">
@@ -78,7 +79,7 @@
                     <v-text-field
                       v-model="addDialogForm.name"
                       class="dialogform-name"
-                      :disabled="!isValidUrl(addDialogForm.url)"
+                      :disabled="!isValidUrl(addDialogForm.url) || isLoading"
                       label="Name"
                       hint="eg. Some name no longer than 50 characters."
                       :rules="[(v) => !!v || 'Name is required']"
@@ -91,7 +92,7 @@
                     <v-text-field
                       v-model="addDialogForm.description"
                       class="dialogform-description"
-                      :disabled="!isValidUrl(addDialogForm.url)"
+                      :disabled="!isValidUrl(addDialogForm.url) || isLoading"
                       label="Description"
                       hint="eg. Some description no longer than 150 characters."
                       :rules="[
@@ -149,7 +150,7 @@
                     Close
                   </v-btn>
 
-                  <v-btn color="green darken-1" text type="submit">
+                  <v-btn :disabled="isLoading" color="green darken-1" text type="submit">
                     Submit
                   </v-btn>
                 </v-card-actions>
@@ -397,5 +398,10 @@ export default {
 <style scoped lang="scss">
 .cardContent {
   max-height: 60vw;
+}
+.progress-container {
+  display: flex;
+  justify-content: center;
+  min-height: 3em;
 }
 </style>
