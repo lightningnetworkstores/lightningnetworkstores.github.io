@@ -278,9 +278,10 @@ export default {
       if (
         /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
           this.addDialogForm.url
-        )
+        ) && !this.isLoading
       ) {
-        await this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
+        this.isLoading = true
+        this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
             name = response.data.data.name ? response.data.data.name : ''
             description = response.data.data.description
               ? response.data.data.description
@@ -293,6 +294,7 @@ export default {
             previewResponse = error.response.data
             
           })
+          .finally(() => this.isLoading = false)
         this.addAlert = previewResponse
         this.addDialogForm.name = name
         this.addDialogForm.description = description
