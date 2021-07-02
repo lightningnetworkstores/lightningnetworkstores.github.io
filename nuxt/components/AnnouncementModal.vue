@@ -20,9 +20,18 @@
                 :alt="notification.title"
                 class="w-100"
               />
+              <iframe
+                v-if="notification.video"
+                class="video-box"
+                :src="notificationEmbedVideo"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
               <div v-if="notification.tweet" class="tweet-box">
-                <blockquote class="twitter-tweet">
-                  <a :href="notification.tweet"></a>
+                <blockquote class="twitter-tweet" data-cards="hidden">
+                  <a :href="notification.tweet" data-height="300"></a>
                 </blockquote>
                 <script
                   async
@@ -99,6 +108,9 @@ export default {
       },
       configuration: 'configuration',
     }),
+    notificationEmbedVideo() {
+      return this.$createEmbedLink(this.notification.video)
+    },
   },
 
   methods: {
@@ -179,5 +191,9 @@ export default {
 .tweet-box {
   width: 75%;
   margin: auto;
+}
+.video-box {
+  width: 100%;
+  height: 370px;
 }
 </style>
