@@ -153,6 +153,9 @@ const mutations = {
   updateScrolledStores(state, number) {
     state.scrolledStores = number
   },
+  updateAnnouncements(state, announcements) {
+    state.announcements = announcements
+  },
 }
 
 export default mutations

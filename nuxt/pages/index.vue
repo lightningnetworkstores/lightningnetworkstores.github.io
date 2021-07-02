@@ -108,7 +108,7 @@
 <script>
 import AddStoreModal from '~/components/AddStoreModal.vue'
 import FilterStores from '~/components/FilterStores.vue'
-import StoreCard from '../components/StoreCard.vue'
+import StoreCard from '~/components/StoreCard.vue'
 import { mapState } from 'vuex'
 
 export default {
