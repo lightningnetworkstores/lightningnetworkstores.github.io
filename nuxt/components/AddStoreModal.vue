@@ -65,7 +65,7 @@
                   <v-flex pl-3 pr-3>
                     <v-text-field
                       v-model="addDialogForm.url"
-                      v-debounce:800ms="getSuggestedNameDescription"
+                      v-debounce:800ms="handleURLChange"
                       label="Website URL"
                       hint="eg. https://lightningnetworkstores.com"
                       :rules="urlRules"
@@ -259,29 +259,22 @@ export default {
       document.execCommand('copy')
     },
 
-    async getSuggestedNameDescription() {
-      let name = ''
-      let description = ''
-      let previewResponse = {message: '', success: true}
+    handleURLChange() {
       if (this.isValidUrl(this.addDialogForm.url) && !this.isLoading) {
         this.isLoading = true
-        this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
-            name = response.data.data.name ? response.data.data.name : ''
-            description = response.data.data.description
-              ? response.data.data.description
-              : ''
-
-            previewResponse = response 
-          })
-          .catch((error) => {
-            console.log(error)
-            previewResponse = error.response.data
-            
+        this.$store.dispatch('getPreview', { url: this.addDialogForm.url })
+          .then(result => {
+            this.addAlert = {message: '', success: true}
+            if (result.success) {
+              this.addDialogForm.name = result.name
+              this.addDialogForm.description = result.description
+            } else {
+              this.addAlert = result
+              this.addDialogForm.name = ''
+              this.addDialogForm.description = ''
+            }
           })
           .finally(() => this.isLoading = false)
-        this.addAlert = previewResponse
-        this.addDialogForm.name = name
-        this.addDialogForm.description = description
       }
     },
 

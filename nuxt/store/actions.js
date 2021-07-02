@@ -677,8 +677,30 @@ const actions = {
         }
       })
   },
-  getPreview({commit, state}, {url}){
-    return axios.get(`${state.baseURL}api/preview?url=${url}`);
+  getPreview({state}, {url}){
+    return axios.get(`${state.baseURL}api/preview?url=${url}`)
+      .then(response => {
+        const { data } = response
+        if (response.status === 200) {
+          return {
+            name: data.data.name ? data.data.name : '',
+            description: data.data.description ? data.data.description : '',
+            success: true
+          }
+        } else {
+          return {
+            message: data.data.message,
+            success: false
+          }
+        }
+      })
+      .catch(err => {
+        console.error('Error while obtaining store metadata. err: ', err)
+        return {
+          message: err.response.data.message,
+          success: false
+        }
+      })
   },
   setScrolledStores({ commit }, storesCount) {
     commit('updateScrolledStores', storesCount)
