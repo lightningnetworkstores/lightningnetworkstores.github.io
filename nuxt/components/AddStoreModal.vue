@@ -252,13 +252,6 @@ export default {
       this.paymentID = ''
       this.addAlert = { message: '', success: true }
     },
-
-    copy() {
-      // let input = document.getElementById('paymentrequest')!.focus()
-      document.execCommand('SelectAll')
-      document.execCommand('copy')
-    },
-
     handleURLChange() {
       if (this.isValidUrl(this.addDialogForm.url) && !this.isLoading) {
         this.isLoading = true
@@ -277,7 +270,6 @@ export default {
           .finally(() => this.isLoading = false)
       }
     },
-
     async submitAdd() {
       let token = null
       this.$refs.addform.validate()
@@ -328,10 +320,6 @@ export default {
                   this.tweet = response.data.tweet
                 }
 
-                // this.addAlert.message = response.data
-                // this.addAlert.success = true
-                // this.addDialogForm = {}
-                // this.$refs.addform.reset()
               } else if (response.status === 'fail') {
                 this.addAlert.message = response.message
                 this.addAlert.success = false
@@ -349,7 +337,6 @@ export default {
           )
       }
     },
-
     checkPayment() {
       //todo: check if payment is done
       if (this.expiryTime > new Date()) {
@@ -375,7 +362,6 @@ export default {
         this.stopPayment()
       }
     },
-
     stopPayment() {
       clearInterval(this.checkPaymentTimer)
       this.paymentRequest = ''
