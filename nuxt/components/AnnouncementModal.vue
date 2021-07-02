@@ -133,7 +133,7 @@ export default {
         return
       }
 
-      if (this.announcement.important) {
+      if (this.announcement.important || this.warningMessage) {
         this.showModal = true
         return
       }
