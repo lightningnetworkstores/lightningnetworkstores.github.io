@@ -111,8 +111,8 @@ const mutations = {
         state.stores[storeIndex] = store
       }
     }
-    if (state.store) {
-      state.store.likes += delta
+    if (state.selectedStore) {
+      state.selectedStore.likes += delta
     }
   },
   setStoreLikes(state, likes) {
