@@ -35,15 +35,14 @@
           <v-card-text class="pa-0 cardContent" v-else>
             <v-card-title class="headline">
               <v-flex grow>Automatically add new store!</v-flex>
+              <v-flex shrink v-if="isLoading || paymentRequest.length">
+                <v-progress-circular
+                  indeterminate
+                  size="20"
+                  color="green"
+                />
+              </v-flex>
             </v-card-title>
-            <div class="progress-container">
-              <v-progress-circular
-                v-if="isLoading || paymentRequest.length"
-                indeterminate
-                size="20"
-                color="green"
-              />
-            </div>
 
             <v-card-text>
               <v-flex v-if="!paymentRequest.length">
@@ -383,10 +382,5 @@ export default {
 <style scoped lang="scss">
 .cardContent {
   max-height: 60vw;
-}
-.progress-container {
-  display: flex;
-  justify-content: center;
-  min-height: 3em;
 }
 </style>
