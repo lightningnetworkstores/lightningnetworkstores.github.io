@@ -163,6 +163,10 @@ export default {
       ssr: false,
     },
     {
+      src: '~/plugins/updateAnnouncements.js',
+      ssr: false,
+    },
+    {
       src: '~/plugins/vue-google-charts.js',
       ssr: false,
     },
@@ -176,6 +180,10 @@ export default {
     },
     {
       src: '~/plugins/utils.js',
+      ssr: true,
+    },
+    {
+      src: '~/plugins/vue-debounce.js',
       ssr: true
     }
   ],

@@ -14,6 +14,7 @@
       <transition name="fade">
         <Nuxt />
       </transition>
+      <announcement-modal />
     </v-main>
     <v-footer class="pa-3 mt-8" color="rgb(56, 56, 56)" dark>
       <v-row class="justify-center">
@@ -27,9 +28,10 @@
 </template>
 <script>
 import Header from '@/components/Header'
+import AnnouncementModal from '@/components/AnnouncementModal'
 
 export default {
-  components: { Header },
+  components: { AnnouncementModal, Header },
 
   fetch() {},
 

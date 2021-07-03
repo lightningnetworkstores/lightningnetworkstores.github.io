@@ -38,91 +38,7 @@
                       ></edit-store-modal>
                     </div>
                     <edit-tags :store="selectedStore"></edit-tags>
-                    <v-row class="pt-0">
-                      <v-col>
-                        <div class="d-flex">
-                          <p class="mt-2">
-                            {{ selectedStore.description }}
-                          </p>
-                          <edit-store-modal
-                            v-if="selectedStore.logged"
-                            :store="selectedStore"
-                            :editAttribute="{
-                              label: 'Description',
-                              value: selectedStore.description,
-                              key: 'description',
-                            }"
-                            class="ml-2"
-                          />
-                        </div>
-                        <div
-                          v-if="
-                            selectedStore.uri &&
-                            selectedStore.uri.toLowerCase() != 'unknown'
-                          "
-                          class="px-0"
-                        >
-                          <div class="d-flex">
-                            <span class="break-word mt-2"
-                              ><b>Node:&nbsp;</b
-                              ><a
-                                :href="
-                                  'https://1ml.com/node/' +
-                                  selectedStore.uri.split('@')[0]
-                                "
-                                >{{ selectedStore.uri }}</a
-                              ></span
-                            >
-                            <edit-store-modal
-                              v-if="selectedStore.logged"
-                              :store="selectedStore"
-                              :editAttribute="{
-                                label: 'Node URI',
-                                value: selectedStore.uri,
-                                key: 'uri',
-                              }"
-                              class="ml-2"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="px-0">
-                          <b>Date added:&nbsp;</b
-                          ><span v-if="selectedStore.added">
-                            {{
-                              new Date(
-                                selectedStore.added * 1000
-                              ).toLocaleDateString('en-GB', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                              })
-                            }}</span
-                          ><a v-else>24/Feb/2018</a>
-                        </div>
-
-                        <div class="px-0">
-                          <b>Likes: &nbsp;</b>
-                          <like-store-button :store="store" />
-                        </div>
-
-                        <div
-                          v-if="
-                            selectedStore.sector &&
-                            selectedStore.sector.length > 0
-                          "
-                          class="px-0"
-                        >
-                          <b>Lifetime score: &nbsp;</b
-                          ><span v-if="selectedStore.lifetime">
-                            {{
-                              Number(selectedStore.lifetime).toLocaleString()
-                            }}</span
-                          ><span v-else>0</span>
-                        </div>
-                      </v-col>
-                    </v-row>
-
+                    <store-info-section></store-info-section>
                     <v-row>
                       <v-col>
                         <vote-line
@@ -382,9 +298,10 @@ import DeleteImageModal from '~/components/DeleteImageModal.vue'
 import StoreCarousel from '~/components/StoreCarousel.vue'
 import StoreCard from '~/components/StoreCard'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
+import StoreInfoSection from '~/components/StoreInfoSection.vue'
 
 export default {
-  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel },
+  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, StoreInfoSection },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -447,7 +364,7 @@ export default {
   async asyncData({ params, store, error }) {
     try {
     const selectedStore = await store.dispatch('getStore', { id: params.id })
-    store.dispatch('setStore', selectedStore)
+    store.dispatch('setSelectedStore', selectedStore)
 
     const storeId = selectedStore.id
 
@@ -461,7 +378,7 @@ export default {
       }
     )
 
-    return { selectedStore, reviews, storeId }
+    return { reviews, storeId }
     } catch(err) {
       error(err)
     }
@@ -516,7 +433,7 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'store']),
+    ...mapState(['likedStores', 'selectedStore']),
   },
 
   methods: {

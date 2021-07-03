@@ -35,17 +35,17 @@
           <v-card-text class="pa-0 cardContent" v-else>
             <v-card-title class="headline">
               <v-flex grow>Automatically add new store!</v-flex>
-              <v-flex shrink v-if="isLoading || paymentRequest.length"
-                ><v-progress-circular
+              <v-flex shrink v-if="isLoading || paymentRequest.length">
+                <v-progress-circular
                   indeterminate
                   size="20"
                   color="green"
-                ></v-progress-circular
-              ></v-flex>
+                />
+              </v-flex>
             </v-card-title>
 
             <v-card-text>
-              <v-flex pl-3 pr-3 v-if="!paymentRequest.length">
+              <v-flex v-if="!paymentRequest.length">
                 Amount due if not a contributor: {{ addStoreFee }} satoshis
               </v-flex>
             </v-card-text>
@@ -65,17 +65,10 @@
                   <v-flex pl-3 pr-3>
                     <v-text-field
                       v-model="addDialogForm.url"
-                      @input="getSuggestedNameDescription()"
+                      v-debounce:800ms="handleURLChange"
                       label="Website URL"
                       hint="eg. https://lightningnetworkstores.com"
-                      :rules="[
-                        (v) => !!v || 'Website URL is required',
-                        (v) =>
-                          /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-                            v
-                          ) ||
-                          'Enter a valid url eg. https://lightningnetworkstores.com',
-                      ]"
+                      :rules="urlRules"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -85,7 +78,7 @@
                     <v-text-field
                       v-model="addDialogForm.name"
                       class="dialogform-name"
-                      :disabled="checkValidUrl()"
+                      :disabled="!isValidUrl(addDialogForm.url) || isLoading"
                       label="Name"
                       hint="eg. Some name no longer than 50 characters."
                       :rules="[(v) => !!v || 'Name is required']"
@@ -98,7 +91,7 @@
                     <v-text-field
                       v-model="addDialogForm.description"
                       class="dialogform-description"
-                      :disabled="checkValidUrl()"
+                      :disabled="!isValidUrl(addDialogForm.url) || isLoading"
                       label="Description"
                       hint="eg. Some description no longer than 150 characters."
                       :rules="[
@@ -151,12 +144,12 @@
                   <v-btn
                     color="green darken-1"
                     text
-                    @click="showAddDialog = false"
+                    @click="closeDialog"
                   >
                     Close
                   </v-btn>
 
-                  <v-btn color="green darken-1" text type="submit">
+                  <v-btn :disabled="isLoading" color="green darken-1" text type="submit">
                     Submit
                   </v-btn>
                 </v-card-actions>
@@ -170,15 +163,15 @@
 </template>
 
 <script>
-// import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
-import axios from 'axios'
+import regexMixin from '~/mixins/regex.js'
 export default {
   components: {
     Checkout,
     Success,
   },
+  mixins: [ regexMixin ],
   data() {
     return {
       digitalGoodFormItems: [
@@ -225,21 +218,16 @@ export default {
       checkPaymentTimer: null,
     }
   },
-  watch: {
-    showAddDialog() {
-      //           onChildChanged(val, oldVal) {
-      //               if (val && !oldVal) {
-      //                   document.getElementsByTagName('body')[0].className = 'noscroll'
-      //     } else if (!val && oldVal) {
-      //         document.body.classList.remove('noscroll')
-      //     }
-      //   }
-    },
-  },
   computed: {
     addStoreFee() {
       return this.$store.state.addStoreFee
     },
+    urlRules() {
+      return [
+        (v) => !!v || 'Website URL is required',
+        (v) => this.isValidUrl(v) || 'Enter a valid url eg. https://lightningnetworkstores.com',
+      ]
+    }
   },
   methods: {
     openDialog() {
@@ -255,62 +243,32 @@ export default {
       clearInterval(this.checkPaymentTimer)
       this.closeDialog()
     },
-
     closeDialog() {
       this.addDialogForm = {}
       this.showAddDialog = false
-      this.$refs.addform.reset()
+      if (this.$refs.addform) this.$refs.addform.reset()
       this.isPaid = false
       this.paymentID = ''
       this.addAlert = { message: '', success: true }
     },
-
-    copy() {
-      // let input = document.getElementById('paymentrequest')!.focus()
-      document.execCommand('SelectAll')
-      document.execCommand('copy')
-    },
-
-    async getSuggestedNameDescription() {
-      let name = ''
-      let description = ''
-      let previewResponse = {message: '', success: true}
-      if (
-        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-          this.addDialogForm.url
-        )
-      ) {
-        await this.$store.dispatch('getPreview', {url: this.addDialogForm.url}).then(function (response) {
-            name = response.data.data.name ? response.data.data.name : ''
-            description = response.data.data.description
-              ? response.data.data.description
-              : ''
-
-            previewResponse = response 
+    handleURLChange() {
+      if (this.isValidUrl(this.addDialogForm.url) && !this.isLoading) {
+        this.isLoading = true
+        this.$store.dispatch('getPreview', { url: this.addDialogForm.url })
+          .then(result => {
+            this.addAlert = {message: '', success: true}
+            if (result.success) {
+              this.addDialogForm.name = result.name
+              this.addDialogForm.description = result.description
+            } else {
+              this.addAlert = result
+              this.addDialogForm.name = ''
+              this.addDialogForm.description = ''
+            }
           })
-          .catch((error) => {
-            console.log(error)
-            previewResponse = error.response.data
-            
-          })
-        this.addAlert = previewResponse
-        this.addDialogForm.name = name
-        this.addDialogForm.description = description
+          .finally(() => this.isLoading = false)
       }
     },
-
-    checkValidUrl() {
-      if (
-        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
-          this.addDialogForm.url
-        )
-      ) {
-        return false
-      } else {
-        return true
-      }
-    },
-
     async submitAdd() {
       let token = null
       this.$refs.addform.validate()
@@ -361,10 +319,6 @@ export default {
                   this.tweet = response.data.tweet
                 }
 
-                // this.addAlert.message = response.data
-                // this.addAlert.success = true
-                // this.addDialogForm = {}
-                // this.$refs.addform.reset()
               } else if (response.status === 'fail') {
                 this.addAlert.message = response.message
                 this.addAlert.success = false
@@ -382,7 +336,6 @@ export default {
           )
       }
     },
-
     checkPayment() {
       //todo: check if payment is done
       if (this.expiryTime > new Date()) {
@@ -408,7 +361,6 @@ export default {
         this.stopPayment()
       }
     },
-
     stopPayment() {
       clearInterval(this.checkPaymentTimer)
       this.paymentRequest = ''
