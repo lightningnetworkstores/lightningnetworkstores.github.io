@@ -6,7 +6,7 @@
         {{ selectedStore.description }}
         </p>
         <edit-store-modal
-        v-if="selectedStore.logged"
+        :v-if="isLogged"
         :store="selectedStore"
         :editAttribute="{
             label: 'Description',
@@ -22,7 +22,7 @@
         {{ selectedStore.long_description }}
         </p>
          <edit-store-modal
-        v-if="selectedStore.logged"
+        :v-if="isLogged"
         :store="selectedStore"
         :editAttribute="{
             label: 'Long description',
@@ -52,7 +52,7 @@
             ></span
         >
         <edit-store-modal
-            v-if="selectedStore.logged"
+            :v-if="isLogged"
             :store="selectedStore"
             :editAttribute="{
             label: 'Node URI',
@@ -116,6 +116,9 @@ export default {
     // },
   },
   computed: {
+      isLogged(){
+          return this.$store.state.selectedStore.logged
+      },
       ...mapState(['likedStores', 'selectedStore'])
   },
   methods: {},
