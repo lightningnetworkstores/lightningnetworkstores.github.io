@@ -38,91 +38,7 @@
                       ></edit-store-modal>
                     </div>
                     <edit-tags :store="selectedStore"></edit-tags>
-                    <v-row class="pt-0">
-                      <v-col>
-                        <div class="d-flex">
-                          <p class="mt-2">
-                            {{ selectedStore.description }}
-                          </p>
-                          <edit-store-modal
-                            v-if="selectedStore.logged"
-                            :store="selectedStore"
-                            :editAttribute="{
-                              label: 'Description',
-                              value: selectedStore.description,
-                              key: 'description',
-                            }"
-                            class="ml-2"
-                          />
-                        </div>
-                        <div
-                          v-if="
-                            selectedStore.uri &&
-                            selectedStore.uri.toLowerCase() != 'unknown'
-                          "
-                          class="px-0"
-                        >
-                          <div class="d-flex">
-                            <span class="break-word mt-2"
-                              ><b>Node:&nbsp;</b
-                              ><a
-                                :href="
-                                  'https://1ml.com/node/' +
-                                  selectedStore.uri.split('@')[0]
-                                "
-                                >{{ selectedStore.uri }}</a
-                              ></span
-                            >
-                            <edit-store-modal
-                              v-if="selectedStore.logged"
-                              :store="selectedStore"
-                              :editAttribute="{
-                                label: 'Node URI',
-                                value: selectedStore.uri,
-                                key: 'uri',
-                              }"
-                              class="ml-2"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="px-0">
-                          <b>Date added:&nbsp;</b
-                          ><span v-if="selectedStore.added">
-                            {{
-                              new Date(
-                                selectedStore.added * 1000
-                              ).toLocaleDateString('en-GB', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                              })
-                            }}</span
-                          ><a v-else>24/Feb/2018</a>
-                        </div>
-
-                        <div class="px-0">
-                          <b>Likes: &nbsp;</b>
-                          <like-store-button :store="selectedStore" />
-                        </div>
-
-                        <div
-                          v-if="
-                            selectedStore.sector &&
-                            selectedStore.sector.length > 0
-                          "
-                          class="px-0"
-                        >
-                          <b>Lifetime score: &nbsp;</b
-                          ><span v-if="selectedStore.lifetime">
-                            {{
-                              Number(selectedStore.lifetime).toLocaleString()
-                            }}</span
-                          ><span v-else>0</span>
-                        </div>
-                      </v-col>
-                    </v-row>
-
+                    <store-info-section></store-info-section>
                     <v-row>
                       <v-col>
                         <vote-line
@@ -405,9 +321,14 @@ import StoreCard from '~/components/StoreCard'
 import EventCard from '~/components/EventCard'
 import AddEventModal from '~/components/AddEventModal.vue'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
+import StoreInfoSection from '~/components/StoreInfoSection.vue'
 
 export default {
+<<<<<<< HEAD
   components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, EventCard, AddEventModal },
+=======
+  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, StoreInfoSection },
+>>>>>>> d546649c70de9f432fd95d892210a8afbb962811
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -477,8 +398,31 @@ export default {
       reviews: []
     }
   },
+<<<<<<< HEAD
   async asyncData({ params, store }) {
     await store.dispatch('getStore', { id: params.id })
+=======
+  async asyncData({ params, store, error }) {
+    try {
+    const selectedStore = await store.dispatch('getStore', { id: params.id })
+
+    const storeId = selectedStore.id
+
+    //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
+    let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
+      (a, b) => {
+        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
+          return Math.abs(b[0].score) - Math.abs(a[0].score)
+        }
+        return b[0].timestamp - a[0].timestamp
+      }
+    )
+
+    return { reviews, storeId }
+    } catch(err) {
+      error(err)
+    }
+>>>>>>> d546649c70de9f432fd95d892210a8afbb962811
   },
 
   async mounted() {

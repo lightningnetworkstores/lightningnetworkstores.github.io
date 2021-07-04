@@ -1,7 +1,7 @@
 <template>
   <v-carousel
-    height="auto"
     hide-delimiter-background
+    height="auto"
     :show-arrows="logged || selectedStore.media.main.length > 1"
   >
     <v-carousel-item
@@ -155,6 +155,7 @@ export default {
 .video-iframe {
   width: 100%;
   height: 495px;
+  padding-bottom: 45px;
 }
 @media only screen and (max-width: 600px) {
   .video-iframe {

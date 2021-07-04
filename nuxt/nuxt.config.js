@@ -53,7 +53,17 @@ export default {
           res.setHeader('Last-Modified', 'Sat, 19 Jun 2021 22:30:52 GMT')
         }
       },
+      handlers: {
+        '.md': false
+      }
     },
+    fallback: {
+        static: {
+          handlers: {
+            '.md': false
+          }
+        }
+      }
   },
   generate: {},
   env: {},
@@ -182,6 +192,10 @@ export default {
       src: '~/plugins/utils.js',
       ssr: true,
     },
+    {
+      src: '~/plugins/vue-debounce.js',
+      ssr: true
+    }
   ],
 
   recaptcha: {
