@@ -11,14 +11,14 @@ const mutations = {
   setStores(state, stores) {
     state.stores = stores
   },
-  setStore(state, store) {
+  setSelectedStore(state, store) {
     store.reviews.sort((a, b) => {
       if (Math.abs(b.score) !== Math.abs(a.score)) {
         return Math.abs(b.score) - Math.abs(a.score)
       }
       return b.timestamp - a.timestamp
     })
-    state.store = store
+    state.selectedStore = store
   },
   setScores(state, scores) {
     state.scores = scores
@@ -153,6 +153,9 @@ const mutations = {
   },
   updateScrolledStores(state, number) {
     state.scrolledStores = number
+  },
+  updateAnnouncements(state, announcements) {
+    state.announcements = announcements
   },
 }
 

@@ -3,30 +3,41 @@
 		<form v-if="!pendingDonation && !donationPaid" @submit.prevent="submit">
 			<v-text-field
 				v-model="amount"
-        type="number"
+                type="number"
 				label="Amount"
 				required
 				></v-text-field>
-			<v-text-field
-				v-model="totalDays"
+            <v-header>Distribution period (weeks)</v-header>
+            <v-slider
+                v-model="distributionPeriodWeeks"
+                min="1"
+                :max="maximumDonationTimeoutDays/7"
+                :thumb-label="true"
+                step="1"
+                class="align-center"
+            ></v-slider>
+
+			<!-- <v-text-field
+				v-model="distributionPeriodWeeks"
         type="number"
 				label="Distribute in the next days"
         min="1"
         max="99"
 				required
-				></v-text-field>
+				></v-text-field> -->
+
 			<v-text-field
 				v-model="name"
-				label="Name"
+				label="Name (optional)"
 				></v-text-field>
 			<v-text-field
 				v-model="message"
-				label="Message"
+				label="Message (optional)"
 				></v-text-field>
 			<v-text-field
 				v-model="url"
         type="url"
-				label="URL"
+				label="URL (optional)"
 				></v-text-field>
 			<v-btn class="mr-4" type="submit">submit</v-btn>
 			<v-btn @click="cancel">Close</v-btn>
@@ -49,13 +60,14 @@
 
   	export default {
 		name: "FaucetDonationModal",
+        props: ['maximumDonationTimeoutDays', 'minDonationAmount'],
         components: {
         Checkout,
         Success,
       },
     	data: () => ({
-        amount: null,
-        totalDays: null,
+        amount: 1000,
+        distributionPeriodWeeks: null,
         name: '',
         message: '',
         url: '',
@@ -65,10 +77,13 @@
         satoshi: '',
         interval: null
     	}),
-    	methods: {
+        mounted(){
+            this.amount = this.minDonationAmount
+        },
+    	methods: {            
         submit () {
           const requestObj = {
-            timeout_days: this.totalDays,
+            timeout_days: this.distributionPeriodWeeks*7,
             amount: this.amount
           };
 
@@ -108,11 +123,11 @@
         },
 
         cancel () {
-          this.amount = ''
-		  this.totalDays = ''
-          this.name = ''
-          this.message = ''
-          this.url = ''
+          //this.amount = ''
+		  //this.distributionPeriodWeeks = ''
+          //this.name = ''
+          //this.message = ''
+          //this.url = ''
           this.$emit('closeDialog');
         }
     	},

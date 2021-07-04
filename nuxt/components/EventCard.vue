@@ -2,7 +2,7 @@
   <v-flex>
     <div v-if="tweet">
       <blockquote class="twitter-tweet">
-        <a :href="event.url"></a>
+        <a :href="event.url" data-width="30" data-height="30"></a>
       </blockquote>
       <script
         async
@@ -11,7 +11,7 @@
       ></script>
     </div>
     <a v-else :href="event.url" class="text-decoration-none">
-      <v-card class="pa-3 comment-text">
+      <v-card class="py-3 px-5">
         <div class="discussion-title">
           {{ event.title }}
         </div>
@@ -97,15 +97,9 @@ export default {
 <style lang="scss">
 .discussion-title {
   font-size: 1.7rem !important;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  a {
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 </style>

@@ -9,7 +9,7 @@
     </div>
     <v-container>
       <v-row justify="center" v-if="selectedStore">
-        <v-col cols="12" sm="9" xl="6">
+        <v-col cols="12" sm="7" md="7" lg="8"  xl="6">
           <v-row justify="center">
             <v-col cols="12" sm="12">
               <v-card class="pa-0 mb-3">
@@ -103,7 +103,7 @@
 
                         <div class="px-0">
                           <b>Likes: &nbsp;</b>
-                          <like-store-button :store="store" />
+                          <like-store-button :store="selectedStore" />
                         </div>
 
                         <div
@@ -168,7 +168,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col sm="3" xl="2" class="pa-0 mt-3">
+        <v-col cols="12" sm="5" md="5" lg="4" xl="2" class="pa-0 mt-3">
           <v-col
             cols="0"
             sm="12"
@@ -251,7 +251,7 @@
         </v-col>
       </v-row>
       <v-row class="justify-center" v-if="relatedStores.length>0">
-        <v-col cols="12" sm="9" xl="6" >
+        <v-col cols="12" sm="7" md="7" lg="8"  xl="6" >
           <v-layout class="mt-4 mb-2" justify-center>
             <h1>Similar</h1>
           </v-layout>
@@ -365,7 +365,7 @@
             :type="'comment'"
           ></Review>
 
-          <div class="headline font-weight-medium"> Discussions</div>
+          <div class="headline font-weight-medium" v-if="discussions && discussions.length"> Discussions</div>
           <div v-for="(discussion, index) in discussions" :key="index">
             <Review
               :comment="discussion[0]"

@@ -203,6 +203,7 @@ const getters = {
                 tags: discussion.tags,
                 total_comments: discussion.total_comments,
                 added: discussion.added,
+                rooturl: discussion.rooturl
             }
             return {
                 store: store,

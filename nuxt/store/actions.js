@@ -210,8 +210,8 @@ const actions = {
         return Promise.reject(error)
       })
   },
-  setStore({ commit }, store) {
-    commit(`setStore`, store)
+  setSelectedStore({ commit }, store) {
+    commit('setSelectedStore', store)
   },
   removeTag({ state }, { storeId: storeId, tag: tag }) {
     const object = {
@@ -731,11 +731,19 @@ const actions = {
         }
       })
   },
-  getPreview({commit, state}, {url}){
-    return axios.get(`${state.baseURL}api/preview?url=${url}`);
+  getPreview({ commit, state }, { url }) {
+    return axios.get(`${state.baseURL}api/preview?url=${url}`)
   },
   setScrolledStores({ commit }, storesCount) {
     commit('updateScrolledStores', storesCount)
+  },
+  async getAnnouncements({ commit, state }) {
+    const {
+      data: {
+        data: { announcements },
+      },
+    } = await axios.get(`${state.baseURL}api/announcement`)
+    commit('updateAnnouncements', announcements)
   },
 }
 
