@@ -364,7 +364,6 @@ export default {
   async asyncData({ params, store, error }) {
     try {
     const selectedStore = await store.dispatch('getStore', { id: params.id })
-    store.dispatch('setSelectedStore', selectedStore)
 
     const storeId = selectedStore.id
 
@@ -398,6 +397,7 @@ export default {
         href: location.href,
       },
     ]
+    this.$recaptcha.init()
   },
   computed: {
     showSimilarBtnMessage() {

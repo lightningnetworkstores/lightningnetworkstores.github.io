@@ -216,7 +216,6 @@ export default {
   async created() {
     this.upvoteDialogForm.amount = this.replyReviewFee
   },
-
   methods: {
     reply() {
       this.showDialog = true
@@ -255,8 +254,21 @@ export default {
       this.paymentID = ''
       this.commentAlert.message = ''
     },
+    getRecaptchaTokenIfLowValueComment(review, reviewAmount){
+         let minSkipCaptcha = 500
+        try{
+            minSkipCaptcha = this.$store.state.configuration.min_skip_captcha
+        } catch(error){}
 
-    getInvoice() {
+        if(reviewAmount >= minSkipCaptcha){
+            return null;
+        } else if(!review){
+            return null
+        } else {
+            return this.$recaptcha.execute('low_value_comment')
+        }
+    },
+    async getInvoice() {
       this.warningMessage = ''
       // validations
       if (
@@ -287,7 +299,9 @@ export default {
       } // end validation
 
       this.commentAlert.message = ''
-
+       
+      let recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(this.encodedComment, this.upvoteDialogForm.amount)
+      
       this.$store
         .dispatch('getStoreVotePaymentRequest', {
           id: this.store.id,
@@ -295,6 +309,7 @@ export default {
           isUpvote: this.isUpvoting,
           comment: this.encodedComment,
           parent: this.parentReview,
+          recaptchaToken: recaptchaToken
         })
         .then(
           (response) => {
@@ -315,7 +330,6 @@ export default {
           }
         )
     },
-
     checkPayment() {
       //todo: check if payment is done
       if (this.expiryTime > new Date()) {

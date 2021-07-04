@@ -16,7 +16,7 @@ export const state = () => ({
   replyReviewFee: 50,
   scores: [],
   scrolledStores: 0,
-  selectedStore: null,
+  selectedStore: {logged: false}, // makes components reactive to selectedStore.logged
   selectedTags: [],
   stores: [],
   tags: [],

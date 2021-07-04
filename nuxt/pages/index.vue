@@ -306,6 +306,8 @@ export default {
         50
       )
     }
+
+    this.$recaptcha.init()
   },
 
   beforeDestroy() {
