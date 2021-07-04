@@ -324,11 +324,7 @@ import LikeStoreButton from '../../components/LikeStoreButton.vue'
 import StoreInfoSection from '~/components/StoreInfoSection.vue'
 
 export default {
-<<<<<<< HEAD
   components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, EventCard, AddEventModal },
-=======
-  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, StoreInfoSection },
->>>>>>> d546649c70de9f432fd95d892210a8afbb962811
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -398,31 +394,8 @@ export default {
       reviews: []
     }
   },
-<<<<<<< HEAD
   async asyncData({ params, store }) {
     await store.dispatch('getStore', { id: params.id })
-=======
-  async asyncData({ params, store, error }) {
-    try {
-    const selectedStore = await store.dispatch('getStore', { id: params.id })
-
-    const storeId = selectedStore.id
-
-    //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
-    let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
-      (a, b) => {
-        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
-          return Math.abs(b[0].score) - Math.abs(a[0].score)
-        }
-        return b[0].timestamp - a[0].timestamp
-      }
-    )
-
-    return { reviews, storeId }
-    } catch(err) {
-      error(err)
-    }
->>>>>>> d546649c70de9f432fd95d892210a8afbb962811
   },
 
   async mounted() {
