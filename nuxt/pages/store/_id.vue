@@ -397,6 +397,7 @@ export default {
         href: location.href,
       },
     ]
+    this.$recaptcha.init()
   },
   computed: {
     showSimilarBtnMessage() {
