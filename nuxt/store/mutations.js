@@ -18,6 +18,7 @@ const mutations = {
       }
       return b.timestamp - a.timestamp
     })
+    store.logged = false
     state.selectedStore = store
   },
   setScores(state, scores) {
@@ -30,9 +31,6 @@ const mutations = {
       state.replyReviewFee = configuration.minimum_comment
       state.addStoreFee = configuration.listing_fee
     }
-  },
-  setSelectedStore(state, selectedStore) {
-    state.selectedStore = selectedStore
   },
   updateSelectedStore(state, { key, value }) {
     state.selectedStore[key] = value
