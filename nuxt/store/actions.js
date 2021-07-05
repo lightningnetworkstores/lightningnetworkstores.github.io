@@ -109,7 +109,18 @@ const actions = {
         return Promise.reject(error)
       })
   },
-
+  addEvent({ state }, payload) {
+    return axios
+        .post(`${state.baseURL}api/event`, payload)
+        .then((response) => {
+            if (response.status === 200) {
+                    return response.data
+            }
+        })
+        .catch(e =>{
+            return e.response.data
+        })
+  },
   addStoreUpdate({ state, commit }, { id: id, body: body }) {
     const debugPwd = null //process.env.debugPwd;
     const url = `${state.baseURL}api/field?id=${id}${
