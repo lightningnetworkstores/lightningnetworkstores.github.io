@@ -19,7 +19,7 @@
                             transition="scale-transition"
                             class="mb-0"
                         >
-                            This project is dead or isn't active at the moment.
+                            This project is dead or currently inactive.
                         </v-alert>
                     </v-flex>
                 </v-layout>
