@@ -10,7 +10,11 @@
         charset="utf-8"
       ></script>
     </div>
-    <a v-else :href="event.url" class="text-decoration-none">
+    <a
+      v-else
+      :href="event.url ? event.url : 'javascript:'"
+      class="text-decoration-none"
+    >
       <v-card class="py-3 px-5">
         <div class="discussion-title">
           {{ event.title }}
