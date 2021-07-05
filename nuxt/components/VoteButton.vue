@@ -257,7 +257,8 @@ export default {
     getRecaptchaTokenIfLowValueComment(review, reviewAmount){
          let minSkipCaptcha = 500
         try{
-            minSkipCaptcha = this.$store.state.configuration.min_skip_captcha
+            let configValue = this.$store.state.configuration.min_skip_captcha
+            if(configValue) minSkipCaptcha = configValue
         } catch(error){}
 
         if(reviewAmount >= minSkipCaptcha){
