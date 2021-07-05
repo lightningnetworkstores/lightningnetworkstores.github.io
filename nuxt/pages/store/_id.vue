@@ -12,6 +12,17 @@
         <v-col cols="12" sm="9" xl="6">
           <v-row justify="center">
             <v-col cols="12" sm="12">
+                <v-layout v-if="selectedStore.dead">
+                    <v-flex>
+                        <v-alert
+                            type="error"
+                            transition="scale-transition"
+                            class="mb-0"
+                        >
+                            This project is dead or currently inactive.
+                        </v-alert>
+                    </v-flex>
+                </v-layout>
               <v-card class="pa-0 mb-3">
                 <store-carousel
                   @imageClicked="handleImageClick"
