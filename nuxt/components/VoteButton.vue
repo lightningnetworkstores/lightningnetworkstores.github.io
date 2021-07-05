@@ -95,7 +95,7 @@
                     v-if="!parentReview"
                     v-model="upvoteDialogForm.comment"
                     type="text"
-                    counter="200"
+                    :counter="this.$store.state.configuration.max_comment_size"
                     :label="
                       'Review (optional - minimum ' +
                       replyReviewFee +
@@ -104,8 +104,8 @@
                     rows="4"
                     :rules="[
                       (v) =>
-                        v.length <= 200 ||
-                        'Review has to be shorter than 200 characters',
+                        v.length <= this.$store.state.configuration.max_comment_size ||
+                        'Review has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
                     ]"
                   ></v-textarea>
                 </v-flex>
@@ -122,13 +122,13 @@
                     v-if="parentReview && parentComment"
                     v-model="upvoteDialogForm.comment"
                     type="text"
-                    counter="200"
+                    :counter="this.$store.state.configuration.max_comment_size"
                     label="Reply"
                     rows="4"
                     :rules="[
                       (v) =>
-                        v.length <= 200 ||
-                        'Reply has to be shorter than 200 characters',
+                        v.length <= this.$store.state.configuration.max_comment_size ||
+                        'Reply has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
                       (v) => !!v || 'Reply is required',
                     ]"
                   ></v-textarea>
