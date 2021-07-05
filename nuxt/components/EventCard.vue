@@ -11,8 +11,8 @@
       ></script>
     </div>
     <a
-      v-else
-      :href="event.url ? event.url : 'javascript:'"
+      v-else-if="event.url"
+      :href="event.url"
       class="text-decoration-none"
     >
       <v-card class="py-3 px-5">
@@ -32,6 +32,24 @@
         <div class="pt-2"></div>
       </v-card>
     </a>
+     <v-card
+        v-else 
+        class="py-3 px-5">
+        <div class="discussion-title">
+          {{ event.title }}
+        </div>
+        <v-flex
+          class="pt-2"
+          v-html="commentText(event.description.replace(/\+/g, ' '))"
+        ></v-flex>
+        <div class="pt-2">
+          <div>
+            <span class="font-weight-black">Time left :</span>
+            {{ timeDifference }}
+          </div>
+        </div>
+        <div class="pt-2"></div>
+      </v-card>
   </v-flex>
 </template>
 
