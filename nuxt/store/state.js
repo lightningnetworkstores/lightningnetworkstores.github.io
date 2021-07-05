@@ -2,7 +2,7 @@ export const state = () => ({
   addStoreFee: 1000,
   announcements: [],
   baseURL: process.env.BASE_URL,
-  configuration: null,
+  configuration: {max_comment_size: 250},
   discussions: [],
   donations: [],
   excludedTags: [],
