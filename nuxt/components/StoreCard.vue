@@ -129,10 +129,10 @@ export default {
   components: { VoteButton, LikeStoreButton },
   methods: {
     gotoStore(store) {
-      const { id } = store
+      const { id, rooturl } = store
 
       this.$route.meta.storeId = id
-      this.$router.push('/store/' + id)
+      this.$router.push('/store/' + rooturl)
     },
     updateTagSearch(tag) {
       this.$store.dispatch('selectOneTag', tag)
