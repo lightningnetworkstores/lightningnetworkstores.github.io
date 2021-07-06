@@ -64,7 +64,10 @@ const getters = {
         isFiltered = false
       }
 
-      isFiltered = state.selectedTags.length!=0 || state.excludedTags.length!=0 || state.filterByFavorites;
+      isFiltered =
+        state.selectedTags.length != 0 ||
+        state.excludedTags.length != 0 ||
+        state.filterByFavorites
 
       //Search
       if (search && search !== 'undefined') {
@@ -120,8 +123,8 @@ const getters = {
             break
           default:
             stores.sort((a, b) => {
-              return b.sorting - a.sorting;
-            });
+              return b.sorting - a.sorting
+            })
             // Add most treding tore to top
             if (!isFiltered) {
               var mostTrendingStore = stores.slice().sort((a, b) => {
@@ -143,7 +146,6 @@ const getters = {
                 stores.splice(stores.indexOf(mostTrendingStore), 1)
                 stores.splice(1, 0, mostTrendingStore)
               }
-              
             }
             break
         }
@@ -194,6 +196,7 @@ const getters = {
         tags: discussion.tags,
         total_comments: discussion.total_comments,
         added: discussion.added,
+        rooturl: discussion.rooturl,
       }
       return {
         store: store,
