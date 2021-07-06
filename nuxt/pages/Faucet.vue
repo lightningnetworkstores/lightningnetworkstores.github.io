@@ -5,7 +5,7 @@
         <v-container>
           <v-row>
             <v-col cols="12" md="4" offset-md="4">
-              <h1 class="text-center">Lightning faucet</h1>
+              <h1 class="text-center">Top donors</h1>
             </v-col>
             <v-col cols="12" md="4">
               <v-layout justify-end>
@@ -52,6 +52,9 @@
               Get {{ claimAmount }} sat
             </v-btn>
           </v-layout>
+          <v-layout justify-center ma-3>
+            <FaucetExplainerModal />
+          </v-layout>
         </v-container>
       </v-flex>
     </v-layout>
@@ -90,6 +93,7 @@
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+import FaucetExplainerModal from '@/components/FaucetExplainerModal'
 export default {
   name: 'Faucet',
   components: {

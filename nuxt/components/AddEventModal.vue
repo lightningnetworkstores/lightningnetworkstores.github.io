@@ -3,8 +3,7 @@
     <v-btn large block color="white" @click="openDialog">
       <v-icon>mdi-plus</v-icon> Add Event
     </v-btn>
-
-    <!-- Add store modal -->
+    
     <v-dialog
       v-model="showAddDialog"
       max-width="500"
