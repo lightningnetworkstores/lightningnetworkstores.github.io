@@ -5,7 +5,7 @@
         <v-container>
           <v-row>
             <v-col cols="12" md="4" offset-md="4">
-              <h1 class="text-center">Lightning faucet</h1>
+              <h1 class="text-center">Top donors</h1>
             </v-col>
             <v-col cols="12" md="4">
               <v-layout justify-end>
@@ -52,6 +52,9 @@
               Get {{ claimAmount }} sat
             </v-btn>
           </v-layout>
+          <v-layout justify-center ma-3>
+            <FaucetExplainerModal />
+          </v-layout>
         </v-container>
       </v-flex>
     </v-layout>
@@ -90,12 +93,52 @@
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+import FaucetExplainerModal from '@/components/FaucetExplainerModal'
 export default {
   name: 'Faucet',
   components: {
     VueHcaptcha,
     Checkout,
     Success,
+  },
+  head(){return{
+      title: 'Lightning Network faucet',
+       meta: [{
+          hid: 'description',
+          name: 'description',
+          content: 'Get bitcoin/satoshis with a click of a button in our faucet.',
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: 'Lightning Network faucet',
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: 'Get bitcoin/satoshis with a click of a button in our faucet',
+        },
+        {
+          hid: 'twitter:title',
+          property: 'twitter:title',
+          content: 'Lightning Network faucet',
+        },
+        {
+          hid: 'twitter:description',
+          property: 'twitter:description',
+          content: 'Get bitcoin/satoshis with a click of a button in our faucet',
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: '/faucet_ogimage.png',
+        },
+         {
+        hid: 'twitter:image:src',
+        property: 'twitter:image:src',
+        content: '/faucet_ogimage.png',
+      }]
+    }
   },
   data: () => ({
     headers: [

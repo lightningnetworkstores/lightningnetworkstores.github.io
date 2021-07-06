@@ -12,6 +12,17 @@
         <v-col cols="12" sm="9" xl="6">
           <v-row justify="center">
             <v-col cols="12" sm="12">
+                <v-layout v-if="selectedStore.dead">
+                    <v-flex>
+                        <v-alert
+                            type="error"
+                            transition="scale-transition"
+                            class="mb-0"
+                        >
+                            This project is dead or currently inactive.
+                        </v-alert>
+                    </v-flex>
+                </v-layout>
               <v-card class="pa-0 mb-3">
                 <store-carousel
                   @imageClicked="handleImageClick"
@@ -154,6 +165,15 @@
                 </v-flex>
               </v-layout>
             </v-card>
+             <div class="mx-3 mt-3 py-2">
+                <AddEventModal v-if="selectedStore.logged" :storeId="selectedStore.id" />
+                <div v-if="selectedStore.event && Object.keys(selectedStore.event).length">
+                  <div class="ma-3 headline font-weight-medium">
+                  Ongoing Event
+                  </div>
+                  <EventCard :event="selectedStore.event" />
+                </div>
+            </div>
           </v-col>
         </v-col>
       </v-row>
@@ -295,6 +315,7 @@
 import { mapState } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
 import DeleteImageModal from '~/components/DeleteImageModal.vue'
+import AddEventModal from '~/components/AddEventModal.vue'
 import StoreCarousel from '~/components/StoreCarousel.vue'
 import StoreCard from '~/components/StoreCard'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
