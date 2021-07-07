@@ -166,24 +166,6 @@ export default {
         return index === -1;
       })
     },
-    selectedValue: {
-        get() {
-          const index = this.options.findIndex(item => item === this.selected);
-          if (index !== -1) {
-            if (this.values[index]) {
-              console.log('returning: ', this.values[index]);
-            } else {
-              console.log('null value detected, returning empty string');
-              return '';
-            }
-          }
-          return '';
-        },
-        set(val) {
-          const index = this.options.findIndex(item => item === this.selected);
-          this.values[index] = val;
-        }
-    }
   }
 }
 </script>
