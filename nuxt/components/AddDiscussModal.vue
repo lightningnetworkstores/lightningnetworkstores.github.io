@@ -169,6 +169,7 @@ export default {
   },
   methods: {
     openDialog() {
+      this.$store.dispatch('getStoreSummary')
       this.paymentRequest = ''
       this.isPaid = false
       this.showAddDialog = true
@@ -267,9 +268,6 @@ export default {
       clearInterval(this.checkPaymentTimer)
       this.paymentRequest = ''
     },
-  },
-  mounted() {
-    this.$store.dispatch('getStoreSummary')
   },
 }
 </script>
