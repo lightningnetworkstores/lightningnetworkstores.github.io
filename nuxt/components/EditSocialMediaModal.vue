@@ -14,7 +14,9 @@
             :label="social.name"
           >
           <template v-slot:prepend-inner>
-            <v-icon :color="$getSocialMediaColor(social.name)"> {{ social.icon }} </v-icon>
+            <v-icon :color="social.url === '' ? 'BFBFBF' : $getSocialMediaColor(social.name)">
+              {{ social.icon }}
+            </v-icon>
           </template>
           </v-text-field>
         </v-layout>
