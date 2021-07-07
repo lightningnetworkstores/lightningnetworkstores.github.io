@@ -292,13 +292,13 @@
             :type="'comment'"
           ></Review>
 
-          <div class="headline font-weight-medium"> Discussions</div>
+          <div v-if="discussions.length>0" class="headline font-weight-medium"> <v-layout justify-center class="mt-4 mb-2"><h2>Discussions</h2></v-layout></div>
           <div v-for="(discussion, index) in discussions" :key="index">
             <Review
               :comment="discussion[0]"
               :comments="discussion.slice(1)"
               :store="selectedStore"
-              :type="'store discussion'"
+              :type="'discussion'"
               :onlyShowLast="2"
             ></Review>
           </div>

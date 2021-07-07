@@ -1,5 +1,6 @@
 <template>
   <div v-if="discussion && discussion.length">
+      <v-layout justify-center ma-4><h1>{{discussion[0].title}}</h1></v-layout>
     <v-col lg="6">
       <PostCard :post="discussion[0]" :type="'discussion'" />
     </v-col>
