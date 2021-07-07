@@ -1,7 +1,7 @@
 <template>
   <v-col justify-center class="px-0" xs="11">
     <v-card
-      hover
+      :hover="type !== 'comment'"
       class="pa-5"
       @click.native="gotoDiscussion(comment.thread_id)"
     >

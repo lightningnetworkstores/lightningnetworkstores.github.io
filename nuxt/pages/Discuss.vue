@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs12 md12 lg10 xl2 class="pa-2">
+    <v-flex xs12 md12 lg10 xl12 class="pa-2">
       <v-container>
         <v-row
           class="store-row"

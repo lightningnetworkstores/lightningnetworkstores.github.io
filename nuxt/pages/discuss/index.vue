@@ -1,7 +1,9 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs12 md12 lg10 xl2 class="pa-2">
-      <div class="text-center text-h6 py-6"><v-layout justify-center ma-3> <h2>General discussions</h2></v-layout></div>
+    <v-flex xs12 md12 lg10 xl12 class="pa-2">
+      <div class="text-center text-h6 py-6">
+        <v-layout justify-center ma-3> <h2>General discussions</h2></v-layout>
+      </div>
       <v-container>
         <AddDiscussModal />
         <v-row
@@ -20,7 +22,11 @@
           >
           </Review>
         </v-row>
-        <div class="text-center text-h6 py-6"><v-layout justify-center ma-3> <h2>Store discussions/reviews</h2></v-layout></div>
+        <div class="text-center text-h6 py-6">
+          <v-layout justify-center ma-3>
+            <h2>Store discussions/reviews</h2></v-layout
+          >
+        </div>
         <v-row
           class="store-row"
           v-for="discussion in $store.getters.getActiveStoreDiscussions"
