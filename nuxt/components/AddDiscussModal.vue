@@ -69,8 +69,8 @@
                     <v-text-field
                       v-model="addDiscussionForm.title"
                       label="Title"
-                      hint="eg. Some Title no longer than 50 characters."
-                      :rules="[(v) => !!v || 'Title is required']"
+                      hint="eg. Some Title no longer than 100 characters."
+                      :rules="[(v) =>!!v || 'Title is required', (v) => (v && v.length<100) || 'Title must be smaller than 100 characters']"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -80,15 +80,15 @@
                     <v-textarea
                       v-model="addDiscussionForm.comment"
                       type="text"
-                      counter="200"
+                      :counter="this.$store.state.configuration.max_comment_size"
                       label="
                        Comment
                       "
                       rows="4"
                       :rules="[
                         (v) =>
-                          (v && v.length <= 200) ||
-                          'Comment has to be shorter than 200 characters',
+                          (!v || v.length <= this.$store.state.configuration.max_comment_size) ||
+                          'Comment has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
                       ]"
                     ></v-textarea>
                   </v-flex>

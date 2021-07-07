@@ -354,7 +354,7 @@ export default {
 
     discussionReplyPaymentRequest() {
       let payload
-      if (this.type === 'store discussion reply') {
+      if (this.type === 'discussion') {
         payload = {
           storeID: this.store.id,
           parent: this.parentComment,
@@ -424,8 +424,7 @@ export default {
         this.storeVotePaymentRequest()
       } else if (
         this.type === 'discussion' ||
-        this.type === 'discussion reply' ||
-        this.type === 'store discussion reply'
+        this.type === 'discussion reply'
       ) {
         this.discussionReplyPaymentRequest()
       }

@@ -44,7 +44,7 @@
             :store="store"
             :parentReview="comment.id"
             :parentComment="
-              type === 'discussion' || type === 'store discussion reply'
+              type === 'discussion' || type === 'store discussion'
                 ? comment.thread_id
                 : comment.id
             "

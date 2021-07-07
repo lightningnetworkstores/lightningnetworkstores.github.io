@@ -44,7 +44,7 @@
                 : discussion.discussions.slice(1)
             "
             :store="discussion.store"
-            :type="discussion.reviews ? 'comment' : 'store discussion reply'"
+            :type="discussion.reviews ? 'comment' : 'discussion'"
           >
           </Review>
         </v-row>

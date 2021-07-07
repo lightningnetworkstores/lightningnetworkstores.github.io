@@ -298,7 +298,7 @@
               :comment="discussion[0]"
               :comments="discussion.slice(1)"
               :store="selectedStore"
-              :type="'store discussion reply'"
+              :type="'store discussion'"
               :onlyShowLast="2"
             ></Review>
           </div>
