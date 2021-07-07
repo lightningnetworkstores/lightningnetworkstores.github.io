@@ -101,7 +101,6 @@ export default {
     },
     getPillColor(id) {
       const hex = Buffer.from(id, 'base64').toString('hex')
-      console.log(hex.substring(0, 10), hex)
       return `#${hex.substring(0, 6)}`
     },
   },
