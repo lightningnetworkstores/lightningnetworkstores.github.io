@@ -1,14 +1,22 @@
 <template>
   <div class="image-modal">
-    <div v-if="images.length > 1">
+    <div v-if="mediaArray.length > 1">
       <v-carousel v-model="liveImage" hide-delimiters height="auto">
-        <v-carousel-item v-for="(imageName, i) in images" :key="imageName">
+        <v-carousel-item v-for="(media, i) in mediaArray" :key="i">
           <v-img
-            :src="`${baseURL}thumbnails/${imageName}`"
+            v-if="media.type === 'IMAGE'"
+            :src="`${baseURL}thumbnails/${media.link}`"
             height="100%"
             contain
           >
           </v-img>
+          <iframe
+            v-if="media.type === 'VIDEO'"
+            class="video-iframe"
+            :src="media.link"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+          </iframe>
         </v-carousel-item>
       </v-carousel>
     </div>
@@ -24,11 +32,11 @@
 
 <script>
 export default {
-  props: ['id', 'images', 'baseURL', 'currentImage'],
+  props: ['id', 'mediaArray', 'baseURL', 'selectedMedia'],
   computed: {
     liveImage: {
       get() {
-        return this.currentImage
+        return this.selectedMedia
       },
       set(newImage) {
         return newImage
@@ -44,5 +52,9 @@ export default {
 }
 .image-modal-list {
   height: 80vh;
+}
+.video-iframe {
+  width: 100%;
+  height: 495px;
 }
 </style>

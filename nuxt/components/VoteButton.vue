@@ -95,7 +95,7 @@
                     v-if="!parentReview"
                     v-model="upvoteDialogForm.comment"
                     type="text"
-                    counter="200"
+                    :counter="this.$store.state.configuration.max_comment_size"
                     :label="
                       'Review (optional - minimum ' +
                       replyReviewFee +
@@ -104,8 +104,8 @@
                     rows="4"
                     :rules="[
                       (v) =>
-                        v.length <= 200 ||
-                        'Review has to be shorter than 200 characters',
+                        v.length <= this.$store.state.configuration.max_comment_size ||
+                        'Review has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
                     ]"
                   ></v-textarea>
                 </v-flex>
@@ -122,13 +122,13 @@
                     v-if="parentReview && parentComment"
                     v-model="upvoteDialogForm.comment"
                     type="text"
-                    counter="200"
+                    :counter="this.$store.state.configuration.max_comment_size"
                     label="Reply"
                     rows="4"
                     :rules="[
                       (v) =>
-                        v.length <= 200 ||
-                        'Reply has to be shorter than 200 characters',
+                        v.length <= this.$store.state.configuration.max_comment_size ||
+                        'Reply has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
                       (v) => !!v || 'Reply is required',
                     ]"
                   ></v-textarea>
@@ -216,7 +216,6 @@ export default {
   async created() {
     this.upvoteDialogForm.amount = this.replyReviewFee
   },
-
   methods: {
     reply() {
       this.showDialog = true
@@ -255,8 +254,22 @@ export default {
       this.paymentID = ''
       this.commentAlert.message = ''
     },
+    getRecaptchaTokenIfLowValueComment(review, reviewAmount){
+         let minSkipCaptcha = 500
+        try{
+            let configValue = this.$store.state.configuration.min_skip_captcha
+            if(configValue) minSkipCaptcha = configValue
+        } catch(error){}
 
-    getInvoice() {
+        if(reviewAmount >= minSkipCaptcha){
+            return null;
+        } else if(!review){
+            return null
+        } else {
+            return this.$recaptcha.execute('low_value_comment')
+        }
+    },
+    async getInvoice() {
       this.warningMessage = ''
       // validations
       if (
@@ -287,7 +300,9 @@ export default {
       } // end validation
 
       this.commentAlert.message = ''
-
+       
+      let recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(this.encodedComment, this.upvoteDialogForm.amount)
+      
       this.$store
         .dispatch('getStoreVotePaymentRequest', {
           id: this.store.id,
@@ -295,6 +310,7 @@ export default {
           isUpvote: this.isUpvoting,
           comment: this.encodedComment,
           parent: this.parentReview,
+          recaptchaToken: recaptchaToken
         })
         .then(
           (response) => {
@@ -315,7 +331,6 @@ export default {
           }
         )
     },
-
     checkPayment() {
       //todo: check if payment is done
       if (this.expiryTime > new Date()) {
