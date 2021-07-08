@@ -209,7 +209,6 @@ export default {
         }
         this.$store.dispatch('addDiscussion', payload).then(
           (response) => {
-            console.log(response, 'addDiscussionFeeaddDiscussionFee')
             if (response.status === 'success') {
               this.addDiscussionFee = response.data.amount
               this.paymentRequest = response.data.payment_request
