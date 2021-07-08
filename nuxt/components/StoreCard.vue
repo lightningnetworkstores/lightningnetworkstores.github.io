@@ -108,9 +108,6 @@
                 'sm-btn-actions': $vuetify.breakpoint.mobile,
               }"
             >
-              <div class="comments" v-if="store.total_comments">
-                <v-icon>fa-comment</v-icon> {{ store.total_comments }}
-              </div>
               <like-store-button :store="store" />
             </div>
           </div>
