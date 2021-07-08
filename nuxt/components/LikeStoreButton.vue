@@ -3,15 +3,20 @@
     :class="{ likes: true, 'sm-btn-actions': $vuetify.breakpoint.mobile }"
     @click.stop="handleLike(store.id)"
   >
-    <v-icon small :color="storeIsLiked ? `red` : `gray`">fa-heart</v-icon>
-    {{ store.likes }}
+    <div class="d-flex icon-section">
+      <like-icon :filled="storeIsLiked" class="mr-1 text-red" />
+      {{ store.likes }}
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
+import LikeIcon from '~/assets/icons/Heart.vue'
+
 export default {
+  components: { LikeIcon },
   props: ['store', 'likes'],
   data() {
     return {
@@ -45,6 +50,10 @@ export default {
 .likes {
   cursor: pointer;
   display: inline;
+}
+.icon-section {
+  line-height: 1;
+  font-size: 22px;
 }
 .sm-btn-actions {
   font-size: 24px !important;
