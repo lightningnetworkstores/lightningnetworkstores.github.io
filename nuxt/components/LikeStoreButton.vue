@@ -1,9 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div v-if="store && Object.keys(store).length" class="likes" @click.stop="handleLike(store.id)">
-    <v-icon small :color="storeIsLiked ? `red` : `gray`">fa-heart</v-icon>
-    {{ store.likes }}
-=======
   <div
     :class="{ likes: true, 'sm-btn-actions': $vuetify.breakpoint.mobile }"
     @click.stop="handleLike(store.id)"
@@ -12,7 +7,6 @@
       <like-icon :filled="storeIsLiked" class="mr-1 text-red" />
       {{ store.likes }}
     </div>
->>>>>>> b8adf7ddc19f4401a0c9ef1011642276092081f6
   </div>
 </template>
 
@@ -22,17 +16,8 @@ import { mapState } from 'vuex'
 import LikeIcon from '~/assets/icons/Heart.vue'
 
 export default {
-<<<<<<< HEAD
-  props:{
-      store:{
-          type: Object,
-          default: () => {}
-      }
-  },
-=======
   components: { LikeIcon },
   props: ['store', 'likes'],
->>>>>>> b8adf7ddc19f4401a0c9ef1011642276092081f6
   data() {
     return {
       isProcessing: false,
