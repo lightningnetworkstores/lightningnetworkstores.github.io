@@ -78,7 +78,7 @@
                       </div>
 
                       <div class="d-flex">
-                        <share-modal/>
+                        <share-modal :store="selectedStore"/>
                         <embed-modal
                           :store="selectedStore"
                           :baseURL="baseURL"

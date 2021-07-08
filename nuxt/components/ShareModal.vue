@@ -10,11 +10,10 @@
           <v-slide-item :key="platformName" v-for="platformName in platforms">
             <ShareNetwork
                 :network="platformName"
-                url="https://news.vuejs.org/issues/180"
-                title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
-                description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
-                quote="The hot reload is so fast it\'s near instant. - Evan You"
-                hashtags="vuejs,vite"
+                :url="store.href"
+                :title="store.name"
+                :description="store.description"
+                quote="Found via https://lightningnetworkstores.com/"
               >
               <v-col class="social-media-share-col">
                 <v-btn
@@ -49,10 +48,16 @@
 import SocialMedia from '~/mixins/social-media'
 export default {
   mixins: [SocialMedia],
+  props: {
+    store: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       showDialog: false,
-      platforms: ['twitter', 'telegram', 'whatsapp']
+      platforms: ['facebook','twitter', 'telegram', 'whatsapp']
     }
   },
   methods: {
