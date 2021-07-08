@@ -91,12 +91,11 @@
 import { mapState, mapGetters } from 'vuex'
 
 import AddDiscussModal from '@/components/AddDiscussModal.vue'
-import DiscussionCard from '@/components/DiscussionCard.vue'
 import EventCard from '@/components/EventCard.vue'
 import LazyListCards from '@/components/LazyListCards.vue'
 
 export default {
-  components: { AddDiscussModal, DiscussionCard, EventCard, LazyListCards },
+  components: { AddDiscussModal, EventCard, LazyListCards },
   data() {
     return {
       discussions: [],
