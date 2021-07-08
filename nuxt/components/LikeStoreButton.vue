@@ -1,6 +1,9 @@
 <template>
-  <div class="likes" @click.stop="handleLike(store.id)">
-    <v-icon :color="storeIsLiked ? `red` : `gray`">{{ storeIsLiked ? '' : 'far' }} fa-heart</v-icon>
+  <div
+    :class="{ likes: true, 'sm-btn-actions': $vuetify.breakpoint.mobile }"
+    @click.stop="handleLike(store.id)"
+  >
+    <v-icon small :color="storeIsLiked ? `red` : `gray`">fa-heart</v-icon>
     {{ store.likes }}
   </div>
 </template>
@@ -42,5 +45,11 @@ export default {
 .likes {
   cursor: pointer;
   display: inline;
+}
+.sm-btn-actions {
+  font-size: 24px !important;
+  .v-icon {
+    font-size: 24px !important;
+  }
 }
 </style>

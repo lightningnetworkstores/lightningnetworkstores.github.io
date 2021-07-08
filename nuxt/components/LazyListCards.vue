@@ -1,15 +1,17 @@
 <template>
   <div>
     <v-row :class="className" v-for="(item, index) in lazyItems" :key="index">
-      <slot name="item" :slot-scope="item"> </slot>
+      <slot name="item" :slot-scope="item" />
     </v-row>
-    <v-card
-      v-if="lazyItems.length === 0"
-      class="mx-auto pa-5 text-center font-weight-bold"
-      outlined
-    >
-      {{ defaultMessage }}
-    </v-card>
+    <v-row :class="className">
+      <v-card
+        v-if="lazyItems.length === 0"
+        class="mx-auto pa-5 text-center font-weight-bold default-card"
+        outlined
+      >
+        {{ defaultMessage }}
+      </v-card>
+    </v-row>
     <v-layout v-if="!isMaxReached" align-center column>
       <p class="text-md-h3 text-center font-weight-bold mb-8">...</p>
       <v-btn color="primary" @click="loadMore">Load More</v-btn>
@@ -62,4 +64,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.default-card {
+  width: 100%;
+}
+</style>
