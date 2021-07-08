@@ -121,12 +121,13 @@ export default {
   margin: auto;
 }
 
+.store-card {
+  width: 100%;
+}
+
 @media (max-width: 600px) {
   .store-row {
     padding: 1.5em 0;
-  }
-  .store-card {
-    width: 100%;
   }
 }
 </style>
