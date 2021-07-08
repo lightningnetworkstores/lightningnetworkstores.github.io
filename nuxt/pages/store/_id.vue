@@ -79,11 +79,6 @@
 
                       <div class="d-flex">
                         <share-modal :store="selectedStore"/>
-                        <embed-modal
-                          :store="selectedStore"
-                          :baseURL="baseURL"
-                          class="ml-2"
-                        ></embed-modal>
                         <ban-store-modal
                           :store="selectedStore"
                           class="ml-2"
