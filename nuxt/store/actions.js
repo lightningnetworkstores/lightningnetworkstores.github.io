@@ -38,22 +38,29 @@ const actions = {
 
         return response.data.data
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(({ response }) => {
+        return Promise.reject({
+          statusCode: response.status,
+          message: response.data.message,
+        })
       })
   },
   getStore({ state, commit }, data) {
-    return fetch(`${state.baseURL}api/storeinfo?id=` + data.id)
+    return axios
+      .get(`${state.baseURL}api/storeinfo?id=` + data.id)
       .then((response) => {
-        return response.json()
+        return response.data
       })
       .then((response) => {
         commit('setConfiguration', response.configuration)
         commit('setSelectedStore', response)
         return response
       })
-      .catch((error) => {
-        return Promise.reject(error)
+      .catch(({ response }) => {
+        return Promise.reject({
+          statusCode: response.status,
+          message: response.data.message,
+        })
       })
   },
   addStore(
@@ -102,7 +109,18 @@ const actions = {
         return Promise.reject(error)
       })
   },
-
+  addEvent({ state }, payload) {
+    return axios
+      .post(`${state.baseURL}api/event`, payload)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.data
+        }
+      })
+      .catch((e) => {
+        return e.response.data
+      })
+  },
   addStoreUpdate({ state, commit }, { id: id, body: body }) {
     const debugPwd = null //process.env.debugPwd;
     const url = `${state.baseURL}api/field?id=${id}${
@@ -140,7 +158,7 @@ const actions = {
   },
   getStoreVotePaymentRequest(
     { state },
-    { id, amount, isUpvote, comment, parent }
+    { id, amount, isUpvote, comment, parent, recaptchaToken }
   ) {
     return fetch(
       `${
@@ -149,7 +167,7 @@ const actions = {
         isUpvote ? 'Upvote' : 'Downvote'
       }${comment ? '&comment=' + comment : ''}${
         parent ? '&parent=' + parent : ''
-      }`
+      }${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
     )
       .then((response) => {
         return response.json()
@@ -203,8 +221,8 @@ const actions = {
         return Promise.reject(error)
       })
   },
-  setStore({ commit }, store) {
-    commit(`setStore`, store)
+  setSelectedStore({ commit }, store) {
+    commit('setSelectedStore', store)
   },
   removeTag({ state }, { storeId: storeId, tag: tag }) {
     const object = {
@@ -235,60 +253,48 @@ const actions = {
         console.log(error)
       })
   },
-	addDiscussion({ state }, payload) {
-			return axios
-					.post(`${state.baseURL}api/discussion`, payload)
-					.then((response) => {
-							if (response.status === 200) {
-									return response.data
-							}
-					})
-					.catch(console.error)
-    },
-	getDiscussionReplyPaymentRequest({ state }, payload){
-		return axios
-		.post(`${state.baseURL}api/discussion`, payload)
-		.then((response) => {
-				if (response.status === 200) {
-						return response.data
-				}
-		})
-		.catch(console.error)
-	},
-	getDiscussions({ state, commit }) {
-			return axios
-					.get(`${state.baseURL}api/discussion`)
-					.then((response) => {
-							if (response.status === 200) {
-									const { data } = response.data
-									commit('setDiscussions', data)
-							}
-					})
-					.catch(console.error)
-	},
-    getDiscussion({ state }, id) {
-        return axios
-            .get(`${state.baseURL}api/discussion?id=${id}`)
-            .then((response) => {
-                    if (response.status === 200) {
-                            const { data } = response.data
-                            return data
-                    }   
-            })
-            .catch(console.error)
-    },
-    addEvent({ state }, payload) {
-        return axios
-            .post(`${state.baseURL}api/event`, payload)
-            .then((response) => {
-                if (response.status === 200) {
-                        return response.data
-                }
-            })
-            .catch(e =>{
-                return e.response.data
-            })
-},
+  addDiscussion({ state }, payload) {
+    return axios
+      .post(`${state.baseURL}api/discussion`, payload)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.data
+        }
+      })
+      .catch(console.error)
+  },
+  getDiscussionReplyPaymentRequest({ state }, payload) {
+    return axios
+      .post(`${state.baseURL}api/discussion`, payload)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.data
+        }
+      })
+      .catch(console.error)
+  },
+  getDiscussions({ state, commit }) {
+    return axios
+      .get(`${state.baseURL}api/discussion`)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response.data
+          commit('setDiscussions', data)
+        }
+      })
+      .catch(console.error)
+  },
+  getDiscussion({ state }, id) {
+    return axios
+      .get(`${state.baseURL}api/discussion?id=${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response.data
+          return data
+        }
+      })
+      .catch(console.error)
+  },
 
   donateFaucetsRequest({ state, commit }, { data }) {
     return axios
@@ -486,7 +492,7 @@ const actions = {
 
   selectOneTag({ commit }, tag) {
     commit('setSelectedTags', [])
-    commit('setExludedTags', [])
+    commit('setExcludedTags', [])
 
     commit('updateSelectedTag', { tag })
   },
@@ -576,8 +582,6 @@ const actions = {
         tagsCheckbox.push(tag)
         checkedTags[state.tags.indexOf(tag)] = tag
       }
-
-      commit('setSelectedTags', routeTags)
     }
 
     if (route.query.exclude) {
@@ -588,19 +592,195 @@ const actions = {
       for (const tag of routeExcludedTags) {
         excludedTags.push(tag)
       }
-      commit('setExludedTags', routeExcludedTags)
     }
+
+    commit('setSelectedTags', tagsCheckbox)
+    commit('setExcludedTags', excludedTags)
+
     return {
       safeMode,
       selectedSort,
       searchQuery,
-      tagsCheckbox,
-      checkedTags,
-      excludedTags,
     }
   },
   toggleFilterByFavoritesStores({ commit, state }) {
     commit('updateFilterFavoriteStores', !state.filterByFavorites)
+  },
+  async loadImagePreview({ commit, state }, { store, imagePath }) {
+    const ytRegex =
+      /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/))([\w\-]+)(\S+)?$/
+    if (ytRegex.test(imagePath)) {
+      const videoId = ytRegex.exec(imagePath)[5]
+      return {
+        type: 'youtube',
+        url: `https://youtube.com/embed/${videoId}`,
+      }
+    } else {
+      try {
+        const response = await axios.post(
+          `${state.baseURL}api/image?storeID=${store.id}&source=${imagePath}`
+        )
+        if (response.status === 200) {
+          return {
+            type: 'image',
+            filename: response.data.data.media,
+            url: `${state.baseURL}thumbnails/${response.data.data.media}`,
+          }
+        }
+      } catch (err) {
+        console.error('set preview image error: ', err)
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      }
+    }
+    return {
+      type: 'unknown',
+      url: null,
+    }
+  },
+  confirmImageSelection(
+    { state, commit },
+    { storeId, position, media, isHomepage, mediaType }
+  ) {
+    const maxPosition = state.selectedStore.media.main.length
+    if (position > maxPosition) {
+      position = maxPosition
+    }
+    const url = `${state.baseURL}api/image?storeID=${storeId}&position=${position}&media=${media}&homepage=${isHomepage}`
+    return axios
+      .put(url)
+      .then((response) => {
+        if (response.status === 200) {
+          const type = mediaType === 'image' ? 'IMAGE' : 'VIDEO'
+          const data = {
+            homepage: isHomepage,
+            link: media,
+            type: type,
+            position: position,
+          }
+          commit('addStoreMedia', data)
+          return response.data
+        }
+        return { error: 'Undefined error with status 200' }
+      })
+      .catch((err) => {
+        console.error('confirm image error: ', err)
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  },
+  deleteStoreImage({ commit, state }, { id, position }) {
+    return axios
+      .delete(`${state.baseURL}api/image?storeID=${id}&position=${position}`)
+      .then((response) => {
+        const { data } = response
+        if (response.status === 200) {
+          if (data.status === 'success') {
+            commit('removeStoreMedia', { position: position })
+            return {
+              message: data.message,
+            }
+          }
+          return {
+            error: data.message,
+          }
+        }
+        return {
+          error: data.message ? data.message : 'Unknown error',
+        }
+      })
+      .catch((err) => {
+        console.error('Got an error')
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  },
+  setHomeImage({ commit, state }, { position, storeID }) {
+    return axios
+      .put(
+        `${state.baseURL}api/image?storeID=${storeID}&position=${position}&homepage=true`
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response
+          commit('updateStoreHomeImage', { position })
+          return { message: data.status.message }
+        } else {
+          return { error: 'Unknown error while trying to update image' }
+        }
+      })
+      .catch((err) => {
+        console.error(
+          'Got an error while trying to set homepage image. err: ',
+          err
+        )
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  },
+  getPreview({ state }, { url }) {
+    return axios
+      .get(`${state.baseURL}api/preview?url=${url}`)
+      .then((response) => {
+        const { data } = response
+        if (response.status === 200) {
+          return {
+            name: data.data.name ? data.data.name : '',
+            description: data.data.description ? data.data.description : '',
+            success: true,
+          }
+        } else {
+          return {
+            message: data.data.message,
+            success: false,
+          }
+        }
+      })
+      .catch((err) => {
+        console.error('Error while obtaining store metadata. err: ', err)
+        return {
+          message: err.response.data.message,
+          success: false,
+        }
+      })
+  },
+  setScrolledStores({ commit }, storesCount) {
+    commit('updateScrolledStores', storesCount)
+  },
+  async getAnnouncements({ commit, state }) {
+    const {
+      data: {
+        data: { announcements },
+      },
+    } = await axios.get(`${state.baseURL}api/announcement`)
+    commit('updateAnnouncements', announcements)
+  },
+
+  async getStoreSummary({ commit, state }) {
+    const {
+      data: {
+        data: { summary },
+      },
+    } = await axios.get(`${state.baseURL}api/storesummary`)
+
+    const storeSummary = summary.map((store) => ({
+      text: `${store.name} (${store.rooturl})`,
+      value: store.id,
+    }))
+
+    commit('updateStoreSummary', storeSummary)
   },
 }
 

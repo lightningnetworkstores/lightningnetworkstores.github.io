@@ -10,7 +10,7 @@ export default {
   },
   router: {
     scrollBehavior(to, from, savedPosition) {
-      if (savedPosition) {
+      if (savedPosition && to.name !== 'index') {
         return savedPosition
       } else {
         return { x: 0, y: 0 }
@@ -53,7 +53,17 @@ export default {
           res.setHeader('Last-Modified', 'Sat, 19 Jun 2021 22:30:52 GMT')
         }
       },
+      handlers: {
+        '.md': false
+      }
     },
+    fallback: {
+        static: {
+          handlers: {
+            '.md': false
+          }
+        }
+      }
   },
   generate: {},
   env: {},
@@ -163,6 +173,10 @@ export default {
       ssr: false,
     },
     {
+      src: '~/plugins/updateAnnouncements.js',
+      ssr: false,
+    },
+    {
       src: '~/plugins/vue-google-charts.js',
       ssr: false,
     },
@@ -174,6 +188,14 @@ export default {
       src: '~/plugins/socialMediaColors.js',
       ssr: true,
     },
+    {
+      src: '~/plugins/utils.js',
+      ssr: true,
+    },
+    {
+      src: '~/plugins/vue-debounce.js',
+      ssr: true
+    }
   ],
 
   recaptcha: {

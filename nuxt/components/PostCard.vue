@@ -20,7 +20,6 @@
         <v-flex grow pa-2
           >ID: {{ post.id.substring(0, 8) }}
           <span v-if="post && post.user_id" class="ml-6">
-            user:
             <v-chip
               :color="getPillColor(post.user_id)"
               text-color="white"
@@ -35,7 +34,9 @@
         <v-flex shrink pr-2 pt-2>
           <vote-line
             :store="store"
-            :parentReview="parentReview"
+            :parentReview="
+              type === 'discussion reply' ? threadId : parentReview
+            "
             :parentComment="
               type === 'discussion reply' || type === 'comment reply'
                 ? post.id
@@ -77,6 +78,10 @@ export default {
       type: Object,
       default: () => {},
     },
+    threadId: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     commentText(comment) {
@@ -102,7 +107,6 @@ export default {
     },
     getPillColor(id) {
       const hex = Buffer.from(id, 'base64').toString('hex')
-      console.log(hex.substring(0, 10), hex)
       return `#${hex.substring(0, 6)}`
     },
   },
