@@ -108,9 +108,6 @@
                 'sm-btn-actions': $vuetify.breakpoint.mobile,
               }"
             >
-              <div class="comments" v-if="store.total_comments">
-                <v-icon small>fa-comment</v-icon> {{ store.total_comments }}
-              </div>
               <like-store-button :store="store" />
             </div>
           </div>
@@ -222,10 +219,8 @@ export default {
       position: absolute;
       bottom: 5px;
       right: 5px;
+      margin: 0.5em;
       font-size: 14px !important;
-      .v-icon {
-        margin-top: -4px;
-      }
       .likes .v-icon:hover {
         color: #f44336;
       }
