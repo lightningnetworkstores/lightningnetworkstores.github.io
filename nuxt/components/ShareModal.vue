@@ -13,7 +13,6 @@
                 :url="store.href"
                 :title="store.name"
                 :description="store.description"
-                quote="Found via https://lightningnetworkstores.com/"
               >
               <v-col class="social-media-share-col">
                 <v-btn
