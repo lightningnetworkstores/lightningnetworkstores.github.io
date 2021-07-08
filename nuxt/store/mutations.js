@@ -100,6 +100,7 @@ const mutations = {
   setDiscussions(state, discussions) {
     state.activeStoreDiscussions = discussions.last_active_stores
     state.lastDiscussions = discussions.last_discussions
+    state.storeEvents = discussions.last_events
   },
   setFaucetStats(state, faucetStats) {
     state.faucetStats = faucetStats

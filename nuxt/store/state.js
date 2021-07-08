@@ -22,6 +22,7 @@ export const state = () => ({
   selectedTags: [],
   stores: [],
   storeSummary: [],
+  storeEvents: [],
   tags: [],
   wallets: [],
 })

@@ -67,13 +67,19 @@
           <div class="text-center text-h6 py-6">
             <v-layout justify-center ma-3> <h2>Events</h2></v-layout>
           </div>
-          <LazyListCards :items="events" :className="$style['store-row']">
-            <template slot="item" slot-scope="{ slotScope: event }">
-              <v-card>
-                <v-card-text>
-                  {{ event.body }}
-                </v-card-text>
-              </v-card>
+          <LazyListCards
+            :items="storeEvents"
+            :className="$style['store-row']"
+            :maxItems="1"
+          >
+            <template slot="item" slot-scope="{ slotScope: discussion }">
+              <store-card
+                :class="`${$style['store-card']} mb-2`"
+                :key="'store-' + discussion.id"
+                :store="discussion"
+              >
+              </store-card>
+              <event-card :event="discussion.event" :type="discussion.type" />
             </template>
           </LazyListCards>
         </v-col>
@@ -86,10 +92,11 @@ import { mapState, mapGetters } from 'vuex'
 
 import AddDiscussModal from '@/components/AddDiscussModal.vue'
 import DiscussionCard from '@/components/DiscussionCard.vue'
+import EventCard from '@/components/EventCard.vue'
 import LazyListCards from '@/components/LazyListCards.vue'
 
 export default {
-  components: { AddDiscussModal, DiscussionCard, LazyListCards },
+  components: { AddDiscussModal, DiscussionCard, EventCard, LazyListCards },
   data() {
     return {
       discussions: [],
@@ -99,7 +106,7 @@ export default {
   },
   computed: {
     ...mapGetters(['getActiveStoreDiscussions']),
-    ...mapState(['lastDiscussions']),
+    ...mapState(['lastDiscussions', 'storeEvents']),
   },
   mounted() {
     this.$store.dispatch('getDiscussions')
