@@ -1,6 +1,6 @@
 <template>
   <div class="likes" @click.stop="handleLike(store.id)">
-    <v-icon small :color="storeIsLiked ? `red` : `gray`">fa-heart</v-icon>
+    <v-icon :color="storeIsLiked ? `red` : `gray`">fa-heart</v-icon>
     {{ store.likes }}
   </div>
 </template>
