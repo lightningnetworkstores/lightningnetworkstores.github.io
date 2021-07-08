@@ -220,6 +220,7 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/recaptcha',
     'cookie-universal-nuxt',
+    'vue-social-sharing/nuxt',
   ],
   vuetify: {
     // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
