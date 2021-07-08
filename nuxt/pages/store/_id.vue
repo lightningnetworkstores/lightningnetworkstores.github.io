@@ -327,14 +327,15 @@
 import { mapState } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
 import DeleteImageModal from '~/components/DeleteImageModal.vue'
-import AddEventModal from '~/components/AddEventModal.vue'
 import StoreCarousel from '~/components/StoreCarousel.vue'
 import StoreCard from '~/components/StoreCard'
+import EventCard from '~/components/EventCard'
+import AddEventModal from '~/components/AddEventModal.vue'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 import StoreInfoSection from '~/components/StoreInfoSection.vue'
 
 export default {
-  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, StoreInfoSection },
+  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, StoreInfoSection, EventCard, AddEventModal},
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -419,7 +420,7 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch('getStatus', { storeId: this.storeId })
+    await this.$store.dispatch('getStatus', { storeId: this.selectedStore.id })
     this.breadcrumb = [
       {
         text: 'Stores',
@@ -470,7 +471,6 @@ export default {
     },
     ...mapState(['likedStores', 'selectedStore']),
   },
-
   methods: {
     sortReviewThreads(reviewThreads) {
       //can't use?

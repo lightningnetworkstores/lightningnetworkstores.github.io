@@ -155,8 +155,11 @@
                     rows="4"
                     :rules="[
                       (v) =>
-                        v.length <= this.$store.state.configuration.max_comment_size ||
-                        'Review has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
+                        v.length <=
+                          this.$store.state.configuration.max_comment_size ||
+                        'Review has to be shorter than ' +
+                          this.$store.state.configuration.max_comment_size +
+                          ' characters',
                     ]"
                   ></v-textarea>
                 </v-flex>
@@ -184,8 +187,11 @@
                     rows="4"
                     :rules="[
                       (v) =>
-                        v.length <= this.$store.state.configuration.max_comment_size ||
-                        'Reply has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
+                        v.length <=
+                          this.$store.state.configuration.max_comment_size ||
+                        'Reply has to be shorter than ' +
+                          this.$store.state.configuration.max_comment_size +
+                          ' characters',
                       (v) => !!v || 'Reply is required',
                     ]"
                   ></v-textarea>
@@ -330,7 +336,7 @@ export default {
           isUpvote: this.isUpvoting,
           comment: this.encodedComment,
           parent: this.parentReview,
-          recaptchaToken: this.recaptchaToken
+          recaptchaToken: this.recaptchaToken,
         })
         .then(
           (response) => {
@@ -353,22 +359,16 @@ export default {
     },
 
     discussionReplyPaymentRequest() {
-      let payload
-      if (this.type === 'discussion') {
-        payload = {
-          storeID: this.store.id,
-          parent: this.parentComment,
-          comment: this.encodedComment,
-        }
-      } else {
-        payload = {
-          parent: this.parentComment,
-          comment: this.encodedComment,
-        }
+      let payload = {
+        parent:
+          this.type === 'discussion' ? this.parentComment : this.parentReview,
+        comment: this.encodedComment,
+      }
+      if (this.store && this.store.id) {
+        payload.storeID = this.store.id
       }
       this.$store.dispatch('getDiscussionReplyPaymentRequest', payload).then(
         (response) => {
-          console.log('responseresponse', response)
           if (response.status === 'success') {
             this.upvoteDialogForm.amount = response.data.amount
             this.paymentRequest = response.data.payment_request
@@ -428,22 +428,25 @@ export default {
       ) {
         this.discussionReplyPaymentRequest()
       }
-      this.recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(this.encodedComment, this.upvoteDialogForm.amount)
+      this.recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(
+        this.encodedComment,
+        this.upvoteDialogForm.amount
+      )
     },
-    getRecaptchaTokenIfLowValueComment(review, reviewAmount){
-        let minSkipCaptcha = 500
-        try{
-            let configValue = this.$store.state.configuration.min_skip_captcha
-            if(configValue) minSkipCaptcha = configValue
-        } catch(error){}
+    getRecaptchaTokenIfLowValueComment(review, reviewAmount) {
+      let minSkipCaptcha = 500
+      try {
+        let configValue = this.$store.state.configuration.min_skip_captcha
+        if (configValue) minSkipCaptcha = configValue
+      } catch (error) {}
 
-        if(reviewAmount >= minSkipCaptcha){
-            return null;
-        } else if(!review){
-            return null
-        } else {
-            return this.$recaptcha.execute('low_value_comment')
-        }
+      if (reviewAmount >= minSkipCaptcha) {
+        return null
+      } else if (!review) {
+        return null
+      } else {
+        return this.$recaptcha.execute('low_value_comment')
+      }
     },
     checkPayment() {
       //todo: check if payment is done
