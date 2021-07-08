@@ -111,15 +111,15 @@ const actions = {
   },
   addEvent({ state }, payload) {
     return axios
-        .post(`${state.baseURL}api/event`, payload)
-        .then((response) => {
-            if (response.status === 200) {
-                    return response.data
-            }
-        })
-        .catch(e =>{
-            return e.response.data
-        })
+      .post(`${state.baseURL}api/event`, payload)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.data
+        }
+      })
+      .catch((e) => {
+        return e.response.data
+      })
   },
   addStoreUpdate({ state, commit }, { id: id, body: body }) {
     const debugPwd = null //process.env.debugPwd;
@@ -167,9 +167,7 @@ const actions = {
         isUpvote ? 'Upvote' : 'Downvote'
       }${comment ? '&comment=' + comment : ''}${
         parent ? '&parent=' + parent : ''
-      }${
-        recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''
-      }`
+      }${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
     )
       .then((response) => {
         return response.json()
@@ -255,13 +253,55 @@ const actions = {
         console.log(error)
       })
   },
+  addDiscussion({ state }, payload) {
+    return axios
+      .post(`${state.baseURL}api/discussion`, payload)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.data
+        }
+      })
+      .catch(console.error)
+  },
+  getDiscussionReplyPaymentRequest({ state }, payload) {
+    return axios
+      .post(`${state.baseURL}api/discussion`, payload)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.data
+        }
+      })
+      .catch(console.error)
+  },
   getDiscussions({ state, commit }) {
     return axios
       .get(`${state.baseURL}api/discussion`)
       .then((response) => {
         if (response.status === 200) {
-          const { data } = response
-          commit('setDiscussions', data.data.last_active_stores)
+          const { data } = response.data
+          commit('setDiscussions', data)
+        }
+      })
+      .catch(console.error)
+  },
+  getDiscussion({ state }, id) {
+    return axios
+      .get(`${state.baseURL}api/discussion?id=${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response.data
+          return data
+        }
+      })
+      .catch(console.error)
+  },
+
+  donateFaucetsRequest({ state, commit }, { data }) {
+    return axios
+      .post(`${state.baseURL}api/faucet_donation`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response
         }
       })
       .catch(console.error)
@@ -690,28 +730,29 @@ const actions = {
         }
       })
   },
-  getPreview({state}, {url}){
-    return axios.get(`${state.baseURL}api/preview?url=${url}`)
-      .then(response => {
+  getPreview({ state }, { url }) {
+    return axios
+      .get(`${state.baseURL}api/preview?url=${url}`)
+      .then((response) => {
         const { data } = response
         if (response.status === 200) {
           return {
             name: data.data.name ? data.data.name : '',
             description: data.data.description ? data.data.description : '',
-            success: true
+            success: true,
           }
         } else {
           return {
             message: data.data.message,
-            success: false
+            success: false,
           }
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Error while obtaining store metadata. err: ', err)
         return {
           message: err.response.data.message,
-          success: false
+          success: false,
         }
       })
   },
@@ -725,6 +766,21 @@ const actions = {
       },
     } = await axios.get(`${state.baseURL}api/announcement`)
     commit('updateAnnouncements', announcements)
+  },
+
+  async getStoreSummary({ commit, state }) {
+    const {
+      data: {
+        data: { summary },
+      },
+    } = await axios.get(`${state.baseURL}api/storesummary`)
+
+    const storeSummary = summary.map((store) => ({
+      text: `${store.name} (${store.rooturl})`,
+      value: store.id,
+    }))
+
+    commit('updateStoreSummary', storeSummary)
   },
 }
 
