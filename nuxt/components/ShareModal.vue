@@ -24,9 +24,19 @@
                 >
                   <v-icon dark>{{social[platformName].icon}}</v-icon>
                 </v-btn>
-                  <div class="d-flex justify-center">{{ platformName | capitalize }}</div>
+                <div class="d-flex justify-center">{{ platformName | capitalize }}</div>
               </v-col>
             </ShareNetwork>
+          </v-slide-item>
+          <v-slide-item>
+            <v-col class="social-media-share-col">
+              <v-btn class="ml-3 my-3 d-flex justify-center"
+                fab dark large color="#BFBFBF"
+              >
+                <v-icon>fa-code</v-icon>
+              </v-btn>
+              <div class="d-flex justify-center">Embed</div>
+            </v-col>
           </v-slide-item>
         </v-slide-group>
         <v-card-actions>
