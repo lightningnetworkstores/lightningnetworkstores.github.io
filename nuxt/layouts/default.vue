@@ -14,7 +14,7 @@
       <transition name="fade">
         <Nuxt />
       </transition>
-      <announcement-modal />
+      <announcement-modal v-if="!loading" />
     </v-main>
     <v-footer class="pa-3 mt-8" color="rgb(56, 56, 56)" dark>
       <v-row class="justify-center">
