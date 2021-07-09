@@ -293,6 +293,14 @@ export default {
       this.maxCards = this.scrolledStores
     }
   },
+  beforeRouteEnter(to, from, next) {
+    if (to.query.sector) {
+      to.query.tags = to.query.sector
+      delete to.query.sector
+      return next(to)
+    }
+    next()
+  },
   mounted() {
     const data = Array.from(this.$refs.list.children)
 
