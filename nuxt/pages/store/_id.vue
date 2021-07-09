@@ -70,11 +70,7 @@
                       </div>
 
                       <div class="d-flex">
-                        <embed-modal
-                          :store="selectedStore"
-                          :baseURL="baseURL"
-                          class="ml-2"
-                        ></embed-modal>
+                        <share-modal :store="selectedStore"/>
                         <ban-store-modal
                           :store="selectedStore"
                           class="ml-2"

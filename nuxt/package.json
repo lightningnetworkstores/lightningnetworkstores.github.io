@@ -23,7 +23,8 @@
     "vue-debounce": "^3.0.0",
     "vue-google-charts": "^0.3.3",
     "vue-property-decorator": "^9.1.2",
-    "vue-recaptcha": "^1.3.0"
+    "vue-recaptcha": "^1.3.0",
+    "vue-social-sharing": "^3.0.8"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
