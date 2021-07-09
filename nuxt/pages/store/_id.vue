@@ -66,7 +66,7 @@
                           :key="index"
                           text
                           icon
-                          :color="$getSocialMediaColor(name)"
+                          :color="social[name].color"
                           :href="getSocialHref(selectedStore.social[name])"
                         >
                           <v-icon>fab fa-{{name}}</v-icon>
@@ -316,9 +316,11 @@ import StoreCarousel from '~/components/StoreCarousel.vue'
 import StoreCard from '~/components/StoreCard'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 import StoreInfoSection from '~/components/StoreInfoSection.vue'
+import SocialMedia from '~/mixins/social-media'
 
 export default {
   components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, StoreInfoSection },
+  mixins: [ SocialMedia ],
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
