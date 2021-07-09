@@ -15,9 +15,14 @@
       src="https://platform.twitter.com/widgets.js"
       charset="utf-8"
     ></script>
-    <v-row v-if="store && Object.keys(store).length" class="ma-2 pt-2">
+    <v-row v-if="message" class="ma-2 pt-2">
+      <v-flex>
+          <h3>{{message}}</h3>
+      </v-flex>
+    </v-row>
+    <v-row v-if="store && Object.keys(store).length>1" class="ma-2 pt-2">
       <v-flex
-        >Go to <a :href="'/store/' + store.id">{{ store.name }}</a></v-flex
+        >Go to <a :href="'/store/' + store.rooturl">{{ store.name }}</a></v-flex
       >
     </v-row>
 
@@ -44,6 +49,10 @@ export default {
       type: Object,
       default: () => {},
     },
+    message: {
+        type: String,
+        default: ''
+    }
   },
   methods: {
     handleClose() {
