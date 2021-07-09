@@ -57,18 +57,18 @@
             <v-spacer></v-spacer>
             <div class="move-buttons" v-if="!warningMessage">
               <v-btn
-                v-if="isTherePreviousAd"
-                color="green darken-1"
-                text
-                @click="prevAnnounce"
-              >
-                Previous
-              </v-btn>
-              <v-btn
                 v-if="isThereNextAd"
                 color="green darken-1"
                 text
                 @click="nextAnnounce"
+              >
+                Previous
+              </v-btn>
+              <v-btn
+                v-if="isTherePreviousAd"
+                color="green darken-1"
+                text
+                @click="prevAnnounce"
               >
                 Next
               </v-btn>
