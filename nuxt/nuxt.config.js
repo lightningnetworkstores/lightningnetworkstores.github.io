@@ -16,6 +16,23 @@ export default {
         return { x: 0, y: 0 }
       }
     },
+    extendRoutes(routes, resolve) {
+      const routesArr = [
+        {
+          name: 'services',
+          path: '/services',
+          redirect: '/',
+        },
+        {
+          name: 'e',
+          path: '/e/:id',
+          beforeEnter: (to, from, next) => {
+            return next({ path: `/store/${to.params.id}` })
+          },
+        },
+      ]
+      routes.push(...routesArr)
+    },
   },
   axios: {
     proxy: true,
@@ -54,16 +71,16 @@ export default {
         }
       },
       handlers: {
-        '.md': false
-      }
+        '.md': false,
+      },
     },
     fallback: {
-        static: {
-          handlers: {
-            '.md': false
-          }
-        }
-      }
+      static: {
+        handlers: {
+          '.md': false,
+        },
+      },
+    },
   },
   generate: {},
   env: {},
@@ -194,8 +211,8 @@ export default {
     },
     {
       src: '~/plugins/vue-debounce.js',
-      ssr: true
-    }
+      ssr: true,
+    },
   ],
 
   recaptcha: {
