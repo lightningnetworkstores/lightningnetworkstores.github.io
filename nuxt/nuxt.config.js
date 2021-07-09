@@ -17,11 +17,21 @@ export default {
       }
     },
     extendRoutes(routes, resolve) {
-      routes.push({
-        name: 'services',
-        path: '/services',
-        redirect: '/',
-      })
+      const routesArr = [
+        {
+          name: 'services',
+          path: '/services',
+          redirect: '/',
+        },
+        {
+          name: 'e',
+          path: '/e/:id',
+          beforeEnter: (to, from, next) => {
+            return next({ path: `/store/${to.params.id}` })
+          },
+        },
+      ]
+      routes.push(...routesArr)
     },
   },
   axios: {
