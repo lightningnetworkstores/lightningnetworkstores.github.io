@@ -12,17 +12,9 @@
         <v-col cols="12" sm="9" xl="6">
           <v-row justify="center">
             <v-col cols="12" sm="12">
-                <v-layout v-if="selectedStore.dead">
-                    <v-flex>
-                        <v-alert
-                            type="error"
-                            transition="scale-transition"
-                            class="mb-0"
-                        >
-                            This project is dead or currently inactive.
-                        </v-alert>
-                    </v-flex>
-                </v-layout>
+                <inactivity-alert 
+                    :inactivityData="selectedStore.inactivity"
+                />
               <v-card class="pa-0 mb-3">
                 <store-carousel
                   @imageClicked="handleImageClick"
@@ -320,9 +312,10 @@ import StoreCarousel from '~/components/StoreCarousel.vue'
 import StoreCard from '~/components/StoreCard'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 import StoreInfoSection from '~/components/StoreInfoSection.vue'
+import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
 
 export default {
-  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, StoreInfoSection },
+  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, StoreInfoSection, InactivityAlert },
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
