@@ -111,15 +111,15 @@ const actions = {
   },
   addEvent({ state }, payload) {
     return axios
-        .post(`${state.baseURL}api/event`, payload)
-        .then((response) => {
-            if (response.status === 200) {
-                    return response.data
-            }
-        })
-        .catch(e =>{
-            return e.response.data
-        })
+      .post(`${state.baseURL}api/event`, payload)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.data
+        }
+      })
+      .catch((e) => {
+        return e.response.data
+      })
   },
   addStoreUpdate({ state, commit }, { id: id, body: body }) {
     const debugPwd = null //process.env.debugPwd;
@@ -167,9 +167,7 @@ const actions = {
         isUpvote ? 'Upvote' : 'Downvote'
       }${comment ? '&comment=' + comment : ''}${
         parent ? '&parent=' + parent : ''
-      }${
-        recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''
-      }`
+      }${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
     )
       .then((response) => {
         return response.json()
@@ -690,28 +688,29 @@ const actions = {
         }
       })
   },
-  getPreview({state}, {url}){
-    return axios.get(`${state.baseURL}api/preview?url=${url}`)
-      .then(response => {
+  getPreview({ state }, { url }) {
+    return axios
+      .get(`${state.baseURL}api/preview?url=${url}`)
+      .then((response) => {
         const { data } = response
         if (response.status === 200) {
           return {
             name: data.data.name ? data.data.name : '',
             description: data.data.description ? data.data.description : '',
-            success: true
+            success: true,
           }
         } else {
           return {
             message: data.data.message,
-            success: false
+            success: false,
           }
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Error while obtaining store metadata. err: ', err)
         return {
           message: err.response.data.message,
-          success: false
+          success: false,
         }
       })
   },
@@ -724,6 +723,7 @@ const actions = {
         data: { announcements },
       },
     } = await axios.get(`${state.baseURL}api/announcement`)
+
     commit('updateAnnouncements', announcements)
   },
 }
