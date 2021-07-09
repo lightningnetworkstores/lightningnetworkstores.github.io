@@ -6,16 +6,16 @@
     <v-dialog v-model="showDialog" max-width="500" persistent>
       <v-card>
         <v-card-title>Edit Social Media</v-card-title>
-        <v-layout :key="index" v-for="(social, index) in options" row class="ml-3 mr-4 mt-0 d-flex">
+        <v-layout :key="index" v-for="(option, index) in options" row class="ml-3 mr-4 mt-0 d-flex">
           <v-text-field
             outlined
             @input="() => handleUrlChange(index)"
             v-model="options[index].url"
-            :label="social.name"
+            :label="option.name"
           >
           <template v-slot:prepend-inner>
-            <v-icon :color="social.url === '' ? 'BFBFBF' : $getSocialMediaColor(social.name)">
-              {{ social.icon }}
+            <v-icon :color="option.url === '' ? 'BFBFBF' : social[option.name].color">
+              {{ social[option.name].icon }}
             </v-icon>
           </template>
           </v-text-field>
@@ -51,8 +51,10 @@
   </div>
 </template>
 <script>
+import SocialMedia from '~/mixins/social-media'
 export default {
   props: ['store'],
+  mixins: [SocialMedia],
   data() {
     const getUrl = socialNetworkName => {
       const { store } = this;
@@ -63,42 +65,36 @@ export default {
       options: [
         {
           name: 'reddit',
-          icon: 'fab fa-reddit',
           url: getUrl('reddit'),
           modified: false,
           error: null
         },
         {
           name: 'twitter',
-          icon: 'fab fa-twitter',
           url: getUrl('twitter'),
           modified: false,
           error: null
         },
         {
           name: 'telegram',
-          icon: 'fab fa-telegram',
           url: getUrl('telegram'),
           modified: false,
           error: null
         },
         {
           name: 'facebook',
-          icon: 'fab fa-facebook',
           url: getUrl('facebook'),
           modified: false,
           error: null
         },
         {
           name: 'instagram',
-          icon: 'fab fa-instagram',
           url: getUrl('instagram'),
           modified: false,
           error: null
         },
         {
           name: 'linkedin',
-          icon: 'fab fa-linkedin',
           url: getUrl('linkedin'),
           modified: false,
           error: null
