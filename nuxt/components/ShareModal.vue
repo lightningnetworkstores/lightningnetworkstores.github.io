@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn icon color="gray" @click="openDialog">
-      <v-icon>fas fa-share</v-icon>
+      <v-icon>fas fa-share-alt</v-icon>
     </v-btn>
     <v-dialog v-model="showDialog" max-width="500" persistent>
       <v-card>
@@ -10,7 +10,7 @@
           <v-slide-item :key="platformName" v-for="platformName in platforms">
             <ShareNetwork
                 :network="platformName"
-                :url="store.href"
+                :url="`${baseURL}store/${store.rooturl}`"
                 :title="store.name"
                 :description="store.description"
               >
