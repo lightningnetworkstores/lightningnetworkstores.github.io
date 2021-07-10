@@ -70,7 +70,12 @@
                       v-model="addDiscussionForm.title"
                       label="Title"
                       hint="eg. Some Title no longer than 100 characters."
-                      :rules="[(v) =>!!v || 'Title is required', (v) => (v && v.length<100) || 'Title must be smaller than 100 characters']"
+                      :rules="[
+                        (v) => !!v || 'Title is required',
+                        (v) =>
+                          (v && v.length < 100) ||
+                          'Title must be smaller than 100 characters',
+                      ]"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -80,25 +85,32 @@
                     <v-textarea
                       v-model="addDiscussionForm.comment"
                       type="text"
-                      :counter="this.$store.state.configuration.max_comment_size"
+                      :counter="
+                        this.$store.state.configuration.max_comment_size
+                      "
                       label="
                        Comment
                       "
                       rows="4"
                       :rules="[
                         (v) =>
-                          (!v || v.length <= this.$store.state.configuration.max_comment_size) ||
-                          'Comment has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
+                          !v ||
+                          v.length <=
+                            this.$store.state.configuration.max_comment_size ||
+                          'Comment has to be shorter than ' +
+                            this.$store.state.configuration.max_comment_size +
+                            ' characters',
                       ]"
                     ></v-textarea>
                   </v-flex>
                 </v-layout>
                 <v-layout row>
                   <v-flex pl-3 pr-3>
-                    <v-text-field
+                    <v-autocomplete
+                      :items="storeSummary"
+                      label="Store (optional)"
                       v-model="addDiscussionForm.storeId"
-                      label="Store Id (optional)"
-                    ></v-text-field>
+                    />
                   </v-flex>
                 </v-layout>
 
@@ -123,8 +135,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+
 export default {
   name: 'AddDiscussModal',
   components: {
@@ -149,8 +164,12 @@ export default {
       addDiscussionFee: 0,
     }
   },
+  computed: {
+    ...mapState(['storeSummary']),
+  },
   methods: {
     openDialog() {
+      this.$store.dispatch('getStoreSummary')
       this.paymentRequest = ''
       this.isPaid = false
       this.showAddDialog = true
@@ -190,7 +209,6 @@ export default {
         }
         this.$store.dispatch('addDiscussion', payload).then(
           (response) => {
-            console.log(response, 'addDiscussionFeeaddDiscussionFee')
             if (response.status === 'success') {
               this.addDiscussionFee = response.data.amount
               this.paymentRequest = response.data.payment_request

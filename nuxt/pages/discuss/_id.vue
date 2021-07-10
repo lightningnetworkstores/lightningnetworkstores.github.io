@@ -14,7 +14,7 @@
         v-for="subComment in discussion.slice(1)"
         :key="subComment.id"
       >
-        <PostCard :post="subComment" :type="'discussion reply'" />
+        <PostCard :post="subComment" :threadId="discussion[0].thread_id" :type="'discussion reply'" />
       </v-layout>
     </v-col>
   </div>

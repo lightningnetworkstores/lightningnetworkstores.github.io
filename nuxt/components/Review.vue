@@ -1,8 +1,12 @@
 <template>
-  <v-col justify-center class="px-0" xs="11">
-    <v-card class="pa-5" @click.native="gotoDiscussion(comment.thread_id)">
+  <v-col justify-center class="px-0 pt-0" xs="11">
+    <v-card
+      :hover="type !== 'comment'"
+      class="pa-5"
+      @click.native="gotoDiscussion(comment.thread_id)"
+    >
       <v-row class="px-0">
-        <v-col cols="2" class="text-center px-0 pt-4" v-if="type === 'comment'">
+        <v-col cols="2" class="text-center px-0 mt-4" v-if="type === 'comment'">
           <vote-line
             :store="store"
             :isReviewUpvote="comment.score > 0"
@@ -56,6 +60,11 @@
       <!-- .sort((a, b) => {
                             return Math.abs(a.score) - Math.abs(b.score);
                         }) -->
+      <v-flex v-if="comments && comments.length > onlyShowLast">
+        <v-card class="py-6 my-4 text-center">
+          <v-icon large>mdi-dots-horizontal</v-icon>
+        </v-card>
+      </v-flex>
       <v-layout
         row
         pt-1
@@ -90,7 +99,10 @@ export default {
           .sort((a, b) => a.timestamp - b.timestamp)
       } else {
         if (this.comments.length > this.onlyShowLast) {
-          return this.comments.splice(0, this.onlyShowLast)
+          return this.comments.slice(
+            this.comments.length - this.onlyShowLast,
+            this.comments.length
+          )
         } else {
           return this.comments
         }
@@ -147,5 +159,18 @@ export default {
   word-break: break-word;
   max-height: 330px;
   overflow-y: hidden;
+}
+.discussion-title {
+  font-size: 1.7rem !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 </style>
