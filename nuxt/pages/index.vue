@@ -127,6 +127,7 @@ export default {
         { name: 'Best', prop: 'best' },
         { name: 'Trending', prop: 'trending' },
         { name: 'Newest', prop: 'newest' },
+        { name: 'Likes', prop: 'likes' },
         { name: 'Lifetime score', prop: 'lifetime' },
         { name: 'Controversial', prop: 'controversial' },
         { name: 'Last commented', prop: 'lastcommented' },
