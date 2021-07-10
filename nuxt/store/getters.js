@@ -95,6 +95,11 @@ const getters = {
               return b.lifetime - a.lifetime
             })
             break
+          case 'likes':
+            stores.sort((a, b) => {
+                return b.likes - a.likes
+              })
+              break   
           case 'controversial':
             stores.sort((a, b) => {
               let magnitudeB = b.upvotes + b.downvotes

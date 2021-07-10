@@ -127,6 +127,7 @@ export default {
         { name: 'Best', prop: 'best' },
         { name: 'Trending', prop: 'trending' },
         { name: 'Newest', prop: 'newest' },
+        { name: 'Likes', prop: 'likes' },
         { name: 'Lifetime score', prop: 'lifetime' },
         { name: 'Controversial', prop: 'controversial' },
         { name: 'Last commented', prop: 'lastcommented' },
@@ -292,6 +293,14 @@ export default {
       this.$route.meta.scrolledStores = this.maxCards
       this.maxCards = this.scrolledStores
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    if (to.query.sector) {
+      to.query.tags = to.query.sector
+      delete to.query.sector
+      return next(to)
+    }
+    next()
   },
   mounted() {
     const data = Array.from(this.$refs.list.children)

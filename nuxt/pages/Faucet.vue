@@ -29,7 +29,16 @@
                   :class="{ [$style.clickable]: !!item.url }"
                   @click="handleDonorClick(item)"
                 >
-                  <td>{{ item.name }}</td>
+                  <td>
+                    <span>{{ item.name }}</span
+                    ><v-icon
+                      v-if="item.url"
+                      color="black"
+                      small
+                      class="ml-2 mb-1"
+                      >fa-external-link-alt</v-icon
+                    >
+                  </td>
                   <td>{{ item.message }}</td>
                   <td>{{ item.total_donated }}</td>
                   <td>{{ item.sats_per_claim }}</td>
@@ -62,10 +71,13 @@
       <v-card>
         <v-card-title class="text-h5">Donate to Faucet</v-card-title>
         <v-card-text>
-          <faucet-donation-modal 
-          :maximumDonationTimeoutDays="this.configuration.maximum_donation_timeout_days"
-          :minDonationAmount="this.configuration.minimum_donation"
-          @closeDialog="closeDonationDialog" />
+          <faucet-donation-modal
+            :maximumDonationTimeoutDays="
+              this.configuration.maximum_donation_timeout_days
+            "
+            :minDonationAmount="this.configuration.minimum_donation"
+            @closeDialog="closeDonationDialog"
+          />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -101,12 +113,15 @@ export default {
     Checkout,
     Success,
   },
-  head(){return{
+  head() {
+    return {
       title: 'Lightning Network faucet',
-       meta: [{
+      meta: [
+        {
           hid: 'description',
           name: 'description',
-          content: 'Get bitcoin/satoshis with a click of a button in our faucet.',
+          content:
+            'Get bitcoin/satoshis with a click of a button in our faucet.',
         },
         {
           hid: 'og:title',
@@ -116,7 +131,8 @@ export default {
         {
           hid: 'og:description',
           property: 'og:description',
-          content: 'Get bitcoin/satoshis with a click of a button in our faucet',
+          content:
+            'Get bitcoin/satoshis with a click of a button in our faucet',
         },
         {
           hid: 'twitter:title',
@@ -126,18 +142,20 @@ export default {
         {
           hid: 'twitter:description',
           property: 'twitter:description',
-          content: 'Get bitcoin/satoshis with a click of a button in our faucet',
+          content:
+            'Get bitcoin/satoshis with a click of a button in our faucet',
         },
         {
           hid: 'og:image',
           property: 'og:image',
           content: '/faucet_ogimage.png',
         },
-         {
-        hid: 'twitter:image:src',
-        property: 'twitter:image:src',
-        content: '/faucet_ogimage.png',
-      }]
+        {
+          hid: 'twitter:image:src',
+          property: 'twitter:image:src',
+          content: '/faucet_ogimage.png',
+        },
+      ],
     }
   },
   data: () => ({
@@ -156,7 +174,10 @@ export default {
     successfulClaim: false,
     paymentRequest: '',
     interval: null,
-    configuration: {maximum_donation_timeout_days: 50, minimum_donation: 5000}
+    configuration: {
+      maximum_donation_timeout_days: 50,
+      minimum_donation: 5000,
+    },
   }),
   created() {},
   mounted() {
@@ -169,11 +190,10 @@ export default {
       this.topDonors.sort(
         (d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim']
       )
-        this.claimAmount = response.data.data.claim
-        if(response.data.message) this.message = response.data.message
-        this.configuration=response.data.data.configuration
-      }
-    )  
+      this.claimAmount = response.data.data.claim
+      if (response.data.message) this.message = response.data.message
+      this.configuration = response.data.data.configuration
+    })
   },
   computed: {
     showDialog() {

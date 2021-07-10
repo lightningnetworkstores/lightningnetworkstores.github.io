@@ -55,6 +55,24 @@
               label="I want to keep seeing these notifications"
             ></v-checkbox>
             <v-spacer></v-spacer>
+            <div class="move-buttons" v-if="!warningMessage">
+              <v-btn
+                v-if="isThereNextAd"
+                color="green darken-1"
+                text
+                @click="nextAnnounce"
+              >
+                Previous
+              </v-btn>
+              <v-btn
+                v-if="isTherePreviousAd"
+                color="green darken-1"
+                text
+                @click="prevAnnounce"
+              >
+                Next
+              </v-btn>
+            </div>
             <v-btn color="green darken-1" text @click="submitAnnounce">
               Ok
             </v-btn>
@@ -79,6 +97,7 @@ export default {
         lastAnnouncementSeen: 0,
         lastVersionWarning: 0,
       },
+      lastNotificationSeen: 0,
       notification: {},
       newVersionMessage: {
         title: 'Warning: the website you are seeing is outdated',
@@ -89,11 +108,6 @@ export default {
   },
 
   computed: {
-    htmlBody() {
-      const body = this.notification.body?.replace(/(?:\r\n|\r|\n)/g, '<br>')
-      return body
-    },
-
     ...mapState({
       announcement: (state) => {
         const [announcement] = [...state.announcements].sort(
@@ -101,8 +115,33 @@ export default {
         )
         return announcement
       },
+      announcements: 'announcements',
       configuration: 'configuration',
     }),
+
+    actualAdIndex() {
+      return this.announcements.findIndex(
+        (ad) => ad.id === this.notification.id
+      )
+    },
+
+    htmlBody() {
+      const body = this.notification.body?.replace(/(?:\r\n|\r|\n)/g, '<br>')
+      return body
+    },
+
+    isTherePreviousAd() {
+      const prevIndex = this.actualAdIndex - 1
+
+      return prevIndex >= 0
+    },
+
+    isThereNextAd() {
+      const prevIndex = this.actualAdIndex + 1
+
+      return prevIndex > 0 && prevIndex < this.announcements.length
+    },
+
     notificationEmbedVideo() {
       return this.$createEmbedLink(this.notification.video)
     },
@@ -111,7 +150,8 @@ export default {
   methods: {
     submitAnnounce() {
       if (!this.warningMessage) {
-        this.announcementsConfig.lastAnnouncementSeen = this.announcement.id
+        this.announcementsConfig.lastAnnouncementSeen =
+          this.lastNotificationSeen
       } else {
         this.announcementsConfig.lastVersionWarning = this.announcement.version
       }
@@ -121,6 +161,14 @@ export default {
         'announcements_config',
         JSON.stringify(this.announcementsConfig)
       )
+    },
+
+    prevAnnounce() {
+      this.notification = this.announcements[this.actualAdIndex - 1]
+    },
+
+    nextAnnounce() {
+      this.notification = this.announcements[this.actualAdIndex + 1]
     },
 
     setIsModalOpen() {
@@ -166,6 +214,7 @@ export default {
         this.warningMessage = true
       } else if (configurationVersion) {
         this.notification = this.announcement
+        this.lastNotificationSeen = this.announcement.id
       }
     },
   },

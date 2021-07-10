@@ -6,14 +6,17 @@
     <v-dialog v-model="showDialog" max-width="500" persistent>
       <v-card>
         <v-card-title>Edit Social Media</v-card-title>
-        <v-layout :key="index" v-for="(social, index) in options" row class="ml-3 mr-4 mt-0 d-flex">
+        <v-layout :key="index" v-for="(option, index) in options" row class="ml-3 mr-4 mt-0 d-flex">
           <v-text-field
             outlined
+            @input="() => handleUrlChange(index)"
             v-model="options[index].url"
-            :label="social.name"
+            :label="option.name"
           >
           <template v-slot:prepend-inner>
-            <v-icon :color="$getSocialMediaColor(social.name)"> {{ social.icon }} </v-icon>
+            <v-icon :color="option.url === '' ? 'BFBFBF' : social[option.name].color">
+              {{ social[option.name].icon }}
+            </v-icon>
           </template>
           </v-text-field>
         </v-layout>
@@ -28,7 +31,7 @@
           <v-spacer></v-spacer>
           <v-btn
             color="green"
-            @click="showDialog = false"
+            @click="closeDialog"
             :disabled="isProcessing"
             text
           >
@@ -48,8 +51,10 @@
   </div>
 </template>
 <script>
+import SocialMedia from '~/mixins/social-media'
 export default {
   props: ['store'],
+  mixins: [SocialMedia],
   data() {
     const getUrl = socialNetworkName => {
       const { store } = this;
@@ -60,38 +65,38 @@ export default {
       options: [
         {
           name: 'reddit',
-          icon: 'fab fa-reddit',
           url: getUrl('reddit'),
+          modified: false,
           error: null
         },
         {
           name: 'twitter',
-          icon: 'fab fa-twitter',
           url: getUrl('twitter'),
+          modified: false,
           error: null
         },
         {
           name: 'telegram',
-          icon: 'fab fa-telegram',
           url: getUrl('telegram'),
+          modified: false,
           error: null
         },
         {
           name: 'facebook',
-          icon: 'fab fa-facebook',
           url: getUrl('facebook'),
+          modified: false,
           error: null
         },
         {
           name: 'instagram',
-          icon: 'fab fa-instagram',
           url: getUrl('instagram'),
+          modified: false,
           error: null
         },
         {
           name: 'linkedin',
-          icon: 'fab fa-linkedin',
           url: getUrl('linkedin'),
+          modified: false,
           error: null
         }
       ],
@@ -101,65 +106,64 @@ export default {
   },
   methods: {
     handleValueChange(value) {
-      console.log('handleValueChange.value: ', value);
       const index = this.options.findIndex(item => item === this.selected);
       if (index !== -1) {
         this.values[index] = value;
       }
+    },
+    handleUrlChange(index) {
+      if (this.options[index]) {
+        this.options[index].modified = true
+      }
+    },
+    reset() {
+      this.options
+        .forEach((item, index) => this.options[index].modified = false);
     },
     async onSubmit() {
       this.isProcessing = true;
       const socialArray = this.options
         .filter(social => social.url !== '')
         .filter(social => social.error === null)
-        .map(social => ({name: social.name, url: social.url}))
-      const payload = {
-        id: this.store.id,
-        socialArray: socialArray
-      };
+        .filter(social => social.modified)
+        .map(social => ({name: social.name, url: social.url}));
+
+      const socialToRemove = this.options
+        .filter(social => social.url === '')
+        .filter(social => social.modified)
+        .map(social => social.name);
+
       try {
-        await this.$store.dispatch('updateSocialMedia', payload);
-        const socialToRemove = this.options
-          .filter(social => social.url === '')
-          .map(social => social.name);
-        await this.$store.dispatch('removeSocialMedia', {id: this.store.id, socialToRemove})
+        if (socialArray.length) {
+          const updatePayload = { id: this.store.id, socialArray: socialArray };
+          await this.$store.dispatch('updateSocialMedia', updatePayload);
+        }
+
+        if (socialToRemove.length) {
+          const deletePayload = { id: this.store.id, socialToRemove }
+          await this.$store.dispatch('removeSocialMedia', deletePayload)
+        }
       } catch(err) {
         console.error('Error: ', err);
       } finally {
         this.isProcessing = false;
       }
+      this.reset();
+      this.showDialog = false;
+    },
+    closeDialog() {
+      this.reset();
       this.showDialog = false;
     }
   },
   computed: {
     availableOptions() {
-      console.log('availableOptions');
       const activeLinks = Object.keys(this.store.social);
       return this.options.filter(item => {
         const index = activeLinks.findIndex(present => present === item);
         return index === -1;
       })
     },
-    selectedValue: {
-        get() {
-          const index = this.options.findIndex(item => item === this.selected);
-          console.log('selectedValue.get. index: ', index);
-          if (index !== -1) {
-            if (this.values[index]) {
-              console.log('returning: ', this.values[index]);
-            } else {
-              console.log('null value detected, returning empty string');
-              return '';
-            }
-          }
-          return '';
-        },
-        set(val) {
-          console.log('selectedValue.set.val: ', val);
-          const index = this.options.findIndex(item => item === this.selected);
-          this.values[index] = val;
-        }
-    }
   }
 }
 </script>

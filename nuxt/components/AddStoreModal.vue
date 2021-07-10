@@ -27,8 +27,10 @@
           </v-layout>
           <Success
             v-if="isPaid"
-            :tweet="tweet"
             :confirm_title="confirm_title"
+            :tweet="tweet"
+            :message="successModalMessage"
+            :store="successModalStore"
             @cancel="cancel"
           />
 
@@ -216,6 +218,8 @@ export default {
       tweet: null,
 
       checkPaymentTimer: null,
+      successModalMessage: '',
+      successModalStore: {}
     }
   },
   computed: {
@@ -270,6 +274,10 @@ export default {
       }
     },
     async submitAdd() {
+      if(this.isLoading) {
+          console.log('Tried to submit twice')
+          return
+      }
       let token = null
       this.$refs.addform.validate()
       try {
@@ -293,62 +301,52 @@ export default {
           })
           .then(
             (response) => {
-              if (
-                response.message.includes(
-                  'Please pay this anti-spam fee or ask for a contributor code.'
-                )
-              ) {
-                this.confirm_title = 'Store successfully added.'
+              if (response.status=='success' && !response.data.submitted) {
                 this.paymentRequest = response.data.payment_request
                 this.paymentID = response.data.invoiceID
-
+                
                 let date = new Date()
-                this.expiryTime = new Date(
-                  date.setSeconds(date.getSeconds() + 3600)
-                )
-                this.checkPaymentTimer = setInterval(() => {
-                  this.checkPayment()
-                }, 3000)
-              } else if (response.data.submitted == true) {
-                this.confirm_title = response.message
-                this.isPaid = true
-
+                this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600))
+                this.checkPaymentTimer = setInterval(() => {this.checkPayment()}, 3000)
+              } else if (response.status=='success' && response.data.submitted) {
                 this.addDialogForm = {}
-
-                if (response.data.tweet !== undefined) {
-                  this.tweet = response.data.tweet
+                this.confirm_title = 'Store successfully added.'
+                if (response.data.tweet) {
+                    this.tweet = response.data.tweet
                 }
-
-              } else if (response.status === 'fail') {
+                this.successModalMessage = response.message
+                this.successModalStore = {id: response.data.storeID, name: response.data.name, rooturl: response.data.rooturl}
+                this.isPaid = true
+              } else {
                 this.addAlert.message = response.message
                 this.addAlert.success = false
-              } else {
-                this.addAlert.message = response.data
-                this.addAlert.success = false
               }
-
               this.isLoading = false
             },
             (error) => {
               console.error(error)
               this.isLoading = false
+              this.addAlert.message = error.response.message
+              this.addAlert.success = false
             }
           )
       }
     },
     checkPayment() {
-      //todo: check if payment is done
       if (this.expiryTime > new Date()) {
         this.$store.dispatch('checkPayment', { id: this.paymentID }).then(
           (response) => {
             if (response.data.paid == true) {
-              this.isPaid = true
-              this.addDialogForm = {}
               clearInterval(this.checkPaymentTimer)
-
-              if (response.data.tweet !== undefined) {
-                this.tweet = response.data.tweet
+              this.successModalMessage = response.message
+              if(response.data.storeID && response.data.name && response.data.rooturl){
+                  this.successModalStore = {id: response.data.storeID, name: response.data.name, rooturl: response.data.rooturl}
               }
+              
+              if (response.data.tweet) {
+                  this.tweet = response.data.tweet
+              }
+              this.isPaid = true
             } else {
               this.isPaid = false
             }
