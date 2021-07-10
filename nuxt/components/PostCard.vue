@@ -29,7 +29,7 @@
           </span>
         </v-flex>
         <v-flex grow pa-2 class="text-right"
-          >{{ getISOStringWithoutSecsAndMillisecs(new Date(post.timestamp)) }}
+          >{{ new Date(post.timestamp) | formatDate }}
         </v-flex>
         <v-flex shrink pr-2 pt-2>
           <vote-line
@@ -92,12 +92,6 @@ export default {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
-    },
-    getISOStringWithoutSecsAndMillisecs(date) {
-      const dateAndTime = date.toISOString().split('T')
-      const time = dateAndTime[1].split(':')
-      //   return '000000'
-      return dateAndTime[0] + ' ' + time[0] + ':' + time[1]
     },
     getPillColor(id) {
       const hex = Buffer.from(id, 'base64').toString('hex')
