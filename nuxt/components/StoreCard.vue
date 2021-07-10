@@ -31,6 +31,13 @@
               class="ma-2"
               >New comment</v-chip
             >
+             <v-chip
+              v-if="store.event"
+              color="blue"
+              text-color="white"
+              class="ma-2"
+              >Event</v-chip
+            >
           </v-img>
         </div>
         <div class="score">
