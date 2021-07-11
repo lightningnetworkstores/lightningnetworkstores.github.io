@@ -6,13 +6,13 @@
           v-if="post.text"
           pl-2
           class="comment-text"
-          :inner-html.prop="post.text | toHtml | tagUser"
+          :inner-html.prop="postText | toHtml | tagUser"
         ></v-flex>
         <v-flex
           v-if="post.comment"
           pl-2
           class="comment-text"
-          :inner-html.prop="post.comment | toHtml | tagUser"
+          :inner-html.prop="postComment | toHtml | tagUser"
         ></v-flex>
       </v-layout>
 
@@ -83,7 +83,19 @@ export default {
       default: '',
     },
   },
+  computed: {
+    postComment() {
+      return this.limitParagraphs(this.post.comment, 5)
+    },
+    postText() {
+      return this.limitParagraphs(this.post.text, 5)
+    }
+  },
   methods: {
+    limitParagraphs(text, limit) {
+      return text.split('\n').slice(0, limit).join('\n')
+        + text.split('\n').slice(limit).join('. ')
+    },
     getPillColor(id) {
       const hex = Buffer.from(id, 'base64').toString('hex')
       return `#${hex.substring(0, 6)}`
