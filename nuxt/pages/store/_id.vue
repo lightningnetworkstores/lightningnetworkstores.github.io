@@ -283,24 +283,24 @@
               :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
-          <Review
+          <Thread
             v-for="review in reviews"
             :key="review[0].id"
             :comment="review[0]"
             :comments="review"
             :store="selectedStore"
             :type="'comment'"
-          ></Review>
+          ></Thread>
 
           <div v-if="discussions.length>0" class="headline font-weight-medium"> <v-layout justify-center class="mt-4 mb-2"><h2>Discussions</h2></v-layout></div>
           <div v-for="(discussion, index) in discussions" :key="index">
-            <Review
+            <Thread
               :comment="discussion[0]"
               :comments="discussion.slice(1)"
               :store="selectedStore"
               :type="'discussion'"
               :onlyShowLast="2"
-            ></Review>
+            ></Thread>
           </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>

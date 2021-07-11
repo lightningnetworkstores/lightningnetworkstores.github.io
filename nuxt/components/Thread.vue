@@ -74,7 +74,7 @@
         v-for="subComment in commentsArr"
         :key="subComment.id"
       >
-        <PostCard
+        <Reply
           :post="subComment"
           :parentReview="comment.id"
           :store="store"
@@ -87,9 +87,9 @@
 
 <script>
 import VoteLine from './VoteLine.vue'
-import PostCard from '@/components/PostCard.vue'
+import Reply from '@/components/Reply.vue'
 export default {
-  components: { VoteLine, PostCard },
+  components: { VoteLine, Reply },
   props: ['store', 'comment', 'comments', 'type', 'onlyShowLast'],
   computed: {
     commentsArr() {

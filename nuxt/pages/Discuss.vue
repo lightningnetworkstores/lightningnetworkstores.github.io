@@ -13,13 +13,13 @@
             :store="discussion.store"
           >
           </store-card>
-          <Review
+          <Thread
             class="store-card"
             :comment="discussion.reviews[0]"
             :comments="discussion.reviews.slice(1)"
             :store="discussion.store"
           >
-          </Review>
+          </Thread>
         </v-row>
       </v-container>
     </v-flex>

@@ -14,7 +14,7 @@
             :className="$style['store-row']"
           >
             <template slot="item" slot-scope="{ slotScope: discussion }">
-              <Review
+              <Thread
                 class="store-card"
                 :store="{}"
                 :comment="discussion[0]"
@@ -22,7 +22,7 @@
                 :type="'discussion'"
                 :onlyShowLast="2"
               >
-              </Review>
+              </Thread>
             </template>
           </LazyListCards>
         </v-col>
@@ -44,7 +44,7 @@
                 :store="discussion.store"
               >
               </store-card>
-              <Review
+              <Thread
                 class="store-card"
                 :comment="
                   discussion.reviews
@@ -59,7 +59,7 @@
                 :store="discussion.store"
                 :type="discussion.reviews ? 'comment' : 'discussion'"
               >
-              </Review>
+              </Thread>
             </template>
           </LazyListCards>
         </v-col>

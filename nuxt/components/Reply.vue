@@ -60,7 +60,7 @@
 
 <script>
 export default {
-  name: 'PostCard',
+  name: 'Reply',
   props: {
     post: {
       type: Object,
