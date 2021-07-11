@@ -6,13 +6,13 @@
           v-if="post.text"
           pl-2
           class="comment-text"
-          v-html="commentText(post.text.replace(/\+/g, ' '))"
+          :inner-html.prop="post.text | toHtml | tagUser"
         ></v-flex>
         <v-flex
           v-if="post.comment"
           pl-2
           class="comment-text"
-          v-html="commentText(post.comment.replace(/\+/g, ' '))"
+          :inner-html.prop="post.text | toHtml | tagUser"
         ></v-flex>
       </v-layout>
 
@@ -84,21 +84,6 @@ export default {
     },
   },
   methods: {
-    commentText(comment) {
-      return comment.startsWith('@')
-        ? "<span class='user-tag'>" +
-            this.htmlEntities(comment.substring(0, 6)) +
-            '</span>' +
-            this.htmlEntities(comment.substring(6, comment.length))
-        : this.htmlEntities(comment)
-    },
-    htmlEntities(input) {
-      return String(input)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-    },
     getPillColor(id) {
       const hex = Buffer.from(id, 'base64').toString('hex')
       return `#${hex.substring(0, 6)}`
