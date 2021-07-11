@@ -182,7 +182,7 @@ export default {
     },
     {
       src: '~/plugins/filters.js',
-      ssr: false,
+      ssr: true,
     },
     {
       src: '~/plugins/socialMediaColors.js',
