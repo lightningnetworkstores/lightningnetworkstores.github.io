@@ -12,7 +12,7 @@
           v-if="post.comment"
           pl-2
           class="comment-text"
-          :inner-html.prop="post.text | toHtml | tagUser"
+          :inner-html.prop="post.comment | toHtml | tagUser"
         ></v-flex>
       </v-layout>
 
