@@ -48,46 +48,56 @@
           </v-layout>
           <div v-if="!successfulClaim">
             <v-layout v-if="message" ma-4 justify-center
-                ><h3>{{ message }}</h3></v-layout
+              ><h3>{{ message }}</h3></v-layout
             >
             <v-layout row pa-3 justify-center>
-                <vue-hcaptcha
+              <vue-hcaptcha
                 ref="invisibleHcaptcha"
                 sitekey="327adc75-957d-4063-9cf3-c4999bead7dd"
                 size="invisible"
                 theme="dark"
                 @verify="onVerify"
-                />
-                <v-btn depressed color="orange" @click="runCaptcha">
+              />
+              <v-btn depressed color="orange" @click="runCaptcha">
                 Get {{ claimAmount }} sat
-                </v-btn>
+              </v-btn>
             </v-layout>
             <v-layout justify-center ma-3>
-                <FaucetExplainerModal />
+              <FaucetExplainerModal />
             </v-layout>
           </div>
           <div v-if="successfulClaim">
-
-              <v-container>
-                <v-layout  ma-4 justify-center
+            <v-row>
+              <v-col cols="12" md="6" sm="12">
+                <v-layout ma-4 justify-center
                   ><h2>Stack more sats</h2>
                 </v-layout>
-                <v-row ma-2 justify-center
-                 v-for="(store, index) in stackSatsStores"
-                 :key="store.id">
-                    <StoreCard :store="store"/>
+                <v-row ma-2 v-for="store in stackSatsStores" :key="store.id">
+                  <v-col cols="12" sm="12">
+                    <v-layout justify-center>
+                      <StoreCard :class="$style['store-card']" :store="store" />
+                    </v-layout>
+                  </v-col>
                 </v-row>
-              </v-container>
-              <v-container>
-                <v-layout  ma-4 pa-2 justify-center
+              </v-col>
+              <v-col cols="12" md="6" sm="12">
+                <v-layout ma-2 pa-2 justify-center
                   ><h2>Spend some sats</h2>
                 </v-layout>
-                 <v-row ma-4 pa-2 justify-center
-                 v-for="(store, index) in spendSatsStores"
-                 :key="store.id">
-                    <StoreCard :store="store"/>
+                <v-row
+                  ma-4
+                  pa-2
+                  v-for="store in spendSatsStores"
+                  :key="store.id"
+                >
+                  <v-col cols="12" sm="12">
+                    <v-layout justify-center>
+                      <StoreCard :class="$style['store-card']" :store="store" />
+                    </v-layout>
+                  </v-col>
                 </v-row>
-              </v-container>
+              </v-col>
+            </v-row>
           </div>
         </v-container>
       </v-flex>
@@ -224,7 +234,7 @@ export default {
       this.throttle = response.data.data.throttle
       if (response.data.message) this.message = response.data.message
       this.configuration = response.data.data.configuration
-      if(this.throttle <= 0.1) this.$recaptcha.init()
+      if (this.throttle <= 0.1) this.$recaptcha.init()
     })
   },
   computed: {
@@ -237,12 +247,14 @@ export default {
       this.hCaptchaToken = hCaptchaToken
       this.$store
         .dispatch('faucetClaim', { hCaptchaToken: this.hCaptchaToken })
-        .then((resp) => {this.processFaucetClaim(resp)})
+        .then((resp) => {
+          this.processFaucetClaim(resp)
+        })
     },
-    processFaucetClaim(response){
-        this.showCheckoutModal = true
-        this.paymentRequest = response.data.data['lnurl-withdraw']
-        this.checkClaimMethod(response.data.data.claimID)
+    processFaucetClaim(response) {
+      this.showCheckoutModal = true
+      this.paymentRequest = response.data.data['lnurl-withdraw']
+      this.checkClaimMethod(response.data.data.claimID)
     },
     checkClaimMethod(claimID) {
       this.interval = setInterval(() => {
@@ -265,13 +277,15 @@ export default {
       }, 5000)
     },
     async runCaptcha() {
-      if(this.throttle >= 0.1){
+      if (this.throttle >= 0.1) {
         this.$refs.invisibleHcaptcha.execute()
       } else {
         this.recaptchaToken = await this.$recaptcha.execute('faucet_claim')
         this.$store
-        .dispatch('faucetClaim', { recaptchaToken: this.recaptchaToken })
-        .then((resp) => {this.processFaucetClaim(resp)})
+          .dispatch('faucetClaim', { recaptchaToken: this.recaptchaToken })
+          .then((resp) => {
+            this.processFaucetClaim(resp)
+          })
       }
     },
     handleCancel() {
@@ -281,7 +295,7 @@ export default {
     },
     handleDonorClick(item) {
       if (item.url) {
-        window.open(item.url, '_blank');
+        window.open(item.url, '_blank')
       }
     },
     closeDonationDialog() {
@@ -296,5 +310,10 @@ tr.clickable {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.store-card {
+  max-width: 600px;
+  width: 100%;
 }
 </style>
