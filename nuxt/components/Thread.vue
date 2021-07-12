@@ -36,7 +36,7 @@
         </v-col>
       </v-row>
 
-      <v-layout row pl-4 pr-4 mt-0 class="caption comment-extra">
+      <v-layout row pl-4 pr-4 mt-0 class="caption">
         <v-flex grow pa-2>ID: {{ comment.id.substring(0, 8) }} </v-flex>
         <v-flex grow pa-2 class="text-right">
           {{ new Date(comment.timestamp) | dateFormat }}
@@ -55,9 +55,6 @@
           ></vote-line>
         </v-flex>
       </v-layout>
-      <!-- .sort((a, b) => {
-                            return Math.abs(a.score) - Math.abs(b.score);
-                        }) -->
       <v-flex v-if="comments && comments.length > onlyShowLast">
         <v-card class="py-6 my-4 text-center">
           <v-icon large>mdi-dots-horizontal</v-icon>
@@ -126,9 +123,6 @@ export default {
 .user-tag {
   background-color: #dddddd;
 }
-//.comment-extra {
-// color: rgba(0, 0, 0, 0.5);
-//}
 .comment-text {
   -ms-word-break: break-all;
   word-break: break-all;
