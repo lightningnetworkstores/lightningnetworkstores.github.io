@@ -39,7 +39,7 @@
       <v-layout row pl-4 pr-4 mt-0 class="caption">
         <v-flex grow pa-2>ID: {{ comment.id.substring(0, 8) }} </v-flex>
         <v-flex grow pa-2 class="text-right">
-          {{ new Date(comment.timestamp) | dateFormat }}
+          {{ new Date(comment.timestamp) | formatDate }}
         </v-flex>
         <v-flex shrink pr-2 pt-2>
           <vote-line
