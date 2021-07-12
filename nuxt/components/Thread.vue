@@ -38,10 +38,8 @@
 
       <v-layout row pl-4 pr-4 mt-0 class="caption comment-extra">
         <v-flex grow pa-2>ID: {{ comment.id.substring(0, 8) }} </v-flex>
-        <v-flex grow pa-2 class="text-right"
-          >{{
-            getISOStringWithoutSecsAndMillisecs(new Date(comment.timestamp))
-          }}
+        <v-flex grow pa-2 class="text-right">
+          {{ new Date(comment.timestamp) | dateFormat }}
         </v-flex>
         <v-flex shrink pr-2 pt-2>
           <vote-line
@@ -111,28 +109,6 @@ export default {
   },
   mounted() {},
   methods: {
-    commentText(comment) {
-      return comment.startsWith('@')
-        ? "<span class='user-tag'>" +
-            this.htmlEntities(comment.substring(0, 6)) +
-            '</span>' +
-            this.htmlEntities(comment.substring(6, comment.length))
-        : this.htmlEntities(comment)
-    },
-    htmlEntities(input) {
-      return String(input)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-    },
-
-    getISOStringWithoutSecsAndMillisecs(date) {
-      const dateAndTime = date.toISOString().split('T')
-      const time = dateAndTime[1].split(':')
-      //   return '000000'
-      return dateAndTime[0] + ' ' + time[0] + ':' + time[1]
-    },
     gotoDiscussion(discussion_id) {
       if (this.type === 'discussion') {
         this.$router.push(`/discuss/${discussion_id}`)
