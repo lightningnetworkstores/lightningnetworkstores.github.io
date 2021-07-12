@@ -46,24 +46,49 @@
               </template>
             </v-data-table>
           </v-layout>
-          <v-layout v-if="message" ma-4 justify-center
-            ><h3>{{ message }}</h3></v-layout
-          >
-          <v-layout row pa-3 justify-center>
-            <vue-hcaptcha
-              ref="invisibleHcaptcha"
-              sitekey="327adc75-957d-4063-9cf3-c4999bead7dd"
-              size="invisible"
-              theme="dark"
-              @verify="onVerify"
-            />
-            <v-btn depressed color="orange" @click="runCaptcha">
-              Get {{ claimAmount }} sat
-            </v-btn>
-          </v-layout>
-          <v-layout justify-center ma-3>
-            <FaucetExplainerModal />
-          </v-layout>
+          <div v-if="!successfulClaim">
+            <v-layout v-if="message" ma-4 justify-center
+                ><h3>{{ message }}</h3></v-layout
+            >
+            <v-layout row pa-3 justify-center>
+                <vue-hcaptcha
+                ref="invisibleHcaptcha"
+                sitekey="327adc75-957d-4063-9cf3-c4999bead7dd"
+                size="invisible"
+                theme="dark"
+                @verify="onVerify"
+                />
+                <v-btn depressed color="orange" @click="runCaptcha">
+                Get {{ claimAmount }} sat
+                </v-btn>
+            </v-layout>
+            <v-layout justify-center ma-3>
+                <FaucetExplainerModal />
+            </v-layout>
+          </div>
+          <div v-if="successfulClaim">
+
+              <v-container>
+                <v-layout  ma-4 justify-center
+                  ><h2>Stack more sats</h2>
+                </v-layout>
+                <v-row ma-2 justify-center
+                 v-for="(store, index) in stackSatsStores"
+                 :key="store.id">
+                    <StoreCard :store="store"/>
+                </v-row>
+              </v-container>
+              <v-container>
+                <v-layout  ma-4 pa-2 justify-center
+                  ><h2>Spend some sats</h2>
+                </v-layout>
+                 <v-row ma-4 pa-2 justify-center
+                 v-for="(store, index) in spendSatsStores"
+                 :key="store.id">
+                    <StoreCard :store="store"/>
+                </v-row>
+              </v-container>
+          </div>
         </v-container>
       </v-flex>
     </v-layout>
@@ -83,19 +108,19 @@
     </v-dialog>
     <v-dialog persistent v-model="showDialog" max-width="500">
       <v-card>
-        <v-card-title v-if="openClaim" class="text-h5"
+        <v-card-title v-if="showCheckoutModal" class="text-h5"
           >Get sats via LNURL</v-card-title
         >
         <v-card-title v-else class="text-h5">You got sats!</v-card-title>
 
         <v-card-text>
           <Checkout
-            v-if="openClaim"
+            v-if="showCheckoutModal"
             :satoshi="claimAmount"
             :paymentRequest="paymentRequest"
             @cancel="handleCancel"
           />
-          <Success v-if="successfulClaim" @cancel="handleCancel" />
+          <Success v-if="showSuccessModal" @cancel="handleCancel" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -168,11 +193,16 @@ export default {
     message: '',
     topDonors: [],
     claimAmount: null,
+    throttle: 0,
     donorDialog: false,
-    token: null,
-    openClaim: false,
+    hCaptchaToken: null,
+    recaptchaToken: null,
+    showCheckoutModal: false,
+    showSuccessModal: false,
     successfulClaim: false,
     paymentRequest: '',
+    stackSatsStores: [],
+    spendSatsStores: [],
     interval: null,
     configuration: {
       maximum_donation_timeout_days: 50,
@@ -191,26 +221,28 @@ export default {
         (d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim']
       )
       this.claimAmount = response.data.data.claim
+      this.throttle = response.data.data.throttle
       if (response.data.message) this.message = response.data.message
       this.configuration = response.data.data.configuration
+      if(this.throttle <= 0.1) this.$recaptcha.init()
     })
   },
   computed: {
     showDialog() {
-      return this.openClaim || this.successfulClaim
+      return this.showCheckoutModal || this.showSuccessModal
     },
   },
   methods: {
-    onVerify(token, ekey) {
-      this.token = token
+    onVerify(hCaptchaToken, ekey) {
+      this.hCaptchaToken = hCaptchaToken
       this.$store
-        .dispatch('faucetClaim', { token: this.token })
-        .then((resp) => {
-          this.openClaim = true
-          this.paymentRequest = resp.data.data['lnurl-withdraw']
-          this.checkClaimMethod(resp.data.data.claimID)
-          console.log(resp.data.data['lnurl-withdraw'])
-        })
+        .dispatch('faucetClaim', { hCaptchaToken: this.hCaptchaToken })
+        .then((resp) => {this.processFaucetClaim(resp)})
+    },
+    processFaucetClaim(response){
+        this.showCheckoutModal = true
+        this.paymentRequest = response.data.data['lnurl-withdraw']
+        this.checkClaimMethod(response.data.data.claimID)
     },
     checkClaimMethod(claimID) {
       this.interval = setInterval(() => {
@@ -219,7 +251,11 @@ export default {
             if (response.data.claim_status == 'PAID') {
               clearInterval(this.interval)
               this.successfulClaim = true
-              this.openClaim = false
+              this.showSuccessModal = true
+              this.showCheckoutModal = false
+              this.paymentRequest = ''
+              this.stackSatsStores = response.data.stack_sats
+              this.spendSatsStores = response.data.spend_sats
             }
           },
           (error) => {
@@ -228,18 +264,24 @@ export default {
         )
       }, 5000)
     },
-    runCaptcha() {
-      this.$refs.invisibleHcaptcha.execute()
+    async runCaptcha() {
+      if(this.throttle >= 0.1){
+        this.$refs.invisibleHcaptcha.execute()
+      } else {
+        this.recaptchaToken = await this.$recaptcha.execute('faucet_claim')
+        this.$store
+        .dispatch('faucetClaim', { recaptchaToken: this.recaptchaToken })
+        .then((resp) => {this.processFaucetClaim(resp)})
+      }
     },
     handleCancel() {
-      this.successfulClaim = false
-      this.openClaim = false
-      this.paymentRequest = ''
+      this.showCheckoutModal = false
+      this.showSuccessModal = false
       if (this.interval != null) clearInterval(this.interval)
     },
     handleDonorClick(item) {
       if (item.url) {
-        location.href = item.url
+        window.open(item.url, '_blank');
       }
     },
     closeDonationDialog() {

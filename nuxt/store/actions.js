@@ -264,9 +264,11 @@ const actions = {
       })
       .catch(console.error)
   },
-  faucetClaim({ state, commit }, { token: token }) {
+  faucetClaim({ state, commit }, { hCaptchaToken: hCaptchaToken, recaptchaToken: recaptchaToken}) {
     return axios
-      .get(`${state.baseURL}api/lnurl1?h-captcha-response=${token}`)
+      .get(`${state.baseURL}api/lnurl1?
+      ${hCaptchaToken ? '&h-captcha-response=' + hCaptchaToken : ''}
+      ${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`)
       .then((response) => {
         if (response.status === 200) {
           return response

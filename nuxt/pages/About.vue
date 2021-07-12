@@ -173,6 +173,19 @@
             </p>
           </v-layout>
           <v-layout row>
+            <h4>
+              Why do you have a bitcoin faucet?</a>
+            </h4>
+          </v-layout>
+          <v-layout row>
+            <p>
+              We think that it's much better to have a faucet than to spend money on advertising. We aim to always give away at least 
+              1 satoshi. Most faucets so far have failed or been emptied due to poor abuse prevention measures. Our faucet was designed to distribute 
+              bitcoin to many users while blocking robots and users abusive users.
+            </p>
+          </v-layout>
+
+          <v-layout row>
             <h2>Acknowledgements</h2>
           </v-layout>
           <v-layout row>
