@@ -288,25 +288,23 @@ const actions = {
     const lsKey = `lns_likes`
     let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? {}
 
+    likedStores[storeId] = remove ? false : true
+    localStorage.setItem(lsKey, JSON.stringify(likedStores))
+
+    commit('setLikeCounter', { storeId, remove })
+    commit('updateLikedStores', { storeId, remove })
+
     return axios({
       method: 'post',
       url: `${state.baseURL}api/like?storeID=${storeId}&remove=${remove}`,
     }).then((res) => {
-      if (res.status === 202) {
-        // Store was already liked/unliked, we just didn't know about this
-        commit('updateLikedStores', { storeId, remove })
-        const likes = res.data.data.likes
+      if (res.status !== 200 && res.status !== 202) {
+        commit('setLikeCounter', { storeId, remove: !remove })
+        commit('updateLikedStores', { storeId, remove: !remove })
 
-        // This line sync the likes from the server with the localStorage
+        // These lines sync the likes from the server with the localStorage
+        // const likes = res.data.data.likes
         // commit('setStoreLikes', syncLikesFromServer(likes, likedStores, lsKey))
-      } else if (res.status === 200) {
-        // Store 'like' status was changed successfully
-        likedStores[storeId] = remove ? false : true
-        localStorage.setItem(lsKey, JSON.stringify(likedStores))
-        commit('setLikeCounter', { storeId, remove })
-        commit('updateLikedStores', { storeId, remove })
-      } else {
-        console.warn('Unhndled case')
       }
     })
   },
