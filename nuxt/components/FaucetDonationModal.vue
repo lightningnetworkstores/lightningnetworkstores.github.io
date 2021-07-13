@@ -93,8 +93,8 @@
             if (this.message) {
                 requestObj['message'] = this.message
             }
-            if (this.URL) {
-                requestObj['URL'] = this.URL
+            if (this.url) {
+                requestObj['url'] = this.url
             }
 
           this.$store.dispatch('doFaucetDonation', { data: requestObj } ).then((response) => {
