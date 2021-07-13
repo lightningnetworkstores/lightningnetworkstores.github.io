@@ -67,7 +67,7 @@
       >
     </div>
     <template class="comment" v-if="parentComment">
-      <a @click="reply()">Reply</a>
+      <a @click.stop="reply()">Reply</a>
     </template>
     <!-- Upvote store modal -->
     <v-dialog
@@ -112,7 +112,13 @@
               <span v-if="parentReview && !parentComment && !isReviewUpvote"
                 >Reinforce negative review & downvote</span
               >
-              <span v-if="parentComment">Reply</span>
+              <span
+                v-if="
+                  (parentComment && type === 'comment') ||
+                  type === 'comment reply'
+                "
+                >Reply</span
+              >
 
               <v-flex class="corner-loading" v-if="paymentRequest && !isPaid"
                 ><v-progress-circular
@@ -149,8 +155,11 @@
                     rows="4"
                     :rules="[
                       (v) =>
-                        v.length <= this.$store.state.configuration.max_comment_size ||
-                        'Review has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
+                        v.length <=
+                          this.$store.state.configuration.max_comment_size ||
+                        'Review has to be shorter than ' +
+                          this.$store.state.configuration.max_comment_size +
+                          ' characters',
                     ]"
                   ></v-textarea>
                 </v-flex>
@@ -162,9 +171,15 @@
                   pr-3
                   v-if="!paymentRequest.length && parentComment"
                 >
-                  Cost: {{ upvoteDialogForm.amount }} satoshis
+                  <div v-if="type === 'comment' || type === 'comment reply'">
+                    Cost: {{ upvoteDialogForm.amount }} satoshis
+                  </div>
                   <v-textarea
-                    v-if="parentReview && parentComment"
+                    v-if="
+                      (parentReview && parentComment) ||
+                      type === 'discussion' ||
+                      type === 'discussion reply'
+                    "
                     v-model="upvoteDialogForm.comment"
                     type="text"
                     :counter="this.$store.state.configuration.max_comment_size"
@@ -172,8 +187,11 @@
                     rows="4"
                     :rules="[
                       (v) =>
-                        v.length <= this.$store.state.configuration.max_comment_size ||
-                        'Reply has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
+                        v.length <=
+                          this.$store.state.configuration.max_comment_size ||
+                        'Reply has to be shorter than ' +
+                          this.$store.state.configuration.max_comment_size +
+                          ' characters',
                       (v) => !!v || 'Reply is required',
                     ]"
                   ></v-textarea>
@@ -219,11 +237,16 @@ export default {
     isReviewUpvote: { required: false },
     isReplyToSubComment: { required: false },
     sort: { required: false },
+    type: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       score: {},
       isUpvoting: true,
+      recaptchaToken: null,
 
       showDialog: false,
       upvoteDialogForm: { amount: 0, comment: '' },
@@ -237,7 +260,7 @@ export default {
       checkPaymentTimer: null,
 
       commentAlert: { message: '', success: false },
-      warningMessage: false,
+      warningMessage: '',
     }
   },
   computed: {
@@ -305,9 +328,68 @@ export default {
       this.paymentID = ''
       this.commentAlert.message = ''
     },
+    storeVotePaymentRequest() {
+      this.$store
+        .dispatch('getStoreVotePaymentRequest', {
+          id: this.store.id,
+          amount: this.upvoteDialogForm.amount,
+          isUpvote: this.isUpvoting,
+          comment: this.encodedComment,
+          parent: this.parentReview,
+          recaptchaToken: this.recaptchaToken,
+        })
+        .then(
+          (response) => {
+            this.upvoteDialogForm.amount = response.amount
+            this.paymentRequest = response.payment_request
+            if (response.message) this.warningMessage = response.message
+            this.paymentID = response.id
+            let date = new Date()
+            this.expiryTime = new Date(
+              date.setSeconds(date.getSeconds() + 3600)
+            )
+            this.checkPaymentTimer = setInterval(() => {
+              this.checkPayment()
+            }, 3000)
+          },
+          (error) => {
+            console.error(error)
+          }
+        )
+    },
+
+    discussionReplyPaymentRequest() {
+      let payload = {
+        parent:
+          this.type === 'discussion' ? this.parentComment : this.parentReview,
+        comment: this.encodedComment,
+      }
+      if (this.store && this.store.id) {
+        payload.storeID = this.store.id
+      }
+      this.$store.dispatch('getDiscussionReplyPaymentRequest', payload).then(
+        (response) => {
+          if (response.status === 'success') {
+            this.upvoteDialogForm.amount = response.data.amount
+            this.paymentRequest = response.data.payment_request
+            this.paymentID = response.data.id
+            let date = new Date()
+            this.expiryTime = new Date(
+              date.setSeconds(date.getSeconds() + 3600)
+            )
+            this.checkPaymentTimer = setInterval(() => {
+              this.checkPayment()
+            }, 3000)
+          }
+        },
+        (error) => {
+          console.error(error)
+        }
+      )
+    },
 
     async getInvoice() {
-      this.warningMessage = false
+      this.warningMessage = ''
       // validations
       if (
         this.upvoteDialogForm.comment.indexOf('>') > -1 ||
@@ -337,50 +419,34 @@ export default {
       } // end validation
 
       this.commentAlert.message = ''
-      let recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(this.encodedComment, this.upvoteDialogForm.amount)
 
-      this.$store
-        .dispatch('getStoreVotePaymentRequest', {
-          id: this.store.id,
-          amount: this.upvoteDialogForm.amount,
-          isUpvote: this.isUpvoting,
-          comment: this.encodedComment,
-          parent: this.parentReview,
-          recaptchaToken: recaptchaToken
-        })
-        .then(
-          (response) => {
-            this.upvoteDialogForm.amount = response.amount
-            this.paymentRequest = response.payment_request
-            if (response.message) this.warningMessage = response.message
-            this.paymentID = response.id
-            let date = new Date()
-            this.expiryTime = new Date(
-              date.setSeconds(date.getSeconds() + 3600)
-            )
-            this.checkPaymentTimer = setInterval(() => {
-              this.checkPayment()
-            }, 3000)
-          },
-          (error) => {
-            console.error(error)
-          }
-        )
+      if (this.type === 'comment' || this.type === 'comment reply') {
+        this.storeVotePaymentRequest()
+      } else if (
+        this.type === 'discussion' ||
+        this.type === 'discussion reply'
+      ) {
+        this.discussionReplyPaymentRequest()
+      }
+      this.recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(
+        this.encodedComment,
+        this.upvoteDialogForm.amount
+      )
     },
-    getRecaptchaTokenIfLowValueComment(review, reviewAmount){
-        let minSkipCaptcha = 500
-        try{
-            let configValue = this.$store.state.configuration.min_skip_captcha
-            if(configValue) minSkipCaptcha = configValue
-        } catch(error){}
+    getRecaptchaTokenIfLowValueComment(review, reviewAmount) {
+      let minSkipCaptcha = 500
+      try {
+        let configValue = this.$store.state.configuration.min_skip_captcha
+        if (configValue) minSkipCaptcha = configValue
+      } catch (error) {}
 
-        if(reviewAmount >= minSkipCaptcha){
-            return null;
-        } else if(!review){
-            return null
-        } else {
-            return this.$recaptcha.execute('low_value_comment')
-        }
+      if (reviewAmount >= minSkipCaptcha) {
+        return null
+      } else if (!review) {
+        return null
+      } else {
+        return this.$recaptcha.execute('low_value_comment')
+      }
     },
     checkPayment() {
       //todo: check if payment is done

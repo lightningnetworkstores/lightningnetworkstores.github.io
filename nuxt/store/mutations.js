@@ -71,12 +71,22 @@ const mutations = {
   },
   updateStoreHomeImage(state, { position }) {
     // Disabling previous home
-    const currentIndex = state.selectedStore.media.main.findIndex(item => item.homepage)
-    const currentHome = state.selectedStore.media.main.find(item => item.homepage)
-    Vue.set(state.selectedStore.media.main, currentIndex, {...currentHome, homepage: false})
+    const currentIndex = state.selectedStore.media.main.findIndex(
+      (item) => item.homepage
+    )
+    const currentHome = state.selectedStore.media.main.find(
+      (item) => item.homepage
+    )
+    Vue.set(state.selectedStore.media.main, currentIndex, {
+      ...currentHome,
+      homepage: false,
+    })
     // Enabling new home image
     const newHome = state.selectedStore.media.main[position]
-    Vue.set(state.selectedStore.media.main, position, {...newHome, homepage: true})
+    Vue.set(state.selectedStore.media.main, position, {
+      ...newHome,
+      homepage: true,
+    })
   },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
@@ -88,7 +98,9 @@ const mutations = {
     state.wallets = wallets
   },
   setDiscussions(state, discussions) {
-    state.discussions = discussions
+    state.activeStoreDiscussions = discussions.last_active_stores
+    state.lastDiscussions = discussions.last_discussions
+    state.storeEvents = discussions.last_events
   },
   setFaucetStats(state, faucetStats) {
     state.faucetStats = faucetStats
@@ -153,6 +165,9 @@ const mutations = {
   },
   updateAnnouncements(state, announcements) {
     state.announcements = announcements
+  },
+  updateStoreSummary(state, summary) {
+    state.storeSummary = summary
   },
 }
 
