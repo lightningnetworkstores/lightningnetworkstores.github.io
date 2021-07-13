@@ -202,10 +202,6 @@ export default {
       ssr: true,
     },
     {
-      src: '~/plugins/socialMediaColors.js',
-      ssr: true,
-    },
-    {
       src: '~/plugins/utils.js',
       ssr: true,
     },
