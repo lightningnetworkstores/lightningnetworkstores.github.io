@@ -4,7 +4,11 @@
     @click.stop="handleLike(store.id)"
   >
     <div class="d-flex icon-section">
-      <like-icon :filled="storeIsLiked" class="mr-1 text-red" />
+      <like-icon
+        :filled="storeIsLiked"
+        class="mr-1 text-red"
+        :key="Date.now()"
+      />
       {{ store.likes }}
     </div>
   </div>
