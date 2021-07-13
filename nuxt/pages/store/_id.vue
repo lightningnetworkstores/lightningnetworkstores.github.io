@@ -281,13 +281,25 @@
               :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
-          <Review
+          <Thread
             v-for="review in reviews"
             :key="review[0].id"
             :comment="review[0]"
             :comments="review"
             :store="selectedStore"
-          ></Review>
+            :type="'comment'"
+          ></Thread>
+
+          <div v-if="discussions.length>0" class="headline font-weight-medium"> <v-layout justify-center class="mt-4 mb-2"><h2>Discussions</h2></v-layout></div>
+          <div v-for="(discussion, index) in discussions" :key="index">
+            <Thread
+              :comment="discussion[0]"
+              :comments="discussion.slice(1)"
+              :store="selectedStore"
+              :type="'discussion'"
+              :onlyShowLast="2"
+            ></Thread>
+          </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
       </v-row>
@@ -313,9 +325,10 @@
 import { mapState } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
 import DeleteImageModal from '~/components/DeleteImageModal.vue'
-import AddEventModal from '~/components/AddEventModal.vue'
 import StoreCarousel from '~/components/StoreCarousel.vue'
 import StoreCard from '~/components/StoreCard'
+import EventCard from '~/components/EventCard'
+import AddEventModal from '~/components/AddEventModal.vue'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 import StoreInfoSection from '~/components/StoreInfoSection.vue'
 import SocialMedia from '~/mixins/social-media'
@@ -330,6 +343,8 @@ export default {
     StoreCarousel,
     StoreInfoSection,
     InactivityAlert,
+    EventCard,
+    AddEventModal
   },
   mixins: [SocialMedia],
   head() {
@@ -410,14 +425,16 @@ export default {
         }
       )
 
-      return { reviews, storeId }
-    } catch (err) {
+    let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
+
+    return { reviews, storeId, discussions }
+    } catch(err) {
       error(err)
     }
   },
 
   async mounted() {
-    await this.$store.dispatch('getStatus', { storeId: this.storeId })
+    await this.$store.dispatch('getStatus', { storeId: this.selectedStore.id })
     this.breadcrumb = [
       {
         text: 'Stores',
@@ -468,7 +485,6 @@ export default {
     },
     ...mapState(['likedStores', 'selectedStore']),
   },
-
   methods: {
     sortReviewThreads(reviewThreads) {
       //can't use?

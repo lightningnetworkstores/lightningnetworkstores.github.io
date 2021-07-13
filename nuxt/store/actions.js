@@ -253,13 +253,55 @@ const actions = {
         console.log(error)
       })
   },
+  addDiscussion({ state }, payload) {
+    return axios
+      .post(`${state.baseURL}api/discussion`, payload)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.data
+        }
+      })
+      .catch(console.error)
+  },
+  getDiscussionReplyPaymentRequest({ state }, payload) {
+    return axios
+      .post(`${state.baseURL}api/discussion`, payload)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.data
+        }
+      })
+      .catch(console.error)
+  },
   getDiscussions({ state, commit }) {
     return axios
       .get(`${state.baseURL}api/discussion`)
       .then((response) => {
         if (response.status === 200) {
-          const { data } = response
-          commit('setDiscussions', data.data.last_active_stores)
+          const { data } = response.data
+          commit('setDiscussions', data)
+        }
+      })
+      .catch(console.error)
+  },
+  getDiscussion({ state }, id) {
+    return axios
+      .get(`${state.baseURL}api/discussion?id=${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response.data
+          return data
+        }
+      })
+      .catch(console.error)
+  },
+
+  donateFaucetsRequest({ state, commit }, { data }) {
+    return axios
+      .post(`${state.baseURL}api/faucet_donation`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response
         }
       })
       .catch(console.error)
@@ -725,6 +767,21 @@ const actions = {
     } = await axios.get(`${state.baseURL}api/announcement`)
 
     commit('updateAnnouncements', announcements)
+  },
+
+  async getStoreSummary({ commit, state }) {
+    const {
+      data: {
+        data: { summary },
+      },
+    } = await axios.get(`${state.baseURL}api/storesummary`)
+
+    const storeSummary = summary.map((store) => ({
+      text: `${store.name} (${store.rooturl})`,
+      value: store.id,
+    }))
+
+    commit('updateStoreSummary', storeSummary)
   },
 }
 
