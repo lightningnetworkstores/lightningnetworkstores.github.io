@@ -1,105 +1,92 @@
 <template>
-<v-row class="pt-0">
+  <v-row class="pt-0">
     <v-col>
-    <div class="d-flex">
+      <div class="d-flex">
         <p class="mt-2">
-        {{ selectedStore.description }}
+          {{ selectedStore.description }}
         </p>
         <edit-store-modal
-        v-if="selectedStore.logged"
-        :store="selectedStore"
-        :editAttribute="{
+          v-if="selectedStore.logged"
+          :store="selectedStore"
+          :editAttribute="{
             label: 'Description',
             value: selectedStore.description,
             key: 'description',
-        }"
-        class="ml-2"
+          }"
+          class="ml-2"
         />
-    </div>
+      </div>
 
-     <div class="d-flex" >
+      <div class="d-flex">
         <p class="mt-2" v-if="selectedStore.long_description">
-        {{ selectedStore.long_description }}
+          {{ selectedStore.long_description }}
         </p>
-         <edit-store-modal
-        v-if="selectedStore.logged"
-        :store="selectedStore"
-        :editAttribute="{
+        <edit-store-modal
+          v-if="selectedStore.logged"
+          :store="selectedStore"
+          :editAttribute="{
             label: 'Long description',
             value: selectedStore.long_description,
             key: 'long_description',
-        }"
-        class="ml-2"
+          }"
+          class="ml-2"
         />
-    </div>
+      </div>
 
-    <div
-        v-if="
-        selectedStore.uri &&
-        selectedStore.uri.toLowerCase() != 'unknown'
-        "
+      <div
+        v-if="selectedStore.uri && selectedStore.uri.toLowerCase() != 'unknown'"
         class="px-0"
-    >
+      >
         <div class="d-flex">
-        <span class="break-word mt-2"
+          <span class="break-word mt-2"
             ><b>Node:&nbsp;</b
             ><a
-            :href="
-                'https://1ml.com/node/' +
-                selectedStore.uri.split('@')[0]
-            "
-            >{{ selectedStore.uri }}</a
+              :href="'https://1ml.com/node/' + selectedStore.uri.split('@')[0]"
+              >{{ selectedStore.uri }}</a
             ></span
-        >
-        <edit-store-modal
+          >
+          <edit-store-modal
             v-if="selectedStore.logged"
             :store="selectedStore"
             :editAttribute="{
-            label: 'Node URI',
-            value: selectedStore.uri,
-            key: 'uri',
+              label: 'Node URI',
+              value: selectedStore.uri,
+              key: 'uri',
             }"
             class="ml-2"
-        />
+          />
         </div>
-    </div>
+      </div>
 
-    <div class="px-0">
+      <div class="px-0">
         <b>Date added:&nbsp;</b
         ><span v-if="selectedStore.added">
-        {{
-            new Date(
-            selectedStore.added * 1000
-            ).toLocaleDateString('en-GB', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+          {{
+            new Date(selectedStore.added * 1000).toLocaleDateString('en-GB', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
             })
-        }}</span
+          }}</span
         ><a v-else>24/Feb/2018</a>
-    </div>
+      </div>
 
-    <div class="px-0">
+      <div class="px-0">
         <b>Likes: &nbsp;</b>
-        <like-store-button :store="selectedStore" />
-    </div>
+        <like-store-button :store="selectedStore" :key="Date.now()" />
+      </div>
 
-    <div
-        v-if="
-        selectedStore.sector &&
-        selectedStore.sector.length > 0
-        "
+      <div
+        v-if="selectedStore.sector && selectedStore.sector.length > 0"
         class="px-0"
-    >
+      >
         <b>Lifetime score: &nbsp;</b
         ><span v-if="selectedStore.lifetime">
-        {{
-            Number(selectedStore.lifetime).toLocaleString()
-        }}</span
+          {{ Number(selectedStore.lifetime).toLocaleString() }}</span
         ><span v-else>0</span>
-    </div>
+      </div>
     </v-col>
-</v-row>
+  </v-row>
 </template>
 
 <script>
@@ -107,7 +94,6 @@ import { mapState } from 'vuex'
 import LikeStoreButton from '../components/LikeStoreButton.vue'
 
 export default {
-    
   name: 'StoreInfoSection',
   props: {
     // selectedStore: {
@@ -116,7 +102,7 @@ export default {
     // },
   },
   computed: {
-      ...mapState(['likedStores', 'selectedStore'])
+    ...mapState(['likedStores', 'selectedStore']),
   },
   methods: {},
 }
