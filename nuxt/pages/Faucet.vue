@@ -58,7 +58,7 @@
                 theme="dark"
                 @verify="onVerify"
               />
-              <v-btn depressed color="orange" @click="runCaptcha">
+              <v-btn class='mt-4' depressed color="orange" x-large elevation=10 @click="runCaptcha">
                 Get {{ claimAmount }} sat
               </v-btn>
             </v-layout>
@@ -106,7 +106,7 @@
       <v-card>
         <v-card-title class="text-h5">Donate to Faucet</v-card-title>
         <v-card-text>
-          <faucet-donation-modal
+          <FaucetDonationModal
             :maximumDonationTimeoutDays="
               this.configuration.maximum_donation_timeout_days
             "
@@ -140,13 +140,17 @@
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
-import FaucetExplainerModal from '@/components/FaucetExplainerModal'
+import FaucetExplainerModal from '@/components/FaucetExplainerModal.vue'
+import FaucetDonationModal from '@/components/FaucetDonationModal.vue'
+
 export default {
   name: 'Faucet',
   components: {
     VueHcaptcha,
     Checkout,
     Success,
+    FaucetExplainerModal,
+    FaucetDonationModal
   },
   head() {
     return {

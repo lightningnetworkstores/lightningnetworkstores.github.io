@@ -26,11 +26,7 @@ const mutations = {
   },
   setConfiguration(state, configuration) {
     state.configuration = configuration
-    state.tags = configuration.tags
-    if (process.env.NODE_ENV != 'development') {
-      state.replyReviewFee = configuration.minimum_comment
-      state.addStoreFee = configuration.listing_fee
-    }
+    if(configuration.tags) state.tags = configuration.tags
   },
   updateSelectedStore(state, { key, value }) {
     state.selectedStore[key] = value

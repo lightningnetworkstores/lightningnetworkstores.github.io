@@ -195,6 +195,26 @@
               coupon code to add stores without paying the small entry fee.
             </p>
           </v-layout>
+
+          <v-layout row>
+            <h2>Terms of use and privacy policy</h2>
+          </v-layout>
+          <v-layout row>
+            <p>
+             We are quite tolerante with what is acceptable on the website but we reserve the right to remove comments that we consider spam.
+           
+            </p>
+            <p>
+                 This site is protected by reCAPTCHA and the Google
+                <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                <a href="https://policies.google.com/terms">Terms of Service</a> apply. 
+            </p>
+            <p>
+                This site is protected by hCaptcha and its
+                <a href="https://hcaptcha.com/privacy">Privacy Policy</a> and
+                <a href="https://hcaptcha.com/terms">Terms of Service</a> apply.
+            </p>
+          </v-layout>
         </v-container>
       </v-flex>
     </v-layout>

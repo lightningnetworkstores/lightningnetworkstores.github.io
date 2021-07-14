@@ -280,6 +280,7 @@ const actions = {
         if (response.status === 200) {
           const { data } = response.data
           commit('setDiscussions', data)
+          commit('setConfiguration', data.configuration)
         }
       })
       .catch(console.error)
@@ -384,6 +385,7 @@ const actions = {
       .get(`${state.baseURL}api/faucetinfo`)
       .then((response) => {
         if (response.status === 200) {
+          commit('setConfiguration', response.data.data.configuration)  
           return response
         }
       })

@@ -1,8 +1,7 @@
 export const state = () => ({
-  addStoreFee: 1000,
   announcements: [],
   baseURL: process.env.BASE_URL,
-  configuration: { max_comment_size: 250 },
+  configuration: { max_comment_size: 250, min_post: 100, min_reply: 100, listing_fee: 1000, min_skip_captcha: 1000, minimum_donation: 1000, maximum_donation_timeout_days: 70},
   discussions: [],
   lastDiscussions: [],
   activeStoreDiscussions: [],
@@ -15,7 +14,6 @@ export const state = () => ({
   isDev: null,
   likedStores: {},
   loading: false,
-  replyReviewFee: 50,
   scores: [],
   scrolledStores: 0,
   selectedStore: { logged: false }, // makes components reactive to selectedStore.logged
