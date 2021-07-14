@@ -109,7 +109,7 @@
               <b>Logout</b>
             </v-btn>
             <v-card class="ma-3 d-flex justify-center headline font-weight-medium">
-              <settings-modal/>
+              <settings-modal :store="selectedStore"/>
             </v-card>
             <div v-if="hasExternal" class="ma-3 headline font-weight-medium">
               External

@@ -783,6 +783,33 @@ const actions = {
 
     commit('updateStoreSummary', storeSummary)
   },
+  updateSettings({ state }, { notifications, accepted, storeId }) {
+    const body = {
+      notifications: {
+        new_features: notifications.features,
+        new_reviews: notifications.reviews
+      },
+      accepted: {
+        'BTC': accepted.BTC,
+        'BTC-LN': accepted.BTCLN
+      }
+    }
+    return axios.post(`${state.baseURL}api/settings?id=${storeId}`, body)
+      .then(response => {
+        const { data } = response
+        if (response.status === 200) {
+          return data.status
+        }
+        throw new Error(data.data.message)
+      })
+      .catch(err => {
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  }
 }
 
 export default actions
