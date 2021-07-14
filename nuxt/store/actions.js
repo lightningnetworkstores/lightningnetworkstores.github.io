@@ -265,7 +265,7 @@ const actions = {
   },
   getDiscussionReplyPaymentRequest({ state }, payload) {
     return axios
-      .post(`${state.baseURL}api/discussion`, payload)
+      .post(`${state.baseURL}api/discussion${payload.recaptchaToken ? '?g-recaptcha-response='+ payload.recaptchaToken : ''}`, payload)
       .then((response) => {
         if (response.status === 200) {
           return response.data

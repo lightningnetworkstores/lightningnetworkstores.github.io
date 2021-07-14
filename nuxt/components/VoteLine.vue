@@ -69,7 +69,7 @@
     <template class="comment" v-if="parentComment">
       <a @click.stop="reply()">Reply</a>
     </template>
-    <!-- Upvote store modal -->
+
     <v-dialog
       v-model="showDialog"
       persistent
@@ -217,6 +217,10 @@
               Get invoice
             </v-btn>
           </v-card-actions>
+         <v-snackbar v-model="snackbar" class="m-3">
+                Reply successfully added
+        <v-btn color="red" text @click="snackbar = false"> Close </v-btn>
+      </v-snackbar>
         </template>
       </v-card>
     </v-dialog>
@@ -261,6 +265,7 @@ export default {
 
       commentAlert: { message: '', success: false },
       warningMessage: '',
+      snackbar: false,
     }
   },
   computed: {
@@ -328,6 +333,10 @@ export default {
       this.paymentID = ''
       this.commentAlert.message = ''
     },
+    sleepMs(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    },
+
     storeVotePaymentRequest() {
       this.$store
         .dispatch('getStoreVotePaymentRequest', {
@@ -340,6 +349,13 @@ export default {
         })
         .then(
           (response) => {
+            if(response.submitted){
+                this.isPaid = true
+                this.snackbar = true
+                //await this.sleepMs(1000)
+                location.reload()
+                return
+            }
             this.upvoteDialogForm.amount = response.amount
             this.paymentRequest = response.payment_request
             if (response.message) this.warningMessage = response.message
@@ -360,9 +376,9 @@ export default {
 
     discussionReplyPaymentRequest() {
       let payload = {
-        parent:
-          this.type === 'discussion' ? this.parentComment : this.parentReview,
+        parent: this.type === 'discussion' ? this.parentComment : this.parentReview,
         comment: this.encodedComment,
+        recaptchaToken: this.recaptchaToken
       }
       if (this.store && this.store.id) {
         payload.storeID = this.store.id
@@ -370,9 +386,17 @@ export default {
       this.$store.dispatch('getDiscussionReplyPaymentRequest', payload).then(
         (response) => {
           if (response.status === 'success') {
+            if(response.data.submitted){
+                this.isPaid = true
+                this.snackbar = true
+                //await this.sleepMs(1000);
+                location.reload()
+                return
+            }
             this.upvoteDialogForm.amount = response.data.amount
             this.paymentRequest = response.data.payment_request
             this.paymentID = response.data.id
+            if (response.message) this.warningMessage = response.message
             let date = new Date()
             this.expiryTime = new Date(
               date.setSeconds(date.getSeconds() + 3600)
@@ -419,6 +443,11 @@ export default {
       } // end validation
 
       this.commentAlert.message = ''
+      
+      this.recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(
+        this.encodedComment,
+        this.upvoteDialogForm.amount
+      )
 
       if (this.type === 'comment' || this.type === 'comment reply') {
         this.storeVotePaymentRequest()
@@ -428,10 +457,6 @@ export default {
       ) {
         this.discussionReplyPaymentRequest()
       }
-      this.recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(
-        this.encodedComment,
-        this.upvoteDialogForm.amount
-      )
     },
     getRecaptchaTokenIfLowValueComment(review, reviewAmount) {
       let minSkipCaptcha = 500
