@@ -149,7 +149,7 @@
                     :counter="this.$store.state.configuration.max_comment_size"
                     :label="
                       'Review (optional - minimum ' +
-                      replyReviewFee +
+                      replyMinimumFee +
                       ' satoshis)'
                     "
                     rows="4"
@@ -264,8 +264,8 @@ export default {
     }
   },
   computed: {
-    replyReviewFee() {
-      return this.$store.state.replyReviewFee
+    replyMinimumFee() {
+      return this.$store.state.configuration.min_reply
     },
     encodedComment() {
       return encodeURIComponent(
@@ -281,7 +281,7 @@ export default {
   },
 
   async created() {
-    this.upvoteDialogForm.amount = this.replyReviewFee
+    this.upvoteDialogForm.amount = this.replyMinimumFee
   },
 
   methods: {
@@ -322,7 +322,7 @@ export default {
     },
 
     closeDialog() {
-      this.upvoteDialogForm = { amount: this.replyReviewFee, comment: '' }
+      this.upvoteDialogForm = { amount: this.replyMinimumFee, comment: '' }
       this.showDialog = false
       this.isPaid = false
       this.paymentID = ''
@@ -403,11 +403,11 @@ export default {
 
       if (
         this.encodedComment.length > 0 &&
-        this.upvoteDialogForm.amount < this.replyReviewFee
+        this.upvoteDialogForm.amount < this.replyMinimumFee
       ) {
         this.commentAlert.message =
           'Vote at least ' +
-          this.replyReviewFee +
+          this.replyMinimumFee +
           ' satoshis to be able to write a review/reply.'
         return
       }

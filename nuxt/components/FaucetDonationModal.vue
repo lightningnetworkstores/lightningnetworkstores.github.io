@@ -1,13 +1,14 @@
 <template>
 	<div class="FaucetDonationModal">
-		<form v-if="!pendingDonation && !donationPaid" @submit.prevent="submit">
+		<form v-if="!pendingDonation && !donationPaid" @submit.prevent="submit" ref="donationForm">
 			<v-text-field
 				v-model="amount"
                 type="number"
 				label="Amount"
 				required
+                :rules="[(a) => a >= minDonationAmount || `amount can't be less than ${minDonationAmount}`]"
 				></v-text-field>
-            <v-header>Distribution period (weeks)</v-header>
+            <v-subheader>Distribution period (weeks)</v-subheader>
             <v-slider
                 v-model="distributionPeriodWeeks"
                 min="1"
@@ -82,6 +83,8 @@
         },
     	methods: {            
         submit () {
+          //if (!this.$refs.donationForm.validate(true)) return  // doesn't work??
+
           const requestObj = {
             timeout_days: this.distributionPeriodWeeks*7,
             amount: this.amount
