@@ -334,51 +334,50 @@ export default {
       this.commentAlert.message = ''
     },
     sleepMs(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+      return new Promise((resolve) => setTimeout(resolve, ms))
     },
 
-    storeVotePaymentRequest() {
-      this.$store
-        .dispatch('getStoreVotePaymentRequest', {
-          id: this.store.id,
-          amount: this.upvoteDialogForm.amount,
-          isUpvote: this.isUpvoting,
-          comment: this.encodedComment,
-          parent: this.parentReview,
-          recaptchaToken: this.recaptchaToken,
-        })
-        .then(
-          (response) => {
-            if(response.submitted){
-                this.isPaid = true
-                this.snackbar = true
-                //await this.sleepMs(1000)
-                location.reload()
-                return
-            }
-            this.upvoteDialogForm.amount = response.amount
-            this.paymentRequest = response.payment_request
-            if (response.message) this.warningMessage = response.message
-            this.paymentID = response.id
-            let date = new Date()
-            this.expiryTime = new Date(
-              date.setSeconds(date.getSeconds() + 3600)
-            )
-            this.checkPaymentTimer = setInterval(() => {
-              this.checkPayment()
-            }, 3000)
-          },
-          (error) => {
-            console.error(error)
+    async storeVotePaymentRequest() {
+      try {
+        const result = await this.$store.dispatch(
+          'getStoreVotePaymentRequest',
+          {
+            id: this.store.id,
+            amount: this.upvoteDialogForm.amount,
+            isUpvote: this.isUpvoting,
+            comment: this.encodedComment,
+            parent: this.parentReview,
+            recaptchaToken: this.recaptchaToken,
           }
         )
+
+        if (result.submitted) {
+          this.isPaid = true
+          this.snackbar = true
+          await this.sleepMs(1000)
+          location.reload()
+          return
+        }
+
+        this.upvoteDialogForm.amount = result.amount
+        this.paymentRequest = result.payment_request
+        if (result.message) this.warningMessage = result.message
+        this.paymentID = result.id
+        let date = new Date()
+        this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600))
+        this.checkPaymentTimer = setInterval(() => {
+          this.checkPayment()
+        }, 3000)
+      } catch (error) {
+        console.error(error)
+      }
     },
 
     discussionReplyPaymentRequest() {
       let payload = {
         parent: this.type === 'discussion' ? this.parentComment : this.parentReview,
         comment: this.encodedComment,
-        recaptchaToken: this.recaptchaToken
+        recaptchaToken: this.recaptchaToken,
       }
       if (this.store && this.store.id) {
         payload.storeID = this.store.id
