@@ -109,7 +109,7 @@
               <b>Logout</b>
             </v-btn>
             <v-card class="ma-3 d-flex justify-center headline font-weight-medium">
-              <settings-modal :store="selectedStore"/>
+              <settings-modal v-if="selectedStoreSettings" :store="selectedStore"/>
             </v-card>
             <div v-if="hasExternal" class="ma-3 headline font-weight-medium">
               External
@@ -488,7 +488,7 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'selectedStore']),
+    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
   methods: {
     sortReviewThreads(reviewThreads) {

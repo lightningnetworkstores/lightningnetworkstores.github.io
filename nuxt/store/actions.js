@@ -397,8 +397,10 @@ const actions = {
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
       .then((response) => {
         if (response.status === 200) {
-          const payload = { key: 'logged', value: response.data.data.logged }
+          const { data } = response
+          const payload = { key: 'logged', value: data.data.logged }
           commit('updateSelectedStore', payload)
+          commit('selectedStoreSettings', data.data.settings)
         }
       })
       .catch(console.error)
@@ -785,7 +787,7 @@ const actions = {
 
     commit('updateStoreSummary', storeSummary)
   },
-  updateSettings({ state }, { notifications, accepted, storeId }) {
+  updateSettings({ state, commit }, { notifications, accepted, storeId }) {
     const body = {
       notifications: {
         new_features: notifications.features,
@@ -800,6 +802,7 @@ const actions = {
       .then(response => {
         const { data } = response
         if (response.status === 200) {
+          commit('selectedStoreSettings', body)
           return data.status
         }
         throw new Error(data.data.message)

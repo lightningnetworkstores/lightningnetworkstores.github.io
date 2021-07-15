@@ -65,6 +65,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
     store: {
@@ -78,7 +79,7 @@ export default {
       isProcessing: false,
       form: {
         notifications: {
-          features: true,
+          features: false,
           reviews: false
         },
         accepted: {
@@ -87,6 +88,12 @@ export default {
         }
       },
       serverError: null
+    }
+  },
+  mounted() {
+    const { notifications } = this.selectedStoreSettings
+    if (notifications) {
+      this.form.notifications.features = notifications.new_features
     }
   },
   methods: {
@@ -111,6 +118,9 @@ export default {
         })
         .finally(() => this.isProcessing = false)
     }
+  },
+  computed: {
+    ...mapState(['selectedStoreSettings']),
   }
 }
 </script>
