@@ -206,15 +206,18 @@ export default {
     },
 
     setNotificationMessage() {
-      const announcementVersion = this.announcement.version
+      const announcementVersion = this.announcement?.version
       const configurationVersion = this.configuration?.version
 
-      if (announcementVersion > configurationVersion) {
-        this.notification = this.newVersionMessage
-        this.warningMessage = true
-      } else if (configurationVersion) {
-        this.notification = this.announcement
-        this.lastNotificationSeen = this.announcement.id
+      if (announcementVersion && configurationVersion) {
+        if (announcementVersion > configurationVersion) {
+          this.notification = this.newVersionMessage
+          this.warningMessage = true
+        } else if (configurationVersion) {
+          this.notification = this.announcement
+          this.lastNotificationSeen = this.announcement.id
+        }
+        this.setIsModalOpen()
       }
     },
   },
@@ -223,8 +226,12 @@ export default {
     announcement() {
       if (this.initModal) {
         this.setNotificationMessage()
-        this.setIsModalOpen()
         this.initModal = false
+      }
+    },
+    configuration(newValue, oldValue) {
+      if (!oldValue.version) {
+        this.setNotificationMessage()
       }
     },
   },
