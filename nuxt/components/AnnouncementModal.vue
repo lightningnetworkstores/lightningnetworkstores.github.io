@@ -205,7 +205,7 @@ export default {
       }
     },
 
-    setNotificationMessage() {
+    async setNotificationMessage() {
       const announcementVersion = this.announcement?.version
       const configurationVersion = this.configuration?.version
 
@@ -221,16 +221,13 @@ export default {
       }
     },
   },
-
+  mounted() {
+    this.setNotificationMessage()
+  },
   watch: {
-    announcement() {
-      if (this.initModal) {
-        this.setNotificationMessage()
-        this.initModal = false
-      }
-    },
-    configuration(newValue, oldValue) {
+    async configuration(newValue, oldValue) {
       if (!oldValue.version) {
+        await this.$store.dispatch('getAnnouncements')
         this.setNotificationMessage()
       }
     },

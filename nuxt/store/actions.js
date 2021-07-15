@@ -265,7 +265,14 @@ const actions = {
   },
   getDiscussionReplyPaymentRequest({ state }, payload) {
     return axios
-      .post(`${state.baseURL}api/discussion${payload.recaptchaToken ? '?g-recaptcha-response='+ payload.recaptchaToken : ''}`, payload)
+      .post(
+        `${state.baseURL}api/discussion${
+          payload.recaptchaToken
+            ? '?g-recaptcha-response=' + payload.recaptchaToken
+            : ''
+        }`,
+        payload
+      )
       .then((response) => {
         if (response.status === 200) {
           return response.data
@@ -307,11 +314,16 @@ const actions = {
       })
       .catch(console.error)
   },
-  faucetClaim({ state, commit }, { hCaptchaToken: hCaptchaToken, recaptchaToken: recaptchaToken}) {
+  faucetClaim(
+    { state, commit },
+    { hCaptchaToken: hCaptchaToken, recaptchaToken: recaptchaToken }
+  ) {
     return axios
-      .get(`${state.baseURL}api/lnurl1?
+      .get(
+        `${state.baseURL}api/lnurl1?
       ${hCaptchaToken ? '&h-captcha-response=' + hCaptchaToken : ''}
-      ${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`)
+      ${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
+      )
       .then((response) => {
         if (response.status === 200) {
           return response
@@ -761,14 +773,23 @@ const actions = {
   setScrolledStores({ commit }, storesCount) {
     commit('updateScrolledStores', storesCount)
   },
-  async getAnnouncements({ commit, state }) {
-    const {
-      data: {
-        data: { announcements },
-      },
-    } = await axios.get(`${state.baseURL}api/announcement`)
 
-    commit('updateAnnouncements', announcements)
+  async getAnnouncements({ commit, state }) {
+    const version = state.configuration.version
+
+    if (version) {
+      const {
+        data: {
+          data: { announcements },
+        },
+      } = await axios.get(`${state.baseURL}api/announcement`)
+
+      commit('updateAnnouncements', announcements)
+
+      return true
+    }
+
+    return false
   },
 
   async getStoreSummary({ commit, state }) {
