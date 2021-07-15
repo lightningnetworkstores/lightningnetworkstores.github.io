@@ -190,10 +190,6 @@ export default {
       ssr: false,
     },
     {
-      src: '~/plugins/updateAnnouncements.js',
-      ssr: false,
-    },
-    {
       src: '~/plugins/vue-google-charts.js',
       ssr: false,
     },

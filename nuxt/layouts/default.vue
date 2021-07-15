@@ -28,12 +28,15 @@
 </template>
 <script>
 import Header from '@/components/Header'
+import { mapState } from 'vuex'
 import AnnouncementModal from '@/components/AnnouncementModal'
 
 export default {
   components: { AnnouncementModal, Header },
 
-  fetch() {},
+  async fetch() {
+    await this.$store.dispatch('getAnnouncements')
+  },
 
   data() {
     return {}
@@ -46,6 +49,16 @@ export default {
   },
   mounted() {},
   computed: {
+    ...mapState({
+      configuration(state) {
+        return state.configuration
+      },
+
+      versionApp() {
+        return this.configuration?.version
+      },
+    }),
+
     loading() {
       return this.$store.state.loading
     },

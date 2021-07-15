@@ -205,26 +205,30 @@ export default {
       }
     },
 
-    setNotificationMessage() {
-      const announcementVersion = this.announcement.version
+    async setNotificationMessage() {
+      const announcementVersion = this.announcement?.version
       const configurationVersion = this.configuration?.version
 
-      if (announcementVersion > configurationVersion) {
-        this.notification = this.newVersionMessage
-        this.warningMessage = true
-      } else if (configurationVersion) {
-        this.notification = this.announcement
-        this.lastNotificationSeen = this.announcement.id
+      if (announcementVersion && configurationVersion) {
+        if (announcementVersion > configurationVersion) {
+          this.notification = this.newVersionMessage
+          this.warningMessage = true
+        } else if (configurationVersion) {
+          this.notification = this.announcement
+          this.lastNotificationSeen = this.announcement.id
+        }
+        this.setIsModalOpen()
       }
     },
   },
-
+  mounted() {
+    this.setNotificationMessage()
+  },
   watch: {
-    announcement() {
-      if (this.initModal) {
+    async configuration(newValue, oldValue) {
+      if (!oldValue.version) {
+        await this.$store.dispatch('getAnnouncements')
         this.setNotificationMessage()
-        this.setIsModalOpen()
-        this.initModal = false
       }
     },
   },
