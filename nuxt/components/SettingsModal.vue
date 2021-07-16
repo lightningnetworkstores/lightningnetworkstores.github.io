@@ -77,13 +77,14 @@ export default {
   data() {
     const {
       notifications,
-      isFirstTime
+      isFirstTime,
+      email
     } = this.$store.state.selectedStoreSettings
     return {
       isOpen: isFirstTime,
       isProcessing: false,
       form: {
-        email: this.store.email,
+        email: email,
         notifications: {
           features: false,
           reviews: notifications.new_reviews
