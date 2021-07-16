@@ -448,19 +448,7 @@ export default {
       }
     },
     getRecaptchaTokenIfLowValueComment(review, reviewAmount) {
-      let minSkipCaptcha = 500
-      try {
-        let configValue = this.$store.state.configuration.min_skip_captcha
-        if (configValue) minSkipCaptcha = configValue
-      } catch (error) {}
-
-      if (reviewAmount >= minSkipCaptcha) {
-        return null
-      } else if (!review) {
-        return null
-      } else {
         return this.$recaptcha.execute('low_value_comment')
-      }
     },
     checkPayment() {
       //todo: check if payment is done
