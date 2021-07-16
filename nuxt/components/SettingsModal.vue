@@ -103,6 +103,7 @@ export default {
     closeDialog() {
       this.isOpen = false
       this.serverError = null
+      this.$store.dispatch('updateFirstTime')
     },
     onSaveClicked() {
       const payload = {...this.form, storeId: this.store.id }

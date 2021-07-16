@@ -806,6 +806,7 @@ const actions = {
         const { data } = response
         if (response.status === 200) {
           commit('selectedStoreSettings', body)
+          commit('updateFirstTime')
           commit('updateSelectedStore', { email: email })
           return data.status
         }
@@ -818,6 +819,9 @@ const actions = {
           return { error: 'Undefined error' }
         }
       })
+  },
+  updateFirstTime({ commit }) {
+    commit('updateFirstTime')
   }
 }
 
