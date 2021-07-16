@@ -400,7 +400,9 @@ const actions = {
           const { data } = response
           const payload = { key: 'logged', value: data.data.logged }
           commit('updateSelectedStore', payload)
-          commit('selectedStoreSettings', data.data.settings)
+          const { settings } = data.data
+          settings.isFirstTime = data.data.first_time
+          commit('selectedStoreSettings', settings)
         }
       })
       .catch(console.error)

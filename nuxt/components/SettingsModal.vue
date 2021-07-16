@@ -75,9 +75,12 @@ export default {
     }
   },
   data() {
-    const { notifications } = this.$store.state.selectedStoreSettings
+    const {
+      notifications,
+      isFirstTime
+    } = this.$store.state.selectedStoreSettings
     return {
-      isOpen: false,
+      isOpen: isFirstTime,
       isProcessing: false,
       form: {
         email: this.store.email,
