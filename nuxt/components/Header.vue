@@ -72,11 +72,11 @@ export default {
   data() {
     return {
       routes: [
-        //{ url: '/faucet', text: 'Faucet' },
         { url: '/discuss', text: 'Discuss' },
+         { url: '/faucet', text: 'Faucet' },
         { url: '/stats', text: 'Statistics' },
         { url: '/wallets', text: 'Wallets' },
-        { url: '/donations', text: 'Donations' },
+        //{ url: '/donations', text: 'Donations' },
         { url: '/about', text: 'About' },
       ],
     }

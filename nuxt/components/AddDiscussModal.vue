@@ -200,14 +200,21 @@ export default {
         this.isLoading = true
         this.addAlert = { message: '', success: true }
         this.isPaid = false
+        let recaptchaToken = await this.$recaptcha.execute('create_discussion')
         const payload = {
           title: this.addDiscussionForm.title,
           comment: this.addDiscussionForm.comment,
+          recaptchaToken: recaptchaToken
         }
         if (this.addDiscussionForm.storeId) {
           payload.storeID = this.addDiscussionForm.storeId
         }
-        this.$store.dispatch('addDiscussion', payload).then(
+
+        
+        console.log(payload.recaptchaToken)
+        
+
+        this.$store.dispatch('addDiscussion', payload, recaptchaToken).then(
           (response) => {
             if (response.status === 'success') {
               this.addDiscussionFee = response.data.amount
