@@ -274,9 +274,12 @@ const actions = {
         payload
       )
       .then((response) => {
-          return response.data
+        return response.data
       })
-      .catch((e) => {console.log(e); return e.response.data;})
+      .catch((e) => {
+        console.log(e)
+        return e.response.data
+      })
   },
   getDiscussions({ state, commit }) {
     return axios
@@ -396,7 +399,7 @@ const actions = {
       .get(`${state.baseURL}api/faucetinfo`)
       .then((response) => {
         if (response.status === 200) {
-          commit('setConfiguration', response.data.data.configuration)  
+          commit('setConfiguration', response.data.data.configuration)
           return response
         }
       })
@@ -779,11 +782,11 @@ const actions = {
     if (version) {
       const {
         data: {
-          data: { announcements },
+          data: { announcements: items, configuration },
         },
       } = await axios.get(`${state.baseURL}api/announcement`)
 
-      commit('updateAnnouncements', announcements)
+      commit('updateAnnouncements', { configuration, items })
 
       return true
     }

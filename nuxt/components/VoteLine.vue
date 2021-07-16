@@ -433,10 +433,7 @@ export default {
 
       this.commentAlert.message = ''
       
-      this.recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(
-        this.encodedComment,
-        this.upvoteDialogForm.amount
-      )
+      this.recaptchaToken = await this.getRecaptchaToken()
 
       if (this.type === 'comment' || this.type === 'comment reply') {
         this.storeVotePaymentRequest()
@@ -447,7 +444,7 @@ export default {
         this.discussionReplyPaymentRequest()
       }
     },
-    getRecaptchaTokenIfLowValueComment(review, reviewAmount) {
+    getRecaptchaToken() {
         return this.$recaptcha.execute('low_value_comment')
     },
     checkPayment() {
