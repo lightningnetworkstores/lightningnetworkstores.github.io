@@ -186,16 +186,16 @@ export default {
       }
 
       if (this.announcement?.important || this.warningMessage) {
+        const isWarningLastVersion =
+          this.warningMessage &&
+          this.announcementReqConfig.version ===
+            this.announcementsConfig.lastVersionWarning
+
+        if (isWarningLastVersion) {
+          return
+        }
+
         this.showModal = true
-        return
-      }
-
-      const isWarningLastVersion =
-        this.warningMessage &&
-        this.announcement.version ===
-          this.announcementsConfig.lastVersionWarning
-
-      if (isWarningLastVersion) {
         return
       }
 
