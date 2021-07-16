@@ -146,12 +146,26 @@ export default {
       },
     ],
   },
-  data() {
+  async asyncData({ store }) {
+    await store.dispatch('getStores')
+    await store.dispatch('getFaucetStats')
+
+    const trendingStores = store.state.stores.slice(0).sort((a, b) => {
+      return b.trending - a.trending
+    })
+
+    const newestStores = store.state.stores
+      .slice(0)
+      .sort((a, b) => {
+        return a.added - b.added
+      })
+      .reverse()
+
     return {
       lightningStoreRatio: 0,
 
-      trendingStores: [],
-      newestStores: [],
+      trendingStores: trendingStores,
+      newestStores: newestStores,
 
       merchantChartOptions: {
         chart: {
@@ -172,26 +186,8 @@ export default {
       claimsChartData: [['Time', 'Claims', 'Users']],
       claims: [],
     }
-  },
-
+},
   async mounted() {
-    await this.$store.dispatch('getStores')
-    let faucetStats = await this.$store.dispatch('getFaucetStats')
-    //claims = faucetStats.claims
-
-    let stores = this.$store.state.stores
-
-    this.trendingStores = stores.slice(0).sort((a, b) => {
-      return b.trending - a.trending
-    })
-
-    this.newestStores = stores
-      .slice(0)
-      .sort((a, b) => {
-        return a.added - b.added
-      })
-      .reverse()
-
     this.getStatsData()
     this.getFaucetStatsData()
   },
