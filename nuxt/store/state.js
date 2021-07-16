@@ -17,7 +17,7 @@ export const state = () => ({
   scores: [],
   scrolledStores: 0,
   selectedStore: { logged: false }, // makes components reactive to selectedStore.logged
-  selectedStoreSettings: null,
+  selectedStoreSettings: {},
   selectedTags: [],
   stores: [],
   storeSummary: [],

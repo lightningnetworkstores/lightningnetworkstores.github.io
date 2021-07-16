@@ -456,8 +456,7 @@ export default {
   },
   computed: {
     showSettings() {
-      return this.selectedStoreSettings &&
-        this.selectedStoreSettings.email &&
+      return this.selectedStoreSettings.email &&
         this.selectedStoreSettings.notifications &&
         this.selectedStoreSettings.notifications.new_reviews !== null
     },
