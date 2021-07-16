@@ -29,7 +29,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: discussion[0].title,
+          content: this.discussion[0].title,
         },
         {
           hid: 'og:title',
@@ -39,7 +39,7 @@ export default {
         {
           hid: 'og:description',
           property: 'og:description',
-          content: discussion[0].title,
+          content: this.discussion[0].title,
         },
         {
           hid: 'twitter:title',
@@ -49,7 +49,7 @@ export default {
         {
           hid: 'twitter:description',
           property: 'twitter:description',
-          content: discussion[0].title,
+          content: this.discussion[0].title,
         },
       ],
     }
@@ -57,21 +57,14 @@ export default {
   components: {
     Reply,
   },
-  data() {
+  async asyncData({ params, store }) {
+    const resp = await store.dispatch('getDiscussion', params.id)
     return {
-      discussion: [],
+      discussion: resp.discussions,
     }
   },
   mounted() {
-    this.fetchDiscussion(this.$route.params.id)
     this.$recaptcha.init()
-  },
-  methods: {
-    fetchDiscussion(id) {
-      this.$store.dispatch('getDiscussion', id).then((response) => {
-        this.discussion = response.discussions
-      })
-    },
   },
 }
 </script>
