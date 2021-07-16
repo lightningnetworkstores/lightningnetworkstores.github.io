@@ -253,9 +253,9 @@ const actions = {
         console.log(error)
       })
   },
-  addDiscussion({ state }, payload) {
+  addDiscussion({ state }, payload, recaptchaToken) {
     return axios
-      .post(`${state.baseURL}api/discussion`, payload)
+      .post(`${state.baseURL}api/discussion?g-recaptcha-response=${payload.recaptchaToken}`, payload)
       .then((response) => {
         if (response.status === 200) {
           return response.data
