@@ -154,7 +154,8 @@ export default {
         this.announcementsConfig.lastAnnouncementSeen =
           this.lastNotificationSeen
       } else {
-        this.announcementsConfig.lastVersionWarning = this.announcement.version
+        this.announcementsConfig.lastVersionWarning =
+          this.announcementReqConfig.version
       }
 
       this.showModal = false
