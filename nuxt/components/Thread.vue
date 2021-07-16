@@ -119,9 +119,6 @@ export default {
 .score-line {
   line-height: 30px;
 }
-.user-tag {
-  background-color: #dddddd;
-}
 .comment-text {
   -ms-word-break: break-all;
   word-break: break-all;
