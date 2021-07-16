@@ -101,6 +101,9 @@ const mutations = {
   setFaucetStats(state, faucetStats) {
     state.faucetStats = faucetStats
   },
+  setStatistics(state, statistics) {
+    state.statistics = statistics
+  },
   updateLikedStores(state, { storeId, remove }) {
     state.likedStores = {
       ...state.likedStores,

@@ -20,6 +20,7 @@ export const state = () => ({
   donations: [],
   excludedTags: [],
   faucetStats: {},
+  statistics: {},
   filterByFavorites: false,
   filteredStores: [],
   filteredTags: [],

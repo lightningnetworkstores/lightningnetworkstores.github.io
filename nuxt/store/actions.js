@@ -343,6 +343,16 @@ const actions = {
         console.log(error)
       })
   },
+  getStatistics({ state, commit }) {
+    return axios
+      .get(`${state.baseURL}api/statistics`)
+      .then((response) => {
+        commit('setStatistics', response.data.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
   likeStore({ state, commit }, { storeId, remove }) {
     const lsKey = `lns_likes`
     let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? {}
