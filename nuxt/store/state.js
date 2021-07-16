@@ -1,5 +1,8 @@
 export const state = () => ({
-  announcements: [],
+  announcements: {
+    configuration: {},
+    items: [],
+  },
   baseURL: process.env.BASE_URL,
   configuration: {
     max_comment_size: 250,

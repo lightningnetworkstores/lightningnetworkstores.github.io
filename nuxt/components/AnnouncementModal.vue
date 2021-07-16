@@ -110,12 +110,13 @@ export default {
   computed: {
     ...mapState({
       announcement: (state) => {
-        const [announcement] = [...state.announcements].sort(
+        const [announcement] = [...state.announcements.items].sort(
           (ann1, ann2) => ann2.id - ann1.id
         )
         return announcement
       },
-      announcements: 'announcements',
+      announcementReqConfig: (state) => state.announcements.configuration,
+      announcements: (state) => state.announcements.items,
       configuration: 'configuration',
     }),
 
@@ -206,7 +207,7 @@ export default {
     },
 
     async setNotificationMessage() {
-      const announcementVersion = this.announcement?.version
+      const announcementVersion = this.announcementReqConfig?.version
       const configurationVersion = this.configuration?.version
 
       if (announcementVersion && configurationVersion) {

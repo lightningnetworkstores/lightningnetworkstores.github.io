@@ -159,8 +159,8 @@ const mutations = {
   updateScrolledStores(state, number) {
     state.scrolledStores = number
   },
-  updateAnnouncements(state, announcements) {
-    state.announcements = announcements
+  updateAnnouncements(state, payload) {
+    state.announcements = payload
   },
   updateStoreSummary(state, summary) {
     state.storeSummary = summary
