@@ -22,6 +22,38 @@
 <script>
 import Reply from '@/components/Reply.vue'
 export default {
+     head() {
+    return {
+      title: 'Lightning Network Discussion page',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: discussion[0].title,
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: 'Lightning Network Discussion page',
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: discussion[0].title,
+        },
+        {
+          hid: 'twitter:title',
+          property: 'twitter:title',
+          content: 'Lightning Network Discussion page',
+        },
+        {
+          hid: 'twitter:description',
+          property: 'twitter:description',
+          content: discussion[0].title,
+        },
+      ],
+    }
+  },
   components: {
     Reply,
   },
@@ -32,6 +64,7 @@ export default {
   },
   mounted() {
     this.fetchDiscussion(this.$route.params.id)
+    this.$recaptcha.init()
   },
   methods: {
     fetchDiscussion(id) {

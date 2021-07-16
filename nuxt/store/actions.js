@@ -379,8 +379,8 @@ const actions = {
       })
       .catch(console.error)
   },
-  doFaucetDonation({ state, commit }, { data }) {
-    return fetch(`${state.baseURL}api/faucet_donation`, {
+  doFaucetDonation({ state, commit }, { data, recaptchaToken }) {
+    return fetch(`${state.baseURL}api/faucet_donation?g-recaptcha-response=${recaptchaToken}`, {
       method: 'POST',
       body: JSON.stringify(data),
     })

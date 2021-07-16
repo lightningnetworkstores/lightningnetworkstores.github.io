@@ -254,7 +254,7 @@ export default {
       this.paymentID = ''
       this.commentAlert.message = ''
     },
-    getRecaptchaTokenIfLowValueComment(review, reviewAmount){
+    getRecaptchaToken(){
         return this.$recaptcha.execute('low_value_comment')
     },
     async getInvoice() {
@@ -289,7 +289,7 @@ export default {
 
       this.commentAlert.message = ''
        
-      let recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(this.encodedComment, this.upvoteDialogForm.amount)
+      let recaptchaToken = await this.getRecaptchaToken()
       
       this.$store
         .dispatch('getStoreVotePaymentRequest', {

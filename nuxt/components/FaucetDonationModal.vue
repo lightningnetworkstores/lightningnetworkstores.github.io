@@ -94,11 +94,13 @@ export default {
     this.amount = this.minDonationAmount
   },
   methods: {
-    submit() {
+    async submit() {
       const requestObj = {
         timeout_days: this.distributionPeriodWeeks * 7,
         amount: this.amount,
       }
+    
+      let recaptchaToken = await this.$recaptcha.execute('faucet_donation')
 
       if (this.name) {
         requestObj['name'] = this.name
@@ -110,7 +112,7 @@ export default {
         requestObj['url'] = this.url
       }
 
-      this.$store.dispatch('doFaucetDonation', { data: requestObj }).then(
+      this.$store.dispatch('doFaucetDonation', { data: requestObj, recaptchaToken }).then(
         (response) => {
           let data = response.data
           this.paymentRequest = data.invoice
