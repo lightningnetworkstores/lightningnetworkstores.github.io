@@ -58,6 +58,7 @@
                 "
                 :store="discussion.store"
                 :type="discussion.reviews ? 'comment' : 'discussion'"
+                :onlyShowLast="2"
               >
               </Thread>
             </template>

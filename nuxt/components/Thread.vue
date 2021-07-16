@@ -71,7 +71,7 @@
       >
         <Reply
           :post="subComment"
-          :parentReview="comment.id"
+          :parentReview="type === 'discussion' ? comment.thread_id : comment.id"
           :store="store"
           :type="type === 'comment' ? 'comment reply' : 'discussion reply'"
         />
@@ -89,19 +89,18 @@ export default {
   computed: {
     commentsArr() {
       if (this.type === 'comment') {
-        return this.comments
+        this.comments
           .filter((subComment) => subComment.parent == this.comment.id)
           .sort((a, b) => a.timestamp - b.timestamp)
-      } else {
+        }
         if (this.comments.length > this.onlyShowLast) {
-          return this.comments.slice(
+            return this.comments.slice(
             this.comments.length - this.onlyShowLast,
             this.comments.length
-          )
+            )
         } else {
-          return this.comments
+            return this.comments
         }
-      }
     },
   },
   mounted() {},

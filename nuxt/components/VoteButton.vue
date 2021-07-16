@@ -314,6 +314,13 @@ export default {
         })
         .then(
           (response) => {
+            
+            if(response.status != 'success'){
+                if (response.message) this.commentAlert.message = response.message
+                this.commentAlert.success = false
+            return
+            }
+
             this.upvoteDialogForm.amount = response.amount
             if (response.message) this.warningMessage = response.message
             this.paymentRequest = response.payment_request

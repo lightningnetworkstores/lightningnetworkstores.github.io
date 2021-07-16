@@ -274,11 +274,9 @@ const actions = {
         payload
       )
       .then((response) => {
-        if (response.status === 200) {
           return response.data
-        }
       })
-      .catch(console.error)
+      .catch((e) => {console.log(e); return e.response.data;})
   },
   getDiscussions({ state, commit }) {
     return axios
@@ -292,12 +290,13 @@ const actions = {
       })
       .catch(console.error)
   },
-  getDiscussion({ state }, id) {
+  getDiscussion({ state, commit }, id) {
     return axios
       .get(`${state.baseURL}api/discussion?id=${id}`)
       .then((response) => {
         if (response.status === 200) {
           const { data } = response.data
+          commit('setConfiguration', response.data.data.configuration)
           return data
         }
       })

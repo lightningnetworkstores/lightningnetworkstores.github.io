@@ -31,7 +31,7 @@ export default {
       return path
     },
     color() {
-      return this.filled ? 'red' : ''
+      return this.filled ? 'red' : '#696969'
     },
   },
 }

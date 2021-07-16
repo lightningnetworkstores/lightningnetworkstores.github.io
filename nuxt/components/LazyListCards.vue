@@ -40,7 +40,7 @@ export default {
     },
     steps: {
       type: Number,
-      default: 2,
+      default: 5,
     },
   },
   data() {

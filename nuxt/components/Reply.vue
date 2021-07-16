@@ -34,9 +34,7 @@
         <v-flex shrink pr-2 pt-2>
           <vote-line
             :store="store"
-            :parentReview="
-              type === 'discussion reply' ? threadId : parentReview
-            "
+            :parentReview="parentReview"
             :parentComment="
               type === 'discussion reply' || type === 'comment reply'
                 ? post.id
@@ -78,7 +76,7 @@ export default {
       type: Object,
       default: () => {},
     },
-    threadId: {
+    threadId: { // parentReview is being used instead
       type: String,
       default: '',
     },

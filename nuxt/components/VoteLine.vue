@@ -113,10 +113,7 @@
                 >Reinforce negative review & downvote</span
               >
               <span
-                v-if="
-                  (parentComment && type === 'comment') ||
-                  type === 'comment reply'
-                "
+                v-if="parentComment"
                 >Reply</span
               >
 
@@ -142,26 +139,6 @@
                     hint=""
                     :rules="[(v) => !!v || 'Amount is required']"
                   ></v-text-field>
-                  <v-textarea
-                    v-if="!parentReview"
-                    v-model="upvoteDialogForm.comment"
-                    type="text"
-                    :counter="this.$store.state.configuration.max_comment_size"
-                    :label="
-                      'Review (optional - minimum ' +
-                      replyMinimumFee +
-                      ' satoshis)'
-                    "
-                    rows="4"
-                    :rules="[
-                      (v) =>
-                        v.length <=
-                          this.$store.state.configuration.max_comment_size ||
-                        'Review has to be shorter than ' +
-                          this.$store.state.configuration.max_comment_size +
-                          ' characters',
-                    ]"
-                  ></v-textarea>
                 </v-flex>
               </v-layout>
 
@@ -171,9 +148,13 @@
                   pr-3
                   v-if="!paymentRequest.length && parentComment"
                 >
-                  <div v-if="type === 'comment' || type === 'comment reply'">
-                    Cost: {{ upvoteDialogForm.amount }} satoshis
+                  <div v-if="upvoteDialogForm.amount > 0">
+                     Cost: {{ upvoteDialogForm.amount }} satoshis
                   </div>
+                   <div v-else>
+                    You can reply for free
+                  </div>
+
                   <v-textarea
                     v-if="
                       (parentReview && parentComment) ||
@@ -236,7 +217,7 @@ export default {
   props: {
     store: { required: true },
     isInfo: { required: false },
-    parentReview: { required: false },
+    parentReview: { required: false }, // parentReview and parentComment could almost be same variable if it wasn't for the Review reinforcing scenario
     parentComment: { required: false },
     isReviewUpvote: { required: false },
     isReplyToSubComment: { required: false },
@@ -351,10 +332,16 @@ export default {
           }
         )
 
+        if(result.status != 'success'){
+            if (result.message) this.commentAlert.message = result.message
+            this.commentAlert.success = false
+            return
+        }
+
         if (result.submitted) {
           this.isPaid = true
           this.snackbar = true
-          await this.sleepMs(1000)
+          await this.sleepMs(2000)
           location.reload()
           return
         }
@@ -388,7 +375,7 @@ export default {
             if(response.data.submitted){
                 this.isPaid = true
                 this.snackbar = true
-                //await this.sleepMs(1000);
+                setTimeout(()=> location.reload(), 2000)
                 location.reload()
                 return
             }
@@ -403,7 +390,10 @@ export default {
             this.checkPaymentTimer = setInterval(() => {
               this.checkPayment()
             }, 3000)
-          }
+          } else {
+                if (response.message) this.commentAlert.message = response.message
+                this.commentAlert.success = false
+            }
         },
         (error) => {
           console.error(error)
@@ -435,7 +425,7 @@ export default {
         return
       }
 
-      if (this.encodedComment.length >= 225) {
+      if (this.encodedComment.length >= this.$store.state.configuration.max_comment_size) {
         this.commentAlert.message =
           'Encoded review or comment is too long, please remove special characters and emoijs.'
         return
