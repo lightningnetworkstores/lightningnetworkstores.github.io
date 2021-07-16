@@ -1,6 +1,6 @@
 <template>
   <div class="announcement-modal">
-    <template v-if="announcement">
+    <template v-if="notification">
       <v-dialog v-model="showModal" max-width="700" persistent>
         <v-card>
           <v-card-title class="headline justify-center">{{
@@ -184,7 +184,7 @@ export default {
         return
       }
 
-      if (this.announcement.important || this.warningMessage) {
+      if (this.announcement?.important || this.warningMessage) {
         this.showModal = true
         return
       }
