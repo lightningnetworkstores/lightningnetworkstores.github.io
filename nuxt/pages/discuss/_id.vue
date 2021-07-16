@@ -22,7 +22,7 @@
 <script>
 import Reply from '@/components/Reply.vue'
 export default {
-     head() {
+  head() {
     return {
       title: 'Lightning Network Discussion page',
       meta: [
