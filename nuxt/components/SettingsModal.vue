@@ -67,7 +67,6 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 export default {
   props: {
     store: {
@@ -76,6 +75,7 @@ export default {
     }
   },
   data() {
+    const { notifications } = this.$store.state.selectedStoreSettings
     return {
       isOpen: false,
       isProcessing: false,
@@ -83,7 +83,7 @@ export default {
         email: this.store.email,
         notifications: {
           features: false,
-          reviews: false
+          reviews: notifications.new_reviews
         },
         accepted: {
           BTC: false,
@@ -122,8 +122,5 @@ export default {
         .finally(() => this.isProcessing = false)
     }
   },
-  computed: {
-    ...mapState(['selectedStoreSettings']),
-  }
 }
 </script>
