@@ -20,16 +20,18 @@
         </v-layout>
         <v-layout row class="mx-3 mt-3">
           <v-col>
+            <div class="mx-1 h5">Email</div>
+            <v-text-field v-model="form.email" type="email"/>
             <div class="mx-1 h5">Notifications</div>
-            <v-checkbox
+            <!-- <v-checkbox
               v-model="form.notifications.features"
               label="New Features">
-            </v-checkbox>
+            </v-checkbox> -->
             <v-checkbox
               v-model="form.notifications.reviews"
               label="New Reviews">
             </v-checkbox>
-            <v-divider></v-divider>
+            <!-- <v-divider></v-divider>
             <div class="mx-1 mt-2 h5">Accepted</div>
             <v-checkbox
               v-model="form.accepted.BTC"
@@ -38,7 +40,7 @@
             <v-checkbox
               v-model="form.accepted.BTCLN"
               label="BTC-LN">
-            </v-checkbox>
+            </v-checkbox> -->
           </v-col>
         </v-layout>
         <v-card-actions>
@@ -78,6 +80,7 @@ export default {
       isOpen: false,
       isProcessing: false,
       form: {
+        email: this.store.email,
         notifications: {
           features: false,
           reviews: false

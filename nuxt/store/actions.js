@@ -787,8 +787,9 @@ const actions = {
 
     commit('updateStoreSummary', storeSummary)
   },
-  updateSettings({ state, commit }, { notifications, accepted, storeId }) {
+  updateSettings({ state, commit }, { email, notifications, accepted, storeId }) {
     const body = {
+      email: email,
       notifications: {
         new_features: notifications.features,
         new_reviews: notifications.reviews
@@ -803,6 +804,7 @@ const actions = {
         const { data } = response
         if (response.status === 200) {
           commit('selectedStoreSettings', body)
+          commit('updateSelectedStore', { email: email })
           return data.status
         }
         throw new Error(data.data.message)
