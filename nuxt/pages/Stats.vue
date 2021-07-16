@@ -41,7 +41,8 @@
                 <v-card-title primary-title class="justify-center">
                   <div>
                     <h3 class="headline text--accent-2">
-                      Number of faucet claims: {{ claimsChartData.length-1 }}&nbsp;
+                      Total faucet claims: {{ claimsChartData.length-1 }}&nbsp;, &nbsp; Total faucet users: {{ this.$store.state.statistics.faucet_users
+.length}}
                     </h3>
                   </div>
                 </v-card-title>
