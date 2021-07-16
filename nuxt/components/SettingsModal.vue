@@ -93,12 +93,6 @@ export default {
       serverError: null
     }
   },
-  mounted() {
-    const { notifications } = this.selectedStoreSettings
-    if (notifications) {
-      this.form.notifications.features = notifications.new_features
-    }
-  },
   methods: {
     openDialog() {
       this.isOpen = true
