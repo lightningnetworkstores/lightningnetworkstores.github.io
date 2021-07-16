@@ -108,6 +108,9 @@
             >
               <b>Logout</b>
             </v-btn>
+            <v-card class="ma-3 d-flex justify-center headline font-weight-medium">
+              <settings-modal v-if="showSettings" :store="selectedStore"/>
+            </v-card>
             <div v-if="hasExternal" class="ma-3 headline font-weight-medium">
               External
             </div>
@@ -333,6 +336,7 @@ import LikeStoreButton from '../../components/LikeStoreButton.vue'
 import StoreInfoSection from '~/components/StoreInfoSection.vue'
 import SocialMedia from '~/mixins/social-media'
 import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
+import SettingsModal from '~/components/SettingsModal.vue'
 
 export default {
   components: {
@@ -344,7 +348,8 @@ export default {
     StoreInfoSection,
     InactivityAlert,
     EventCard,
-    AddEventModal
+    AddEventModal,
+    SettingsModal
   },
   mixins: [SocialMedia],
   head() {
@@ -450,6 +455,11 @@ export default {
     this.$recaptcha.init()
   },
   computed: {
+    showSettings() {
+      return this.selectedStoreSettings.email &&
+        this.selectedStoreSettings.notifications &&
+        this.selectedStoreSettings.notifications.new_reviews !== null
+    },
     showSimilarBtnMessage() {
       return this.similarExpanded ? 'Hide Similar' : 'Show more'
     },
@@ -483,7 +493,7 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'selectedStore']),
+    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
   methods: {
     sortReviewThreads(reviewThreads) {

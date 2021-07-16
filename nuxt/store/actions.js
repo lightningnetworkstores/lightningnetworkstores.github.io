@@ -411,8 +411,12 @@ const actions = {
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
       .then((response) => {
         if (response.status === 200) {
-          const payload = { key: 'logged', value: response.data.data.logged }
+          const { data } = response
+          const payload = { key: 'logged', value: data.data.logged }
           commit('updateSelectedStore', payload)
+          const { settings } = data.data
+          settings.isFirstTime = data.data.first_time
+          commit('selectedStoreSettings', settings)
         }
       })
       .catch(console.error)
@@ -808,6 +812,40 @@ const actions = {
 
     commit('updateStoreSummary', storeSummary)
   },
+  updateSettings({ state, commit }, { email, notifications, accepted, storeId }) {
+    const body = {
+      email: email,
+      notifications: {
+        new_features: notifications.features,
+        new_reviews: notifications.reviews
+      },
+      accepted: {
+        'BTC': accepted.BTC,
+        'BTC-LN': accepted.BTCLN
+      }
+    }
+    return axios.post(`${state.baseURL}api/settings?id=${storeId}`, body)
+      .then(response => {
+        const { data } = response
+        if (response.status === 200) {
+          commit('selectedStoreSettings', body)
+          commit('updateFirstTime')
+          commit('updateSelectedStore', { email: email })
+          return data.status
+        }
+        throw new Error(data.data.message)
+      })
+      .catch(err => {
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  },
+  updateFirstTime({ commit }) {
+    commit('updateFirstTime')
+  }
 }
 
 export default actions

@@ -165,6 +165,12 @@ const mutations = {
   updateStoreSummary(state, summary) {
     state.storeSummary = summary
   },
+  selectedStoreSettings(state, settings) {
+    state.selectedStoreSettings = settings
+  },
+  updateFirstTime(state) {
+    state.selectedStoreSettings.isFirstTime = false
+  }
 }
 
 export default mutations
