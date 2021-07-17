@@ -195,7 +195,7 @@
             <v-btn color="green darken-1" text @click="cancel"> Cancel </v-btn>
 
             <v-btn color="green darken-1" text @click="getInvoice">
-              Get invoice
+              Submit
             </v-btn>
           </v-card-actions>
          <v-snackbar v-model="snackbar" class="m-3">

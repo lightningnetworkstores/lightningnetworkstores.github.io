@@ -214,7 +214,7 @@ export default {
         console.log(payload.recaptchaToken)
         
 
-        this.$store.dispatch('addDiscussion', payload, recaptchaToken).then(
+        this.$store.dispatch('addDiscussion', payload).then(
           (response) => {
             if (response.status === 'success') {
               this.addDiscussionFee = response.data.amount
@@ -229,7 +229,7 @@ export default {
               this.checkPaymentTimer = setInterval(() => {
                 this.checkPayment()
               }, 3000)
-            } else if (response.status === 'fail') {
+            } else {
               this.addAlert.message = response.message
               this.addAlert.success = false
             }
