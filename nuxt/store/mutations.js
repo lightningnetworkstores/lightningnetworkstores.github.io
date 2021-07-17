@@ -26,11 +26,7 @@ const mutations = {
   },
   setConfiguration(state, configuration) {
     state.configuration = configuration
-    state.tags = configuration.tags
-    if (process.env.NODE_ENV != 'development') {
-      state.replyReviewFee = configuration.minimum_comment
-      state.addStoreFee = configuration.listing_fee
-    }
+    if(configuration.tags) state.tags = configuration.tags
   },
   updateSelectedStore(state, { key, value }) {
     state.selectedStore[key] = value
@@ -71,12 +67,22 @@ const mutations = {
   },
   updateStoreHomeImage(state, { position }) {
     // Disabling previous home
-    const currentIndex = state.selectedStore.media.main.findIndex(item => item.homepage)
-    const currentHome = state.selectedStore.media.main.find(item => item.homepage)
-    Vue.set(state.selectedStore.media.main, currentIndex, {...currentHome, homepage: false})
+    const currentIndex = state.selectedStore.media.main.findIndex(
+      (item) => item.homepage
+    )
+    const currentHome = state.selectedStore.media.main.find(
+      (item) => item.homepage
+    )
+    Vue.set(state.selectedStore.media.main, currentIndex, {
+      ...currentHome,
+      homepage: false,
+    })
     // Enabling new home image
     const newHome = state.selectedStore.media.main[position]
-    Vue.set(state.selectedStore.media.main, position, {...newHome, homepage: true})
+    Vue.set(state.selectedStore.media.main, position, {
+      ...newHome,
+      homepage: true,
+    })
   },
   setSelectedTags(state, selectedTags) {
     state.selectedTags = selectedTags
@@ -88,10 +94,15 @@ const mutations = {
     state.wallets = wallets
   },
   setDiscussions(state, discussions) {
-    state.discussions = discussions
+    state.activeStoreDiscussions = discussions.last_active_stores
+    state.lastDiscussions = discussions.last_discussions
+    state.storeEvents = discussions.last_events
   },
   setFaucetStats(state, faucetStats) {
     state.faucetStats = faucetStats
+  },
+  setStatistics(state, statistics) {
+    state.statistics = statistics
   },
   updateLikedStores(state, { storeId, remove }) {
     state.likedStores = {
@@ -151,9 +162,18 @@ const mutations = {
   updateScrolledStores(state, number) {
     state.scrolledStores = number
   },
-  updateAnnouncements(state, announcements) {
-    state.announcements = announcements
+  updateAnnouncements(state, payload) {
+    state.announcements = payload
   },
+  updateStoreSummary(state, summary) {
+    state.storeSummary = summary
+  },
+  selectedStoreSettings(state, settings) {
+    state.selectedStoreSettings = settings
+  },
+  updateFirstTime(state) {
+    state.selectedStoreSettings.isFirstTime = false
+  }
 }
 
 export default mutations

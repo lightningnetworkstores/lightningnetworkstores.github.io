@@ -98,7 +98,7 @@
                     :counter="this.$store.state.configuration.max_comment_size"
                     :label="
                       'Review (optional - minimum ' +
-                      replyReviewFee +
+                      minCreateReview +
                       ' satoshis)'
                     "
                     rows="4"
@@ -197,8 +197,8 @@ export default {
     }
   },
   computed: {
-    replyReviewFee() {
-      return this.$store.state.replyReviewFee
+    minCreateReview() {
+      return this.$store.state.configuration.min_post
     },
     encodedComment() {
       return encodeURIComponent(
@@ -214,7 +214,7 @@ export default {
   },
 
   async created() {
-    this.upvoteDialogForm.amount = this.replyReviewFee
+    this.upvoteDialogForm.amount = this.minCreateReview
   },
   methods: {
     reply() {
@@ -248,26 +248,14 @@ export default {
     },
 
     closeDialog() {
-      this.upvoteDialogForm = { amount: this.replyReviewFee, comment: '' }
+      this.upvoteDialogForm = { amount: this.minCreateReview, comment: '' }
       this.showDialog = false
       this.isPaid = false
       this.paymentID = ''
       this.commentAlert.message = ''
     },
-    getRecaptchaTokenIfLowValueComment(review, reviewAmount){
-         let minSkipCaptcha = 500
-        try{
-            let configValue = this.$store.state.configuration.min_skip_captcha
-            if(configValue) minSkipCaptcha = configValue
-        } catch(error){}
-
-        if(reviewAmount >= minSkipCaptcha){
-            return null;
-        } else if(!review){
-            return null
-        } else {
-            return this.$recaptcha.execute('low_value_comment')
-        }
+    getRecaptchaToken(){
+        return this.$recaptcha.execute('low_value_comment')
     },
     async getInvoice() {
       this.warningMessage = ''
@@ -284,11 +272,11 @@ export default {
 
       if (
         this.encodedComment.length > 0 &&
-        this.upvoteDialogForm.amount < this.replyReviewFee
+        this.upvoteDialogForm.amount < this.minCreateReview
       ) {
         this.commentAlert.message =
           'Vote at least ' +
-          this.replyReviewFee +
+          this.minCreateReview +
           ' satoshis to be able to write a review/reply.'
         return
       }
@@ -301,7 +289,7 @@ export default {
 
       this.commentAlert.message = ''
        
-      let recaptchaToken = await this.getRecaptchaTokenIfLowValueComment(this.encodedComment, this.upvoteDialogForm.amount)
+      let recaptchaToken = await this.getRecaptchaToken()
       
       this.$store
         .dispatch('getStoreVotePaymentRequest', {
@@ -314,6 +302,13 @@ export default {
         })
         .then(
           (response) => {
+            
+            if(response.status != 'success'){
+                if (response.message) this.commentAlert.message = response.message
+                this.commentAlert.success = false
+            return
+            }
+
             this.upvoteDialogForm.amount = response.amount
             if (response.message) this.warningMessage = response.message
             this.paymentRequest = response.payment_request

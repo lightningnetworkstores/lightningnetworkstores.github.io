@@ -18,8 +18,8 @@
           >
 
          <p>
-            You need a wallet/app that supports the bitcoin lightning network and a payment protocol called LNURL-withdraw. 
-            <a href="/?tags=lnurl-withdraw">Here you can find a list of these wallets</a>. Then you just need your wallet to
+            You need a wallet/app that supports the bitcoin lightning network and LNURL-withdraw (payment protocol most wallets support). 
+            <a href="/?tags=wallet">Here you can find a list of these wallets</a>. Then you just need your wallet to
             open the "LNURL code" we provide: either scan the QR code, click the link or paste it into your wallet. 
          </p>
 
@@ -43,6 +43,7 @@
 <script>
 
 export default {
+  name: 'FaucetExplainerModal',
   components: {},
   data() {
     return {

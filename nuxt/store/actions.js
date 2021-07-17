@@ -253,22 +253,80 @@ const actions = {
         console.log(error)
       })
   },
+  addDiscussion({ state }, payload) {
+    return axios
+      .post(`${state.baseURL}api/discussion?g-recaptcha-response=${payload.recaptchaToken}`, payload)
+      .then((response) => {
+          return response.data
+      })
+      .catch((error) => {
+          console.log(error)
+          return error.response.data
+      })
+  },
+  getDiscussionReplyPaymentRequest({ state }, payload) {
+    return axios
+      .post(
+        `${state.baseURL}api/discussion${
+          payload.recaptchaToken
+            ? '?g-recaptcha-response=' + payload.recaptchaToken
+            : ''
+        }`,
+        payload
+      )
+      .then((response) => {
+        return response.data
+      })
+      .catch((e) => {
+        console.log(e)
+        return e.response.data
+      })
+  },
   getDiscussions({ state, commit }) {
     return axios
       .get(`${state.baseURL}api/discussion`)
       .then((response) => {
         if (response.status === 200) {
-          const { data } = response
-          commit('setDiscussions', data.data.last_active_stores)
+          const { data } = response.data
+          commit('setDiscussions', data)
+          commit('setConfiguration', data.configuration)
         }
       })
       .catch(console.error)
   },
-  faucetClaim({ state, commit }, { hCaptchaToken: hCaptchaToken, recaptchaToken: recaptchaToken}) {
+  getDiscussion({ state, commit }, id) {
     return axios
-      .get(`${state.baseURL}api/lnurl1?
+      .get(`${state.baseURL}api/discussion?id=${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response.data
+          commit('setConfiguration', response.data.data.configuration)
+          return data
+        }
+      })
+      .catch(console.error)
+  },
+
+  donateFaucetsRequest({ state, commit }, { data }) {
+    return axios
+      .post(`${state.baseURL}api/faucet_donation`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response
+        }
+      })
+      .catch(console.error)
+  },
+  faucetClaim(
+    { state, commit },
+    { hCaptchaToken: hCaptchaToken, recaptchaToken: recaptchaToken }
+  ) {
+    return axios
+      .get(
+        `${state.baseURL}api/lnurl1?
       ${hCaptchaToken ? '&h-captcha-response=' + hCaptchaToken : ''}
-      ${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`)
+      ${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
+      )
       .then((response) => {
         if (response.status === 200) {
           return response
@@ -281,6 +339,16 @@ const actions = {
       .get(`${state.baseURL}api/faucetstats`)
       .then((response) => {
         commit('setFaucetStats', response.data.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+  getStatistics({ state, commit }) {
+    return axios
+      .get(`${state.baseURL}api/statistics`)
+      .then((response) => {
+        commit('setStatistics', response.data.data)
       })
       .catch((error) => {
         console.log(error)
@@ -325,8 +393,8 @@ const actions = {
       })
       .catch(console.error)
   },
-  doFaucetDonation({ state, commit }, { data }) {
-    return fetch(`${state.baseURL}api/faucet_donation`, {
+  doFaucetDonation({ state, commit }, { data, recaptchaToken }) {
+    return fetch(`${state.baseURL}api/faucet_donation?g-recaptcha-response=${recaptchaToken}`, {
       method: 'POST',
       body: JSON.stringify(data),
     })
@@ -342,6 +410,7 @@ const actions = {
       .get(`${state.baseURL}api/faucetinfo`)
       .then((response) => {
         if (response.status === 200) {
+          commit('setConfiguration', response.data.data.configuration)
           return response
         }
       })
@@ -353,8 +422,12 @@ const actions = {
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
       .then((response) => {
         if (response.status === 200) {
-          const payload = { key: 'logged', value: response.data.data.logged }
+          const { data } = response
+          const payload = { key: 'logged', value: data.data.logged }
           commit('updateSelectedStore', payload)
+          const { settings } = data.data
+          settings.isFirstTime = data.data.first_time
+          commit('selectedStoreSettings', settings)
         }
       })
       .catch(console.error)
@@ -717,15 +790,73 @@ const actions = {
   setScrolledStores({ commit }, storesCount) {
     commit('updateScrolledStores', storesCount)
   },
+
   async getAnnouncements({ commit, state }) {
+    const version = state.configuration.version
+
+    if (version) {
+      const {
+        data: {
+          data: { announcements: items, configuration },
+        },
+      } = await axios.get(`${state.baseURL}api/announcement`)
+
+      commit('updateAnnouncements', { configuration, items })
+
+      return true
+    }
+
+    return false
+  },
+
+  async getStoreSummary({ commit, state }) {
     const {
       data: {
-        data: { announcements },
+        data: { summary },
       },
-    } = await axios.get(`${state.baseURL}api/announcement`)
+    } = await axios.get(`${state.baseURL}api/storesummary`)
 
-    commit('updateAnnouncements', announcements)
+    const storeSummary = summary.map((store) => ({
+      text: `${store.name} (${store.rooturl})`,
+      value: store.id,
+    }))
+
+    commit('updateStoreSummary', storeSummary)
   },
+  updateSettings({ state, commit }, { email, notifications, accepted, storeId }) {
+    const body = {
+      email: email,
+      notifications: {
+        new_features: notifications.features,
+        new_reviews: notifications.reviews
+      },
+      accepted: {
+        'BTC': accepted.BTC,
+        'BTC-LN': accepted.BTCLN
+      }
+    }
+    return axios.post(`${state.baseURL}api/settings?id=${storeId}`, body)
+      .then(response => {
+        const { data } = response
+        if (response.status === 200) {
+          commit('selectedStoreSettings', body)
+          commit('updateFirstTime')
+          commit('updateSelectedStore', { email: email })
+          return data.status
+        }
+        throw new Error(data.data.message)
+      })
+      .catch(err => {
+        if (err.response && err.response.data) {
+          return { error: err.response.data.message }
+        } else {
+          return { error: 'Undefined error' }
+        }
+      })
+  },
+  updateFirstTime({ commit }) {
+    commit('updateFirstTime')
+  }
 }
 
 export default actions

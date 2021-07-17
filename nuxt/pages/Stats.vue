@@ -13,7 +13,7 @@
                 <v-card-title primary-title class="justify-center">
                   <div>
                     <h3 class="headline text--accent-2">
-                      Number of stores: {{ trendingStores.length }}&nbsp;
+                      Number of stores: {{ this.$store.state.statistics.added_times.length }}&nbsp;
                     </h3>
                   </div>
                 </v-card-title>
@@ -35,52 +35,14 @@
             ></v-flex>
           </v-layout>
 
-          <v-layout row wrap pt-3>
-            <v-flex xs12 sm6 class="text-center" pa-4>
-              <v-card>
-                <v-card-title primary-title class="justify-center">
-                  <div>
-                    <h3 class="headline text--accent-2">
-                      <a href="/?sort=trending">Trending stores</a>
-                    </h3>
-                  </div>
-                </v-card-title>
-                <v-list
-                  v-for="(store, index) in trendingStores"
-                  v-show="index < 4"
-                  :key="store.id"
-                >
-                  <a :href="store.href">{{ store.name }}</a>
-                </v-list>
-              </v-card>
-            </v-flex>
-
-            <v-flex xs12 sm6 class="text-center" pa-4>
-              <v-card>
-                <v-card-title primary-title class="justify-center">
-                  <div>
-                    <h3 class="headline text--accent-2">
-                      <a href="/?sort=newest">Newest stores</a>
-                    </h3>
-                  </div>
-                </v-card-title>
-                <v-list
-                  v-for="(store, index) in newestStores"
-                  v-show="index < 4"
-                  :key="store.id"
-                >
-                  <a :href="store.href">{{ store.name }}</a>
-                </v-list>
-              </v-card>
-            </v-flex>
-
-            <!-- <v-layout row pt-4 wrap>
+            <v-layout row pt-4 wrap>
             <v-flex grow class="text-xs-center" pa-4>
               <v-card>
                 <v-card-title primary-title class="justify-center">
                   <div>
                     <h3 class="headline text--accent-2">
-                      Number of faucet claims: {{ claimsChartData.length-1 }}&nbsp;
+                      Total faucet claims: {{ claimsChartData.length-1 }}&nbsp;, &nbsp; Total faucet users: {{ this.$store.state.statistics.faucet_users
+.length}}
                     </h3>
                   </div>
                 </v-card-title>
@@ -100,7 +62,7 @@
                   </v-overlay>
                 </v-card-text> </v-card
             ></v-flex>
-          </v-layout> -->
+          </v-layout>
           </v-layout>
         </v-container>
       </v-flex>
@@ -146,12 +108,11 @@ export default {
       },
     ],
   },
-  data() {
+  async asyncData({ store }) {
+    await store.dispatch('getStatistics')
+
     return {
       lightningStoreRatio: 0,
-
-      trendingStores: [],
-      newestStores: [],
 
       merchantChartOptions: {
         chart: {
@@ -172,26 +133,8 @@ export default {
       claimsChartData: [['Time', 'Claims', 'Users']],
       claims: [],
     }
-  },
-
+},
   async mounted() {
-    await this.$store.dispatch('getStores')
-    let faucetStats = await this.$store.dispatch('getFaucetStats')
-    //claims = faucetStats.claims
-
-    let stores = this.$store.state.stores
-
-    this.trendingStores = stores.slice(0).sort((a, b) => {
-      return b.trending - a.trending
-    })
-
-    this.newestStores = stores
-      .slice(0)
-      .sort((a, b) => {
-        return a.added - b.added
-      })
-      .reverse()
-
     this.getStatsData()
     this.getFaucetStatsData()
   },
@@ -199,15 +142,7 @@ export default {
   methods: {
     getStatsData() {
       //chart
-      let addedTimes = []
-      this.getStores.forEach((store) => {
-        if (store.added == null) {
-          addedTimes.push(1519419592)
-        } else if (!isNaN(store.added)) {
-          addedTimes.push(store.added)
-        }
-      })
-
+      let addedTimes = this.$store.state.statistics.added_times.slice(0)
       addedTimes.sort()
 
       let count = [...Array(addedTimes.length).keys()].map((x) => x + 1)
@@ -218,8 +153,8 @@ export default {
         })
     },
     getFaucetStatsData() {
-      let claims = this.$store.state.faucetStats.claims
-      let users = this.$store.state.faucetStats.users
+      let claims = this.$store.state.statistics.faucet_claims
+      let users = this.$store.state.statistics.faucet_users
 
       let count = [...Array(claims.length).keys()].map((x) => x + 1)
 
@@ -233,9 +168,7 @@ export default {
     },
   },
   computed: {
-    getStores() {
-      return this.$store.getters.getStores({ sector: null, digitalGoods: null })
-    },
+    
   },
 }
 </script>

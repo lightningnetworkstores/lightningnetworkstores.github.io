@@ -1,6 +1,6 @@
 <template>
   <div class="announcement-modal">
-    <template v-if="announcement">
+    <template v-if="notification">
       <v-dialog v-model="showModal" max-width="700" persistent>
         <v-card>
           <v-card-title class="headline justify-center">{{
@@ -110,12 +110,13 @@ export default {
   computed: {
     ...mapState({
       announcement: (state) => {
-        const [announcement] = [...state.announcements].sort(
+        const [announcement] = [...state.announcements.items].sort(
           (ann1, ann2) => ann2.id - ann1.id
         )
         return announcement
       },
-      announcements: 'announcements',
+      announcementReqConfig: (state) => state.announcements.configuration,
+      announcements: (state) => state.announcements.items,
       configuration: 'configuration',
     }),
 
@@ -153,7 +154,8 @@ export default {
         this.announcementsConfig.lastAnnouncementSeen =
           this.lastNotificationSeen
       } else {
-        this.announcementsConfig.lastVersionWarning = this.announcement.version
+        this.announcementsConfig.lastVersionWarning =
+          this.announcementReqConfig.version
       }
 
       this.showModal = false
@@ -183,7 +185,7 @@ export default {
         return
       }
 
-      if (this.announcement.important || this.warningMessage) {
+      if (this.announcement?.important || this.warningMessage) {
         this.showModal = true
         return
       }
@@ -205,26 +207,30 @@ export default {
       }
     },
 
-    setNotificationMessage() {
-      const announcementVersion = this.announcement.version
+    async setNotificationMessage() {
+      const announcementVersion = this.announcementReqConfig?.version
       const configurationVersion = this.configuration?.version
 
-      if (announcementVersion > configurationVersion) {
-        this.notification = this.newVersionMessage
-        this.warningMessage = true
-      } else if (configurationVersion) {
-        this.notification = this.announcement
-        this.lastNotificationSeen = this.announcement.id
+      if (announcementVersion && configurationVersion) {
+        if (announcementVersion > configurationVersion) {
+          this.notification = this.newVersionMessage
+          this.warningMessage = true
+        } else if (configurationVersion) {
+          this.notification = this.announcement
+          this.lastNotificationSeen = this.announcement.id
+        }
+        this.setIsModalOpen()
       }
     },
   },
-
+  mounted() {
+    this.setNotificationMessage()
+  },
   watch: {
-    announcement() {
-      if (this.initModal) {
+    async configuration(newValue, oldValue) {
+      if (!oldValue.version) {
+        await this.$store.dispatch('getAnnouncements')
         this.setNotificationMessage()
-        this.setIsModalOpen()
-        this.initModal = false
       }
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs12 md12 lg10 xl2 class="pa-2">
+    <v-flex xs12 md12 lg10 xl12 class="pa-2">
       <v-container>
         <v-row
           class="store-row"
@@ -13,13 +13,13 @@
             :store="discussion.store"
           >
           </store-card>
-          <Review
+          <Thread
             class="store-card"
             :comment="discussion.reviews[0]"
             :comments="discussion.reviews.slice(1)"
             :store="discussion.store"
           >
-          </Review>
+          </Thread>
         </v-row>
       </v-container>
     </v-flex>
@@ -78,7 +78,6 @@ export default {
     }
   },
   mounted() {
-    console.log('mounted')
     this.$store.dispatch('getDiscussions')
     this.$recaptcha.init()
   },

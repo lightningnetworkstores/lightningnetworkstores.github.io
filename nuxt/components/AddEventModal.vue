@@ -3,7 +3,7 @@
     <v-btn large block color="white" @click="openDialog">
       <v-icon>mdi-plus</v-icon> Add Event
     </v-btn>
-    
+
     <v-dialog
       v-model="showAddDialog"
       max-width="500"
@@ -50,7 +50,8 @@
                       label="URL"
                       hint="eg. https://lightningnetworkstores.com"
                       :rules="[
-                        (v) => !v ||
+                        (v) =>
+                          !v ||
                           /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
                             v
                           ) ||
@@ -67,7 +68,9 @@
                       class="dialogform-name"
                       label="Title"
                       hint="eg. Some Title no longer than 50 characters."
-                      :rules="[(v) => (!!v || v.length <= 50) || 'Title is required']"
+                      :rules="[
+                        (v) => !!v || v.length <= 50 || 'Title is required',
+                      ]"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -81,7 +84,11 @@
                       hint="eg. Some description no longer than 300 characters."
                       :rules="[
                         (v) =>
-                          (!v || (v && v.length > 6 && v.split(/\b(\s)/).length > 1 && v.length <= 300)) ||
+                          !v ||
+                          (v &&
+                            v.length > 6 &&
+                            v.split(/\b(\s)/).length > 1 &&
+                            v.length <= 300) ||
                           'Enter a clear description of the event',
                       ]"
                     ></v-text-field>
@@ -90,7 +97,9 @@
 
                 <v-layout row>
                   <v-flex pl-3 pr-3>
-                    <v-subheader class="pb-4 pl-0"> Duration (days)</v-subheader>
+                    <v-subheader class="pb-4 pl-0">
+                      Duration (days)</v-subheader
+                    >
                     <v-slider
                       v-model="addDialogForm.duration"
                       :thumb-size="24"
@@ -149,7 +158,7 @@ export default {
       minDuration: 1,
     }
   },
-  computed:{...mapState(['selectedStore'])},
+  computed: { ...mapState(['selectedStore']) },
   methods: {
     openDialog() {
       this.isSuccess = false
@@ -165,54 +174,71 @@ export default {
       this.addAlert = { message: '', success: true }
     },
 
-    validateForm(){
-        if(!this.addDialogForm.title && !this.addDialogForm.description && !this.addDialogForm.url){
-            this.addAlert = { message: 'Form is empty.', success: false }
-        } else if ((!this.addDialogForm.title || !this.addDialogForm.description) && !this.addDialogForm.url){
-            this.addAlert = { message: 'Title and description required unless event is a tweet.', success: false }
-        } else if ((!this.addDialogForm.title || !this.addDialogForm.description) && !this.addDialogForm.url.includes('twitter.com/')){
-            this.addAlert = { message: 'Title and description required unless event is a tweet.', success: false }
+    validateForm() {
+      if (
+        !this.addDialogForm.title &&
+        !this.addDialogForm.description &&
+        !this.addDialogForm.url
+      ) {
+        this.addAlert = { message: 'Form is empty.', success: false }
+      } else if (
+        (!this.addDialogForm.title || !this.addDialogForm.description) &&
+        !this.addDialogForm.url
+      ) {
+        this.addAlert = {
+          message: 'Title and description required unless event is a tweet.',
+          success: false,
         }
+      } else if (
+        (!this.addDialogForm.title || !this.addDialogForm.description) &&
+        !this.addDialogForm.url.includes('twitter.com/')
+      ) {
+        this.addAlert = {
+          message: 'Title and description required unless event is a tweet.',
+          success: false,
+        }
+      }
     },
 
     async submitAdd() {
-        if (!this.$refs.addform.validate(true)) return
-        
-        this.addAlert = { message: '', success: true }
-        this.validateForm()
-        if(!this.addAlert.success) return
+      if (!this.$refs.addform.validate(true)) return
 
-        this.isLoading = true
-        this.isSuccess = false
-        this.$store
-            .dispatch('addEvent', {
-            title: this.addDialogForm.title,
-            description: this.addDialogForm.description,
-            url: this.addDialogForm.url,
-            storeID: this.storeId,
-            duration: this.addDialogForm.duration*24,
-            })
-            .then(
-            async (response) => {
-                if (response && response.status === 'success') {
-                this.confirm_title = response.message
-                this.isSuccess = true
-                this.addDialogForm = {}
-                this.isLoading = false
-                this.$store.dispatch('getStore', { id: this.storeId })
-                } else {
-                this.addAlert.message = response.message
-                this.addAlert.success = false
-                this.isLoading = false
-                }
-            },
-            (error) => {
-                console.error(error)
-                this.isLoading = false
-                if(error.response.data.message) this.addAlert.message = error.response.data.message;
-                this.addAlert.success=false
+      this.addAlert = { message: '', success: true }
+      this.validateForm()
+      if (!this.addAlert.success) return
+
+      this.isLoading = true
+      this.isSuccess = false
+      this.$store
+        .dispatch('addEvent', {
+          title: this.addDialogForm.title,
+          description: this.addDialogForm.description,
+          url: this.addDialogForm.url,
+          storeID: this.storeId,
+          duration: this.addDialogForm.duration * 24,
+        })
+        .then(
+          async (response) => {
+            if (response && response.status === 'success') {
+              this.confirm_title = response.message
+              this.isSuccess = true
+              this.addDialogForm = {}
+              this.isLoading = false
+              this.$store.dispatch('getStore', { id: this.storeId })
+            } else {
+              this.addAlert.message = response.message
+              this.addAlert.success = false
+              this.isLoading = false
             }
-            )
+          },
+          (error) => {
+            console.error(error)
+            this.isLoading = false
+            if (error.response.data.message)
+              this.addAlert.message = error.response.data.message
+            this.addAlert.success = false
+          }
+        )
     },
   },
 }

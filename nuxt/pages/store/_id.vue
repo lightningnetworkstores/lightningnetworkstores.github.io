@@ -12,9 +12,7 @@
         <v-col cols="12" sm="9" xl="6">
           <v-row justify="center">
             <v-col cols="12" sm="12">
-                <inactivity-alert 
-                    :inactivityData="selectedStore.inactivity"
-                />
+              <inactivity-alert :inactivityData="selectedStore.inactivity" />
               <v-card class="pa-0 mb-3">
                 <store-carousel
                   @imageClicked="handleImageClick"
@@ -54,23 +52,25 @@
                     <v-row class="pl-2 pr-2 pt-3 d-flex justify-space-between">
                       <div class="d-flex">
                         <v-btn
-                          v-for="(name, index) in Object.keys(selectedStore.social)"
+                          v-for="(name, index) in Object.keys(
+                            selectedStore.social
+                          )"
                           :key="index"
                           text
                           icon
                           :color="social[name].color"
                           :href="getSocialHref(selectedStore.social[name])"
                         >
-                          <v-icon>fab fa-{{name}}</v-icon>
+                          <v-icon>fab fa-{{ name }}</v-icon>
                         </v-btn>
-                        <edit-social-media-modal 
-                           v-if="selectedStore.logged"
+                        <edit-social-media-modal
+                          v-if="selectedStore.logged"
                           :store="selectedStore"
                         />
                       </div>
 
                       <div class="d-flex">
-                        <share-modal :store="selectedStore"/>
+                        <share-modal :store="selectedStore" />
                         <ban-store-modal
                           :store="selectedStore"
                           class="ml-2"
@@ -108,6 +108,9 @@
             >
               <b>Logout</b>
             </v-btn>
+            <v-card class="ma-3 d-flex justify-center headline font-weight-medium">
+              <settings-modal v-if="showSettings" :store="selectedStore"/>
+            </v-card>
             <div v-if="hasExternal" class="ma-3 headline font-weight-medium">
               External
             </div>
@@ -153,20 +156,27 @@
                 </v-flex>
               </v-layout>
             </v-card>
-             <div class="mx-3 mt-3 py-2">
-                <AddEventModal v-if="selectedStore.logged" :storeId="selectedStore.id" />
-                <div v-if="selectedStore.event && Object.keys(selectedStore.event).length">
-                  <div class="ma-3 headline font-weight-medium">
+            <div class="mx-3 mt-3 py-2">
+              <AddEventModal
+                v-if="selectedStore.logged"
+                :storeId="selectedStore.id"
+              />
+              <div
+                v-if="
+                  selectedStore.event && Object.keys(selectedStore.event).length
+                "
+              >
+                <div class="ma-3 headline font-weight-medium">
                   Ongoing Event
-                  </div>
-                  <EventCard :event="selectedStore.event" />
                 </div>
+                <EventCard :event="selectedStore.event" />
+              </div>
             </div>
           </v-col>
         </v-col>
       </v-row>
-      <v-row class="justify-center" v-if="relatedStores.length>0">
-        <v-col cols="12" sm="9" xl="6" >
+      <v-row class="justify-center" v-if="relatedStores.length > 0">
+        <v-col cols="12" sm="9" xl="6">
           <v-layout class="mt-4 mb-2" justify-center>
             <h1>Similar</h1>
           </v-layout>
@@ -179,13 +189,16 @@
               <store-card :store="store"> </store-card>
             </v-flex>
           </v-layout>
-            <v-layout justify-center="true" v-if="relatedStores.length > minSimilarToShow">
+          <v-layout
+            justify-center="true"
+            v-if="relatedStores.length > minSimilarToShow"
+          >
             <v-btn @click="toggleMoreSimilar()" color="primary">
-              {{showSimilarBtnMessage }}
+              {{ showSimilarBtnMessage }}
             </v-btn>
           </v-layout>
         </v-col>
-        <v-col md="3" cols="0" class="pa-0"></v-col>
+        <v-col sm="3" xl="2" cols="0" class="pa-0"></v-col>
       </v-row>
       <v-row justify="center" v-if="selectedStore">
         <v-col cols="12" sm="9" xl="6">
@@ -271,13 +284,25 @@
               :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
-          <Review
+          <Thread
             v-for="review in reviews"
             :key="review[0].id"
             :comment="review[0]"
             :comments="review"
             :store="selectedStore"
-          ></Review>
+            :type="'comment'"
+          ></Thread>
+
+          <div v-if="discussions.length>0" class="headline font-weight-medium"> <v-layout justify-center class="mt-4 mb-2"><h2>Discussions</h2></v-layout></div>
+          <div v-for="(discussion, index) in discussions" :key="index">
+            <Thread
+              :comment="discussion[0]"
+              :comments="discussion.slice(1)"
+              :store="selectedStore"
+              :type="'discussion'"
+              :onlyShowLast="2"
+            ></Thread>
+          </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
       </v-row>
@@ -303,17 +328,30 @@
 import { mapState } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
 import DeleteImageModal from '~/components/DeleteImageModal.vue'
-import AddEventModal from '~/components/AddEventModal.vue'
 import StoreCarousel from '~/components/StoreCarousel.vue'
 import StoreCard from '~/components/StoreCard'
+import EventCard from '~/components/EventCard'
+import AddEventModal from '~/components/AddEventModal.vue'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 import StoreInfoSection from '~/components/StoreInfoSection.vue'
 import SocialMedia from '~/mixins/social-media'
 import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
+import SettingsModal from '~/components/SettingsModal.vue'
 
 export default {
-  components: { StoreCard, LikeStoreButton, AddExternalModal, DeleteImageModal, StoreCarousel, StoreInfoSection, InactivityAlert },
-  mixins: [ SocialMedia ],
+  components: {
+    StoreCard,
+    LikeStoreButton,
+    AddExternalModal,
+    DeleteImageModal,
+    StoreCarousel,
+    StoreInfoSection,
+    InactivityAlert,
+    EventCard,
+    AddEventModal,
+    SettingsModal
+  },
+  mixins: [SocialMedia],
   head() {
     return {
       title: this.selectedStore.name + ' | Lightning Network Stores',
@@ -346,18 +384,21 @@ export default {
         {
           hid: 'image',
           property: 'image',
-          content: this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
+          content:
+            this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
+          content:
+            this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
         },
         {
-        hid: 'twitter:image',
-        property: 'twitter:image',
-        content: this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
-        }
+          hid: 'twitter:image',
+          property: 'twitter:image',
+          content:
+            this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
+        },
       ],
     }
   },
@@ -370,33 +411,35 @@ export default {
       showLoginModal: false,
       showLogoutModal: false,
       loginResponse: null,
-      similarExpanded: false
+      similarExpanded: false,
     }
   },
   async asyncData({ params, store, error }) {
     try {
-    const selectedStore = await store.dispatch('getStore', { id: params.id })
+      const selectedStore = await store.dispatch('getStore', { id: params.id })
 
-    const storeId = selectedStore.id
+      const storeId = selectedStore.id
 
-    //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
-    let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
-      (a, b) => {
-        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
-          return Math.abs(b[0].score) - Math.abs(a[0].score)
+      //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
+      let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
+        (a, b) => {
+          if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
+            return Math.abs(b[0].score) - Math.abs(a[0].score)
+          }
+          return b[0].timestamp - a[0].timestamp
         }
-        return b[0].timestamp - a[0].timestamp
-      }
-    )
+      )
 
-    return { reviews, storeId }
+    let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
+
+    return { reviews, storeId, discussions }
     } catch(err) {
       error(err)
     }
   },
 
   async mounted() {
-    await this.$store.dispatch('getStatus', { storeId: this.storeId })
+    await this.$store.dispatch('getStatus', { storeId: this.selectedStore.id })
     this.breadcrumb = [
       {
         text: 'Stores',
@@ -412,17 +455,22 @@ export default {
     this.$recaptcha.init()
   },
   computed: {
+    showSettings() {
+      return this.selectedStoreSettings.email &&
+        this.selectedStoreSettings.notifications &&
+        this.selectedStoreSettings.notifications.new_reviews !== null
+    },
     showSimilarBtnMessage() {
-      return this.similarExpanded? 'Hide Similar' : 'Show more' 
+      return this.similarExpanded ? 'Hide Similar' : 'Show more'
     },
     maxSimilarToShow() {
       if (this.similarExpanded) {
-        return this.relatedStores.length 
-      } 
-      return this.minSimilarToShow;
+        return this.relatedStores.length
+      }
+      return this.minSimilarToShow
     },
-    minSimilarToShow(){ 
-       return this.$vuetify.breakpoint.lgAndUp? 2: 1;
+    minSimilarToShow() {
+      return this.$vuetify.breakpoint.lgAndUp ? 2 : 1
     },
     baseURL() {
       return this.$store.state.baseURL
@@ -445,9 +493,8 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'selectedStore']),
+    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
-
   methods: {
     sortReviewThreads(reviewThreads) {
       //can't use?
@@ -548,17 +595,16 @@ export default {
     handleImageClick(index) {
       this.imageModal = true
       this.selectedMediaIndex = index
-    }
+    },
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 .similar-item {
-  min-width: 330px; 
-  max-width: 500px; 
+  min-width: 330px;
+  max-width: 500px;
   flex: 1 1 0px;
 }
 

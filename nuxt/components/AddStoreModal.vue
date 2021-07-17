@@ -224,7 +224,7 @@ export default {
   },
   computed: {
     addStoreFee() {
-      return this.$store.state.addStoreFee
+      return this.$store.state.configuration.listing_fee
     },
     urlRules() {
       return [

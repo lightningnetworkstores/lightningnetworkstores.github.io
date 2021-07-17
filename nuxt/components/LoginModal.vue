@@ -12,7 +12,7 @@
       <v-card v-if="loginResponse === null">
         <v-card-title class="text-h5"> Login </v-card-title>
         <v-card-text
-          >An e-mail will be sent to {{ destinationEmail }}.</v-card-text
+          >An email will be sent to {{destinationEmail}}.</v-card-text
         >
         <vue-hcaptcha
           v-if="token === null"
@@ -26,12 +26,31 @@
           <v-progress-circular indeterminate color="primary" />
         </div>
         <div class="ml-5 mr-5">
-          <v-text-field
-            @input="handleChange"
-            label="Recipient"
-            type="text"
-            :value="recipient"
-          ></v-text-field>
+          <v-radio-group v-model="emailSelection">
+            <v-row v-if="showRadioButtons">
+              <v-radio :value="0">
+              </v-radio>
+              <v-text-field
+                label="Default email"
+                type="email"
+                :value="email"
+                disabled
+              />
+            </v-row>
+            <v-row>
+              <v-radio v-if="showRadioButtons" :value="1">
+              </v-radio>
+              <v-text-field
+                @input="handleChange"
+                label="Company email"
+                type="text"
+                :value="recipient"
+                :suffix="'@' + rooturl"
+                :disabled="showRadioButtons && emailSelection !== 1"
+                :rules="[(v)=> /^[a-zA-Z0-9_\.\-]+$/.test(v) || 'invalid email']"
+              ></v-text-field>
+            </v-row>
+          </v-radio-group>
         </div>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -70,6 +89,7 @@ export default {
   components: { VueHcaptcha },
   data() {
     return {
+      emailSelection: this.email.endsWith(this.rooturl) ? 1 : 0,
       recipient: this.email.endsWith(this.rooturl)
         ? this.email.split('@')[0]
         : '',
@@ -103,9 +123,10 @@ export default {
   },
   computed: {
     destinationEmail() {
-      if (!this.email.endsWith(this.rooturl) && this.recipient === '')
+      if (this.emailSelection === 0)
         return `${this.email}`
-      else return `${this.recipient}@${this.domain}`
+      else if (this.emailSelection === 1)
+        return `${this.recipient}@${this.domain}`
     },
     showProgress() {
       return this.isWaiting && this.loginResponse === null
@@ -113,6 +134,9 @@ export default {
     loginResponseTitle() {
       if (this.loginResponse.status === 'success') return 'Success!'
       else return loginResponse.status
+    },
+    showRadioButtons() {
+      return !this.email.endsWith(this.rooturl)
     },
   },
 }
