@@ -288,7 +288,7 @@
             v-for="review in reviews"
             :key="review[0].id"
             :comment="review[0]"
-            :comments="review"
+            :comments="review.slice(1)"
             :store="selectedStore"
             :type="'comment'"
           ></Thread>
