@@ -1,7 +1,7 @@
 <template>
   <div justify-center>
     <AddDiscussModal />
-    <v-container fluid class="px-12">
+    <v-container fluid class="px-4">
       <v-row>
         <v-col cols="12" lg="4" md="6" xs="12" sm="12">
           <div class="text-center text-h6 py-6">
