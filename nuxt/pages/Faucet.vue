@@ -19,7 +19,7 @@
           <v-layout row pt-3 justify-center class="datatable-layout">
             <v-data-table
               :headers="headers"
-              :items="topDonors"
+              :items="topDonors.slice(0, 5)"
               :items-per-page="20"
               :hide-default-footer="true"
               class="elevation-1"
@@ -40,7 +40,7 @@
                     >
                   </td>
                   <td>{{ item.message }}</td>
-                  <td>{{ item.total_donated }}</td>
+                  <td>{{ Number(item.total_donated).toLocaleString()}}</td>
                   <td>{{ item.sats_per_claim }}</td>
                 </tr>
               </template>

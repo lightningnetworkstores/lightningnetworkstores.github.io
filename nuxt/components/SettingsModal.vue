@@ -29,7 +29,7 @@
             </v-checkbox> -->
             <v-checkbox
               v-model="form.notifications.reviews"
-              label="New Reviews">
+              label="New reviews (coming feature)">
             </v-checkbox>
             <!-- <v-divider></v-divider>
             <div class="mx-1 mt-2 h5">Accepted</div>

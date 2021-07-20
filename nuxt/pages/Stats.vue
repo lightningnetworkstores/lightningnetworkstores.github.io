@@ -3,7 +3,7 @@
     <v-row class="justify-center mt-5">
       <v-flex xs12 md12 lg10 xl8>
         <v-container>
-          <v-layout row>
+          <v-layout justify-center mx-4 row>
             <h1>Merchant adoption of the lightning network</h1>
           </v-layout>
 
@@ -120,6 +120,7 @@ export default {
         },
         height: 500,
         colors: ['#3c3d3c'],
+        legend: { position: 'bottom'},
       },
       merchantChartData: [['Time', 'Stores']],
 
@@ -129,6 +130,7 @@ export default {
         },
         height: 500,
         colors: ['#3c3d3c', '#323aa8'],
+         legend: { position: 'bottom'},
       },
       claimsChartData: [['Time', 'Claims', 'Users']],
       claims: [],
