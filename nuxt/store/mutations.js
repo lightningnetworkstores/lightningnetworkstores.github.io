@@ -26,7 +26,7 @@ const mutations = {
   },
   setConfiguration(state, configuration) {
     state.configuration = configuration
-    if(configuration.tags) state.tags = configuration.tags
+    if (configuration.tags) state.tags = configuration.tags
   },
   updateSelectedStore(state, { key, value }) {
     state.selectedStore[key] = value
@@ -173,7 +173,10 @@ const mutations = {
   },
   updateFirstTime(state) {
     state.selectedStoreSettings.isFirstTime = false
-  }
+  },
+  updateFaucetDonors(state, faucetDonors) {
+    Vue.set(state, 'faucetDonors', faucetDonors)
+  },
 }
 
 export default mutations

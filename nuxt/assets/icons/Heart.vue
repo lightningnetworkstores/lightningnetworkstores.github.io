@@ -42,5 +42,6 @@ export default {
   display: inline;
   font-size: inherit;
   width: 1em;
+  height: 1em;
 }
 </style>

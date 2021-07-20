@@ -40,7 +40,9 @@
                     >
                   </td>
                   <td>{{ item.message }}</td>
-                  <td>{{ Number(item.total_donated).toLocaleString()}}</td>
+                  <td>
+                    {{ Number(item.total_donated).toLocaleString() }}
+                  </td>
                   <td>{{ item.sats_per_claim }}</td>
                 </tr>
               </template>
@@ -58,7 +60,14 @@
                 theme="dark"
                 @verify="onVerify"
               />
-              <v-btn class='mt-4' depressed color="orange" x-large elevation=10 @click="runCaptcha">
+              <v-btn
+                class="mt-4"
+                depressed
+                color="orange"
+                x-large
+                elevation="10"
+                @click="runCaptcha"
+              >
                 Get {{ claimAmount }} sat
               </v-btn>
             </v-layout>
@@ -150,7 +159,7 @@ export default {
     Checkout,
     Success,
     FaucetExplainerModal,
-    FaucetDonationModal
+    FaucetDonationModal,
   },
   head() {
     return {
@@ -225,21 +234,30 @@ export default {
   }),
   created() {},
   mounted() {
-    this.$store.dispatch('getFaucetDonors').then((response) => {
-      this.topDonors = response.data.data.top_donors
-      this.topDonors.map(
-        (e) =>
-          (e['sats_per_claim'] = Math.round(e['sats_per_claim'] * 100) / 100)
-      )
-      this.topDonors.sort(
-        (d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim']
-      )
-      this.claimAmount = response.data.data.claim
-      this.throttle = response.data.data.throttle
-      if (response.data.message) this.message = response.data.message
-      this.configuration = response.data.data.configuration
-      if (this.throttle <= 0.1) this.$recaptcha.init()
-    })
+    this.$store
+      .dispatch('getFaucetDonors')
+      .then(({ configuration, top_donors, claim, throttle, message }) => {
+        this.topDonors = top_donors
+          .map((e) => {
+            return {
+              ...e,
+              sats_per_claim: Math.round(e['sats_per_claim'] * 100) / 100,
+            }
+          })
+          .sort((d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim'])
+
+        this.claimAmount = claim
+        this.throttle = throttle
+        if (message) {
+          this.message = message
+        }
+
+        this.configuration = configuration
+
+        if (this.throttle <= 0.1) {
+          this.$recaptcha.init()
+        }
+      })
   },
   computed: {
     showDialog() {
@@ -286,7 +304,9 @@ export default {
       } else {
         this.recaptchaToken = await this.$recaptcha.execute('faucet_claim')
         this.$store
-          .dispatch('faucetClaim', { recaptchaToken: this.recaptchaToken })
+          .dispatch('faucetClaim', {
+            recaptchaToken: this.recaptchaToken,
+          })
           .then((resp) => {
             this.processFaucetClaim(resp)
           })
