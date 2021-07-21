@@ -19,6 +19,7 @@ export const state = () => ({
   activeStoreDiscussions: [],
   donations: [],
   excludedTags: [],
+  faucetDonors: [],
   faucetStats: {},
   statistics: {},
   filterByFavorites: false,

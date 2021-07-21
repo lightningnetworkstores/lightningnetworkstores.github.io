@@ -1,6 +1,7 @@
 <template>
   <svg
     :style="`fill: ${color}`"
+    height="1em"
     transform="scale(1, 1)"
     viewBox="0 0 24 24"
     aria-hidden="true"
@@ -42,5 +43,6 @@ export default {
   display: inline;
   font-size: inherit;
   width: 1em;
+  height: 1em;
 }
 </style>

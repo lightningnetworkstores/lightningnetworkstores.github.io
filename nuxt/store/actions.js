@@ -255,13 +255,16 @@ const actions = {
   },
   addDiscussion({ state }, payload) {
     return axios
-      .post(`${state.baseURL}api/discussion?g-recaptcha-response=${payload.recaptchaToken}`, payload)
+      .post(
+        `${state.baseURL}api/discussion?g-recaptcha-response=${payload.recaptchaToken}`,
+        payload
+      )
       .then((response) => {
-          return response.data
+        return response.data
       })
       .catch((error) => {
-          console.log(error)
-          return error.response.data
+        console.log(error)
+        return error.response.data
       })
   },
   getDiscussionReplyPaymentRequest({ state }, payload) {
@@ -394,10 +397,13 @@ const actions = {
       .catch(console.error)
   },
   doFaucetDonation({ state, commit }, { data, recaptchaToken }) {
-    return fetch(`${state.baseURL}api/faucet_donation?g-recaptcha-response=${recaptchaToken}`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    })
+    return fetch(
+      `${state.baseURL}api/faucet_donation?g-recaptcha-response=${recaptchaToken}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }
+    )
       .then((response) => {
         return response.json()
       })
@@ -411,7 +417,16 @@ const actions = {
       .then((response) => {
         if (response.status === 200) {
           commit('setConfiguration', response.data.data.configuration)
-          return response
+          commit('updateFaucetDonors', response.data.data.top_donors)
+
+          const {
+            data: {
+              data: { configuration, top_donors, claim, throttle },
+              message,
+            },
+          } = response
+
+          return { configuration, top_donors, claim, throttle, message }
         }
       })
       .catch(console.error)
@@ -823,20 +838,24 @@ const actions = {
 
     commit('updateStoreSummary', storeSummary)
   },
-  updateSettings({ state, commit }, { email, notifications, accepted, storeId }) {
+  updateSettings(
+    { state, commit },
+    { email, notifications, accepted, storeId }
+  ) {
     const body = {
       email: email,
       notifications: {
         new_features: notifications.features,
-        new_reviews: notifications.reviews
+        new_reviews: notifications.reviews,
       },
       accepted: {
-        'BTC': accepted.BTC,
-        'BTC-LN': accepted.BTCLN
-      }
+        BTC: accepted.BTC,
+        'BTC-LN': accepted.BTCLN,
+      },
     }
-    return axios.post(`${state.baseURL}api/settings?id=${storeId}`, body)
-      .then(response => {
+    return axios
+      .post(`${state.baseURL}api/settings?id=${storeId}`, body)
+      .then((response) => {
         const { data } = response
         if (response.status === 200) {
           commit('selectedStoreSettings', body)
@@ -846,7 +865,7 @@ const actions = {
         }
         throw new Error(data.data.message)
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response && err.response.data) {
           return { error: err.response.data.message }
         } else {
@@ -856,7 +875,7 @@ const actions = {
   },
   updateFirstTime({ commit }) {
     commit('updateFirstTime')
-  }
+  },
 }
 
 export default actions
