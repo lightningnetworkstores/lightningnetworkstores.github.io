@@ -35,16 +35,18 @@
 				required
 				></v-text-field> -->
 
-      <v-autocomplete
+      <v-combobox
         :items="donorsNames"
         :label="nameInputLabel"
         v-model="name"
         :required="isNameRequired"
         append-icon=""
         autofocus
+        auto-select-first
         @change="nameInputChange"
         :search-input.sync="nameQuery"
         hide-no-data
+        @blur="checkRegisteredName(nameQuery)"
       />
 
       <!-- <v-text-field
@@ -93,6 +95,7 @@ export default {
   data: () => ({
     amount: 1000,
     distributionPeriodWeeks: null,
+    excludedNames: ['anonymous'],
     name: '',
     nameQuery: '',
     message: '',
@@ -108,8 +111,10 @@ export default {
   computed: {
     ...mapState(['faucetDonors']),
     ...mapState({
-      donorsNames: (state) => {
-        return state.faucetDonors.map((donor) => donor.name)
+      donorsNames(state) {
+        return state.faucetDonors
+          .map((donor) => donor.name)
+          .filter((name) => !this.excludedNames.includes(name))
       },
     }),
     isNameRequired() {
@@ -124,6 +129,8 @@ export default {
   },
   methods: {
     async submit() {
+      this.checkRegisteredName(this.nameQuery)
+
       const requestObj = {
         timeout_days: this.distributionPeriodWeeks * 7,
         amount: this.amount,
@@ -201,6 +208,16 @@ export default {
     toggleDisabledFormStatus(isDisabled) {
       this.isMessageInputDisabled = isDisabled
       this.isUrlInputDisabled = isDisabled
+    },
+
+    checkRegisteredName(name) {
+      const donorData = this.faucetDonors.find(
+        (donor) => donor.name?.toLowerCase() === name?.toLowerCase()
+      )
+
+      if (donorData) {
+        this.nameQuery = donorData.name
+      }
     },
   },
 }
