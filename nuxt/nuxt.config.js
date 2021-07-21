@@ -27,7 +27,11 @@ export default {
           name: 'e',
           path: '/e/:id',
           beforeEnter: (to, from, next) => {
-            return next({ path: `/store/${to.params.id}` })
+            if (from.name === 'discuss') {
+              return next({ path: `/store/${to.params.id}?sort_reviews=new` })
+            } else {
+              return next({ path: `/store/${to.params.id}` })
+            }
           },
         },
       ]

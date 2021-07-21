@@ -136,7 +136,7 @@ export default {
       const { id, rooturl } = store
 
       this.$route.meta.storeId = id
-      this.$router.push('/store/' + rooturl)
+      this.$router.push('/e/' + rooturl)
     },
     updateTagSearch(tag) {
       this.$store.dispatch('selectOneTag', tag)
