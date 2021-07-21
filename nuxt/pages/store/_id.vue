@@ -117,14 +117,14 @@
             <v-card
               v-for="(external, propertyName, index) in selectedStore.external"
               :key="index"
-              class="mx-3 mb-3 py-2"
+              @click="() => handleExternalClick(external.href)"
+              class="mx-3 mb-3 py-2 external-link"
             >
               <v-layout row class="py-2">
                 <v-flex shrink>
                   <v-img
                     :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
                     class="external-image"
-                    @click="() => handleExternalClick(external.href)"
                   >
                   </v-img>
                 </v-flex>
@@ -626,11 +626,13 @@ export default {
     filter: brightness(120%);
   }
 }
+.external-link {
+  cursor: pointer;
+}
 .external-image {
   width: 24px;
   height: 24px;
   margin: 10px 10px 10px 25px;
-  cursor: pointer;
 }
 .external-text {
   line-height: 44px;

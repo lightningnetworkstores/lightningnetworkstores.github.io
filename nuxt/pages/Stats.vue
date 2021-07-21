@@ -119,8 +119,12 @@ export default {
           title: 'Number of merchants',
         },
         height: 500,
+        width: '100%',
         colors: ['#3c3d3c'],
         legend: { position: 'bottom'},
+        chartArea: {
+          left: 35, width: '100%'
+        }
       },
       merchantChartData: [['Time', 'Stores']],
 
@@ -129,8 +133,12 @@ export default {
           title: 'Number of claims',
         },
         height: 500,
+        width: '100%',
         colors: ['#3c3d3c', '#323aa8'],
-         legend: { position: 'bottom'},
+        legend: { position: 'bottom'},
+        chartArea: {
+          left: 25, width: '100%'
+        }
       },
       claimsChartData: [['Time', 'Claims', 'Users']],
       claims: [],
