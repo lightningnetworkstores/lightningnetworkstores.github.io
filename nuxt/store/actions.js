@@ -439,10 +439,12 @@ const actions = {
         if (response.status === 200) {
           const { data } = response.data
           commit('updateSelectedStore', {
-            key: 'logged', value: data.logged
+            key: 'logged',
+            value: data.logged,
           })
           commit('updateSelectedStore', {
-            key: 'new', value: data.new
+            key: 'new',
+            value: data.new,
           })
           const { settings } = data
           settings.isFirstTime = data.first_time
@@ -879,6 +881,15 @@ const actions = {
   },
   updateFirstTime({ commit }) {
     commit('updateFirstTime')
+  },
+  async getPopularSearches({ commit, state }) {
+    const {
+      data: {
+        data: { searches },
+      },
+    } = await axios.get(`${state.baseURL}api/search`)
+
+    commit('updatePopularSearches', searches)
   },
 }
 

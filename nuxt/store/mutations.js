@@ -181,6 +181,9 @@ const mutations = {
   updateFaucetDonors(state, faucetDonors) {
     Vue.set(state, 'faucetDonors', faucetDonors)
   },
+  updatePopularSearches(state, searches) {
+    state.popularSearches = searches
+  },
 }
 
 export default mutations
