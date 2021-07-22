@@ -88,7 +88,7 @@
     >
       <v-sheet height="500px" class="d-flex justify-center align-center" color="white">
         <edit-store-image
-          v-if="selectedStore.logged"
+          v-if="selectedStore.logged && !selectedStore.new"
           isNew
           :store="selectedStore"
           :position="selectedStore.media.number + 1"
