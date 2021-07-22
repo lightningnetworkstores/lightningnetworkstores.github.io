@@ -38,10 +38,14 @@ export default {
 
 <style lang="scss" scoped>
 .slide-group {
-  .v-slide-group__prev {
-    min-width: 0 !important;
+  ::v-deep {
+    .v-slide-group__prev,
+    .v-slide-group__next {
+      min-width: 0;
+    }
   }
 }
+
 .store-card {
   width: 300px;
   margin-left: 10px;
