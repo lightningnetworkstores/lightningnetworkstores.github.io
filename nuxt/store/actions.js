@@ -437,9 +437,13 @@ const actions = {
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
       .then((response) => {
         if (response.status === 200) {
-          const { data } = response
-          const payload = { key: 'logged', value: data.data.logged }
-          commit('updateSelectedStore', payload)
+          const { data } = response.data
+          commit('updateSelectedStore', {
+            key: 'logged', value: data.logged
+          })
+          commit('updateSelectedStore', {
+            key: 'new', value: data.new
+          })
           const { settings } = data.data
           settings.isFirstTime = data.data.first_time
           commit('selectedStoreSettings', settings)

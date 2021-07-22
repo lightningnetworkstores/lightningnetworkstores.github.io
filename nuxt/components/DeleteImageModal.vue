@@ -4,6 +4,7 @@
       color="rgba(0,0,0,0.80)"
       dark
       class="edit-image-icon"
+      :disabled="store.new"
       @click.stop="openDialog()"
     >
       <v-icon>fa-trash</v-icon>
