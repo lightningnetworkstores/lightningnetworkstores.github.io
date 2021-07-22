@@ -12,7 +12,9 @@
       :append-icon="$vuetify.breakpoint.lgAndUp ? '' : 'mdi-filter'"
       @click:append="inputClick"
     ></v-text-field>
-    <v-btn rounded class="btn-pop" to="searches">Popular Searches</v-btn>
+    <v-btn rounded class="btn-pop" to="searches" color="#fcb919"
+      >Popular Searches</v-btn
+    >
   </div>
 </template>
 
