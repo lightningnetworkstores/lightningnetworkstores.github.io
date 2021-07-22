@@ -57,7 +57,7 @@
         <v-flex xs10 md18 lg6 ma-5>
           <v-row>
             <v-col cols="11" xs="11" sm="11" md="11">
-              <v-text-field
+              <!-- <v-text-field
                 v-model="searchQuery"
                 class="search"
                 flat
@@ -68,7 +68,8 @@
                 hide-details
                 :append-icon="$vuetify.breakpoint.lgAndUp ? '' : 'mdi-filter'"
                 @click:append="toggleDrawer"
-              ></v-text-field>
+              ></v-text-field> -->
+              <search-input v-model="searchQuery" @click="toggleDrawer" />
             </v-col>
             <v-col cols="1" xs="1" sm="1" md="1">
               <tutorial-modal></tutorial-modal>
@@ -110,9 +111,10 @@ import AddStoreModal from '~/components/AddStoreModal.vue'
 import FilterStores from '~/components/FilterStores.vue'
 import StoreCard from '~/components/StoreCard.vue'
 import { mapState } from 'vuex'
+import SearchInput from '~/components/SearchInput.vue'
 
 export default {
-  components: { AddStoreModal, StoreCard, FilterStores },
+  components: { AddStoreModal, StoreCard, FilterStores, SearchInput },
   data() {
     return {
       addCardCount: 6,

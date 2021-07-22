@@ -6,52 +6,27 @@
         <v-col md="12">
           <h2>{{ catSearches.title }}</h2>
           <v-slide-group
-            v-model="model"
-            class="py-4"
+            class="py-4 slide-group"
             active-class="success"
-            :show-arrows="!$vuetify.breakpoint.xs"
+            show-arrows
           >
             <v-slide-item
               v-for="(store, index) in catSearches.stores"
               :key="index"
             >
-              <store-card :store="store" class="store-card my-4"></store-card>
+              <store-card :store="store" class="store-card my-4" />
             </v-slide-item>
           </v-slide-group>
         </v-col>
       </v-row>
     </v-container>
   </div>
-  <!-- <div>
-    <v-container class="pa-6">
-      <h1 class="text-center">Popular Searches</h1>
-      <v-row v-for="(catSearches, index) in popularSearches" :key="index">
-        <v-col md="12">
-          <h2>{{ catSearches.title }}</h2>
-          <lazy-list-cards
-            className="mt-4"
-            :items="catSearches.stores"
-            :maxItems="2"
-            horizontal
-          >
-            <template #item="{ slotScope: store }">
-               {{ store }}
-              <store-card :store="store" class="store-card"></store-card>
-            </template>
-          </lazy-list-cards>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div> -->
 </template>
 
 <script>
-import LazyListCards from '@/components/LazyListCards.vue'
-
 import { mapState } from 'vuex'
 
 export default {
-  components: { LazyListCards },
   computed: {
     ...mapState(['popularSearches']),
   },
@@ -62,6 +37,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.slide-group {
+  .v-slide-group__prev {
+    min-width: 0 !important;
+  }
+}
 .store-card {
   width: 300px;
   margin-left: 10px;
