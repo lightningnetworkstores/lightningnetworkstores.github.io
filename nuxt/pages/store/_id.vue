@@ -108,8 +108,10 @@
             >
               <b>Logout</b>
             </v-btn>
-            <v-card class="ma-3 d-flex justify-center headline font-weight-medium">
-              <settings-modal v-if="showSettings" :store="selectedStore"/>
+            <v-card
+              class="ma-3 d-flex justify-center headline font-weight-medium"
+            >
+              <settings-modal v-if="showSettings" :store="selectedStore" />
             </v-card>
             <div v-if="hasExternal" class="ma-3 headline font-weight-medium">
               External
@@ -293,7 +295,14 @@
             :type="'comment'"
           ></Thread>
 
-          <div v-if="discussions.length>0" class="headline font-weight-medium"> <v-layout justify-center class="mt-4 mb-2"><h2>Discussions</h2></v-layout></div>
+          <div
+            v-if="discussions.length > 0"
+            class="headline font-weight-medium"
+          >
+            <v-layout justify-center class="mt-4 mb-2"
+              ><h2>Discussions</h2></v-layout
+            >
+          </div>
           <div v-for="(discussion, index) in discussions" :key="index">
             <Thread
               :comment="discussion[0]"
@@ -349,7 +358,7 @@ export default {
     InactivityAlert,
     EventCard,
     AddEventModal,
-    SettingsModal
+    SettingsModal,
   },
   mixins: [SocialMedia],
   head() {
@@ -430,10 +439,10 @@ export default {
         }
       )
 
-    let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
+      let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
 
-    return { reviews, storeId, discussions }
-    } catch(err) {
+      return { reviews, storeId, discussions }
+    } catch (err) {
       error(err)
     }
   },
@@ -456,9 +465,11 @@ export default {
   },
   computed: {
     showSettings() {
-      return this.selectedStoreSettings.email &&
+      return (
+        this.selectedStoreSettings.email &&
         this.selectedStoreSettings.notifications &&
         this.selectedStoreSettings.notifications.new_reviews !== null
+      )
     },
     showSimilarBtnMessage() {
       return this.similarExpanded ? 'Hide Similar' : 'Show more'
@@ -596,6 +607,16 @@ export default {
       this.imageModal = true
       this.selectedMediaIndex = index
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    if (from.name === 'discuss' && !to.query.sort_reviews) {
+      return next({
+        ...to,
+        query: { sort_reviews: 'new' },
+      })
+    } else {
+      return next()
+    }
   },
 }
 </script>
