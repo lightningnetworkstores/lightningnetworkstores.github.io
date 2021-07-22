@@ -444,8 +444,8 @@ const actions = {
           commit('updateSelectedStore', {
             key: 'new', value: data.new
           })
-          const { settings } = data.data
-          settings.isFirstTime = data.data.first_time
+          const { settings } = data
+          settings.isFirstTime = data.first_time
           commit('selectedStoreSettings', settings)
         }
       })
