@@ -10,6 +10,9 @@
     <v-container>
       <v-row justify="center" v-if="selectedStore">
         <v-col cols="12" sm="9" xl="6">
+          <v-alert v-if="selectedStore.new" text type="warning">
+            Store is new, please note that it will take a few minutes before you can upload images
+          </v-alert>
           <v-row justify="center">
             <v-col cols="12" sm="12">
               <inactivity-alert :inactivityData="selectedStore.inactivity" />
