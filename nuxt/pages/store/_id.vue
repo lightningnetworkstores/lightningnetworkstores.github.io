@@ -11,7 +11,8 @@
       <v-row justify="center" v-if="selectedStore">
         <v-col cols="12" sm="9" xl="6">
           <v-alert v-if="selectedStore.new" text type="warning">
-            Store is new, please note that it will take a few minutes before you can upload images
+            Store is new, please note that it will take a few minutes before you
+            can upload images
           </v-alert>
           <v-row justify="center">
             <v-col cols="12" sm="12">
@@ -26,7 +27,11 @@
                   <v-col class="pb-1">
                     <div class="headline d-flex">
                       <h3 class="mt-1">
-                        <a class="" @click.stop :href="selectedStore.href">
+                        <a
+                          class=""
+                          @click.stop
+                          :href="getStoreLink(selectedStore.href)"
+                        >
                           {{ selectedStore.name }}
 
                           <v-icon class="ml-1" color="blue darken-2">
@@ -526,6 +531,12 @@ export default {
     getSocialHref(social) {
       if (social && social.href) return social.href
       return ''
+    },
+    getStoreLink(link) {
+      const url = new URL(link)
+      const baseUrl = new URL(this.baseURL)
+      url.searchParams.append('utm_source', baseUrl.host)
+      return url.toString()
     },
     isNewStore() {
       return (

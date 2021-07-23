@@ -2,16 +2,24 @@
   <div>
     <v-container class="pa-6" fluid>
       <h1 class="text-center">Popular Searches</h1>
-      <v-row v-for="(catSearches, index) in popularSearches" :key="index">
+      <v-row v-for="(categorySearches, index) in popularSearches" :key="index">
         <v-col md="12">
-          <h2>{{ catSearches.title }}</h2>
+          <nuxt-link
+            :to="{ name: 'index', query: { tags: categorySearches.tag } }"
+            class="title-link d-flex"
+          >
+            <h2 class="text-md-h4">{{ categorySearches.title }}</h2>
+            <v-icon color="gray" class="ml-1" small
+              >fa-external-link-alt</v-icon
+            >
+          </nuxt-link>
           <v-slide-group
             class="py-4 slide-group"
             active-class="success"
             show-arrows
           >
             <v-slide-item
-              v-for="(store, index) in catSearches.stores"
+              v-for="(store, index) in categorySearches.stores"
               :key="index"
             >
               <store-card :store="store" class="store-card my-4" />
@@ -37,6 +45,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title-link {
+  color: black;
+  text-decoration: none;
+}
+
 .slide-group {
   ::v-deep {
     .v-slide-group__prev,

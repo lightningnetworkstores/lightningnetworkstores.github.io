@@ -98,7 +98,7 @@
 import AddStoreModal from '~/components/AddStoreModal.vue'
 import FilterStores from '~/components/FilterStores.vue'
 import StoreCard from '~/components/StoreCard.vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import SearchInput from '~/components/SearchInput.vue'
 
 export default {
@@ -168,38 +168,40 @@ export default {
     },
   },
   computed: {
-    ...mapState([
-      'filteredTags',
-      'selectedTags',
-      'excludedTags',
-      'baseURL',
-      'stores',
-      'scores',
-      'likedStores',
-      'filterByFavorites',
-      'scrolledStores',
-    ]),
+    ...mapState({
+      filteredTags: 'filteredTags',
+      selectedTags: 'selectedTags',
+      excludedTags: 'excludedTags',
+      baseURL: 'baseURL',
+      stores: 'stores',
+      scores: 'scores',
+      likedStores: 'likedStores',
+      filterByFavorites: 'filterByFavorites',
+      scrolledStores: 'scrolledStores',
 
-    filteredStores() {
-      const getStores = this.$store.getters.getStores(
-        { sector: this.sector, digitalGoods: this.digitalGoods },
-        this.selectedSort,
-        this.searchQuery,
-        this.safeMode
-      )
+      filteredStores(state) {
+        const getStores = this.getStores(
+          { sector: this.sector, digitalGoods: this.digitalGoods },
+          this.selectedSort,
+          this.searchQuery,
+          this.safeMode
+        )
 
-      const stores = this.filterByFavorites
-        ? getStores.filter((store) => !!this.likedStores[store.id])
-        : getStores
+        const stores = state.filterByFavorites
+          ? getStores.filter((store) => !!state.likedStores[store.id])
+          : getStores
 
-      return stores
-        .filter((store) => {
-          return this.selectedTags.every((tag) => store.tags.includes(tag))
-        })
-        .filter((store) => {
-          return !this.excludedTags.some((tag) => store.tags.includes(tag))
-        })
-    },
+        return stores
+          .filter((store) => {
+            return state.selectedTags.every((tag) => store.tags.includes(tag))
+          })
+          .filter((store) => {
+            return !state.excludedTags.some((tag) => store.tags.includes(tag))
+          })
+      },
+    }),
+
+    ...mapGetters(['getStores']),
 
     filtertags() {
       const data = this.filteredStores
