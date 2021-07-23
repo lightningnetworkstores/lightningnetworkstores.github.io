@@ -29,7 +29,11 @@ const mutations = {
     if (configuration.tags) state.tags = configuration.tags
   },
   updateSelectedStore(state, { key, value }) {
-    state.selectedStore[key] = value
+    if (state.selectedStore[key]) {
+      state.selectedStore[key] = value
+    } else {
+      Vue.set(state.selectedStore, key, value)
+    }
   },
   confirmStoreFieldRemoval(state, { field }) {
     Vue.delete(state.selectedStore.external, field)
@@ -176,6 +180,9 @@ const mutations = {
   },
   updateFaucetDonors(state, faucetDonors) {
     Vue.set(state, 'faucetDonors', faucetDonors)
+  },
+  updatePopularSearches(state, searches) {
+    state.popularSearches = searches
   },
 }
 

@@ -5,6 +5,7 @@
       color="rgba(0,0,0,0.80)"
       dark
       class="edit-image-icon"
+      :disabled="store.new"
       @click="openDialog"
     >
       <v-icon>fa-edit</v-icon>

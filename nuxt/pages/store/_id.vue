@@ -10,6 +10,9 @@
     <v-container>
       <v-row justify="center" v-if="selectedStore">
         <v-col cols="12" sm="9" xl="6">
+          <v-alert v-if="selectedStore.new" text type="warning">
+            Store is new and additional images are being fetched. Please wait a few minutes to change your images.
+          </v-alert>
           <v-row justify="center">
             <v-col cols="12" sm="12">
               <inactivity-alert :inactivityData="selectedStore.inactivity" />
@@ -23,7 +26,11 @@
                   <v-col class="pb-1">
                     <div class="headline d-flex">
                       <h3 class="mt-1">
-                        <a class="" @click.stop :href="selectedStore.href">
+                        <a
+                          class=""
+                          @click.stop
+                          :href="getStoreLink(selectedStore.href)"
+                        >
                           {{ selectedStore.name }}
 
                           <v-icon class="ml-1" color="blue darken-2">
@@ -108,8 +115,10 @@
             >
               <b>Logout</b>
             </v-btn>
-            <v-card class="ma-3 d-flex justify-center headline font-weight-medium">
-              <settings-modal v-if="showSettings" :store="selectedStore"/>
+            <v-card
+              class="ma-3 d-flex justify-center headline font-weight-medium"
+            >
+              <settings-modal v-if="showSettings" :store="selectedStore" />
             </v-card>
             <div v-if="hasExternal" class="ma-3 headline font-weight-medium">
               External
@@ -293,7 +302,14 @@
             :type="'comment'"
           ></Thread>
 
-          <div v-if="discussions.length>0" class="headline font-weight-medium"> <v-layout justify-center class="mt-4 mb-2"><h2>Discussions</h2></v-layout></div>
+          <div
+            v-if="discussions.length > 0"
+            class="headline font-weight-medium"
+          >
+            <v-layout justify-center class="mt-4 mb-2"
+              ><h2>Discussions</h2></v-layout
+            >
+          </div>
           <div v-for="(discussion, index) in discussions" :key="index">
             <Thread
               :comment="discussion[0]"
@@ -349,7 +365,7 @@ export default {
     InactivityAlert,
     EventCard,
     AddEventModal,
-    SettingsModal
+    SettingsModal,
   },
   mixins: [SocialMedia],
   head() {
@@ -420,7 +436,6 @@ export default {
 
       const storeId = selectedStore.id
 
-      //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
       let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
         (a, b) => {
           if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
@@ -430,10 +445,10 @@ export default {
         }
       )
 
-    let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
+      let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
 
-    return { reviews, storeId, discussions }
-    } catch(err) {
+      return { reviews, storeId, discussions }
+    } catch (err) {
       error(err)
     }
   },
@@ -452,13 +467,19 @@ export default {
         href: location.href,
       },
     ]
+    const { sort_reviews } = this.$route.query
+    if (sort_reviews && sort_reviews === 'new') {
+      this.sortReviewsByTime()
+    }
     this.$recaptcha.init()
   },
   computed: {
     showSettings() {
-      return this.selectedStoreSettings.email &&
+      return (
+        this.selectedStoreSettings.email &&
         this.selectedStoreSettings.notifications &&
         this.selectedStoreSettings.notifications.new_reviews !== null
+      )
     },
     showSimilarBtnMessage() {
       return this.similarExpanded ? 'Hide Similar' : 'Show more'
@@ -496,15 +517,10 @@ export default {
     ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
   methods: {
-    sortReviewThreads(reviewThreads) {
-      //can't use?
-      reviewThreads.sort((a, b) => {
-        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
-          return Math.abs(b[0].score) - Math.abs(a[0].score)
-        }
-        return b[0].timestamp - a[0].timestamp
+    sortReviewsByTime() {
+      this.reviews.sort((a, b) => {
+        return b[b.length - 1].timestamp - a[a.length - 1].timestamp
       })
-      return reviewThreads
     },
     toggleMoreSimilar() {
       this.similarExpanded = !this.similarExpanded
@@ -512,6 +528,12 @@ export default {
     getSocialHref(social) {
       if (social && social.href) return social.href
       return ''
+    },
+    getStoreLink(link) {
+      const url = new URL(link)
+      const baseUrl = new URL(this.baseURL)
+      url.searchParams.append('utm_source', baseUrl.host)
+      return url.toString()
     },
     isNewStore() {
       return (
@@ -596,6 +618,16 @@ export default {
       this.imageModal = true
       this.selectedMediaIndex = index
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    if (from.name === 'discuss' && !to.query.sort_reviews) {
+      return next({
+        ...to,
+        query: { sort_reviews: 'new' },
+      })
+    } else {
+      return next()
+    }
   },
 }
 </script>

@@ -21,17 +21,25 @@ import LikeIcon from '~/assets/icons/Heart.vue'
 
 export default {
   components: { LikeIcon },
-  props: ['store', 'likes'],
+  props: {
+    store: {
+      type: Object,
+      require: true,
+    },
+  },
   data() {
     return {
       isProcessing: false,
     }
   },
   computed: {
-    storeIsLiked() {
-      return this.likedStores[this.store.id]
-    },
-    ...mapState(['likedStores']),
+    ...mapState({
+      likedStores: 'likedStores',
+
+      storeIsLiked() {
+        return this.likedStores[this.store.id]
+      },
+    }),
   },
   methods: {
     async handleLike(storeId) {

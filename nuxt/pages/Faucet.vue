@@ -55,7 +55,7 @@
             <v-layout row pa-3 justify-center>
               <vue-hcaptcha
                 ref="invisibleHcaptcha"
-                sitekey="327adc75-957d-4063-9cf3-c4999bead7dd"
+                :sitekey="hcaptchaSiteKey"
                 size="invisible"
                 theme="dark"
                 @verify="onVerify"
@@ -263,6 +263,15 @@ export default {
     showDialog() {
       return this.showCheckoutModal || this.showSuccessModal
     },
+    hcaptchaSiteKey() {
+      if (this.throttle <= 0.65) {
+        // simple hcaptcha
+        return '327adc75-957d-4063-9cf3-c4999bead7dd'
+      } else {
+        // 'hardcore' hcaptcha
+        return '11f90dcf-80e1-480e-94c8-054cefc3eae1'
+      }
+    }
   },
   methods: {
     onVerify(hCaptchaToken, ekey) {
