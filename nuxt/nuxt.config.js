@@ -41,7 +41,7 @@ export default {
   proxy: {
     '/api/': {
       target: process.env.BASE_URL,
-      changeOrigin: false,
+      changeOrigin: true,
       onProxyRes: function (proxyRes, req, res) {
         //console.log('url=' + req.url + ', method=' + req.method)
       },
