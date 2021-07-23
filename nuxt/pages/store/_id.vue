@@ -26,7 +26,11 @@
                   <v-col class="pb-1">
                     <div class="headline d-flex">
                       <h3 class="mt-1">
-                        <a class="" @click.stop :href="selectedStore.href">
+                        <a
+                          class=""
+                          @click.stop
+                          :href="getStoreLink(selectedStore.href)"
+                        >
                           {{ selectedStore.name }}
 
                           <v-icon class="ml-1" color="blue darken-2">
@@ -526,6 +530,12 @@ export default {
     getSocialHref(social) {
       if (social && social.href) return social.href
       return ''
+    },
+    getStoreLink(link) {
+      const url = new URL(link)
+      const baseUrl = new URL(this.baseURL)
+      url.searchParams.append('utm_source', baseUrl.host)
+      return url.toString()
     },
     isNewStore() {
       return (

@@ -41,8 +41,9 @@ export default {
   proxy: {
     '/api/': {
       target: process.env.BASE_URL,
+      changeOrigin: false,
       onProxyRes: function (proxyRes, req, res) {
-        console.log('url=' + req.url + ', method=' + req.method)
+        //console.log('url=' + req.url + ', method=' + req.method)
       },
       onProxyReq: function (proxyRes, req, res) {
         console.log('url=' + req.url + ', method=' + req.method)
@@ -55,11 +56,7 @@ export default {
     '/api2/': {
       target: process.env.BASE_URL,
       changeOrigin: false,
-    },
-    '/api3/': {
-      target: process.env.BASE_URL,
-      changeOrigin: false,
-    },
+    }
   },
   render: {
     static: {

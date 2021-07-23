@@ -1,7 +1,15 @@
 <template>
   <div>
-    <v-row :class="className" v-for="(item, index) in lazyItems" :key="index">
-      <slot name="item" :slot-scope="item" />
+    <v-row :class="{ 'd-flex': horizontal, [className]: true }">
+      <div v-for="(item, index) in lazyItems" :key="index">
+        <slot name="item" :slot-scope="item" />
+      </div>
+      <v-layout v-if="horizontal && !isMaxReached" justify-center column>
+        <p class="text-md-h3 text-center font-weight-bold mb-8 btn-load">...</p>
+        <v-btn color="primary" @click="loadMore" class="btn-load"
+          >Load More</v-btn
+        >
+      </v-layout>
     </v-row>
     <v-row :class="className">
       <v-card
@@ -12,7 +20,7 @@
         {{ defaultMessage }}
       </v-card>
     </v-row>
-    <v-layout v-if="!isMaxReached" align-center column>
+    <v-layout v-if="!isMaxReached && !horizontal" align-center column>
       <p class="text-md-h3 text-center font-weight-bold mb-8">...</p>
       <v-btn color="primary" @click="loadMore">Load More</v-btn>
     </v-layout>
@@ -42,6 +50,10 @@ export default {
       type: Number,
       default: 5,
     },
+    horizontal: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -67,5 +79,8 @@ export default {
 <style lang="scss" scoped>
 .default-card {
   width: 100%;
+}
+.btn-load {
+  width: 100px;
 }
 </style>

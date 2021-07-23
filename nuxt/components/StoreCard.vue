@@ -31,7 +31,7 @@
               class="ma-2"
               >New comment</v-chip
             >
-             <v-chip
+            <v-chip
               v-if="store.event"
               color="blue"
               text-color="white"
@@ -50,7 +50,7 @@
         <div class="content pa-2 pl-5">
           <div @click="gotoStore(store)">
             <div class="title">
-              <a :href="store.href" class="font-weight-regular">
+              <a :href="getStoreLink(store.href)" class="font-weight-regular">
                 {{ store.name }}
                 <v-icon class="ml-1" color="blue darken-2"
                   >mdi-open-in-new</v-icon
@@ -125,13 +125,27 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import VoteButton from '../components/VoteButton.vue'
 import LikeStoreButton from './LikeStoreButton.vue'
 
 export default {
   props: ['store', 'changeUrl', 'setFromRoute'],
   components: { VoteButton, LikeStoreButton },
+  computed: {
+    ...mapState({
+      baseURL(state) {
+        return state.baseURL
+      },
+    }),
+  },
   methods: {
+    getStoreLink(link) {
+      const url = new URL(link)
+      const baseUrl = new URL(this.baseURL)
+      url.searchParams.append('utm_source', baseUrl.host)
+      return url.toString()
+    },
     gotoStore(store) {
       const { id, rooturl } = store
 
@@ -148,11 +162,6 @@ export default {
       return (
         new Date(store.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
       )
-    },
-  },
-  computed: {
-    baseURL() {
-      return this.$store.state.baseURL
     },
   },
 }

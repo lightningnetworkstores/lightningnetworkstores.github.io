@@ -57,18 +57,7 @@
         <v-flex xs10 md18 lg6 ma-5>
           <v-row>
             <v-col cols="11" xs="11" sm="11" md="11">
-              <v-text-field
-                v-model="searchQuery"
-                class="search"
-                flat
-                outlined
-                label="Type to search"
-                solo
-                prepend-inner-icon="mdi-magnify"
-                hide-details
-                :append-icon="$vuetify.breakpoint.lgAndUp ? '' : 'mdi-filter'"
-                @click:append="toggleDrawer"
-              ></v-text-field>
+              <search-input v-model="searchQuery" @click="toggleDrawer" />
             </v-col>
             <v-col cols="1" xs="1" sm="1" md="1">
               <tutorial-modal></tutorial-modal>
@@ -109,10 +98,11 @@
 import AddStoreModal from '~/components/AddStoreModal.vue'
 import FilterStores from '~/components/FilterStores.vue'
 import StoreCard from '~/components/StoreCard.vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
+import SearchInput from '~/components/SearchInput.vue'
 
 export default {
-  components: { AddStoreModal, StoreCard, FilterStores },
+  components: { AddStoreModal, StoreCard, FilterStores, SearchInput },
   data() {
     return {
       addCardCount: 6,
@@ -178,38 +168,40 @@ export default {
     },
   },
   computed: {
-    ...mapState([
-      'filteredTags',
-      'selectedTags',
-      'excludedTags',
-      'baseURL',
-      'stores',
-      'scores',
-      'likedStores',
-      'filterByFavorites',
-      'scrolledStores',
-    ]),
+    ...mapState({
+      filteredTags: 'filteredTags',
+      selectedTags: 'selectedTags',
+      excludedTags: 'excludedTags',
+      baseURL: 'baseURL',
+      stores: 'stores',
+      scores: 'scores',
+      likedStores: 'likedStores',
+      filterByFavorites: 'filterByFavorites',
+      scrolledStores: 'scrolledStores',
 
-    filteredStores() {
-      const getStores = this.$store.getters.getStores(
-        { sector: this.sector, digitalGoods: this.digitalGoods },
-        this.selectedSort,
-        this.searchQuery,
-        this.safeMode
-      )
+      filteredStores(state) {
+        const getStores = this.getStores(
+          { sector: this.sector, digitalGoods: this.digitalGoods },
+          this.selectedSort,
+          this.searchQuery,
+          this.safeMode
+        )
 
-      const stores = this.filterByFavorites
-        ? getStores.filter((store) => !!this.likedStores[store.id])
-        : getStores
+        const stores = state.filterByFavorites
+          ? getStores.filter((store) => !!state.likedStores[store.id])
+          : getStores
 
-      return stores
-        .filter((store) => {
-          return this.selectedTags.every((tag) => store.tags.includes(tag))
-        })
-        .filter((store) => {
-          return !this.excludedTags.some((tag) => store.tags.includes(tag))
-        })
-    },
+        return stores
+          .filter((store) => {
+            return state.selectedTags.every((tag) => store.tags.includes(tag))
+          })
+          .filter((store) => {
+            return !state.excludedTags.some((tag) => store.tags.includes(tag))
+          })
+      },
+    }),
+
+    ...mapGetters(['getStores']),
 
     filtertags() {
       const data = this.filteredStores
