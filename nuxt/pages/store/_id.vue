@@ -436,7 +436,6 @@ export default {
 
       const storeId = selectedStore.id
 
-      //let reviews = sortReviewThreads(selectedStore.reviews); can't use sortReviewThreads() here why?
       let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
         (a, b) => {
           if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
@@ -468,6 +467,10 @@ export default {
         href: location.href,
       },
     ]
+    const { sort_reviews } = this.$route.query
+    if (sort_reviews && sort_reviews === 'new') {
+      this.sortReviewsByTime()
+    }
     this.$recaptcha.init()
   },
   computed: {
@@ -514,15 +517,10 @@ export default {
     ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
   methods: {
-    sortReviewThreads(reviewThreads) {
-      //can't use?
-      reviewThreads.sort((a, b) => {
-        if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
-          return Math.abs(b[0].score) - Math.abs(a[0].score)
-        }
-        return b[0].timestamp - a[0].timestamp
+    sortReviewsByTime() {
+      this.reviews.sort((a, b) => {
+        return b[b.length - 1].timestamp - a[a.length - 1].timestamp
       })
-      return reviewThreads
     },
     toggleMoreSimilar() {
       this.similarExpanded = !this.similarExpanded
