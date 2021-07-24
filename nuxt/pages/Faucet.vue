@@ -220,13 +220,15 @@ export default {
     donorDialog: false,
     hCaptchaToken: null,
     recaptchaToken: null,
+    claimID: null,
+    expiryTime: new Date(),
+    interval: null,
     showCheckoutModal: false,
     showSuccessModal: false,
     successfulClaim: false,
     paymentRequest: '',
     stackSatsStores: [],
     spendSatsStores: [],
-    interval: null,
     configuration: {
       maximum_donation_timeout_days: 50,
       minimum_donation: 5000,
@@ -288,8 +290,18 @@ export default {
       this.checkClaimMethod(response.data.data.claimID)
     },
     checkClaimMethod(claimID) {
-      this.interval = setInterval(() => {
-        this.$store.dispatch('checkClaimRequest', { id: claimID }).then(
+      this.claimID = claimID
+      let date = new Date()
+      this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600))
+      this.interval = setInterval(() => { this.checkClaim()}, 5000)
+    },
+    checkClaim(){
+        if(this.expiryTime <= new Date()){
+            clearInterval(this.inverval)
+            return
+        }
+
+        this.$store.dispatch('checkClaimRequest', { id: this.claimID }).then(
           (response) => {
             if (response.data.claim_status == 'PAID') {
               clearInterval(this.interval)
@@ -305,7 +317,6 @@ export default {
             console.log(error)
           }
         )
-      }, 5000)
     },
     async runCaptcha() {
       if (this.throttle >= 0.1) {
