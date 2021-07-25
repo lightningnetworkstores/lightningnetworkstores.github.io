@@ -421,12 +421,12 @@ const actions = {
 
           const {
             data: {
-              data: { configuration, top_donors, claim, throttle },
+              data: { configuration, top_donors, claim, throttle, daily_claim_rate },
               message,
             },
           } = response
 
-          return { configuration, top_donors, claim, throttle, message }
+          return { configuration, top_donors, claim, throttle, message, daily_claim_rate }
         }
       })
       .catch(console.error)
