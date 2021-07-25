@@ -120,6 +120,7 @@
               this.configuration.maximum_donation_timeout_days
             "
             :minDonationAmount="this.configuration.minimum_donation"
+            :dailyClaimRate="this.daily_claim_rate"
             @closeDialog="closeDonationDialog"
           />
         </v-card-text>
@@ -214,6 +215,7 @@ export default {
       { text: 'Sats/claim', value: 'sats_per_claim' },
     ],
     message: '',
+    daily_claim_rate: 2,
     topDonors: [],
     claimAmount: null,
     throttle: 0,
@@ -238,7 +240,7 @@ export default {
   mounted() {
     this.$store
       .dispatch('getFaucetDonors')
-      .then(({ configuration, top_donors, claim, throttle, message }) => {
+      .then(({ configuration, top_donors, claim, throttle, message, daily_claim_rate }) => {
         this.topDonors = top_donors
           .map((e) => {
             return {
@@ -246,7 +248,7 @@ export default {
               sats_per_claim: Math.round(e['sats_per_claim'] * 100) / 100,
             }
           })
-          .sort((d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim'])
+          .filter((e)=> e.name!='anonymous').sort((d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim'])
 
         this.claimAmount = claim
         this.throttle = throttle
@@ -254,6 +256,7 @@ export default {
           this.message = message
         }
 
+        this.daily_claim_rate = daily_claim_rate
         this.configuration = configuration
 
         if (this.throttle <= 0.1) {

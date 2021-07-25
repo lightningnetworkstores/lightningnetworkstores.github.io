@@ -66,6 +66,14 @@
         label="URL (optional)"
         :disabled="isUrlInputDisabled"
       ></v-text-field>
+      
+      <v-flex pl-3 pr-3>
+            <h4 v-if="this.donorRankPreview<=5">You will be shown as a top donor!</h4>
+            <h4 v-else>You won't be shown as top donor (only top 5).</h4>
+            <v-subheader>Donor rank: {{donorRankPreview}} ({{satsPerClaimPreview}} sats/claim)</v-subheader>
+      </v-flex>
+      
+      
       <v-btn class="mr-4" type="submit">submit</v-btn>
       <v-btn @click="cancel">Close</v-btn>
     </form>
@@ -86,7 +94,7 @@ import Success from '@/components/Success.vue'
 
 export default {
   name: 'FaucetDonationModal',
-  props: ['maximumDonationTimeoutDays', 'minDonationAmount'],
+  props: ['maximumDonationTimeoutDays', 'minDonationAmount', 'dailyClaimRate'],
   components: {
     Checkout,
     Success,
@@ -100,6 +108,7 @@ export default {
     nameQuery: '',
     message: '',
     url: '',
+    selectedDonorSatsPerClaim: 0,
     pendingDonation: false,
     donationPaid: false,
     paymentRequest: '',
@@ -117,6 +126,14 @@ export default {
           .filter((name) => !this.excludedNames.includes(name))
       },
     }),
+    satsPerClaimPreview(){
+        let unrounded = this.amount/(this.distributionPeriodWeeks*7*this.dailyClaimRate);
+        unrounded += this.selectedDonorSatsPerClaim
+        return Math.round(unrounded*100)/100
+    },
+    donorRankPreview(){
+        return this.faucetDonors.slice(0).filter((d)=>d.name!='anonymous').map((d)=>d.sats_per_claim).filter((e)=>e>this.satsPerClaimPreview).length + 1
+    },
     isNameRequired() {
       return !!this.message || !!this.url
     },
@@ -199,8 +216,10 @@ export default {
       if (donorData) {
         this.message = donorData.message
         this.url = donorData.url
+        this.selectedDonorSatsPerClaim = donorData.sats_per_claim
         this.toggleDisabledFormStatus(true)
       } else {
+        this.selectedDonorSatsPerClaim=0
         this.toggleDisabledFormStatus(false)
       }
     },
