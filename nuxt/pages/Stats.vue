@@ -41,7 +41,7 @@
                 <v-card-title primary-title class="justify-center">
                   <div>
                     <h3 class="headline text--accent-2">
-                      Total faucet claims: {{ claimsChartData.length-1 }}&nbsp;, &nbsp; Total faucet users: {{ this.$store.state.statistics.faucet_users
+                      Total faucet claims: {{ claimsChartData[claimsChartData.length-1][1] }}&nbsp;, &nbsp; Total faucet users: {{ this.$store.state.statistics.faucet_users
 .length}}
                     </h3>
                   </div>
@@ -168,13 +168,16 @@ export default {
 
       let count = [...Array(claims.length).keys()].map((x) => x + 1)
 
-      count
+      count = count
         .map((x) => [
           new Date(claims[x - 1] * 10000000),
           x,
           users.filter((t) => t <= claims[x - 1]).length,
         ])
-        .forEach((i) => this.claimsChartData.push(i))
+
+        let indexes = [...Array(count.length-1).keys()].filter((e)=>count[e][0] < count[e+1][0]).map((i)=> count[i]).forEach((i) => this.claimsChartData.push(i))
+
+        //count.forEach((i) => this.claimsChartData.push(i))
     },
   },
   computed: {
