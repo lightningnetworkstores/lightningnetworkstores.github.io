@@ -176,8 +176,7 @@ export default {
         ])
 
         let indexes = [...Array(count.length-1).keys()].filter((e)=>count[e][0] < count[e+1][0]).map((i)=> count[i]).forEach((i) => this.claimsChartData.push(i))
-
-        //count.forEach((i) => this.claimsChartData.push(i))
+        this.claimsChartData.push(count[count.length-1])
     },
   },
   computed: {
