@@ -32,11 +32,12 @@ const actions = {
   getStores({ state, commit }) {
     return axios
       .get(`${state.baseURL}api/stores`)
-      .then((response) => {
-        commit('setStores', response.data.data.stores)
-        commit('setConfiguration', response.data.data.configuration)
+      .then(({ data: { data } }) => {
+        commit('setStores', data.stores)
+        commit('setConfiguration', data.configuration)
+        commit('setStorePages', data.pages)
 
-        return response.data.data
+        return data
       })
       .catch(({ response }) => {
         return Promise.reject({
@@ -44,6 +45,24 @@ const actions = {
           message: response.data.message,
         })
       })
+  },
+  async getRestStores({ state, commit }) {
+    const pages = state.storePages
+    const requests = []
+
+    for (let i = 1; i < pages; i++) {
+      const url = `${state.baseURL}api/stores?page=${i}`
+      requests.push(axios.get(url))
+    }
+
+    const responses = await Promise.allSettled(requests)
+
+    const restStores = responses.reduce((acc, { data: { data } }) => {
+      acc.push(...data.stores)
+      return acc
+    }, [])
+
+    commit('pushStores', restStores)
   },
   getStore({ state, commit }, data) {
     return axios
@@ -421,12 +440,25 @@ const actions = {
 
           const {
             data: {
-              data: { configuration, top_donors, claim, throttle, daily_claim_rate },
+              data: {
+                configuration,
+                top_donors,
+                claim,
+                throttle,
+                daily_claim_rate,
+              },
               message,
             },
           } = response
 
-          return { configuration, top_donors, claim, throttle, message, daily_claim_rate }
+          return {
+            configuration,
+            top_donors,
+            claim,
+            throttle,
+            message,
+            daily_claim_rate,
+          }
         }
       })
       .catch(console.error)
