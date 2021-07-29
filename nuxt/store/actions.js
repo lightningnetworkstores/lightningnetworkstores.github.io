@@ -57,8 +57,10 @@ const actions = {
 
     const responses = await Promise.allSettled(requests)
 
-    const restStores = responses.reduce((acc, { data: { data } }) => {
-      acc.push(...data.stores)
+    const restStores = responses.reduce((acc, { status, value }) => {
+      if (status === 'fulfilled') {
+        acc.push(...value.data.data.stores)
+      }
       return acc
     }, [])
 
