@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <v-btn color="secondary" fab x-small dark class="mt-2">
-      <v-icon class="float-left" @click.stop="showTutorialDialog = true"
+    <v-btn @click.stop="showTutorialDialog = true" color="secondary" fab x-small dark class="mt-2">
+      <v-icon class="float-left"
         >fa-question</v-icon
       >
     </v-btn>

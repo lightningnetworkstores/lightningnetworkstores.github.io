@@ -1,5 +1,4 @@
 require('dotenv').config()
-const axios = require('axios')
 
 function syncLikesFromServer(serverLikes, likedStores, lsKey) {
   const likes = serverLikes.reduce((acc, id) => {
@@ -30,7 +29,7 @@ const actions = {
   },
 
   getStores({ state, commit }) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/stores`)
       .then(({ data: { data } }) => {
         commit('setStores', data.stores)
@@ -67,7 +66,7 @@ const actions = {
     commit('pushStores', restStores)
   },
   getStore({ state, commit }, data) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/storeinfo?id=` + data.id)
       .then((response) => {
         return response.data
@@ -131,7 +130,7 @@ const actions = {
       })
   },
   addEvent({ state }, payload) {
-    return axios
+    return this.$axios
       .post(`${state.baseURL}api/event`, payload)
       .then((response) => {
         if (response.status === 200) {
@@ -148,7 +147,7 @@ const actions = {
       debugPwd ? '&pwd=' + debugPwd : ''
     }`
 
-    return axios
+    return this.$axios
       .put(url, JSON.stringify(body))
       .then((response) => {
         Object.keys(response.data.data).forEach((attr) => {
@@ -264,7 +263,7 @@ const actions = {
       })
   },
   getWallets({ state, commit }) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}wallets.json`)
       .then((response) => {
         commit('setWallets', response.data)
@@ -275,7 +274,7 @@ const actions = {
       })
   },
   addDiscussion({ state }, payload) {
-    return axios
+    return this.$axios
       .post(
         `${state.baseURL}api/discussion?g-recaptcha-response=${payload.recaptchaToken}`,
         payload
@@ -289,7 +288,7 @@ const actions = {
       })
   },
   getDiscussionReplyPaymentRequest({ state }, payload) {
-    return axios
+    return this.$axios
       .post(
         `${state.baseURL}api/discussion${
           payload.recaptchaToken
@@ -307,7 +306,7 @@ const actions = {
       })
   },
   getDiscussions({ state, commit }) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/discussion`)
       .then((response) => {
         if (response.status === 200) {
@@ -319,7 +318,7 @@ const actions = {
       .catch(console.error)
   },
   getDiscussion({ state, commit }, id) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/discussion?id=${id}`)
       .then((response) => {
         if (response.status === 200) {
@@ -332,7 +331,7 @@ const actions = {
   },
 
   donateFaucetsRequest({ state, commit }, { data }) {
-    return axios
+    return this.$axios
       .post(`${state.baseURL}api/faucet_donation`)
       .then((response) => {
         if (response.status === 200) {
@@ -345,7 +344,7 @@ const actions = {
     { state, commit },
     { hCaptchaToken: hCaptchaToken, recaptchaToken: recaptchaToken }
   ) {
-    return axios
+    return this.$axios
       .get(
         `${state.baseURL}api/lnurl1?
       ${hCaptchaToken ? '&h-captcha-response=' + hCaptchaToken : ''}
@@ -359,7 +358,7 @@ const actions = {
       .catch(console.error)
   },
   getFaucetStats({ state, commit }) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/faucetstats`)
       .then((response) => {
         commit('setFaucetStats', response.data.data)
@@ -369,7 +368,7 @@ const actions = {
       })
   },
   getStatistics({ state, commit }) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/statistics`)
       .then((response) => {
         commit('setStatistics', response.data.data)
@@ -388,7 +387,7 @@ const actions = {
     commit('setLikeCounter', { storeId, remove })
     commit('updateLikedStores', { storeId, remove })
 
-    return axios({
+    return this.$axios({
       method: 'post',
       url: `${state.baseURL}api/like?storeID=${storeId}&remove=${remove}`,
     }).then((res) => {
@@ -408,7 +407,7 @@ const actions = {
       storeID: storeId,
       'h-captcha-response': token,
     }
-    return axios
+    return this.$axios
       .post(`${state.baseURL}api/loginattempt`, body)
       .then((response) => {
         if (response.status === 200) {
@@ -433,7 +432,7 @@ const actions = {
       })
   },
   getFaucetDonors({ state, commit }) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/faucetinfo`)
       .then((response) => {
         if (response.status === 200) {
@@ -448,6 +447,7 @@ const actions = {
                 claim,
                 throttle,
                 daily_claim_rate,
+                use_hcaptcha,
               },
               message,
             },
@@ -460,6 +460,7 @@ const actions = {
             throttle,
             message,
             daily_claim_rate,
+            use_hcaptcha,
           }
         }
       })
@@ -467,7 +468,7 @@ const actions = {
   },
 
   getStatus({ state, commit }, { storeId }) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
       .then((response) => {
         if (response.status === 200) {
@@ -488,7 +489,7 @@ const actions = {
       .catch(console.error)
   },
   logout({ state, commit }) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/logout`)
       .then((response) => {
         if (response.status === 200) {
@@ -504,7 +505,7 @@ const actions = {
   },
   deleteStoreField({ state, commit }, { id, field }) {
     const body = { fields: [field] }
-    return axios
+    return this.$axios
       .delete(`${state.baseURL}api/field?id=${id}`, { data: body })
       .then((response) => {
         if (response.status === 200) {
@@ -515,7 +516,7 @@ const actions = {
   },
   addExternalAttribute({ state, commit }, { id, name, value }) {
     const body = { [`${name}`]: value }
-    return axios
+    return this.$axios
       .put(`${state.baseURL}api/field?id=${id}`, body)
       .then((response) => {
         if (response.status === 200) {
@@ -588,7 +589,7 @@ const actions = {
     socialArray.forEach((social) => {
       body[`${social.name}`] = social.url
     })
-    return axios
+    return this.$axios
       .put(`${state.baseURL}api/field?id=${id}`, body)
       .then((response) => {
         if (response.status === 200) {
@@ -619,7 +620,7 @@ const actions = {
     const body = {
       fields: socialToRemove,
     }
-    return axios
+    return this.$axios
       .delete(`${state.baseURL}api/field?id=${id}`, { data: body })
       .then((response) => {
         if (response.status === 200) {
@@ -643,7 +644,7 @@ const actions = {
   },
   updateImage({ commit, state }, data) {
     console.log(data)
-    return axios.post(`${state.baseURL}api/image`, null, { params: data })
+    return this.$axios.post(`${state.baseURL}api/image`, null, { params: data })
   },
   processRoute({ commit, state }, route) {
     const tagsCheckbox = []
@@ -703,7 +704,7 @@ const actions = {
       }
     } else {
       try {
-        const response = await axios.post(
+        const response = await this.$axios.post(
           `${state.baseURL}api/image?storeID=${store.id}&source=${imagePath}`
         )
         if (response.status === 200) {
@@ -736,7 +737,7 @@ const actions = {
       position = maxPosition
     }
     const url = `${state.baseURL}api/image?storeID=${storeId}&position=${position}&media=${media}&homepage=${isHomepage}`
-    return axios
+    return this.$axios
       .put(url)
       .then((response) => {
         if (response.status === 200) {
@@ -762,7 +763,7 @@ const actions = {
       })
   },
   deleteStoreImage({ commit, state }, { id, position }) {
-    return axios
+    return this.$axios
       .delete(`${state.baseURL}api/image?storeID=${id}&position=${position}`)
       .then((response) => {
         const { data } = response
@@ -791,7 +792,7 @@ const actions = {
       })
   },
   setHomeImage({ commit, state }, { position, storeID }) {
-    return axios
+    return this.$axios
       .put(
         `${state.baseURL}api/image?storeID=${storeID}&position=${position}&homepage=true`
       )
@@ -817,7 +818,7 @@ const actions = {
       })
   },
   getPreview({ state }, { url }) {
-    return axios
+    return this.$axios
       .get(`${state.baseURL}api/preview?url=${url}`)
       .then((response) => {
         const { data } = response
@@ -854,7 +855,7 @@ const actions = {
         data: {
           data: { announcements: items, configuration },
         },
-      } = await axios.get(`${state.baseURL}api/announcement`)
+      } = await this.$axios.get(`${state.baseURL}api/announcement`)
 
       commit('updateAnnouncements', { configuration, items })
 
@@ -869,7 +870,7 @@ const actions = {
       data: {
         data: { summary },
       },
-    } = await axios.get(`${state.baseURL}api/storesummary`)
+    } = await this.$axios.get(`${state.baseURL}api/storesummary`)
 
     const storeSummary = summary.map((store) => ({
       text: `${store.name} (${store.rooturl})`,
@@ -893,7 +894,7 @@ const actions = {
         'BTC-LN': accepted.BTCLN,
       },
     }
-    return axios
+    return this.$axios
       .post(`${state.baseURL}api/settings?id=${storeId}`, body)
       .then((response) => {
         const { data } = response
@@ -921,7 +922,7 @@ const actions = {
       data: {
         data: { searches },
       },
-    } = await axios.get(`${state.baseURL}api/search`)
+    } = await this.$axios.get(`${state.baseURL}api/search`)
 
     commit('updatePopularSearches', searches)
   },

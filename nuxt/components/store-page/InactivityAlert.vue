@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
     props: {
@@ -56,7 +55,7 @@ export default {
     },
     methods: {
         removalOpinion(opinion, remove){
-             axios.post(`${this.$store.state.baseURL}api/removal?storeID=${this.$store.state.selectedStore.id}&opinion=${opinion}&remove=${remove}`)
+             this.$axios.post(`${this.$store.state.baseURL}api/removal?storeID=${this.$store.state.selectedStore.id}&opinion=${opinion}&remove=${remove}`)
              .then(response => {
                 this.snackbar = true
              })

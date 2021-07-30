@@ -202,6 +202,10 @@ export default {
       src: '~/plugins/vue-debounce.js',
       ssr: true,
     },
+    {
+      src: '~/plugins/axios.js',
+      ssr: true
+    }
   ],
 
   recaptcha: {
