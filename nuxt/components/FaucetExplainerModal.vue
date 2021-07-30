@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <v-btn color="secondary" fab x-small dark class="mt-2">
-      <v-icon class="float-left" @click.stop="showFaucetDialog = true"
+    <v-btn color="secondary" fab x-small dark class="mt-2" @click.stop="showFaucetDialog = true">
+      <v-icon class="float-left"
         >fa-question</v-icon
       >
     </v-btn>
@@ -14,13 +14,23 @@
       <template v-if="showFaucetDialog">
         <v-card class="pa-2">
           <v-card-title class="headline justify-center"
-            >How to get free bitcoin/satoshis</v-card-title
+            >About this faucet and how to use it</v-card-title
           >
+        <p>
+           This faucet is meant to introduce new users to the bitcoin lightning network or provide occasional help when someone runs out of satoshis.
+           Creating a new review/discussion on this website will cost one satoshi (replying is free), so you can use it for that too.
+         </p>
 
          <p>
             You need a wallet/app that supports the bitcoin lightning network and LNURL-withdraw (payment protocol most wallets support). 
             <a href="/?tags=wallet">Here you can find a list of these wallets</a>. Then you just need your wallet to
             open the "LNURL code" we provide: either scan the QR code, click the link or paste it into your wallet. 
+         </p>
+
+         <p>
+              We have had a few abusers. Don't try to abuse this faucet by trying to get money every day, use proxies or other tricks. 
+              Our anti-abuse measures are good and you will waste a lot of time. If you manage to temporarily fool us, you will mostly harm other 
+              users, who will get less satoshis, especially the ones in your area/network. In extreme cases, we may even limit the faucet in your country temporarily.
          </p>
 
           <v-card-actions>

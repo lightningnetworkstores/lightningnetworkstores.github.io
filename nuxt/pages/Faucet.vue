@@ -220,6 +220,7 @@ export default {
     claimAmount: null,
     throttle: 0,
     donorDialog: false,
+    use_hcaptcha: true,
     hCaptchaToken: null,
     recaptchaToken: null,
     claimID: null,
@@ -240,7 +241,7 @@ export default {
   mounted() {
     this.$store
       .dispatch('getFaucetDonors')
-      .then(({ configuration, top_donors, claim, throttle, message, daily_claim_rate }) => {
+      .then(({ configuration, top_donors, claim, throttle, message, daily_claim_rate, use_hcaptcha }) => {
         this.topDonors = top_donors
           .map((e) => {
             return {
@@ -256,10 +257,11 @@ export default {
           this.message = message
         }
 
+        this.use_hcaptcha = use_hcaptcha
         this.daily_claim_rate = daily_claim_rate
         this.configuration = configuration
 
-        if (this.throttle <= 0.1) {
+        if (!this.use_hcaptcha) {
           this.$recaptcha.init()
         }
       })
@@ -322,7 +324,7 @@ export default {
         )
     },
     async runCaptcha() {
-      if (this.throttle >= 0.1) {
+      if (this.use_hcaptcha) {
         this.$refs.invisibleHcaptcha.execute()
       } else {
         this.recaptchaToken = await this.$recaptcha.execute('faucet_claim')
