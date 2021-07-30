@@ -420,12 +420,12 @@ const actions = {
 
           const {
             data: {
-              data: { configuration, top_donors, claim, throttle, daily_claim_rate },
+              data: { configuration, top_donors, claim, throttle, daily_claim_rate, use_hcaptcha },
               message,
             },
           } = response
 
-          return { configuration, top_donors, claim, throttle, message, daily_claim_rate }
+          return { configuration, top_donors, claim, throttle, message, daily_claim_rate, use_hcaptcha }
         }
       })
       .catch(console.error)
