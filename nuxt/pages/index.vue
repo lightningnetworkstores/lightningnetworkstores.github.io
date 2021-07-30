@@ -300,24 +300,24 @@ export default {
     next()
   },
   mounted() {
-    const data = Array.from(this.$refs.list.children)
-
-    const store = data.find(
-      (store) => Number(store.dataset.storeid) === this.$route.meta.storeId
-    )
-
-    if (store) {
-      setTimeout(
-        () => window.scrollTo({ top: store.offsetTop, behavior: 'smooth' }),
-        50
-      )
-    }
-
     this.$recaptcha.init()
 
     this.searchLoading = true
     this.$store.dispatch('getRestStores').finally(() => {
       this.searchLoading = false
+
+      const data = Array.from(this.$refs.list.children)
+
+      const store = data.find(
+        (store) => Number(store.dataset.storeid) === this.$route.meta.storeId
+      )
+
+      if (store) {
+        setTimeout(
+          () => window.scrollTo({ top: store.offsetTop, behavior: 'smooth' }),
+          50
+        )
+      }
     })
   },
 
