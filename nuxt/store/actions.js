@@ -51,7 +51,7 @@ const actions = {
 
     for (let i = 1; i < pages; i++) {
       const url = `${state.baseURL}api/stores?page=${i}`
-      requests.push(axios.get(url))
+      requests.push(this.$axios.get(url))
     }
 
     const responses = await Promise.allSettled(requests)
