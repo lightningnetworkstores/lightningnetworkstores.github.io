@@ -164,45 +164,45 @@ export default {
   },
   head() {
     return {
-      title: 'Lightning Network faucet',
+      title: 'Bitcoin lightning faucet',
       meta: [
         {
           hid: 'description',
           name: 'description',
           content:
-            'Get bitcoin/satoshis with a click of a button in our faucet.',
+            'Get free bitcoin/satoshis with the click of a button in our lightning network faucet.',
         },
         {
           hid: 'og:title',
           property: 'og:title',
-          content: 'Lightning Network faucet',
+          content: 'Bitcoin lightning faucet',
         },
         {
           hid: 'og:description',
           property: 'og:description',
           content:
-            'Get bitcoin/satoshis with a click of a button in our faucet',
+            'Get free bitcoin/satoshis with the click of a button in our lightning network faucet.',
         },
         {
           hid: 'twitter:title',
           property: 'twitter:title',
-          content: 'Lightning Network faucet',
+          content: 'Bitcoin lightning faucet',
         },
         {
           hid: 'twitter:description',
           property: 'twitter:description',
           content:
-            'Get bitcoin/satoshis with a click of a button in our faucet',
+            'Get free bitcoin/satoshis with the click of a button in our lightning network faucet.',
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: '/faucet_ogimage.png',
+          content: process.env.BASE_URL + '/faucet_ogimage.png',
         },
         {
-          hid: 'twitter:image:src',
-          property: 'twitter:image:src',
-          content: '/faucet_ogimage.png',
+          hid: 'twitter:image',
+          property: 'twitter:image',
+          content: process.env.BASE_URL + '/faucet_ogimage.png',
         },
       ],
     }
