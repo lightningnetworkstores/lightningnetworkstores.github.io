@@ -123,7 +123,7 @@ export default {
         colors: ['#3c3d3c'],
         legend: { position: 'bottom'},
         chartArea: {
-          left: 35, width: '100%'
+          left: 45, width: '100%'
         }
       },
       merchantChartData: [['Time', 'Stores']],
@@ -137,7 +137,7 @@ export default {
         colors: ['#3c3d3c', '#323aa8'],
         legend: { position: 'bottom'},
         chartArea: {
-          left: 25, width: '100%'
+          left: 45, width: '100%'
         }
       },
       claimsChartData: [['Time', 'Claims', 'Users']],
