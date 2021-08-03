@@ -350,7 +350,7 @@ import EventCard from '~/components/EventCard'
 import AddEventModal from '~/components/AddEventModal.vue'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 import StoreInfoSection from '~/components/StoreInfoSection.vue'
-import SocialMedia from '~/mixins/social-media'
+import SocialMedia from '~/mixins/SocialMedia'
 import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
 import SettingsModal from '~/components/SettingsModal.vue'
 
