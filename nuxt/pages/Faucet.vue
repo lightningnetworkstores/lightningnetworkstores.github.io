@@ -243,30 +243,42 @@ export default {
   mounted() {
     this.$store
       .dispatch('getFaucetDonors')
-      .then(({ configuration, top_donors, claim, throttle, message, daily_claim_rate, use_hcaptcha }) => {
-        this.topDonors = top_donors
-          .map((e) => {
-            return {
-              ...e,
-              sats_per_claim: Math.round(e['sats_per_claim'] * 100) / 100,
-            }
-          })
-          .filter((e)=> e.name!='anonymous').sort((d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim'])
+      .then(
+        ({
+          configuration,
+          top_donors,
+          claim,
+          throttle,
+          message,
+          daily_claim_rate,
+          use_hcaptcha,
+        }) => {
+          this.topDonors = top_donors
+            .map((e) => {
+              return {
+                ...e,
+                sats_per_claim: Math.round(e['sats_per_claim'] * 100) / 100,
+              }
+            })
+            .filter((e) => e.name != 'anonymous')
+            .sort((d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim'])
 
-        this.claimAmount = claim
-        this.throttle = throttle
-        if (message) {
-          this.message = message
+          this.claimAmount = claim
+          this.throttle = throttle
+          if (message) {
+            this.message = message
+          }
+
+          this.use_hcaptcha = use_hcaptcha
+          this.daily_claim_rate = daily_claim_rate
+          this.configuration = configuration
+
+          if (!this.use_hcaptcha) {
+            this.$recaptcha.init()
+            setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
+          }
         }
-
-        this.use_hcaptcha = use_hcaptcha
-        this.daily_claim_rate = daily_claim_rate
-        this.configuration = configuration
-
-        if (!this.use_hcaptcha) {
-          this.$recaptcha.init()
-        }
-      })
+      )
   },
   computed: {
     showDialog() {
@@ -280,7 +292,7 @@ export default {
         // 'hardcore' hcaptcha
         return '11f90dcf-80e1-480e-94c8-054cefc3eae1'
       }
-    }
+    },
   },
   methods: {
     onVerify(hCaptchaToken, ekey) {
@@ -300,30 +312,32 @@ export default {
       this.claimID = claimID
       let date = new Date()
       this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600))
-      this.interval = setInterval(() => { this.checkClaim()}, 5000)
+      this.interval = setInterval(() => {
+        this.checkClaim()
+      }, 5000)
     },
-    checkClaim(){
-        if(this.expiryTime <= new Date()){
-            clearInterval(this.inverval)
-            return
-        }
+    checkClaim() {
+      if (this.expiryTime <= new Date()) {
+        clearInterval(this.inverval)
+        return
+      }
 
-        this.$store.dispatch('checkClaimRequest', { id: this.claimID }).then(
-          (response) => {
-            if (response.data.claim_status == 'PAID') {
-              clearInterval(this.interval)
-              this.successfulClaim = true
-              this.showSuccessModal = true
-              this.showCheckoutModal = false
-              this.paymentRequest = ''
-              this.stackSatsStores = response.data.stack_sats
-              this.spendSatsStores = response.data.spend_sats
-            }
-          },
-          (error) => {
-            console.log(error)
+      this.$store.dispatch('checkClaimRequest', { id: this.claimID }).then(
+        (response) => {
+          if (response.data.claim_status == 'PAID') {
+            clearInterval(this.interval)
+            this.successfulClaim = true
+            this.showSuccessModal = true
+            this.showCheckoutModal = false
+            this.paymentRequest = ''
+            this.stackSatsStores = response.data.stack_sats
+            this.spendSatsStores = response.data.spend_sats
           }
-        )
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
     },
     async runCaptcha() {
       if (this.use_hcaptcha) {
