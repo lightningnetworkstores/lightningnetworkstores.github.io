@@ -1,6 +1,8 @@
 <template>
   <div v-if="discussion && discussion.length">
-      <v-layout justify-center ma-4><h1>{{discussion[0].title}}</h1></v-layout>
+    <v-layout justify-center ma-4
+      ><h1>{{ discussion[0].title }}</h1></v-layout
+    >
     <v-col lg="6">
       <Reply :post="discussion[0]" :type="'discussion'" />
     </v-col>
@@ -14,7 +16,12 @@
         v-for="subComment in discussion.slice(1)"
         :key="subComment.id"
       >
-        <Reply :post="subComment" :threadId="discussion[0].thread_id" :parentReview="discussion[0].thread_id" :type="'discussion reply'" />
+        <Reply
+          :post="subComment"
+          :threadId="discussion[0].thread_id"
+          :parentReview="discussion[0].thread_id"
+          :type="'discussion reply'"
+        />
       </v-layout>
     </v-col>
   </div>
@@ -65,6 +72,7 @@ export default {
   },
   mounted() {
     this.$recaptcha.init()
+    setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
 }
 </script>

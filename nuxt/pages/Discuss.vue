@@ -80,6 +80,7 @@ export default {
   mounted() {
     this.$store.dispatch('getDiscussions')
     this.$recaptcha.init()
+    setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
 }
 </script>
