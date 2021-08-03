@@ -152,9 +152,11 @@ import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
 import FaucetExplainerModal from '@/components/FaucetExplainerModal.vue'
 import FaucetDonationModal from '@/components/FaucetDonationModal.vue'
+import UrlUtmSource from '~/mixins/UrlUtmSource'
 
 export default {
   name: 'Faucet',
+  mixins: [UrlUtmSource],
   components: {
     VueHcaptcha,
     Checkout,
@@ -358,7 +360,8 @@ export default {
     },
     handleDonorClick(item) {
       if (item.url) {
-        window.open(item.url, '_blank')
+        const url = this.getUtmSourceLink(item.url)
+        window.open(url, '_blank')
       }
     },
     closeDonationDialog() {

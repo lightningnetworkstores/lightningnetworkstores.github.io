@@ -11,6 +11,9 @@ const mutations = {
   setStores(state, stores) {
     state.stores = stores
   },
+  setStorePages(state, storePages) {
+    state.storePages = storePages
+  },
   setSelectedStore(state, store) {
     store.reviews.sort((a, b) => {
       if (Math.abs(b.score) !== Math.abs(a.score)) {
@@ -183,6 +186,9 @@ const mutations = {
   },
   updatePopularSearches(state, searches) {
     state.popularSearches = searches
+  },
+  pushStores(state, stores) {
+    state.stores.push(...stores)
   },
 }
 

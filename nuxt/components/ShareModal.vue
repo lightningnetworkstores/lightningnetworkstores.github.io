@@ -9,11 +9,11 @@
         <v-slide-group multiple show-arrows>
           <v-slide-item :key="platformName" v-for="platformName in platforms">
             <ShareNetwork
-                :network="platformName"
-                :url="`${baseURL}store/${store.rooturl}`"
-                :title="store.name"
-                :description="store.description"
-              >
+              :network="platformName"
+              :url="`${baseURL}store/${store.rooturl}`"
+              :title="store.name"
+              :description="store.description"
+            >
               <v-col class="social-media-share-col">
                 <v-btn
                   class="ml-3 my-3 d-flex justify-center"
@@ -22,54 +22,51 @@
                   large
                   :color="social[platformName].color"
                 >
-                  <v-icon dark>{{social[platformName].icon}}</v-icon>
+                  <v-icon dark>{{ social[platformName].icon }}</v-icon>
                 </v-btn>
-                <div class="d-flex justify-center">{{ platformName | capitalize }}</div>
+                <div class="d-flex justify-center">
+                  {{ platformName | capitalize }}
+                </div>
               </v-col>
             </ShareNetwork>
           </v-slide-item>
           <v-slide-item>
             <v-col>
-             <v-btn class="ml-1 my-3 d-flex justify-center"
-               fab dark large color="#BFBFBF"
-             >
-              <embed-modal
-                :store="store"
-                :baseURL="baseURL"
-              ></embed-modal>
-             </v-btn>
-             <div class="d-flex justify-center">Embed</div>
+              <v-btn
+                class="ml-1 my-3 d-flex justify-center"
+                fab
+                dark
+                large
+                color="#BFBFBF"
+              >
+                <embed-modal :store="store" :baseURL="baseURL"></embed-modal>
+              </v-btn>
+              <div class="d-flex justify-center">Embed</div>
             </v-col>
           </v-slide-item>
         </v-slide-group>
         <v-card-actions>
-          <v-spacer/>
-          <v-btn
-            color="green"
-            @click="closeDialog"
-            text
-          >
-            Cancel
-          </v-btn>
+          <v-spacer />
+          <v-btn color="green" @click="closeDialog" text> Cancel </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
 </template>
 <script>
-import SocialMedia from '~/mixins/social-media'
+import SocialMedia from '~/mixins/SocialMedia'
 export default {
   mixins: [SocialMedia],
   props: {
     store: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       showDialog: false,
-      platforms: ['facebook','twitter', 'telegram', 'whatsapp']
+      platforms: ['facebook', 'twitter', 'telegram', 'whatsapp'],
     }
   },
   methods: {
@@ -78,18 +75,18 @@ export default {
     },
     closeDialog() {
       this.showDialog = false
-    }
+    },
   },
   computed: {
     baseURL() {
       return this.$store.state.baseURL
     },
-  }
+  },
 }
 </script>
 <style scoped>
-  a {
-    color: black;
-    text-decoration: none;
-  }
+a {
+  color: black;
+  text-decoration: none;
+}
 </style>
