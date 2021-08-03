@@ -37,6 +37,7 @@ export const state = () => ({
   stores: [],
   storeSummary: [],
   storeEvents: [],
+  storePages: 0,
   tags: [],
   wallets: [],
 })

@@ -1,5 +1,11 @@
 <template>
-  <div class="input-container">
+  <div class="input-container d-flex align-center">
+    <v-progress-circular
+      indeterminate
+      color="amber"
+      class="mr-4"
+      v-if="isLoading"
+    ></v-progress-circular>
     <v-text-field
       v-model="searchQuery"
       class="search"
@@ -27,6 +33,10 @@ export default {
     value: {
       type: String,
       default: '',
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
