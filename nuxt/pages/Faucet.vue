@@ -152,9 +152,12 @@ import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
 import FaucetExplainerModal from '@/components/FaucetExplainerModal.vue'
 import FaucetDonationModal from '@/components/FaucetDonationModal.vue'
+import UrlUtmSource from '~/mixins/UrlUtmSource'
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 
 export default {
   name: 'Faucet',
+  mixins: [UrlUtmSource],
   components: {
     VueHcaptcha,
     Checkout,
@@ -208,6 +211,8 @@ export default {
     }
   },
   data: () => ({
+    browserFingerprint: '',
+    deviceUUID: '',
     headers: [
       { text: 'Name', value: 'name' },
       { text: 'Message', value: 'message' },
@@ -236,35 +241,65 @@ export default {
       maximum_donation_timeout_days: 50,
       minimum_donation: 5000,
     },
+    windowSize: {
+      width: 0,
+      height: 0,
+    },
   }),
   created() {},
-  mounted() {
+  async mounted() {
     this.$store
       .dispatch('getFaucetDonors')
-      .then(({ configuration, top_donors, claim, throttle, message, daily_claim_rate, use_hcaptcha }) => {
-        this.topDonors = top_donors
-          .map((e) => {
-            return {
-              ...e,
-              sats_per_claim: Math.round(e['sats_per_claim'] * 100) / 100,
-            }
-          })
-          .filter((e)=> e.name!='anonymous').sort((d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim'])
+      .then(
+        ({
+          configuration,
+          top_donors,
+          claim,
+          throttle,
+          message,
+          daily_claim_rate,
+          use_hcaptcha,
+        }) => {
+          this.topDonors = top_donors
+            .map((e) => {
+              return {
+                ...e,
+                sats_per_claim: Math.round(e['sats_per_claim'] * 100) / 100,
+              }
+            })
+            .filter((e) => e.name != 'anonymous')
+            .sort((d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim'])
 
-        this.claimAmount = claim
-        this.throttle = throttle
-        if (message) {
-          this.message = message
+          this.claimAmount = claim
+          this.throttle = throttle
+          if (message) {
+            this.message = message
+          }
+
+          this.use_hcaptcha = use_hcaptcha
+          this.daily_claim_rate = daily_claim_rate
+          this.configuration = configuration
+
+          if (!this.use_hcaptcha) {
+            this.$recaptcha.init()
+            setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
+          }
         }
+      )
 
-        this.use_hcaptcha = use_hcaptcha
-        this.daily_claim_rate = daily_claim_rate
-        this.configuration = configuration
+    const fp = await FingerprintJS.load()
+    const { visitorId } = await fp.get()
 
-        if (!this.use_hcaptcha) {
-          this.$recaptcha.init()
-        }
-      })
+    this.browserFingerprint = visitorId
+
+    //TODO: REFACTOR THIS
+    const { getDeviceUUID, du } = await import('@/utils/deviceUUID')
+    const [width, height] = du.resolution
+    this.deviceUUID = getDeviceUUID()
+    this.windowSize = {
+      width,
+      height,
+    }
   },
   computed: {
     showDialog() {
@@ -278,13 +313,18 @@ export default {
         // 'hardcore' hcaptcha
         return '11f90dcf-80e1-480e-94c8-054cefc3eae1'
       }
-    }
+    },
   },
   methods: {
     onVerify(hCaptchaToken, ekey) {
       this.hCaptchaToken = hCaptchaToken
       this.$store
-        .dispatch('faucetClaim', { hCaptchaToken: this.hCaptchaToken })
+        .dispatch('faucetClaim', {
+          browserFingerprint: this.browserFingerprint,
+          hCaptchaToken: this.hCaptchaToken,
+          deviceUUID: this.deviceUUID,
+          windowSize: this.windowSize,
+        })
         .then((resp) => {
           this.processFaucetClaim(resp)
         })
@@ -298,30 +338,32 @@ export default {
       this.claimID = claimID
       let date = new Date()
       this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600))
-      this.interval = setInterval(() => { this.checkClaim()}, 5000)
+      this.interval = setInterval(() => {
+        this.checkClaim()
+      }, 5000)
     },
-    checkClaim(){
-        if(this.expiryTime <= new Date()){
-            clearInterval(this.inverval)
-            return
-        }
+    checkClaim() {
+      if (this.expiryTime <= new Date()) {
+        clearInterval(this.inverval)
+        return
+      }
 
-        this.$store.dispatch('checkClaimRequest', { id: this.claimID }).then(
-          (response) => {
-            if (response.data.claim_status == 'PAID') {
-              clearInterval(this.interval)
-              this.successfulClaim = true
-              this.showSuccessModal = true
-              this.showCheckoutModal = false
-              this.paymentRequest = ''
-              this.stackSatsStores = response.data.stack_sats
-              this.spendSatsStores = response.data.spend_sats
-            }
-          },
-          (error) => {
-            console.log(error)
+      this.$store.dispatch('checkClaimRequest', { id: this.claimID }).then(
+        (response) => {
+          if (response.data.claim_status == 'PAID') {
+            clearInterval(this.interval)
+            this.successfulClaim = true
+            this.showSuccessModal = true
+            this.showCheckoutModal = false
+            this.paymentRequest = ''
+            this.stackSatsStores = response.data.stack_sats
+            this.spendSatsStores = response.data.spend_sats
           }
-        )
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
     },
     async runCaptcha() {
       if (this.use_hcaptcha) {
@@ -330,7 +372,10 @@ export default {
         this.recaptchaToken = await this.$recaptcha.execute('faucet_claim')
         this.$store
           .dispatch('faucetClaim', {
+            browserFingerprint: this.browserFingerprint,
             recaptchaToken: this.recaptchaToken,
+            deviceUUID: this.deviceUUID,
+            windowSize: this.windowSize,
           })
           .then((resp) => {
             this.processFaucetClaim(resp)
@@ -344,7 +389,8 @@ export default {
     },
     handleDonorClick(item) {
       if (item.url) {
-        window.open(item.url, '_blank')
+        const url = this.getUtmSourceLink(item.url)
+        window.open(url, '_blank')
       }
     },
     closeDonationDialog() {

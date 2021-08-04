@@ -1,4 +1,6 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 function syncLikesFromServer(serverLikes, likedStores, lsKey) {
   const likes = serverLikes.reduce((acc, id) => {
@@ -31,11 +33,12 @@ const actions = {
   getStores({ state, commit }) {
     return this.$axios
       .get(`${state.baseURL}api/stores`)
-      .then((response) => {
-        commit('setStores', response.data.data.stores)
-        commit('setConfiguration', response.data.data.configuration)
+      .then(({ data: { data } }) => {
+        commit('setStores', data.stores)
+        commit('setConfiguration', data.configuration)
+        commit('setStorePages', data.pages)
 
-        return response.data.data
+        return data
       })
       .catch(({ response }) => {
         return Promise.reject({
@@ -43,6 +46,26 @@ const actions = {
           message: response.data.message,
         })
       })
+  },
+  async getRestStores({ state, commit }) {
+    const pages = state.storePages
+    const requests = []
+
+    for (let i = 1; i < pages; i++) {
+      const url = `${state.baseURL}api/stores?page=${i}`
+      requests.push(this.$axios.get(url))
+    }
+
+    const responses = await Promise.allSettled(requests)
+
+    const restStores = responses.reduce((acc, { status, value }) => {
+      if (status === 'fulfilled') {
+        acc.push(...value.data.data.stores)
+      }
+      return acc
+    }, [])
+
+    commit('pushStores', restStores)
   },
   getStore({ state, commit }, data) {
     return this.$axios
@@ -321,14 +344,23 @@ const actions = {
   },
   faucetClaim(
     { state, commit },
-    { hCaptchaToken: hCaptchaToken, recaptchaToken: recaptchaToken }
+    {
+      browserFingerprint,
+      hCaptchaToken,
+      recaptchaToken,
+      deviceUUID,
+      windowSize: { width, height },
+    }
   ) {
+    const url = new URL(`${state.baseURL}api/lnurl1`)
+    url.searchParams.set('bfg', browserFingerprint)
+    url.searchParams.set('dfg', deviceUUID)
+    url.searchParams.set('wfg', `${width}${height}`)
+    url.searchParams.set('h-captcha-response', hCaptchaToken)
+    url.searchParams.set('g-recaptcha-response', recaptchaToken)
+
     return this.$axios
-      .get(
-        `${state.baseURL}api/lnurl1?
-      ${hCaptchaToken ? '&h-captcha-response=' + hCaptchaToken : ''}
-      ${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
-      )
+      .get(url.toString())
       .then((response) => {
         if (response.status === 200) {
           return response
@@ -420,12 +452,27 @@ const actions = {
 
           const {
             data: {
-              data: { configuration, top_donors, claim, throttle, daily_claim_rate, use_hcaptcha },
+              data: {
+                configuration,
+                top_donors,
+                claim,
+                throttle,
+                daily_claim_rate,
+                use_hcaptcha,
+              },
               message,
             },
           } = response
 
-          return { configuration, top_donors, claim, throttle, message, daily_claim_rate, use_hcaptcha }
+          return {
+            configuration,
+            top_donors,
+            claim,
+            throttle,
+            message,
+            daily_claim_rate,
+            use_hcaptcha,
+          }
         }
       })
       .catch(console.error)

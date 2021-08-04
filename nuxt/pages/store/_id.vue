@@ -11,7 +11,8 @@
       <v-row justify="center" v-if="selectedStore">
         <v-col cols="12" sm="9" xl="6">
           <v-alert v-if="selectedStore.new" text type="warning">
-            Store is new and additional images are being fetched. Please wait a few minutes to change your images.
+            Store is new and additional images are being fetched. Please wait a
+            few minutes to change your images.
           </v-alert>
           <v-row justify="center">
             <v-col cols="12" sm="12">
@@ -350,7 +351,7 @@ import EventCard from '~/components/EventCard'
 import AddEventModal from '~/components/AddEventModal.vue'
 import LikeStoreButton from '../../components/LikeStoreButton.vue'
 import StoreInfoSection from '~/components/StoreInfoSection.vue'
-import SocialMedia from '~/mixins/social-media'
+import SocialMedia from '~/mixins/SocialMedia'
 import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
 import SettingsModal from '~/components/SettingsModal.vue'
 
@@ -472,6 +473,7 @@ export default {
       this.sortReviewsByTime()
     }
     this.$recaptcha.init()
+    setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
   computed: {
     showSettings() {

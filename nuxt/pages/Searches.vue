@@ -3,7 +3,7 @@
     <v-container class="pa-6" fluid>
       <h1 class="text-center">Popular Searches</h1>
       <v-row v-for="(categorySearches, index) in popularSearches" :key="index">
-        <v-col md="12">
+        <v-col md="12" v-if="categorySearches.stores.length > 0">
           <nuxt-link
             :to="{ name: 'index', query: { tags: categorySearches.tag } }"
             class="title-link d-flex"
@@ -22,7 +22,9 @@
               v-for="(store, index) in categorySearches.stores"
               :key="index"
             >
-              <store-card :store="store" class="store-card my-4" />
+              <div class="store-card my-4">
+                <store-card :store="store" />
+              </div>
             </v-slide-item>
           </v-slide-group>
         </v-col>
@@ -35,15 +37,14 @@
 import { mapState } from 'vuex'
 
 export default {
-    head() {
+  head() {
     return {
       title: 'Popular searches | LightningNetworkStores',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content:
-            'Popular tag searches at LightningNetworkStores.com',
+          content: 'Popular tag searches at LightningNetworkStores.com',
         },
         {
           hid: 'og:title',
@@ -53,8 +54,7 @@ export default {
         {
           hid: 'og:description',
           property: 'og:description',
-          content:
-            'Popular tag searches at LightningNetworkStores.com',
+          content: 'Popular tag searches at LightningNetworkStores.com',
         },
         {
           hid: 'twitter:title',
@@ -64,9 +64,8 @@ export default {
         {
           hid: 'twitter:description',
           property: 'twitter:description',
-          content:
-            'Popular tag searches at LightningNetworkStores.com',
-        }
+          content: 'Popular tag searches at LightningNetworkStores.com',
+        },
       ],
     }
   },

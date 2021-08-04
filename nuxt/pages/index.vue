@@ -57,7 +57,11 @@
         <v-flex xs10 md18 lg6 ma-5>
           <v-row>
             <v-col cols="11" xs="11" sm="11" md="11">
-              <search-input v-model="searchQuery" @click="toggleDrawer" />
+              <search-input
+                :isLoading="searchLoading"
+                v-model="searchQuery"
+                @click="toggleDrawer"
+              />
             </v-col>
             <v-col cols="1" xs="1" sm="1" md="1">
               <tutorial-modal></tutorial-modal>
@@ -111,6 +115,7 @@ export default {
       isLoading: false,
       maxCards: 18,
       safeMode: false,
+      searchLoading: false,
       searchQuery: '',
       selectedSort: 'best',
       sortItems: [
@@ -295,20 +300,27 @@ export default {
     next()
   },
   mounted() {
-    const data = Array.from(this.$refs.list.children)
-
-    const store = data.find(
-      (store) => Number(store.dataset.storeid) === this.$route.meta.storeId
-    )
-
-    if (store) {
-      setTimeout(
-        () => window.scrollTo({ top: store.offsetTop, behavior: 'smooth' }),
-        50
-      )
-    }
-
     this.$recaptcha.init()
+
+    this.searchLoading = true
+    this.$store.dispatch('getRestStores').finally(() => {
+      this.searchLoading = false
+
+      const data = Array.from(this.$refs.list.children)
+
+      const store = data.find(
+        (store) => Number(store.dataset.storeid) === this.$route.meta.storeId
+      )
+
+      if (store) {
+        setTimeout(
+          () => window.scrollTo({ top: store.offsetTop, behavior: 'smooth' }),
+          50
+        )
+      }
+    })
+    this.$recaptcha.init()
+    setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
 
   beforeDestroy() {

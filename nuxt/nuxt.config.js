@@ -1,5 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
-import axios from 'axios'
+
+const Meta = {
+  title: 'Lightning Network Stores Directory',
+  description: 'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.'
+}
 
 export default {
   target: 'server',
@@ -56,7 +60,7 @@ export default {
     '/api2/': {
       target: process.env.BASE_URL,
       changeOrigin: false,
-    }
+    },
   },
   render: {
     static: {
@@ -83,7 +87,7 @@ export default {
   env: {},
   head: {
     // Global page headers (https://go.nuxtjs.dev/config-head)
-    title: 'Lightning Network Stores directory',
+    title: Meta.title,
     meta: [
       {
         charset: 'utf-8',
@@ -95,8 +99,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content:
-          'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
+        content: Meta.description
       },
       {
         hid: 'og:site_name',
@@ -106,13 +109,12 @@ export default {
       {
         hid: 'og:title',
         property: 'og:title',
-        content: 'Lightning Network Stores directory',
+        content: Meta.title,
       },
       {
         hid: 'og:description',
         property: 'og:description',
-        content:
-          'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
+        content: Meta.description
       },
       {
         hid: 'image',
@@ -127,13 +129,12 @@ export default {
       {
         hid: 'twitter:title',
         property: 'twitter:title',
-        content: 'Lightning Network Stores directory',
+        content: Meta.title,
       },
       {
         hid: 'twitter:description',
         property: 'twitter:description',
-        content:
-          'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
+        content: Meta.description
       },
       {
         hid: 'twitter:image',
@@ -179,6 +180,10 @@ export default {
   plugins: [
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     {
+      src: '~/plugins/deviceUUID.js',
+      ssr: false,
+    },
+    {
       src: '~/plugins/qrcode.js',
       ssr: false,
     },
@@ -204,8 +209,8 @@ export default {
     },
     {
       src: '~/plugins/axios.js',
-      ssr: true
-    }
+      ssr: true,
+    },
   ],
 
   recaptcha: {
