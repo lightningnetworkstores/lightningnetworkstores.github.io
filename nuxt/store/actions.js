@@ -1,4 +1,6 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 function syncLikesFromServer(serverLikes, likedStores, lsKey) {
   const likes = serverLikes.reduce((acc, id) => {
@@ -342,13 +344,22 @@ const actions = {
   },
   faucetClaim(
     { state, commit },
-    { hCaptchaToken: hCaptchaToken, recaptchaToken: recaptchaToken }
+    {
+      browserFingerprint,
+      hCaptchaToken,
+      recaptchaToken,
+      deviceUUID,
+      windowSize: { width, height },
+    }
   ) {
     return this.$axios
       .get(
         `${state.baseURL}api/lnurl1?
-      ${hCaptchaToken ? '&h-captcha-response=' + hCaptchaToken : ''}
-      ${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
+      ${hCaptchaToken ? `&bfg=${browserFingerprint}` : ''}
+      ${hCaptchaToken ? `&dfg=${deviceUUID}` : ''}
+      ${hCaptchaToken ? `&wfg=${width}${height}` : ''}
+      ${hCaptchaToken ? `&h-captcha-response=${hCaptchaToken}` : ''}
+      ${recaptchaToken ? `&g-recaptcha-response=${recaptchaToken}` : ''}`
       )
       .then((response) => {
         if (response.status === 200) {

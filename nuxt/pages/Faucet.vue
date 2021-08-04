@@ -153,6 +153,7 @@ import Success from '@/components/Success.vue'
 import FaucetExplainerModal from '@/components/FaucetExplainerModal.vue'
 import FaucetDonationModal from '@/components/FaucetDonationModal.vue'
 import UrlUtmSource from '~/mixins/UrlUtmSource'
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 
 export default {
   name: 'Faucet',
@@ -210,6 +211,8 @@ export default {
     }
   },
   data: () => ({
+    browserFingerprint: '',
+    deviceUUID: '',
     headers: [
       { text: 'Name', value: 'name' },
       { text: 'Message', value: 'message' },
@@ -238,9 +241,13 @@ export default {
       maximum_donation_timeout_days: 50,
       minimum_donation: 5000,
     },
+    windowSize: {
+      width: 0,
+      height: 0,
+    },
   }),
   created() {},
-  mounted() {
+  async mounted() {
     this.$store
       .dispatch('getFaucetDonors')
       .then(
@@ -279,6 +286,20 @@ export default {
           }
         }
       )
+
+    const fp = await FingerprintJS.load()
+    const { visitorId } = await fp.get()
+
+    this.browserFingerprint = visitorId
+
+    //TODO: REFACTOR THIS
+    const { getDeviceUUID, du } = await import('@/utils/deviceUUID')
+    const [width, height] = du.resolution
+    this.deviceUUID = getDeviceUUID()
+    this.windowSize = {
+      width,
+      height,
+    }
   },
   computed: {
     showDialog() {
@@ -298,7 +319,12 @@ export default {
     onVerify(hCaptchaToken, ekey) {
       this.hCaptchaToken = hCaptchaToken
       this.$store
-        .dispatch('faucetClaim', { hCaptchaToken: this.hCaptchaToken })
+        .dispatch('faucetClaim', {
+          browserFingerprint: this.browserFingerprint,
+          hCaptchaToken: this.hCaptchaToken,
+          deviceUUID: this.deviceUUID,
+          windowSize: this.windowSize,
+        })
         .then((resp) => {
           this.processFaucetClaim(resp)
         })
@@ -346,7 +372,10 @@ export default {
         this.recaptchaToken = await this.$recaptcha.execute('faucet_claim')
         this.$store
           .dispatch('faucetClaim', {
+            browserFingerprint: this.browserFingerprint,
             recaptchaToken: this.recaptchaToken,
+            deviceUUID: this.deviceUUID,
+            windowSize: this.windowSize,
           })
           .then((resp) => {
             this.processFaucetClaim(resp)
