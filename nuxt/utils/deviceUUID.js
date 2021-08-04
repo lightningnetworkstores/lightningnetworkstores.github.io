@@ -28,5 +28,6 @@ const dua = [
 ]
 
 export function getDeviceUUID() {
+  console.log({ dua })
   return du.hashMD5(dua.join(':'))
 }
