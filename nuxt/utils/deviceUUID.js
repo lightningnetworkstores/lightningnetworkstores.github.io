@@ -2,7 +2,7 @@ import devUUID from '@/plugins/deviceUUID'
 
 const DeviceUUID = devUUID.DeviceUUID
 
-const du = new DeviceUUID().parse()
+export const du = new DeviceUUID().parse()
 
 const dua = [
   du.language,

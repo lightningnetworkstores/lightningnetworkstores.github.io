@@ -10,6 +10,7 @@
     "generate": "node --max-old-space-size=1024 node_modules/nuxt/bin/nuxt.js generate"
   },
   "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^3.3.0",
     "@hcaptcha/vue-hcaptcha": "^0.3.0",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.0.2",
