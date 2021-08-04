@@ -164,13 +164,20 @@ export default {
         Boolean
       )
 
-      console.log({ allDiscussions })
+      const [lastDiscussion] = allDiscussions.sort(
+        (disc1, disc2) => disc2.timestamp - disc1.timestamp
+      )
+
+      return lastDiscussion.timestamp
     },
   },
-  mounted() {
-    this.$store.dispatch('getDiscussions')
+  async mounted() {
     this.$recaptcha.init()
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
+    await this.$store.dispatch('getDiscussions')
+    await this.$store.dispatch('updateLastDiscussionTime', {
+      discussionTime: this.getLastTimeDiscussion(),
+    })
   },
 }
 </script>

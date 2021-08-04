@@ -937,6 +937,9 @@ const actions = {
 
     commit('updatePopularSearches', searches)
   },
+  updateLastDiscussionTime(_, { discussionTime }) {
+    localStorage.setItem('last_comment_seen', discussionTime)
+  },
 }
 
 export default actions
