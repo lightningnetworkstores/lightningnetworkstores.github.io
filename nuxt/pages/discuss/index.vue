@@ -153,6 +153,20 @@ export default {
     ...mapGetters(['getActiveStoreDiscussions']),
     ...mapState(['lastDiscussions', 'storeEvents']),
   },
+  methods: {
+    getLastTimeDiscussion() {
+      const storeDiscussions = [...this.getActiveStoreDiscussions].flatMap(
+        (storeDisc) => storeDisc.discussions
+      )
+      const lastDiscussions = [...this.lastDiscussions].flat()
+
+      const allDiscussions = [...storeDiscussions, ...lastDiscussions].filter(
+        Boolean
+      )
+
+      console.log({ allDiscussions })
+    },
+  },
   mounted() {
     this.$store.dispatch('getDiscussions')
     this.$recaptcha.init()
