@@ -240,7 +240,7 @@ export default {
     },
   }),
   created() {},
-  mounted() {
+  async mounted() {
     this.$store
       .dispatch('getFaucetDonors')
       .then(
@@ -279,6 +279,10 @@ export default {
           }
         }
       )
+
+    const { getDeviceUUID } = await import('@/utils/deviceUUID')
+    this.getDeviceUUID = getDeviceUUID
+    console.log({ uuid: this.getDeviceUUID() })
   },
   computed: {
     showDialog() {
@@ -340,6 +344,8 @@ export default {
       )
     },
     async runCaptcha() {
+      const deviceId = getDeviceUUID()
+      console.log({ deviceId })
       if (this.use_hcaptcha) {
         this.$refs.invisibleHcaptcha.execute()
       } else {

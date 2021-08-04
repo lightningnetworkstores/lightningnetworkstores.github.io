@@ -16,6 +16,7 @@
     "@nuxtjs/recaptcha": "^1.0.4",
     "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.6.5",
+    "device-uuid": "^1.0.4",
     "fuse.js": "^3.4.4",
     "nuxt": "^2.14.6",
     "qrcode.vue": "^1.6.1",

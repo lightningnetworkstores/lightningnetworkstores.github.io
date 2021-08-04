@@ -56,7 +56,7 @@ export default {
     '/api2/': {
       target: process.env.BASE_URL,
       changeOrigin: false,
-    }
+    },
   },
   render: {
     static: {
@@ -179,6 +179,10 @@ export default {
   plugins: [
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     {
+      src: '~/plugins/deviceUUID.js',
+      ssr: false,
+    },
+    {
       src: '~/plugins/qrcode.js',
       ssr: false,
     },
@@ -204,8 +208,8 @@ export default {
     },
     {
       src: '~/plugins/axios.js',
-      ssr: true
-    }
+      ssr: true,
+    },
   ],
 
   recaptcha: {
