@@ -5,7 +5,6 @@ const DeviceUUID = devUUID.DeviceUUID
 export const du = new DeviceUUID().parse()
 
 const dua = [
-  du.language,
   du.platform,
   du.os,
   du.cpuCores,
