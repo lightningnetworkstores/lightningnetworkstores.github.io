@@ -459,6 +459,7 @@ const actions = {
                 throttle,
                 daily_claim_rate,
                 use_hcaptcha,
+                max_claim
               },
               message,
             },
@@ -472,6 +473,7 @@ const actions = {
             message,
             daily_claim_rate,
             use_hcaptcha,
+            max_claim
           }
         }
       })

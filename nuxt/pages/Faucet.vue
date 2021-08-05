@@ -71,9 +71,11 @@
                 Get {{ claimAmount }} sat
               </v-btn>
             </v-layout>
-            <v-layout justify-center ma-3>
+            <v-row style="justify-content:center">
               <FaucetExplainerModal />
-            </v-layout>
+              <share-faucet :maxClaim="max_claim" />
+            </v-row>
+            
           </div>
           <div v-if="successfulClaim">
             <v-row>
@@ -223,6 +225,7 @@ export default {
     daily_claim_rate: 2,
     topDonors: [],
     claimAmount: null,
+    max_claim: 1,
     throttle: 0,
     donorDialog: false,
     use_hcaptcha: true,
@@ -259,6 +262,7 @@ export default {
           message,
           daily_claim_rate,
           use_hcaptcha,
+          max_claim
         }) => {
           this.topDonors = top_donors
             .map((e) => {
@@ -271,6 +275,7 @@ export default {
             .sort((d1, d2) => d2['sats_per_claim'] - d1['sats_per_claim'])
 
           this.claimAmount = claim
+          this.max_claim = max_claim
           this.throttle = throttle
           if (message) {
             this.message = message
