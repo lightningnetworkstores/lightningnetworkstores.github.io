@@ -114,7 +114,7 @@ export default {
           (ann1, ann2) => ann2.id - ann1.id
         )
 
-        return Boolean(announcement) ? announcement : {}
+        return announcement ?? {}
       },
       announcementReqConfig: (state) => state.announcements.configuration,
       announcements: (state) => state.announcements.items,

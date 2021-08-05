@@ -2,7 +2,7 @@
   <div>
     <v-row
       v-if="lazyItems.length > 0"
-      :class="{ 'd-flex': horizontal, [className]: true }"
+      :class="[className, { 'd-flex': horizontal }]"
     >
       <div v-for="(item, index) in lazyItems" :key="index" class="w100">
         <slot name="item" :slot-scope="item" />
