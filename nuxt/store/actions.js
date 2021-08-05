@@ -362,9 +362,7 @@ const actions = {
     return this.$axios
       .get(url.toString())
       .then((response) => {
-        if (response.status === 200) {
-          return response
-        }
+        return response
       })
       .catch(console.error)
   },

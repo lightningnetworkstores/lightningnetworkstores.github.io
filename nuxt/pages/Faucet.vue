@@ -139,6 +139,7 @@
           <Checkout
             v-if="showCheckoutModal"
             :satoshi="claimAmount"
+            :warningMessage="checkoutWarning"
             :paymentRequest="paymentRequest"
             @cancel="handleCancel"
           />
@@ -238,6 +239,7 @@ export default {
     showSuccessModal: false,
     successfulClaim: false,
     paymentRequest: '',
+    checkoutWarning: '',
     stackSatsStores: [],
     spendSatsStores: [],
     configuration: {
@@ -338,6 +340,7 @@ export default {
       this.showCheckoutModal = true
       this.paymentRequest = response.data.data['lnurl-withdraw']
       this.checkClaimMethod(response.data.data.claimID)
+      if(response.data.message) this.checkoutWarning = response.data.message
     },
     checkClaimMethod(claimID) {
       this.claimID = claimID
