@@ -256,7 +256,7 @@ export default {
       },
     },
   },
-  //googleAnalytics: { id: 'UA-74119866-1' },
+  googleAnalytics: { id: 'UA-74119866-1' },
 
   build: {
     // Build Configuration (https://go.nuxtjs.dev/config-build)
