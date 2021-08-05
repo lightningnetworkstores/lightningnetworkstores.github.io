@@ -339,6 +339,7 @@ export default {
     processFaucetClaim(response) {
       this.showCheckoutModal = true
       this.paymentRequest = response.data.data['lnurl-withdraw']
+      this.claimAmount = response.data.data.amount
       this.checkClaimMethod(response.data.data.claimID)
       if(response.data.message) this.checkoutWarning = response.data.message
     },
