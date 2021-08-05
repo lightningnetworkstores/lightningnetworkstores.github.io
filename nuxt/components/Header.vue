@@ -11,7 +11,18 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn text v-for="route in routes" :key="route.text" :to="route.url">
-        {{ route.text }}
+        <v-badge
+          v-if="isDiscussionNotificationShowed && route.text === 'Discuss'"
+          color="orange"
+          dot
+          inline
+          left
+        >
+          {{ route.text }}
+        </v-badge>
+        <div v-else>
+          {{ route.text }}
+        </div>
       </v-btn>
       <v-btn
         icon
@@ -23,11 +34,19 @@
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
-        <v-app-bar-nav-icon
-          class="hidden-md-and-up"
-          v-bind="attrs"
-          v-on="on"
-        ></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon class="hidden-md-and-up" v-bind="attrs" v-on="on">
+          <template #default>
+            <v-badge
+              v-if="isDiscussionNotificationShowed"
+              color="orange"
+              dot
+              overlap
+            >
+              <v-icon>mdi-menu</v-icon>
+            </v-badge>
+            <v-icon v-else>mdi-menu</v-icon>
+          </template>
+        </v-app-bar-nav-icon>
       </template>
       <v-list>
         <v-list-item v-for="route in routes" :key="route.text" :to="route.url">
@@ -68,12 +87,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data() {
     return {
       routes: [
         { url: '/discuss', text: 'Discuss' },
-         { url: '/faucet', text: 'Faucet' },
+        { url: '/faucet', text: 'Faucet' },
         { url: '/stats', text: 'Statistics' },
         { url: '/wallets', text: 'Wallets' },
         //{ url: '/donations', text: 'Donations' },
@@ -81,7 +102,14 @@ export default {
       ],
     }
   },
-  mounted() {},
+
+  computed: {
+    ...mapState({
+      isDiscussionNotificationShowed(state) {
+        return state.lastDiscussionTimeServer > state.lastCommentSeenTimestamp
+      },
+    }),
+  },
 
   methods: {
     toggleDarkmode() {

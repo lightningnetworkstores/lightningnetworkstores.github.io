@@ -190,6 +190,12 @@ const mutations = {
   pushStores(state, stores) {
     state.stores.push(...stores)
   },
+  updateLastCommentSeenTimestamp(state, lastCommentSeenTimestamp) {
+    state.lastCommentSeenTimestamp = lastCommentSeenTimestamp
+  },
+  updateLastDiscussionTimeServer(state, time) {
+    state.lastDiscussionTimeServer = time
+  },
 }
 
 export default mutations

@@ -151,7 +151,7 @@ export default {
   },
   computed: {
     ...mapGetters(['getActiveStoreDiscussions']),
-    ...mapState(['lastDiscussions', 'storeEvents']),
+    ...mapState(['lastCommentSeenTimestamp', 'lastDiscussions', 'storeEvents']),
   },
   methods: {
     getLastTimeDiscussion() {
@@ -171,13 +171,15 @@ export default {
       return lastDiscussion.timestamp
     },
   },
-  async mounted() {
-    this.$recaptcha.init()
-    setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
+  async beforeMount() {
     await this.$store.dispatch('getDiscussions')
     await this.$store.dispatch('updateLastDiscussionTime', {
       discussionTime: this.getLastTimeDiscussion(),
     })
+  },
+  async mounted() {
+    this.$recaptcha.init()
+    setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
 }
 </script>

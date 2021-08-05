@@ -937,8 +937,17 @@ const actions = {
 
     commit('updatePopularSearches', searches)
   },
-  updateLastDiscussionTime(_, { discussionTime }) {
+  updateLastDiscussionTime({ commit }, { discussionTime }) {
     localStorage.setItem('last_comment_seen', discussionTime)
+    commit('updateLastCommentSeenTimestamp', Number(discussionTime))
+  },
+  getLastDiscussionTimestamp({ commit }) {
+    const lastCommentSeen = localStorage.getItem('last_comment_seen') || 0
+
+    commit('updateLastCommentSeenTimestamp', Number(lastCommentSeen))
+  },
+  updateLastDiscussionTimeServer({ commit }, time) {
+    commit('updateLastDiscussionTimeServer', Number(time))
   },
 }
 

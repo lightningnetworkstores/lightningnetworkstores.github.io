@@ -2,7 +2,8 @@ import colors from 'vuetify/es5/util/colors'
 
 const Meta = {
   title: 'Lightning Network Stores Directory',
-  description: 'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.'
+  description:
+    'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
 }
 
 export default {
@@ -99,7 +100,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: Meta.description
+        content: Meta.description,
       },
       {
         hid: 'og:site_name',
@@ -114,7 +115,7 @@ export default {
       {
         hid: 'og:description',
         property: 'og:description',
-        content: Meta.description
+        content: Meta.description,
       },
       {
         hid: 'image',
@@ -134,7 +135,7 @@ export default {
       {
         hid: 'twitter:description',
         property: 'twitter:description',
-        content: Meta.description
+        content: Meta.description,
       },
       {
         hid: 'twitter:image',
@@ -189,6 +190,10 @@ export default {
     },
     {
       src: '~/plugins/updateStoreLikes.js',
+      ssr: false,
+    },
+    {
+      src: '~/plugins/checkDiscussionNotificationShowed.js',
       ssr: false,
     },
     {
