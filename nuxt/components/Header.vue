@@ -51,7 +51,20 @@
       <v-list>
         <v-list-item v-for="route in routes" :key="route.text" :to="route.url">
           <v-list-item>
-            <v-list-item-title>{{ route.text }}</v-list-item-title>
+            <v-list-item-title>
+              <v-badge
+                v-if="
+                  isDiscussionNotificationShowed && route.text === 'Discuss'
+                "
+                color="orange"
+                dot
+              >
+                {{ route.text }}
+              </v-badge>
+              <div v-else>
+                {{ route.text }}
+              </div>
+            </v-list-item-title>
           </v-list-item>
         </v-list-item>
         <v-list-item href="https://twitter.com/bitcoinLNS">
