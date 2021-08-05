@@ -229,7 +229,7 @@ export default {
     // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
     // '@nuxt/typescript-build', // https://go.nuxtjs.dev/typescript
     '@nuxtjs/vuetify', // https://go.nuxtjs.dev/vuetify
-    //'@nuxtjs/google-analytics',
+    '@nuxtjs/google-analytics',
   ],
 
   modules: [

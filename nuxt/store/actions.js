@@ -352,19 +352,17 @@ const actions = {
       windowSize: { width, height },
     }
   ) {
+    const url = new URL(`${state.baseURL}api/lnurl1`)
+    url.searchParams.set('bfg', browserFingerprint)
+    url.searchParams.set('dfg', deviceUUID)
+    url.searchParams.set('wfg', `${width}${height}`)
+    url.searchParams.set('h-captcha-response', hCaptchaToken)
+    url.searchParams.set('g-recaptcha-response', recaptchaToken)
+
     return this.$axios
-      .get(
-        `${state.baseURL}api/lnurl1?
-      ${hCaptchaToken ? `&bfg=${browserFingerprint}` : ''}
-      ${hCaptchaToken ? `&dfg=${deviceUUID}` : ''}
-      ${hCaptchaToken ? `&wfg=${width}${height}` : ''}
-      ${hCaptchaToken ? `&h-captcha-response=${hCaptchaToken}` : ''}
-      ${recaptchaToken ? `&g-recaptcha-response=${recaptchaToken}` : ''}`
-      )
+      .get(url.toString())
       .then((response) => {
-        if (response.status === 200) {
-          return response
-        }
+        return response
       })
       .catch(console.error)
   },
@@ -459,6 +457,7 @@ const actions = {
                 throttle,
                 daily_claim_rate,
                 use_hcaptcha,
+                max_claim
               },
               message,
             },
@@ -472,6 +471,7 @@ const actions = {
             message,
             daily_claim_rate,
             use_hcaptcha,
+            max_claim
           }
         }
       })
