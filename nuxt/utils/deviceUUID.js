@@ -6,7 +6,6 @@ export const du = new DeviceUUID().parse()
 
 const dua = [
   du.platform,
-  du.os,
   du.cpuCores,
   du.isAuthoritative,
   du.silkAccelerated,
