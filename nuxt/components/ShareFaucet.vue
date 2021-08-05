@@ -12,7 +12,7 @@
               :network="platformName"
               :url="`${baseURL}faucet`"
               title="LightningNetworkStores.com faucet"
-              :description="`You can currently get ${maxClaim} on the LightningNetworkStores.com faucet!`"
+              :description="`You can currently get ${maxClaim} satoshis on the LightningNetworkStores.com faucet!`"
             >
               <v-col class="social-media-share-col">
                 <v-btn
