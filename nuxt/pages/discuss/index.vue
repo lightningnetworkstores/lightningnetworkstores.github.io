@@ -171,15 +171,14 @@ export default {
       return lastDiscussion.timestamp
     },
   },
-  async beforeMount() {
+  async mounted() {
+    this.$recaptcha.init()
+    setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
+
     await this.$store.dispatch('getDiscussions')
     await this.$store.dispatch('updateLastDiscussionTime', {
       discussionTime: this.getLastTimeDiscussion(),
     })
-  },
-  async mounted() {
-    this.$recaptcha.init()
-    setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
 }
 </script>
