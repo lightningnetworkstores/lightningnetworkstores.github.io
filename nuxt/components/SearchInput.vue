@@ -1,5 +1,10 @@
 <template>
-  <div class="input-container d-flex align-center">
+  <div
+    :class="{
+      'input-container d-flex align-center': true,
+      'flex-column': !$vuetify.breakpoint.lgAndUp,
+    }"
+  >
     <v-progress-circular
       indeterminate
       color="amber"
