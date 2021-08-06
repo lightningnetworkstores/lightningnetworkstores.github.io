@@ -457,7 +457,7 @@ const actions = {
                 throttle,
                 daily_claim_rate,
                 use_hcaptcha,
-                max_claim
+                max_claim,
               },
               message,
             },
@@ -471,7 +471,7 @@ const actions = {
             message,
             daily_claim_rate,
             use_hcaptcha,
-            max_claim
+            max_claim,
           }
         }
       })
@@ -942,9 +942,11 @@ const actions = {
     commit('updateLastCommentSeenTimestamp', Number(discussionTime))
   },
   getLastDiscussionTimestamp({ commit }) {
-    const lastCommentSeen = localStorage.getItem('last_comment_seen') || 0
+    const lastCommentSeen = Number(localStorage.getItem('last_comment_seen'))
 
-    commit('updateLastCommentSeenTimestamp', Number(lastCommentSeen))
+    const timestamp = !Number.isNaN(lastCommentSeen) ? lastCommentSeen : 0
+
+    commit('updateLastCommentSeenTimestamp', timestamp)
   },
   updateLastDiscussionTimeServer({ commit }, time) {
     commit('updateLastDiscussionTimeServer', Number(time))
