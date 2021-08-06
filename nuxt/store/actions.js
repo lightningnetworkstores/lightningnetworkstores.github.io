@@ -386,7 +386,10 @@ const actions = {
         console.log(error)
       })
   },
-  likeStore({ state, commit }, { storeId, remove }) {
+  likeStore(
+    { state, commit },
+    { storeId, remove, deviceFingerprint, browserFingerprint }
+  ) {
     const lsKey = `lns_likes`
     let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? {}
 
@@ -396,9 +399,18 @@ const actions = {
     commit('setLikeCounter', { storeId, remove })
     commit('updateLikedStores', { storeId, remove })
 
+    const likeUrl = new URL(`${state.baseURL}api/like`)
+    likeUrl.searchParams.set('storeID', storeId)
+    likeUrl.searchParams.set('remove', `${remove}`)
+
+    if (!remove) {
+      likeUrl.searchParams.set('bfg', browserFingerprint)
+      likeUrl.searchParams.set('dfg', deviceFingerprint)
+    }
+
     return this.$axios({
       method: 'post',
-      url: `${state.baseURL}api/like?storeID=${storeId}&remove=${remove}`,
+      url: likeUrl.toString(),
     }).then((res) => {
       if (res.status !== 200 && res.status !== 202) {
         commit('setLikeCounter', { storeId, remove: !remove })
@@ -457,7 +469,7 @@ const actions = {
                 throttle,
                 daily_claim_rate,
                 use_hcaptcha,
-                max_claim
+                max_claim,
               },
               message,
             },
@@ -471,7 +483,7 @@ const actions = {
             message,
             daily_claim_rate,
             use_hcaptcha,
-            max_claim
+            max_claim,
           }
         }
       })

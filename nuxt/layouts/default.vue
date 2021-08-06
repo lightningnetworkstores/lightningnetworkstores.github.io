@@ -27,8 +27,11 @@
   </v-app>
 </template>
 <script>
-import Header from '@/components/Header'
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
+
 import { mapState } from 'vuex'
+
+import Header from '@/components/Header'
 import AnnouncementModal from '@/components/AnnouncementModal'
 
 export default {
@@ -41,24 +44,39 @@ export default {
   data() {
     return {}
   },
+
   head() {
-    if(this.$route.query.tags) {
+    if (this.$route.query.tags) {
       const tags = this.$route.query.tags.split(',')
       if (tags.length === 1) {
         const tag = this.$options.filters.capitalize(tags[0])
         return {
-          title: `${tag} tag | Lightning Network Stores`
+          title: `${tag} tag | Lightning Network Stores`,
         }
       }
     }
   },
+
   beforeCreate() {
     if (this.$cookies.get('darkMode') !== undefined) {
       this.$vuetify.theme.dark = this.$cookies.get('darkMode')
       this.$vuetify.theme.dark = false // turn it off always for now
     } else this.$vuetify.theme.dark = false
   },
-  mounted() {},
+
+  mounted() {
+    const fp = await FingerprintJS.load()
+    const { visitorId } = await fp.get()
+
+    //TODO: REFACTOR THIS
+    const { getDeviceUUID, du } = await import('@/utils/deviceUUID')
+    const [width, height] = du.resolution
+
+    this.$store.dispatch('setDeviceUUID', getDeviceUUID())
+    this.$store.dispatch('setDeviceResolution', { width, height })
+    this.$store.dispatch('setBrowserFingerprint', visitorId)
+  },
+
   computed: {
     ...mapState({
       configuration(state) {
