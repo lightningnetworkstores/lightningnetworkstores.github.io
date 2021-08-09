@@ -189,32 +189,12 @@ const getters = {
       lifetime: score[5] ? score[5] : 0,
     }
   },
-  getActiveStoreDiscussions: (state) => {
-    const formattedDiscussions = state.activeStoreDiscussions.map(
-      (discussion) => {
-        const store = {
-          id: discussion.id,
-          trending: discussion.trending,
-          rank: discussion.rank,
-          upvotes: discussion.upvotes,
-          downvotes: discussion.downvotes,
-          href: discussion.href,
-          name: discussion.name,
-          description: discussion.description,
-          tags: discussion.tags,
-          total_comments: discussion.total_comments,
-          added: discussion.added,
-          rooturl: discussion.rooturl,
-          likes: discussion.likes,
-        }
-        return {
-          store: store,
-          reviews: discussion.reviews,
-          discussions: discussion.discussions,
-        }
-      }
+  getActiveStoreDiscussions: (state, getters) => {
+    return getters.getListResolvedEntity(
+      state.activeStoreDiscussions,
+      'stores',
+      ['store']
     )
-    return formattedDiscussions
   },
   getListResolvedEntity(state) {
     return (normalizedDataList, collectionName, fields) => {

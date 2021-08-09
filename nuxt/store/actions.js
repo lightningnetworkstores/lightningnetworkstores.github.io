@@ -315,7 +315,27 @@ const actions = {
       .then((response) => {
         if (response.status === 200) {
           const { data } = response.data
-          commit('setDiscussions', data)
+
+          const { last_active_stores: lastActiveStores, ...rest } = data
+
+          const [stores, activeStoresDiscussions] = lastActiveStores.reduce(
+            (acc, storeDiscussion) => {
+              const { reviews, discussions, ...store } = storeDiscussion
+              acc[0].push(store)
+              acc[1].push(
+                normalizeRelations({ store, reviews, discussions }, ['store'])
+              )
+              return acc
+            },
+            [[], []]
+          )
+
+          commit('pushStores', stores)
+
+          commit('setDiscussions', {
+            last_active_stores: activeStoresDiscussions,
+            ...rest,
+          })
           commit('setConfiguration', data.configuration)
         }
       })
