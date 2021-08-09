@@ -69,23 +69,27 @@ const actions = {
 
     commit('pushStores', restStores)
   },
-  getStore({ state, commit }, data) {
-    return this.$axios
-      .get(`${state.baseURL}api/storeinfo?id=` + data.id)
-      .then((response) => {
-        return response.data
+  async getStore({ state, commit }, data) {
+    console.log({ data })
+    try {
+      const url = `${state.baseURL}api/storeinfo/?id=${data.id}`
+      const { data: response } = await this.$axios.get(url)
+
+      const stores = response.related ?? []
+      response.related = stores.map((store) => store.id)
+
+      commit('pushStores', stores)
+
+      commit('setConfiguration', response.configuration)
+      commit('setSelectedStore', response)
+
+      return response
+    } catch (err) {
+      return Promise.reject({
+        statusCode: err.status,
+        message: err.message,
       })
-      .then((response) => {
-        commit('setConfiguration', response.configuration)
-        commit('setSelectedStore', response)
-        return response
-      })
-      .catch(({ response }) => {
-        return Promise.reject({
-          statusCode: response.status,
-          message: response.data.message,
-        })
-      })
+    }
   },
   addStore(
     { state },

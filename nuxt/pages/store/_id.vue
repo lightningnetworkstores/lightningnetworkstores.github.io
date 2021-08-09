@@ -476,6 +476,7 @@ export default {
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
   computed: {
+    ...mapState(['stores']),
     showSettings() {
       return (
         this.selectedStoreSettings.email &&
@@ -502,9 +503,8 @@ export default {
       return Object.keys(this.selectedStore.external).length > 0
     },
     relatedStores() {
-      //Removes store with the same id
-      return this.selectedStore.related.filter(
-        (store) => store.id !== this.selectedStore.id
+      return this.stores.filter(({ id }) =>
+        this.selectedStore.related.includes(id)
       )
     },
     storeEmail() {
