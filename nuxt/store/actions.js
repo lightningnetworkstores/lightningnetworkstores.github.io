@@ -1,5 +1,7 @@
 import dotenv from 'dotenv'
 
+import { normalizeRelations } from './helpers'
+
 dotenv.config()
 
 function syncLikesFromServer(serverLikes, likedStores, lsKey) {
@@ -947,7 +949,17 @@ const actions = {
       },
     } = await this.$axios.get(`${state.baseURL}api/search`)
 
-    commit('updatePopularSearches', searches)
+    const [stores, mappedSearches] = searches.reduce(
+      (acc, search) => {
+        acc[0].push(...search.stores)
+        acc[1].push(normalizeRelations(search, ['stores']))
+        return acc
+      },
+      [[], []]
+    )
+
+    commit('pushStores', stores)
+    commit('updatePopularSearches', mappedSearches)
   },
   setDeviceFingerprint({ commit }, { deviceFingerprint }) {
     commit('setDeviceFingerprint', deviceFingerprint)
