@@ -64,7 +64,7 @@ export default {
     } else this.$vuetify.theme.dark = false
   },
 
-  mounted() {
+  async mounted() {
     const fp = await FingerprintJS.load()
     const { visitorId } = await fp.get()
 
@@ -72,9 +72,13 @@ export default {
     const { getDeviceUUID, du } = await import('@/utils/deviceUUID')
     const [width, height] = du.resolution
 
-    this.$store.dispatch('setDeviceUUID', getDeviceUUID())
+    this.$store.dispatch('setDeviceFingerprint', {
+      deviceFingerprint: getDeviceUUID(),
+    })
     this.$store.dispatch('setDeviceResolution', { width, height })
-    this.$store.dispatch('setBrowserFingerprint', visitorId)
+    this.$store.dispatch('setBrowserFingerprint', {
+      browserFingerprint: visitorId,
+    })
   },
 
   computed: {

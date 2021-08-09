@@ -190,6 +190,18 @@ const mutations = {
   pushStores(state, stores) {
     state.stores.push(...stores)
   },
+
+  setDeviceFingerprint(state, deviceFingerprint) {
+    state.deviceFingerprint = deviceFingerprint
+  },
+
+  setBrowserFingerprint(state, browserFingerprint) {
+    state.browserFingerprint = browserFingerprint
+  },
+
+  setDeviceResolution(state, deviceResolution) {
+    state.deviceResolution = deviceResolution
+  },
 }
 
 export default mutations

@@ -4,6 +4,7 @@ export const state = () => ({
     items: [],
   },
   baseURL: process.env.BASE_URL,
+  browserFingerprint: '',
   configuration: {
     max_comment_size: 250,
     min_post: 100,
@@ -14,6 +15,8 @@ export const state = () => ({
     maximum_donation_timeout_days: 70,
     version: 0,
   },
+  deviceFingerprint: '',
+  deviceResolution: {},
   discussions: [],
   lastDiscussions: [],
   activeStoreDiscussions: [],

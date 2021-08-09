@@ -386,12 +386,14 @@ const actions = {
         console.log(error)
       })
   },
-  likeStore(
-    { state, commit },
-    { storeId, remove, deviceFingerprint, browserFingerprint }
-  ) {
+  likeStore({ state, commit }, { storeId, remove }) {
     const lsKey = `lns_likes`
     let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? {}
+    const {
+      deviceFingerprint,
+      browserFingerprint,
+      deviceResolution: { width, height },
+    } = state
 
     likedStores[storeId] = remove ? false : true
     localStorage.setItem(lsKey, JSON.stringify(likedStores))
@@ -406,6 +408,7 @@ const actions = {
     if (!remove) {
       likeUrl.searchParams.set('bfg', browserFingerprint)
       likeUrl.searchParams.set('dfg', deviceFingerprint)
+      likeUrl.searchParams.set('wfg', `${width}${height}`)
     }
 
     return this.$axios({
@@ -948,6 +951,17 @@ const actions = {
     } = await this.$axios.get(`${state.baseURL}api/search`)
 
     commit('updatePopularSearches', searches)
+  },
+  setDeviceFingerprint({ commit }, { deviceFingerprint }) {
+    commit('setDeviceFingerprint', deviceFingerprint)
+  },
+
+  setBrowserFingerprint({ commit }, { browserFingerprint }) {
+    commit('setBrowserFingerprint', browserFingerprint)
+  },
+
+  setDeviceResolution({ commit }, deviceResolution) {
+    commit('setDeviceResolution', deviceResolution)
   },
 }
 

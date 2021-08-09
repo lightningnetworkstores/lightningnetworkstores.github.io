@@ -35,8 +35,6 @@ export default {
   computed: {
     ...mapState({
       likedStores: 'likedStores',
-      deviceFingerprint: 'deviceFingerprint',
-      browserFingerprint: 'browserFingerprint',
 
       storeIsLiked() {
         return this.likedStores[this.store.id]
@@ -53,8 +51,6 @@ export default {
         await this.$store.dispatch(`likeStore`, {
           storeId,
           remove: false,
-          deviceFingerprint: this.deviceFingerprint,
-          browserFingerprint: this.browserFingerprint,
         })
       }
 
