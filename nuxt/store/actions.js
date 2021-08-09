@@ -70,7 +70,6 @@ const actions = {
     commit('pushStores', restStores)
   },
   async getStore({ state, commit }, data) {
-    console.log({ data })
     try {
       const url = `${state.baseURL}api/storeinfo/?id=${data.id}`
       const { data: response } = await this.$axios.get(url)
