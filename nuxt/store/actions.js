@@ -864,11 +864,16 @@ const actions = {
     if (version) {
       const {
         data: {
-          data: { announcements: items, configuration },
+          data: {
+            announcements: items,
+            configuration,
+            last_activity: lastActivity,
+          },
         },
       } = await this.$axios.get(`${state.baseURL}api/announcement`)
 
       commit('updateAnnouncements', { configuration, items })
+      commit('updateLastActivity', lastActivity)
 
       return true
     }
@@ -947,9 +952,6 @@ const actions = {
     const timestamp = !Number.isNaN(lastCommentSeen) ? lastCommentSeen : 0
 
     commit('updateLastCommentSeenTimestamp', timestamp)
-  },
-  updateLastDiscussionTimeServer({ commit }, time) {
-    commit('updateLastDiscussionTimeServer', Number(time))
   },
 }
 

@@ -193,8 +193,8 @@ const mutations = {
   updateLastCommentSeenTimestamp(state, lastCommentSeenTimestamp) {
     state.lastCommentSeenTimestamp = lastCommentSeenTimestamp
   },
-  updateLastDiscussionTimeServer(state, time) {
-    state.lastDiscussionTimeServer = time
+  updateLastActivity(state, time) {
+    state.lastActivity = time
   },
 }
 

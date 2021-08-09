@@ -119,7 +119,7 @@ export default {
   computed: {
     ...mapState({
       isDiscussionNotificationShowed(state) {
-        return state.lastDiscussionTimeServer > state.lastCommentSeenTimestamp
+        return state.lastActivity - 500 > state.lastCommentSeenTimestamp
       },
     }),
   },
