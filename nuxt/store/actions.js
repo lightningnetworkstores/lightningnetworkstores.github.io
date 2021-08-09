@@ -342,19 +342,16 @@ const actions = {
       })
       .catch(console.error)
   },
-  faucetClaim(
-    { state, commit },
-    {
+  faucetClaim({ state }, { hCaptchaToken, recaptchaToken }) {
+    const {
+      deviceFingerprint,
       browserFingerprint,
-      hCaptchaToken,
-      recaptchaToken,
-      deviceUUID,
-      windowSize: { width, height },
-    }
-  ) {
+      deviceResolution: { width, height },
+    } = state
+
     const url = new URL(`${state.baseURL}api/lnurl1`)
     url.searchParams.set('bfg', browserFingerprint)
-    url.searchParams.set('dfg', deviceUUID)
+    url.searchParams.set('dfg', deviceFingerprint)
     url.searchParams.set('wfg', `${width}${height}`)
     url.searchParams.set('h-captcha-response', hCaptchaToken)
     url.searchParams.set('g-recaptcha-response', recaptchaToken)
