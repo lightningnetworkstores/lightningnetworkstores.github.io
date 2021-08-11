@@ -408,7 +408,7 @@ const actions = {
         console.log(error)
       })
   },
-  likeStore({ state, commit }, { storeId, remove }) {
+  likeStore({ state, commit }, { storeId, recaptchaToken, remove }) {
     const lsKey = `lns_likes`
     let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? {}
     const {
@@ -431,11 +431,13 @@ const actions = {
       likeUrl.searchParams.set('bfg', browserFingerprint)
       likeUrl.searchParams.set('dfg', deviceFingerprint)
       likeUrl.searchParams.set('wfg', `${width}${height}`)
+      likeUrl.searchParams.set('g-recaptcha-response', recaptchaToken)
     }
 
-    return this.$axios({
+    const response = this.$axios({
       method: 'post',
       url: likeUrl.toString(),
+      validateStatus: false,
     }).then((res) => {
       if (res.status !== 200 && res.status !== 202) {
         commit('setLikeCounter', { storeId, remove: !remove })
@@ -446,6 +448,8 @@ const actions = {
         // commit('setStoreLikes', syncLikesFromServer(likes, likedStores, lsKey))
       }
     })
+
+    return response
   },
   login({ state }, { token, recipient, storeId }) {
     const body = {
