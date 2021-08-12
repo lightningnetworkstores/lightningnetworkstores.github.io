@@ -174,15 +174,18 @@ export default {
   },
   computed: {
     ...mapState({
-      filteredTags: 'filteredTags',
-      selectedTags: 'selectedTags',
-      excludedTags: 'excludedTags',
+      activeStoreDiscussions: 'activeStoreDiscussions',
       baseURL: 'baseURL',
-      stores: 'stores',
-      scores: 'scores',
-      likedStores: 'likedStores',
+      excludedTags: 'excludedTags',
       filterByFavorites: 'filterByFavorites',
+      filteredTags: 'filteredTags',
+      lastCommentSeenTimestamp: 'lastCommentSeenTimestamp',
+      lastDiscussions: 'lastDiscussions',
+      likedStores: 'likedStores',
+      scores: 'scores',
       scrolledStores: 'scrolledStores',
+      selectedTags: 'selectedTags',
+      stores: 'stores',
 
       filteredStores(state) {
         const getStores = this.getStores(

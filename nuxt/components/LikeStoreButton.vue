@@ -43,16 +43,31 @@ export default {
   },
   methods: {
     async handleLike(storeId) {
-      if (this.isProcessing) return
-      this.isProcessing = true
-      if (this.storeIsLiked) {
-        await this.$store.dispatch(`likeStore`, { storeId, remove: true })
-      } else {
-        await this.$store.dispatch(`likeStore`, { storeId, remove: false })
+      if (this.isProcessing) {
+        return
       }
 
-      this.$emit('likeStore', { isLiked: this.storeIsLiked, storeId })
-      this.isProcessing = false
+      try {
+        this.$recaptcha.init()
+        this.isProcessing = true
+
+        if (this.storeIsLiked) {
+          await this.$store.dispatch(`likeStore`, { storeId, remove: true })
+        } else {
+          const recaptchaToken = await this.$recaptcha.execute('like_store')
+
+          await this.$store.dispatch(`likeStore`, {
+            recaptchaToken,
+            remove: false,
+            storeId,
+          })
+        }
+
+        this.$emit('likeStore', { isLiked: this.storeIsLiked, storeId })
+        this.isProcessing = false
+      } catch (e) {
+        console.error(e)
+      }
     },
   },
 }

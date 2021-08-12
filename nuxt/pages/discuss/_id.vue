@@ -27,7 +27,10 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 import Reply from '@/components/Reply.vue'
+
 export default {
   head() {
     return {
@@ -61,18 +64,35 @@ export default {
       ],
     }
   },
+
   components: {
     Reply,
   },
+
+  computed: {
+    ...mapState(['lastCommentSeenTimestamp']),
+  },
+
   async asyncData({ params, store }) {
     const resp = await store.dispatch('getDiscussion', params.id)
+
     return {
       discussion: resp.discussions,
     }
   },
-  mounted() {
+
+  async mounted() {
     this.$recaptcha.init()
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
+
+    await this.$store.dispatch('getLastDiscussionTimestamp')
+    const { timestamp } = this.discussion[this.discussion.length - 1]
+
+    if (this.lastCommentSeenTimestamp < timestamp) {
+      this.$store.dispatch('updateLastDiscussionTime', {
+        discussionTime: timestamp,
+      })
+    }
   },
 }
 </script>

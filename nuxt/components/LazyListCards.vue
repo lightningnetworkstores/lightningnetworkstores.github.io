@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-row :class="{ 'd-flex': horizontal, [className]: true }">
+    <v-row
+      v-if="lazyItems.length > 0"
+      :class="[className, { 'd-flex': horizontal }]"
+    >
       <div v-for="(item, index) in lazyItems" :key="index" class="w100">
         <slot name="item" :slot-scope="item" />
       </div>
@@ -11,9 +14,8 @@
         >
       </v-layout>
     </v-row>
-    <v-row :class="className">
+    <v-row v-else :class="className">
       <v-card
-        v-if="lazyItems.length === 0"
         class="mx-auto pa-5 text-center font-weight-bold default-card"
         outlined
       >

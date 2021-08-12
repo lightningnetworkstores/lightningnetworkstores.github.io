@@ -151,12 +151,34 @@ export default {
   },
   computed: {
     ...mapGetters(['getActiveStoreDiscussions']),
-    ...mapState(['lastDiscussions', 'storeEvents']),
+    ...mapState(['lastCommentSeenTimestamp', 'lastDiscussions', 'storeEvents']),
   },
-  mounted() {
-    this.$store.dispatch('getDiscussions')
+  methods: {
+    getLastTimeDiscussion() {
+      const storeDiscussions = [...this.getActiveStoreDiscussions].flatMap(
+        (storeDisc) => storeDisc.discussions
+      )
+      const lastDiscussions = [...this.lastDiscussions].flat()
+
+      const allDiscussions = [...storeDiscussions, ...lastDiscussions].filter(
+        Boolean
+      )
+
+      const [lastDiscussion] = allDiscussions.sort(
+        (disc1, disc2) => disc2.timestamp - disc1.timestamp
+      )
+
+      return lastDiscussion.timestamp
+    },
+  },
+  async mounted() {
     this.$recaptcha.init()
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
+
+    await this.$store.dispatch('getDiscussions')
+    await this.$store.dispatch('updateLastDiscussionTime', {
+      discussionTime: this.getLastTimeDiscussion(),
+    })
   },
 }
 </script>

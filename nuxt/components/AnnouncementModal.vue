@@ -113,7 +113,8 @@ export default {
         const [announcement] = [...state.announcements.items].sort(
           (ann1, ann2) => ann2.id - ann1.id
         )
-        return announcement
+
+        return announcement ?? {}
       },
       announcementReqConfig: (state) => state.announcements.configuration,
       announcements: (state) => state.announcements.items,

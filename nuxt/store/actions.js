@@ -1,5 +1,7 @@
 import dotenv from 'dotenv'
 
+import { normalizeRelations } from './helpers'
+
 dotenv.config()
 
 function syncLikesFromServer(serverLikes, likedStores, lsKey) {
@@ -67,23 +69,26 @@ const actions = {
 
     commit('pushStores', restStores)
   },
-  getStore({ state, commit }, data) {
-    return this.$axios
-      .get(`${state.baseURL}api/storeinfo?id=` + data.id)
-      .then((response) => {
-        return response.data
+  async getStore({ state, commit }, data) {
+    try {
+      const url = `${state.baseURL}api/storeinfo/?id=${data.id}`
+      const { data: response } = await this.$axios.get(url)
+
+      const stores = response.related ?? []
+      response.related = stores.map((store) => store.id)
+
+      commit('pushStores', stores)
+
+      commit('setConfiguration', response.configuration)
+      commit('setSelectedStore', response)
+
+      return response
+    } catch (err) {
+      return Promise.reject({
+        statusCode: err.status,
+        message: err.message,
       })
-      .then((response) => {
-        commit('setConfiguration', response.configuration)
-        commit('setSelectedStore', response)
-        return response
-      })
-      .catch(({ response }) => {
-        return Promise.reject({
-          statusCode: response.status,
-          message: response.data.message,
-        })
-      })
+    }
   },
   addStore(
     { state },
@@ -313,7 +318,27 @@ const actions = {
       .then((response) => {
         if (response.status === 200) {
           const { data } = response.data
-          commit('setDiscussions', data)
+
+          const { last_active_stores: lastActiveStores, ...rest } = data
+
+          const [stores, activeStoresDiscussions] = lastActiveStores.reduce(
+            (acc, storeDiscussion) => {
+              const { reviews, discussions, ...store } = storeDiscussion
+              acc[0].push(store)
+              acc[1].push(
+                normalizeRelations({ store, reviews, discussions }, ['store'])
+              )
+              return acc
+            },
+            [[], []]
+          )
+
+          commit('pushStores', stores)
+
+          commit('setDiscussions', {
+            last_active_stores: activeStoresDiscussions,
+            ...rest,
+          })
           commit('setConfiguration', data.configuration)
         }
       })
@@ -342,19 +367,16 @@ const actions = {
       })
       .catch(console.error)
   },
-  faucetClaim(
-    { state, commit },
-    {
+  faucetClaim({ state }, { hCaptchaToken, recaptchaToken }) {
+    const {
+      deviceFingerprint,
       browserFingerprint,
-      hCaptchaToken,
-      recaptchaToken,
-      deviceUUID,
-      windowSize: { width, height },
-    }
-  ) {
+      deviceResolution: { width, height },
+    } = state
+
     const url = new URL(`${state.baseURL}api/lnurl1`)
     url.searchParams.set('bfg', browserFingerprint)
-    url.searchParams.set('dfg', deviceUUID)
+    url.searchParams.set('dfg', deviceFingerprint)
     url.searchParams.set('wfg', `${width}${height}`)
     url.searchParams.set('h-captcha-response', hCaptchaToken)
     url.searchParams.set('g-recaptcha-response', recaptchaToken)
@@ -386,9 +408,14 @@ const actions = {
         console.log(error)
       })
   },
-  likeStore({ state, commit }, { storeId, remove }) {
+  likeStore({ state, commit }, { storeId, recaptchaToken, remove }) {
     const lsKey = `lns_likes`
     let likedStores = JSON.parse(localStorage.getItem(lsKey)) ?? {}
+    const {
+      deviceFingerprint,
+      browserFingerprint,
+      deviceResolution: { width, height },
+    } = state
 
     likedStores[storeId] = remove ? false : true
     localStorage.setItem(lsKey, JSON.stringify(likedStores))
@@ -396,9 +423,21 @@ const actions = {
     commit('setLikeCounter', { storeId, remove })
     commit('updateLikedStores', { storeId, remove })
 
-    return this.$axios({
+    const likeUrl = new URL(`${state.baseURL}api/like`)
+    likeUrl.searchParams.set('storeID', storeId)
+    likeUrl.searchParams.set('remove', `${remove}`)
+
+    if (!remove) {
+      likeUrl.searchParams.set('bfg', browserFingerprint)
+      likeUrl.searchParams.set('dfg', deviceFingerprint)
+      likeUrl.searchParams.set('wfg', `${width}${height}`)
+      likeUrl.searchParams.set('g-recaptcha-response', recaptchaToken)
+    }
+
+    const response = this.$axios({
       method: 'post',
-      url: `${state.baseURL}api/like?storeID=${storeId}&remove=${remove}`,
+      url: likeUrl.toString(),
+      validateStatus: false,
     }).then((res) => {
       if (res.status !== 200 && res.status !== 202) {
         commit('setLikeCounter', { storeId, remove: !remove })
@@ -409,6 +448,8 @@ const actions = {
         // commit('setStoreLikes', syncLikesFromServer(likes, likedStores, lsKey))
       }
     })
+
+    return response
   },
   login({ state }, { token, recipient, storeId }) {
     const body = {
@@ -457,7 +498,7 @@ const actions = {
                 throttle,
                 daily_claim_rate,
                 use_hcaptcha,
-                max_claim
+                max_claim,
               },
               message,
             },
@@ -471,7 +512,7 @@ const actions = {
             message,
             daily_claim_rate,
             use_hcaptcha,
-            max_claim
+            max_claim,
           }
         }
       })
@@ -864,11 +905,16 @@ const actions = {
     if (version) {
       const {
         data: {
-          data: { announcements: items, configuration },
+          data: {
+            announcements: items,
+            configuration,
+            last_activity: lastActivity,
+          },
         },
       } = await this.$axios.get(`${state.baseURL}api/announcement`)
 
       commit('updateAnnouncements', { configuration, items })
+      commit('updateLastActivity', lastActivity)
 
       return true
     }
@@ -935,7 +981,39 @@ const actions = {
       },
     } = await this.$axios.get(`${state.baseURL}api/search`)
 
-    commit('updatePopularSearches', searches)
+    const [stores, mappedSearches] = searches.reduce(
+      (acc, search) => {
+        acc[0].push(...search.stores)
+        acc[1].push(normalizeRelations(search, ['stores']))
+        return acc
+      },
+      [[], []]
+    )
+
+    commit('pushStores', stores)
+    commit('updatePopularSearches', mappedSearches)
+  },
+  setDeviceFingerprint({ commit }, { deviceFingerprint }) {
+    commit('setDeviceFingerprint', deviceFingerprint)
+  },
+
+  setBrowserFingerprint({ commit }, { browserFingerprint }) {
+    commit('setBrowserFingerprint', browserFingerprint)
+  },
+
+  setDeviceResolution({ commit }, deviceResolution) {
+    commit('setDeviceResolution', deviceResolution)
+  },
+  updateLastDiscussionTime({ commit }, { discussionTime }) {
+    localStorage.setItem('last_comment_seen', discussionTime)
+    commit('updateLastCommentSeenTimestamp', Number(discussionTime))
+  },
+  getLastDiscussionTimestamp({ commit }) {
+    const lastCommentSeen = Number(localStorage.getItem('last_comment_seen'))
+
+    const timestamp = !Number.isNaN(lastCommentSeen) ? lastCommentSeen : 0
+
+    commit('updateLastCommentSeenTimestamp', timestamp)
   },
 }
 
