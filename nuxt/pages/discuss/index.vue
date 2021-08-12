@@ -89,7 +89,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 import AddDiscussModal from '@/components/AddDiscussModal.vue'
 import EventCard from '@/components/EventCard.vue'
@@ -151,34 +151,31 @@ export default {
   },
   computed: {
     ...mapGetters(['getActiveStoreDiscussions']),
-    ...mapState(['lastCommentSeenTimestamp', 'lastDiscussions', 'storeEvents']),
+    ...mapState(['lastActivity', 'lastDiscussions', 'storeEvents']),
   },
+
   methods: {
-    getLastTimeDiscussion() {
-      const storeDiscussions = [...this.getActiveStoreDiscussions].flatMap(
-        (storeDisc) => storeDisc.discussions
-      )
-      const lastDiscussions = [...this.lastDiscussions].flat()
-
-      const allDiscussions = [...storeDiscussions, ...lastDiscussions].filter(
-        Boolean
-      )
-
-      const [lastDiscussion] = allDiscussions.sort(
-        (disc1, disc2) => disc2.timestamp - disc1.timestamp
-      )
-
-      return lastDiscussion.timestamp
-    },
+    ...mapActions(['updateLastDiscussionTime']),
   },
+
   async mounted() {
     this.$recaptcha.init()
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
 
     await this.$store.dispatch('getDiscussions')
-    await this.$store.dispatch('updateLastDiscussionTime', {
-      discussionTime: this.getLastTimeDiscussion(),
+    this.updateLastDiscussionTime({
+      discussionTime: this.lastActivity,
     })
+  },
+
+  watch: {
+    lastActivity(newValue) {
+      if (newValue !== 0) {
+        this.updateLastDiscussionTime({
+          discussionTime: this.lastActivity,
+        })
+      }
+    },
   },
 }
 </script>
