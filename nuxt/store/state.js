@@ -29,6 +29,8 @@ export const state = () => ({
   filteredStores: [],
   filteredTags: [],
   isDev: null,
+  lastActivity: 0,
+  lastCommentSeenTimestamp: 0,
   likedStores: {},
   loading: false,
   popularSearches: [],

@@ -905,11 +905,16 @@ const actions = {
     if (version) {
       const {
         data: {
-          data: { announcements: items, configuration },
+          data: {
+            announcements: items,
+            configuration,
+            last_activity: lastActivity,
+          },
         },
       } = await this.$axios.get(`${state.baseURL}api/announcement`)
 
       commit('updateAnnouncements', { configuration, items })
+      commit('updateLastActivity', lastActivity)
 
       return true
     }
@@ -998,6 +1003,17 @@ const actions = {
 
   setDeviceResolution({ commit }, deviceResolution) {
     commit('setDeviceResolution', deviceResolution)
+  },
+  updateLastDiscussionTime({ commit }, { discussionTime }) {
+    localStorage.setItem('last_comment_seen', discussionTime)
+    commit('updateLastCommentSeenTimestamp', Number(discussionTime))
+  },
+  getLastDiscussionTimestamp({ commit }) {
+    const lastCommentSeen = Number(localStorage.getItem('last_comment_seen'))
+
+    const timestamp = !Number.isNaN(lastCommentSeen) ? lastCommentSeen : 0
+
+    commit('updateLastCommentSeenTimestamp', timestamp)
   },
 }
 
