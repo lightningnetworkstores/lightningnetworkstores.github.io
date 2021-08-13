@@ -283,7 +283,7 @@ export default {
         return
       }
 
-      if (token && this.addDialogForm.agreeRemoved) {
+      if (token) {
         this.isLoading = true
         this.addAlert = { message: '', success: true }
         this.isPaid = false
