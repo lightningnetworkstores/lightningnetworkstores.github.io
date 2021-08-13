@@ -12,6 +12,7 @@
           <LazyListCards
             :items="lastDiscussions"
             :className="$style['store-row']"
+            :maxItems="listCardsMaxItems"
           >
             <template slot="item" slot-scope="{ slotScope: discussion }">
               <Thread
@@ -35,7 +36,7 @@
           <LazyListCards
             :items="getActiveStoreDiscussions"
             :className="$style['store-row']"
-            :maxItems="1"
+            :maxItems="listCardsMaxItems"
           >
             <template slot="item" slot-scope="{ slotScope: discussion }">
               <store-card
@@ -71,7 +72,7 @@
           <LazyListCards
             :items="storeEvents"
             :className="$style['store-row']"
-            :maxItems="1"
+            :maxItems="listCardsMaxItems"
           >
             <template slot="item" slot-scope="{ slotScope: discussion }">
               <store-card
@@ -145,13 +146,17 @@ export default {
   data() {
     return {
       discussions: [],
-      maxCards: 1,
       events: [],
+      screenWidthBp: 1264,
     }
   },
   computed: {
     ...mapGetters(['getActiveStoreDiscussions']),
     ...mapState(['lastActivity', 'lastDiscussions', 'storeEvents']),
+
+    listCardsMaxItems() {
+      return this.$vuetify.breakpoint.width >= this.screenWidthBp ? 10 : 1
+    },
   },
 
   methods: {
