@@ -234,7 +234,7 @@ export default {
       recaptchaToken: null,
 
       showDialog: false,
-      upvoteDialogForm: { amount: 0, comment: '' },
+      upvoteDialogForm: { amount: 0, comment: this.replyingTo },
 
       paymentRequest: '',
       paymentID: '',
@@ -253,16 +253,15 @@ export default {
     replyMinimumFee() {
       return this.$store.state.configuration.min_reply
     },
-    encodedComment() {
-      return encodeURIComponent(
-        (this.isReplyToSubComment
+    replyingTo(){
+        return this.isReplyToSubComment
           ? `@${(this.parentComment
               ? this.parentComment
               : this.parentReview
-            ).substring(0, 5)} ${this.upvoteDialogForm.comment}`
-          : this.upvoteDialogForm.comment
-        ).trim()
-      ).replace(/%20/g, '+')
+            ).substring(0, 5)}` : ''
+    },
+    encodedComment() {
+      return this.upvoteDialogForm.comment
     },
   },
 
@@ -427,7 +426,7 @@ export default {
 
       if (this.encodedComment.length >= this.$store.state.configuration.max_comment_size) {
         this.commentAlert.message =
-          'Encoded review or comment is too long, please remove special characters and emoijs.'
+          'Comment is too long.'
         return
       } // end validation
 

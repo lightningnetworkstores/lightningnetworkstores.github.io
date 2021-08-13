@@ -181,7 +181,7 @@ export default {
   data() {
     return {
       showDialog: false,
-      upvoteDialogForm: { amount: 0, comment: '' },
+      upvoteDialogForm: { amount: 0, comment: this.replyingTo },
 
       paymentRequest: '',
       paymentID: '',
@@ -200,16 +200,15 @@ export default {
     minCreateReview() {
       return this.$store.state.configuration.min_post
     },
-    encodedComment() {
-      return encodeURIComponent(
-        (this.isReplyToSubComment
+    replyingTo(){
+        return this.isReplyToSubComment
           ? `@${(this.parentComment
               ? this.parentComment
               : this.parentReview
-            ).substring(0, 5)} ${this.upvoteDialogForm.comment}`
-          : this.upvoteDialogForm.comment
-        ).trim()
-      ).replace(/%20/g, '+')
+            ).substring(0, 5)}` : ''
+    },
+    encodedComment() {
+      return this.upvoteDialogForm.comment
     },
   },
 
@@ -281,9 +280,9 @@ export default {
         return
       }
 
-      if (this.encodedComment.length >= 225) {
+      if (this.encodedComment.length >= this.$store.state.configuration.max_comment_size) {
         this.commentAlert.message =
-          'Encoded review or comment is too long, please remove special characters and emoijs.'
+          'Comment is too long.'
         return
       } // end validation
 
