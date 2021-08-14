@@ -104,7 +104,7 @@ const actions = {
     }
   ) {
     let params = {
-      accepted: { BTC: { payments: true }, BTCLN: { payments: true } },
+      accepted: { BTC: { modes: ['payments'] }, BTCLN: { modes: ['payments'] } },
       name: encodeURIComponent(name),
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),
