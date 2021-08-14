@@ -38,11 +38,7 @@
             <v-card-title class="headline">
               <v-flex grow>Automatically add new store!</v-flex>
               <v-flex shrink v-if="isLoading || paymentRequest.length">
-                <v-progress-circular
-                  indeterminate
-                  size="20"
-                  color="green"
-                />
+                <v-progress-circular indeterminate size="20" color="green" />
               </v-flex>
             </v-card-title>
 
@@ -119,39 +115,38 @@
                   <v-flex pl-3 pr-3>
                     <v-text-field
                       v-model="addDialogForm.contributor"
-                      :append-icon="showContributorCode ? 'mdi-eye' : 'mdi-eye-off'"
+                      :append-icon="
+                        showContributorCode ? 'mdi-eye' : 'mdi-eye-off'
+                      "
                       :type="showContributorCode ? 'text' : 'password'"
                       label="Contributor code (optional)"
-                       @click:append="showContributorCode = !showContributorCode"
+                      @click:append="showContributorCode = !showContributorCode"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
 
                 <v-layout row>
                   <v-flex pl-3 pr-3>
-                    <v-checkbox
-                      v-model="addDialogForm.agreeRemoved"
-                      label="I agree that the store may be removed later if it disables lightning payments"
-                      :rules="[
-                        (v) =>
-                          !!v || 'Agreeing with the sites policy is required',
-                      ]"
-                    ></v-checkbox>
+                    <span class="font-weight-bold"
+                      >We reserve the right to remove this entry if it doesn't
+                      accept bitcoin and is not about bitcoin</span
+                    >
                   </v-flex>
                 </v-layout>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
-                  <v-btn
-                    color="green darken-1"
-                    text
-                    @click="closeDialog"
-                  >
+                  <v-btn color="green darken-1" text @click="closeDialog">
                     Close
                   </v-btn>
 
-                  <v-btn :disabled="isLoading" color="green darken-1" text type="submit">
+                  <v-btn
+                    :disabled="isLoading"
+                    color="green darken-1"
+                    text
+                    type="submit"
+                  >
                     Submit
                   </v-btn>
                 </v-card-actions>
@@ -173,7 +168,7 @@ export default {
     Checkout,
     Success,
   },
-  mixins: [ regexMixin ],
+  mixins: [regexMixin],
   data() {
     return {
       digitalGoodFormItems: [
@@ -219,7 +214,7 @@ export default {
 
       checkPaymentTimer: null,
       successModalMessage: '',
-      successModalStore: {}
+      successModalStore: {},
     }
   },
   computed: {
@@ -229,9 +224,11 @@ export default {
     urlRules() {
       return [
         (v) => !!v || 'Website URL is required',
-        (v) => this.isValidUrl(v) || 'Enter a valid url eg. https://lightningnetworkstores.com',
+        (v) =>
+          this.isValidUrl(v) ||
+          'Enter a valid url eg. https://lightningnetworkstores.com',
       ]
-    }
+    },
   },
   methods: {
     openDialog() {
@@ -258,9 +255,10 @@ export default {
     handleURLChange() {
       if (this.isValidUrl(this.addDialogForm.url) && !this.isLoading) {
         this.isLoading = true
-        this.$store.dispatch('getPreview', { url: this.addDialogForm.url })
-          .then(result => {
-            this.addAlert = {message: '', success: true}
+        this.$store
+          .dispatch('getPreview', { url: this.addDialogForm.url })
+          .then((result) => {
+            this.addAlert = { message: '', success: true }
             if (result.success) {
               this.addDialogForm.name = result.name
               this.addDialogForm.description = result.description
@@ -270,13 +268,12 @@ export default {
               this.addDialogForm.description = ''
             }
           })
-          .finally(() => this.isLoading = false)
+          .finally(() => (this.isLoading = false))
       }
     },
     async submitAdd() {
-      if(this.isLoading) {
-          console.log('Tried to submit twice')
-          return
+      if (this.isLoading) {
+        return
       }
       let token = null
       this.$refs.addform.validate()
@@ -286,7 +283,7 @@ export default {
         return
       }
 
-      if (token && this.addDialogForm.agreeRemoved) {
+      if (token) {
         this.isLoading = true
         this.addAlert = { message: '', success: true }
         this.isPaid = false
@@ -301,21 +298,32 @@ export default {
           })
           .then(
             (response) => {
-              if (response.status=='success' && !response.data.submitted) {
+              if (response.status == 'success' && !response.data.submitted) {
                 this.paymentRequest = response.data.payment_request
                 this.paymentID = response.data.invoiceID
-                
+
                 let date = new Date()
-                this.expiryTime = new Date(date.setSeconds(date.getSeconds() + 3600))
-                this.checkPaymentTimer = setInterval(() => {this.checkPayment()}, 3000)
-              } else if (response.status=='success' && response.data.submitted) {
+                this.expiryTime = new Date(
+                  date.setSeconds(date.getSeconds() + 3600)
+                )
+                this.checkPaymentTimer = setInterval(() => {
+                  this.checkPayment()
+                }, 3000)
+              } else if (
+                response.status == 'success' &&
+                response.data.submitted
+              ) {
                 this.addDialogForm = {}
                 this.confirm_title = 'Store successfully added.'
                 if (response.data.tweet) {
-                    this.tweet = response.data.tweet
+                  this.tweet = response.data.tweet
                 }
                 this.successModalMessage = response.message
-                this.successModalStore = {id: response.data.storeID, name: response.data.name, rooturl: response.data.rooturl}
+                this.successModalStore = {
+                  id: response.data.storeID,
+                  name: response.data.name,
+                  rooturl: response.data.rooturl,
+                }
                 this.isPaid = true
               } else {
                 this.addAlert.message = response.message
@@ -339,12 +347,20 @@ export default {
             if (response.data.paid == true) {
               clearInterval(this.checkPaymentTimer)
               this.successModalMessage = response.message
-              if(response.data.storeID && response.data.name && response.data.rooturl){
-                  this.successModalStore = {id: response.data.storeID, name: response.data.name, rooturl: response.data.rooturl}
+              if (
+                response.data.storeID &&
+                response.data.name &&
+                response.data.rooturl
+              ) {
+                this.successModalStore = {
+                  id: response.data.storeID,
+                  name: response.data.name,
+                  rooturl: response.data.rooturl,
+                }
               }
-              
+
               if (response.data.tweet) {
-                  this.tweet = response.data.tweet
+                this.tweet = response.data.tweet
               }
               this.isPaid = true
             } else {
