@@ -112,10 +112,7 @@
               <span v-if="parentReview && !parentComment && !isReviewUpvote"
                 >Reinforce negative review & downvote</span
               >
-              <span
-                v-if="parentComment"
-                >Reply</span
-              >
+              <span v-if="parentComment">Reply</span>
 
               <v-flex class="corner-loading" v-if="paymentRequest && !isPaid"
                 ><v-progress-circular
@@ -149,11 +146,9 @@
                   v-if="!paymentRequest.length && parentComment"
                 >
                   <div v-if="upvoteDialogForm.amount > 0">
-                     Cost: {{ upvoteDialogForm.amount }} satoshis
+                    Cost: {{ upvoteDialogForm.amount }} satoshis
                   </div>
-                   <div v-else>
-                    You can reply for free
-                  </div>
+                  <div v-else>You can reply for free</div>
 
                   <v-textarea
                     v-if="
@@ -198,10 +193,10 @@
               Submit
             </v-btn>
           </v-card-actions>
-         <v-snackbar v-model="snackbar" class="m-3">
-                Reply successfully added
-        <v-btn color="red" text @click="snackbar = false"> Close </v-btn>
-      </v-snackbar>
+          <v-snackbar v-model="snackbar" class="m-3">
+            Reply successfully added
+            <v-btn color="red" text @click="snackbar = false"> Close </v-btn>
+          </v-snackbar>
         </template>
       </v-card>
     </v-dialog>
@@ -212,6 +207,7 @@
 import VoteButton from './VoteButton.vue'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+
 export default {
   components: { VoteButton, Checkout, Success },
   props: {
@@ -253,12 +249,13 @@ export default {
     replyMinimumFee() {
       return this.$store.state.configuration.min_reply
     },
-    replyingTo(){
-        return this.isReplyToSubComment
-          ? `@${(this.parentComment
-              ? this.parentComment
-              : this.parentReview
-            ).substring(0, 5)}` : ''
+    replyingTo() {
+      return this.isReplyToSubComment
+        ? `@${(this.parentComment
+            ? this.parentComment
+            : this.parentReview
+          ).substring(0, 5)}`
+        : ''
     },
     encodedComment() {
       return this.upvoteDialogForm.comment
@@ -331,10 +328,10 @@ export default {
           }
         )
 
-        if(result.status != 'success'){
-            if (result.message) this.commentAlert.message = result.message
-            this.commentAlert.success = false
-            return
+        if (result.status != 'success') {
+          if (result.message) this.commentAlert.message = result.message
+          this.commentAlert.success = false
+          return
         }
 
         if (result.submitted) {
@@ -361,7 +358,8 @@ export default {
 
     discussionReplyPaymentRequest() {
       let payload = {
-        parent: this.type === 'discussion' ? this.parentComment : this.parentReview,
+        parent:
+          this.type === 'discussion' ? this.parentComment : this.parentReview,
         comment: this.encodedComment,
         recaptchaToken: this.recaptchaToken,
       }
@@ -371,12 +369,12 @@ export default {
       this.$store.dispatch('getDiscussionReplyPaymentRequest', payload).then(
         (response) => {
           if (response.status === 'success') {
-            if(response.data.submitted){
-                this.isPaid = true
-                this.snackbar = true
-                setTimeout(()=> location.reload(), 2000)
-                location.reload()
-                return
+            if (response.data.submitted) {
+              this.isPaid = true
+              this.snackbar = true
+              setTimeout(() => location.reload(), 2000)
+              location.reload()
+              return
             }
             this.upvoteDialogForm.amount = response.data.amount
             this.paymentRequest = response.data.payment_request
@@ -390,9 +388,9 @@ export default {
               this.checkPayment()
             }, 3000)
           } else {
-                if (response.message) this.commentAlert.message = response.message
-                this.commentAlert.success = false
-            }
+            if (response.message) this.commentAlert.message = response.message
+            this.commentAlert.success = false
+          }
         },
         (error) => {
           console.error(error)
@@ -424,14 +422,16 @@ export default {
         return
       }
 
-      if (this.encodedComment.length >= this.$store.state.configuration.max_comment_size) {
-        this.commentAlert.message =
-          'Comment is too long.'
+      if (
+        this.encodedComment.length >=
+        this.$store.state.configuration.max_comment_size
+      ) {
+        this.commentAlert.message = 'Comment is too long.'
         return
       } // end validation
 
       this.commentAlert.message = ''
-      
+
       this.recaptchaToken = await this.getRecaptchaToken()
 
       if (this.type === 'comment' || this.type === 'comment reply') {
@@ -444,7 +444,7 @@ export default {
       }
     },
     getRecaptchaToken() {
-        return this.$recaptcha.execute('low_value_comment')
+      return this.$recaptcha.execute('low_value_comment')
     },
     checkPayment() {
       //todo: check if payment is done

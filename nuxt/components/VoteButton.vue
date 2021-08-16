@@ -187,7 +187,7 @@ export default {
   data() {
     return {
       showDialog: false,
-      upvoteDialogForm: { amount: 0, comment: this.replyingTo },
+      upvoteDialogForm: { amount: 0, comment: this.getReplyingTo() },
 
       paymentRequest: '',
       paymentID: '',
@@ -205,14 +205,6 @@ export default {
   computed: {
     minCreateReview() {
       return this.$store.state.configuration.min_post
-    },
-    replyingTo() {
-      return this.isReplyToSubComment
-        ? `@${(this.parentComment
-            ? this.parentComment
-            : this.parentReview
-          ).substring(0, 5)}`
-        : ''
     },
     encodedComment() {
       return this.upvoteDialogForm.comment
@@ -260,6 +252,16 @@ export default {
       this.paymentID = ''
       this.commentAlert.message = ''
     },
+
+    getReplyingTo() {
+      return this.isReplyToSubComment
+        ? `@${(this.parentComment
+            ? this.parentComment
+            : this.parentReview
+          ).substring(0, 5)}`
+        : ''
+    },
+
     getRecaptchaToken() {
       return this.$recaptcha.execute('low_value_comment')
     },
