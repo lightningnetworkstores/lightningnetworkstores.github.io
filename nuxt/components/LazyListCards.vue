@@ -75,6 +75,11 @@ export default {
       this.loadedItemsCount += this.steps
     },
   },
+  watch: {
+    maxItems(newValue) {
+      this.loadedItemsCount = newValue
+    },
+  },
 }
 </script>
 

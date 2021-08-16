@@ -103,20 +103,8 @@ const actions = {
       recaptcha: recaptcha,
     }
   ) {
-    // return fetch(
-    //     `${state.baseURL}api/addStore?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&URL=${encodeURIComponent(url)}&URI=${encodeURIComponent(
-    //             uri
-    //         )}&sector=${encodeURIComponent(sector)}&digitalGoods=${encodeURIComponent(digitalGoods)}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
-    //   )
-    //   .then((response) => {
-    //     return response.text();
-    //   })
-    //   .catch((error) => {
-    //     return Promise.reject(error);
-    //   });
-
-    // Post version
     let params = {
+      accepted: { BTC: { modes: ['payments'] }, BTCLN: { modes: ['payments'] } },
       name: encodeURIComponent(name),
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),
