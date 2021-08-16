@@ -102,14 +102,7 @@
                       ' satoshis)'
                     "
                     rows="4"
-                    :rules="[
-                      (v) =>
-                        (v || '').length <=
-                          this.$store.state.configuration.max_comment_size ||
-                        'Review has to be shorter than ' +
-                          this.$store.state.configuration.max_comment_size +
-                          ' characters',
-                    ]"
+                    :rules="[maxCommentSizeRule]"
                   ></v-textarea>
                 </v-flex>
               </v-layout>
@@ -129,12 +122,7 @@
                     label="Reply"
                     rows="4"
                     :rules="[
-                      (v) =>
-                        (v || '').length <=
-                          this.$store.state.configuration.max_comment_size ||
-                        'Reply has to be shorter than ' +
-                          this.$store.state.configuration.max_comment_size +
-                          ' characters',
+                      maxCommentSizeRule,
                       (v) => !!v || 'Reply is required',
                     ]"
                   ></v-textarea>
@@ -356,6 +344,15 @@ export default {
       } else {
         this.stopPayment()
       }
+    },
+
+    maxCommentSizeRule(v) {
+      const { max_comment_size } = this.$store.state.configuration
+
+      return (
+        (v || '').length <= max_comment_size ||
+        `Review has to be shorter than ${max_comment_size} characters.`
+      )
     },
 
     stopPayment() {
