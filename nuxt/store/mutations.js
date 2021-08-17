@@ -187,7 +187,7 @@ const mutations = {
   updatePopularSearches(state, searches) {
     state.popularSearches = searches
   },
-  pushStores(state, stores) {
+  updateStores(state, stores) {
     stores.forEach(store => {
       const index = state.stores.findIndex(s => s.id === store.id)
       if (index === -1) {
