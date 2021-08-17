@@ -27,8 +27,9 @@
   </v-app>
 </template>
 <script>
+import Header from '@/components/Header'
+import seo from '~/mixins/seo'
 import FingerprintJS from '@fingerprintjs/fingerprintjs'
-
 import { mapState } from 'vuex'
 
 import Header from '@/components/Header'
@@ -36,11 +37,10 @@ import AnnouncementModal from '@/components/AnnouncementModal'
 
 export default {
   components: { AnnouncementModal, Header },
-
+  mixins: [seo],
   async fetch() {
     await this.$store.dispatch('getAnnouncements')
   },
-
   data() {
     return {}
   },
