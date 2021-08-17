@@ -104,7 +104,10 @@ const actions = {
     }
   ) {
     let params = {
-      accepted: { BTC: { modes: ['payments'] }, BTCLN: { modes: ['payments'] } },
+      accepted: {
+        BTC: { modes: ['payments'] },
+        BTCLN: { modes: ['payments'] },
+      },
       name: encodeURIComponent(name),
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),
@@ -521,7 +524,7 @@ const actions = {
             key: 'new',
             value: data.new,
           })
-          const { settings } = data
+          const { settings = {} } = data
           settings.isFirstTime = data.first_time
           commit('selectedStoreSettings', settings)
         }
