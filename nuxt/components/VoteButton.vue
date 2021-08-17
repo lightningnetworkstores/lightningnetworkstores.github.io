@@ -234,7 +234,7 @@ export default {
     },
 
     closeDialog() {
-      this.upvoteDialogForm = { amount: this.minCreateReview, comment: '' }
+      //this.upvoteDialogForm = { amount: this.minCreateReview, comment: '' }
       this.showDialog = false
       this.isPaid = false
       this.paymentID = ''
@@ -246,7 +246,7 @@ export default {
         ? `@${(this.parentComment
             ? this.parentComment
             : this.parentReview
-          ).substring(0, 5)}`
+          ).substring(0, 5)} `
         : ''
     },
 

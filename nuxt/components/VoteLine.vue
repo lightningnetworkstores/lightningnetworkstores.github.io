@@ -230,7 +230,7 @@ export default {
       recaptchaToken: null,
 
       showDialog: false,
-      upvoteDialogForm: { amount: 0, comment: this.replyingTo },
+      upvoteDialogForm: { amount: 0, comment: this.replyingTo() },
 
       paymentRequest: '',
       paymentID: '',
@@ -249,14 +249,6 @@ export default {
     replyMinimumFee() {
       return this.$store.state.configuration.min_reply
     },
-    replyingTo() {
-      return this.isReplyToSubComment
-        ? `@${(this.parentComment
-            ? this.parentComment
-            : this.parentReview
-          ).substring(0, 5)}`
-        : ''
-    },
     encodedComment() {
       return this.upvoteDialogForm.comment
     },
@@ -267,6 +259,14 @@ export default {
   },
 
   methods: {
+    replyingTo() {
+        return this.isReplyToSubComment
+            ? `@${(this.parentComment
+                ? this.parentComment
+                : this.parentReview
+            ).substring(0, 5)} `
+            : ''
+    },
     reply() {
       this.showDialog = true
     },
@@ -304,7 +304,7 @@ export default {
     },
 
     closeDialog() {
-      this.upvoteDialogForm = { amount: this.replyMinimumFee, comment: '' }
+      //this.upvoteDialogForm = { amount: this.replyMinimumFee, comment: '' }
       this.showDialog = false
       this.isPaid = false
       this.paymentID = ''
