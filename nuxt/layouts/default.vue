@@ -64,7 +64,19 @@ export default {
       if (tags.length === 1) {
         const tag = tags[0]
         return {
-          title: customTitles.fromMapping(tag)
+          title: customTitles.fromMapping(tag),
+          meta: [
+            {
+              hid: 'og:title',
+              property: 'og:title',
+              content: customTitles.fromMapping(tag),
+            },
+            {
+              hid: 'twitter:title',
+              property: 'twitter:title',
+              content: customTitles.fromMapping(tag),
+            },
+          ]
         }
       }
     }
