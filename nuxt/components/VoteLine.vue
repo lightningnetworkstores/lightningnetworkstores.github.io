@@ -163,7 +163,7 @@
                     rows="4"
                     :rules="[
                       (v) =>
-                        v.length <=
+                        (v || '').length <=
                           this.$store.state.configuration.max_comment_size ||
                         'Reply has to be shorter than ' +
                           this.$store.state.configuration.max_comment_size +
