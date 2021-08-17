@@ -188,11 +188,16 @@ const mutations = {
     state.popularSearches = searches
   },
   pushStores(state, stores) {
-    // Creates a store map first, to avoid introducing duplicated stores
-    const storeMap = {}
-    stores.forEach(s => storeMap[s.id] = s)
-    const toPush = stores.filter(store => storeMap[store.id] === undefined)
-    state.stores.push(...toPush)
+    stores.forEach(store => {
+      const index = state.stores.findIndex(s => s.id === store.id)
+      if (index === -1) {
+        // Pushing missing store
+        state.stores.push(store)
+      } else {
+        // Replacing existing store
+        state.stores.splice(index, 1, store)
+      }
+    })
   },
   setDeviceFingerprint(state, deviceFingerprint) {
     state.deviceFingerprint = deviceFingerprint
