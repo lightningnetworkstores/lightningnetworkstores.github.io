@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   head() {
@@ -70,7 +70,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['popularSearches']),
+    ...mapState({
+      popularSearches(state) {
+        return this.getListResolvedEntity(state.popularSearches, 'stores', [
+          'stores',
+        ])
+      },
+    }),
+    ...mapGetters(['getListResolvedEntity']),
   },
   mounted() {
     this.$store.dispatch('getPopularSearches')

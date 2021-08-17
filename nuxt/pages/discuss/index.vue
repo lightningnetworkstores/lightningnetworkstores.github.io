@@ -12,6 +12,7 @@
           <LazyListCards
             :items="lastDiscussions"
             :className="$style['store-row']"
+            :maxItems="listCardsMaxItems"
           >
             <template slot="item" slot-scope="{ slotScope: discussion }">
               <Thread
@@ -35,7 +36,7 @@
           <LazyListCards
             :items="getActiveStoreDiscussions"
             :className="$style['store-row']"
-            :maxItems="1"
+            :maxItems="listCardsMaxItems"
           >
             <template slot="item" slot-scope="{ slotScope: discussion }">
               <store-card
@@ -71,7 +72,7 @@
           <LazyListCards
             :items="storeEvents"
             :className="$style['store-row']"
-            :maxItems="1"
+            :maxItems="listCardsMaxItems"
           >
             <template slot="item" slot-scope="{ slotScope: discussion }">
               <store-card
@@ -89,7 +90,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 import AddDiscussModal from '@/components/AddDiscussModal.vue'
 import EventCard from '@/components/EventCard.vue'
@@ -145,18 +146,41 @@ export default {
   data() {
     return {
       discussions: [],
-      maxCards: 1,
       events: [],
+      screenWidthBp: 1264,
     }
   },
   computed: {
     ...mapGetters(['getActiveStoreDiscussions']),
-    ...mapState(['lastDiscussions', 'storeEvents']),
+    ...mapState(['lastActivity', 'lastDiscussions', 'storeEvents']),
+
+    listCardsMaxItems() {
+      return this.$vuetify.breakpoint.width >= this.screenWidthBp ? 10 : 1
+    },
   },
-  mounted() {
-    this.$store.dispatch('getDiscussions')
+
+  methods: {
+    ...mapActions(['updateLastDiscussionTime']),
+  },
+
+  async mounted() {
     this.$recaptcha.init()
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
+
+    await this.$store.dispatch('getDiscussions')
+    this.updateLastDiscussionTime({
+      discussionTime: this.lastActivity,
+    })
+  },
+
+  watch: {
+    lastActivity(newValue) {
+      if (newValue !== 0) {
+        this.updateLastDiscussionTime({
+          discussionTime: this.lastActivity,
+        })
+      }
+    },
   },
 }
 </script>
