@@ -296,15 +296,17 @@ export default {
         this.isLoading = true
         this.addAlert = { message: '', success: true }
         this.isPaid = false
+
+        const { contributor, url, name, description, uri } = this.addDialogForm
         this.$store
           .dispatch('addStore', {
-            contributor: this.addDialogForm.contributor,
-            description: this.addDialogForm.description,
+            contributor,
+            description,
             lightningAccepted: this.lightningAccepted,
-            name: this.addDialogForm.name,
+            name,
             recaptcha: token,
-            uri: this.addDialogForm.uri,
-            url: this.addDialogForm.url,
+            uri,
+            url,
           })
           .then(
             (response) => {
