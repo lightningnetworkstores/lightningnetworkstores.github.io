@@ -1,5 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
+import customRoutes from './customRoutes'
+
 const Meta = {
   title: 'Lightning Network Stores Directory',
   description:
@@ -22,21 +24,7 @@ export default {
       }
     },
     extendRoutes(routes, resolve) {
-      const routesArr = [
-        {
-          name: 'services',
-          path: '/services',
-          redirect: '/',
-        },
-        {
-          name: 'e',
-          path: '/e/:id',
-          beforeEnter: (to, from, next) => {
-            return next({ path: `/store/${to.params.id}` })
-          },
-        },
-      ]
-      routes.push(...routesArr)
+      routes.push(...customRoutes)
     },
   },
   axios: {
