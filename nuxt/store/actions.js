@@ -92,21 +92,14 @@ const actions = {
   },
   addStore(
     { state },
-    {
-      name: name,
-      description: description,
-      url: url,
-      uri: uri,
-      sector: sector,
-      digitalGoods: digitalGoods,
-      contributor: contributor,
-      recaptcha: recaptcha,
-    }
+    { contributor, description, lightningAccepted, name, recaptcha, uri, url }
   ) {
-    let params = {
+    const BTCLNMode = lightningAccepted ? ['payments'] : []
+
+    const params = {
       accepted: {
         BTC: { modes: ['payments'] },
-        BTCLN: { modes: ['payments'] },
+        BTCLN: { modes: BTCLNMode },
       },
       name: encodeURIComponent(name),
       description: encodeURIComponent(description),

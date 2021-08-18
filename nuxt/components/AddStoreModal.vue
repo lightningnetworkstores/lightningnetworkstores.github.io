@@ -125,6 +125,14 @@
                   </v-flex>
                 </v-layout>
 
+                <div class="d-flex justify-center my-4">
+                  <v-switch
+                    v-model="lightningAccepted"
+                    color="orange"
+                    label="Lightning accepted?"
+                  />
+                </div>
+
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <span class="font-weight-bold"
@@ -205,6 +213,7 @@ export default {
       addAlert: { message: '', success: true },
       confirm_title: 'Store successfully added.',
       isLoading: false,
+      lightningAccepted: false,
 
       paymentRequest: '',
       paymentID: '',
@@ -289,12 +298,13 @@ export default {
         this.isPaid = false
         this.$store
           .dispatch('addStore', {
-            name: this.addDialogForm.name,
-            description: this.addDialogForm.description,
-            url: this.addDialogForm.url,
-            uri: this.addDialogForm.uri,
             contributor: this.addDialogForm.contributor,
+            description: this.addDialogForm.description,
+            lightningAccepted: this.lightningAccepted,
+            name: this.addDialogForm.name,
             recaptcha: token,
+            uri: this.addDialogForm.uri,
+            url: this.addDialogForm.url,
           })
           .then(
             (response) => {
