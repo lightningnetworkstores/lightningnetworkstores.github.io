@@ -18,4 +18,11 @@ export default [
       return next({ path: `/?tags=${to.params.tag}` })
     },
   },
+  {
+    name: 'tags',
+    path: '/tags/:tags',
+    beforeEnter: (to, from, next) => {
+      return next({ path: `/?tags=${to.params.tags}` })
+    },
+  },
 ]
