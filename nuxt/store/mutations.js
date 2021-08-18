@@ -187,8 +187,17 @@ const mutations = {
   updatePopularSearches(state, searches) {
     state.popularSearches = searches
   },
-  pushStores(state, stores) {
-    state.stores.push(...stores)
+  updateStores(state, stores) {
+    stores.forEach(store => {
+      const index = state.stores.findIndex(s => s.id === store.id)
+      if (index === -1) {
+        // Pushing missing store
+        state.stores.push(store)
+      } else {
+        // Replacing existing store
+        state.stores.splice(index, 1, store)
+      }
+    })
   },
   setDeviceFingerprint(state, deviceFingerprint) {
     state.deviceFingerprint = deviceFingerprint

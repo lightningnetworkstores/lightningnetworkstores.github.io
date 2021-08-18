@@ -67,7 +67,7 @@ const actions = {
       return acc
     }, [])
 
-    commit('pushStores', restStores)
+    commit('updateStores', restStores)
   },
   async getStore({ state, commit }, data) {
     try {
@@ -77,7 +77,7 @@ const actions = {
       const stores = response.related ?? []
       response.related = stores.map((store) => store.id)
 
-      commit('pushStores', stores)
+      commit('updateStores', stores)
 
       commit('setConfiguration', response.configuration)
       commit('setSelectedStore', response)
@@ -103,20 +103,11 @@ const actions = {
       recaptcha: recaptcha,
     }
   ) {
-    // return fetch(
-    //     `${state.baseURL}api/addStore?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&URL=${encodeURIComponent(url)}&URI=${encodeURIComponent(
-    //             uri
-    //         )}&sector=${encodeURIComponent(sector)}&digitalGoods=${encodeURIComponent(digitalGoods)}&contributor=${contributor}&g-recaptcha-response=${recaptcha}`
-    //   )
-    //   .then((response) => {
-    //     return response.text();
-    //   })
-    //   .catch((error) => {
-    //     return Promise.reject(error);
-    //   });
-
-    // Post version
     let params = {
+      accepted: {
+        BTC: { modes: ['payments'] },
+        BTCLN: { modes: ['payments'] },
+      },
       name: encodeURIComponent(name),
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),
@@ -333,7 +324,7 @@ const actions = {
             [[], []]
           )
 
-          commit('pushStores', stores)
+          commit('updateStores', stores)
 
           commit('setDiscussions', {
             last_active_stores: activeStoresDiscussions,
@@ -533,7 +524,7 @@ const actions = {
             key: 'new',
             value: data.new,
           })
-          const { settings } = data
+          const { settings = {} } = data
           settings.isFirstTime = data.first_time
           commit('selectedStoreSettings', settings)
         }
@@ -990,7 +981,7 @@ const actions = {
       [[], []]
     )
 
-    commit('pushStores', stores)
+    commit('updateStores', stores)
     commit('updatePopularSearches', mappedSearches)
   },
   setDeviceFingerprint({ commit }, { deviceFingerprint }) {

@@ -102,11 +102,7 @@
                       ' satoshis)'
                     "
                     rows="4"
-                    :rules="[
-                      (v) =>
-                        v.length <= this.$store.state.configuration.max_comment_size ||
-                        'Review has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
-                    ]"
+                    :rules="[maxCommentSizeRule]"
                   ></v-textarea>
                 </v-flex>
               </v-layout>
@@ -126,9 +122,7 @@
                     label="Reply"
                     rows="4"
                     :rules="[
-                      (v) =>
-                        v.length <= this.$store.state.configuration.max_comment_size ||
-                        'Reply has to be shorter than ' + this.$store.state.configuration.max_comment_size + ' characters',
+                      maxCommentSizeRule,
                       (v) => !!v || 'Reply is required',
                     ]"
                   ></v-textarea>
@@ -181,7 +175,7 @@ export default {
   data() {
     return {
       showDialog: false,
-      upvoteDialogForm: { amount: 0, comment: '' },
+      upvoteDialogForm: { amount: 0, comment: this.getReplyingTo() },
 
       paymentRequest: '',
       paymentID: '',
@@ -201,15 +195,7 @@ export default {
       return this.$store.state.configuration.min_post
     },
     encodedComment() {
-      return encodeURIComponent(
-        (this.isReplyToSubComment
-          ? `@${(this.parentComment
-              ? this.parentComment
-              : this.parentReview
-            ).substring(0, 5)} ${this.upvoteDialogForm.comment}`
-          : this.upvoteDialogForm.comment
-        ).trim()
-      ).replace(/%20/g, '+')
+      return this.upvoteDialogForm.comment
     },
   },
 
@@ -248,14 +234,24 @@ export default {
     },
 
     closeDialog() {
-      this.upvoteDialogForm = { amount: this.minCreateReview, comment: '' }
+      //this.upvoteDialogForm = { amount: this.minCreateReview, comment: '' }
       this.showDialog = false
       this.isPaid = false
       this.paymentID = ''
       this.commentAlert.message = ''
     },
-    getRecaptchaToken(){
-        return this.$recaptcha.execute('low_value_comment')
+
+    getReplyingTo() {
+      return this.isReplyToSubComment
+        ? `@${(this.parentComment
+            ? this.parentComment
+            : this.parentReview
+          ).substring(0, 5)} `
+        : ''
+    },
+
+    getRecaptchaToken() {
+      return this.$recaptcha.execute('low_value_comment')
     },
     async getInvoice() {
       this.warningMessage = ''
@@ -281,16 +277,18 @@ export default {
         return
       }
 
-      if (this.encodedComment.length >= 225) {
-        this.commentAlert.message =
-          'Encoded review or comment is too long, please remove special characters and emoijs.'
+      if (
+        this.encodedComment.length >=
+        this.$store.state.configuration.max_comment_size
+      ) {
+        this.commentAlert.message = 'Comment is too long.'
         return
       } // end validation
 
       this.commentAlert.message = ''
-       
+
       let recaptchaToken = await this.getRecaptchaToken()
-      
+
       this.$store
         .dispatch('getStoreVotePaymentRequest', {
           id: this.store.id,
@@ -298,15 +296,14 @@ export default {
           isUpvote: this.isUpvoting,
           comment: this.encodedComment,
           parent: this.parentReview,
-          recaptchaToken: recaptchaToken
+          recaptchaToken: recaptchaToken,
         })
         .then(
           (response) => {
-            
-            if(response.status != 'success'){
-                if (response.message) this.commentAlert.message = response.message
-                this.commentAlert.success = false
-            return
+            if (response.status != 'success') {
+              if (response.message) this.commentAlert.message = response.message
+              this.commentAlert.success = false
+              return
             }
 
             this.upvoteDialogForm.amount = response.amount
@@ -347,6 +344,15 @@ export default {
       } else {
         this.stopPayment()
       }
+    },
+
+    maxCommentSizeRule(v) {
+      const { max_comment_size } = this.$store.state.configuration
+
+      return (
+        (v || '').length <= max_comment_size ||
+        `Review has to be shorter than ${max_comment_size} characters.`
+      )
     },
 
     stopPayment() {
