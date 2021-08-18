@@ -67,7 +67,7 @@ const actions = {
       return acc
     }, [])
 
-    commit('pushStores', restStores)
+    commit('updateStores', restStores)
   },
   async getStore({ state, commit }, data) {
     try {
@@ -77,7 +77,7 @@ const actions = {
       const stores = response.related ?? []
       response.related = stores.map((store) => store.id)
 
-      commit('pushStores', stores)
+      commit('updateStores', stores)
 
       commit('setConfiguration', response.configuration)
       commit('setSelectedStore', response)
@@ -324,7 +324,7 @@ const actions = {
             [[], []]
           )
 
-          commit('pushStores', stores)
+          commit('updateStores', stores)
 
           commit('setDiscussions', {
             last_active_stores: activeStoresDiscussions,
@@ -981,7 +981,7 @@ const actions = {
       [[], []]
     )
 
-    commit('pushStores', stores)
+    commit('updateStores', stores)
     commit('updatePopularSearches', mappedSearches)
   },
   setDeviceFingerprint({ commit }, { deviceFingerprint }) {
