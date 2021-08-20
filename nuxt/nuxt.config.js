@@ -11,7 +11,7 @@ const Meta = {
 export default {
   target: 'server',
   server: {
-    port: 3000,
+    port: 3001,
     host: '0.0.0.0',
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
