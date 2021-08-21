@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const URL_REGEX = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/g
+const URL_REGEX = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/*\?*(\w|=|%20|\+)*/g
 const PROTOCOL_REGEX = /(http:\/\/|https:\/\/)/
 const TAGGED_REGEX = /@\w*/g
 
