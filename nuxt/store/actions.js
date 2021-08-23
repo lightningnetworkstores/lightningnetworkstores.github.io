@@ -996,8 +996,10 @@ const actions = {
     commit('setDeviceResolution', deviceResolution)
   },
   updateLastDiscussionTime({ commit }, { discussionTime }) {
-    localStorage.setItem('last_comment_seen', discussionTime)
-    commit('updateLastCommentSeenTimestamp', Number(discussionTime))
+    if (typeof newValue === 'number' && newValue > 0) {
+      localStorage.setItem('last_comment_seen', discussionTime)
+      commit('updateLastCommentSeenTimestamp', Number(discussionTime))
+    }
   },
   getLastDiscussionTimestamp({ commit }) {
     const lastCommentSeen = Number(localStorage.getItem('last_comment_seen'))

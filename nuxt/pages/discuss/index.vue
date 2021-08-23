@@ -168,6 +168,7 @@ export default {
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
 
     await this.$store.dispatch('getDiscussions')
+
     this.updateLastDiscussionTime({
       discussionTime: this.lastActivity,
     })
@@ -175,11 +176,9 @@ export default {
 
   watch: {
     lastActivity(newValue) {
-      if (newValue !== 0) {
-        this.updateLastDiscussionTime({
-          discussionTime: this.lastActivity,
-        })
-      }
+      this.updateLastDiscussionTime({
+        discussionTime: this.lastActivity,
+      })
     },
   },
 }
