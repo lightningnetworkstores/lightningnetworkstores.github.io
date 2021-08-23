@@ -21,7 +21,16 @@
         <v-layout row class="mx-3 mt-3">
           <v-col>
             <div class="mx-1 h5">Email</div>
-            <v-text-field v-model="form.email" type="email"/>
+            <v-text-field v-model="form.email" type="email" />
+
+            <div class="d-flex justify-center">
+              <v-switch
+                v-model="form.accepted.BTCLN"
+                color="orange"
+                label="Lightning accepted?"
+              />
+            </div>
+
             <div class="mx-1 h5">Notifications</div>
             <!-- <v-checkbox
               v-model="form.notifications.features"
@@ -29,7 +38,8 @@
             </v-checkbox> -->
             <v-checkbox
               v-model="form.notifications.reviews"
-              label="New reviews (coming feature)">
+              label="New reviews (coming feature)"
+            >
             </v-checkbox>
             <!-- <v-divider></v-divider>
             <div class="mx-1 mt-2 h5">Accepted</div>
@@ -71,15 +81,12 @@ export default {
   props: {
     store: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
-    const {
-      notifications,
-      isFirstTime,
-      email
-    } = this.$store.state.selectedStoreSettings
+    const { notifications, isFirstTime, email } =
+      this.$store.state.selectedStoreSettings
     return {
       isOpen: isFirstTime,
       isProcessing: false,
@@ -87,14 +94,14 @@ export default {
         email: email,
         notifications: {
           features: false,
-          reviews: notifications.new_reviews
+          reviews: notifications.new_reviews,
         },
         accepted: {
           BTC: false,
-          BTCLN: true
-        }
+          BTCLN: true,
+        },
       },
-      serverError: null
+      serverError: null,
     }
   },
   methods: {
@@ -107,10 +114,11 @@ export default {
       this.$store.dispatch('updateFirstTime')
     },
     onSaveClicked() {
-      const payload = {...this.form, storeId: this.store.id }
+      const payload = { ...this.form, storeId: this.store.id }
       this.isProcessing = true
-      this.$store.dispatch('updateSettings', payload)
-        .then(result => {
+      this.$store
+        .dispatch('updateSettings', payload)
+        .then((result) => {
           if (result.error) {
             this.serverError = result.error
           }
@@ -118,8 +126,8 @@ export default {
             this.closeDialog()
           }
         })
-        .finally(() => this.isProcessing = false)
-    }
+        .finally(() => (this.isProcessing = false))
+    },
   },
 }
 </script>
