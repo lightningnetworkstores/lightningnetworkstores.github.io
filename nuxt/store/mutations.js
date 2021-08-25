@@ -214,6 +214,10 @@ const mutations = {
   updateLastActivity(state, time) {
     state.lastActivity = time
   },
+
+  updateLoginStatus(state, status) {
+    state.loginStatus = status
+  },
 }
 
 export default mutations

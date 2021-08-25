@@ -531,6 +531,19 @@ const actions = {
       })
       .catch(console.error)
   },
+
+  getLoginStatus({ state, commit }) {
+    return this.$axios
+      .get(`${state.baseURL}api/logstatus`)
+      .then((response) => {
+        if (response.status === 200) {
+          const { data } = response.data
+          commit('updateLoginStatus', data)
+        }
+      })
+      .catch(console.error)
+  },
+
   logout({ state, commit }) {
     return this.$axios
       .get(`${state.baseURL}api/logout`)
@@ -1005,6 +1018,12 @@ const actions = {
     const timestamp = !Number.isNaN(lastCommentSeen) ? lastCommentSeen : 0
 
     commit('updateLastCommentSeenTimestamp', timestamp)
+  },
+
+  deleteReply({ state }, { replyId }) {
+    return this.$axios.delete(`${state.baseURL}api/comment`, {
+      comments: [replyId],
+    })
   },
 }
 

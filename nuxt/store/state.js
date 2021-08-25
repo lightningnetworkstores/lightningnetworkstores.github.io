@@ -33,6 +33,7 @@ export const state = () => ({
   lastCommentSeenTimestamp: 0,
   likedStores: {},
   loading: false,
+  loginStatus: {},
   popularSearches: [],
   scores: [],
   scrolledStores: 0,

@@ -28,28 +28,33 @@
             >
           </span>
         </v-flex>
-        <v-flex grow pa-2 class="text-right"
-          >{{ new Date(post.timestamp) | formatDate }}
-        </v-flex>
-        <v-flex shrink pr-2 pt-2>
-          <vote-line
-            :store="store"
-            :parentReview="parentReview"
-            :parentComment="
-              type === 'discussion reply' || type === 'comment reply'
-                ? post.id
-                : type === 'discussion'
-                ? post.thread_id
-                : ''
-            "
-            :comment="post"
-            :isReplyToSubComment="
-              type === 'discussion reply' || type === 'comment reply'
-                ? true
-                : false
-            "
-            :type="type"
-          ></vote-line>
+        <v-flex row class="text-right" justify-center align-center>
+          <v-icon
+            small
+            v-if="loginStatus.isAdmin"
+            class="mr-3"
+            @click.stop="deleteComment"
+            >mdi-block-helper</v-icon
+          >
+          <span>{{ new Date(post.timestamp) | formatDate }}</span>
+          <v-flex shrink class="ml-3">
+            <vote-line
+              :store="store"
+              :parentReview="parentReview"
+              :parentComment="
+                type === 'discussion reply' || type === 'comment reply'
+                  ? post.id
+                  : type === 'discussion'
+                  ? post.thread_id
+                  : ''
+              "
+              :comment="post"
+              :isReplyToSubComment="
+                type === 'discussion reply' || type === 'comment reply'
+              "
+              :type="type"
+            ></vote-line>
+          </v-flex>
         </v-flex>
       </v-layout>
     </v-card>
@@ -57,6 +62,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'Reply',
   props: {
@@ -76,27 +83,48 @@ export default {
       type: Object,
       default: () => {},
     },
-    threadId: { // parentReview is being used instead
+    threadId: {
+      // parentReview is being used instead
       type: String,
       default: '',
     },
   },
   computed: {
+    ...mapState({
+      loginStatus: 'loginStatus',
+    }),
     postComment() {
       return this.limitParagraphs(this.post.comment, 5)
     },
     postText() {
       return this.limitParagraphs(this.post.text, 5)
-    }
+    },
   },
   methods: {
     limitParagraphs(text, limit) {
-      return text.split('\n').slice(0, limit).join('\n')
-        + text.split('\n').slice(limit).join('. ')
+      return (
+        text.split('\n').slice(0, limit).join('\n') +
+        text.split('\n').slice(limit).join('. ')
+      )
     },
     getPillColor(id) {
       const hex = Buffer.from(id, 'base64').toString('hex')
       return `#${hex.substring(0, 6)}`
+    },
+    async deleteComment() {
+      const { id } = this.post
+      const result = confirm(
+        `Do you want delete this comment? ID:${id.substring(0, 8)}`
+      )
+
+      if (result) {
+        try {
+          await this.$store.dispatch('deleteReply', { replyId: id })
+          document.location.reload()
+        } catch (error) {
+          console.error(error)
+        }
+      }
     },
   },
 }

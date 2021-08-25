@@ -95,6 +95,10 @@ export default {
       return this.$store.state.loading
     },
   },
+
+  async fetch() {
+    await this.$store.dispatch('getLoginStatus')
+  },
 }
 </script>
 <style>
