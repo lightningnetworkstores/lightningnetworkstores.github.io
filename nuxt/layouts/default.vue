@@ -78,6 +78,12 @@ export default {
     this.$store.dispatch('setBrowserFingerprint', {
       browserFingerprint: visitorId,
     })
+
+    try {
+      await this.$store.dispatch('getLoginStatus')
+    } catch (error) {
+      console.log(error)
+    }
   },
 
   computed: {
@@ -94,10 +100,6 @@ export default {
     loading() {
       return this.$store.state.loading
     },
-  },
-
-  async fetch() {
-    await this.$store.dispatch('getLoginStatus')
   },
 }
 </script>

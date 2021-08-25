@@ -537,8 +537,10 @@ const actions = {
       .get(`${state.baseURL}api/logstatus`)
       .then((response) => {
         if (response.status === 200) {
-          const { data } = response.data
-          commit('updateLoginStatus', data)
+          const {
+            data: { is_admin: isAdmin, ...data },
+          } = response.data
+          commit('updateLoginStatus', { ...data, isAdmin })
         }
       })
       .catch(console.error)
@@ -1022,7 +1024,9 @@ const actions = {
 
   deleteReply({ state }, { replyId }) {
     return this.$axios.delete(`${state.baseURL}api/comment`, {
-      comments: [replyId],
+      data: {
+        comments: [replyId],
+      },
     })
   },
 }
