@@ -28,7 +28,7 @@
             >
           </span>
         </v-flex>
-        <v-flex row class="text-right" justify-center align-center>
+        <v-flex shrink row class="text-right mr-4" justify-center align-center>
           <v-icon
             small
             v-if="loginStatus.isAdmin"
