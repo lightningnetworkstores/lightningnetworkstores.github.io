@@ -39,7 +39,16 @@
       <v-layout row pl-4 pr-4 mt-0 class="caption">
         <v-flex grow pa-2>ID: {{ comment.id.substring(0, 8) }} </v-flex>
         <v-flex grow pa-2 class="text-right">
-          {{ new Date(comment.timestamp) | formatDate }}
+          <v-icon
+            small
+            v-if="loginStatus.isAdmin"
+            class="mr-3"
+            @click.stop="deleteComment"
+            >mdi-block-helper</v-icon
+          >
+          <span>
+            {{ new Date(comment.timestamp) | formatDate }}
+          </span>
         </v-flex>
         <v-flex shrink pr-2 pt-2>
           <vote-line
@@ -83,24 +92,30 @@
 <script>
 import VoteLine from './VoteLine.vue'
 import Reply from '@/components/Reply.vue'
+
+import { mapState } from 'vuex'
+
 export default {
   components: { VoteLine, Reply },
   props: ['store', 'comment', 'comments', 'type', 'onlyShowLast'],
   computed: {
+    ...mapState({
+      loginStatus: (state) => state.loginStatus,
+    }),
     commentsArr() {
       if (this.type === 'comment') {
         this.comments
           .filter((subComment) => subComment.parent == this.comment.id)
           .sort((a, b) => a.timestamp - b.timestamp)
-        }
-        if (this.comments.length > this.onlyShowLast) {
-            return this.comments.slice(
-            this.comments.length - this.onlyShowLast,
-            this.comments.length
-            )
-        } else {
-            return this.comments
-        }
+      }
+      if (this.comments.length > this.onlyShowLast) {
+        return this.comments.slice(
+          this.comments.length - this.onlyShowLast,
+          this.comments.length
+        )
+      } else {
+        return this.comments
+      }
     },
   },
   mounted() {},
@@ -108,6 +123,22 @@ export default {
     gotoDiscussion(discussion_id) {
       if (this.type === 'discussion') {
         this.$router.push(`/discuss/${discussion_id}`)
+      }
+    },
+
+    async deleteComment() {
+      const { id } = this.comment
+      const result = confirm(
+        `Do you want delete this comment? ID:${id.substring(0, 8)}`
+      )
+
+      if (result) {
+        try {
+          await this.$store.dispatch('deleteReply', { replyId: id })
+          document.location.reload()
+        } catch (error) {
+          console.error(error)
+        }
       }
     },
   },
