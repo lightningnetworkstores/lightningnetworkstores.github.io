@@ -41,13 +41,7 @@
             <vote-line
               :store="store"
               :parentReview="parentReview"
-              :parentComment="
-                type === 'discussion reply' || type === 'comment reply'
-                  ? post.id
-                  : type === 'discussion'
-                  ? post.thread_id
-                  : ''
-              "
+              :parentComment="parentComment"
               :comment="post"
               :isReplyToSubComment="
                 type === 'discussion reply' || type === 'comment reply'
@@ -93,6 +87,14 @@ export default {
     ...mapState({
       loginStatus: 'loginStatus',
     }),
+
+    parentComment() {
+      return this.type === 'discussion reply' || this.type === 'comment reply'
+        ? this.post.id
+        : this.type === 'discussion'
+        ? this.post.thread_id
+        : ''
+    },
     postComment() {
       return this.limitParagraphs(this.post.comment, 5)
     },
