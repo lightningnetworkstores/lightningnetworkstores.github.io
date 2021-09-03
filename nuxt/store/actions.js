@@ -310,7 +310,11 @@ const actions = {
         if (response.status === 200) {
           const { data } = response.data
 
-          const { last_active_stores: lastActiveStores, ...rest } = data
+          const {
+            last_active_stores: lastActiveStores,
+            last_events,
+            ...rest
+          } = data
 
           const [stores, activeStoresDiscussions] = lastActiveStores.reduce(
             (acc, storeDiscussion) => {
@@ -324,10 +328,20 @@ const actions = {
             [[], []]
           )
 
-          commit('updateStores', stores)
+          const [eventStores, lastEvents] = last_events.reduce(
+            (acc, { event, ...store }) => {
+              acc[0].push(store)
+              acc[1].push(normalizeRelations({ store, event }, ['store']))
+              return acc
+            },
+            [[], []]
+          )
+
+          commit('updateStores', [...stores, ...eventStores])
 
           commit('setDiscussions', {
             last_active_stores: activeStoresDiscussions,
+            last_events: lastEvents,
             ...rest,
           })
           commit('setConfiguration', data.configuration)
