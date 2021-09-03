@@ -2,7 +2,11 @@
   <v-flex>
     <div v-if="tweet">
       <blockquote class="twitter-tweet">
-        <a :href="event.url" data-width="30" data-height="30"></a>
+        <a
+          :href="getUtmSourceLink(event.url)"
+          data-width="30"
+          data-height="30"
+        ></a>
       </blockquote>
       <script
         async
@@ -10,7 +14,11 @@
         charset="utf-8"
       ></script>
     </div>
-    <a v-else-if="event.url" :href="event.url" class="text-decoration-none">
+    <a
+      v-else-if="event.url"
+      :href="getUtmSourceLink(event.url)"
+      class="text-decoration-none"
+    >
       <v-card class="py-3 px-5">
         <div class="discussion-title">
           {{ event.title }}
@@ -48,6 +56,8 @@
 </template>
 
 <script>
+import UrlUtmSource from '@/mixins/UrlUtmSource'
+
 export default {
   name: 'EventCard',
   props: {
@@ -68,6 +78,9 @@ export default {
       default: () => {},
     },
   },
+
+  mixins: [UrlUtmSource],
+
   computed: {
     timeDifference() {
       const start = new Date()
@@ -100,6 +113,7 @@ export default {
             this.htmlEntities(comment.substring(6, comment.length))
         : this.htmlEntities(comment)
     },
+
     htmlEntities(input) {
       return String(input)
         .replace(/&/g, '&amp;')
