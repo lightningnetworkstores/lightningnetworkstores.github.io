@@ -212,6 +212,12 @@ export default {
           recaptchaToken,
         })
 
+        if(response.status!='success'){
+            this.addAlert.success = false
+            this.addAlert.message = response.message
+            return;
+        }
+        
         let data = response.data
         this.paymentRequest = data.invoice
         this.satoshi = data.amount
