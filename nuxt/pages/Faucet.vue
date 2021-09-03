@@ -112,21 +112,15 @@
         </v-container>
       </v-flex>
     </v-layout>
-    <v-dialog persistent v-model="donorDialog" max-width="500">
-      <v-card>
-        <v-card-title class="text-h5">Donate to Faucet</v-card-title>
-        <v-card-text>
-          <FaucetDonationModal
-            :maximumDonationTimeoutDays="
-              this.configuration.maximum_donation_timeout_days
-            "
-            :minDonationAmount="this.configuration.minimum_donation"
-            :dailyClaimRate="this.daily_claim_rate"
-            @closeDialog="closeDonationDialog"
-          />
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+    <FaucetDonationModal
+      :isOpen="donorDialog"
+      :maximumDonationTimeoutDays="
+        this.configuration.maximum_donation_timeout_days
+      "
+      :minDonationAmount="this.configuration.minimum_donation"
+      :dailyClaimRate="this.daily_claim_rate"
+      @closeDialog="closeDonationDialog"
+    />
     <v-dialog persistent v-model="showDialog" max-width="500">
       <v-card>
         <v-card-title v-if="showCheckoutModal" class="text-h5"
@@ -316,7 +310,7 @@ export default {
       this.paymentRequest = response.data.data['lnurl-withdraw']
       this.claimAmount = response.data.data.amount
       this.checkClaimMethod(response.data.data.claimID)
-      if(response.data.message) this.checkoutWarning = response.data.message
+      if (response.data.message) this.checkoutWarning = response.data.message
     },
     checkClaimMethod(claimID) {
       this.claimID = claimID
