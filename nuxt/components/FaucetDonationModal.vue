@@ -20,6 +20,7 @@
             @submit.prevent="submit"
             ref="donationForm"
           >
+          <v-subheader>If you like to donate to a specif country, &nbsp <a href='https://twitter.com/bitcoinLNS/status/1428773000980148229'> let us know </a>.</v-subheader>
             <v-text-field
               v-model="amount"
               type="number"
