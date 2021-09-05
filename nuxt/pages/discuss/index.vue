@@ -111,7 +111,7 @@ export default {
         {
           hid: 'og:title',
           property: 'og:title',
-          content: 'Lightning Network wallets',
+          content: 'Lightning Network Discussion',
         },
         {
           hid: 'og:description',
