@@ -146,7 +146,7 @@ export default {
 },
   async mounted() {
     this.getStatsData()
-    this.getFaucetStatsData()
+    this.$store.state.statistics.faucet_chart.slice(0).map((d)=>[new Date(d[0]), d[1], d[2]]).forEach((s)=>this.claimsChartData.push(s))
   },
 
   methods: {
@@ -161,22 +161,6 @@ export default {
         .forEach((count) => {
           this.merchantChartData.push(count)
         })
-    },
-    getFaucetStatsData() {
-      let claims = this.$store.state.statistics.faucet_claims
-      let users = this.$store.state.statistics.faucet_users
-
-      let count = [...Array(claims.length).keys()].map((x) => x + 1)
-
-      count = count
-        .map((x) => [
-          new Date(claims[x - 1] * 10000000),
-          x,
-          users.filter((t) => t <= claims[x - 1]).length,
-        ])
-
-        let indexes = [...Array(count.length-1).keys()].filter((e)=>count[e][0] < count[e+1][0]).map((i)=> count[i]).forEach((i) => this.claimsChartData.push(i))
-        this.claimsChartData.push(count[count.length-1])
     },
   },
   computed: {
