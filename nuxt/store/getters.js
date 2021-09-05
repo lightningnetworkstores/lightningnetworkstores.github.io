@@ -196,6 +196,11 @@ const getters = {
       ['store']
     )
   },
+
+  getEventStores(state, getters) {
+    return getters.getListResolvedEntity(state.storeEvents, 'stores', ['store'])
+  },
+
   getListResolvedEntity(state) {
     return (normalizedDataList, collectionName, fields) => {
       return normalizedDataList.map((data) =>

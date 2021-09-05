@@ -70,15 +70,15 @@
             <v-layout justify-center ma-3> <h2>Events</h2></v-layout>
           </div>
           <LazyListCards
-            :items="storeEvents"
+            :items="getEventStores"
             :className="$style['store-row']"
             :maxItems="listCardsMaxItems"
           >
             <template slot="item" slot-scope="{ slotScope: discussion }">
               <store-card
                 :class="`${$style['store-card']} mb-2`"
-                :key="'store-' + discussion.id"
-                :store="discussion"
+                :key="'store-' + discussion.store.id"
+                :store="discussion.store"
               >
               </store-card>
               <event-card :event="discussion.event" :type="discussion.type" />
@@ -151,8 +151,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getActiveStoreDiscussions']),
-    ...mapState(['lastActivity', 'lastDiscussions', 'storeEvents']),
+    ...mapGetters(['getActiveStoreDiscussions', 'getEventStores']),
+    ...mapState(['lastActivity', 'lastDiscussions']),
 
     listCardsMaxItems() {
       return this.$vuetify.breakpoint.width >= this.screenWidthBp ? 10 : 1
