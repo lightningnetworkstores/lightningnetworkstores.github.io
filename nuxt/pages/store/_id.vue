@@ -116,11 +116,17 @@
             >
               <b>Logout</b>
             </v-btn>
-            <v-card
-              class="ma-3 d-flex justify-center headline font-weight-medium"
-            >
-              <settings-modal v-if="showSettings" :store="selectedStore" />
-            </v-card>
+            <div v-if="showSettings" class="d-flex w100">
+              <v-btn
+                class="mx-3 mb3 py-6 mt-3 flex-grow-1"
+                color="white"
+                large
+                @click="openSettingsModal"
+              >
+                <v-icon class="mr-2" color="grey darken-1">mdi-cog</v-icon>
+              </v-btn>
+              <settings-modal :store="selectedStore" />
+            </div>
             <div v-if="hasExternal" class="ma-3 headline font-weight-medium">
               External
             </div>
@@ -519,6 +525,9 @@ export default {
     ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
   methods: {
+    openSettingsModal() {
+      this.$store.dispatch('modals/openSettingsModal')
+    },
     sortReviewsByTime() {
       this.reviews.sort((a, b) => {
         return b[b.length - 1].timestamp - a[a.length - 1].timestamp
