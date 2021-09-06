@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div class="d-flex w100">
     <v-btn
-      icon
+      large
       @click.stop="openDialog()"
+      color="white"
       :disabled="availableOptions.length === 0"
+      class="mx-3 mb3 py-6 mt-3 flex-grow-1"
     >
-      <v-icon>fa-plus-circle</v-icon>
+      <v-icon color="grey darken-1">fa-plus-circle</v-icon>
     </v-btn>
     <v-dialog v-model="showDialog" max-width="500" persistent>
       <v-card>
