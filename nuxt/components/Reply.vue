@@ -16,7 +16,12 @@
         ></v-flex>
       </v-layout>
 
-      <v-layout row pa-2 class="caption comment-extra">
+      <v-layout
+        row
+        pa-2
+        :justify-space-around="$vuetify.breakpoint.xs"
+        class="caption comment-extra"
+      >
         <v-flex grow pa-2
           >ID: {{ post.id.substring(0, 8) }}
           <span v-if="post && post.user_id" class="ml-6">
@@ -28,7 +33,14 @@
             >
           </span>
         </v-flex>
-        <v-flex shrink row class="text-right mr-4" justify-center align-center>
+        <v-flex
+          :shrink="!$vuetify.breakpoint.xs"
+          row
+          class="text-right mr-sm-4 pa-2"
+          :justify-center="!$vuetify.breakpoint.xs"
+          :justify-space-between="$vuetify.breakpoint.xs"
+          align-center
+        >
           <v-icon
             small
             v-if="loginStatus.isAdmin"
