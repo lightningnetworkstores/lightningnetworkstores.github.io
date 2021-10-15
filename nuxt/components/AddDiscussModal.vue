@@ -114,6 +114,14 @@
                   </v-flex>
                 </v-layout>
 
+                <vue-hcaptcha
+                  v-if="hcaptchaRequired"
+                  ref="invisibleHcaptcha"
+                  :sitekey="hCaptchaSiteKey"
+                  theme="dark"
+                  @verify="onVerify"
+                />
+
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
@@ -136,16 +144,21 @@
 
 <script>
 import { mapState } from 'vuex'
+import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
 
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+
+import HCaptcha from '@/mixins/Hcaptcha'
 
 export default {
   name: 'AddDiscussModal',
   components: {
     Checkout,
     Success,
+    VueHcaptcha,
   },
+  mixins: [HCaptcha],
   data() {
     return {
       showAddDialog: false,
@@ -200,19 +213,19 @@ export default {
         this.isLoading = true
         this.addAlert = { message: '', success: true }
         this.isPaid = false
-        let recaptchaToken = await this.$recaptcha.execute('create_discussion')
+        let recaptchaToken = null
+        if (!this.hCaptchaToken) {
+          recaptchaToken = await this.$recaptcha.execute('create_discussion')
+        }
         const payload = {
           title: this.addDiscussionForm.title,
           comment: this.addDiscussionForm.comment,
-          recaptchaToken: recaptchaToken
+          recaptchaToken: recaptchaToken,
+          hCaptchaToken: this.hCaptchaToken,
         }
         if (this.addDiscussionForm.storeId) {
           payload.storeID = this.addDiscussionForm.storeId
         }
-
-        
-        console.log(payload.recaptchaToken)
-        
 
         this.$store.dispatch('addDiscussion', payload).then(
           (response) => {
@@ -230,7 +243,7 @@ export default {
                 this.checkPayment()
               }, 3000)
             } else {
-              this.addAlert.message = response.message
+              this.addAlert.message = response.message ?? ''
               this.addAlert.success = false
             }
 

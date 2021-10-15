@@ -18,6 +18,7 @@ export const state = () => ({
   deviceFingerprint: '',
   deviceResolution: {},
   discussions: [],
+  hcaptchaRequired: false,
   lastDiscussions: [],
   activeStoreDiscussions: [],
   donations: [],

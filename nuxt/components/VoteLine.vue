@@ -89,7 +89,7 @@
             <v-layout row v-if="commentAlert.message.length">
               <v-flex pa-3>
                 <v-alert
-                  :value="commentAlert.message"
+                  :value="!!commentAlert.message"
                   :type="commentAlert.success ? 'success' : 'error'"
                   transition="scale-transition"
                 >
@@ -181,6 +181,13 @@
                 :satoshi="upvoteDialogForm.amount"
                 @cancel="cancel"
               />
+              <vue-hcaptcha
+                v-if="hcaptchaRequired"
+                ref="invisibleHcaptcha"
+                :sitekey="hCaptchaSiteKey"
+                theme="dark"
+                @verify="onVerify"
+              />
             </v-card-text>
           </div>
 
@@ -204,12 +211,17 @@
 </template>
 
 <script>
+import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
+
 import VoteButton from './VoteButton.vue'
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
 
+import HCaptcha from '@/mixins/Hcaptcha'
+
 export default {
-  components: { VoteButton, Checkout, Success },
+  components: { VoteButton, Checkout, Success, VueHcaptcha },
+  mixins: [HCaptcha],
   props: {
     store: { required: true },
     isInfo: { required: false },
@@ -235,6 +247,7 @@ export default {
       paymentRequest: '',
       paymentID: '',
       expiryTime: new Date(),
+      hCaptchaToken: '',
       isPaid: false,
       tweet: null,
 
@@ -260,12 +273,12 @@ export default {
 
   methods: {
     replyingTo() {
-        return this.isReplyToSubComment
-            ? `@${(this.parentComment
-                ? this.parentComment
-                : this.parentReview
-            ).substring(0, 5)} `
-            : ''
+      return this.isReplyToSubComment
+        ? `@${(this.parentComment
+            ? this.parentComment
+            : this.parentReview
+          ).substring(0, 5)} `
+        : ''
     },
     reply() {
       this.showDialog = true
@@ -362,6 +375,7 @@ export default {
           this.type === 'discussion' ? this.parentComment : this.parentReview,
         comment: this.encodedComment,
         recaptchaToken: this.recaptchaToken,
+        hCaptchaToken: this.hCaptchaToken,
       }
       if (this.store && this.store.id) {
         payload.storeID = this.store.id
@@ -432,7 +446,9 @@ export default {
 
       this.commentAlert.message = ''
 
-      this.recaptchaToken = await this.getRecaptchaToken()
+      if (!this.hCaptchaToken) {
+        this.recaptchaToken = await this.getRecaptchaToken()
+      }
 
       if (this.type === 'comment' || this.type === 'comment reply') {
         this.storeVotePaymentRequest()
@@ -472,6 +488,18 @@ export default {
       clearInterval(this.checkPaymentTimer)
       this.paymentRequest = ''
     },
+  },
+
+  async mounted() {
+    try {
+      await this.$recaptcha.init()
+    } catch (e) {
+      console.error(e)
+    }
+  },
+
+  beforeDestroy() {
+    this.$recaptcha.destroy()
   },
 }
 </script>

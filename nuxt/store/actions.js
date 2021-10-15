@@ -271,38 +271,35 @@ const actions = {
         console.log(error)
       })
   },
-  addDiscussion({ state }, payload) {
+  addDiscussion({ state, commit }, payload) {
+    const { hCaptchaToken, recaptchaToken } = payload
+    const url = new URL(`${state.baseURL}api/discussion`)
+
+    if (hCaptchaToken) {
+      url.searchParams.set('h-captcha-response', hCaptchaToken)
+      commit('updateHcaptchaRequired', false)
+    } else {
+      url.searchParams.set('g-recaptcha-response', recaptchaToken)
+    }
+
     return this.$axios
-      .post(
-        `${state.baseURL}api/discussion?g-recaptcha-response=${payload.recaptchaToken}`,
-        payload
-      )
+      .post(url, payload)
       .then((response) => {
         return response.data
       })
       .catch((error) => {
+        const requestStatusCode = error.response?.status
+        const forbiddenCode = 403
+
+        if (requestStatusCode === forbiddenCode) {
+          commit('updateHcaptchaRequired', true)
+        }
+
         console.log(error)
         return error.response.data
       })
   },
-  getDiscussionReplyPaymentRequest({ state }, payload) {
-    return this.$axios
-      .post(
-        `${state.baseURL}api/discussion${
-          payload.recaptchaToken
-            ? '?g-recaptcha-response=' + payload.recaptchaToken
-            : ''
-        }`,
-        payload
-      )
-      .then((response) => {
-        return response.data
-      })
-      .catch((e) => {
-        console.log(e)
-        return e.response.data
-      })
-  },
+
   getDiscussions({ state, commit }) {
     return this.$axios
       .get(`${state.baseURL}api/discussion`)
@@ -360,6 +357,35 @@ const actions = {
         }
       })
       .catch(console.error)
+  },
+
+  getDiscussionReplyPaymentRequest({ state, commit }, payload) {
+    const { hCaptchaToken, recaptchaToken } = payload
+    const url = new URL(`${state.baseURL}api/discussion`)
+
+    if (hCaptchaToken) {
+      url.searchParams.set('h-captcha-response', hCaptchaToken)
+      commit('updateHcaptchaRequired', false)
+    } else {
+      url.searchParams.set('g-recaptcha-response', recaptchaToken)
+    }
+
+    const request = this.$axios.post(url, payload)
+
+    return request
+      .then((response) => {
+        return response.data
+      })
+      .catch((e) => {
+        const requestStatusCode = e.response?.status
+        const forbiddenCode = 403
+
+        if (requestStatusCode === forbiddenCode) {
+          commit('updateHcaptchaRequired', true)
+        }
+
+        return e.response.data
+      })
   },
 
   donateFaucetsRequest({ state, commit }, { data }) {
