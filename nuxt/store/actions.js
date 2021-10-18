@@ -411,7 +411,8 @@ const actions = {
       })
       .catch(console.error)
   },
-  faucetClaim({ state }, { hCaptchaToken, recaptchaToken }) {
+
+  faucetClaim({ state, commit }, { hCaptchaToken, recaptchaToken }) {
     const {
       deviceFingerprint,
       browserFingerprint,
@@ -419,19 +420,39 @@ const actions = {
     } = state
 
     const url = new URL(`${state.baseURL}api/lnurl1`)
+
     url.searchParams.set('bfg', browserFingerprint)
     url.searchParams.set('dfg', deviceFingerprint)
     url.searchParams.set('wfg', `${width}${height}`)
-    url.searchParams.set('h-captcha-response', hCaptchaToken)
-    url.searchParams.set('g-recaptcha-response', recaptchaToken)
+
+    if (hCaptchaToken) {
+      url.searchParams.set('h-captcha-response', hCaptchaToken)
+      commit('updateHcaptchaRequired', false)
+    } else if (recaptchaToken) {
+      url.searchParams.set('g-recaptcha-response', recaptchaToken)
+    }
 
     return this.$axios
       .get(url.toString())
       .then((response) => {
         return response
       })
-      .catch(console.error)
+      .catch((error) => {
+        const requestStatusCode = error.response?.status
+        const forbiddenCode = 403
+
+        if (requestStatusCode === forbiddenCode) {
+          console.log(error.response)
+          const data = error.response.data
+          if (data.use_hcaptcha === false) {
+            commit('updateHcaptchaRequired', true)
+          }
+        }
+        console.error(error)
+        return error.response.data
+      })
   },
+
   getFaucetStats({ state, commit }) {
     return this.$axios
       .get(`${state.baseURL}api/faucetstats`)

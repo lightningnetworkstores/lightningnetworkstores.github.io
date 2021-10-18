@@ -353,7 +353,11 @@ export default {
             recaptchaToken: this.recaptchaToken,
           })
           .then((resp) => {
-            this.processFaucetClaim(resp)
+            if (resp.use_hcaptcha === false) {
+              this.$refs.invisibleHcaptcha.execute()
+            } else {
+              this.processFaucetClaim(resp)
+            }
           })
       }
     },
