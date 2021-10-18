@@ -175,22 +175,35 @@ const actions = {
       })
   },
   getStoreVotePaymentRequest(
-    { state },
-    { id, amount, isUpvote, comment, parent, recaptchaToken }
+    { commit, state },
+    { id, amount, isUpvote, comment, parent, recaptchaToken, hCaptchaToken }
   ) {
-    return fetch(
-      `${
-        state.baseURL
-      }api/get_invoice?amount=${amount}&storeID=${id}&direction=${
-        isUpvote ? 'Upvote' : 'Downvote'
-      }${comment ? '&comment=' + comment : ''}${
-        parent ? '&parent=' + parent : ''
-      }${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
-    )
+    const url = new URL(`${state.baseURL}api/get_invoice`)
+    url.searchParams.set('amount', amount)
+    url.searchParams.set('storeID', id)
+    url.searchParams.set('direction', isUpvote ? 'Upvote' : 'Downvote')
+    url.searchParams.set('comment', comment)
+    url.searchParams.set('parent', parent)
+
+    if (hCaptchaToken) {
+      url.searchParams.set('h-captcha-response', hCaptchaToken)
+    } else {
+      url.searchParams.set('g-recaptcha-response', recaptchaToken)
+    }
+
+    return this.$axios
+      .get(url)
       .then((response) => {
         return response.json()
       })
       .catch((error) => {
+        const requestStatusCode = error.response?.status
+        const forbiddenCode = 403
+
+        if (requestStatusCode === forbiddenCode) {
+          commit('updateHcaptchaRequired', true)
+        }
+
         return Promise.reject(error)
       })
   },

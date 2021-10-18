@@ -104,6 +104,13 @@
                     rows="4"
                     :rules="[maxCommentSizeRule]"
                   ></v-textarea>
+                  <vue-hcaptcha
+                    v-if="hcaptchaRequired"
+                    ref="invisibleHcaptcha"
+                    :sitekey="hCaptchaSiteKey"
+                    theme="dark"
+                    @verify="onVerify"
+                  />
                 </v-flex>
               </v-layout>
 
@@ -155,14 +162,19 @@
 
 <script>
 // import QrcodeVue from "qrcode.vue";
+import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
+
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+import HCaptcha from '@/mixins/Hcaptcha'
 
 export default {
-  componets: {
+  components: {
     Checkout,
     Success,
+    VueHcaptcha,
   },
+  mixins: [HCaptcha],
   props: {
     store: { required: true },
     parentReview: { required: false },
@@ -286,8 +298,11 @@ export default {
       } // end validation
 
       this.commentAlert.message = ''
+      let recaptchaToken
 
-      let recaptchaToken = await this.getRecaptchaToken()
+      if (!this.hCaptchaToken) {
+        recaptchaToken = await this.getRecaptchaToken()
+      }
 
       this.$store
         .dispatch('getStoreVotePaymentRequest', {
@@ -297,6 +312,7 @@ export default {
           comment: this.encodedComment,
           parent: this.parentReview,
           recaptchaToken: recaptchaToken,
+          hCaptchaToken: this.hCaptchaToken,
         })
         .then(
           (response) => {
