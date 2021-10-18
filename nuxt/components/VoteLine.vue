@@ -191,7 +191,10 @@
             </v-card-text>
           </div>
 
-          <v-card-actions v-if="!paymentRequest">
+          <v-card-actions
+            :style="{ overflow: 'hidden' }"
+            v-if="!paymentRequest"
+          >
             <v-spacer></v-spacer>
 
             <v-btn color="green darken-1" text @click="cancel"> Cancel </v-btn>
