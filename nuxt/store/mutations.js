@@ -111,6 +111,9 @@ const mutations = {
   setStatistics(state, statistics) {
     state.statistics = statistics
   },
+  updateUser(state, user) {
+    state.user = user
+  },
   updateLikedStores(state, { storeId, remove }) {
     state.likedStores = {
       ...state.likedStores,

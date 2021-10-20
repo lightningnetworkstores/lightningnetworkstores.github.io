@@ -26,6 +26,7 @@ export default {
     extendRoutes(routes, resolve) {
       routes.push(...customRoutes)
     },
+    middleware: ['auth'],
   },
   axios: {
     proxy: true,
@@ -250,6 +251,13 @@ export default {
     },
   },
   //googleAnalytics: { id: 'UA-74119866-1' },
+
+  serverMiddleware: [
+    {
+      path: '/api/twitter',
+      handler: '~/api/twitterLogin.js',
+    },
+  ],
 
   build: {
     // Build Configuration (https://go.nuxtjs.dev/config-build)

@@ -1043,6 +1043,10 @@ const actions = {
       },
     })
   },
+
+  updateUser({ commit }, user) {
+    commit('updateUser', user)
+  },
 }
 
 export default actions

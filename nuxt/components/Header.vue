@@ -24,6 +24,10 @@
           {{ route.text }}
         </div>
       </v-btn>
+      <v-btn v-if="user" text href="api/twitter/logout">
+        {{ user.displayName }}
+      </v-btn>
+      <v-btn v-else text href="api/twitter/login"> Login </v-btn>
       <v-btn
         icon
         href="https://twitter.com/bitcoinLNS"
@@ -118,6 +122,8 @@ export default {
 
   computed: {
     ...mapState({
+      user: 'user',
+
       isDiscussionNotificationShowed(state) {
         return state.lastActivity - 500 > state.lastCommentSeenTimestamp
       },
