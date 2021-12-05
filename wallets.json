@@ -20,7 +20,7 @@
 		"name": "Wallet of Satoshi",
 		"page": "https://www.walletofsatoshi.com/",
 		"android": "https://play.google.com/apps/testing/com.livingroomofsatoshi.wallet",
-		"iOS": "https://testflight.apple.com/join/NTUFwnhR",
+		"iOS": "https://apps.apple.com/us/app/wallet-of-satoshi/id1438599608",
 		"release": "January 2019",
 		"custodial": "yes"
 	},
