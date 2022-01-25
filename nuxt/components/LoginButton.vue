@@ -9,7 +9,13 @@
 export default {
   methods: {
     handleLoginClick() {
-      console.log('Clicked')
+      this.$axios.get('/api/oauthlogin?platform=twitter')
+        .then(res => res.data)
+        .then(data => {
+          console.log(data)
+          const { request_token, authorization_url, platform } = data.data
+          window.location.replace(authorization_url)
+        })
     }
   }
 }
