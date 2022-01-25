@@ -24,13 +24,7 @@
           {{ route.text }}
         </div>
       </v-btn>
-      <v-btn
-        icon
-        href="https://twitter.com/bitcoinLNS"
-        class="hidden-sm-and-down"
-      >
-        <v-icon>fab fa-twitter</v-icon>
-      </v-btn>
+      <LoginButton/>
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
