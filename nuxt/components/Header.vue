@@ -31,6 +31,18 @@
       >
         <v-icon>fab fa-twitter</v-icon>
       </v-btn>
+
+      <v-btn icon href="https://t.me/LNstores" class="hidden-sm-and-down">
+        <v-icon>fab fa-telegram-plane</v-icon>
+      </v-btn>
+
+      <v-btn
+        icon
+        href="https://medium.com/@LightningNetworkStores"
+        class="hidden-sm-and-down"
+      >
+        <v-icon>fab fa-medium</v-icon>
+      </v-btn>
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
