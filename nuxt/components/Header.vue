@@ -38,7 +38,7 @@
 
       <v-btn
         icon
-        href="https://medium.com/@LightningNetworkStores"
+        href="https://medium.com/@BitcoinLNS"
         class="hidden-sm-and-down"
       >
         <v-icon>fab fa-medium</v-icon>
