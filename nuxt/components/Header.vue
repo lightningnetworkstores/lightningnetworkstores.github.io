@@ -24,7 +24,8 @@
           {{ route.text }}
         </div>
       </v-btn>
-      <LoginButton/>
+      <LoginButton v-if="!isLogged"/>
+      <ProfilePicture v-else :src="profile.image"/>
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
@@ -43,6 +44,10 @@
         </v-app-bar-nav-icon>
       </template>
       <v-list>
+        <v-list-item class="justify-center">
+          <LoginButton v-if="!isLogged"/>
+          <ProfilePicture v-else :src="profile.image"/>
+        </v-list-item>
         <v-list-item v-for="route in routes" :key="route.text" :to="route.url">
           <v-list-item>
             <v-list-item-title>
@@ -59,11 +64,6 @@
                 {{ route.text }}
               </div>
             </v-list-item-title>
-          </v-list-item>
-        </v-list-item>
-        <v-list-item href="https://twitter.com/bitcoinLNS">
-          <v-list-item>
-            <v-list-item-title>Twitter</v-list-item-title>
           </v-list-item>
         </v-list-item>
       </v-list>
@@ -115,6 +115,15 @@ export default {
       isDiscussionNotificationShowed(state) {
         return state.lastActivity - 500 > state.lastCommentSeenTimestamp
       },
+      profile(state) {
+        return state.loginStatus.user
+      },
+      isLogged(state) {
+        if (state.loginStatus.user)
+          return state.loginStatus.user.logged
+        else
+          return false
+      }
     }),
   },
 

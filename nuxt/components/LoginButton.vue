@@ -1,8 +1,10 @@
 <template>
   <v-btn text @click="handleLoginClick">
-    <v-icon>
-      mdi-account-circle
-    </v-icon>
+    <v-avatar size="36" color="primary">
+      <v-icon dark>
+        mdi-account-circle
+      </v-icon>
+    </v-avatar>
   </v-btn>
 </template>
 <script>
