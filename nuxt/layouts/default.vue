@@ -16,13 +16,43 @@
       </transition>
       <announcement-modal v-if="!loading" />
     </v-main>
-    <v-footer class="pa-3 mt-8" color="rgb(56, 56, 56)" dark>
-      <v-row class="justify-center">
-        <v-col class="text-center">
-          Copyright &copy;
-          {{ new Date().getFullYear() }} LightningNetworkStores.</v-col
-        >
-      </v-row>
+    <v-footer class="pa-3" color="rgb(56, 56, 56)" dark>
+      <v-col>
+        <v-row justify="center" class="mb-2">
+          <v-btn
+            icon
+            href="https://twitter.com/bitcoinLNS"
+            class="hidden-sm-and-down mx-4"
+          >
+            <v-icon>fab fa-twitter</v-icon>
+          </v-btn>
+
+          <v-btn
+            icon
+            href="https://t.me/LNstores"
+            class="hidden-sm-and-down mx-4"
+          >
+            <v-icon>fab fa-telegram-plane</v-icon>
+          </v-btn>
+
+          <v-btn
+            icon
+            href="https://medium.com/@LightningNetworkStores"
+            class="hidden-sm-and-down mx-4"
+          >
+            <v-icon>fab fa-medium</v-icon>
+          </v-btn>
+        </v-row>
+        <v-row class="mb-2">
+          <v-divider></v-divider>
+        </v-row>
+        <v-row class="justify-center">
+          <v-col class="text-center">
+            Copyright &copy;
+            {{ new Date().getFullYear() }} LightningNetworkStores.</v-col
+          >
+        </v-row>
+      </v-col>
     </v-footer>
   </v-app>
 </template>
