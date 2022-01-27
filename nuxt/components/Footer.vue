@@ -1,15 +1,11 @@
 <template>
-  <v-footer class="pa-3" color="rgb(56, 56, 56)" dark>
+  <v-footer
+    class="pa-3"
+    color="rgb(56, 56, 56)"
+    dark
+    :class="{ 'indexpage-footer': $route.name == 'index' }"
+  >
     <v-col>
-      <v-row class="justify-center">
-        <v-col class="text-center">
-          Copyright &copy;
-          {{ new Date().getFullYear() }} LightningNetworkStores.</v-col
-        >
-      </v-row>
-      <v-row class="mb-2">
-        <v-divider></v-divider>
-      </v-row>
       <v-row justify="center">
         <v-btn
           icon
@@ -43,4 +39,12 @@
 export default {}
 </script>
 
-<style></style>
+<style>
+.indexpage-footer {
+  position: sticky !important;
+  /* top: calc(100vh - 118px); */
+  bottom: 0;
+  inset-inline: 0;
+  z-index: 10;
+}
+</style>

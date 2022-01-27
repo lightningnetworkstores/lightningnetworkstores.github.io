@@ -1,6 +1,15 @@
 <template>
   <div class="add-store-modal">
-    <v-btn color="green" dark fab fixed bottom right @click="openDialog">
+    <v-btn
+      class="mb-14"
+      color="green"
+      dark
+      fab
+      fixed
+      bottom
+      right
+      @click="openDialog"
+    >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
 
