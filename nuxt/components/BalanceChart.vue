@@ -47,7 +47,7 @@ export default {
       data: balance,
       options: {
         height: '20em',
-        width: '30em',
+        width: this.width(),
         toolbar: {
           enabled: false
         },
@@ -87,12 +87,19 @@ export default {
     }
   },
   methods: {
+    width() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs': return '22em'
+        case 'sm': return '23em'
+        case 'md': return '30em'
+        case 'lg': return '30em'
+        case 'xl': return '30em'
+        default: return '23em'
+      }
+    },
     centerTitle() {
-      console.log('this.data: ', balance)
       const total = balance.reduce((accum, item) => accum + item.value, 0)
       const available = balance[0].value
-      console.log('total: ', total)
-      console.log('available: ', available)
       if (total === available) return 'sats'
       else return 'sats (forecast)'
     }
