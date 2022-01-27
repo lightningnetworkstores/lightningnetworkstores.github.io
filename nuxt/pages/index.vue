@@ -53,7 +53,7 @@
       <filter-stores :filterTags="filtertags" />
     </v-navigation-drawer>
     <div
-      style="padding-bottom: 20px"
+      style="padding-bottom: 40px"
       :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 300px;' : ''"
     >
       <v-layout justify-center>

@@ -84,6 +84,18 @@
             <v-list-item-title>Twitter</v-list-item-title>
           </v-list-item>
         </v-list-item>
+
+        <v-list-item href="https://t.me/LNstores">
+          <v-list-item>
+            <v-list-item-title>Telegram</v-list-item-title>
+          </v-list-item>
+        </v-list-item>
+
+        <v-list-item href="https://medium.com/@BitcoinLNS">
+          <v-list-item>
+            <v-list-item-title>Medium</v-list-item-title>
+          </v-list-item>
+        </v-list-item>
       </v-list>
     </v-menu>
     <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">

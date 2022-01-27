@@ -7,27 +7,15 @@
   >
     <v-col>
       <v-row justify="center">
-        <v-btn
-          icon
-          href="https://twitter.com/bitcoinLNS"
-          class="hidden-sm-and-down mx-4"
-        >
+        <v-btn icon href="https://twitter.com/bitcoinLNS" class="mx-4">
           <v-icon>fab fa-twitter</v-icon>
         </v-btn>
 
-        <v-btn
-          icon
-          href="https://t.me/LNstores"
-          class="hidden-sm-and-down mx-4"
-        >
+        <v-btn icon href="https://t.me/LNstores" class="mx-4">
           <v-icon>fab fa-telegram-plane</v-icon>
         </v-btn>
 
-        <v-btn
-          icon
-          href="https://medium.com/@BitcoinLNS"
-          class="hidden-sm-and-down mx-4"
-        >
+        <v-btn icon href="https://medium.com/@BitcoinLNS" class="mx-4">
           <v-icon>fab fa-medium</v-icon>
         </v-btn>
       </v-row>
@@ -42,7 +30,6 @@ export default {}
 <style>
 .indexpage-footer {
   position: sticky !important;
-  /* top: calc(100vh - 118px); */
   bottom: 0;
   inset-inline: 0;
   z-index: 10;
