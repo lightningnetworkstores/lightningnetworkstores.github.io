@@ -5,24 +5,10 @@
         <v-col>
         </v-col>
         <v-col>
-          <v-card elevation="2">
+          <v-card elevation="2" class="px-5 py-6">
             <v-card-title class="d-flex justify-center">Balance</v-card-title>
             <div v-if="info !== null">
-              <v-card-text v-if="info !== null">
-                Available Balance: {{ info.balance.available }}
-              </v-card-text>
-              <v-card-text>
-                Pending Deposits: {{ info.balance.pending_deposits }}
-              </v-card-text>
-              <v-card-text>
-                Pending Withdrawals: {{ info.balance.pending_withdrawals }}
-              </v-card-text>
-              <v-card-text>
-                Unsettled Bets: {{ info.balance.unsettled_bets }}
-              </v-card-text>
-              <v-card-text>
-                Pending Affiliate: {{ info.affiliate.pending }}
-              </v-card-text>
+              <BalanceChart/>
             </div>
           </v-card>
         </v-col>

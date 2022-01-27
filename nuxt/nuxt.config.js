@@ -204,6 +204,10 @@ export default {
       src: '~/plugins/axios.js',
       ssr: true,
     },
+    {
+      src: '~/plugins/carbon-charts.js',
+      ssr: true
+    }
   ],
 
   recaptcha: {

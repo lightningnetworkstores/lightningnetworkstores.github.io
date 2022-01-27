@@ -10,6 +10,8 @@
     "generate": "node --max-old-space-size=1024 node_modules/nuxt/bin/nuxt.js generate"
   },
   "dependencies": {
+    "@carbon/charts": "^0.54.8",
+    "@carbon/charts-vue": "^0.54.8",
     "@fingerprintjs/fingerprintjs": "^3.3.0",
     "@hcaptcha/vue-hcaptcha": "^0.3.0",
     "@nuxtjs/axios": "^5.12.2",
@@ -17,6 +19,7 @@
     "@nuxtjs/recaptcha": "^1.0.4",
     "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.6.5",
+    "d3": "^7.3.0",
     "device-uuid": "^1.0.4",
     "fuse.js": "^3.4.4",
     "nuxt": "^2.14.6",
