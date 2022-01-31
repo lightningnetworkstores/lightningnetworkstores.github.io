@@ -16,18 +16,23 @@
           <v-col>
             <v-card class="px-5 py-6" min-height="30em">
               <v-card-title class="d-flex justify-center text-h4">
-                Affiliate
+                Profile
               </v-card-title>
             </v-card>
           </v-col>
           <v-col>
+            <v-card class="px-5 py-6" min-height="30em">
+              <v-card-title class="d-flex justify-center text-h4">
+                Affiliate
+              </v-card-title>
+            </v-card>
           </v-col>
         </v-row>
       </v-layout>
     </div>
     <div class="hidden-md-and-up mt-5">
       <v-layout d-flex flex-column align-center >
-        <v-card elevation="2" class="mx-5 px-3 my-5" min-width="95%">
+        <v-card elevation="2" class="ma-1 px-3" min-width="95%">
           <v-card-title class="d-flex justify-center text-h4">
             Balance
           </v-card-title>
@@ -35,7 +40,12 @@
             <BalanceChart/>
           </div>
         </v-card>
-        <v-card elevation="2" class="mx-5 py-6" min-width="95%">
+        <v-card elevation="2" class="ma-1 py-6" min-width="95%">
+          <v-card-title class="d-flex justify-center text-h4">
+            Profile
+          </v-card-title>
+        </v-card>
+        <v-card elevation="2" class="ma-1 py-6" min-width="95%">
           <v-card-title class="d-flex justify-center text-h4">
             Affiliate
           </v-card-title>
