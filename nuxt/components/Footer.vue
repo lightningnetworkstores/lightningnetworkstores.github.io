@@ -1,22 +1,22 @@
 <template>
   <v-footer
-    class="pa-3"
+    class="px-3 py-1"
     color="rgb(56, 56, 56)"
     dark
     :class="{ 'indexpage-footer': $route.name == 'index' }"
   >
     <v-col>
       <v-row justify="center">
-        <v-btn icon href="https://twitter.com/bitcoinLNS" class="mx-4">
-          <v-icon>fab fa-twitter</v-icon>
+        <v-btn icon href="https://twitter.com/bitcoinLNS" class="mx-2">
+          <v-icon small>fab fa-twitter</v-icon>
         </v-btn>
 
-        <v-btn icon href="https://t.me/LNstores" class="mx-4">
-          <v-icon>fab fa-telegram-plane</v-icon>
+        <v-btn icon href="https://t.me/LNstores" class="mx-2">
+          <v-icon small>fab fa-telegram-plane</v-icon>
         </v-btn>
 
-        <v-btn icon href="https://medium.com/@BitcoinLNS" class="mx-4">
-          <v-icon>fab fa-medium</v-icon>
+        <v-btn icon href="https://medium.com/@BitcoinLNS" class="mx-2">
+          <v-icon small>fab fa-medium</v-icon>
         </v-btn>
       </v-row>
     </v-col>
