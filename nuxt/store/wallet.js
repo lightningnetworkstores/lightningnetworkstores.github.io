@@ -7,14 +7,29 @@ const WithdrawalState = {
 
 export const state = () => ({
   invoice: null,
+  profile: null,
+  balance: null,
   withdrawal: {
     state: WithdrawalState.INITIAL,
     memo: '',
     errorMsg: null
-  }
+  },
+  affiliate: null,
+  transfers: []
 })
 
 export const actions = {
+  getDashboardInfo({ commit }) {
+    this.$axios.get('/api/dashboardinfo')
+      .then(res => res.data)
+      .then(data => data.data)
+      .then(({ balance, transfers, profile, affiliate }) => {
+        commit('setBalance', balance)
+        commit('setTransfers', transfers)
+        commit('setProfile', profile)
+        commit('setAffiliate', affiliate)
+      })
+  },
   getInvoice({ commit }, value) {
     const body = { amount: value }
     this.$axios.post(`/api/deposit`, body)
@@ -52,6 +67,18 @@ export const actions = {
 }
 
 export const mutations = {
+  setBalance(state, balance) {
+    state.balance = balance
+  },
+  setTransfers(state, transfers) {
+    state.transfers = transfers
+  },
+  setProfile(state, profile) {
+    state.profile = profile
+  },
+  setAffiliate(state, affiliate) {
+    state.affiliate = affiliate
+  },
   setInvoice(state, invoice) {
     state.invoice = invoice
   },
