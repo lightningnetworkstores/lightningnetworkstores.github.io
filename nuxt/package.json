@@ -23,6 +23,7 @@
     "d3": "^7.3.0",
     "device-uuid": "^1.0.4",
     "fuse.js": "^3.4.4",
+    "luxon": "^2.3.0",
     "nuxt": "^2.14.6",
     "qrcode.vue": "^1.6.1",
     "vue-class-component": "^7.2.6",
