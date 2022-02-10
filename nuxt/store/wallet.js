@@ -6,7 +6,9 @@ const WithdrawalState = {
 }
 
 export const state = () => ({
-  invoice: null,
+  deposit: {
+    invoice: null
+  },
   profile: null,
   balance: null,
   withdrawal: {
@@ -30,13 +32,19 @@ export const actions = {
         commit('setAffiliate', affiliate)
       })
   },
-  getInvoice({ commit }, value) {
+  async getInvoice({ commit }, value) {
     const body = { amount: value }
-    this.$axios.post(`/api/deposit`, body)
-      .then(res => res.data)
-      .then(data => data.data)
-      .then(data => commit('setInvoice', data.payment_request))
-      .catch(console.error)
+    try {
+      const resp = await this.$axios.post('/api/deposit', body)
+      const { payment_request } = resp.data.data
+      commit('setInvoice', payment_request)
+      return payment_request
+    } catch (err) {
+      console.error('Error while trying to fetch invoice. err: ', err)
+    }
+  },
+  cancelInvoice({ commit }) {
+    commit('setInvoice', null)
   },
   sendPayment({ commit }, invoice) {
     commit('setWithdrawalState', WithdrawalState.PROCESSING)
@@ -80,7 +88,7 @@ export const mutations = {
     state.affiliate = affiliate
   },
   setInvoice(state, invoice) {
-    state.invoice = invoice
+    state.deposit.invoice = invoice
   },
   setWithdrawalState(state, withdrawalState) {
     state.withdrawal.state = withdrawalState
