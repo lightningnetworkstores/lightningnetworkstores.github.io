@@ -55,6 +55,22 @@
         Generate Invoice
       </v-btn>
     </v-form>
+    <v-snackbar
+      bottom
+      v-model="isPaid"
+    >
+      Deposit confirmed!
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="green"
+          text
+          v-bind="attrs"
+          @click="isPaid = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 <script>
@@ -66,6 +82,10 @@ const INITIAL_TIMER_DATA = {
   lifetime: -1,
   remaining: -1
 }
+// Interval at which the server will be polled in 
+// order to check for the state of a deposit
+const POLL_INTERVAL = 3
+
 export default {
   data() {
     return {
@@ -73,11 +93,11 @@ export default {
       isValid: false,
       amount: null,
       timerTask: null,
-      timerData: INITIAL_TIMER_DATA
+      timerData: INITIAL_TIMER_DATA,
+      isPaid: false
     }
   },
   beforeUnmount() {
-    console.log('beforeUnmount')
     this.stopTimer()
   },
   methods: {
@@ -94,9 +114,17 @@ export default {
       navigator.clipboard.writeText(this.invoice)
     },
     startTimer() {
-      this.timerTask = setInterval(() => {
+      this.timerTask = setInterval(async () => {
         if (this.timerData.remaining > 0) {
           this.timerData.remaining -= 1
+          if (this.timerData.remaining % POLL_INTERVAL) {
+            const isPaid = await this.$store.dispatch('wallet/checkDeposit')
+            if (isPaid) {
+              this.$store.dispatch('wallet/getDashboardInfo')
+              this.isPaid = true
+              this.stopTimer()
+            }
+          }
         } else {
           this.stopTimer()
         }
@@ -105,6 +133,7 @@ export default {
     stopTimer() {
       if (this.timerTask) {
         clearInterval(this.timerTask)
+        this.amount = null
         this.timerTask = null
         this.timerData = INITIAL_TIMER_DATA
         this.$store.dispatch('wallet/cancelInvoice')
@@ -114,8 +143,11 @@ export default {
   computed: {
     rules() {
       return [
-        v => v !== null || 'Needs a value',
-        v => parseInt(v) > 0 || 'Invalid amount'
+        v => {
+          if (v === null) return true
+          if (parseInt(v) <= 0) return 'Invalid amount'
+          return true
+        }
       ]
     },
     invoiceContainerWidth() {

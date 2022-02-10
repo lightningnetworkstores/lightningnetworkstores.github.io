@@ -7,6 +7,7 @@ const WithdrawalState = {
 
 export const state = () => ({
   deposit: {
+    id: null,
     invoice: null
   },
   profile: null,
@@ -36,8 +37,9 @@ export const actions = {
     const body = { amount: value }
     try {
       const resp = await this.$axios.post('/api/deposit', body)
-      const { payment_request } = resp.data.data
+      const { payment_request, id } = resp.data.data
       commit('setInvoice', payment_request)
+      commit('setPaymentId', id)
       return payment_request
     } catch (err) {
       console.error('Error while trying to fetch invoice. err: ', err)
@@ -45,6 +47,7 @@ export const actions = {
   },
   cancelInvoice({ commit }) {
     commit('setInvoice', null)
+    commit('setPaymentId', null)
   },
   sendPayment({ commit }, invoice) {
     commit('setWithdrawalState', WithdrawalState.PROCESSING)
@@ -71,6 +74,19 @@ export const actions = {
   resetWithdrawalState({ commit }) {
     commit('setWithdrawalState', WithdrawalState.INITIAL)
     commit('setErrorMessage', null)
+  },
+  async checkDeposit({ commit, state }) {
+    try {
+      const { id } = state.deposit
+      const resp = await this.$axios.get(`/api2/check_payment?id=${id}`)
+      const isPaid = resp.data.data.paid
+      if (isPaid) {
+        commit('setInvoice', null)
+      }
+      return isPaid
+    } catch (err) {
+      console.error('Error while polling for deposit state. err: ', err)
+    }
   }
 }
 
@@ -89,6 +105,9 @@ export const mutations = {
   },
   setInvoice(state, invoice) {
     state.deposit.invoice = invoice
+  },
+  setPaymentId(state, id) {
+    state.deposit.id = id
   },
   setWithdrawalState(state, withdrawalState) {
     state.withdrawal.state = withdrawalState

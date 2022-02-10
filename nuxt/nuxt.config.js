@@ -48,7 +48,7 @@ export default {
     },
     '/api2/': {
       target: process.env.BASE_URL,
-      changeOrigin: false,
+      changeOrigin: true,
     },
   },
   render: {
