@@ -14,8 +14,8 @@
         label="Enter LN invoice"
       />
     </v-form>
-    <div v-if="value" class="text-caption font-weight-light"> {{ value }} sats </div>
-    <div v-if="memo" class="text-caption font-weight-light"> Memo: {{ memo }} </div>
+    <div v-if="value && !hasError" class="text-caption font-weight-light"> {{ value }} sats </div>
+    <div v-if="memo && !hasError" class="text-caption font-weight-light"> Memo: {{ memo }} </div>
     <div v-if="isProcessing" class="pb-2">
       <v-progress-linear color="primary" indeterminate/>
     </div>
@@ -28,10 +28,23 @@
     </v-btn>
     <v-btn v-else
       @click="reset"
-      color="primary"
+      color="error"
     >
       Reset
     </v-btn>
+    <v-snackbar v-model="hasError">
+      Error when attempting to withdraw
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="red"
+          text
+          v-bind="attrs"
+          @click="reset"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 <script>
@@ -39,6 +52,13 @@ import lightningPayReq from 'bolt11'
 import { mapState } from 'vuex'
 
 const MIN_INVOICE_CHECK_LENGTH = 10
+
+const WithdrawalState = {
+  INITIAL: 0,
+  PROCESSING: 1,
+  SUCCESS: 2,
+  FAILED: 3
+}
 
 export default {
   data() {
@@ -53,30 +73,32 @@ export default {
   methods: {
     async sendPayment() {
       const result = await this.$store.dispatch('wallet/sendPayment', this.invoice)
-      if (result === 2) {
+      console.log('result: ', result)
+      if (result === WithdrawalState.SUCCESS) {
         this.reset()
       }
     },
     reset() {
       this.isValid = false
       this.invoice = null
+      this.value = null
+      this.memo = null
       this.$store.dispatch('wallet/resetWithdrawalState')
     },
     onInput(e) {
-      console.log('onInput')
       this.value = null
       this.memo = null
     }
   },
   computed: {
     isProcessing() {
-      return this.wallet.withdrawal.state === 1
+      return this.wallet.withdrawal.state === WithdrawalState.PROCESSING
     },
     isSuccess() {
-      return this.wallet.withdrawal.state === 2
+      return this.wallet.withdrawal.state === WithdrawalState.SUCCESS
     },
     hasError() {
-      return this.wallet.withdrawal.state === 3
+      return this.wallet.withdrawal.state === WithdrawalState.FAILED
     },
     errorMsg() {
       return this.wallet.withdrawal.errorMsg

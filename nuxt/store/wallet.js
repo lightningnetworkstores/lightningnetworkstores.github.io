@@ -59,17 +59,14 @@ export const actions = {
       .then(success => {
         if (success) {
           commit('setWithdrawalState', WithdrawalState.SUCCESS)
-          return WithdrawalState.SUCCESS
         } else {
           commit('setWithdrawalState', WithdrawalState.FAILED)
-          return WithdrawalState.FAILED
         }
       })
       .catch(err => {
         console.error('Withdrawal error: ', err)
         commit('setWithdrawalState', WithdrawalState.FAILED)
         commit('setErrorMessage', err.response.data.message)
-        return WithdrawalState.FAILED
       })
   },
   resetWithdrawalState({ commit }) {
