@@ -1,36 +1,33 @@
 <template>
   <div>
-    <v-form v-model="isValid">
-      <v-textarea
-        v-model="invoice"
-        outlined
-        @input="onInput"
-        :disabled="isProcessing || hasError"
-        :rows="6"
-        :rules="invoiceRules"
-        :hint="hint"
-        no-resize
-        label="Enter LN invoice"
-      />
-    </v-form>
-    <div v-if="value && !hasError" class="text-caption font-weight-light"> {{ value }} sats </div>
-    <div v-if="memo && !hasError" class="text-caption font-weight-light"> Memo: {{ memo }} </div>
-    <div v-if="isProcessing" class="pb-2">
-      <v-progress-linear color="primary" indeterminate/>
+    <div class="container d-flex flex-column justify-space-between">
+      <v-form v-model="isValid">
+        <v-textarea
+          v-model="invoice"
+          outlined
+          @input="onInput"
+          :disabled="isProcessing || hasError"
+          :rows="6"
+          :rules="invoiceRules"
+          :hint="hint"
+          no-resize
+          label="Enter LN invoice"
+        />
+      </v-form>
+      <div v-if="value && !hasError" class="text-caption font-weight-light"> {{ value }} sats </div>
+      <div v-if="memo && !hasError" class="text-caption font-weight-light"> Memo: {{ memo }} </div>
+      <div v-if="isProcessing" class="pb-2">
+        <v-progress-linear color="primary" indeterminate/>
+      </div>
+      <v-btn
+        width="200"
+        @click="sendPayment"
+        :disabled="isButtonDisabled"
+        color="primary"
+      >
+        Withdraw
+      </v-btn>
     </div>
-    <v-btn
-      @click="sendPayment"
-      :disabled="isButtonDisabled"
-      color="primary"
-    >
-      Withdraw
-    </v-btn>
-    <!-- <v-btn v-else
-      @click="reset"
-      color="error"
-    >
-      Reset
-    </v-btn> -->
     <v-snackbar v-model="snackbar.show">
       {{ snackbar.message }}
       <template v-slot:action="{ attrs }">
@@ -147,3 +144,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.container {
+  height: 20em;
+}
+</style>

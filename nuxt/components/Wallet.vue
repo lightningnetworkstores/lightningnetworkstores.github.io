@@ -20,13 +20,13 @@
     </v-tabs>
     <v-tabs-items v-model="tabs">
       <v-tab-item style="min-height: 20em">
-        <Deposit class="pt-5"/>
+        <Deposit class="pt-1"/>
       </v-tab-item>
       <v-tab-item style="min-height: 20em">
-        <Transfer class="pt-5"/>
+        <Transfer class="pt-1"/>
       </v-tab-item>
       <v-tab-item style="min-height: 20em">
-        <Withdraw class="pt-5"/>
+        <Withdraw class="pt-1"/>
       </v-tab-item>
     </v-tabs-items>
   </div>
