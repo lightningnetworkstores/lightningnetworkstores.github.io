@@ -14,8 +14,7 @@ export const state = () => ({
   balance: null,
   withdrawal: {
     state: WithdrawalState.INITIAL,
-    memo: '',
-    errorMsg: null
+    memo: ''
   },
   affiliate: null,
   transfers: []
@@ -50,28 +49,24 @@ export const actions = {
     commit('setInvoice', null)
     commit('setPaymentId', null)
   },
-  sendPayment({ commit }, invoice) {
+  async sendPayment({ commit }, invoice) {
     commit('setWithdrawalState', WithdrawalState.PROCESSING)
     const body = { fee: 10, payment_request: invoice }
-    this.$axios.post('/api/withdraw', body)
-      .then(res => res.data)
-      .then(data => data.status === 'success')
-      .then(success => {
-        if (success) {
-          commit('setWithdrawalState', WithdrawalState.SUCCESS)
-        } else {
-          commit('setWithdrawalState', WithdrawalState.FAILED)
-        }
-      })
-      .catch(err => {
-        console.error('Withdrawal error: ', err)
-        commit('setWithdrawalState', WithdrawalState.FAILED)
-        commit('setErrorMessage', err.response.data.message)
-      })
+    try {
+      const resp = await this.$axios.post('/api/withdraw', body)
+      if (resp.data.status === 'success') {
+        return { state: WithdrawalState.SUCCESS }
+      } else {
+        return { state: WithdrawalState.FAILED, message: err.response.data.message }
+      }
+    } catch (err) {
+      console.error('Withdrawal error: ', err)
+      commit('setWithdrawalState', WithdrawalState.FAILED)
+      return { state: WithdrawalState.FAILED, message: err.response.data.message }
+    }
   },
   resetWithdrawalState({ commit }) {
     commit('setWithdrawalState', WithdrawalState.INITIAL)
-    commit('setErrorMessage', null)
   },
   async checkDeposit({ commit, state }) {
     try {
@@ -112,8 +107,5 @@ export const mutations = {
   },
   setWithdrawalState(state, withdrawalState) {
     state.withdrawal.state = withdrawalState
-  },
-  setErrorMessage(state, errorMsg) {
-    state.withdrawal.errorMsg = errorMsg
   }
 }

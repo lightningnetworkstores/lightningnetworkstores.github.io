@@ -8,7 +8,6 @@
         :disabled="isProcessing || hasError"
         :rows="6"
         :rules="invoiceRules"
-        :error-messages="errorMsg"
         :hint="hint"
         no-resize
         label="Enter LN invoice"
@@ -19,24 +18,24 @@
     <div v-if="isProcessing" class="pb-2">
       <v-progress-linear color="primary" indeterminate/>
     </div>
-    <v-btn v-if="!hasError"
+    <v-btn
       @click="sendPayment"
       :disabled="isButtonDisabled"
       color="primary"
     >
       Withdraw
     </v-btn>
-    <v-btn v-else
+    <!-- <v-btn v-else
       @click="reset"
       color="error"
     >
       Reset
-    </v-btn>
-    <v-snackbar v-model="hasError">
-      Error when attempting to withdraw
+    </v-btn> -->
+    <v-snackbar v-model="snackbar.show">
+      {{ snackbar.message }}
       <template v-slot:action="{ attrs }">
         <v-btn
-          color="red"
+          :color="snackbar.isError ? 'red' : 'green'"
           text
           v-bind="attrs"
           @click="reset"
@@ -67,22 +66,34 @@ export default {
       invoice: null,
       hint: 'Routing fees will be deducted from your balance',
       value: null,
-      memo: null
+      memo: null,
+      snackbar: {
+        show: false,
+        message: null,
+        isError: false
+      }
     }
   },
   methods: {
     async sendPayment() {
-      const result = await this.$store.dispatch('wallet/sendPayment', this.invoice)
-      console.log('result: ', result)
-      if (result === WithdrawalState.SUCCESS) {
+      const { state, message } = await this.$store.dispatch('wallet/sendPayment', this.invoice)
+      if (state === WithdrawalState.SUCCESS) {
         this.reset()
+        this.snackbar.show = true
+        this.snackbar.message = 'Withdrawal was successful!'
+        this.snackbar.isError = false
+      } else {
+        this.reset()
+        this.snackbar.show = true
+        this.snackbar.message = message
+        this.snackbar.isError = true
       }
     },
     reset() {
-      this.isValid = false
       this.invoice = null
       this.value = null
       this.memo = null
+      this.snackbar.show = false
       this.$store.dispatch('wallet/resetWithdrawalState')
     },
     onInput(e) {
@@ -100,9 +111,6 @@ export default {
     hasError() {
       return this.wallet.withdrawal.state === WithdrawalState.FAILED
     },
-    errorMsg() {
-      return this.wallet.withdrawal.errorMsg
-    },
     isButtonDisabled() {
       return this.invoice === null ||
         this.invoice.length < MIN_INVOICE_CHECK_LENGTH ||
@@ -111,9 +119,9 @@ export default {
     },
     invoiceRules() {
       return [
-        v => !!v || 'Enter a LN invoice',
+        v => (!!v || v == null) || 'Enter a LN invoice',
         v => {
-          if (!v) return 'Must enter an invoice'
+          if (!v) return true
           if (v.length < MIN_INVOICE_CHECK_LENGTH) return true
           try {
             const details = lightningPayReq.decode(v)
@@ -125,6 +133,7 @@ export default {
             this.memo = details.tags.find(tag => tag.tagName === 'description').data
             return true
           } catch(err) {
+            console.error('Error validating input. err: ', err)
             if (err.message && err.message.startsWith('Invalid checksum'))
               err.message = 'Invalid checksum'
             if (err.message && err.message === 'ExpectedLnPrefix')
