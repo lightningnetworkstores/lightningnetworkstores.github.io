@@ -40,6 +40,7 @@ export const actions = {
       const { payment_request, id } = resp.data.data
       commit('setInvoice', payment_request)
       commit('setPaymentId', id)
+      commit('updatePendingBalance', value)
       return payment_request
     } catch (err) {
       console.error('Error while trying to fetch invoice. err: ', err)
@@ -91,6 +92,9 @@ export const actions = {
 }
 
 export const mutations = {
+  updatePendingBalance(state, pending) {
+    state.balance.pending_deposits = +pending
+  },
   setBalance(state, balance) {
     state.balance = balance
   },
