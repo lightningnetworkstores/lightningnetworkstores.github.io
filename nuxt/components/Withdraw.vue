@@ -1,17 +1,21 @@
 <template>
-  <div class="ma-2">
+  <div>
     <v-form v-model="isValid">
       <v-textarea
         v-model="invoice"
         outlined
+        @input="onInput"
         :disabled="isProcessing || hasError"
-        :rows="7"
+        :rows="6"
         :rules="invoiceRules"
         :error-messages="errorMsg"
-        hint="Routing fees will be deducted from your balance"
+        :hint="hint"
+        no-resize
         label="Enter LN invoice"
       />
     </v-form>
+    <div v-if="value" class="text-caption font-weight-light"> {{ value }} sats </div>
+    <div v-if="memo" class="text-caption font-weight-light"> Memo: {{ memo }} </div>
     <div v-if="isProcessing" class="pb-2">
       <v-progress-linear color="primary" indeterminate/>
     </div>
@@ -40,7 +44,10 @@ export default {
   data() {
     return {
       isValid: false,
-      invoice: null
+      invoice: null,
+      hint: 'Routing fees will be deducted from your balance',
+      value: null,
+      memo: null
     }
   },
   methods: {
@@ -54,6 +61,11 @@ export default {
       this.isValid = false
       this.invoice = null
       this.$store.dispatch('wallet/resetWithdrawalState')
+    },
+    onInput(e) {
+      console.log('onInput')
+      this.value = null
+      this.memo = null
     }
   },
   computed: {
@@ -86,6 +98,9 @@ export default {
             if (details.timeExpireDate < parseInt(Date.now() / 1e3)) return 'This invoice is expired'
             if (details.network.bech32 === 'tb') return 'This is a testnet invoice'
             if (details.network.bech32 !== 'bc') return 'This is not a bitcoin invoice'
+            this.hint = null
+            this.value = details.satoshis
+            this.memo = details.tags.find(tag => tag.tagName === 'description').data
             return true
           } catch(err) {
             if (err.message && err.message.startsWith('Invalid checksum'))
