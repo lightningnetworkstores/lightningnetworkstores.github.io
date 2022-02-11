@@ -20,11 +20,20 @@
         <span> {{ getTypeTooltip(item.type) }} </span>
       </v-tooltip>
     </template>
+    <template v-slot:[`item.time`]="{ item }">
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <span v-bind="attrs" v-on="on">{{ getTimeAgo(item.time) }} </span>
+        </template>
+        <span> {{ getFormattedTime(item.time) }}</span>
+      </v-tooltip>
+    </template>
   </v-data-table>
 </template>
 <script>
 import { mapState } from 'vuex'
 import { DateTime } from 'luxon'
+import { format } from 'timeago.js'
 
 export default {
   data() {
@@ -69,6 +78,12 @@ export default {
         default:
           return 'Unknown'
       }
+    },
+    getTimeAgo(timestamp) {
+      return format(timestamp)
+    },
+    getFormattedTime(timestamp) {
+      return DateTime.fromMillis(timestamp).toRFC2822()
     }
   },
   computed: mapState({
@@ -79,7 +94,7 @@ export default {
         .map(transfer => ({
           amount: transfer.amount,
           type: transfer.type,
-          time: DateTime.fromMillis(transfer.timestamp).toLocaleString(),
+          time: transfer.timestamp,
           from: transfer.sender ? transfer.sender : '-',
           fee: transfer.fee
         }))
