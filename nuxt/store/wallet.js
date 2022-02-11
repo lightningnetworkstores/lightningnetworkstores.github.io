@@ -89,6 +89,15 @@ export const actions = {
       console.error('Error from action while fetching suggestions. err: ', err)
       return []
     }
+  },
+  async transfer(context, payload) {
+    try {
+      const res = await this.$axios.post('/api/transfer', payload)
+      return res.data.status === 'success'
+    } catch (err) {
+      console.error('Error while performing internal transfer. Err: ', err)
+    }
+    return false
   }
 }
 

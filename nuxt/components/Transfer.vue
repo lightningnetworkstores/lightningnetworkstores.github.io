@@ -5,6 +5,7 @@
       outlined
       type="number"
       label="Amount (sats)"
+      :disabled="isSending"
     >
     </v-text-field>
     <v-autocomplete
@@ -13,6 +14,7 @@
       :items="suggestions"
       :loading="isLoading"
       :search-input.sync="search"
+      :disabled="isSending"
       hide-no-data
       hide-selected
       return-object
@@ -40,7 +42,14 @@
         </v-list-item-content>
       </template>
     </v-autocomplete>
-    <v-btn :disabled="disableTransfer" color="primary">Transfer</v-btn>
+    <v-progress-linear v-if="isSending" class="my-2"></v-progress-linear>
+    <v-btn
+      :disabled="disableTransfer"
+      color="primary"
+      @click="onTransfer"
+    >
+      Transfer
+    </v-btn>
   </div>
 </template>
 <script>
@@ -52,14 +61,27 @@ export default {
       recipient: null,
       suggestions: [],
       search: null,
-      isLoading: false
+      isLoading: false,
+      isSending: false
     }
   },
   methods: {
     handleKeydown(e) {
       this.suggestions = []
-      // this.recipient = ''
     },
+    async onTransfer() {
+      this.isSending = true
+      const result = await this.$store.dispatch('wallet/transfer', {
+        to: this.recipient.value,
+        amount: +this.amount
+      })
+      this.isSending = false
+      if (result) {
+        this.amount = null
+        this.suggestions = []
+        this.$store.dispatch('wallet/getDashboardInfo')
+      }
+    }
   },
   watch: {
     async search(newVal, oldVal) {
@@ -88,7 +110,8 @@ export default {
     disableTransfer() {
       return (+this.amount) <= 0 ||
         this.recipient === null ||
-        this.isLoading
+        this.isLoading ||
+        this.isSending
     }
   }
 }
