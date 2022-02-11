@@ -19,6 +19,26 @@
       @keydown="handleKeydown"
       label="Enter user handle or name"
     >
+      <template v-slot:selection="data">
+        <v-chip
+          v-bind="data.attrs"
+          :input-value="data.selected"
+        >
+          <v-avatar left>
+            <v-img :src="data.item.image"></v-img>
+          </v-avatar>
+          <div> {{ data.item.text }} </div>
+        </v-chip>
+      </template>
+      <template v-slot:item="data">
+        <v-list-item-avatar>
+          <v-img :src="data.item.image"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title v-html="data.item.text"></v-list-item-title>
+          <v-list-item-subtitle v-html="data.item.name"></v-list-item-subtitle>
+        </v-list-item-content>
+      </template>
     </v-autocomplete>
     <v-btn color="primary">Transfer</v-btn>
   </div>
@@ -52,7 +72,9 @@ export default {
             .dispatch('wallet/getUserSuggestions', this.search)
           this.suggestions = suggestions.map(suggestion => ({
             text: suggestion.handle,
-            value: suggestion.id
+            name: suggestion.name,
+            value: suggestion.id,
+            image: suggestion.image
           }))
         } catch(err) {
           console.error('Error form component while fetching suggestions: ', err)
