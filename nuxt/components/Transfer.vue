@@ -40,7 +40,7 @@
         </v-list-item-content>
       </template>
     </v-autocomplete>
-    <v-btn color="primary">Transfer</v-btn>
+    <v-btn :disabled="disableTransfer" color="primary">Transfer</v-btn>
   </div>
 </template>
 <script>
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       amount: null,
-      recipient: '',
+      recipient: null,
       suggestions: [],
       search: null,
       isLoading: false
@@ -58,7 +58,7 @@ export default {
   methods: {
     handleKeydown(e) {
       this.suggestions = []
-      this.recipient = null
+      // this.recipient = ''
     },
   },
   watch: {
@@ -82,6 +82,13 @@ export default {
           this.isLoading = false
         }
       }
+    }
+  },
+  computed: {
+    disableTransfer() {
+      return (+this.amount) <= 0 ||
+        this.recipient === null ||
+        this.isLoading
     }
   }
 }
