@@ -80,6 +80,15 @@ export const actions = {
     } catch (err) {
       console.error('Error while polling for deposit state. err: ', err)
     }
+  },
+  async getUserSuggestions(context, query) {
+    try {
+      const resp = await this.$axios.get(`/api/transferpreview?query=${query}`)
+      return resp.data.data.results
+    } catch (err) {
+      console.error('Error from action while fetching suggestions. err: ', err)
+      return []
+    }
   }
 }
 
