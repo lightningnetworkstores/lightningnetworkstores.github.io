@@ -14,7 +14,7 @@
             v-on="on"
             :color="getColor(item.type)"
           >
-            {{ item.type === 'LN_WITHDRAW' ? 'mdi-arrow-up-bold-circle' : 'mdi-arrow-down-bold-circle' }}
+            {{ getIcon(item.type) }}
           </v-icon>
         </template>
         <span> {{ getTypeTooltip(item.type) }} </span>
@@ -39,11 +39,23 @@ export default {
     }
   },
   methods: {
+    getIcon(type) {
+      switch(type) {
+        case 'LN_WITHDRAW':
+          return 'mdi-arrow-up'
+        case 'LN_DEPOSIT':
+          return 'mdi-arrow-down'
+        case 'TRANSFER':
+          return 'mdi-transfer'
+      }
+    },
     getColor(type) {
       if (type === 'LN_WITHDRAW') {
         return 'red'
       } else if (type === 'LN_DEPOSIT') {
         return 'green'
+      } else if (type === 'TRANSFER') {
+        return 'pink'
       }
     },
     getTypeTooltip(type) {
@@ -52,6 +64,8 @@ export default {
           return 'LN Withdrawal'
         case 'LN_DEPOSIT':
           return 'LN Deposit'
+        case 'TRANSFER':
+          return 'Internal Transfer'
         default:
           return 'Unknown'
       }
