@@ -76,7 +76,10 @@ export default {
   },
   methods: {
     async sendPayment() {
-      const { state, message } = await this.$store.dispatch('wallet/sendPayment', this.invoice)
+      const { state, message } = await this.$store.dispatch('wallet/sendPayment', {
+        feeAmount: Math.ceil(this.value * FEE_PERCENT),
+        invoice: this.invoice
+      })
       if (state === WithdrawalState.SUCCESS) {
         this.reset()
         this.snackbar.show = true

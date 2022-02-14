@@ -49,9 +49,9 @@ export const actions = {
     commit('setInvoice', null)
     commit('setPaymentId', null)
   },
-  async sendPayment({ commit }, invoice) {
+  async sendPayment({ commit }, { invoice, feeAmount }) {
     commit('setWithdrawalState', WithdrawalState.PROCESSING)
-    const body = { fee: 10, payment_request: invoice }
+    const body = { fee: feeAmount, payment_request: invoice }
     try {
       const resp = await this.$axios.post('/api/withdraw', body)
       if (resp.data.status === 'success') {
