@@ -47,6 +47,9 @@
 import lightningPayReq from 'bolt11'
 import { mapState } from 'vuex'
 
+// The cost of a withdrawal. Currently with OpenNode as a backend that is 1%
+const FEE_PERCENT = 0.01
+
 const MIN_INVOICE_CHECK_LENGTH = 10
 
 const WithdrawalState = {
@@ -128,6 +131,8 @@ export default {
             this.hint = null
             this.value = details.satoshis
             this.memo = details.tags.find(tag => tag.tagName === 'description').data
+            const maxWithdrawble = this.wallet.balance.available * (1 - FEE_PERCENT)
+            if (this.value > maxWithdrawble) return 'Insufficient balance'
             return true
           } catch(err) {
             console.error('Error validating input. err: ', err)
