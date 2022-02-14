@@ -5,6 +5,7 @@
       outlined
       type="number"
       label="Amount (sats)"
+      :rules="amountRules"
       :disabled="isSending"
     >
     </v-text-field>
@@ -53,6 +54,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 const MIN_LENGTH = 4
 export default {
   data() {
@@ -62,7 +64,20 @@ export default {
       suggestions: [],
       search: null,
       isLoading: false,
-      isSending: false
+      isSending: false,
+      amountRules: [
+        v => {
+          if (v !== '') return parseInt(v) > 0 || 'Value must be positive'
+          return true
+        },
+        v => {
+          if (v === '') return true
+          if (this.balance && this.balance.available) {
+            return this.balance.available >= parseInt(this.amount) || 'Not enough balance'
+          }
+          return true
+        }
+      ]
     }
   },
   methods: {
@@ -109,10 +124,12 @@ export default {
   computed: {
     disableTransfer() {
       return (+this.amount) <= 0 ||
+        (+this.amount) > this.balance.available ||
         this.recipient === null ||
         this.isLoading ||
         this.isSending
-    }
+    },
+    ...mapState('wallet', ['balance'])
   }
 }
 </script>
