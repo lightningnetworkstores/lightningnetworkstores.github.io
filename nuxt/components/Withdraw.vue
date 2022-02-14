@@ -74,7 +74,7 @@ export default {
   methods: {
     async sendPayment() {
       const { state, message } = await this.$store.dispatch('wallet/sendPayment', {
-        feeAmount: Math.ceil(this.value * FEE_PERCENT),
+        feeAmount: Math.ceil(this.value * this.percentFactor),
         invoice: this.invoice
       })
       if (state === WithdrawalState.SUCCESS) {
@@ -103,13 +103,13 @@ export default {
   },
   computed: {
     isProcessing() {
-      return this.wallet.withdrawal.state === WithdrawalState.PROCESSING
+      return this.withdrawal.state === WithdrawalState.PROCESSING
     },
     isSuccess() {
-      return this.wallet.withdrawal.state === WithdrawalState.SUCCESS
+      return this.withdrawal.state === WithdrawalState.SUCCESS
     },
     hasError() {
-      return this.wallet.withdrawal.state === WithdrawalState.FAILED
+      return this.withdrawal.state === WithdrawalState.FAILED
     },
     isButtonDisabled() {
       return this.invoice === null ||
@@ -131,8 +131,7 @@ export default {
             this.hint = null
             this.value = details.satoshis
             this.memo = details.tags.find(tag => tag.tagName === 'description').data
-            const percentFactor = this.wallet.balance.withdrawal_fee_per_cent / 100
-            const maxWithdrawble = this.wallet.balance.available * (1 - percentFactor)
+            const maxWithdrawble = this.balance.available * (1 - this.percentFactor)
             if (this.value > maxWithdrawble) return 'Insufficient balance'
             return true
           } catch(err) {
@@ -146,7 +145,10 @@ export default {
         }
       ]
     },
-    ...mapState(['wallet'])
+    percentFactor() {
+      return this.balance.withdrawal_fee_per_cent / 100
+    },
+    ...mapState('wallet', ['balance', 'withdrawal'])
   }
 }
 </script>
