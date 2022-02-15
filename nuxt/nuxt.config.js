@@ -16,6 +16,7 @@ export default {
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
   router: {
+    middleware: 'affiliate',
     scrollBehavior(to, from, savedPosition) {
       if (savedPosition && to.name !== 'index') {
         return savedPosition
