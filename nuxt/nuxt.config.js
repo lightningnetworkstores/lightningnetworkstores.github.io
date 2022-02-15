@@ -48,7 +48,7 @@ export default {
     },
     '/api2/': {
       target: process.env.BASE_URL,
-      changeOrigin: false,
+      changeOrigin: true,
     },
   },
   render: {
@@ -164,6 +164,11 @@ export default {
         href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
       },
     ],
+    script: [
+      {
+        src: 'https://kit.fontawesome.com/090ca49637.js'
+      }
+    ]
   },
   css: ['./assets/css/main.scss'], // Global CSS (https://go.nuxtjs.dev/config-css)
   plugins: [
