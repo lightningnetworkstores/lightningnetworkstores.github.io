@@ -15,7 +15,7 @@
         />
       </v-form>
       <div v-if="value && !hasError" class="text-caption font-weight-light">
-        Value: {{ value }} sats, Fee: {{ expectedWithdrawalFee }} sat{{ expectedWithdrawalFee === '1' ? 's' : ''}}
+        Value: {{ value }} <i class="fak fa-satoshisymbol-solidtilt"/> , Fee: {{ expectedWithdrawalFee }} <i class="fak fa-satoshisymbol-solidtilt"/>
       </div>
       <div v-if="memo && !hasError" class="text-caption font-weight-light">
         Memo: {{ memo }}
