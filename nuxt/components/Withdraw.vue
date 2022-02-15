@@ -119,6 +119,7 @@ export default {
         this.snackbar.message = 'Withdrawal was successful!'
         this.snackbar.isError = false
       }
+      this.$store.dispatch('wallet/getDashboardInfo')
     },
     onInput(e) {
       this.value = null
