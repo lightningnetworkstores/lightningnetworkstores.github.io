@@ -14,8 +14,12 @@
           label="Enter LN invoice"
         />
       </v-form>
-      <div v-if="value && !hasError" class="text-caption font-weight-light"> {{ value }} sats </div>
-      <div v-if="memo && !hasError" class="text-caption font-weight-light"> Memo: {{ memo }} </div>
+      <div v-if="value && !hasError" class="text-caption font-weight-light">
+        Value: {{ value }} sats, Fee: {{ expectedWithdrawalFee }} sat{{ expectedWithdrawalFee === '1' ? 's' : ''}}
+      </div>
+      <div v-if="memo && !hasError" class="text-caption font-weight-light">
+        Memo: {{ memo }}
+      </div>
       <div v-if="isProcessing" class="pb-2">
         <v-progress-linear color="primary" indeterminate/>
       </div>
@@ -74,7 +78,7 @@ export default {
   methods: {
     async sendPayment() {
       const { state, message } = await this.$store.dispatch('wallet/sendPayment', {
-        feeAmount: Math.ceil(this.value * this.percentFactor),
+        feeAmount: this.expectedWithdrawalFee,
         invoice: this.invoice
       })
       if (state === WithdrawalState.SUCCESS) {
@@ -144,6 +148,9 @@ export default {
           }
         }
       ]
+    },
+    expectedWithdrawalFee() {
+      return Math.ceil(this.value * this.percentFactor)
     },
     percentFactor() {
       return this.balance.withdrawal_fee_per_cent / 100
