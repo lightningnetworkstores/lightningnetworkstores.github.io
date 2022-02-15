@@ -1,8 +1,13 @@
 <template>
-  <ccv-donut-chart
-    v-if="balance !== null"
-    :data="chartData" :options="options"
-  />
+  <div>
+    <ccv-donut-chart
+      v-if="balance !== null"
+      :data="chartData" :options="options"
+    />
+    <div class="text-caption d-flex justify-center align-center mt-2" style="color: gray">
+      * Withdrawable Balance: {{ withdrawable }} sats
+    </div>
+  </div>
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -60,6 +65,7 @@ export default {
         pie: {
           labels: {
             formatter: v => {
+              if (this.isAllAvailable) return ''
               return `${formatNumber(v.data.value)}`
             }
           }
@@ -115,6 +121,20 @@ export default {
           { group: 'Unsettled Bets', value: wallet.balance.unsettled_bets },
           { group: 'Pending Affiliates', value: wallet.affiliate.pending }
         ]
+      },
+      isAllAvailable: state => {
+        const { wallet } = state
+        const { balance } = wallet
+        return balance.pending_deposits === 0 &&
+          balance.pending_withdrawals === 0 &&
+          balance.unsettled_bets === 0 &&
+          wallet.affiliate.pending === 0
+      },
+      withdrawable: state => {
+        const { wallet } = state
+        if (!wallet.balance) return 0
+        const { balance } = wallet
+        return balance.available - Math.ceil(1 - (balance.withdrawal_fee_per_cent / 100))
       }
     })
   }
