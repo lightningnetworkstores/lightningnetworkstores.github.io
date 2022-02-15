@@ -53,6 +53,12 @@ import { mapState } from 'vuex'
 
 const MIN_INVOICE_CHECK_LENGTH = 10
 
+// Interval at which the server will be polled in
+// order to check for the state of a withdrawal
+const POLL_INTERVAL = 3e3
+
+const MAX_POLLING_ATTEMPTS = 20
+
 const WithdrawalState = {
   INITIAL: 0,
   PROCESSING: 1,
@@ -68,6 +74,8 @@ export default {
       hint: 'Routing fees will be deducted from your balance',
       value: null,
       memo: null,
+      timerTask: null,
+      timerCount: 0,
       snackbar: {
         show: false,
         message: null,
@@ -75,34 +83,65 @@ export default {
       }
     }
   },
+  beforeUnmount() {
+    this.stopTimer()
+  },
   methods: {
     async sendPayment() {
-      const { state, message } = await this.$store.dispatch('wallet/sendPayment', {
+      const { state, message, withdrawalID } = await this.$store.dispatch('wallet/sendPayment', {
         feeAmount: this.expectedWithdrawalFee,
         invoice: this.invoice
       })
-      if (state === WithdrawalState.SUCCESS) {
-        this.reset()
-        this.snackbar.show = true
-        this.snackbar.message = 'Withdrawal was successful!'
-        this.snackbar.isError = false
-      } else {
+      if (state === WithdrawalState.FAILED) {
         this.reset()
         this.snackbar.show = true
         this.snackbar.message = message
         this.snackbar.isError = true
+      } else {
+        // Updates dashboard info
+        this.$store.dispatch('wallet/getDashboardInfo')
+        // Starts timer & polling
+        this.startTimer(withdrawalID)
       }
     },
-    reset() {
+    reset(hadError, message) {
       this.invoice = null
       this.value = null
       this.memo = null
       this.snackbar.show = false
       this.$store.dispatch('wallet/resetWithdrawalState')
+      if (hadError) {
+        this.snackbar.show = true
+        this.snackbar.message = message
+        this.snackbar.isError = true
+      } else {
+        this.snackbar.show = true
+        this.snackbar.message = 'Withdrawal was successful!'
+        this.snackbar.isError = false
+      }
     },
     onInput(e) {
       this.value = null
       this.memo = null
+    },
+    startTimer(withdrawalID) {
+      this.timerTask = setInterval(async () => {
+        const isPaid = await this.$store.dispatch('wallet/checkWithdrawal', withdrawalID)
+        if (isPaid) {
+          this.stopTimer()
+          this.reset(false)
+        } else if (this.timerCount > MAX_POLLING_ATTEMPTS) {
+          this.stopTimer()
+          this.reset(true, 'Could not verify payment')
+        }
+        this.timerCount++
+      }, POLL_INTERVAL)
+    },
+    stopTimer() {
+      if (this.timerTask) {
+        clearInterval(this.timerTask)
+        this.timerTask = null
+      }
     }
   },
   computed: {

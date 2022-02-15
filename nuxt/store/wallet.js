@@ -55,7 +55,10 @@ export const actions = {
     try {
       const resp = await this.$axios.post('/api/withdraw', body)
       if (resp.data.status === 'success') {
-        return { state: WithdrawalState.SUCCESS }
+        return {
+          state: WithdrawalState.PROCESSING,
+          withdrawalID: resp.data.data.withdrawalID
+        }
       } else {
         return { state: WithdrawalState.FAILED, message: err.response.data.message }
       }
@@ -98,6 +101,16 @@ export const actions = {
       console.error('Error while performing internal transfer. Err: ', err)
     }
     return false
+  },
+  async checkWithdrawal(context, withdrawalID) {
+    try {
+      console.log('checking withdrawal with id: ', withdrawalID)
+      const res = await this.$axios.get(`/api/check_withdrawal?id=${withdrawalID}`)
+      const { data } = res
+      return data && data.data && data.data.paid
+    } catch (err) {
+      console.error('Error trying to check on withdrawal. err: ', err)
+    }
   }
 }
 
