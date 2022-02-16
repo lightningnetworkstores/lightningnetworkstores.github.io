@@ -21,7 +21,7 @@ export const state = () => ({
 })
 
 export const actions = {
-  getDashboardInfo({ commit }) {
+  getDashboardInfo({ commit, state }) {
     this.$axios.get('/api/dashboardinfo')
       .then(res => res.data)
       .then(data => data.data)
@@ -30,6 +30,14 @@ export const actions = {
         commit('setTransfers', transfers)
         commit('setProfile', profile)
         commit('setAffiliate', affiliate)
+      })
+      .then(() => this.$axios.get('/api/logstatus'))
+      .then(res => res.data.data.user)
+      .then(user => {
+        const twitterID = user.id
+        const updatedProfile = Object.assign({}, state.profile)
+        updatedProfile.twitterID = twitterID
+        commit('setProfile', updatedProfile)
       })
   },
   async getInvoice({ commit }, value) {
