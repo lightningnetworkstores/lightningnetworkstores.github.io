@@ -33,6 +33,9 @@
         <span> {{ getFormattedTime(item.time) }}</span>
       </v-tooltip>
     </template>
+    <template v-slot:[`item.from`]="{ item }">
+      {{ item.from === twitterID ? '-' : item.from }}
+    </template>
   </v-data-table>
 </template>
 <script>
