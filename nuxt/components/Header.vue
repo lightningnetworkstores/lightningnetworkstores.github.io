@@ -24,8 +24,8 @@
           {{ route.text }}
         </div>
       </v-btn>
-      <LoginButton v-if="!isLogged"/>
-      <ProfilePicture v-else :src="profile.image"/>
+      <LoginButton v-if="!isLogged" />
+      <ProfilePicture v-else :src="profile.image" />
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
@@ -45,8 +45,8 @@
       </template>
       <v-list>
         <v-list-item class="justify-center">
-          <LoginButton v-if="!isLogged"/>
-          <ProfilePicture v-else :src="profile.image"/>
+          <LoginButton v-if="!isLogged" />
+          <ProfilePicture v-else :src="profile.image" />
         </v-list-item>
         <v-list-item v-for="route in routes" :key="route.text" :to="route.url">
           <v-list-item>
@@ -105,6 +105,7 @@ export default {
         { url: '/stats', text: 'Statistics' },
         { url: '/wallets', text: 'Wallets' },
         //{ url: '/donations', text: 'Donations' },
+        { url: '/contest', text: 'Contests' },
         { url: '/about', text: 'About' },
       ],
     }
@@ -119,11 +120,9 @@ export default {
         return state.loginStatus.user
       },
       isLogged(state) {
-        if (state.loginStatus.user)
-          return state.loginStatus.user.logged
-        else
-          return false
-      }
+        if (state.loginStatus.user) return state.loginStatus.user.logged
+        else return false
+      },
     }),
   },
 
