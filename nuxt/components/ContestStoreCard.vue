@@ -9,47 +9,12 @@
             :src="`${baseURL}thumbnails/${store.id}.jpg`"
             class="text-right"
             @click.native="gotoStore(store)"
-          >
-            <v-chip
-              v-if="isNewStore(store)"
-              color="green"
-              text-color="white"
-              class="ma-2"
-              >New</v-chip
-            >
-            <v-chip
-              v-if="store.trending >= 10"
-              color="purple"
-              text-color="white"
-              class="ma-2"
-              >Trending</v-chip
-            >
-            <v-chip
-              v-if="hasNewComment(store)"
-              color="blue"
-              text-color="white"
-              class="ma-2"
-              >New comment</v-chip
-            >
-            <v-chip
-              v-if="store.event"
-              color="blue"
-              text-color="white"
-              class="ma-2"
-              >Event</v-chip
-            >
-          </v-img>
+          />
         </div>
-        <div class="score">
-          <vote-button :isUpvoting="true" :store="store" />
-          <span>
-            {{ Number(store.upvotes - store.downvotes).toLocaleString() }}</span
-          >
-          <vote-button :isUpvoting="false" :store="store" />
-        </div>
-        <div class="content pa-2 pl-5">
+
+        <div class="pa-2 pl-5">
           <div @click="gotoStore(store)">
-            <div class="title">
+            <div class="mb-2">
               <a :href="getStoreLink(store.href)" class="font-weight-regular">
                 {{ store.name }}
                 <v-icon class="ml-1" color="blue darken-2"
@@ -109,18 +74,25 @@
                 </v-list>
               </v-menu>
             </div>
-            <div
-              :class="{
-                'btn-actions': true,
-                'sm-btn-actions': $vuetify.breakpoint.mobile,
-              }"
-            >
-              <like-store-button :store="store" />
-            </div>
           </div>
         </div>
       </div>
     </v-card-text>
+    <v-card-actions
+      ><v-btn color="blue-grey" class="ma-2 white--text" @click="choseStore()">
+        <v-icon left dark> mdi-star </v-icon>
+        chose
+      </v-btn>
+
+      <v-btn
+        color="amber darken-1"
+        class="ma-2 white--text"
+        @click="placeBet()"
+      >
+        <v-icon left dark> mdi-crown-circle </v-icon>
+        Place a bet
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -152,101 +124,19 @@ export default {
       this.$route.meta.storeId = id
       this.$router.push('/store/' + rooturl)
     },
-    updateTagSearch(tag) {
-      this.$store.dispatch('selectOneTag', tag)
+    choseStore() {
+      /**TODO*/
     },
-    isNewStore(store) {
-      return new Date(store.added * 1000 + 1000 * 60 * 60 * 24 * 8) > new Date()
-    },
-    hasNewComment(store) {
-      return (
-        new Date(store.last_commented + 1000 * 60 * 60 * 24 * 8) > new Date()
-      )
+    placeBet() {
+      /**TODO*/
     },
   },
 }
 </script>
 
-<style lang="scss" scoped>
-.detail {
-  color: #000000de;
-  display: grid;
-  grid-template-rows: 200px 150px;
-  grid-template-columns: 80px 1fr;
-  row-gap: 4px;
-
-  .screenshot {
-    grid-column: 1 / 3;
-  }
-  .score {
-    display: grid;
-    grid: 1fr;
-    justify-items: center;
-    padding: 5px;
-    font-size: 15px !important;
-
-    span {
-      display: block;
-    }
-    .arrow {
-      border: 1px solid;
-      border-radius: 50%;
-      padding: 5px;
-
-      &.up:hover {
-        background-color: rgba(76, 175, 80, 0.12);
-      }
-      &.down:hover {
-        background-color: rgba(255, 82, 82, 0.12);
-      }
-    }
-  }
-  .content {
-    position: relative;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    .title {
-      font-size: 1.7rem !important;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      a {
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-    .description {
-      font-size: 14px !important;
-      margin-top: 5px;
-    }
-    .tag-container {
-      position: absolute;
-      bottom: 8px;
-      padding-right: 40px;
-      background-color: white;
-    }
-    .btn-actions {
-      display: flex;
-      gap: 8px;
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      margin: 0.5em;
-      font-size: 14px !important;
-      .likes .v-icon:hover {
-        color: #f44336;
-      }
-      &.sm-btn-actions {
-        font-size: 24px !important;
-        .v-icon {
-          font-size: 24px !important;
-        }
-      }
-    }
-  }
+<style scoped>
+.description {
+  height: 60px;
+  max-height: 60px;
 }
 </style>
