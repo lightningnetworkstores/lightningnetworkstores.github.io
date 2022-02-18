@@ -24,9 +24,23 @@
           {{ route.text }}
         </div>
       </v-btn>
-      <LoginButton v-if="!isLogged"/>
-      <v-btn v-if="isLogged" @click="handleLogout" text>Logout</v-btn>
-      <ProfilePicture v-if="isLogged" :src="profile.image"/>
+      <v-menu v-if="isLogged" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <ProfilePicture :on="on" :attrs="attrs" :src="profile.image"/>
+        </template>
+        <v-list>
+          <v-list-item v-if="showDashboardButton">
+            <v-btn @click="toDashboard" text style="width: 100%">
+              Dashboard
+            </v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn @click="handleLogout" text style="width: 100%">
+              Logout
+            </v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
@@ -119,6 +133,9 @@ export default {
   },
 
   computed: {
+    showDashboardButton() {
+      return this.$route.name !== 'Dashboard'
+    },
     ...mapState({
       isDiscussionNotificationShowed(state) {
         return state.lastActivity - 500 > state.lastCommentSeenTimestamp
@@ -131,7 +148,7 @@ export default {
           return state.loginStatus.user.logged
         else
           return false
-      }
+      },
     }),
   },
 
@@ -143,6 +160,9 @@ export default {
     },
     handleLogout() {
       this.$store.dispatch('logoutUser')
+    },
+    toDashboard() {
+      this.$router.push('/dashboard')
     }
   },
 }
