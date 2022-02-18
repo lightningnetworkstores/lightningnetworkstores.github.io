@@ -28,6 +28,13 @@
               <TxHistory />
             </v-col>
           </v-row>
+          <v-row>
+            <v-spacer></v-spacer>
+            <v-col cols="6">
+              <AffiliateRules />
+            </v-col>
+            <v-spacer></v-spacer>
+          </v-row>
         </v-container>
       </v-layout>
     </div>

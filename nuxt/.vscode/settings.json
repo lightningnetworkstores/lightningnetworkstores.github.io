@@ -9,8 +9,8 @@
     "node_modules": true
   },
   "files.exclude": {
-  "**/dist*": true,
-  "**/node_modules*": true
+    "**/dist*": true,
+    "**/node_modules*": true
   },
   "javascript.implicitProjectConfig.experimentalDecorators": true,
   "vetur.format.defaultFormatter.html": "prettier",
@@ -27,6 +27,7 @@
       "printWidth": 200,
       "singleQuote": false
     }
-},
-"git.ignoreLimitWarning": true
+  },
+  "git.ignoreLimitWarning": true,
+  "cSpell.words": ["dashboardinfo"]
 }

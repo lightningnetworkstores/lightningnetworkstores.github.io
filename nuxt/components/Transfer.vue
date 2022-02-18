@@ -83,6 +83,7 @@ export default {
   methods: {
     handleKeydown(e) {
       this.suggestions = []
+      this.recipient = null
     },
     async onTransfer() {
       this.isSending = true

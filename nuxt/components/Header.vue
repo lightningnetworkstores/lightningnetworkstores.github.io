@@ -24,8 +24,9 @@
           {{ route.text }}
         </div>
       </v-btn>
-      <LoginButton v-if="!isLogged" />
-      <ProfilePicture v-else :src="profile.image" />
+      <LoginButton v-if="!isLogged"/>
+      <v-btn v-if="isLogged" @click="handleLogout" text>Logout</v-btn>
+      <ProfilePicture v-if="isLogged" :src="profile.image"/>
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
@@ -66,6 +67,13 @@
             </v-list-item-title>
           </v-list-item>
         </v-list-item>
+          <v-list-item v-if="isLogged">
+            <v-list-item>
+              <v-list-item-title>
+                Logout
+              </v-list-item-title>
+            </v-list-item>
+          </v-list-item>
       </v-list>
     </v-menu>
     <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
@@ -132,6 +140,9 @@ export default {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
       this.$vuetify.theme.dark = false // turn it off always
     },
+    handleLogout() {
+      this.$store.dispatch('logoutUser')
+    }
   },
 }
 </script>

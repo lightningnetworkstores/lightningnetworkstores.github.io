@@ -5,6 +5,11 @@
     :items-per-page="15"
     class="elevation-2"  
   >
+    <template v-slot:[`item.amount`]="{ item }">
+      <div>
+        {{ formatAmount(item) }}
+      </div>
+    </template>
     <template v-slot:[`item.type`]="{ item }">
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -12,7 +17,7 @@
             class="transfer-type"
             v-bind="attrs"
             v-on="on"
-            :color="getColor(item.type)"
+            :color="getColor(item)"
           >
             {{ getIcon(item.type) }}
           </v-icon>
@@ -27,6 +32,9 @@
         </template>
         <span> {{ getFormattedTime(item.time) }}</span>
       </v-tooltip>
+    </template>
+    <template v-slot:[`item.from`]="{ item }">
+      {{ item.from === twitterID ? '-' : item.from }}
     </template>
   </v-data-table>
 </template>
@@ -48,6 +56,9 @@ export default {
     }
   },
   methods: {
+    formatAmount(item) {
+      return item.from === this.twitterID ? `-${item.amount}` : `+${item.amount}`
+    },
     getIcon(type) {
       switch(type) {
         case 'LN_WITHDRAW':
@@ -58,13 +69,16 @@ export default {
           return 'mdi-transfer'
       }
     },
-    getColor(type) {
-      if (type === 'LN_WITHDRAW') {
+    getColor(item) {
+      if (item.type === 'LN_WITHDRAW') {
         return 'red'
-      } else if (type === 'LN_DEPOSIT') {
+      } else if (item.type === 'LN_DEPOSIT') {
         return 'green'
-      } else if (type === 'TRANSFER') {
-        return 'pink'
+      } else if (item.type === 'TRANSFER') {
+        if (item.from === this.twitterID)
+          return 'red'
+        else
+          return 'green'
       }
     },
     getTypeTooltip(type) {
@@ -87,6 +101,9 @@ export default {
     }
   },
   computed: mapState({
+    twitterID: state => {
+      return state.wallet.profile.twitterID
+    },
     transfers: state => {
       return state
         .wallet.transfers
