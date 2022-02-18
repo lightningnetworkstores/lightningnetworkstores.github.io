@@ -208,6 +208,9 @@ const getters = {
       )
     }
   },
+  getStoreContest(state) {
+    return state.storeContest
+  },
 }
 
 export default getters

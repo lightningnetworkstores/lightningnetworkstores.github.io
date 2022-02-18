@@ -188,8 +188,8 @@ const mutations = {
     state.popularSearches = searches
   },
   updateStores(state, stores) {
-    stores.forEach(store => {
-      const index = state.stores.findIndex(s => s.id === store.id)
+    stores.forEach((store) => {
+      const index = state.stores.findIndex((s) => s.id === store.id)
       if (index === -1) {
         // Pushing missing store
         state.stores.push(store)
@@ -217,6 +217,12 @@ const mutations = {
 
   updateLoginStatus(state, status) {
     state.loginStatus = status
+  },
+  setStoreContest(state, { stores, contest }) {
+    state.storeContest = {
+      contest,
+      stores,
+    }
   },
 }
 

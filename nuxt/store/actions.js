@@ -1043,6 +1043,20 @@ const actions = {
       },
     })
   },
+
+  async getStoreContest({ commit, state }) {
+    const {
+      data: {
+        data: { contest, stores },
+      },
+    } = await this.$axios.get(`${state.baseURL}api/store_contest?age=0`)
+
+    commit('setStoreContest', { contest, stores })
+
+    return Promise.resolve()
+  },
+  getQuizContest({ commit }) {},
+  placeBet({ commit }) {},
 }
 
 export default actions
