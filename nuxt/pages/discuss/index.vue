@@ -3,20 +3,20 @@
     <v-row>
       <v-col>
         <div class="d-flex justify-space-around mt-5">
-          <v-btn-toggle v-model="selected" mandatory rounded>
-            <v-btn width="250" height="60">
+          <v-btn-toggle v-model="selected" rounded>
+            <v-btn :width="buttonWidth" height="60">
               <div class="d-flex flex-column justify-center align-center">
                 <v-icon color="grey" class="mb-1">mdi-comment-text</v-icon>
                 Discussions
               </div>
             </v-btn>
-            <v-btn width="250" height="60">
+            <v-btn :width="buttonWidth" height="60">
               <div class="d-flex flex-column justify-center align-center">
                 <v-icon color="grey" class="mb-1">mdi-star</v-icon>
                 Reviews
               </div>
             </v-btn>
-            <v-btn width="250" height="60">
+            <v-btn :width="buttonWidth" height="60">
               <div class="d-flex flex-column justify-center align-center">
                 <v-icon color="grey" class="mb-1">mdi-newspaper</v-icon>
                 News/Events
@@ -26,7 +26,12 @@
         </div>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="showAll">
+      <v-col>
+        <div>Showing all</div>
+      </v-col>
+    </v-row>
+    <v-row v-if="!showAll">
       <v-col>
         <div v-if="showDiscussions">
           Discussions
@@ -50,10 +55,22 @@
 export default {
   data() {
     return {
-      selected: 0
+      selected: null
     }
   },
   computed: {
+    buttonWidth() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs': return '33.33%'
+        case 'sm': return 200
+        case 'md': return 250
+        case 'lg':
+        case 'xl': return 350
+      }
+    },
+    showAll() {
+      return this.selected === null
+    },
     showDiscussions(){
       return this.selected === 0
     },
