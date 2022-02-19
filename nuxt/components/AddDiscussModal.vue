@@ -6,11 +6,11 @@
       dark
       fab
       fixed
-      top
+      bottom
       right
       @click="openDialog"
     >
-      <v-icon>mdi-plus</v-icon>
+      <v-icon>mdi-comment</v-icon>
     </v-btn>
 
     <!-- Add store modal -->
