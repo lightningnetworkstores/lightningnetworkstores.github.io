@@ -1,8 +1,8 @@
 <template>
-  <v-card hover>
+  <v-card hover class="d-flex flex-column justify-space-between">
     <v-card-text class="pa-0">
       <div class="detail">
-        <div class="screenshot">
+        <div>
           <v-img
             :aspect-ratio="4 / 3"
             max-height="200px"
@@ -15,7 +15,10 @@
         <div class="pa-2 pl-5">
           <div @click="gotoStore(store)">
             <div class="mb-2">
-              <a :href="getStoreLink(store.href)" class="font-weight-regular">
+              <a
+                :href="getStoreLink(store.href)"
+                class="font-weight-regular text-h5"
+              >
                 {{ store.name }}
                 <v-icon class="ml-1" color="blue darken-2"
                   >mdi-open-in-new</v-icon
@@ -102,7 +105,7 @@ import VoteButton from '../components/VoteButton.vue'
 import LikeStoreButton from './LikeStoreButton.vue'
 
 export default {
-  props: ['store', 'changeUrl', 'setFromRoute'],
+  props: ['store'],
   components: { VoteButton, LikeStoreButton },
   computed: {
     ...mapState({
@@ -138,5 +141,9 @@ export default {
 .description {
   height: 60px;
   max-height: 60px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>
