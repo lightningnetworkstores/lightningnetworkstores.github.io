@@ -21,6 +21,17 @@
           {{ route.text }}
         </div>
       </v-btn>
+      <v-btn icon href="https://twitter.com/bitcoinLNS" class="hidden-sm-and-down">
+        <v-icon>fab fa-twitter</v-icon>
+      </v-btn>
+
+      <v-btn icon href="https://t.me/LNstores" class="hidden-sm-and-down">
+        <v-icon>fab fa-telegram-plane</v-icon>
+      </v-btn>
+
+      <v-btn icon href="https://medium.com/@BitcoinLNS" class="hidden-sm-and-down">
+        <v-icon>fab fa-medium</v-icon>
+      </v-btn>
       <v-menu v-if="isLogged" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <ProfilePicture :on="on" :attrs="attrs" :src="profile.image" />
@@ -65,6 +76,17 @@
                 {{ route.text }}
               </div>
             </v-list-item-title>
+          </v-list-item>
+        </v-list-item>
+        <v-list-item href="https://t.me/LNstores">
+          <v-list-item>
+            <v-list-item-title>Telegram</v-list-item-title>
+          </v-list-item>
+        </v-list-item>
+
+        <v-list-item href="https://medium.com/@BitcoinLNS">
+          <v-list-item>
+            <v-list-item-title>Medium</v-list-item-title>
           </v-list-item>
         </v-list-item>
         <v-list-item v-if="isLogged">
@@ -151,7 +173,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .v-toolbar__content {
   height: 64px !important;
