@@ -43,6 +43,23 @@
       >
         <v-icon>fab fa-medium</v-icon>
       </v-btn>
+      <v-menu v-if="isLogged" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <ProfilePicture :on="on" :attrs="attrs" :src="profile.image" />
+        </template>
+        <v-list>
+          <v-list-item v-if="showDashboardButton">
+            <v-btn @click="toDashboard" text style="width: 100%">
+              Dashboard
+            </v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn @click="handleLogout" text style="width: 100%">
+              Logout
+            </v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
@@ -61,6 +78,10 @@
         </v-app-bar-nav-icon>
       </template>
       <v-list>
+        <v-list-item class="justify-center">
+          <LoginButton v-if="!isLogged" />
+          <ProfilePicture v-else :src="profile.image" />
+        </v-list-item>
         <v-list-item v-for="route in routes" :key="route.text" :to="route.url">
           <v-list-item>
             <v-list-item-title>
@@ -79,12 +100,6 @@
             </v-list-item-title>
           </v-list-item>
         </v-list-item>
-        <v-list-item href="https://twitter.com/bitcoinLNS">
-          <v-list-item>
-            <v-list-item-title>Twitter</v-list-item-title>
-          </v-list-item>
-        </v-list-item>
-
         <v-list-item href="https://t.me/LNstores">
           <v-list-item>
             <v-list-item-title>Telegram</v-list-item-title>
@@ -94,6 +109,11 @@
         <v-list-item href="https://medium.com/@BitcoinLNS">
           <v-list-item>
             <v-list-item-title>Medium</v-list-item-title>
+          </v-list-item>
+        </v-list-item>
+        <v-list-item v-if="isLogged">
+          <v-list-item>
+            <v-list-item-title> Logout </v-list-item-title>
           </v-list-item>
         </v-list-item>
       </v-list>
@@ -141,9 +161,19 @@ export default {
   },
 
   computed: {
+    showDashboardButton() {
+      return this.$route.name !== 'Dashboard'
+    },
     ...mapState({
       isDiscussionNotificationShowed(state) {
         return state.lastActivity - 500 > state.lastCommentSeenTimestamp
+      },
+      profile(state) {
+        return state.loginStatus.user
+      },
+      isLogged(state) {
+        if (state.loginStatus.user) return state.loginStatus.user.logged
+        else return false
       },
     }),
   },
@@ -153,6 +183,12 @@ export default {
       this.$cookies.set('darkMode', !this.$vuetify.theme.dark, '3y')
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
       this.$vuetify.theme.dark = false // turn it off always
+    },
+    handleLogout() {
+      this.$store.dispatch('logoutUser')
+    },
+    toDashboard() {
+      this.$router.push('/dashboard')
     },
   },
 }
