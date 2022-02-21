@@ -2,10 +2,7 @@
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
       <nuxt-link to="/">
-        <img
-          src="@/assets/images/LightningNetworkStores.svg"
-          class="nav-logo"
-        />
+        <img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo" />
       </nuxt-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
@@ -24,20 +21,25 @@
           {{ route.text }}
         </div>
       </v-btn>
-      <LoginButton v-if="!isLogged" />
-      <v-btn v-if="isLogged" @click="handleLogout" text>Logout</v-btn>
-      <ProfilePicture v-if="isLogged" :src="profile.image" />
+      <v-menu v-if="isLogged" offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <ProfilePicture :on="on" :attrs="attrs" :src="profile.image" />
+        </template>
+        <v-list>
+          <v-list-item v-if="showDashboardButton">
+            <v-btn @click="toDashboard" text style="width: 100%"> Dashboard </v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn @click="handleLogout" text style="width: 100%"> Logout </v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
         <v-app-bar-nav-icon class="hidden-md-and-up" v-bind="attrs" v-on="on">
           <template #default>
-            <v-badge
-              v-if="isDiscussionNotificationShowed"
-              color="orange"
-              dot
-              overlap
-            >
+            <v-badge v-if="isDiscussionNotificationShowed" color="orange" dot overlap>
               <v-icon>mdi-menu</v-icon>
             </v-badge>
             <v-icon v-else>mdi-menu</v-icon>
@@ -53,9 +55,7 @@
           <v-list-item>
             <v-list-item-title>
               <v-badge
-                v-if="
-                  isDiscussionNotificationShowed && route.text === 'Discuss'
-                "
+                v-if="isDiscussionNotificationShowed && route.text === 'Discuss'"
                 color="orange"
                 dot
               >
@@ -100,50 +100,56 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
       routes: [
-        { url: '/discuss', text: 'Discuss' },
-        { url: '/faucet', text: 'Faucet' },
-        { url: '/stats', text: 'Statistics' },
-        { url: '/wallets', text: 'Wallets' },
+        { url: "/discuss", text: "Discuss" },
+        { url: "/faucet", text: "Faucet" },
+        { url: "/stats", text: "Statistics" },
+        { url: "/wallets", text: "Wallets" },
         //{ url: '/donations', text: 'Donations' },
-        { url: '/contest', text: 'Contests' },
-        { url: '/quiz', text: 'Daily Quiz' },
-        { url: '/about', text: 'About' },
+        { url: "/contest", text: "Contests" },
+        { url: "/quiz", text: "Daily Quiz" },
+        { url: "/about", text: "About" },
       ],
-    }
+    };
   },
 
   computed: {
+    showDashboardButton() {
+      return this.$route.name !== "Dashboard";
+    },
     ...mapState({
       isDiscussionNotificationShowed(state) {
-        return state.lastActivity - 500 > state.lastCommentSeenTimestamp
+        return state.lastActivity - 500 > state.lastCommentSeenTimestamp;
       },
       profile(state) {
-        return state.loginStatus.user
+        return state.loginStatus.user;
       },
       isLogged(state) {
-        if (state.loginStatus.user) return state.loginStatus.user.logged
-        else return false
+        if (state.loginStatus.user) return state.loginStatus.user.logged;
+        else return false;
       },
     }),
   },
 
   methods: {
     toggleDarkmode() {
-      this.$cookies.set('darkMode', !this.$vuetify.theme.dark, '3y')
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-      this.$vuetify.theme.dark = false // turn it off always
+      this.$cookies.set("darkMode", !this.$vuetify.theme.dark, "3y");
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      this.$vuetify.theme.dark = false; // turn it off always
     },
     handleLogout() {
-      this.$store.dispatch('logoutUser')
+      this.$store.dispatch("logoutUser");
+    },
+    toDashboard() {
+      this.$router.push("/dashboard");
     },
   },
-}
+};
 </script>
 
 <style>

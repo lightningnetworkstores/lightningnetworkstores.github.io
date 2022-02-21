@@ -1,9 +1,7 @@
 <template>
-  <v-btn text>
+  <v-btn text v-bind="attrs" v-on="on">
     <v-avatar size="36">
-      <nuxt-link to="/dashboard">
-        <img :src="src" alt="Profile Picture">
-      </nuxt-link>
+      <img :src="src" alt="Profile Picture">
     </v-avatar>
   </v-btn>
 </template>
@@ -13,7 +11,9 @@ export default {
     src: {
       type: String,
       required: true
-    }
+    },
+    on: {},
+    attrs: {}
   }
 }
 </script>
