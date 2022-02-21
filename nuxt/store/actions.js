@@ -1077,6 +1077,11 @@ const actions = {
 
     return Promise.resolve()
   },
+  choseOption({ state }, { storeId, vote }) {
+    return this.$axios.post(`${state.baseURL}api/store_contest?id=${storeId}`, {
+      vote,
+    })
+  },
   placeBet({ commit }) {},
 }
 
