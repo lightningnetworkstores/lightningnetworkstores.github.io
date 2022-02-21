@@ -224,6 +224,9 @@ const mutations = {
       stores,
     }
   },
+  setQuizContest(state, { contest }) {
+    state.quizContest = contest
+  },
 }
 
 export default mutations

@@ -572,14 +572,15 @@ const actions = {
       .catch(console.error)
   },
   logoutUser({ dispatch }) {
-    return this.$axios.get('/api/oauthlogout')
-      .then(res => res.data)
-      .then(data => {
+    return this.$axios
+      .get('/api/oauthlogout')
+      .then((res) => res.data)
+      .then((data) => {
         if (data.status === 'success') {
           dispatch('getLoginStatus')
         }
       })
-      .catch(err => console.error('User logout error. err: ', err))
+      .catch((err) => console.error('User logout error. err: ', err))
   },
   updateStoreLikes({ commit }) {
     const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
@@ -1065,7 +1066,17 @@ const actions = {
 
     return Promise.resolve()
   },
-  getQuizContest({ commit }) {},
+  async getQuizContest({ commit, state }) {
+    const {
+      data: {
+        data: { contest },
+      },
+    } = await this.$axios.get(`${state.baseURL}api/quiz_contest?age=0`)
+
+    commit('setQuizContest', { contest })
+
+    return Promise.resolve()
+  },
   placeBet({ commit }) {},
 }
 

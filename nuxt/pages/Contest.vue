@@ -35,30 +35,36 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import FlipCountdown from 'vue2-flip-countdown'
+import { mapGetters, mapState } from "vuex";
+import FlipCountdown from "vue2-flip-countdown";
 
 export default {
   components: { FlipCountdown },
   data() {
     return {
-      deadline: '2021-12-25 00:00:00',
-    }
+      deadline: "2021-12-25 00:00:00",
+    };
   },
   computed: {
     ...mapGetters({
-      storeContest: 'getStoreContest',
+      storeContest: "getStoreContest",
+    }),
+    ...mapState({
+      isLogged(state) {
+        if (state.loginStatus.user) return state.loginStatus.user.logged;
+        else return false;
+      },
     }),
   },
   watch: {
-    'storeContest.contest.end'(val) {
-      this.deadline = new Date(val).toLocaleString()
+    "storeContest.contest.end"(val) {
+      this.deadline = new Date(val).toLocaleString();
     },
   },
   mounted() {
-    this.$store.dispatch('getStoreContest')
+    this.$store.dispatch("getStoreContest");
   },
-}
+};
 </script>
 
 <style>

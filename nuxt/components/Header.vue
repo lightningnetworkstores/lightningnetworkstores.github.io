@@ -24,9 +24,9 @@
           {{ route.text }}
         </div>
       </v-btn>
-      <LoginButton v-if="!isLogged"/>
+      <LoginButton v-if="!isLogged" />
       <v-btn v-if="isLogged" @click="handleLogout" text>Logout</v-btn>
-      <ProfilePicture v-if="isLogged" :src="profile.image"/>
+      <ProfilePicture v-if="isLogged" :src="profile.image" />
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
@@ -67,13 +67,11 @@
             </v-list-item-title>
           </v-list-item>
         </v-list-item>
-          <v-list-item v-if="isLogged">
-            <v-list-item>
-              <v-list-item-title>
-                Logout
-              </v-list-item-title>
-            </v-list-item>
+        <v-list-item v-if="isLogged">
+          <v-list-item>
+            <v-list-item-title> Logout </v-list-item-title>
           </v-list-item>
+        </v-list-item>
       </v-list>
     </v-menu>
     <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
@@ -114,6 +112,7 @@ export default {
         { url: '/wallets', text: 'Wallets' },
         //{ url: '/donations', text: 'Donations' },
         { url: '/contest', text: 'Contests' },
+        { url: '/quiz', text: 'Daily Quiz' },
         { url: '/about', text: 'About' },
       ],
     }
@@ -142,7 +141,7 @@ export default {
     },
     handleLogout() {
       this.$store.dispatch('logoutUser')
-    }
+    },
   },
 }
 </script>

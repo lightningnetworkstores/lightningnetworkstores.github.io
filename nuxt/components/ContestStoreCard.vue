@@ -15,14 +15,9 @@
         <div class="pa-2 pl-5">
           <div @click="gotoStore(store)">
             <div class="mb-2">
-              <a
-                :href="getStoreLink(store.href)"
-                class="font-weight-regular text-h5"
-              >
+              <a :href="getStoreLink(store.href)" class="font-weight-regular text-h5">
                 {{ store.name }}
-                <v-icon class="ml-1" color="blue darken-2"
-                  >mdi-open-in-new</v-icon
-                >
+                <v-icon class="ml-1" color="blue darken-2">mdi-open-in-new</v-icon>
               </a>
             </div>
             <div class="description">{{ store.description }}</div>
@@ -36,11 +31,9 @@
                 small
                 class="mr-2 my-1"
               >
-                <b
-                  @click="updateTagSearch(store.tags[0], 0)"
-                  class="tag-link"
-                  >{{ store.tags[0] }}</b
-                >
+                <b @click="updateTagSearch(store.tags[0], 0)" class="tag-link">{{
+                  store.tags[0]
+                }}</b>
               </v-chip>
               <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
                 <template v-slot:activator="{ on, attrs }">
@@ -54,7 +47,7 @@
                   >
                     <b
                       >+{{ store.tags.length - 1 }} tag{{
-                        store.tags.length - 1 == 1 ? '' : 's'
+                        store.tags.length - 1 == 1 ? "" : "s"
                       }}</b
                     >
                   </v-chip>
@@ -67,11 +60,9 @@
                     class="my-0"
                   >
                     <v-chip color="primary" outlined small class="mr-2 my-0">
-                      <b
-                        @click="updateTagSearch(tag, index)"
-                        class="tag-link"
-                        >{{ tag }}</b
-                      >
+                      <b @click="updateTagSearch(tag, index)" class="tag-link">{{
+                        tag
+                      }}</b>
                     </v-chip>
                   </v-list-item>
                 </v-list>
@@ -87,11 +78,7 @@
         chose
       </v-btn>
 
-      <v-btn
-        color="amber darken-1"
-        class="ma-2 white--text"
-        @click="placeBet()"
-      >
+      <v-btn text color="orange darken-1" class="ma-2 white--text" @click="placeBet()">
         <v-icon left dark> mdi-crown-circle </v-icon>
         Place a bet
       </v-btn>
@@ -100,32 +87,32 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import VoteButton from '../components/VoteButton.vue'
-import LikeStoreButton from './LikeStoreButton.vue'
+import { mapState } from "vuex";
+import VoteButton from "../components/VoteButton.vue";
+import LikeStoreButton from "./LikeStoreButton.vue";
 
 export default {
-  props: ['store'],
+  props: ["store"],
   components: { VoteButton, LikeStoreButton },
   computed: {
     ...mapState({
       baseURL(state) {
-        return state.baseURL
+        return state.baseURL;
       },
     }),
   },
   methods: {
     getStoreLink(link) {
-      const url = new URL(link)
-      const baseUrl = new URL(this.baseURL)
-      url.searchParams.append('utm_source', baseUrl.host)
-      return url.toString()
+      const url = new URL(link);
+      const baseUrl = new URL(this.baseURL);
+      url.searchParams.append("utm_source", baseUrl.host);
+      return url.toString();
     },
     gotoStore(store) {
-      const { id, rooturl } = store
+      const { id, rooturl } = store;
 
-      this.$route.meta.storeId = id
-      this.$router.push('/store/' + rooturl)
+      this.$route.meta.storeId = id;
+      this.$router.push("/store/" + rooturl);
     },
     choseStore() {
       /**TODO*/
@@ -134,7 +121,7 @@ export default {
       /**TODO*/
     },
   },
-}
+};
 </script>
 
 <style scoped>
@@ -142,7 +129,8 @@ export default {
   height: 60px;
   max-height: 60px;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
