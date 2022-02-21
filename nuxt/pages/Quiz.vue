@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column mt-8 align-center">
-    <div class="d-flex align-center justify-center contest-info">
-      <div class="d-flex align-center">
+    <div class="d-flex flex-column flex-lg-row align-center justify-center contest-info">
+      <div class="d-flex align-center flex-wrap">
         <span class="title">Time left:</span>
         <div>
           <flip-countdown
@@ -21,45 +21,32 @@
       </div>
     </div>
 
-    <h1 v-if="quizContest.contestants" class="pt-10">
+    <h1 v-if="quizContest.contestants" class="pt-10 text-center">
       {{ quizContest.contestants.question }}
     </h1>
 
-    <v-container class="full-list mt-8">
-      <v-card v-for="option in options" :key="'option-' + option">
-        <v-card-title>{{ option }}</v-card-title>
-        <v-card-actions>
-          <v-btn
-            :disabled="!isLogged"
-            text
-            color="blue-grey"
-            class="mx-2 white--text"
-            @click="choseStore()"
-          >
-            <v-icon left dark> mdi-star </v-icon>
-            chose
-          </v-btn>
-
-          <v-btn
-            text
-            :disabled="!isLogged"
-            color="orange darken-1"
-            class="mx-2 white--text"
-            @click="placeBet()"
-          >
-            <v-icon left dark> mdi-crown-circle </v-icon>
-            Place a bet
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-container>
-
-    <v-container v-if="!isLogged" class="d-flex flex-column mt-8 align-center">
+    <v-container
+      v-if="!isLogged"
+      class="d-flex flex-column order-lg-last mt-8 align-center"
+    >
       <h3>You need to be logged to play</h3>
-      <v-btn color="blue lighten-1" class="mx-2 my-3 white--text" @click="choseStore()">
+      <v-btn
+        color="blue lighten-1"
+        class="mx-2 my-3 white--text"
+        @click="handleLoginClick"
+      >
         <v-icon left dark> mdi-twitter </v-icon>
         login with twitter
       </v-btn>
+    </v-container>
+
+    <v-container class="full-list mt-8">
+      <contest-quiz-card
+        :disabled="!isLogged"
+        v-for="option in options"
+        :key="'option-' + option"
+        :option="option"
+      />
     </v-container>
   </div>
 </template>
@@ -91,6 +78,18 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch("getQuizContest");
+  },
+  methods: {
+    handleLoginClick() {
+      this.$axios
+        .get("/api/oauthlogin?platform=twitter")
+        .then((res) => res.data)
+        .then((data) => {
+          console.log(data);
+          const { request_token, authorization_url, platform } = data.data;
+          window.location.replace(authorization_url);
+        });
+    },
   },
 };
 </script>

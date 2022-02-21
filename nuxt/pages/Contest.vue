@@ -23,7 +23,19 @@
 
     <h1 class="pt-10">What's your favorite project?</h1>
 
-    <v-container class="full-list mt-8" ref="list">
+    <v-container v-if="!isLogged" class="d-flex flex-column mt-8 align-center">
+      <h3>You need to be logged to play</h3>
+      <v-btn
+        color="blue lighten-1"
+        class="mx-2 my-3 white--text"
+        @click="handleLoginClick"
+      >
+        <v-icon left dark> mdi-twitter </v-icon>
+        login with twitter
+      </v-btn>
+    </v-container>
+
+    <v-container class="full-list mt-8">
       <contest-store-card
         v-for="store in storeContest.stores"
         :data-storeId="store.id"
@@ -40,11 +52,6 @@ import FlipCountdown from "vue2-flip-countdown";
 
 export default {
   components: { FlipCountdown },
-  data() {
-    return {
-      deadline: "2021-12-25 00:00:00",
-    };
-  },
   computed: {
     ...mapGetters({
       storeContest: "getStoreContest",
@@ -55,13 +62,26 @@ export default {
         else return false;
       },
     }),
-  },
-  watch: {
-    "storeContest.contest.end"(val) {
-      this.deadline = new Date(val).toLocaleString();
+    deadline() {
+      return this.storeContest.contest?.end
+        ? new Date(this.storeContest.contest?.end).toLocaleString()
+        : "2020-01-01:00:00:00";
     },
   },
-  mounted() {
+  methods: {
+    handleLoginClick() {
+      this.$axios
+        .get("/api/oauthlogin?platform=twitter")
+        .then((res) => res.data)
+        .then((data) => {
+          console.log(data);
+          const { request_token, authorization_url, platform } = data.data;
+          window.location.replace(authorization_url);
+        });
+    },
+  },
+
+  beforeMount() {
     this.$store.dispatch("getStoreContest");
   },
 };
