@@ -48,7 +48,7 @@ import UserTag from './UserTag.vue'
 export default {
   components: { DiscussionReply, UserTag },
   async mounted() {
-    await this.$store.dispatch('getDiscussions')
+    await this.$store.dispatch('discussions/getDiscussions')
   },
   methods: {
     formatDate(timestamp) {
@@ -65,7 +65,7 @@ export default {
     repliesCount() {
       return index => this.lastDiscussions[index].length
     },
-    ...mapState(['lastDiscussions'])
+    ...mapState('discussions', ['lastDiscussions'])
   }
 }
 </script>
