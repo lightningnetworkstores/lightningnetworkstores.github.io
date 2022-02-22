@@ -8,7 +8,7 @@
 export default {
   props: {
     userId: {
-      type: Object,
+      type: String,
       required: true
     }
   }
