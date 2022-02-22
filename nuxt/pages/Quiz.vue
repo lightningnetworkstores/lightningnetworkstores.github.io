@@ -17,12 +17,12 @@
         Game rules
       </v-btn>
       <div class="d-flex align-center">
-        <span class="title">Total bets (sats): 1320</span>
+        <span class="title">Total bets (sats): {{ pot }}</span>
       </div>
     </div>
 
-    <h1 v-if="quizContest.contestants" class="pt-10 text-center">
-      {{ quizContest.contestants.question }}
+    <h1 v-if="quizContest.contest.contestants" class="pt-10 text-center">
+      {{ quizContest.contest.contestants.question }}
     </h1>
 
     <v-container
@@ -90,6 +90,9 @@ export default {
     },
     contestFinalized() {
       return new Date(this.quizContest?.contest?.end) > new Date();
+    },
+    pot() {
+      return this.quizContest.contest?.pot;
     },
   },
   beforeMount() {
