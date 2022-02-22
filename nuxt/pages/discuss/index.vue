@@ -34,7 +34,7 @@
     <v-row v-if="!showAll">
       <v-col>
         <div v-if="showDiscussions">
-          Discussions
+          <Discussions/>
         </div>
         <div v-if="showReviews">
           Reviews
@@ -52,7 +52,9 @@
   </v-container>
 </template>
 <script>
+import Discussions from '@/components/discussions/Discussions.vue'
 export default {
+  components: { Discussions },
   data() {
     return {
       selected: null
