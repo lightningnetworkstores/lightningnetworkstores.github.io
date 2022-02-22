@@ -17,7 +17,7 @@
         Game rules
       </v-btn>
       <div class="d-flex align-center">
-        <span class="title">Total bets (sats): 1320</span>
+        <span class="title">Total bets (sats): {{ pot }}</span>
       </div>
     </div>
 
@@ -41,6 +41,7 @@
         :data-storeId="store.id"
         :key="'store-' + store.id"
         :store="store"
+        :disabled="!isLogged"
       />
     </v-container>
   </div>
@@ -67,6 +68,9 @@ export default {
         ? new Date(this.storeContest.contest?.end).toLocaleString()
         : "2020-01-01:00:00:00";
     },
+    pot() {
+      return this.storeContest.contest?.pot;
+    },
   },
   methods: {
     handleLoginClick() {
@@ -74,8 +78,8 @@ export default {
         .get("/api/oauthlogin?platform=twitter")
         .then((res) => res.data)
         .then((data) => {
-          console.log(data);
           const { request_token, authorization_url, platform } = data.data;
+          console.log({ request_token, authorization_url, platform });
           window.location.replace(authorization_url);
         });
     },

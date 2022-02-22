@@ -6,7 +6,7 @@
         text
         color="blue-grey"
         class="mx-2 white--text"
-        @click="choseOption(option)"
+        @click="choseOption(contestId, option)"
       >
         <v-icon left dark> mdi-star </v-icon>
         chose
@@ -16,7 +16,7 @@
         text
         color="orange darken-1"
         class="mx-2 white--text"
-        @click="placeBet(option)"
+        @click="placeBet(contestId, option)"
       >
         <v-icon left dark> mdi-crown-circle </v-icon>
         Place a bet
@@ -27,16 +27,20 @@
 
 <script>
 export default {
-  props: ['option', 'disabled'],
+  props: ["option", "disabled", "contestId"],
   methods: {
-    choseOption(option) {
-      this.$store.dispatch('choseOption', option)
+    choseOption(contestId, option) {
+      this.$store.dispatch("choseOption", { contestId, choice: option });
     },
-    placeBet(option) {
-      this.$store.dispatch('placeBet', option)
+    placeBet(contestId, option) {
+      this.$store.dispatch("placeBet", {
+        contestId,
+        choice: option,
+        amount: 2,
+      });
     },
   },
-}
+};
 </script>
 
 <style></style>

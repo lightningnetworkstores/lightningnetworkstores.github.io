@@ -1077,12 +1077,23 @@ const actions = {
 
     return Promise.resolve()
   },
-  choseOption({ state }, { storeId, vote }) {
-    return this.$axios.post(`${state.baseURL}api/store_contest?id=${storeId}`, {
-      vote,
+  async choseOption({ state }, { contestId, choice }) {
+    return this.$axios.post(`${state.baseURL}api/contest_vote`, {
+      contestID: contestId,
+      choice,
     })
   },
-  placeBet({ commit }) {},
+  async placeBet({ state }, { contestId, choice, amount }) {
+    return this.$axios
+      .post(`${state.baseURL}api/bet`, {
+        contestID: contestId,
+        choice,
+        amount,
+      })
+      .then((response) => {
+        return Promise.resolve(response.data)
+      })
+  },
 }
 
 export default actions

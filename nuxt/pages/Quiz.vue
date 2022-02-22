@@ -45,6 +45,7 @@
         :disabled="!isLogged"
         v-for="option in options"
         :key="'option-' + option"
+        :contestId="quizContest.id"
         :option="option"
       />
     </v-container>
