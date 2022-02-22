@@ -224,8 +224,8 @@ const mutations = {
       stores,
     }
   },
-  setQuizContest(state, { contest }) {
-    state.quizContest = contest
+  setQuizContest(state, payload) {
+    state.quizContest = { ...payload }
   },
 }
 

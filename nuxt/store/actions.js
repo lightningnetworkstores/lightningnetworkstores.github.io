@@ -1068,12 +1068,10 @@ const actions = {
   },
   async getQuizContest({ commit, state }) {
     const {
-      data: {
-        data: { contest },
-      },
+      data: { data },
     } = await this.$axios.get(`${state.baseURL}api/quiz_contest?age=0`)
 
-    commit('setQuizContest', { contest })
+    commit('setQuizContest', { ...data })
 
     return Promise.resolve()
   },

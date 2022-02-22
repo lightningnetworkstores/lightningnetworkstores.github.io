@@ -1,15 +1,16 @@
 <template>
-  <v-card hover :disabled="disabled">
+  <v-card hover :disabled="disabled" :class="{ selected: 'selected' }">
     <v-card-title>{{ option }}</v-card-title>
     <v-card-actions>
       <v-btn
         text
         color="blue-grey"
         class="mx-2 white--text"
+        :disabled="selected"
         @click="choseOption(contestId, option)"
       >
         <v-icon left dark> mdi-star </v-icon>
-        chose
+        {{ selected ? "already chosen" : "chose" }}
       </v-btn>
 
       <v-btn
@@ -27,7 +28,7 @@
 
 <script>
 export default {
-  props: ["option", "disabled", "contestId"],
+  props: ["option", "disabled", "contestId", "selected"],
   methods: {
     choseOption(contestId, option) {
       this.$store.dispatch("choseOption", { contestId, choice: option });
@@ -36,11 +37,15 @@ export default {
       this.$store.dispatch("placeBet", {
         contestId,
         choice: option,
-        amount: 2,
+        amount: 20,
       });
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.selected {
+  background-color: #ffc888;
+}
+</style>

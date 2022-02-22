@@ -44,10 +44,16 @@
       <contest-quiz-card
         :disabled="!isLogged"
         v-for="option in options"
+        :selected="choice === option"
         :key="'option-' + option"
-        :contestId="quizContest.id"
+        :contestId="quizContest.contest.id"
         :option="option"
       />
+    </v-container>
+
+    <v-container class="mt-8" v-if="isLogged">
+      <h3 class="mb-4">Your bets</h3>
+      <user-bets-table :userBets="userBets" :waitingForEnd="contestFinalized" />
     </v-container>
   </div>
 </template>
@@ -69,12 +75,21 @@ export default {
       },
     }),
     deadline() {
-      return this.quizContest.end
-        ? new Date(this.quizContest.end).toLocaleString()
+      return this.quizContest?.contest?.end
+        ? new Date(this.quizContest.contest.end).toLocaleString()
         : "2020-01-01:00:00:00";
     },
     options() {
-      return this.quizContest?.contestants?.options;
+      return this.quizContest?.contest?.contestants?.options;
+    },
+    choice() {
+      return this.quizContest?.user_vote?.choice || "";
+    },
+    userBets() {
+      return this.quizContest?.user_bets || [];
+    },
+    contestFinalized() {
+      return new Date(this.quizContest?.contest?.end) > new Date();
     },
   },
   beforeMount() {
