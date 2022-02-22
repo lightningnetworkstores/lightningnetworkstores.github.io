@@ -71,8 +71,12 @@ export default {
   },
   methods: {
     getPillColor(id) {
-      const hex = Buffer.from(id, 'base64').toString('hex')
-      return `#${hex.substring(0, 6)}`
+      const hashCode = (s) => {
+        return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)
+      }
+      const hash = hashCode(id)
+      const hue = Math.abs(hash % 360)
+      return `hsl(${hue}, 70%, 50%)`
     },
     replyClicked() {
       // TODO: Implement message delivery (change the store)
