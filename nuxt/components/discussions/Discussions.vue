@@ -31,6 +31,7 @@
                     :reply="reply"
                     :threadId="threadId(threadIndex)"
                     :threadIndex="threadIndex"
+                    @paid-reply-request="handlePaidReplyRequest"
                   />
                 </div>
               </div>
@@ -40,6 +41,13 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </div>
+    <PaidReplyModal v-if="paidReplyData"
+      @cancel-reply="paidReplyData = null"
+      @reply-payment-confirmed="paidReplyData = null"
+      :invoice="paidReplyData.data.payment_request"
+      :message="paidReplyData.message"
+      :paymentId="paidReplyData.data.id"
+    />
   </div>
 </template>
 <script>
@@ -48,15 +56,24 @@ import { format } from 'timeago.js'
 
 import DiscussionReply from './DiscussionReply.vue'
 import UserTag from './UserTag.vue'
+import PaidReplyModal from './PaidReplyModal'
 
 export default {
-  components: { DiscussionReply, UserTag },
+  components: { DiscussionReply, UserTag, PaidReplyModal },
+  data() {
+    return {
+      paidReplyData: null
+    }
+  },
   async mounted() {
     await this.$store.dispatch('discussions/getDiscussions')
   },
   methods: {
     formatDate(timestamp) {
       return format(timestamp)
+    },
+    handlePaidReplyRequest(data) {
+      this.paidReplyData = data
     }
   },
   computed: {

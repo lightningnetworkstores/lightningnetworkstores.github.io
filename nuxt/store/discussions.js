@@ -29,6 +29,19 @@ export const actions = {
         }
         return data
       })
+  },
+  setPendingPayment({ commit }, pendingPayment) {
+    commit('setPendingPayment', pendingPayment)
+  },
+  checkPayment({ commit, dispatch }, paymentId) {
+    return this.$axios.$get(`/api2/check_payment?id=${paymentId}`)
+      .then(data => data.data.paid)
+      .then(paid => {
+        if (paid) {
+          dispatch('getDiscussions')
+        }
+        return paid
+      })
   }
 }
 

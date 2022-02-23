@@ -93,7 +93,7 @@ export default {
       }).then(data => {
         this.showDialog = false
         if (!data.data.submitted && data.status === 'success') {
-          this.handleRateControlResponse(data)
+          this.$emit('paid-reply-request', data)
         }
       })
       .catch(err => {
