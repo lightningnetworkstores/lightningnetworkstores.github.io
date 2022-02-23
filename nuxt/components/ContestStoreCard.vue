@@ -15,7 +15,7 @@
 
           <div class="pa-2 pl-5">
             <div @click="gotoStore(store)">
-              <div class="mb-2">
+              <div class="mb-2 title">
                 <a :href="getStoreLink(store.href)" class="font-weight-regular text-h5">
                   {{ store.name }}
                   <v-icon class="ml-1" color="blue darken-2">mdi-open-in-new</v-icon>
@@ -117,21 +117,27 @@ export default {
       this.$router.push("/store/" + rooturl);
     },
     choseStore() {
-      /**TODO*/
+      this.$store.dispatch("choseOption", { contestId, choice: option });
     },
     placeBet() {
-      /**TODO*/
+      this.$store.dispatch("placeBet", {
+        contestId,
+        choice: option,
+        amount: 20,
+      });
     },
   },
 };
 </script>
 
 <style scoped>
+.title {
+  min-height: 50px;
+  max-height: 50px;
+}
 .description {
-  height: 60px;
-  max-height: 60px;
-  line-clamp: 3;
-  overflow: hidden;
+  min-height: 40px;
+  max-height: 40px;
 }
 
 .tag-container {

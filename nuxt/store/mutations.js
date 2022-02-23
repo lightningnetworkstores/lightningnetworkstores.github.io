@@ -218,11 +218,8 @@ const mutations = {
   updateLoginStatus(state, status) {
     state.loginStatus = status
   },
-  setStoreContest(state, { stores, contest }) {
-    state.storeContest = {
-      contest,
-      stores,
-    }
+  setStoreContest(state, payload) {
+    state.storeContest = { ...payload }
   },
   setQuizContest(state, payload) {
     state.quizContest = { ...payload }

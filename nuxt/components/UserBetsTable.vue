@@ -12,7 +12,10 @@
         <tr v-for="item in userBets" :key="item.name">
           <td>{{ item.wager }}</td>
           <td>{{ item.choice }}</td>
-          <td>{{ waitingForEnd ? "(wait for end)" : item.prize }}</td>
+          <td>{{ waitingForEnd ? '(wait for end)' : item.prize }}</td>
+        </tr>
+        <tr v-if="!userBets.length">
+          <td colspan="3" class="text-center">No bets placet yet</td>
         </tr>
       </tbody>
     </template>
@@ -21,8 +24,8 @@
 
 <script>
 export default {
-  props: ["userBets", "waitingForEnd"],
-};
+  props: ['userBets', 'waitingForEnd'],
+}
 </script>
 
 <style></style>

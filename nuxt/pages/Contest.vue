@@ -44,6 +44,11 @@
         :disabled="!isLogged"
       />
     </v-container>
+
+    <v-container class="my-4" v-if="isLogged && userBets">
+      <h3 class="mb-4">Your bets</h3>
+      <user-bets-table :userBets="userBets" :waitingForEnd="contestFinalized" />
+    </v-container>
   </div>
 </template>
 
@@ -67,6 +72,9 @@ export default {
       return this.storeContest.contest?.end
         ? new Date(this.storeContest.contest?.end).toLocaleString()
         : "2020-01-01:00:00:00";
+    },
+    userBets() {
+      return this.quizContest?.user_bets || [];
     },
     pot() {
       return this.storeContest.contest?.pot;

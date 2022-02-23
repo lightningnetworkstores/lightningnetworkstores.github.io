@@ -1057,12 +1057,10 @@ const actions = {
 
   async getStoreContest({ commit, state }) {
     const {
-      data: {
-        data: { contest, stores },
-      },
+      data: { data },
     } = await this.$axios.get(`${state.baseURL}api/store_contest?age=0`)
 
-    commit('setStoreContest', { contest, stores })
+    commit('setStoreContest', { ...data })
 
     return Promise.resolve()
   },
