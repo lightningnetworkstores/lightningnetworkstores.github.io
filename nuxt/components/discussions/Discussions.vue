@@ -2,7 +2,7 @@
   <div>
     <div>
       <v-expansion-panels>
-        <v-expansion-panel v-for="(comment, index) in comments" :key="comment.id">
+        <v-expansion-panel v-for="(comment, threadIndex) in comments" :key="comment.id">
           <v-expansion-panel-header class="d-flex flex-column align-start">
             <div class="text-subtitle-1 font-weight-bold"
               :inner-html.prop="comment.title"
@@ -15,7 +15,7 @@
             </div>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-sheet v-for="(reply, replyIndex) in replies(index)" :key="reply.id">
+            <v-sheet v-for="(reply, replyIndex) in replies(threadIndex)" :key="reply.id">
               <v-divider v-if="replyIndex === 0"></v-divider>
               <div class="py-3 text-body-1"
                 :inner-html.prop="reply.comment | toHtml | tagUser"
@@ -27,10 +27,14 @@
                 </div>
                   {{ formatDate(reply.timestamp) }}
                 <div>
-                  <DiscussionReply :reply="reply"/>
+                  <DiscussionReply
+                    :reply="reply"
+                    :threadId="threadId(threadIndex)"
+                    :threadIndex="threadIndex"
+                  />
                 </div>
               </div>
-              <v-divider v-if="replyIndex < (repliesCount(index) - 2)"></v-divider>
+              <v-divider v-if="replyIndex < (repliesCount(threadIndex) - 2)"></v-divider>
             </v-sheet>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -64,6 +68,9 @@ export default {
     },
     repliesCount() {
       return index => this.lastDiscussions[index].length
+    },
+    threadId() {
+      return index => this.lastDiscussions[index][0].thread_id
     },
     ...mapState('discussions', ['lastDiscussions'])
   }

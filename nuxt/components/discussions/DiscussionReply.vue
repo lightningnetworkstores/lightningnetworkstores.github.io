@@ -7,7 +7,6 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-chip
-        @click="replyClicked"
         class="mb-2"
         :color="getPillColor(reply.id)"
         v-bind="attrs"
@@ -34,22 +33,15 @@
           outlined
           type="text"
           @update:error="updateError"
-          :rules="[
-            (v) =>
-              (v || '').length <=
-                this.$store.state.configuration.max_comment_size ||
-              'Reply has to be shorter than ' +
-                this.$store.state.configuration.max_comment_size +
-                ' characters',
-            (v) => !!v || 'Reply is required',
-          ]"
+          :rules="replyRules"
         >
         </v-textarea>
+        <v-progress-linear v-if="isProcessing" indeterminate/>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="() => showDialog = false">Cancel</v-btn>
-        <v-btn text color="primary" :disabled="disableSubmit">Submit</v-btn>
+        <v-btn text @click="() => showDialog = false" :disabled="isProcessing">Cancel</v-btn>
+        <v-btn text @click="handleSubmit" color="primary" :disabled="disableSubmit">Submit</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -60,14 +52,26 @@ export default {
     reply: {
       type: Object,
       required: true
+    },
+    threadId: {
+      type: String,
+      required: true
+    },
+    threadIndex: {
+      type: Number,
+      required: true
     }
   },
   data() {
     return {
       message: `@${this.reply.id.slice(0, 5)} `,
       showDialog: false,
-      isValid: false
+      isValid: true,
+      isProcessing: false
     }
+  },
+  mounted() {
+    this.$recaptcha.init()
   },
   methods: {
     getPillColor(id) {
@@ -78,16 +82,50 @@ export default {
       const hue = Math.abs(hash % 360)
       return `hsl(${hue}, 70%, 50%)`
     },
-    replyClicked() {
-      // TODO: Implement message delivery (change the store)
+    async handleSubmit() {
+      this.isProcessing = true
+      const recaptchaToken = await this.$recaptcha.execute('low_value_comment')
+      this.$store.dispatch('discussions/postReply', {
+        recaptchaToken: recaptchaToken,
+        parent: this.threadId,
+        comment: this.message,
+        threadIndex: this.threadIndex
+      }).then(data => {
+        this.showDialog = false
+        if (!data.data.submitted && data.status === 'success') {
+          this.handleRateControlResponse(data)
+        }
+      })
+      .catch(err => {
+        console.error('Error while trying to post reply. err: ', err)
+      })
+      .finally(() => this.isProcessing = false)
     },
     updateError(hasError) {
       this.isValid = !hasError
+    },
+    handleRateControlResponse(data) {
+      console.log('handleRateControlResponse. data: ', data)
     }
   },
   computed: {
     disableSubmit() {
-      return !this.isValid
+      return !this.isValid || this.isProcessing
+    },
+    replyRules() {
+      return [
+        (v) => {
+          const maxLength = this.$store.state.configuration.max_comment_size
+          if (v.length > maxLength) {
+            return `Reply has to be shorter than ${maxLength} characters`
+          }
+          return true
+        },
+        (v) => {
+          if (!v || v === '') return 'Reply is required'
+          return true
+        }
+      ]
     }
   }
 }
