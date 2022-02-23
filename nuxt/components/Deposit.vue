@@ -109,7 +109,7 @@ export default {
       this.timerTask = setInterval(async () => {
         if (this.timerData.remaining > 0) {
           this.timerData.remaining -= 1
-          if (this.timerData.remaining % POLL_INTERVAL) {
+          if (this.timerData.remaining % POLL_INTERVAL === 0) {
             const isPaid = await this.$store.dispatch('wallet/checkDeposit')
             if (isPaid) {
               this.$store.dispatch('wallet/getDashboardInfo')
