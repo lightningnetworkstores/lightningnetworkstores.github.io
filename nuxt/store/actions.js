@@ -571,6 +571,16 @@ const actions = {
       })
       .catch(console.error)
   },
+  logoutUser({ dispatch }) {
+    return this.$axios.get('/api/oauthlogout')
+      .then(res => res.data)
+      .then(data => {
+        if (data.status === 'success') {
+          dispatch('getLoginStatus')
+        }
+      })
+      .catch(err => console.error('User logout error. err: ', err))
+  },
   updateStoreLikes({ commit }) {
     const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
     commit('setStoreLikes', storeLikes)

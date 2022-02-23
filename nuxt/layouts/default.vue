@@ -16,18 +16,12 @@
       </transition>
       <announcement-modal v-if="!loading" />
     </v-main>
-    <v-footer class="pa-3 mt-8" color="rgb(56, 56, 56)" dark>
-      <v-row class="justify-center">
-        <v-col class="text-center">
-          Copyright &copy;
-          {{ new Date().getFullYear() }} LightningNetworkStores.</v-col
-        >
-      </v-row>
-    </v-footer>
+    <Footer />
   </v-app>
 </template>
 <script>
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import seo from '~/mixins/seo'
 import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import { mapState } from 'vuex'
@@ -35,7 +29,7 @@ import { mapState } from 'vuex'
 import AnnouncementModal from '@/components/AnnouncementModal'
 
 export default {
-  components: { AnnouncementModal, Header },
+  components: { AnnouncementModal, Header, Footer },
   mixins: [seo],
   async fetch() {
     await this.$store.dispatch('getAnnouncements')
