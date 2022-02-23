@@ -14,18 +14,10 @@
       >
         {{ invoice }}
       </v-sheet>
-      <div class="mt-2 d-flex flex-column justify-center align-center">
-        <div class="text-overline">Time left</div>
-        <v-icon color="grey">mdi-timer</v-icon>
-        <v-progress-linear
-          class="mt-1"
-          :value="remainingTimePercent"
-          rounded
-          height="5"
-          color="primary"
-        />
-        {{ remainingTimeText }}
-      </div>
+      <InvoiceTimer
+        :lifetime="timerData.lifetime"
+        :remaining="timerData.remaining"
+      />
       <div class="d-flex">
         <v-btn icon class="mt-3" @click="onCopyClicked">
           <v-icon>mdi-content-copy</v-icon>
