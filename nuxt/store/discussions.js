@@ -47,7 +47,12 @@ export const actions = {
 
 export const mutations = {
   setLastDiscussions(state, lastDiscussions) {
-    state.lastDiscussions = lastDiscussions
+    // Sorting discussions acording to their "bump" attribute
+    const sortFunction = (a, b) => {
+      if (a[0].bumped === b[0].bumped) return 0
+      return a[0].bumped < b[0].bumped ? 1 : -1
+    }
+    state.lastDiscussions = lastDiscussions.sort(sortFunction)
   },
   updateLastDiscussions(state, { threadIndex, thread }) {
     state.lastDiscussions.splice(threadIndex, 1, thread)
