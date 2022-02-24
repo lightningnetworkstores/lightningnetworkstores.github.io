@@ -17,12 +17,8 @@
           <v-expansion-panel-content>
             <v-sheet v-for="(reply, replyIndex) in replies(threadIndex)" :key="reply.id">
               <v-divider v-if="replyIndex === 0"></v-divider>
-              <div class="py-3 text-body-1"
-                :inner-html.prop="reply.comment | toHtml | tagUser"
-              >
-              </div>
-              <div class="text-caption d-flex justify-space-between">
-                <div style="color: gray">
+              <div class="text-caption d-flex justify-space-between my-3">
+                <div>
                   <UserTag :userId="reply.user_id"/>
                 </div>
                   {{ formatDate(reply.timestamp) }}
@@ -34,6 +30,10 @@
                     @paid-reply-request="handlePaidReplyRequest"
                   />
                 </div>
+              </div>
+              <div class="py-3 text-body-1"
+                :inner-html.prop="reply.comment | toHtml | tagUser"
+              >
               </div>
               <v-divider v-if="replyIndex < (repliesCount(threadIndex) - 2)"></v-divider>
             </v-sheet>

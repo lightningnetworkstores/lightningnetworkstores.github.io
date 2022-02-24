@@ -8,7 +8,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-chip
         class="mb-2"
-        :color="getPillColor(reply.id)"
+        color="#B4B4B4"
         v-bind="attrs"
         v-on="on"
         text-color="white"
@@ -74,14 +74,6 @@ export default {
     this.$recaptcha.init()
   },
   methods: {
-    getPillColor(id) {
-      const hashCode = (s) => {
-        return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)
-      }
-      const hash = hashCode(id)
-      const hue = Math.abs(hash % 360)
-      return `hsl(${hue}, 70%, 50%)`
-    },
     async handleSubmit() {
       this.isProcessing = true
       const recaptchaToken = await this.$recaptcha.execute('low_value_comment')
