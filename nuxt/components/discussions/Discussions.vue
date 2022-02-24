@@ -2,15 +2,15 @@
   <div>
     <div>
       <v-expansion-panels>
-        <v-expansion-panel v-for="(comment, threadIndex) in comments" :key="comment.id">
+        <v-expansion-panel v-for="(thread, threadIndex) in threads" :key="thread.id">
           <v-expansion-panel-header class="d-flex flex-column align-start">
             <div class="text-subtitle-1 font-weight-bold"
-              :inner-html.prop="comment.title"
+              :inner-html.prop="thread.title"
             >
             </div>
             <div
               class="text-body-1 comment-title"
-              :inner-html.prop="comment.comment | toHtml | tagUser"
+              :inner-html.prop="thread.comment | toHtml | tagUser"
             >
             </div>
           </v-expansion-panel-header>
@@ -77,7 +77,7 @@ export default {
     }
   },
   computed: {
-    comments() {
+    threads() {
       return this.lastDiscussions.map(comments => comments[0])
     },
     replies() {
