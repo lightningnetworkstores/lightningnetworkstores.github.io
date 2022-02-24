@@ -32,7 +32,7 @@
         {{ invoice }}
       </v-card-text>
       <div class="d-flex justify-center">
-        <v-btn icon>
+        <v-btn icon @click="handleCopy">
           <v-icon>mdi-content-copy</v-icon>
         </v-btn>
       </div>
@@ -47,6 +47,14 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+    <v-snackbar
+      v-model="showSnackbar"
+      timeout="1000"
+      transition="scale-transition"
+      color="green"
+    >
+      <div class="text-center text-body-1">Invoice copied to clipboard!</div>
+    </v-snackbar>
   </v-dialog>
 </template>
 <script>
@@ -80,7 +88,8 @@ export default {
     return {
       timerTask: null,
       timerData: INITIAL_TIMER_DATA,
-      isPaid: true
+      isPaid: true,
+      showSnackbar: false
     }
   },
   mounted() {
@@ -121,6 +130,11 @@ export default {
         this.timerData = INITIAL_TIMER_DATA
         // TODO: Update the local state and display a failure? 
       }
+    },
+    handleCopy() {
+      navigator.clipboard.writeText(this.invoice)
+        .then(() => this.showSnackbar = true)
+        .catch(err => console.error('Error while copying to clipboard! Err: ', err))
     }
   },
   computed: {
