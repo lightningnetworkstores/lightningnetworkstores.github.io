@@ -4,10 +4,12 @@
       <v-expansion-panels>
         <v-expansion-panel v-for="(thread, threadIndex) in threads" :key="thread.id">
           <v-expansion-panel-header class="d-flex flex-column align-start">
-            <div class="text-subtitle-1 font-weight-bold"
-              :inner-html.prop="thread.title"
-            >
-            </div>
+            <v-container class="d-flex px-0">
+              <div class="text-subtitle-1 font-weight-bold" style="flex-grow: 1"
+                :inner-html.prop="thread.title"
+              />
+              <v-badge class="mr-4" :content="repliesCount(threadIndex)"></v-badge>
+            </v-container>
             <div
               class="text-body-1 comment-title"
               :inner-html.prop="thread.comment | toHtml | tagUser"
