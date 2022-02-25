@@ -1,5 +1,10 @@
 <template>
-  <v-card hover :disabled="disabled" :class="{ selected: 'selected' }">
+  <v-card
+    hover
+    :disabled="disabled"
+    class="quizCard"
+    :class="{ selected: selected }"
+  >
     <v-card-title>{{ option }}</v-card-title>
     <v-card-actions>
       <v-btn
@@ -10,7 +15,7 @@
         @click="chooseOption"
       >
         <v-icon left dark> mdi-star </v-icon>
-        {{ selected ? 'already chosen' : 'chose' }}
+        {{ selected ? 'chosen' : 'chose' }}
       </v-btn>
 
       <v-btn
@@ -23,59 +28,24 @@
         Place a bet
       </v-btn>
     </v-card-actions>
-
-    <v-dialog v-model="openAmountModal" max-width="500px">
-      <v-card>
-        <v-card-title> Amount </v-card-title>
-        <v-card-text>
-          <v-text-field
-            label="Amount"
-            v-model="amount"
-            placeholder="20"
-            hint="min 20 sats"
-            prefix="$"
-            :rules="[rules.required, rules.number]"
-          ></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="primary"
-            :disabled="disableDoneButton"
-            text
-            @click="placeBet"
-          >
-            Done
-          </v-btn>
-          <v-btn color="secondary" text @click="openAmountModal = false">
-            Cancel
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <place-bet-modal
+      :isOpen.sync="openAmountModal"
+      :contestId="contestId"
+      :option="option"
+    />
   </v-card>
 </template>
 
 <script>
+import PlaceBetModal from './PlaceBetModal.vue'
+
 export default {
+  components: { PlaceBetModal },
   props: ['option', 'disabled', 'contestId', 'selected'],
   data() {
     return {
-      amount: '0',
       openAmountModal: false,
-      rules: {
-        required: (value) => !!value || 'Required.',
-        counter: (value) => value.length <= 20 || 'Max 20 characters',
-        number: (value) => {
-          const pattern = /^[0-9]*$/
-          return (pattern.test(value) && value >= 20) || 'Invalid amount.'
-        },
-      },
     }
-  },
-  computed: {
-    disableDoneButton() {
-      return this.amount < 20 || this.amount.length < 1
-    },
   },
   methods: {
     chooseOption() {
@@ -88,25 +58,16 @@ export default {
           this.$store.dispatch('getQuizContest')
         })
     },
-    placeBet() {
-      this.$store
-        .dispatch('placeBet', {
-          contestID: this.contestId,
-          choice: this.option,
-          amount: this.amount,
-        })
-        .then(() => {
-          this.openAmountModal = false
-          this.amount = '0'
-          this.$store.dispatch('getQuizContest')
-        })
-    },
   },
 }
 </script>
 
 <style>
 .selected {
-  background-color: #ffc888;
+  box-shadow: 0px 0px 10px 0px #00e1ff;
+}
+
+.quizCard {
+  width: 100%;
 }
 </style>

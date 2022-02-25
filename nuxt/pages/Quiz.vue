@@ -48,7 +48,7 @@
       </v-btn>
     </v-container>
 
-    <v-container class="full-list mt-8">
+    <div class="grid-list mt-8">
       <contest-quiz-card
         :disabled="!isLogged"
         v-for="option in options"
@@ -57,7 +57,7 @@
         :contestId="id"
         :option="option"
       />
-    </v-container>
+    </div>
 
     <v-container class="mt-4" v-if="isLogged && userBets">
       <h3 class="mb-4">Your bets</h3>
@@ -130,5 +130,12 @@ export default {
 <style>
 .contest-info {
   row-gap: 32px;
+}
+
+.grid-list {
+  gap: 24px;
+  display: grid;
+  width: 80%;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 </style>
