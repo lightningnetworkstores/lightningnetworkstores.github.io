@@ -1073,16 +1073,16 @@ const actions = {
 
     return Promise.resolve()
   },
-  async choseOption({ state }, { contestId, choice }) {
+  async choseOption({ state }, { contestID, choice }) {
     return this.$axios.post(`${state.baseURL}api/contest_vote`, {
-      contestID: contestId,
+      contestID,
       choice,
     })
   },
-  async placeBet({ state }, { contestId, choice, amount }) {
+  async placeBet({ state }, { contestID, choice, amount }) {
     return this.$axios
       .post(`${state.baseURL}api/bet`, {
-        contestID: contestId,
+        contestID,
         choice,
         amount,
       })

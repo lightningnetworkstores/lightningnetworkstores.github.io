@@ -7,10 +7,10 @@
         color="blue-grey"
         class="mx-2 white--text"
         :disabled="selected"
-        @click="chooseOption(contestId, option)"
+        @click="chooseOption"
       >
         <v-icon left dark> mdi-star </v-icon>
-        {{ selected ? "already chosen" : "chose" }}
+        {{ selected ? 'already chosen' : 'chose' }}
       </v-btn>
 
       <v-btn
@@ -23,21 +23,32 @@
         Place a bet
       </v-btn>
     </v-card-actions>
+
     <v-dialog v-model="openAmountModal" max-width="500px">
       <v-card>
         <v-card-title> Amount </v-card-title>
         <v-card-text>
           <v-text-field
             label="Amount"
-            value="20"
+            v-model="amount"
+            placeholder="20"
             hint="min 20 sats"
             prefix="$"
-            autofocus
             :rules="[rules.required, rules.number]"
           ></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" text @click="dialog2 = false"> Close </v-btn>
+          <v-btn
+            color="primary"
+            :disabled="disableDoneButton"
+            text
+            @click="placeBet"
+          >
+            Done
+          </v-btn>
+          <v-btn color="secondary" text @click="openAmountModal = false">
+            Cancel
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -46,33 +57,52 @@
 
 <script>
 export default {
-  props: ["option", "disabled", "contestId", "selected"],
+  props: ['option', 'disabled', 'contestId', 'selected'],
   data() {
     return {
+      amount: '0',
       openAmountModal: false,
       rules: {
-        required: (value) => !!value || "Required.",
-        counter: (value) => value.length <= 20 || "Max 20 characters",
+        required: (value) => !!value || 'Required.',
+        counter: (value) => value.length <= 20 || 'Max 20 characters',
         number: (value) => {
-          const pattern = /^[0-9]*$/;
-          return (pattern.test(value) && value >= 20) || "Invalid amount.";
+          const pattern = /^[0-9]*$/
+          return (pattern.test(value) && value >= 20) || 'Invalid amount.'
         },
       },
-    };
+    }
+  },
+  computed: {
+    disableDoneButton() {
+      return this.amount < 20 || this.amount.length < 1
+    },
   },
   methods: {
-    choseOption(contestId, option) {
-      this.$store.dispatch("choseOption", { contestId, choice: option });
+    chooseOption() {
+      this.$store
+        .dispatch('choseOption', {
+          contestID: this.contestId,
+          choice: this.option,
+        })
+        .then(() => {
+          this.$store.dispatch('getQuizContest')
+        })
     },
-    placeBet(contestId, option) {
-      this.$store.dispatch("placeBet", {
-        contestId,
-        choice: option,
-        amount: 20,
-      });
+    placeBet() {
+      this.$store
+        .dispatch('placeBet', {
+          contestID: this.contestId,
+          choice: this.option,
+          amount: this.amount,
+        })
+        .then(() => {
+          this.openAmountModal = false
+          this.amount = '0'
+          this.$store.dispatch('getQuizContest')
+        })
     },
   },
-};
+}
 </script>
 
 <style>
