@@ -7,7 +7,6 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-chip
-        class="mb-2"
         color="#B4B4B4"
         v-bind="attrs"
         v-on="on"
@@ -15,7 +14,7 @@
         small
         style="cursor: pointer"
       >
-        <v-icon class="pr-4">mdi-comment</v-icon>
+        <v-icon class="pr-4">mdi-reply</v-icon>
         {{ reply.id.slice(0, 8) }}
       </v-chip>
     </template>

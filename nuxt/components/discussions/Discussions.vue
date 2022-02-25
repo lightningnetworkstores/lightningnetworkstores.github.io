@@ -9,7 +9,10 @@
               <div class="text-h6 font-weight-bold" style="flex-grow: 1"
                 :inner-html.prop="thread.title"
               />
-              <v-badge inline :content="repliesCount(threadIndex)"></v-badge>
+              <v-chip x-small class="mx-0 px-1">
+                <v-icon class="mr-1">mdi-message-reply</v-icon>
+                {{ repliesCount(threadIndex) }}
+              </v-chip>
             </v-container>
             <div
               class="text-body-1 comment-title"
