@@ -1,6 +1,7 @@
 <template>
   <div>
     <div>
+      <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
         <v-expansion-panel v-for="(thread, threadIndex) in threads" :key="thread.id">
           <v-expansion-panel-header class="d-flex flex-column align-start">
@@ -53,18 +54,20 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import { format } from 'timeago.js'
 
 import DiscussionReply from './DiscussionReply.vue'
 import UserTag from './UserTag.vue'
 import PaidReplyModal from './PaidReplyModal'
+import Topics from './Topics.vue'
 
 export default {
-  components: { DiscussionReply, UserTag, PaidReplyModal },
+  components: { DiscussionReply, UserTag, PaidReplyModal, Topics },
   data() {
     return {
-      paidReplyData: null
+      paidReplyData: null,
+      selectedTopic: 'ALL'
     }
   },
   async mounted() {
@@ -76,21 +79,25 @@ export default {
     },
     handlePaidReplyRequest(data) {
       this.paidReplyData = data
+    },
+    onTopicSelected({ topic, index}) {
+      this.selectedTopic = topic
     }
   },
   computed: {
     threads() {
-      return this.lastDiscussions.map(comments => comments[0])
+      return this.filteredDiscussions(this.selectedTopic).map(comments => comments[0])
     },
     replies() {
-      return index => this.lastDiscussions[index].slice(1)
+      return index => this.filteredDiscussions(this.selectedTopic)[index].slice(1)
     },
     repliesCount() {
-      return index => this.lastDiscussions[index].length
+      return index => this.filteredDiscussions(this.selectedTopic)[index].length
     },
     threadId() {
-      return index => this.lastDiscussions[index][0].thread_id
+      return index => this.filteredDiscussions(this.selectedTopic)[index][0].thread_id
     },
+    ...mapGetters('discussions', ['filteredDiscussions']),
     ...mapState('discussions', ['lastDiscussions'])
   }
 }

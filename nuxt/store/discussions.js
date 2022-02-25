@@ -1,12 +1,15 @@
 export const state = () => ({
-  lastDiscussions: []
+  lastDiscussions: [],
+  topics: []
 })
 
 export const actions = {
   getDiscussions({ commit }) {
     this.$axios.$get('/api/discussion')
-      .then(data => data.data.last_discussions)
-      .then(lastDiscussions => commit('setLastDiscussions', lastDiscussions))
+      .then(data => {
+        commit('setTopics', data.data.configuration.topics)
+        commit('setLastDiscussions', data.data.last_discussions)
+      })
       .catch(err => console.error('Error fetching discussions: ', err))
   },
   postReply({ commit }, params) {
@@ -45,6 +48,15 @@ export const actions = {
   }
 }
 
+export const getters = {
+  filteredDiscussions: (state) => (selectedTopic) => {
+    if (selectedTopic === 'ALL') {
+      return state.lastDiscussions
+    }
+    return state.lastDiscussions.filter(thread => thread[0].topic === selectedTopic)
+  }
+}
+
 export const mutations = {
   setLastDiscussions(state, lastDiscussions) {
     // Sorting discussions acording to their "bump" attribute
@@ -56,5 +68,8 @@ export const mutations = {
   },
   updateLastDiscussions(state, { threadIndex, thread }) {
     state.lastDiscussions.splice(threadIndex, 1, thread)
+  },
+  setTopics(state, topics) {
+    state.topics = topics
   }
 }
