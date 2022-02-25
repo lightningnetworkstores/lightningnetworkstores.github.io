@@ -29,7 +29,7 @@
                 </div>
                   {{ formatDate(reply.timestamp) }}
                 <div>
-                  <DiscussionReply
+                  <DiscussionReplyModal
                     :reply="reply"
                     :threadId="threadId(threadIndex)"
                     :threadIndex="threadIndex"
@@ -60,13 +60,13 @@
 import { mapState, mapGetters } from 'vuex'
 import { format } from 'timeago.js'
 
-import DiscussionReply from './DiscussionReply.vue'
+import DiscussionReplyModal from './DiscussionReplyModal.vue'
 import UserTag from './UserTag.vue'
 import PaidReplyModal from './PaidReplyModal'
 import Topics from './Topics.vue'
 
 export default {
-  components: { DiscussionReply, UserTag, PaidReplyModal, Topics },
+  components: { DiscussionReplyModal, UserTag, PaidReplyModal, Topics },
   data() {
     return {
       paidReplyData: null,
