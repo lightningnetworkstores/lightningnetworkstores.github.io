@@ -20,8 +20,12 @@
             >
             </div>
           </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-sheet v-for="(reply, replyIndex) in replies(threadIndex)" :key="reply.id">
+          <v-expansion-panel-content class="px-4">
+            <v-sheet
+              v-for="(reply, replyIndex) in replies(threadIndex)"
+              :key="reply.id"
+              :style="{background: getReplyBackground(reply)}"
+            >
               <v-divider v-if="replyIndex === 0"></v-divider>
               <div class="text-caption d-flex justify-space-between my-3">
                 <div>
@@ -37,10 +41,11 @@
                   />
                 </div>
               </div>
-              <div class="py-3 text-body-1"
-                :inner-html.prop="reply.comment | toHtml | tagUser"
-              >
-              </div>
+              <Reply
+                :reply="reply.comment"
+                @hover-on="u => handleHoverOn(u)"
+                @hover-off="u => handleHoverOff(u)"
+              />
               <v-divider v-if="replyIndex < (repliesCount(threadIndex) - 2)"></v-divider>
             </v-sheet>
           </v-expansion-panel-content>
@@ -64,13 +69,15 @@ import DiscussionReplyModal from './DiscussionReplyModal.vue'
 import UserTag from './UserTag.vue'
 import PaidReplyModal from './PaidReplyModal'
 import Topics from './Topics.vue'
+import Reply from './Reply.vue'
 
 export default {
-  components: { DiscussionReplyModal, UserTag, PaidReplyModal, Topics },
+  components: { DiscussionReplyModal, UserTag, PaidReplyModal, Topics, Reply },
   data() {
     return {
       paidReplyData: null,
-      selectedTopic: 'ALL'
+      selectedTopic: 'ALL',
+      selectedReference: null
     }
   },
   async mounted() {
@@ -85,6 +92,20 @@ export default {
     },
     onTopicSelected({ topic, index}) {
       this.selectedTopic = topic
+    },
+    handleHoverOn(reference) {
+      this.selectedReference = reference
+    },
+    handleHoverOff() {
+      this.selectedReference = null
+    },
+    getReplyBackground(reply) {
+      if (!this.selectedReference) return 'white'
+      const found = reply.id.includes(this.selectedReference.slice(1))
+      if (this.selectedReference && found) {
+        return 'aliceblue'
+      }
+      return 'white'
     }
   },
   computed: {
@@ -111,5 +132,8 @@ export default {
     width: 45vh;
     overflow: hidden;
   }  
+}
+selected-comment {
+  background-color: aliceblue;
 }
 </style>
