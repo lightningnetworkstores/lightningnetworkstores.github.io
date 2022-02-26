@@ -15,7 +15,7 @@
         style="cursor: pointer"
       >
         <v-icon class="pr-4">mdi-reply</v-icon>
-        {{ reply.id.slice(0, 8) }}
+        {{ reply.id.slice(0, 5) }}
       </v-chip>
     </template>
     <v-card>
