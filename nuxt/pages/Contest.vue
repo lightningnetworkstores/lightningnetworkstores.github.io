@@ -21,6 +21,11 @@
       </div>
     </div>
 
+    <v-container class="my-4" v-if="isLogged && userBets">
+      <h3 class="mb-4">Your bets</h3>
+      <user-bets-table :userBets="userBets" :waitingForEnd="contestFinalized" />
+    </v-container>
+
     <h1 class="pt-10">What's your favorite project?</h1>
 
     <v-container v-if="!isLogged" class="d-flex flex-column mt-8 align-center">
@@ -35,19 +40,15 @@
       </v-btn>
     </v-container>
 
-    <v-container class="full-list mt-8">
+    <v-container class="grid-list mt-8">
       <contest-store-card
         v-for="store in storeContest.stores"
         :data-storeId="store.id"
         :key="'store-' + store.id"
         :store="store"
+        :contestId="storeContest.contest.id"
         :disabled="!isLogged"
       />
-    </v-container>
-
-    <v-container class="my-4" v-if="isLogged && userBets">
-      <h3 class="mb-4">Your bets</h3>
-      <user-bets-table :userBets="userBets" :waitingForEnd="contestFinalized" />
     </v-container>
   </div>
 </template>
@@ -99,8 +100,11 @@ export default {
 };
 </script>
 
-<style>
-.contest-info {
-  row-gap: 32px !important;
+<style scoped>
+.grid-list {
+  gap: 24px;
+  display: grid;
+  width: 80%;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 </style>

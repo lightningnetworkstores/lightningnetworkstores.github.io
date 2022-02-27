@@ -1,14 +1,6 @@
 <template>
   <div class="d-flex flex-column mt-8 align-center">
-    <div
-      class="
-        d-flex
-        flex-column flex-lg-row
-        align-center
-        justify-center
-        contest-info
-      "
-    >
+    <div class="d-flex flex-column flex-lg-row align-center justify-center contest-info">
       <div class="d-flex align-center flex-wrap">
         <span class="title">Time left:</span>
         <div>
@@ -67,67 +59,67 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import FlipCountdown from 'vue2-flip-countdown'
+import { mapGetters, mapState } from "vuex";
+import FlipCountdown from "vue2-flip-countdown";
 
 export default {
   components: { FlipCountdown },
   computed: {
     ...mapGetters({
-      quizContest: 'getQuizContest',
+      quizContest: "getQuizContest",
     }),
     ...mapState({
       isLogged(state) {
-        if (state.loginStatus.user) return state.loginStatus.user.logged
-        else return false
+        if (state.loginStatus.user) return state.loginStatus.user.logged;
+        else return false;
       },
     }),
     id() {
-      return this.quizContest.contest?.id
+      return this.quizContest.contest?.id;
     },
     deadline() {
       return this.quizContest.contest?.end
         ? new Date(this.quizContest.contest?.end).toLocaleString()
-        : '2022-01-01:00:00:00'
+        : "2022-01-01:00:00:00";
     },
     options() {
-      return this.quizContest?.contest?.contestants?.options
+      return this.quizContest?.contest?.contestants?.options;
     },
     choice() {
-      return this.quizContest?.user_vote?.choice || ''
+      return this.quizContest?.user_vote?.choice || "";
     },
     userBets() {
-      return this.quizContest?.user_bets || []
+      return this.quizContest?.user_bets || [];
     },
     contestFinalized() {
-      return new Date(this.quizContest?.contest?.end) > new Date()
+      return new Date(this.quizContest?.contest?.end) > new Date();
     },
     pot() {
-      return this.quizContest.contest?.pot
+      return this.quizContest.contest?.pot;
     },
     question() {
-      return this.quizContest.contest?.contestants.question
+      return this.quizContest.contest?.contestants.question;
     },
   },
   beforeMount() {
-    this.$store.dispatch('getQuizContest')
+    this.$store.dispatch("getQuizContest");
   },
   methods: {
     handleLoginClick() {
       this.$axios
-        .get('/api/oauthlogin?platform=twitter')
+        .get("/api/oauthlogin?platform=twitter")
         .then((res) => res.data)
         .then((data) => {
-          console.log(data)
-          const { request_token, authorization_url, platform } = data.data
-          window.location.replace(authorization_url)
-        })
+          console.log(data);
+          const { request_token, authorization_url, platform } = data.data;
+          window.location.replace(authorization_url);
+        });
     },
   },
-}
+};
 </script>
 
-<style>
+<style scoped>
 .contest-info {
   row-gap: 32px;
 }
