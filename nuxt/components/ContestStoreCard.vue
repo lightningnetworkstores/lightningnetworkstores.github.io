@@ -73,9 +73,15 @@
       </div>
     </v-card-text>
     <v-card-actions
-      ><v-btn color="blue-grey" class="ma-2 white--text" @click="chooseStore">
+      ><v-btn
+        text
+        color="blue-grey"
+        class="mx-2 white--text"
+        :disabled="selected"
+        @click="chooseStore"
+      >
         <v-icon left dark> mdi-star </v-icon>
-        chose
+        {{ selected ? "chosen" : "chose" }}
       </v-btn>
 
       <v-btn
@@ -102,7 +108,7 @@ import VoteButton from "../components/VoteButton.vue";
 import LikeStoreButton from "./LikeStoreButton.vue";
 
 export default {
-  props: ["store", "disabled", "contestId"],
+  props: ["store", "disabled", "contestId", "selected"],
   components: { VoteButton, LikeStoreButton },
   data() {
     return {
@@ -124,10 +130,10 @@ export default {
       return url.toString();
     },
     gotoStore(store) {
-      const { id, rooturl } = store;
+      const { id, rootUrl } = store;
 
       this.$route.meta.storeId = id;
-      this.$router.push("/store/" + rooturl);
+      this.$router.push("/store/" + rootUrl);
     },
     chooseStore() {
       this.$store.dispatch("choseOption", {

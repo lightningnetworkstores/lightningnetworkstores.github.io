@@ -42,18 +42,18 @@
 
     <div class="grid-list mt-8">
       <contest-quiz-card
-        :disabled="!isLogged"
+        :disabled="!isLogged || stage !== 'MAIN'"
         v-for="option in options"
         :selected="choice === option"
         :key="'option-' + option"
-        :contestId="id"
+        :contestId="contestId"
         :option="option"
       />
     </div>
 
     <v-container class="mt-4" v-if="isLogged && userBets">
       <h3 class="mb-4">Your bets</h3>
-      <user-bets-table :userBets="userBets" :waitingForEnd="contestFinalized" />
+      <user-bets-table :userBets="userBets" :waitingForEnd="stage !== 'COMPLETE'" />
     </v-container>
   </div>
 </template>
@@ -74,7 +74,7 @@ export default {
         else return false;
       },
     }),
-    id() {
+    contestId() {
       return this.quizContest.contest?.id;
     },
     deadline() {
@@ -91,16 +91,20 @@ export default {
     userBets() {
       return this.quizContest?.user_bets || [];
     },
-    contestFinalized() {
-      return new Date(this.quizContest?.contest?.end) > new Date();
-    },
     pot() {
       return this.quizContest.contest?.pot;
     },
     question() {
       return this.quizContest.contest?.contestants.question;
     },
+    minimumBet() {
+      return this.storeContest.minimum_bet;
+    },
+    stage() {
+      return this.quizContest.contest?.stage;
+    },
   },
+
   beforeMount() {
     this.$store.dispatch("getQuizContest");
   },

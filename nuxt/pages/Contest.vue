@@ -23,7 +23,7 @@
 
     <v-container class="my-4" v-if="isLogged && userBets">
       <h3 class="mb-4">Your bets</h3>
-      <user-bets-table :userBets="userBets" :waitingForEnd="contestFinalized" />
+      <user-bets-table :userBets="userBets" :waitingForEnd="stage !== 'MAIN'" />
     </v-container>
 
     <h1 class="pt-10">What's your favorite project?</h1>
@@ -47,7 +47,8 @@
         :key="'store-' + store.id"
         :store="store"
         :contestId="storeContest.contest.id"
-        :disabled="!isLogged"
+        :disabled="!isLogged || stage !== 'MAIN'"
+        :selected="store.id == choice"
       />
     </v-container>
   </div>
@@ -79,6 +80,15 @@ export default {
     },
     pot() {
       return this.storeContest.contest?.pot;
+    },
+    minimumBet() {
+      return this.storeContest.minimum_bet;
+    },
+    stage() {
+      return this.storeContest.contest?.stage;
+    },
+    choice() {
+      return this.storeContest.userVote?.choice;
     },
   },
   methods: {
