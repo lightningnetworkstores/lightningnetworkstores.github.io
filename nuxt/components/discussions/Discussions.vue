@@ -4,21 +4,31 @@
       <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
         <v-expansion-panel v-for="(thread, threadIndex) in threads" :key="thread.id">
-          <v-expansion-panel-header class="d-flex flex-column align-start">
-            <v-container class="d-flex px-0">
-              <div class="text-h6 font-weight-bold" style="flex-grow: 1"
-                :inner-html.prop="thread.title"
-              />
-              <v-chip x-small class="mx-0 px-1">
-                <v-icon class="mr-1">mdi-message-reply</v-icon>
-                {{ repliesCount(threadIndex) }}
-              </v-chip>
+          <v-expansion-panel-header class="d-flex flex-column align-start my-0 py-0">
+            <v-container class="mb-0 pb-0">
+              <v-row>
+                <v-col cols="7">
+                  <div class="text-h6 font-weight-bold" style="flex-grow: 1"
+                    :inner-html.prop="thread.title"
+                  />
+                  <div
+                    class="text-body-1 comment-title"
+                    :inner-html.prop="thread.comment | toHtml | tagUser"
+                  />
+                </v-col>
+                <v-col cols="5" class="d-flex flex-row justify-end mr-0 pr-0">
+                  <div v-if="thread.store" class="flex-grow-1">
+                    <StorePreview :store="thread.store"/>
+                  </div>
+                  <div class="d-flex justify-end flex-grow-0" style="min-width: 3em">
+                    <v-chip x-small class="mx-0 px-1">
+                      <v-icon class="mr-1">mdi-message-reply</v-icon>
+                      {{ repliesCount(threadIndex) }}
+                    </v-chip>
+                  </div>
+                </v-col>
+              </v-row>
             </v-container>
-            <div
-              class="text-body-1 comment-title"
-              :inner-html.prop="thread.comment | toHtml | tagUser"
-            >
-            </div>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="px-4">
             <v-sheet
@@ -70,9 +80,10 @@ import UserTag from './UserTag.vue'
 import PaidReplyModal from './PaidReplyModal'
 import Topics from './Topics.vue'
 import Reply from './Reply.vue'
+import StorePreview from './StorePreview'
 
 export default {
-  components: { DiscussionReplyModal, UserTag, PaidReplyModal, Topics, Reply },
+  components: { DiscussionReplyModal, UserTag, PaidReplyModal, Topics, Reply, StorePreview },
   data() {
     return {
       paidReplyData: null,
