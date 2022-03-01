@@ -1,10 +1,10 @@
 <template>
-  <v-sheet rounded outlined class="mr-4">
+  <v-sheet rounded outlined class="mr-4" height="100">
     <div class="d-flex">
       <v-img
         @click="() => handleInternalLink(store.rooturl)"
         :src="`https://bitcoin-stores.com/thumbnails/${store.id}.jpg`"
-        max-height="100"
+        height="99"
         max-width="100"
       />
       <div @click="() => handleInternalLink(store.rooturl)">
