@@ -52,7 +52,10 @@
       </v-list>
       <filter-stores :filterTags="filtertags" />
     </v-navigation-drawer>
-    <div :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 300px;' : ''">
+    <div
+      style="padding-bottom: 40px"
+      :style="$vuetify.breakpoint.lgAndUp ? 'padding-left: 300px;' : ''"
+    >
       <v-layout justify-center>
         <v-flex xs10 md18 lg6 ma-5>
           <v-row>
