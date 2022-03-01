@@ -41,6 +41,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <LoginButton v-if="!isLogged"/>
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
