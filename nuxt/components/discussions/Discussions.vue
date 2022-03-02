@@ -18,7 +18,7 @@
                 </v-col>
                 <v-col cols="5" class="d-flex flex-row justify-end mr-0 pr-0">
                   <div v-if="thread.store" class="flex-grow-1">
-                    <StorePreview :store="thread.store"/>
+                    <StorePreview class="hidden-sm-and-down" :store="thread.store"/>
                   </div>
                   <div class="d-flex justify-end flex-grow-0" style="min-width: 3em">
                     <v-chip x-small class="mx-0 px-1">
