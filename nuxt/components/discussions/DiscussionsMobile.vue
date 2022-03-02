@@ -4,9 +4,9 @@
       <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
         <v-expansion-panel v-for="(thread, threadIndex) in threads" :key="thread.id">
-          <v-expansion-panel-header class="d-flex flex-column align-start my-0 py-0" :disabled="thread.isStore" :hide-actions="thread.isStore">
-            <div class="my-2 mx-0 px-0">
-              <StorePreview :store="thread" v-if="thread.isStore"/>
+          <v-expansion-panel-header class="d-flex flex-column align-start py-0 px-2" :disabled="thread.isStore" :hide-actions="thread.isStore">
+            <div v-if="thread.isStore" class="my-2 mx-0 px-0 d-flex justify-center" style="width: 100%">
+              <StorePreview :store="thread" style="width: 400px"/>
             </div>
             <DiscussionHeader v-if="!thread.isStore"
               :repliesCount="repliesCount(threadIndex)"

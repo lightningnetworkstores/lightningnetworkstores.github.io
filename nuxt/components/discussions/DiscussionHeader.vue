@@ -1,12 +1,12 @@
 <template>
   <v-container class="mb-0 pb-0">
     <v-row>
-      <v-col :cols="isMobile ? 12 : 7">
-        <div class="text-h6 font-weight-bold" style="flex-grow: 1"
+      <v-col :cols="isMobile ? 12 : 7" :class="{'pa-0': isMobile}">
+        <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
           :inner-html.prop="discussionHeader.title"
         />
         <div
-          class="text-body-1 comment-title"
+          class="text-body-1 comment-title discussion-text"
           :inner-html.prop="discussionHeader.comment | toHtml | tagUser"
         />
       </v-col>
@@ -47,3 +47,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.discussion-text {
+  overflow-wrap: break-word;
+}
+</style>
