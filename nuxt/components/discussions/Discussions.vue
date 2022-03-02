@@ -3,11 +3,11 @@
     <div>
       <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
-        <v-expansion-panel v-for="(thread, threadIndex) in threads" :key="thread.id">
+        <v-expansion-panel v-for="(header, threadIndex) in headers" :key="header.id">
           <v-expansion-panel-header class="d-flex flex-column align-start my-0 py-0">
             <DiscussionHeader
               :repliesCount="repliesCount(threadIndex)"
-              :discussionHeader="thread"
+              :discussionHeader="header"
             />
           </v-expansion-panel-header>
           <v-expansion-panel-content class="px-4">
@@ -101,14 +101,14 @@ export default {
     }
   },
   computed: {
-    threads() {
+    headers() {
       return this.filteredDiscussions(this.selectedTopic).map(comments => comments[0])
     },
     replies() {
       return index => this.filteredDiscussions(this.selectedTopic)[index].slice(1)
     },
     repliesCount() {
-      return index => this.filteredDiscussions(this.selectedTopic)[index].length
+      return index => this.filteredDiscussions(this.selectedTopic)[index].length - 1
     },
     threadId() {
       return index => this.filteredDiscussions(this.selectedTopic)[index][0].thread_id

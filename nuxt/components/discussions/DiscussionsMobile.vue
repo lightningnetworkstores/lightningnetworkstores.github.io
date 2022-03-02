@@ -3,14 +3,14 @@
     <div>
       <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
-        <v-expansion-panel v-for="(thread, threadIndex) in threads" :key="thread.id">
-          <v-expansion-panel-header class="d-flex flex-column align-start py-0 px-2" :disabled="thread.isStore" :hide-actions="thread.isStore">
-            <div v-if="thread.isStore" class="my-2 mx-0 px-0 d-flex justify-center" style="width: 100%">
-              <StorePreview :store="thread" style="width: 400px"/>
+        <v-expansion-panel v-for="(header, threadIndex) in headers" :key="header.id">
+          <v-expansion-panel-header class="d-flex flex-column align-start py-0 px-2" :disabled="header.isStore" :hide-actions="header.isStore">
+            <div v-if="header.isStore" class="my-2 mx-0 px-0 d-flex justify-center" style="width: 100%">
+              <StorePreview :store="header" style="width: 400px"/>
             </div>
-            <DiscussionHeader v-if="!thread.isStore"
+            <DiscussionHeader v-if="!header.isStore"
               :repliesCount="repliesCount(threadIndex)"
-              :discussionHeader="thread"
+              :discussionHeader="header"
             />
           </v-expansion-panel-header>
           <v-expansion-panel-content class="px-4">
@@ -106,7 +106,7 @@ export default {
     }
   },
   computed: {
-    threads() {
+    headers() {
       return this.filteredDiscussions(this.selectedTopic)
         .map(comments => {
           const firstComment = comments[0]
@@ -119,7 +119,7 @@ export default {
         }).flat()
     },
     storeCount() {
-      return index => this.threads
+      return index => this.headers
         .slice(0, index)
         .filter(item => item.isStore).length
     },
@@ -132,7 +132,7 @@ export default {
     repliesCount() {
       return index => {
         const threadIndex = index - this.storeCount(index)
-        return this.filteredDiscussions(this.selectedTopic)[threadIndex].length
+        return this.filteredDiscussions(this.selectedTopic)[threadIndex].length - 1
       }
     },
     threadId() {
