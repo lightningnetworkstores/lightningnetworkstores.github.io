@@ -11,6 +11,9 @@
             <DiscussionHeader v-if="!header.isStore"
               :repliesCount="repliesCount(threadIndex)"
               :discussionHeader="header"
+              :threadIndex="threadIndex"
+              :threadId="threadId(threadIndex)"
+              @paid-reply-request="handlePaidReplyRequest"
             />
           </v-expansion-panel-header>
           <v-expansion-panel-content class="px-4">

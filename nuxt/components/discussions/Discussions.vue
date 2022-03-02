@@ -4,10 +4,13 @@
       <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
         <v-expansion-panel v-for="(header, threadIndex) in headers" :key="header.id">
-          <v-expansion-panel-header class="d-flex flex-column align-start my-0 py-0">
+          <v-expansion-panel-header class="d-flex flex-column align-end my-0 py-0">
             <DiscussionHeader
               :repliesCount="repliesCount(threadIndex)"
               :discussionHeader="header"
+              :threadIndex="threadIndex"
+              :threadId="threadId(threadIndex)"
+              @paid-reply-request="handlePaidReplyRequest"
             />
           </v-expansion-panel-header>
           <v-expansion-panel-content class="px-4">
