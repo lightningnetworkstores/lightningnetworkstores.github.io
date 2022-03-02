@@ -1,5 +1,5 @@
 <template>
-  <v-sheet rounded outlined class="mr-4" height="100">
+  <v-sheet rounded outlined class="mr-1" height="100">
     <div class="d-flex">
       <v-img
         @click="() => handleInternalLink(store.rooturl)"

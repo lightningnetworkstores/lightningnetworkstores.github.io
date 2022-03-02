@@ -34,7 +34,8 @@
     <v-row v-if="!showAll">
       <v-col>
         <div v-if="showDiscussions">
-          <Discussions/>
+          <DiscussionsMobile v-if="$vuetify.breakpoint.mobile"/>
+          <Discussions v-if="!$vuetify.breakpoint.mobile"/>
         </div>
         <div v-if="showReviews">
           Reviews
@@ -53,8 +54,9 @@
 </template>
 <script>
 import Discussions from '@/components/discussions/Discussions.vue'
+import DiscussionsMobile from '@/components/discussions/DiscussionsMobile.vue'
 export default {
-  components: { Discussions },
+  components: { Discussions, DiscussionsMobile },
   data() {
     return {
       selected: null

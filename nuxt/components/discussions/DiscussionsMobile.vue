@@ -4,8 +4,11 @@
       <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
         <v-expansion-panel v-for="(thread, threadIndex) in threads" :key="thread.id">
-          <v-expansion-panel-header class="d-flex flex-column align-start my-0 py-0">
-            <DiscussionHeader
+          <v-expansion-panel-header class="d-flex flex-column align-start my-0 py-0" :disabled="thread.isStore" :hide-actions="thread.isStore">
+            <div class="my-2 mx-0 px-0">
+              <StorePreview :store="thread" v-if="thread.isStore"/>
+            </div>
+            <DiscussionHeader v-if="!thread.isStore"
               :repliesCount="repliesCount(threadIndex)"
               :discussionHeader="thread"
             />
@@ -14,7 +17,6 @@
             <v-sheet
               v-for="(reply, replyIndex) in replies(threadIndex)"
               :key="reply.id"
-              :style="{background: getReplyBackground(reply)}"
             >
               <v-divider v-if="replyIndex === 0"></v-divider>
               <div class="text-caption d-flex justify-space-between my-3">
@@ -31,11 +33,7 @@
                   />
                 </div>
               </div>
-              <Reply
-                :reply="reply.comment"
-                @hover-on="u => handleHoverOn(u)"
-                @hover-off="u => handleHoverOff(u)"
-              />
+              <Reply :reply="reply.comment"/>
               <v-divider v-if="replyIndex < (repliesCount(threadIndex) - 2)"></v-divider>
             </v-sheet>
           </v-expansion-panel-content>
@@ -64,7 +62,14 @@ import StorePreview from './StorePreview'
 import DiscussionHeader from './DiscussionHeader.vue'
 
 export default {
-  components: { DiscussionReplyModal, UserTag, PaidReplyModal, Topics, Reply, StorePreview, DiscussionHeader },
+  components: { DiscussionReplyModal,
+    UserTag,
+    PaidReplyModal,
+    Topics,
+    Reply,
+    StorePreview,
+    DiscussionHeader
+  },
   data() {
     return {
       paidReplyData: null,
@@ -102,30 +107,42 @@ export default {
   },
   computed: {
     threads() {
-      return this.filteredDiscussions(this.selectedTopic).map(comments => comments[0])
+      return this.filteredDiscussions(this.selectedTopic)
+        .map(comments => {
+          const firstComment = comments[0]
+          const { store } = firstComment
+          if (store) {
+            return [{isStore: true, ...store}, {isStore: false, ...firstComment}]
+          } else {
+            return [{isStore: false, ...firstComment}]
+          }
+        }).flat()
+    },
+    storeCount() {
+      return index => this.threads
+        .slice(0, index)
+        .filter(item => item.isStore).length
     },
     replies() {
-      return index => this.filteredDiscussions(this.selectedTopic)[index].slice(1)
+      return index => {
+        const threadIndex = index - this.storeCount(index)
+        return this.filteredDiscussions(this.selectedTopic)[threadIndex].slice(1)
+      }
     },
     repliesCount() {
-      return index => this.filteredDiscussions(this.selectedTopic)[index].length
+      return index => {
+        const threadIndex = index - this.storeCount(index)
+        return this.filteredDiscussions(this.selectedTopic)[threadIndex].length
+      }
     },
     threadId() {
-      return index => this.filteredDiscussions(this.selectedTopic)[index][0].thread_id
+      return index => {
+        const threadIndex = index - this.storeCount(index)
+        return this.filteredDiscussions(this.selectedTopic)[threadIndex][0].thread_id
+      }
     },
     ...mapGetters('discussions', ['filteredDiscussions']),
     ...mapState('discussions', ['lastDiscussions'])
   }
 }
 </script>
-<style scoped>
-@media (max-width: 600px) {
-  .comment-title {
-    width: 45vh;
-    overflow: hidden;
-  }  
-}
-selected-comment {
-  background-color: aliceblue;
-}
-</style>
