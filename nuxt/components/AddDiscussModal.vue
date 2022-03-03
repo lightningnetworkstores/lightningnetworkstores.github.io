@@ -83,6 +83,7 @@
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <v-textarea
+                      outlined
                       v-model="addDiscussionForm.comment"
                       type="text"
                       :counter="
@@ -107,13 +108,22 @@
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <v-autocomplete
+                      outlined
                       :items="storeSummary"
                       label="Store (optional)"
                       v-model="addDiscussionForm.storeId"
                     />
                   </v-flex>
                 </v-layout>
-
+                <div>
+                  <v-select
+                    outlined
+                    v-model="selectedTopic"
+                    :items="topics"
+                    label="Topics (optional)"
+                  >
+                  </v-select>
+                </div>
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
@@ -159,13 +169,14 @@ export default {
       expiryTime: new Date(),
       isPaid: false,
       tweet: null,
-
+      selectedTopic: null,
       checkPaymentTimer: null,
       addDiscussionFee: 0,
     }
   },
   computed: {
     ...mapState(['storeSummary']),
+    ...mapState('discussions', ['topics'])
   },
   methods: {
     openDialog() {
@@ -209,7 +220,9 @@ export default {
         if (this.addDiscussionForm.storeId) {
           payload.storeID = this.addDiscussionForm.storeId
         }
-
+        if (this.selectedTopic) {
+          payload.topic = this.selectedTopic
+        }
         
         console.log(payload.recaptchaToken)
         
