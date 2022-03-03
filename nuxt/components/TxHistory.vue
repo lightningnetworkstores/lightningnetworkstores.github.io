@@ -34,7 +34,7 @@
       </v-tooltip>
     </template>
     <template v-slot:[`item.from`]="{ item }">
-      {{ item.from === twitterID ? '-' : item.from }}
+      <UserTransferWidget :user="item.from"/>
     </template>
   </v-data-table>
 </template>
@@ -42,8 +42,12 @@
 import { mapState } from 'vuex'
 import { DateTime } from 'luxon'
 import { format } from 'timeago.js'
+import UserTransferWidget from './UserTransferWidget'
 
 export default {
+  components: {
+    UserTransferWidget
+  },
   data() {
     return {
       headers: [
@@ -51,13 +55,16 @@ export default {
         { text: 'Amount', value: 'amount' },
         { text: 'Fee' , value: 'fee' },
         { text: 'Time', value: 'time' },
-        { text: 'From', value: 'from' }
+        { text: 'To/From', value: 'from' }
       ]
     }
   },
   methods: {
     formatAmount(item) {
-      return item.from === this.twitterID ? `-${item.amount}` : `+${item.amount}`
+      if (item.from) {
+        return item.from.id === this.twitterID ? `-${item.amount}` : `+${item.amount}`
+      }
+      return '-'
     },
     getIcon(type) {
       switch(type) {
@@ -75,7 +82,7 @@ export default {
       } else if (item.type === 'LN_DEPOSIT') {
         return 'green'
       } else if (item.type === 'TRANSFER') {
-        if (item.from === this.twitterID)
+        if (item.from.id === this.twitterID)
           return 'red'
         else
           return 'green'
@@ -112,7 +119,7 @@ export default {
           amount: transfer.amount,
           type: transfer.type,
           time: transfer.timestamp,
-          from: transfer.sender ? transfer.sender : '-',
+          from: transfer.type === 'TRANSFER' ? (transfer.sender ? transfer.sender : null) : null,
           fee: transfer.fee
         }))
     }
