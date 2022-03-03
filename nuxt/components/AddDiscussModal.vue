@@ -161,7 +161,7 @@ export default {
       showAddDialog: false,
       addDiscussionForm: {},
       addAlert: { message: '', success: true },
-      confirm_title: 'Store successfully added.',
+      confirm_title: 'Success!',
       isLoading: false,
 
       paymentRequest: '',
@@ -233,7 +233,6 @@ export default {
               this.addDiscussionFee = response.data.amount
               this.paymentRequest = response.data.payment_request
               this.paymentID = response.data.id
-              //     this.confirm_title = 'Store successfully added.'
 
               let date = new Date()
               this.expiryTime = new Date(
