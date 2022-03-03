@@ -115,13 +115,20 @@ export default {
       return state
         .wallet.transfers
         .filter(transfer => transfer.status === 'DONE')
-        .map(transfer => ({
-          amount: transfer.amount,
-          type: transfer.type,
-          time: transfer.timestamp,
-          from: transfer.type === 'TRANSFER' ? (transfer.sender ? transfer.sender : null) : null,
-          fee: transfer.fee
-        }))
+        .map(transfer => {
+          const { twitterID } = state.wallet.profile
+          let from = null
+          if (transfer.type === 'TRANSFER') {
+            from = transfer.sender.id === twitterID ? transfer.receiver : transfer.sender
+          }
+          return {
+            amount: transfer.amount,
+            type: transfer.type,
+            time: transfer.timestamp,
+            from: from,
+            fee: transfer.fee
+          }
+        })
     }
   })
 }
