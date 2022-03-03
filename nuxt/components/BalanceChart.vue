@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="d-flex flex-column justify-center align-center flex-grow-1">
     <ccv-donut-chart
+      class="mb-2"
       v-if="balance !== null"
       :data="chartData" :options="options"
     />
-    <div class="text-caption d-flex justify-center align-center mt-2" style="color: gray">
+    <div class="text-caption d-flex justify-center align-end flex-grow-1" style="color: gray">
       * Withdrawable Balance: {{ withdrawable }} sats
     </div>
   </div>
@@ -20,7 +21,7 @@ const ranges = [
 function formatNumber(n) {
   for (var i = 0; i < ranges.length; i++) {
     if (n >= ranges[i].divider) {
-      return (n / ranges[i].divider).toString() + ranges[i].suffix;
+      return Math.floor(n / ranges[i].divider).toString() + ranges[i].suffix;
     }
   }
   return n.toString();
