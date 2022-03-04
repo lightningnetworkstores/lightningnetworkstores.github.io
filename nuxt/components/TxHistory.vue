@@ -128,7 +128,7 @@ export default {
                 .filter((transfer) => transfer.status === 'DONE')
                 .map((transfer) => {
                     const { twitterID } = state.wallet.profile
-                    let from = null
+                    let from = transfer.sender
                     if (transfer.type === 'TRANSFER') {
                         from =
                             transfer.sender.id === twitterID
