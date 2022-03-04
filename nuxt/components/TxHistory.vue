@@ -93,6 +93,8 @@ export default {
         return 'red'
       } else if (item.type === 'LN_DEPOSIT') {
         return 'green'
+      } else if(item.type === 'AFFILIATE_PAYOUT'){
+        return 'green'
       } else if (item.type === 'TRANSFER') {
         if (item.from.id === this.twitterID) return 'red'
         else return 'green'
