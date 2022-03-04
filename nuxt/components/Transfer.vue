@@ -1,15 +1,6 @@
 <template>
   <div class="ma-2">
-    <v-text-field
-      v-model="amount"
-      outlined
-      type="number"
-      label="Amount (sats)"
-      :rules="amountRules"
-      :disabled="isSending"
-    >
-    </v-text-field>
-    <v-autocomplete
+        <v-autocomplete
       v-model="recipient"
       outlined
       :items="suggestions"
@@ -43,6 +34,15 @@
         </v-list-item-content>
       </template>
     </v-autocomplete>
+    <v-text-field
+      v-model="amount"
+      outlined
+      type="number"
+      label="Amount (sats)"
+      :rules="amountRules"
+      :disabled="isSending"
+    >
+    </v-text-field>
     <v-progress-linear v-if="isSending" class="my-2"></v-progress-linear>
     <v-btn
       :disabled="disableTransfer"
