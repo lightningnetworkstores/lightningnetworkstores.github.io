@@ -9,28 +9,15 @@
           <v-img v-if="user && user.image" :src="user.image" />
           <v-icon large v-else>mdi-account-circle</v-icon>
         </v-avatar>
-        <div v-if="user && user.handle">
+        <div v-if="user">
           <div class="text-caption py-0 my-0 tx-history-avatar-text">
             {{ user.name }}
           </div>
-          <div
-            class=" text-caption py-0 my-0 font-weight-thin tx-history-avatar-text"
-          >
+          <div v-if="user.handle" class=" text-caption py-0 my-0 font-weight-thin tx-history-avatar-text">
             @{{ user.handle }}
           </div>
         </div>
-        <div v-else>
-          <div
-            v-if="user && user.name"
-            class="text-caption py-0 my-0"
-          >
-            {{ user.name }}
-          </div>
-          <div v-if="user" class="text-caption py-0 my-0">
-            {{ user.id }}
-          </div>
-          <div v-else class="text-caption py-0 my-0">External</div>
-        </div>
+        <div v-else class="text-caption py-0 my-0">External</div>
       </div>
     </v-chip>
   </div>

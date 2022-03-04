@@ -134,6 +134,8 @@ export default {
               transfer.sender.id === twitterID
                 ? transfer.receiver
                 : transfer.sender
+          } else if (transfer.type === 'AFFILIATE_PAYOUT') {
+            from = { name: 'Affiliate Payout' }
           }
           return {
             amount: transfer.amount,
