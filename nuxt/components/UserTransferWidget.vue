@@ -9,7 +9,7 @@
                     <v-img v-if="user && user.image" :src="user.image" />
                     <v-icon large v-else>mdi-account-circle</v-icon>
                 </v-avatar>
-                <div v-if="user.handle">
+                <div v-if="user && user.handle">
                     <div class="text-caption py-0 my-0 tx-history-avatar-text">
                         {{ user.name }}
                     </div>
