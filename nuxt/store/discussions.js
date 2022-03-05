@@ -1,6 +1,8 @@
 export const state = () => ({
+  isAdmin: false,
   lastDiscussions: [],
-  topics: []
+  topics: [],
+  error: null
 })
 
 export const actions = {
@@ -45,6 +47,33 @@ export const actions = {
         }
         return paid
       })
+  },
+  getLogStatus({ commit }) {
+    this.$axios.$get('/api/logstatus')
+      .then(data => commit('updateAdmin', data.data.is_admin))
+  },
+  deleteComment({ commit }, payload) {
+    const deleteBody = {
+      ban_reason: payload.reason,
+      ban_days: 0,
+      comments: payload.comments
+    }
+    const commentId = payload.comments[0]
+    const { threadIndex } = payload
+    this.$axios.$delete('/api/comment', { data: deleteBody })
+      .then(data => {
+        if (data.data.deleted === `[${commentId}]`) {
+          commit('deleteComment', { threadIndex, commentId })
+        }
+      })
+      .catch(({ response }) => {
+        if (response && response.data && response.data.message) {
+          commit('setError', response.data.message)
+        }
+      })
+  },
+  clearError({ commit }) {
+    commit('clearError')
   }
 }
 
@@ -71,5 +100,20 @@ export const mutations = {
   },
   setTopics(state, topics) {
     state.topics = topics
+  },
+  updateAdmin(state, isAdmin) {
+    state.isAdmin = isAdmin
+  },
+  deleteComment(state, { threadIndex, commentId }) {
+    const commentIndex = state
+      .lastDiscussions[threadIndex]
+      .findIndex(comment => comment.id === commentId)
+    state.lastDiscussions[threadIndex].splice(commentIndex, 1)
+  },
+  setError(state, errorMessage) {
+    state.error = errorMessage
+  },
+  clearError(state) {
+    state.error = null
   }
 }

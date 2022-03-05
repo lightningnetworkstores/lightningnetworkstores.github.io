@@ -34,11 +34,17 @@
                   />
                 </div>
               </div>
-              <Reply
-                :reply="reply.comment"
-                @hover-on="u => handleHoverOn(u)"
-                @hover-off="u => handleHoverOff(u)"
-              />
+              <div class="d-flex justify-space-between">
+                <Reply
+                  :reply="reply.comment"
+                  @hover-on="u => handleHoverOn(u)"
+                  @hover-off="u => handleHoverOff(u)"
+                />
+                <DeleteCommentModal v-if="isAdmin"
+                  :threadIndex="threadIndex"
+                  :commentId="reply.id"
+                />
+              </div>
               <v-divider v-if="replyIndex < (repliesCount(threadIndex) - 2)"></v-divider>
             </v-sheet>
           </v-expansion-panel-content>
@@ -52,6 +58,14 @@
       :message="paidReplyData.message"
       :paymentId="paidReplyData.data.id"
     />
+    <v-snackbar bottom :value="error" :timeout="2e3">
+      {{ error }}
+      <template v-slot:action="{ attrs }">
+        <v-btn text :attrs="attrs" color="red" @click="closeSnackbar">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 <script>
@@ -65,9 +79,19 @@ import Topics from './Topics.vue'
 import Reply from './Reply.vue'
 import StorePreview from './StorePreview'
 import DiscussionHeader from './DiscussionHeader.vue'
+import DeleteCommentModal from './DeleteCommentModal.vue'
 
 export default {
-  components: { DiscussionReplyModal, UserTag, PaidReplyModal, Topics, Reply, StorePreview, DiscussionHeader },
+  components: {
+    DiscussionReplyModal,
+    UserTag,
+    PaidReplyModal,
+    Topics,
+    Reply,
+    StorePreview,
+    DiscussionHeader,
+    DeleteCommentModal
+  },
   data() {
     return {
       paidReplyData: null,
@@ -77,6 +101,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('discussions/getDiscussions')
+    this.$store.dispatch('discussions/getLogStatus')
   },
   methods: {
     formatDate(timestamp) {
@@ -101,6 +126,17 @@ export default {
         return 'aliceblue'
       }
       return 'white'
+    },
+    handleDelete(threadIndex, commentId) {
+      const deletePayload = {
+        threadIndex,
+        reason: '',
+        comments: [ commentId ]
+      }
+      this.$store.dispatch('discussions/deleteComment', deletePayload)
+    },
+    closeSnackbar() {
+      this.$store.dispatch('discussions/clearError')
     }
   },
   computed: {
@@ -117,7 +153,7 @@ export default {
       return index => this.filteredDiscussions(this.selectedTopic)[index][0].thread_id
     },
     ...mapGetters('discussions', ['filteredDiscussions']),
-    ...mapState('discussions', ['lastDiscussions'])
+    ...mapState('discussions', ['lastDiscussions', 'error', 'isAdmin'])
   }
 }
 </script>
