@@ -45,6 +45,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <LoginButton v-if="!isLogged" />
     </v-toolbar-items>
     <v-menu class="hidden-md-and-up">
       <template v-slot:activator="{ on, attrs }">
@@ -76,17 +77,6 @@
                 {{ route.text }}
               </div>
             </v-list-item-title>
-          </v-list-item>
-        </v-list-item>
-        <v-list-item href="https://t.me/LNstores">
-          <v-list-item>
-            <v-list-item-title>Telegram</v-list-item-title>
-          </v-list-item>
-        </v-list-item>
-
-        <v-list-item href="https://medium.com/@BitcoinLNS">
-          <v-list-item>
-            <v-list-item-title>Medium</v-list-item-title>
           </v-list-item>
         </v-list-item>
         <v-list-item v-if="isLogged">

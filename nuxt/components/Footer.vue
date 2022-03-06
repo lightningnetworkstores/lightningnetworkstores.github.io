@@ -7,15 +7,33 @@
   >
     <v-col>
       <v-row justify="center">
-        <v-btn icon href="https://twitter.com/bitcoinLNS" class="mx-2">
+        <v-btn
+          icon
+          href="https://twitter.com/bitcoinLNS"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mx-2"
+        >
           <v-icon small>fab fa-twitter</v-icon>
         </v-btn>
 
-        <v-btn icon href="https://t.me/LNstores" class="mx-2">
+        <v-btn
+          icon
+          href="https://t.me/LNstores"
+          class="mx-2"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <v-icon small>fab fa-telegram-plane</v-icon>
         </v-btn>
 
-        <v-btn icon href="https://medium.com/@BitcoinLNS" class="mx-2">
+        <v-btn
+          icon
+          href="https://medium.com/@BitcoinLNS"
+          class="mx-2"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <v-icon small>fab fa-medium</v-icon>
         </v-btn>
       </v-row>

@@ -5,11 +5,15 @@
         <v-container>
           <v-row>
             <v-col>
-              <v-card elevation="2" class="px-5 py-6" min-height="30em">
-                <v-card-title class="d-flex justify-center text-h4">
+              <v-card
+                elevation="2"
+                class="px-5 py-1 d-flex flex-column"
+                min-height="30em"
+              >
+                <v-card-title class="d-flex justify-center text-h4 flex-shrink-1">
                   Balance
                 </v-card-title>
-                <div v-if="info !== null">
+                <div v-if="info !== null" class="d-flex flex-column flex-grow-1">
                   <BalanceChart />
                 </div>
               </v-card>
@@ -41,9 +45,7 @@
     <div class="hidden-md-and-up mt-5">
       <v-layout d-flex flex-column align-center>
         <v-card elevation="2" class="ma-1 px-3" min-width="95%">
-          <v-card-title class="d-flex justify-center text-h4">
-            Balance
-          </v-card-title>
+          <v-card-title class="d-flex justify-center text-h4"> Balance </v-card-title>
           <div v-if="info !== null">
             <BalanceChart />
           </div>
@@ -61,15 +63,15 @@ export default {
   data() {
     return {
       info: null,
-    }
+    };
   },
   mounted() {
     this.$axios
-      .get('/api/dashboardinfo')
+      .get("/api/dashboardinfo")
       .then((res) => res.data)
       .then((data) => data.data)
       .then((data) => (this.info = data))
-      .catch(console.error)
+      .catch(console.error);
   },
-}
+};
 </script>
