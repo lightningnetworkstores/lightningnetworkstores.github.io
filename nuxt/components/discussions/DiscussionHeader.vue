@@ -40,6 +40,10 @@
             {{ repliesCount }}
           </v-chip>
         </div>
+        <DeleteCommentModal v-if="isAdmin"
+          :threadIndex="threadIndex"
+          :commentId="discussionHeader.id"
+        />
         <div class="d-flex justify-end flex-grow-0" style="min-width: 3em">
           <DiscussionReplyModal
             :reply="{...discussionHeader, id: 'Reply'}"
@@ -49,7 +53,6 @@
             color="primary"
           />
         </div>
-
       </v-col>
     </v-row>
   </v-container>
@@ -59,9 +62,12 @@ import StorePreview from './StorePreview'
 import DateFromatter from '~/mixins/DateFormatter'
 import UserTag from './UserTag.vue'
 import DiscussionReplyModal from './DiscussionReplyModal.vue'
+import DeleteCommentModal from './DeleteCommentModal'
+import { mapState } from 'vuex'
+
 export default {
   components: {
-    StorePreview, UserTag, DiscussionReplyModal
+    StorePreview, UserTag, DiscussionReplyModal, DeleteCommentModal
   },
   mixins: [ DateFromatter ],
   props: {
@@ -83,7 +89,8 @@ export default {
   computed: {
     isMobile() {
       return this.$vuetify.breakpoint.mobile
-    }
+    },
+    ...mapState('discussions', ['isAdmin'])
   }
 }
 </script>

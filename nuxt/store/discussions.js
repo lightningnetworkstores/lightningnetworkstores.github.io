@@ -52,19 +52,15 @@ export const actions = {
     this.$axios.$get('/api/logstatus')
       .then(data => commit('updateAdmin', data.data.is_admin))
   },
-  deleteComment({ commit }, payload) {
+  deleteComment({ commit, dispatch }, payload) {
     const deleteBody = {
       ban_reason: payload.reason,
       ban_days: 0,
       comments: payload.comments
     }
-    const commentId = payload.comments[0]
-    const { threadIndex } = payload
     this.$axios.$delete('/api/comment', { data: deleteBody })
       .then(data => {
-        if (data.data.deleted === `[${commentId}]`) {
-          commit('deleteComment', { threadIndex, commentId })
-        }
+        dispatch('getDiscussions')
       })
       .catch(({ response }) => {
         if (response && response.data && response.data.message) {
@@ -103,12 +99,6 @@ export const mutations = {
   },
   updateAdmin(state, isAdmin) {
     state.isAdmin = isAdmin
-  },
-  deleteComment(state, { threadIndex, commentId }) {
-    const commentIndex = state
-      .lastDiscussions[threadIndex]
-      .findIndex(comment => comment.id === commentId)
-    state.lastDiscussions[threadIndex].splice(commentIndex, 1)
   },
   setError(state, errorMessage) {
     state.error = errorMessage
