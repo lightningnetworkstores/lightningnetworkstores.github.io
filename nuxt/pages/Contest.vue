@@ -48,7 +48,7 @@
         :store="store"
         :contestId="storeContest.contest.id"
         :disabled="!isLogged || stage !== 'MAIN'"
-        :selected="store.id == choice"
+        :selected="store.id === choice"
       />
     </v-container>
   </div>

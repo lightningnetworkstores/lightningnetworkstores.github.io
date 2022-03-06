@@ -30,5 +30,6 @@
   },
   "git.ignoreLimitWarning": true,
   "cSpell.words": ["dashboardinfo"],
-  "vue3snippets.enable-compile-vue-file-on-did-save-code": true
+	"vue3snippets.enable-compile-vue-file-on-did-save-code": true,
+	"nuxt.isNuxtApp": true
 }

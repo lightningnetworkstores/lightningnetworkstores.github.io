@@ -40,7 +40,8 @@
       </v-btn>
     </v-container>
 
-    <div class="grid-list mt-8">
+    <div v-if="stage === 'COMPLETE'"></div>
+    <div v-else class="grid-list mt-8">
       <contest-quiz-card
         :disabled="!isLogged || stage !== 'MAIN'"
         v-for="option in options"
@@ -50,7 +51,6 @@
         :option="option"
       />
     </div>
-
     <v-container class="mt-4" v-if="isLogged && userBets">
       <h3 class="mb-4">Your bets</h3>
       <user-bets-table :userBets="userBets" :waitingForEnd="stage !== 'COMPLETE'" />

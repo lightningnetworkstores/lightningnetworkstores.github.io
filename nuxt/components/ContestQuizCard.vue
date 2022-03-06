@@ -1,10 +1,5 @@
 <template>
-  <v-card
-    hover
-    :disabled="disabled"
-    class="quizCard"
-    :class="{ selected: selected }"
-  >
+  <v-card hover :disabled="disabled" class="quizCard" :class="{ selected: selected }">
     <v-card-title>{{ option }}</v-card-title>
     <v-card-actions>
       <v-btn
@@ -15,7 +10,7 @@
         @click="chooseOption"
       >
         <v-icon left dark> mdi-star </v-icon>
-        {{ selected ? 'chosen' : 'chose' }}
+        {{ selected ? "chosen" : "chose" }}
       </v-btn>
 
       <v-btn
@@ -37,29 +32,29 @@
 </template>
 
 <script>
-import PlaceBetModal from './PlaceBetModal.vue'
+import PlaceBetModal from "./PlaceBetModal.vue";
 
 export default {
   components: { PlaceBetModal },
-  props: ['option', 'disabled', 'contestId', 'selected'],
+  props: ["option", "disabled", "contestId", "selected"],
   data() {
     return {
       openAmountModal: false,
-    }
+    };
   },
   methods: {
     chooseOption() {
       this.$store
-        .dispatch('choseOption', {
+        .dispatch("choseOption", {
           contestID: this.contestId,
           choice: this.option,
         })
         .then(() => {
-          this.$store.dispatch('getQuizContest')
-        })
+          this.$store.dispatch("getQuizContest");
+        });
     },
   },
-}
+};
 </script>
 
 <style>
