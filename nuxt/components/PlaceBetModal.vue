@@ -11,8 +11,8 @@
         <v-text-field
           label="Amount"
           v-model="amount"
-          placeholder="20"
-          hint="min 20 sats"
+          :placeholder="minAmount"
+          :hint="`min ${minAmount} sats`"
           type="number"
           prefix="$"
           :rules="[rules.required, rules.number]"
@@ -32,17 +32,16 @@
 
 <script>
 export default {
-  props: ["option", "contestId", "isOpen"],
+  props: ["option", "contestId", "isOpen", "minAmount"],
   emits: ["update:isOpen"],
   data() {
     return {
       amount: "0",
       rules: {
         required: (value) => !!value || "Required.",
-        counter: (value) => value.length <= 20 || "Max 20 characters",
         number: (value) => {
           const pattern = /^[0-9]*$/;
-          return (pattern.test(value) && value >= 20) || "Invalid amount.";
+          return (pattern.test(value) && value >= this.minAmount) || "Invalid amount.";
         },
       },
     };

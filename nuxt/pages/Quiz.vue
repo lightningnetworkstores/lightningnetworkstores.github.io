@@ -49,6 +49,7 @@
         :key="'option-' + option"
         :contestId="contestId"
         :option="option"
+        :minBet="minimumBet"
       />
     </div>
     <v-container class="mt-4" v-if="isLogged && userBets">

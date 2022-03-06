@@ -98,6 +98,7 @@
       :isOpen.sync="openAmountModal"
       :contestId="contestId"
       :option="store.id"
+      :minAmount="minBet"
     />
   </v-card>
 </template>
@@ -108,7 +109,7 @@ import VoteButton from "../components/VoteButton.vue";
 import LikeStoreButton from "./LikeStoreButton.vue";
 
 export default {
-  props: ["store", "disabled", "contestId", "selected"],
+  props: ["store", "disabled", "contestId", "selected", "minBet"],
   components: { VoteButton, LikeStoreButton },
   data() {
     return {

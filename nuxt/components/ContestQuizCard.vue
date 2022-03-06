@@ -27,6 +27,7 @@
       :isOpen.sync="openAmountModal"
       :contestId="contestId"
       :option="option"
+      :minAmount="minBet"
     />
   </v-card>
 </template>
@@ -36,7 +37,7 @@ import PlaceBetModal from "./PlaceBetModal.vue";
 
 export default {
   components: { PlaceBetModal },
-  props: ["option", "disabled", "contestId", "selected"],
+  props: ["option", "disabled", "contestId", "selected", "minBet"],
   data() {
     return {
       openAmountModal: false,

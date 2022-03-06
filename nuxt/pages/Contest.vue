@@ -49,6 +49,7 @@
         :contestId="storeContest.contest.id"
         :disabled="!isLogged || stage !== 'MAIN'"
         :selected="store.id === choice"
+        :minBet="minimumBet"
       />
     </v-container>
   </div>
