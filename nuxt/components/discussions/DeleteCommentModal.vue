@@ -8,11 +8,16 @@
     <v-card>
       <v-card-title>Please confirm</v-card-title>
       <v-card-text>Click to confirm the removal of this comment</v-card-text>
+      <div class="mx-2 px-2">
+        <v-text-field outlined label="Days to Ban" type="number" v-model="daysToBan"/>
+        <v-text-field outlined label="Reason" v-model="reason"/>
+      </div>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="secondary" @click="showDialog = false">Cancel</v-btn>
         <v-btn color="primary" @click="deleteComment">YES</v-btn>
       </v-card-actions>
+      <v-progress-linear v-if="isProcessing" indeterminate></v-progress-linear>
     </v-card>
   </v-dialog>
 </template>
@@ -31,17 +36,24 @@ export default {
   },
   data() {
     return {
-      showDialog: false
+      isProcessing: false,
+      showDialog: false,
+      daysToBan: '',
+      reason: ''
     }
   },
   methods: {
-    deleteComment() {
+    async deleteComment() {
       const deletePayload = {
         threadIndex: this.threadIndex,
-        reason: '',
+        reason: this.reason,
+        daysToBan: this.daysToBan !== '' ? parseInt(this.daysToBan) : 0,
         comments: [ this.commentId ]
       }
-      this.$store.dispatch('discussions/deleteComment', deletePayload)
+      this.isProcessing = true
+      await this.$store.dispatch('discussions/deleteComment', deletePayload)
+      this.isProcessing = false
+      this.showDialog = false
     }
   },
   computed: {

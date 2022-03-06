@@ -55,10 +55,10 @@ export const actions = {
   deleteComment({ commit, dispatch }, payload) {
     const deleteBody = {
       ban_reason: payload.reason,
-      ban_days: 0,
+      ban_days: payload.daysToBan,
       comments: payload.comments
     }
-    this.$axios.$delete('/api/comment', { data: deleteBody })
+    return this.$axios.$delete('/api/comment', { data: deleteBody })
       .then(data => {
         dispatch('getDiscussions')
       })
