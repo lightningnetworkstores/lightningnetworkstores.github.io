@@ -1,5 +1,9 @@
 <template>
-  <v-card :disabled="disabled" hover class="d-flex flex-column justify-space-between">
+  <v-card
+    :disabled="disabled"
+    hover
+    class="d-flex flex-column justify-space-between"
+  >
     <v-card-text class="pa-0">
       <div class="detail">
         <div>
@@ -15,9 +19,14 @@
         <div class="pa-2 pl-5">
           <div @click="gotoStore(store)">
             <div class="mb-2 title">
-              <a :href="getStoreLink(store.href)" class="font-weight-regular text-h5">
+              <a
+                :href="getStoreLink(store.href)"
+                class="font-weight-regular text-h5"
+              >
                 {{ store.name }}
-                <v-icon class="ml-1" color="blue darken-2">mdi-open-in-new</v-icon>
+                <v-icon class="ml-1" color="blue darken-2"
+                  >mdi-open-in-new</v-icon
+                >
               </a>
             </div>
             <div class="description">{{ store.description }}</div>
@@ -31,9 +40,11 @@
                 small
                 class="mr-2 my-1"
               >
-                <b @click="updateTagSearch(store.tags[0], 0)" class="tag-link">{{
-                  store.tags[0]
-                }}</b>
+                <b
+                  @click="updateTagSearch(store.tags[0], 0)"
+                  class="tag-link"
+                  >{{ store.tags[0] }}</b
+                >
               </v-chip>
               <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
                 <template v-slot:activator="{ on, attrs }">
@@ -47,7 +58,7 @@
                   >
                     <b
                       >+{{ store.tags.length - 1 }} tag{{
-                        store.tags.length - 1 == 1 ? "" : "s"
+                        store.tags.length - 1 == 1 ? '' : 's'
                       }}</b
                     >
                   </v-chip>
@@ -60,9 +71,11 @@
                     class="my-0 tags-container"
                   >
                     <v-chip color="primary" outlined small class="mr-2 my-0">
-                      <b @click="updateTagSearch(tag, index)" class="tag-link">{{
-                        tag
-                      }}</b>
+                      <b
+                        @click="updateTagSearch(tag, index)"
+                        class="tag-link"
+                        >{{ tag }}</b
+                      >
                     </v-chip>
                   </v-list-item>
                 </v-list>
@@ -81,7 +94,7 @@
         @click="chooseStore"
       >
         <v-icon left dark> mdi-star </v-icon>
-        {{ selected ? "chosen" : "chose" }}
+        {{ selected ? 'chosen' : 'chose' }}
       </v-btn>
 
       <v-btn
@@ -99,51 +112,52 @@
       :contestId="contestId"
       :option="store.id"
       :minAmount="minBet"
+      type="store"
     />
   </v-card>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import VoteButton from "../components/VoteButton.vue";
-import LikeStoreButton from "./LikeStoreButton.vue";
+import { mapState } from 'vuex'
+import VoteButton from '../components/VoteButton.vue'
+import LikeStoreButton from './LikeStoreButton.vue'
 
 export default {
-  props: ["store", "disabled", "contestId", "selected", "minBet"],
+  props: ['store', 'disabled', 'contestId', 'selected', 'minBet'],
   components: { VoteButton, LikeStoreButton },
   data() {
     return {
       openAmountModal: false,
-    };
+    }
   },
   computed: {
     ...mapState({
       baseURL(state) {
-        return state.baseURL;
+        return state.baseURL
       },
     }),
   },
   methods: {
     getStoreLink(link) {
-      const url = new URL(link);
-      const baseUrl = new URL(this.baseURL);
-      url.searchParams.append("utm_source", baseUrl.host);
-      return url.toString();
+      const url = new URL(link)
+      const baseUrl = new URL(this.baseURL)
+      url.searchParams.append('utm_source', baseUrl.host)
+      return url.toString()
     },
     gotoStore(store) {
-      const { id, rootUrl } = store;
+      const { id, rootUrl } = store
 
-      this.$route.meta.storeId = id;
-      this.$router.push("/store/" + rootUrl);
+      this.$route.meta.storeId = id
+      this.$router.push('/store/' + rootUrl)
     },
     chooseStore() {
-      this.$store.dispatch("choseOption", {
+      this.$store.dispatch('choseOption', {
         contestID: this.contestId,
         choice: this.store.id,
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style scoped>

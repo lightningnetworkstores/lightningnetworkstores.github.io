@@ -28,6 +28,7 @@
       :contestId="contestId"
       :option="option"
       :minAmount="minBet"
+      type="quiz"
     />
   </v-card>
 </template>

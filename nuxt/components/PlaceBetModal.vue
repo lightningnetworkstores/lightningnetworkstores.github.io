@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  props: ["option", "contestId", "isOpen", "minAmount"],
+  props: ["option", "contestId", "isOpen", "minAmount", "type"],
   emits: ["update:isOpen"],
   data() {
     return {
@@ -62,7 +62,9 @@ export default {
         .then(() => {
           this.openAmountModal = false;
           this.amount = "0";
-          this.$store.dispatch("getQuizContest");
+          this.$store.dispatch(
+            this.type === "quiz" ? "getQuizContest" : "getStoreContest"
+          );
         });
     },
   },
