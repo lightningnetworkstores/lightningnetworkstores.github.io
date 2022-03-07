@@ -22,6 +22,7 @@
         <div class="text-body-1">
           <span class="font-weight-black">Removal Rate:</span> {{ criminalRecord.removal_rate }}</div>
       </div>
+      <v-btn class="text-body-1 mx-2 px-2" @click="handleMoreInfo">More Info</v-btn>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="secondary" @click="showDialog = false">Cancel</v-btn>
@@ -67,6 +68,9 @@ export default {
       await this.$store.dispatch('discussions/deleteComment', deletePayload)
       this.isProcessing = false
       this.showDialog = false
+    },
+    handleMoreInfo() {
+      window.open(`/api/baninfo?comment=${this.commentId}`, '_blank')
     }
   },
   computed: {
