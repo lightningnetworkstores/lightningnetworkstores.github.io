@@ -2,6 +2,7 @@ export const state = () => ({
   isAdmin: false,
   lastDiscussions: [],
   topics: [],
+  criminalRecord: null,
   error: null
 })
 
@@ -70,6 +71,13 @@ export const actions = {
   },
   clearError({ commit }) {
     commit('clearError')
+  },
+  getBanInfo({ commit }, commentId) {
+    this.$axios.$get(`/api/baninfo?comment=${commentId}`)
+      .then(data => {
+        commit('setCriminalRecord', data.data.criminal_record)
+      })
+      .catch(err => console.error('Error while fetching ban info. err: ', err))
   }
 }
 
@@ -105,5 +113,8 @@ export const mutations = {
   },
   clearError(state) {
     state.error = null
+  },
+  setCriminalRecord(state, criminalRecord) {
+    state.criminalRecord = criminalRecord
   }
 }
