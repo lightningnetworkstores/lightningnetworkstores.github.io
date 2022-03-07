@@ -11,7 +11,7 @@
         <v-text-field
           label="Amount"
           v-model="amount"
-          :placeholder="minAmount"
+          :placeholder="`${minAmount}`"
           :hint="`min ${minAmount} sats`"
           type="number"
           prefix="$"
@@ -60,7 +60,7 @@ export default {
           amount: this.amount,
         })
         .then(() => {
-          this.openAmountModal = false;
+          this.isOpen = false;
           this.amount = "0";
           this.$store.dispatch(
             this.type === "quiz" ? "getQuizContest" : "getStoreContest"

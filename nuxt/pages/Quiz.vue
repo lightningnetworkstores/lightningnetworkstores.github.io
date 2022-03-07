@@ -43,7 +43,7 @@
     <div v-if="stage === 'COMPLETE'"></div>
     <div v-else class="grid-list mt-8">
       <contest-quiz-card
-        :disabled="!isLogged || stage !== 'MAIN'"
+        :disabled="!isLogged || isContestClosed"
         v-for="option in options"
         :selected="choice === option"
         :key="'option-' + option"
@@ -54,7 +54,7 @@
     </div>
     <v-container class="mt-4" v-if="isLogged && userBets">
       <h3 class="mb-4">Your bets</h3>
-      <user-bets-table :userBets="userBets" :waitingForEnd="stage !== 'COMPLETE'" />
+      <user-bets-table :userBets="userBets" :waitingForEnd="isContestClosed" />
     </v-container>
   </div>
 </template>
@@ -99,10 +99,18 @@ export default {
       return this.quizContest.contest?.contestants.question;
     },
     minimumBet() {
-      return this.storeContest.minimum_bet;
+      return this.quizContest.minimum_bet;
     },
     stage() {
       return this.quizContest.contest?.stage;
+    },
+    isContestClosed() {
+      switch (this.stage) {
+        case "DISQUALIFIED" || "COMPLETE" || "CANCELLED":
+          return true;
+        default:
+          return false;
+      }
     },
   },
 

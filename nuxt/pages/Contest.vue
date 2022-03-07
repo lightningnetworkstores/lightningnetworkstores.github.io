@@ -47,7 +47,7 @@
         :key="'store-' + store.id"
         :store="store"
         :contestId="storeContest.contest.id"
-        :disabled="!isLogged || stage !== 'MAIN'"
+        :disabled="!isLogged || isContestClosed"
         :selected="store.id === choice"
         :minBet="minimumBet"
       />
@@ -77,7 +77,15 @@ export default {
         : "2020-01-01:00:00:00";
     },
     userBets() {
-      return this.quizContest?.user_bets || [];
+      return (
+        this.storeContest?.user_bets?.map(({ wager, choice, prize }) => {
+          return {
+            choice: this.storeContest.stores?.find((store) => store.id == choice)?.name,
+            prize: prize,
+            wager: wager,
+          };
+        }) || []
+      );
     },
     pot() {
       return this.storeContest.contest?.pot;
@@ -90,6 +98,14 @@ export default {
     },
     choice() {
       return this.storeContest.userVote?.choice;
+    },
+    isContestClosed() {
+      switch (this.stage) {
+        case "DISQUALIFIED" || "COMPLETE" || "CANCELLED":
+          return true;
+        default:
+          return false;
+      }
     },
   },
   methods: {
