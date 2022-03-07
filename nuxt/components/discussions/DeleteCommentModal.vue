@@ -12,7 +12,7 @@
         <v-text-field outlined label="Days to Ban" type="number" v-model="daysToBan"/>
         <v-text-field outlined label="Reason" v-model="reason"/>
       </div>
-      <div class="mx-2 px-2">
+      <div class="mx-2 px-2" v-if="criminalRecord">
         <div class="text-body-1">
           <span class="font-weight-black">Last Ban:</span> {{ criminalRecord.last_ban }}
         </div>
