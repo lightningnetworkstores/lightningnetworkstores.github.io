@@ -227,25 +227,20 @@ export default {
         console.log(payload.recaptchaToken)
         
 
-        this.$store.dispatch('addDiscussion', payload).then(
-          (response) => {
-            if (response.status === 'success') {
-              this.addDiscussionFee = response.data.amount
-              this.paymentRequest = response.data.payment_request
-              this.paymentID = response.data.id
+        this.$store.dispatch('discussions/addDiscussion', payload).then(
+          data => {
+            const { amount, payment_request, id } = data
+            this.addDiscussionFee = amount
+            this.paymentRequest = payment_request
+            this.paymentID = id
 
-              let date = new Date()
-              this.expiryTime = new Date(
-                date.setSeconds(date.getSeconds() + 3600)
-              )
-              this.checkPaymentTimer = setInterval(() => {
-                this.checkPayment()
-              }, 3000)
-            } else {
-              this.addAlert.message = response.message
-              this.addAlert.success = false
-            }
-
+            let date = new Date()
+            this.expiryTime = new Date(
+              date.setSeconds(date.getSeconds() + 3600)
+            )
+            this.checkPaymentTimer = setInterval(() => {
+              this.checkPayment()
+            }, 3000)
             this.isLoading = false
           },
           (error) => {
@@ -265,7 +260,6 @@ export default {
               this.isPaid = true
               this.addDiscussionForm = {}
               clearInterval(this.checkPaymentTimer)
-
               if (response.data.tweet !== undefined) {
                 this.tweet = response.data.tweet
               }

@@ -7,6 +7,10 @@ export const state = () => ({
 })
 
 export const actions = {
+  addDiscussion(context, payload) {
+    return this.$axios.$post(`/api/discussion?g-recaptcha-response=${payload.recaptchaToken}`, payload)
+      .then(data => data.data)
+  },
   getDiscussions({ commit }) {
     this.$axios.$get('/api/discussion')
       .then(data => {
