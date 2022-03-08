@@ -259,6 +259,7 @@ export default {
             if (response.data.paid == true) {
               this.isPaid = true
               this.addDiscussionForm = {}
+              this.$store.dispatch('getDiscussions')
               clearInterval(this.checkPaymentTimer)
               if (response.data.tweet !== undefined) {
                 this.tweet = response.data.tweet
