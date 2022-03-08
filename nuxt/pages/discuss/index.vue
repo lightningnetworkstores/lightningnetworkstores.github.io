@@ -38,7 +38,7 @@
           <Discussions v-if="!$vuetify.breakpoint.mobile"/>
         </div>
         <div v-if="showReviews">
-          Reviews
+          <Reviews/>
         </div>
         <div v-if="showNews">
           News
@@ -55,8 +55,9 @@
 <script>
 import Discussions from '@/components/discussions/Discussions.vue'
 import DiscussionsMobile from '@/components/discussions/DiscussionsMobile.vue'
+import Reviews from '@/components/reviews/Reviews.vue'
 export default {
-  components: { Discussions, DiscussionsMobile },
+  components: { Discussions, DiscussionsMobile, Reviews },
   data() {
     return {
       selected: null
