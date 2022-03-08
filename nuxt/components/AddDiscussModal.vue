@@ -44,13 +44,6 @@
           <v-card-text class="pa-0 cardContent" v-else>
             <v-card-title class="headline">
               <v-flex grow>Add new discussion</v-flex>
-              <v-flex shrink v-if="isLoading || paymentRequest.length"
-                ><v-progress-circular
-                  indeterminate
-                  size="20"
-                  color="green"
-                ></v-progress-circular
-              ></v-flex>
             </v-card-title>
             <Checkout
               v-if="paymentRequest"

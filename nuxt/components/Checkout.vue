@@ -21,18 +21,14 @@
     </v-layout>
 
     <v-layout row class="ma-0">
-      <v-flex pl-3 pr-3>
-        <v-text-field
-          :value="paymentRequest"
-          label="Invoice"
-          hint=""
-          append-icon="fa-copy"
-          type="text"
-          id="paymentrequest"
-          ref="paymentrequestfield"
-          @click:append="copy"
-        ></v-text-field
-      ></v-flex>
+      <v-card-text @click="copy" class="text-caption mt-3" ref="paymentrequestfield">
+        {{ paymentRequest }}
+      </v-card-text>
+    </v-layout>
+    <v-layout row justify-center align-center class="mb-3">
+      <v-btn icon @click="copy">
+        <v-icon>mdi-content-copy</v-icon>
+      </v-btn>
     </v-layout>
     <v-layout row class="ma-0">
       <v-flex pl-3 pr-3 class="text-center">
@@ -68,10 +64,8 @@ export default {
   },
   methods: {
     copy() {
-      // let input = document.getElementById('paymentrequest')!.focus()
-      this.$refs.paymentrequestfield.focus()
-      document.execCommand('SelectAll')
-      document.execCommand('copy')
+      navigator.clipboard.writeText(this.paymentRequest)
+        .catch(err => console.error('Error while copying to clipboard! Err: ', err))
     },
     closeModal() {
       this.$emit('cancel')
