@@ -99,8 +99,7 @@ export default {
       selectedReference: null
     }
   },
-  async mounted() {
-    await this.$store.dispatch('discussions/getDiscussions')
+  mounted() {
     this.$store.dispatch('discussions/getLogStatus')
   },
   methods: {

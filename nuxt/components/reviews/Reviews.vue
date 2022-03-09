@@ -1,6 +1,6 @@
 <template>
   <LazyListCards
-    :items="getActiveStoreDiscussions"
+    :items="reviews"
     :className="$style['store-row']"
     :maxItems="listCardsMaxItems"
   >
@@ -32,7 +32,7 @@
   </LazyListCards>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import LazyListCards from '../LazyListCards'
 import Thread from '../Thread.vue'
 
@@ -45,7 +45,7 @@ export default {
     this.$store.dispatch('getDiscussions')
   },
   computed: {
-    ...mapGetters(['getActiveStoreDiscussions']),
+    ...mapState('discussions', ['reviews']),
     listCardsMaxItems() {
       return this.$vuetify.breakpoint.width >= this.screenWidthBp ? 10 : 1
     }

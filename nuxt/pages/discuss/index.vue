@@ -63,6 +63,9 @@ export default {
       selected: null
     }
   },
+  mounted() {
+    this.$store.dispatch('discussions/getDiscussions')
+  },
   computed: {
     buttonWidth() {
       switch(this.$vuetify.breakpoint.name) {

@@ -1,6 +1,7 @@
 export const state = () => ({
   isAdmin: false,
   lastDiscussions: [],
+  reviews: [],
   topics: [],
   criminalRecord: null,
   error: null
@@ -16,6 +17,7 @@ export const actions = {
       .then(data => {
         commit('setTopics', data.data.configuration.topics)
         commit('setLastDiscussions', data.data.last_discussions)
+        commit('setReviews', data.data.last_active_stores)
       })
       .catch(err => console.error('Error fetching discussions: ', err))
   },
@@ -120,5 +122,18 @@ export const mutations = {
   },
   setCriminalRecord(state, criminalRecord) {
     state.criminalRecord = criminalRecord
+  },
+  setReviews(state, lastActiveStores) {
+    // Extracting reviews and segregating them from
+    // the store data
+    const reviews = lastActiveStores.map(store => {
+      let storeOnly = { ...store }
+      delete storeOnly['reviews']
+      return {
+        store: store,
+        reviews: store.reviews
+      }
+    })
+    state.reviews = reviews
   }
 }
