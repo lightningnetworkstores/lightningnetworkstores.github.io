@@ -271,20 +271,6 @@ const actions = {
         console.log(error)
       })
   },
-  addDiscussion({ state }, payload) {
-    return this.$axios
-      .post(
-        `${state.baseURL}api/discussion?g-recaptcha-response=${payload.recaptchaToken}`,
-        payload
-      )
-      .then((response) => {
-        return response.data
-      })
-      .catch((error) => {
-        console.log(error)
-        return error.response.data
-      })
-  },
   getDiscussionReplyPaymentRequest({ state }, payload) {
     return this.$axios
       .post(

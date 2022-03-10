@@ -1,14 +1,25 @@
 export const state = () => ({
+  isAdmin: false,
   lastDiscussions: [],
-  topics: []
+  reviews: [],
+  events: [],
+  topics: [],
+  criminalRecord: null,
+  error: null
 })
 
 export const actions = {
+  addDiscussion(context, payload) {
+    return this.$axios.$post(`/api/discussion?g-recaptcha-response=${payload.recaptchaToken}`, payload)
+      .then(data => data.data)
+  },
   getDiscussions({ commit }) {
     this.$axios.$get('/api/discussion')
       .then(data => {
         commit('setTopics', data.data.configuration.topics)
         commit('setLastDiscussions', data.data.last_discussions)
+        commit('setReviews', data.data.last_active_stores)
+        commit('setEvents', data.data.last_events)
       })
       .catch(err => console.error('Error fetching discussions: ', err))
   },
@@ -45,6 +56,36 @@ export const actions = {
         }
         return paid
       })
+  },
+  getLogStatus({ commit }) {
+    this.$axios.$get('/api/logstatus')
+      .then(data => commit('updateAdmin', data.data.is_admin))
+  },
+  deleteComment({ commit, dispatch }, payload) {
+    const deleteBody = {
+      ban_reason: payload.reason,
+      ban_days: payload.daysToBan,
+      comments: payload.comments
+    }
+    return this.$axios.$delete('/api/comment', { data: deleteBody })
+      .then(data => {
+        dispatch('getDiscussions')
+      })
+      .catch(({ response }) => {
+        if (response && response.data && response.data.message) {
+          commit('setError', response.data.message)
+        }
+      })
+  },
+  clearError({ commit }) {
+    commit('clearError')
+  },
+  getBanInfo({ commit }, commentId) {
+    this.$axios.$get(`/api/baninfo?comment=${commentId}`)
+      .then(data => {
+        commit('setCriminalRecord', data.data.criminal_record)
+      })
+      .catch(err => console.error('Error while fetching ban info. err: ', err))
   }
 }
 
@@ -71,5 +112,41 @@ export const mutations = {
   },
   setTopics(state, topics) {
     state.topics = topics
+  },
+  updateAdmin(state, isAdmin) {
+    state.isAdmin = isAdmin
+  },
+  setError(state, errorMessage) {
+    state.error = errorMessage
+  },
+  clearError(state) {
+    state.error = null
+  },
+  setCriminalRecord(state, criminalRecord) {
+    state.criminalRecord = criminalRecord
+  },
+  setReviews(state, lastActiveStores) {
+    // Extracting reviews and segregating them from
+    // the store data
+    const reviews = lastActiveStores.map(store => {
+      let storeOnly = { ...store }
+      delete storeOnly['reviews']
+      return {
+        store: store,
+        reviews: store.reviews
+      }
+    })
+    state.reviews = reviews
+  },
+  setEvents(state, lastEvents) {
+    const events = lastEvents.map(store => {
+      let storeOnly = { ...store }
+      delete storeOnly['events']
+      return {
+        store: store,
+        event: store.event
+      }
+    })
+    state.events = events
   }
 }
