@@ -60,7 +60,13 @@
       <v-row>
         <v-col class="text-center">
           <div class="grid-list">
-            <store-contest-votes-card v-for="n in 3" :key="n" /></div></v-col
+            <store-contest-votes-card
+              v-for="storeVote in votes"
+              :key="`store-${storeVote.store.id}`"
+              :store="storeVote.store"
+              :votes="storeVote.votes"
+              :bets="storeVote.bets"
+            /></div></v-col
       ></v-row>
     </template>
     <template v-else>

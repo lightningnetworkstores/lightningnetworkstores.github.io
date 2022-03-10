@@ -112,8 +112,8 @@ export default {
         { url: "/stats", text: "Statistics" },
         { url: "/wallets", text: "Wallets" },
         //{ url: '/donations', text: 'Donations' },
-        { url: "/contest", text: "Contests" },
-        { url: "/quiz", text: "Daily Quiz" },
+        // { url: "/contest", text: "Contests" },
+        // { url: "/quiz", text: "Daily Quiz" },
         { url: "/about", text: "About" },
       ],
     };
