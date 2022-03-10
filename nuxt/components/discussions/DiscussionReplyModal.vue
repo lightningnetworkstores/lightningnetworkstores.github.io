@@ -43,6 +43,7 @@
         <v-btn text @click="handleSubmit" color="primary" :disabled="disableSubmit">Submit</v-btn>
       </v-card-actions>
     </v-card>
+    <v-snackbar v-model="hasError" color="red">{{ errorMessage }}</v-snackbar>
   </v-dialog>
 </template>
 <script>
@@ -73,6 +74,8 @@ export default {
     return {
       message: '',
       showDialog: false,
+      hasError: null,
+      errorMessage: null,
       isValid: true,
       isProcessing: false
     }
@@ -100,6 +103,12 @@ export default {
       })
       .catch(err => {
         console.error('Error while trying to post reply. err: ', err)
+        this.hasError = true
+        if (err && err.response && err.response.data) {
+          this.errorMessage = err.response.data.message
+        } else {
+          this.errorMessage = 'Unknown error'
+        }
       })
       .finally(() => this.isProcessing = false)
     },
