@@ -1,12 +1,20 @@
 <template>
   <v-container
     ><v-row>
-      <v-col><h1 class="text-center">What's your favorite project?</h1></v-col></v-row
+      <v-col
+        ><h1 class="text-center">What's your favorite project?</h1></v-col
+      ></v-row
     >
     <v-row>
       <v-col
         ><div
-          class="d-flex flex-column flex-md-row align-center justify-center contest-info"
+          class="
+            d-flex
+            flex-column flex-md-row
+            align-center
+            justify-center
+            contest-info
+          "
         >
           <div class="d-flex align-center justify-center flex-wrap">
             <span class="title">Time left:</span>
@@ -47,7 +55,10 @@
     <v-row>
       <v-col>
         <h3 class="mb-4">Your bets</h3>
-        <user-bets-table :userBets="userBets" :waitingForEnd="isContestClosed" />
+        <user-bets-table
+          :userBets="userBets"
+          :waitingForEnd="isContestClosed"
+        />
       </v-col>
     </v-row>
     <v-row>
@@ -60,7 +71,13 @@
       <v-row>
         <v-col class="text-center">
           <div class="grid-list">
-            <store-contest-votes-card v-for="n in 3" :key="n" /></div></v-col
+            <store-contest-votes-card
+              v-for="storeVote in votes"
+              :key="`store-${storeVote.store.id}`"
+              :store="storeVote.store"
+              :votes="storeVote.votes"
+              :bets="storeVote.bets"
+            /></div></v-col
       ></v-row>
     </template>
     <template v-else>
@@ -87,57 +104,59 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
-import FlipCountdown from "vue2-flip-countdown";
+import { mapGetters, mapState } from 'vuex'
+import FlipCountdown from 'vue2-flip-countdown'
 
 export default {
   components: { FlipCountdown },
   computed: {
     ...mapGetters({
-      storeContest: "getStoreContest",
+      storeContest: 'getStoreContest',
     }),
     ...mapState({
       isLogged(state) {
-        if (state.loginStatus.user) return state.loginStatus.user.logged;
-        else return false;
+        if (state.loginStatus.user) return state.loginStatus.user.logged
+        else return false
       },
     }),
     deadline() {
       return this.storeContest.contest?.end
         ? new Date(this.storeContest.contest?.end).toLocaleString()
-        : "2020-01-01:00:00:00";
+        : '2020-01-01:00:00:00'
     },
     userBets() {
       return (
         this.storeContest?.user_bets?.map(({ wager, choice, prize }) => {
           return {
-            choice: this.storeContest.stores?.find((store) => store.id == choice)?.name,
+            choice: this.storeContest.stores?.find(
+              (store) => store.id == choice
+            )?.name,
             prize: prize,
             wager: wager,
-          };
+          }
         }) || []
-      );
+      )
     },
     pot() {
-      return this.storeContest.contest?.pot;
+      return this.storeContest.contest?.pot
     },
     minimumBet() {
-      return this.storeContest.minimum_bet;
+      return this.storeContest.minimum_bet
     },
     stage() {
-      return this.storeContest.contest?.stage;
+      return this.storeContest.contest?.stage
     },
     choice() {
-      return this.storeContest.userVote?.choice;
+      return this.storeContest.userVote?.choice
     },
     isContestClosed() {
       switch (this.stage) {
-        case "DISQUALIFIED":
-        case "COMPLETE":
-        case "CANCELLED":
-          return true;
+        case 'DISQUALIFIED':
+        case 'COMPLETE':
+        case 'CANCELLED':
+          return true
         default:
-          return false;
+          return false
       }
     },
     votes() {
@@ -146,31 +165,36 @@ export default {
           return {
             store,
             votes:
-              this.storeContest.votes?.filter((vote) => vote.choice === store.id) || [],
-            bets: this.storeContest.bets?.filter((bet) => bet.choice === store.id) || [],
-          };
-        });
+              this.storeContest.votes?.filter(
+                (vote) => vote.choice === store.id
+              ) || [],
+            bets:
+              this.storeContest.bets?.filter(
+                (bet) => bet.choice === store.id
+              ) || [],
+          }
+        })
       }
-      return [];
+      return []
     },
   },
   methods: {
     handleLoginClick() {
       this.$axios
-        .get("/api/oauthlogin?platform=twitter")
+        .get('/api/oauthlogin?platform=twitter')
         .then((res) => res.data)
         .then((data) => {
-          const { request_token, authorization_url, platform } = data.data;
-          console.log({ request_token, authorization_url, platform });
-          window.location.replace(authorization_url);
-        });
+          const { request_token, authorization_url, platform } = data.data
+          console.log({ request_token, authorization_url, platform })
+          window.location.replace(authorization_url)
+        })
     },
   },
 
   beforeMount() {
-    this.$store.dispatch("getStoreContest");
+    this.$store.dispatch('getStoreContest')
   },
-};
+}
 </script>
 
 <style scoped>

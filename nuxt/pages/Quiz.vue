@@ -47,17 +47,19 @@
         </v-btn></v-col
       >
     </v-row>
-    <template v-if="true">
+    <template v-if="isContestClosed">
       <v-row>
         <v-col><h2>Quiz Results</h2></v-col></v-row
       >
       <v-row>
-        <v-col class="text-center">
-          <div v-if="true" class="grid-list">
+        <v-col>
+          <div class="grid-list">
             <quiz-contest-votes-card
-              v-for="option in options"
-              :key="'option-' + option"
-              :option="option"
+              v-for="optionVote in votes"
+              :key="`optionVotes-${optionVote.option}`"
+              :option="optionVote.option"
+              :votes="optionVote.votes"
+              :bets="optionVote.bets"
             /></div></v-col
       ></v-row>
     </template>
@@ -66,7 +68,7 @@
         <v-col>
           <div class="grid-list">
             <quiz-contest-card
-              :disabled="!isLogged || isContestClosed"
+              :disabled="!isLogged"
               v-for="option in options"
               :selected="choice === option"
               :key="'option-' + option"
@@ -143,6 +145,18 @@ export default {
     },
     userBets() {
       return this.quizContest?.user_bets || [];
+    },
+    votes() {
+      if (this.isContestClosed) {
+        return this.quizContest.contestants.options.map((option) => {
+          return {
+            option,
+            votes: this.quizContest.votes?.filter((vote) => vote.choice === option) || [],
+            bets: this.quizContest.bets?.filter((bet) => bet.choice === option) || [],
+          };
+        });
+      }
+      return [];
     },
   },
 
