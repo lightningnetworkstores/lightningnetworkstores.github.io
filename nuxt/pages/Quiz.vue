@@ -47,13 +47,13 @@
         </v-btn></v-col
       >
     </v-row>
-    <template v-if="true">
+    <template v-if="isContestClosed">
       <v-row>
         <v-col><h2>Quiz Results</h2></v-col></v-row
       >
       <v-row>
-        <v-col class="text-center">
-          <div v-if="true" class="grid-list">
+        <v-col>
+          <div class="grid-list">
             <quiz-contest-votes-card
               v-for="optionVote in votes"
               :key="`optionVotes-${optionVote.option}`"
@@ -68,7 +68,7 @@
         <v-col>
           <div class="grid-list">
             <quiz-contest-card
-              :disabled="!isLogged || isContestClosed"
+              :disabled="!isLogged"
               v-for="option in options"
               :selected="choice === option"
               :key="'option-' + option"
