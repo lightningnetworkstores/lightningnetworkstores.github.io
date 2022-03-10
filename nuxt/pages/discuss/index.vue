@@ -38,10 +38,10 @@
           <Discussions v-if="!$vuetify.breakpoint.mobile"/>
         </div>
         <div v-if="showReviews">
-          Reviews
+          <Reviews/>
         </div>
         <div v-if="showNews">
-          News
+          <Events/>
         </div>
       </v-col>
     </v-row>
@@ -55,12 +55,17 @@
 <script>
 import Discussions from '@/components/discussions/Discussions.vue'
 import DiscussionsMobile from '@/components/discussions/DiscussionsMobile.vue'
+import Reviews from '@/components/reviews/Reviews.vue'
+import Events from '@/components/events/Events.vue'
 export default {
-  components: { Discussions, DiscussionsMobile },
+  components: { Discussions, DiscussionsMobile, Reviews, Events },
   data() {
     return {
-      selected: null
+      selected: 0
     }
+  },
+  mounted() {
+    this.$store.dispatch('discussions/getDiscussions')
   },
   computed: {
     buttonWidth() {

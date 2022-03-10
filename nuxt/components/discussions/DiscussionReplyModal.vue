@@ -7,12 +7,12 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-chip
-        color="#B4B4B4"
+        :color="color"
         v-bind="attrs"
         v-on="on"
         text-color="white"
         small
-        style="cursor: pointer"
+        style="cursor: pointer; min-width: 7em"
       >
         <v-icon class="pr-4">mdi-reply</v-icon>
         {{ reply.id.slice(0, 5) }}
@@ -59,11 +59,19 @@ export default {
     threadIndex: {
       type: Number,
       required: true
+    },
+    mentionReference: {
+      type: Boolean,
+      default: true
+    },
+    color: {
+      type: String,
+      default: 'primary'
     }
   },
   data() {
     return {
-      message: `@${this.reply.id.slice(0, 5)} `,
+      message: '',
       showDialog: false,
       isValid: true,
       isProcessing: false
@@ -71,6 +79,9 @@ export default {
   },
   mounted() {
     this.$recaptcha.init()
+    if (this.mentionReference) {
+      this.message = `@${this.reply.id.slice(0, 5)} `
+    }
   },
   methods: {
     async handleSubmit() {
