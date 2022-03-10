@@ -50,6 +50,7 @@
             :threadIndex="threadIndex"
             :mentionReference="false"
             color="primary"
+            @paid-reply-request="data => $emit('paid-reply-request', data)"
           />
         </div>
       </v-col>
