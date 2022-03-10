@@ -27,6 +27,7 @@ export const actions = {
     const body = {
       comment: params.comment,
       parent: params.parent,
+      sage: params.sage,
       recaptchaToken: params.recaptchaToken
     }
     const config = {

@@ -35,6 +35,8 @@
           :rules="replyRules"
         >
         </v-textarea>
+        <v-checkbox v-model="sage" class="my-0" label="Sage" color="primary">
+        </v-checkbox>
         <v-progress-linear v-if="isProcessing" indeterminate/>
       </v-card-text>
       <v-card-actions>
@@ -73,6 +75,7 @@ export default {
   data() {
     return {
       message: '',
+      sage: false,
       showDialog: false,
       hasError: null,
       errorMessage: null,
@@ -94,7 +97,8 @@ export default {
         recaptchaToken: recaptchaToken,
         parent: this.threadId,
         comment: this.message,
-        threadIndex: this.threadIndex
+        threadIndex: this.threadIndex,
+        sage: this.sage
       }).then(data => {
         this.showDialog = false
         if (!data.data.submitted && data.status === 'success') {
