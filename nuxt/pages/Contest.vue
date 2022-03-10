@@ -40,7 +40,7 @@
       </v-btn>
     </v-container>
 
-    <v-container class="grid-list mt-8">
+    <v-container v-if="false" class="grid-list mt-8">
       <contest-store-card
         v-for="store in storeContest.stores"
         :data-storeId="store.id"
@@ -52,6 +52,26 @@
         :minBet="minimumBet"
       />
     </v-container>
+    <v-container v-else>
+      <v-row no-gutters>
+        <v-col cols="12" sm="4">Stores </v-col>
+        <v-col cols="12" sm="4">votes </v-col>
+        <v-col cols="12" sm="4"> bets</v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col cols="12" sm="4">
+          <store-card :data-storeId="sampleStore.id" :store="sampleStore" />
+        </v-col>
+        <v-col cols="12" sm="4">
+          <div>
+            <v-avatar v-for="n in 3" :key="n" size="60">
+              <img :src="sampleUser.image" alt="John" />
+            </v-avatar>
+          </div>
+        </v-col>
+        <v-col cols="12" sm="4"> </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -60,6 +80,41 @@ import { mapGetters, mapState } from "vuex";
 import FlipCountdown from "vue2-flip-countdown";
 
 export default {
+  data() {
+    return {
+      sampleStore: {
+        trending: 0,
+        total_comments: 0,
+        upvotes: 225,
+        added: 1519419592,
+        scores: {},
+        lifetime: 5000,
+        description: "UK bitcoin exchange.",
+        likely_tags: [],
+        downvotes: 5,
+        uri:
+          "032271efcb35188ef00e3f28469a2bb18b50a5f2f325bd130bdac341af24e9b5f0@37.221.209.222:9735",
+        rooturl: "bitbargain.co.uk",
+        tags: ["exchange"],
+        digital_goods: "yes",
+        score: 220,
+        sorting: 220,
+        name: "Bitbargain",
+        rank: 165,
+        id: 5,
+        href: "https://bitbargain.co.uk/",
+        last_commented: 0,
+        sector: "exchange",
+        likes: 0,
+      },
+      sampleUser: {
+        image:
+          "https://pbs.twimg.com/profile_images/1480757562354159617/btO-pmbJ_normal.jpg",
+        name: "Kevin Aguilar ⚛",
+        handle: "_aguilarkevin_",
+      },
+    };
+  },
   components: { FlipCountdown },
   computed: {
     ...mapGetters({
@@ -101,11 +156,26 @@ export default {
     },
     isContestClosed() {
       switch (this.stage) {
-        case "DISQUALIFIED" || "COMPLETE" || "CANCELLED":
+        case "DISQUALIFIED":
+        case "COMPLETE":
+        case "CANCELLED":
           return true;
         default:
           return false;
       }
+    },
+    votes() {
+      if (this.isContestClosed) {
+        return this.storeContest.stores.map((store) => {
+          return {
+            store,
+            votes:
+              this.storeContest.votes?.filter((vote) => vote.choice === store.id) || [],
+            bets: this.storeContest.bets?.filter((bet) => bet.choice === store.id) || [],
+          };
+        });
+      }
+      return [];
     },
   },
   methods: {
