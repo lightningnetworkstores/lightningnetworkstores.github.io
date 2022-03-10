@@ -55,9 +55,11 @@
         <v-col class="text-center">
           <div v-if="true" class="grid-list">
             <quiz-contest-votes-card
-              v-for="option in options"
-              :key="'option-' + option"
-              :option="option"
+              v-for="optionVote in votes"
+              :key="`optionVotes-${optionVote.option}`"
+              :option="optionVote.option"
+              :votes="optionVote.votes"
+              :bets="optionVote.bets"
             /></div></v-col
       ></v-row>
     </template>
@@ -143,6 +145,18 @@ export default {
     },
     userBets() {
       return this.quizContest?.user_bets || [];
+    },
+    votes() {
+      if (this.isContestClosed) {
+        return this.quizContest.contestants.options.map((option) => {
+          return {
+            option,
+            votes: this.quizContest.votes?.filter((vote) => vote.choice === option) || [],
+            bets: this.quizContest.bets?.filter((bet) => bet.choice === option) || [],
+          };
+        });
+      }
+      return [];
     },
   },
 
