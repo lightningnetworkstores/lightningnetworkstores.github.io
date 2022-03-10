@@ -119,7 +119,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import VoteButton from '../components/VoteButton.vue'
+import VoteButton from './VoteButton.vue'
 import LikeStoreButton from './LikeStoreButton.vue'
 
 export default {

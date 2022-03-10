@@ -1,62 +1,88 @@
 <template>
-  <div class="d-flex flex-column mt-8 align-center">
-    <div class="d-flex flex-column flex-lg-row align-center justify-center contest-info">
-      <div class="d-flex align-center flex-wrap">
-        <span class="title">Time left:</span>
-        <div>
-          <flip-countdown
-            :deadline="deadline"
-            :showDays="false"
-            countdownSize="32px"
-            labelSize="14px"
-          ></flip-countdown>
-        </div>
-      </div>
-      <v-btn text href="#" color="primary" class="mx-16">
-        <v-icon left dark>mdi-gamepad-variant</v-icon>
-        Game rules
-      </v-btn>
-      <div class="d-flex align-center">
-        <span class="title">Total bets (sats): {{ pot }}</span>
-      </div>
-    </div>
-
-    <h1 class="pt-10 text-center">
-      {{ question }}
-    </h1>
-
-    <v-container
-      v-if="!isLogged"
-      class="d-flex flex-column order-lg-last mt-8 align-center"
+  <v-container>
+    <v-row>
+      <v-col
+        ><div
+          class="d-flex flex-column flex-md-row align-center justify-center contest-info py-4"
+        >
+          <div class="d-flex align-center justify-center flex-wrap">
+            <span class="title">Time left:</span>
+            <div>
+              <flip-countdown
+                :deadline="deadline"
+                :showDays="false"
+                countdownSize="32px"
+                labelSize="14px"
+              ></flip-countdown>
+            </div>
+          </div>
+          <v-btn text href="#" color="primary" class="mx-16">
+            <v-icon left dark>mdi-gamepad-variant</v-icon>
+            Game rules
+          </v-btn>
+          <div class="d-flex align-center">
+            <span class="title">Total bets (sats): {{ pot }}</span>
+          </div>
+        </div></v-col
+      ></v-row
     >
-      <h3>You need to be logged to play</h3>
-      <v-btn
-        color="blue lighten-1"
-        class="mx-2 my-3 white--text"
-        @click="handleLoginClick"
+    <v-row>
+      <v-col
+        ><h1 class="pt-10 text-center">
+          {{ question }}
+        </h1></v-col
+      ></v-row
+    >
+    <v-row>
+      <v-col class="text-center"
+        ><h3>You need to be logged to play</h3>
+        <v-btn
+          color="blue lighten-1"
+          class="mx-2 my-3 white--text"
+          @click="handleLoginClick"
+        >
+          <v-icon left dark> mdi-twitter </v-icon>
+          login with twitter
+        </v-btn></v-col
       >
-        <v-icon left dark> mdi-twitter </v-icon>
-        login with twitter
-      </v-btn>
-    </v-container>
-
-    <div v-if="stage === 'COMPLETE'"></div>
-    <div v-else class="grid-list mt-8">
-      <contest-quiz-card
-        :disabled="!isLogged || isContestClosed"
-        v-for="option in options"
-        :selected="choice === option"
-        :key="'option-' + option"
-        :contestId="contestId"
-        :option="option"
-        :minBet="minimumBet"
-      />
-    </div>
-    <v-container class="mt-4" v-if="isLogged && userBets">
-      <h3 class="mb-4">Your bets</h3>
-      <user-bets-table :userBets="userBets" :waitingForEnd="isContestClosed" />
-    </v-container>
-  </div>
+    </v-row>
+    <template v-if="false">
+      <v-row>
+        <v-col><h2>Quiz Results</h2></v-col></v-row
+      >
+      <v-row>
+        <v-col class="text-center">
+          <div v-if="true" class="grid-list">
+            <quiz-contest-votes-card
+              v-for="option in options"
+              :key="'option-' + option"
+              :option="option"
+            /></div></v-col
+      ></v-row>
+    </template>
+    <template v-else>
+      <v-row>
+        <v-col>
+          <div class="grid-list">
+            <quiz-contest-card
+              :disabled="!isLogged || isContestClosed"
+              v-for="option in options"
+              :selected="choice === option"
+              :key="'option-' + option"
+              :contestId="contestId"
+              :option="option"
+              :minBet="minimumBet"
+            /></div
+        ></v-col>
+      </v-row>
+    </template>
+    <v-row>
+      <v-col>
+        <h3 class="mb-4">Your bets</h3>
+        <user-bets-table :userBets="userBets" :waitingForEnd="isContestClosed" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -78,31 +104,14 @@ export default {
     contestId() {
       return this.quizContest.contest?.id;
     },
+
+    choice() {
+      return this.quizContest?.user_vote?.choice || "";
+    },
     deadline() {
       return this.quizContest.contest?.end
         ? new Date(this.quizContest.contest?.end).toLocaleString()
         : "2022-01-01:00:00:00";
-    },
-    options() {
-      return this.quizContest?.contest?.contestants?.options;
-    },
-    choice() {
-      return this.quizContest?.user_vote?.choice || "";
-    },
-    userBets() {
-      return this.quizContest?.user_bets || [];
-    },
-    pot() {
-      return this.quizContest.contest?.pot;
-    },
-    question() {
-      return this.quizContest.contest?.contestants.question;
-    },
-    minimumBet() {
-      return this.quizContest.minimum_bet;
-    },
-    stage() {
-      return this.quizContest.contest?.stage;
     },
     isContestClosed() {
       switch (this.stage) {
@@ -111,6 +120,25 @@ export default {
         default:
           return false;
       }
+    },
+    minimumBet() {
+      return this.quizContest.minimum_bet;
+    },
+    options() {
+      return this.quizContest?.contest?.contestants?.options;
+    },
+    pot() {
+      return this.quizContest.contest?.pot;
+    },
+    question() {
+      return this.quizContest.contest?.contestants.question;
+    },
+
+    stage() {
+      return this.quizContest.contest?.stage;
+    },
+    userBets() {
+      return this.quizContest?.user_bets || [];
     },
   },
 
@@ -140,7 +168,6 @@ export default {
 .grid-list {
   gap: 24px;
   display: grid;
-  width: 80%;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 </style>
