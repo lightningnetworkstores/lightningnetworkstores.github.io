@@ -95,6 +95,9 @@ export const getters = {
       return state.lastDiscussions
     }
     return state.lastDiscussions.filter(thread => thread[0].topic === selectedTopic)
+  },
+  topicsWithout: state => (topicToRemove) => {
+    return state.topics.filter(topic => topic !== topicToRemove)
   }
 }
 

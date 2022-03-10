@@ -98,8 +98,16 @@
                     ></v-textarea>
                   </v-flex>
                 </v-layout>
+                <v-divider class="my-2"/>
+                <div class="text-body-1 mx-1">What is this about?</div>
                 <v-layout row>
-                  <v-flex pl-3 pr-3>
+                  <v-radio-group class="mx-3" row v-model="about">
+                    <v-radio label="Store" value="store"></v-radio>
+                    <v-radio label="Other" value="other"></v-radio>
+                  </v-radio-group>
+                </v-layout>
+                <v-layout row>
+                  <v-flex pl-3 pr-3 v-if="about === 'store'">
                     <v-autocomplete
                       outlined
                       :items="storeSummary"
@@ -107,16 +115,16 @@
                       v-model="addDiscussionForm.storeId"
                     />
                   </v-flex>
+                  <v-flex pl-3 pr-3 v-if="about === 'other'">
+                    <v-select
+                      outlined
+                      v-model="selectedTopic"
+                      :items="topicsWithout('MERCHANTS')"
+                      label="Topics (optional)"
+                    >
+                    </v-select>
+                  </v-flex>
                 </v-layout>
-                <div>
-                  <v-select
-                    outlined
-                    v-model="selectedTopic"
-                    :items="topics"
-                    label="Topics (optional)"
-                  >
-                  </v-select>
-                </div>
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
@@ -138,7 +146,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
@@ -165,11 +173,12 @@ export default {
       selectedTopic: null,
       checkPaymentTimer: null,
       addDiscussionFee: 0,
+      about: 'other'
     }
   },
   computed: {
     ...mapState(['storeSummary']),
-    ...mapState('discussions', ['topics'])
+    ...mapGetters('discussions', ['topicsWithout'])
   },
   methods: {
     openDialog() {
