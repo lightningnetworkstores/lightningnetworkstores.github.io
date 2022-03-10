@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="showDialog" max-width="500">
-    <template v-slot:activator="{ on, attrs}">
-      <v-btn icon :attrs="attrs" v-on="on">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn @click="deleteCommentRequested" icon :attrs="attrs" v-on="on">
         <v-icon color="red">mdi-delete</v-icon>
       </v-btn>
     </template>
@@ -53,10 +53,10 @@ export default {
       reason: ''
     }
   },
-  mounted() {
-    this.$store.dispatch('discussions/getBanInfo', this.commentId)
-  },
   methods: {
+    deleteCommentRequested() {
+      this.$store.dispatch('discussions/getBanInfo', this.commentId)
+    },
     async deleteComment() {
       const deletePayload = {
         threadIndex: this.threadIndex,
