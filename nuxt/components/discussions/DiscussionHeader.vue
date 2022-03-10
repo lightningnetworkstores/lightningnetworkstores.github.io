@@ -8,12 +8,11 @@
           </div>
             {{ formatDate(discussionHeader.timestamp) }}
           <div>
-            <DiscussionReplyModal
-              :reply="discussionHeader"
-              :threadId="threadId"
-              :threadIndex="threadIndex"
-              color="secondary"
-            />
+            <v-btn icon @click="() => handleDetailClick(threadId)">
+              <v-icon>
+                mdi-open-in-new
+              </v-icon>
+            </v-btn>
           </div>
         </div>
       </v-col>
@@ -84,6 +83,11 @@ export default {
     },
     threadId: {
       type: String
+    }
+  },
+  methods: {
+    handleDetailClick(threadId) {
+      this.$router.push(`/discuss/${threadId}`)
     }
   },
   computed: {
