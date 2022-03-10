@@ -558,14 +558,15 @@ const actions = {
       .catch(console.error)
   },
   logoutUser({ dispatch }) {
-    return this.$axios.get('/api/oauthlogout')
-      .then(res => res.data)
-      .then(data => {
+    return this.$axios
+      .get('/api/oauthlogout')
+      .then((res) => res.data)
+      .then((data) => {
         if (data.status === 'success') {
           dispatch('getLoginStatus')
         }
       })
-      .catch(err => console.error('User logout error. err: ', err))
+      .catch((err) => console.error('User logout error. err: ', err))
   },
   updateStoreLikes({ commit }) {
     const storeLikes = JSON.parse(localStorage.getItem('lns_likes')) ?? {}
@@ -1038,6 +1039,42 @@ const actions = {
         comments: [replyId],
       },
     })
+  },
+
+  async getStoreContest({ commit, state }) {
+    const {
+      data: { data },
+    } = await this.$axios.get(`${state.baseURL}api/store_contest?age=0`)
+
+    commit('setStoreContest', { ...data })
+
+    return Promise.resolve()
+  },
+  async getQuizContest({ commit, state }) {
+    const {
+      data: { data },
+    } = await this.$axios.get(`${state.baseURL}api/quiz_contest?age=0`)
+
+    commit('setQuizContest', { ...data })
+
+    return Promise.resolve()
+  },
+  async choseOption({ state }, { contestID, choice }) {
+    return this.$axios.post(`${state.baseURL}api/contest_vote`, {
+      contestID,
+      choice,
+    })
+  },
+  async placeBet({ state }, { contestID, choice, amount }) {
+    return this.$axios
+      .post(`${state.baseURL}api/bet`, {
+        contestID,
+        choice,
+        amount,
+      })
+      .then((response) => {
+        return Promise.resolve(response.data)
+      })
   },
 }
 
