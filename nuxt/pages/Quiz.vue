@@ -1,9 +1,16 @@
 <template>
-  <v-container>
+  <v-container class="py-14">
+    <v-row>
+      <v-col
+        ><h1 class="text-center">
+          {{ question }}
+        </h1></v-col
+      ></v-row
+    >
     <v-row>
       <v-col
         ><div
-          class="d-flex flex-column flex-md-row align-center justify-center contest-info py-4"
+          class="d-flex flex-column flex-md-row align-center justify-center contest-info"
         >
           <div class="d-flex align-center justify-center flex-wrap">
             <span class="title">Time left:</span>
@@ -26,14 +33,8 @@
         </div></v-col
       ></v-row
     >
-    <v-row>
-      <v-col
-        ><h1 class="pt-10 text-center">
-          {{ question }}
-        </h1></v-col
-      ></v-row
-    >
-    <v-row>
+
+    <v-row v-if="!isLogged">
       <v-col class="text-center"
         ><h3>You need to be logged to play</h3>
         <v-btn
@@ -46,7 +47,7 @@
         </v-btn></v-col
       >
     </v-row>
-    <template v-if="false">
+    <template v-if="true">
       <v-row>
         <v-col><h2>Quiz Results</h2></v-col></v-row
       >
@@ -76,6 +77,9 @@
         ></v-col>
       </v-row>
     </template>
+    <v-row>
+      <v-col><v-divider class="mt-8" /></v-col>
+    </v-row>
     <v-row>
       <v-col>
         <h3 class="mb-4">Your bets</h3>
