@@ -61,7 +61,7 @@ export default {
   components: { Discussions, DiscussionsMobile, Reviews, Events },
   data() {
     return {
-      selected: null
+      selected: 0
     }
   },
   mounted() {
