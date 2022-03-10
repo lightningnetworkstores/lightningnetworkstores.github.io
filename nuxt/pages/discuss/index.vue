@@ -41,7 +41,7 @@
           <Reviews/>
         </div>
         <div v-if="showNews">
-          News
+          <Events/>
         </div>
       </v-col>
     </v-row>
@@ -56,8 +56,9 @@
 import Discussions from '@/components/discussions/Discussions.vue'
 import DiscussionsMobile from '@/components/discussions/DiscussionsMobile.vue'
 import Reviews from '@/components/reviews/Reviews.vue'
+import Events from '@/components/events/Events.vue'
 export default {
-  components: { Discussions, DiscussionsMobile, Reviews },
+  components: { Discussions, DiscussionsMobile, Reviews, Events },
   data() {
     return {
       selected: null
