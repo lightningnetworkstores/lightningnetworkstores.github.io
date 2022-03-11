@@ -57,6 +57,9 @@ import Discussions from '@/components/discussions/Discussions.vue'
 import DiscussionsMobile from '@/components/discussions/DiscussionsMobile.vue'
 import Reviews from '@/components/reviews/Reviews.vue'
 import Events from '@/components/events/Events.vue'
+
+import { mapActions, mapState } from 'vuex'
+
 export default {
   components: { Discussions, DiscussionsMobile, Reviews, Events },
   data() {
@@ -64,8 +67,15 @@ export default {
       selected: 0
     }
   },
-  mounted() {
+  async mounted() {
     this.$store.dispatch('discussions/getDiscussions')
+    await this.$store.dispatch('getDiscussions')
+    this.updateLastDiscussionTime({
+      discussionTime: this.lastActivity,
+    })
+  },
+  methods: {
+    ...mapActions(['updateLastDiscussionTime']),
   },
   computed: {
     buttonWidth() {
@@ -88,7 +98,17 @@ export default {
     },
     showNews() {
       return this.selected === 2
-    }
+    },
+    ...mapState(['lastActivity'])
+  },
+  watch: {
+    lastActivity(newValue) {
+      if (newValue !== 0) {
+        this.updateLastDiscussionTime({
+          discussionTime: this.lastActivity,
+        })
+      }
+    },
   }
 }
 </script>
