@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     handleDetailClick(threadId) {
-      this.$router.push(`/discuss/${threadId}`)
+      window.open(`${this.$store.state.baseURL}discuss/${threadId}`, '_blank')
     }
   },
   computed: {
