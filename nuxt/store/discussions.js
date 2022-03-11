@@ -92,7 +92,8 @@ export const actions = {
     return this.$axios.$put(`/api/discussion`, { id: threadId, topic: topic })
       .then(data => {
         if (data.status === 'success') {
-          // Update discussion topic locally
+          // TODO: Update discussion topic locally,
+          // being lazy here since this is an admin tool
         }
         return data
       })

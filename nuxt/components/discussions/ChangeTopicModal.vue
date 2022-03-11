@@ -44,13 +44,14 @@ export default {
         topic: this.selectedTopic
       })
       .then(data => {
-        if (data.status === 'fail') {
-          const { message } = data
-          // TODO: Handle error properly
+        if (data.status !== 'fail') {
+          this.showDialog = false
+          // Being lazy here since this is an admin tool
+          this.$store.dispatch('discussions/getDiscussions')
         }
       })
       .catch(err => {
-        console.error('> err: ', err)
+        console.error('Error while trying to change topic. err: ', err)
       })
     }
   },
