@@ -39,10 +39,13 @@
             {{ repliesCount }}
           </v-chip>
         </div>
-        <DeleteCommentModal v-if="isAdmin"
-          :threadIndex="threadIndex"
-          :commentId="discussionHeader.id"
-        />
+        <div class="d-flex justify-end my-2 mx-0 px-0">
+          <DeleteCommentModal v-if="isAdmin"
+            :threadIndex="threadIndex"
+            :commentId="discussionHeader.id"
+          />
+          <ChangeTopicModal :threadId="threadId"/>
+        </div>
         <div class="d-flex justify-end flex-grow-0" style="min-width: 3em">
           <DiscussionReplyModal
             :reply="{...discussionHeader, id: 'Reply'}"
@@ -63,13 +66,15 @@ import DateFromatter from '~/mixins/DateFormatter'
 import UserTag from './UserTag.vue'
 import DiscussionReplyModal from './DiscussionReplyModal.vue'
 import DeleteCommentModal from './DeleteCommentModal'
+import ChangeTopicModal from '@/components/discussions/ChangeTopicModal'
+
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    StorePreview, UserTag, DiscussionReplyModal, DeleteCommentModal
+    StorePreview, UserTag, DiscussionReplyModal, DeleteCommentModal, ChangeTopicModal
   },
-  mixins: [ DateFromatter ],
+  mixins: [ DateFromatter ],
   props: {
     discussionHeader: {
       type: Object,

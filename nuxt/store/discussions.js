@@ -87,6 +87,15 @@ export const actions = {
         commit('setCriminalRecord', data.data.criminal_record)
       })
       .catch(err => console.error('Error while fetching ban info. err: ', err))
+  },
+  updateTopic({ commit }, { threadId, topic }) {
+    return this.$axios.$put(`/api/discussion`, { id: threadId, topic: topic })
+      .then(data => {
+        if (data.status === 'success') {
+          // Update discussion topic locally
+        }
+        return data
+      })
   }
 }
 
