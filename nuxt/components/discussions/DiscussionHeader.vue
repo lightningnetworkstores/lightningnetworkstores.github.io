@@ -44,7 +44,9 @@
             :threadIndex="threadIndex"
             :commentId="discussionHeader.id"
           />
-          <ChangeTopicModal :threadId="threadId"/>
+          <ChangeTopicModal v-if="isAdmin"
+            :threadId="threadId"
+          />
         </div>
         <div class="d-flex justify-end flex-grow-0" style="min-width: 3em">
           <DiscussionReplyModal
