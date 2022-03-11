@@ -24,7 +24,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  mixins: [ errorHandler ],
   data() {
     return {
       showDialog: false,
