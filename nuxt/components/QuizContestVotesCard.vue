@@ -5,12 +5,12 @@
 
     <v-card-text class="px-4 py-2 text-left">
       <span>voted by</span>
-      <div class="d-flex flex-wrap align-center user-voted-container">
-        <v-menu v-for="n in 10" :key="n" top open-on-hover rounded offset-y>
+      <div class="d-flex flex-wrap align-center storeVotes.votes-voted-container">
+        <v-menu v-for="n in 8" :key="`votes-${n}`" top open-on-hover rounded offset-y>
           <template v-slot:activator="{ on }">
             <v-btn icon x-large v-on="on">
-              <v-avatar size="32" class="user-vote-avatar">
-                <img :src="sampleUser.image" />
+              <v-avatar size="32" class="storeVotes.votes-votes-avatar">
+                <img :src="votes[n].profile.image" />
               </v-avatar>
             </v-btn>
           </template>
@@ -19,12 +19,12 @@
               <div class="mx-auto text-left px-4">
                 <div class="d-flex align-center">
                   <v-avatar color="brown" size="38">
-                    <img :src="sampleUser.image" />
+                    <img :src="votes[n].profile.image" />
                   </v-avatar>
                   <div class="ml-2">
-                    <h3 class="mb-1">{{ sampleUser.name }}</h3>
+                    <h3 class="mb-1">{{ votes[n].profile.name }}</h3>
                     <p class="text-caption mb-0">
-                      {{ sampleUser.handle }}
+                      {{ votes[n].profile.handle }}
                     </p>
                   </div>
                 </div>
@@ -34,7 +34,11 @@
         </v-menu>
 
         <v-btn icon x-large v-on="on">
-          <v-avatar size="28" class="user-vote-avatar" color="blue-grey darken-4">
+          <v-avatar
+            size="28"
+            class="storeVotes.votes-votes-avatar"
+            color="blue-grey darken-4"
+          >
             <span class="white--text text-caption">+20</span>
           </v-avatar>
         </v-btn>
@@ -42,10 +46,10 @@
 
       <v-divider class="mb-2" />
       <span>Bets</span>
-      <div class="d-flex flex-wrap user-voted-container">
+      <div class="d-flex flex-wrap storeVotes.votes-voted-container">
         <v-menu
-          v-for="n in 10"
-          :key="n"
+          v-for="n in 8"
+          :key="`bet-${n}`"
           top
           open-on-hover
           min-width="140px"
@@ -54,8 +58,8 @@
         >
           <template v-slot:activator="{ on }">
             <v-btn icon x-large v-on="on">
-              <v-avatar size="32" class="user-vote-avatar">
-                <img :src="sampleUser.image" />
+              <v-avatar size="32" class="storeVotes.votes-votes-avatar">
+                <img :src="bets[n].profile.image" />
               </v-avatar>
             </v-btn>
           </template>
@@ -64,17 +68,19 @@
               <div class="mx-auto text-left px-4">
                 <div class="d-flex align-center">
                   <v-avatar color="brown" size="38">
-                    <img :src="sampleUser.image" />
+                    <img :src="bets[n].profile.image" />
                   </v-avatar>
                   <div class="ml-2">
-                    <h3 class="mb-1">{{ sampleUser.name }}</h3>
+                    <h3 class="mb-1">{{ bets[n].profile.name }}</h3>
                     <p class="text-caption mb-0">
-                      {{ sampleUser.handle }}
+                      {{ bets[n].profile.handle }}
                     </p>
                   </div>
                 </div>
                 <v-chip class="ma-2" color="amber darken-4" text-color="white">
-                  <v-avatar left class="amber darken-3"> 20 </v-avatar>
+                  <v-avatar left class="amber darken-3">
+                    {{ bets[n].wager }}
+                  </v-avatar>
                   Sats betted
                 </v-chip>
               </div>
@@ -82,9 +88,13 @@
           </v-card>
         </v-menu>
 
-        <v-btn icon x-large v-on="on">
-          <v-avatar size="32" class="user-vote-avatar" color="blue-grey darken-4">
-            <span class="white--text text-caption">+20</span>
+        <v-btn icon x-large v-if="bets.length > 8">
+          <v-avatar
+            size="32"
+            class="storeVotes.votes-votes-avatar"
+            color="blue-grey darken-4"
+          >
+            <span class="white--text text-caption">+{{ bets.length - 8 }}</span>
           </v-avatar>
         </v-btn>
       </div>
@@ -96,25 +106,7 @@
 import { mapState } from "vuex";
 
 export default {
-  data() {
-    return {
-      sampleUser: {
-        image: "https://www.tbstat.com/wp/uploads/2021/10/CryptoPunk-6046.png",
-        name: "Kevin Aguilar ⚛",
-        handle: "aguilarkevin",
-      },
-    };
-  },
-  props: {
-    option: {
-      type: String,
-      required: true,
-    },
-    votes: {
-      type: Number,
-      required: true,
-    },
-  },
+  props: ["option", "votes", "bets"],
   computed: {
     ...mapState({
       baseURL(state) {
