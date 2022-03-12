@@ -35,8 +35,8 @@
         <span> {{ getFormattedTime(item.time) }}</span>
       </v-tooltip>
     </template>
-    <template v-slot:[`item.from`]="{ item }">
-      <UserTransferWidget :user="item.from" />
+    <template v-slot:[`item.counterparty`]="{ item }">
+      <UserTransferWidget :user="item.counterparty" />
     </template>
   </v-data-table>
 </template>
@@ -57,7 +57,7 @@ export default {
         { text: 'Amount', value: 'amount' },
         { text: 'Fee', value: 'fee' },
         { text: 'Time', value: 'time' },
-        { text: 'To/From', value: 'from' },
+        { text: 'To/From', value: 'counterparty' },
       ],
     }
   },
@@ -130,20 +130,20 @@ export default {
         .filter((transfer) => transfer.status === 'DONE')
         .map((transfer) => {
           const { twitterID } = state.wallet.profile
-          let from = transfer.sender
+          let counterparty = transfer.sender
           if (transfer.type === 'TRANSFER') {
-            from =
+            counterparty =
               transfer.sender.id === twitterID
                 ? transfer.receiver
                 : transfer.sender
           } else if (transfer.type === 'AFFILIATE_PAYOUT') {
-            from = { name: 'Affiliate Payout' }
+            counterparty = { name: 'Affiliate Payout' }
           }
           return {
             amount: transfer.amount,
             type: transfer.type,
             time: transfer.timestamp,
-            from: from,
+            counterparty: counterparty,
             receiver: transfer.receiver,
             sender: transfer.sender,
             fee: transfer.fee,
