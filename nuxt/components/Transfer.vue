@@ -67,11 +67,11 @@ export default {
       isSending: false,
       amountRules: [
         v => {
-          if (v !== '') return parseInt(v) > 0 || 'Value must be positive'
-          return true
+          if (v === null) return true
+          return parseInt(v) > 0 || 'Value must be positive'
         },
         v => {
-          if (v === '') return true
+          if (v === null) return true
           if (this.balance && this.balance.available) {
             return this.balance.available >= parseInt(this.amount) || 'Not enough balance'
           }
