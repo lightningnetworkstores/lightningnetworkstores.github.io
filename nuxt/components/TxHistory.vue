@@ -84,6 +84,14 @@ export default {
           return 'mdi-transfer'
         case 'AFFILIATE_PAYOUT':
           return 'mdi-account-multiple'
+        case 'CONTEST_PRIZE':
+          return 'mdi-cash-multiple'
+        case 'CONTEST_WAGER':
+          return 'mdi-cash'
+        case 'CONTEST_WAGER_REFUND':
+          return 'mdi-wallet-giftcard'
+        case 'WELCOME_GIFT':
+          return 'mdi-gift'
         default:
           return type
       }
@@ -136,8 +144,9 @@ export default {
               transfer.sender.id === twitterID
                 ? transfer.receiver
                 : transfer.sender
-          } else if (transfer.type === 'AFFILIATE_PAYOUT') {
-            from = { name: 'Affiliate Payout' }
+          // name of internal accounts set server-side
+          // } else if (transfer.type === 'AFFILIATE_PAYOUT') {
+          //   from = { name: 'Affiliate Payout' }
           }
           return {
             amount: transfer.amount,
