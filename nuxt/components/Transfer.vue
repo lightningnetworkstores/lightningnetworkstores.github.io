@@ -51,6 +51,20 @@
     >
       Transfer
     </v-btn>
+    <v-snackbar v-model="isSuccess" timeout="1e3">
+      <v-icon color="green" class="mr-2 pr-2">mdi-check-circle-outline</v-icon>
+      Success!
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="green"
+          text
+          v-bind="attrs"
+          @click="isSuccess = null"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 <script>
@@ -65,6 +79,7 @@ export default {
       search: null,
       isLoading: false,
       isSending: false,
+      isSuccess: true,
       amountRules: [
         v => {
           if (v === null) return true
@@ -93,6 +108,7 @@ export default {
       })
       this.isSending = false
       if (result) {
+        this.isSuccess = true
         this.amount = null
         this.suggestions = []
         this.$store.dispatch('wallet/getDashboardInfo')
