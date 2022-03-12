@@ -96,7 +96,7 @@ export default {
       } else if(item.type === 'AFFILIATE_PAYOUT'){
         return 'green'
       } else if (item.type === 'TRANSFER') {
-        if (item.from.id === this.twitterID) return 'red'
+        if (item.sender.id === this.twitterID) return 'red'
         else return 'green'
       }
     },
