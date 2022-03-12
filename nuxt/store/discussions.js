@@ -27,6 +27,7 @@ export const actions = {
     const body = {
       comment: params.comment,
       parent: params.parent,
+      sage: params.sage,
       recaptchaToken: params.recaptchaToken
     }
     const config = {
@@ -86,6 +87,16 @@ export const actions = {
         commit('setCriminalRecord', data.data.criminal_record)
       })
       .catch(err => console.error('Error while fetching ban info. err: ', err))
+  },
+  updateTopic({ commit }, { threadId, topic }) {
+    return this.$axios.$put(`/api/discussion`, { id: threadId, topic: topic })
+      .then(data => {
+        if (data.status === 'success') {
+          // TODO: Update discussion topic locally,
+          // being lazy here since this is an admin tool
+        }
+        return data
+      })
   }
 }
 
@@ -95,6 +106,9 @@ export const getters = {
       return state.lastDiscussions
     }
     return state.lastDiscussions.filter(thread => thread[0].topic === selectedTopic)
+  },
+  topicsWithout: state => (topicToRemove) => {
+    return state.topics.filter(topic => topic !== topicToRemove)
   }
 }
 
