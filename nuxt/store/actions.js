@@ -1022,7 +1022,8 @@ const actions = {
     commit('setDeviceResolution', deviceResolution)
   },
   updateLastDiscussionTime({ commit }, { discussionTime }) {
-    localStorage.setItem('last_comment_seen', discussionTime)
+    const lastCommentSeen = localStorage.getItem('last_comment_seen')
+    localStorage.setItem('last_comment_seen', Math.max(discussionTime, lastCommentSeen))
     commit('updateLastCommentSeenTimestamp', Number(discussionTime))
   },
   getLastDiscussionTimestamp({ commit }) {

@@ -35,6 +35,8 @@
           :rules="replyRules"
         >
         </v-textarea>
+        <v-checkbox v-model="sage" class="my-0" label="Sage" color="primary">
+        </v-checkbox>
         <v-progress-linear v-if="isProcessing" indeterminate/>
       </v-card-text>
       <v-card-actions>
@@ -43,6 +45,7 @@
         <v-btn text @click="handleSubmit" color="primary" :disabled="disableSubmit">Submit</v-btn>
       </v-card-actions>
     </v-card>
+    <v-snackbar v-model="hasError" color="red">{{ errorMessage }}</v-snackbar>
   </v-dialog>
 </template>
 <script>
@@ -72,7 +75,10 @@ export default {
   data() {
     return {
       message: '',
+      sage: false,
       showDialog: false,
+      hasError: null,
+      errorMessage: null,
       isValid: true,
       isProcessing: false
     }
@@ -91,7 +97,8 @@ export default {
         recaptchaToken: recaptchaToken,
         parent: this.threadId,
         comment: this.message,
-        threadIndex: this.threadIndex
+        threadIndex: this.threadIndex,
+        sage: this.sage
       }).then(data => {
         this.showDialog = false
         if (!data.data.submitted && data.status === 'success') {
@@ -100,6 +107,12 @@ export default {
       })
       .catch(err => {
         console.error('Error while trying to post reply. err: ', err)
+        this.hasError = true
+        if (err && err.response && err.response.data) {
+          this.errorMessage = err.response.data.message
+        } else {
+          this.errorMessage = 'Unknown error'
+        }
       })
       .finally(() => this.isProcessing = false)
     },

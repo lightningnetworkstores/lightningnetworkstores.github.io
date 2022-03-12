@@ -33,7 +33,6 @@ export default {
      sortedTopics: function() {
       let ts = ['ALL', ...this.$store.state.discussions.topics]
       ts.sort((t1,t2)=>(this.getTopicCount(t2)-this.getTopicCount(t1)))
-      console.log(ts)
       return ts
     }
   }
