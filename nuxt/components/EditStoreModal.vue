@@ -17,9 +17,8 @@
             <v-form @submit.prevent="submitEdit" ref="editform">
               <v-layout v-for="field in fields" :key="field.name" row>
                 <v-flex pl-3 pr-3>
-                  <v-text-field v-model="field.value" :label="field.label">
-                    {{ field.value }}
-                  </v-text-field>
+                  <v-textarea v-model="field.value" :label="field.label" :rows="rows" auto-grow>
+                  </v-textarea>
                 </v-flex>
               </v-layout>
             </v-form>
@@ -39,7 +38,20 @@
 
 <script>
 export default {
-  props: ['store', 'editAttribute'],
+  props: {
+    store: {
+      type: Object,
+      required: true
+    },
+    editAttribute: {
+      type: [ Object, Array ],
+      required: true
+    },
+    rows: {
+      type: Number,
+      default: 1
+    }
+  },
   data() {
     let fields = []
     if (Array.isArray(this.editAttribute)) {
