@@ -4,7 +4,7 @@
       <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
         <v-expansion-panel v-for="(header, threadIndex) in headers" :key="header.id">
-          <v-expansion-panel-header class="d-flex flex-column align-end my-0 pt-0 pb-2" expand-icon="mdi-menu-down">
+          <v-expansion-panel-header class="d-flex flex-column align-end my-0 pt-0 pb-2 px-3" expand-icon="mdi-menu-down">
             <DiscussionHeader
               :repliesCount="repliesCount(threadIndex)"
               :discussionHeader="header"

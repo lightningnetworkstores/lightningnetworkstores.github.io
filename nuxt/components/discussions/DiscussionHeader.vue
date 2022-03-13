@@ -37,7 +37,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12">
+      <v-col cols="12" class="mx-0">
         <div class="d-flex justify-space-between align-center">
           <v-chip x-small class="mx-0 px-1">
             <v-icon class="mr-1">mdi-message-reply</v-icon>
