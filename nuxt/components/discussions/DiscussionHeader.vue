@@ -2,9 +2,12 @@
   <v-container class="mb-0 pb-0">
     <v-row>
       <v-col cols="12" class="pa-0 pt-1">
-        <div class="text-caption d-flex justify-space-between align-center my-1" style="width: 100%; background-color: #f9f9f9">
+        <div class="header-container text-caption d-flex justify-space-between align-center my-1 px-2" style="width: 100%; background-color: #f9f9f9">
           <div>
-            <UserTag :userId="discussionHeader.user_id"/>
+            <UserTag
+              :user="discussionHeader.user"
+              :userId="discussionHeader.user_id"
+            />
           </div>
             {{ formatDate(discussionHeader.timestamp) }}
           <div>
@@ -109,5 +112,8 @@ export default {
 <style scoped>
 .discussion-text {
   overflow-wrap: break-word;
+}
+.header-container {
+  border-radius: 30px;
 }
 </style>

@@ -1,12 +1,19 @@
 <template>
-  <v-chip small :color="color" text-color="white">
-    <v-icon class="pr-3" color="white">mdi-account-circle</v-icon>
-    {{ userId }}
+  <v-chip small :color="color" text-color="white" class="mx-0 pl-0 pr-2">
+    <v-avatar v-if="hasProfilePicture" class="mx-0">
+      <v-img :src="user.image" max-height="10" max-width="10" class="mx-0 px-0"></v-img>
+    </v-avatar>
+    <v-icon v-else class="ml-3 pr-3" color="white">mdi-account-circle</v-icon>
+    {{ username }}
   </v-chip>
 </template>
 <script>
 export default {
   props: {
+    user: {
+      type: Object,
+      default: null
+    },
     userId: {
       type: String,
       required: true
@@ -32,6 +39,12 @@ export default {
       const hash = this.hashCode(this.userId)
       const hue = Math.abs(hash % 360)
       return this.hslToHex(hue, 70, 50)
+    },
+    hasProfilePicture() {
+      return this.user && this.user.image
+    },
+    username() {
+      return (this.user && this.user.name) ? this.user.name : this.userId
     }
   }
 }
