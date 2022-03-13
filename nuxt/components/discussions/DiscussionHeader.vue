@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mb-0 pb-0">
+  <v-container class="mb-0 pb-2">
     <v-row>
       <v-col cols="12" class="pa-0 pt-1">
         <div class="header-container text-caption d-flex justify-space-between align-center my-1 px-2" style="width: 100%; background-color: #f9f9f9">

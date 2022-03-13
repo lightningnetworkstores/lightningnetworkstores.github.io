@@ -4,7 +4,7 @@
       <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
         <v-expansion-panel v-for="(header, threadIndex) in headers" :key="header.id">
-          <v-expansion-panel-header class="d-flex flex-column align-end my-0 py-0">
+          <v-expansion-panel-header class="d-flex flex-column align-end my-0 pt-0 pb-2" expand-icon="mdi-menu-down">
             <DiscussionHeader
               :repliesCount="repliesCount(threadIndex)"
               :discussionHeader="header"
@@ -13,7 +13,7 @@
               @paid-reply-request="handlePaidReplyRequest"
             />
           </v-expansion-panel-header>
-          <v-expansion-panel-content class="px-4">
+          <v-expansion-panel-content class="px-6">
             <v-sheet
               v-for="(reply, replyIndex) in replies(threadIndex)"
               :key="reply.id"
