@@ -4,10 +4,11 @@
       <v-img :src="user.image" max-height="10" max-width="10" class="mx-0 px-0"></v-img>
     </v-avatar>
     <v-icon v-else class="ml-3 pr-3" color="white">mdi-account-circle</v-icon>
-    {{ username }}
+    {{ username | capitalize }}
   </v-chip>
 </template>
 <script>
+import dockerNames from 'docker-names'
 export default {
   props: {
     user: {
@@ -32,6 +33,12 @@ export default {
     },
     hashCode(s) {
       return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)
+    },
+    getFakeName(userId) {
+      const buffer = Buffer.from(userId, 'ascii')
+      const adjectiveIndex = buffer[0] % dockerNames.adjectives.length 
+      const surnameIndex = buffer[1] % dockerNames.surnames.length
+      return `${dockerNames.adjectives[adjectiveIndex]} ${dockerNames.surnames[surnameIndex]}`
     }
   },
   computed: {
@@ -44,7 +51,7 @@ export default {
       return this.user && this.user.image
     },
     username() {
-      return (this.user && this.user.name) ? this.user.name : this.userId
+      return (this.user && this.user.handle) ? `@${this.user.handle}` : this.getFakeName(this.userId)
     }
   }
 }
