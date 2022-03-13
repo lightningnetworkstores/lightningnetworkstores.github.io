@@ -35,14 +35,14 @@
           <StorePreview class="hidden-sm-and-down" :store="discussionHeader.store"/>
         </div>
       </v-col>
-      <v-col :cols="1" class="d-flex flex-column justify-space-around mx-0 px-0">
-        <div class="d-flex justify-end flex-grow-0" style="min-width: 3em">
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <div class="d-flex justify-space-between align-center">
           <v-chip x-small class="mx-0 px-1">
             <v-icon class="mr-1">mdi-message-reply</v-icon>
             {{ repliesCount }}
           </v-chip>
-        </div>
-        <div class="d-flex justify-end my-2 mx-0 px-0">
           <DeleteCommentModal v-if="isAdmin"
             :threadIndex="threadIndex"
             :commentId="discussionHeader.id"
@@ -50,8 +50,6 @@
           <ChangeTopicModal v-if="isAdmin"
             :threadId="threadId"
           />
-        </div>
-        <div class="d-flex justify-end flex-grow-0" style="min-width: 3em">
           <DiscussionReplyModal
             :reply="{...discussionHeader, id: 'Reply'}"
             :threadId="threadId"
