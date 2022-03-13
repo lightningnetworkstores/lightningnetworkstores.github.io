@@ -8,7 +8,11 @@
 						</v-flex>
 					</v-layout>
           <v-layout row>
-            <h1>Treding projects</h1>
+            <h1>Trending projects based on social activity</h1>
+          </v-layout>
+          <v-layout row>
+            <i>Data is normalized for the period of one month. </i
+            >
           </v-layout>
           <v-layout row pt-3 class="datatable-layout" justify-center>
             <v-data-table
@@ -20,12 +24,11 @@
             >
 
               <template v-slot:item.name="{ item }">
-                <span v-if="item.store">{{ item.store.name }}</span>
-                <span v-else>no</span>
+                <span v-if="item.store"><a :href="'/store/' + item.store.rooturl">{{ item.store.name }}</a></span>
               </template>
 
               <template v-slot:item.site_rank="{ item }">
-                <span v-if="item.popularity.SITE_RANK">{{ Math.round(10*item.popularity.SITE_RANK.change_relative)/10 }}x (+{{ item.popularity.SITE_RANK.change_absolute.toLocaleString() }})</span>
+                <span v-if="item.popularity.SITE_RANK">{{ Math.round(100*item.popularity.SITE_RANK.change_relative) }}% (+{{ item.popularity.SITE_RANK.change_absolute.toLocaleString() }})</span>
               </template>
               
               <!-- <template v-slot:item.site_rank_rel="{ item }">
@@ -33,7 +36,7 @@
               </template> -->
 
               <template v-slot:item.twitter="{ item }">
-                <span v-if="item.popularity.TWITTER">{{ Math.round(item.popularity.TWITTER.change_relative*1000)/10 }}% (+{{ item.popularity.TWITTER.change_absolute }})</span>
+                <span v-if="item.popularity.TWITTER">{{ Math.round(item.popularity.TWITTER.change_relative*1000)/10 }}% (+{{ item.popularity.TWITTER.change_absolute_normalized }})</span>
               </template>
 
               <!-- <template v-slot:item.twitter_rel="{ item }">
