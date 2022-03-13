@@ -97,6 +97,9 @@ const mutations = {
   setExcludedTags(state, selectedTags) {
     state.excludedTags = selectedTags
   },
+  setExternallyTrending(state, trending) {
+    state.externallyTrending = trending
+  },
   setWallets(state, wallets) {
     state.wallets = wallets
   },

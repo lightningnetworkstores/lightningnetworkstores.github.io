@@ -260,6 +260,17 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  getTrendingExternally({ state, commit }) {
+    return this.$axios
+      .get(`${state.baseURL}api/externally_trending`)
+      .then((response) => {
+        commit('setExternallyTrending', response.data.data.trending_data)
+        return response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
   getWallets({ state, commit }) {
     return this.$axios
       .get(`${state.baseURL}wallets.json`)
