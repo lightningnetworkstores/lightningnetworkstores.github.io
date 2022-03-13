@@ -4,7 +4,7 @@
       <Topics @on-topic-selected="onTopicSelected"/>
       <v-expansion-panels>
         <v-expansion-panel v-for="(header, threadIndex) in headers" :key="header.id">
-          <v-expansion-panel-header class="d-flex flex-column align-start py-0 px-2" :disabled="header.isStore" :hide-actions="header.isStore">
+          <v-expansion-panel-header class="d-flex flex-column align-start py-0 px-1" :disabled="header.isStore" :hide-actions="header.isStore">
             <div v-if="header.isStore" class="my-2 mx-0 px-0 d-flex justify-center" style="width: 100%">
               <StorePreview :store="header" style="width: 400px"/>
             </div>

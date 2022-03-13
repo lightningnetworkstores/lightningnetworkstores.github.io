@@ -34,4 +34,4 @@ Vue.filter('splitNumber', function (value) {
   }
 })
 
-Vue.filter('capitalize', text => text[0].toUpperCase() + text.slice(1))
+Vue.filter('capitalize', text => text.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' '))

@@ -1,10 +1,13 @@
 <template>
-  <v-container class="mb-0 pb-0">
+  <v-container class="mb-0 pb-2">
     <v-row>
       <v-col cols="12" class="pa-0 pt-1">
-        <div class="text-caption d-flex justify-space-between align-center my-1" style="width: 100%; background-color: #f9f9f9">
+        <div class="header-container text-caption d-flex justify-space-between align-center my-1 px-2" style="width: 100%; background-color: #f9f9f9">
           <div>
-            <UserTag :userId="discussionHeader.user_id"/>
+            <UserTag
+              :user="discussionHeader.user"
+              :userId="discussionHeader.user_id"
+            />
           </div>
             {{ formatDate(discussionHeader.timestamp) }}
           <div>
@@ -32,14 +35,14 @@
           <StorePreview class="hidden-sm-and-down" :store="discussionHeader.store"/>
         </div>
       </v-col>
-      <v-col :cols="1" class="d-flex flex-column justify-space-around mx-0 px-0">
-        <div class="d-flex justify-end flex-grow-0" style="min-width: 3em">
+    </v-row>
+    <v-row>
+      <v-col cols="12" class="mx-0">
+        <div class="d-flex justify-space-between align-center">
           <v-chip x-small class="mx-0 px-1">
             <v-icon class="mr-1">mdi-message-reply</v-icon>
             {{ repliesCount }}
           </v-chip>
-        </div>
-        <div class="d-flex justify-end my-2 mx-0 px-0">
           <DeleteCommentModal v-if="isAdmin"
             :threadIndex="threadIndex"
             :commentId="discussionHeader.id"
@@ -47,8 +50,6 @@
           <ChangeTopicModal v-if="isAdmin"
             :threadId="threadId"
           />
-        </div>
-        <div class="d-flex justify-end flex-grow-0" style="min-width: 3em">
           <DiscussionReplyModal
             :reply="{...discussionHeader, id: 'Reply'}"
             :threadId="threadId"
@@ -109,5 +110,8 @@ export default {
 <style scoped>
 .discussion-text {
   overflow-wrap: break-word;
+}
+.header-container {
+  border-radius: 30px;
 }
 </style>

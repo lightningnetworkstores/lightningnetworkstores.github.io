@@ -1,12 +1,22 @@
 <template>
-  <v-chip small :color="color" text-color="white">
-    <v-icon class="pr-3" color="white">mdi-account-circle</v-icon>
-    {{ userId }}
+  <v-chip small :color="color" text-color="white" class="mx-0 pl-0 pr-2">
+    <v-avatar v-if="hasProfilePicture" class="mx-0">
+      <v-img :src="user.image" max-height="21" max-width="21" class="mx-0 px-0"></v-img>
+    </v-avatar>
+    <v-icon v-else class="ml-3 pr-3" size="25" color="white">mdi-account-circle</v-icon>
+    <div class="ml-2">
+      {{ username | capitalize }}
+    </div>
   </v-chip>
 </template>
 <script>
+import dockerNames from 'docker-names'
 export default {
   props: {
+    user: {
+      type: Object,
+      default: null
+    },
     userId: {
       type: String,
       required: true
@@ -25,13 +35,29 @@ export default {
     },
     hashCode(s) {
       return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0)
+    },
+    getFakeName(userId) {
+      const buffer = Buffer.from(userId, 'ascii')
+      const adjectiveIndex = buffer[0] % dockerNames.adjectives.length 
+      const surnameIndex = buffer[1] % dockerNames.surnames.length
+      return `${dockerNames.adjectives[adjectiveIndex]} ${dockerNames.surnames[surnameIndex]}`
     }
   },
   computed: {
     color() {
-      const hash = this.hashCode(this.userId)
-      const hue = Math.abs(hash % 360)
-      return this.hslToHex(hue, 70, 50)
+      if (this.user && this.user.image) {
+        return '#969696'
+      } else {
+        const hash = this.hashCode(this.userId)
+        const hue = Math.abs(hash % 360)
+        return this.hslToHex(hue, 70, 50)
+      }
+    },
+    hasProfilePicture() {
+      return this.user && this.user.image
+    },
+    username() {
+      return (this.user && this.user.handle) ? `@${this.user.handle}` : this.getFakeName(this.userId)
     }
   }
 }
