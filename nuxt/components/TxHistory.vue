@@ -62,17 +62,21 @@ export default {
     }
   },
   methods: {
-    formatAmount(item) {
-      if (item.receiver) {
+    isReceivingMoney(item){
+      if(item.receiver){
         return item.receiver.id === this.twitterID
-          ? `+${item.amount}`
-          : `-${item.amount}`
       } else if (item.sender) {
-        return item.sender.id === this.twitterID
-          ? `-${item.amount}`
-          : `+${item.amount}`
+        return item.sender.id !== this.twitterID
+      } else {
+        return false
       }
-      return item.amount
+    },
+    formatAmount(item) {
+      if (this.isReceivingMoney(item)) {
+        return`+${item.amount}`
+      } else {
+        return `-${item.amount}`
+      }
     },
     getIcon(type) {
       switch (type) {
@@ -97,15 +101,10 @@ export default {
       }
     },
     getColor(item) {
-      if (item.type === 'LN_WITHDRAW') {
+      if (this.isReceivingMoney(item)) {
+        return 'green'
+      } else{
         return 'red'
-      } else if (item.type === 'LN_DEPOSIT') {
-        return 'green'
-      } else if(item.type === 'AFFILIATE_PAYOUT'){
-        return 'green'
-      } else if (item.type === 'TRANSFER') {
-        if (item.sender.id === this.twitterID) return 'red'
-        else return 'green'
       }
     },
     getTypeTooltip(type) {
@@ -138,15 +137,7 @@ export default {
         .filter((transfer) => transfer.status === 'DONE')
         .map((transfer) => {
           const { twitterID } = state.wallet.profile
-          let counterparty = transfer.sender
-          if (transfer.type === 'TRANSFER') {
-            counterparty =
-              transfer.sender.id === twitterID
-                ? transfer.receiver
-                : transfer.sender
-          } else if (transfer.type === 'AFFILIATE_PAYOUT') {
-            counterparty = { name: 'Affiliate Payout' }
-          }
+          let counterparty = (transfer.sender && transfer.sender.id === twitterID) ? transfer.receiver : transfer.sender
           return {
             amount: transfer.amount,
             type: transfer.type,
