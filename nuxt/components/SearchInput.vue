@@ -26,11 +26,11 @@
       <v-btn
         fab
         class="mx-3"
-        v-if="$vuetify.breakpoint.lgAndDown"
+        v-if="isMobile"
         @click="inputClick"
         elevation="2"
       >
-        <v-icon color="primary">mdi-filter</v-icon>
+        <v-icon color="secondary">mdi-filter</v-icon>
       </v-btn>
     </div>
     <div class="text-center btn-pop">
@@ -62,6 +62,9 @@ export default {
         this.$emit('input', val)
       },
     },
+    isMobile() {
+      return this.$vuetify.breakpoint.mobile
+    }
   },
   methods: {
     inputClick() {
