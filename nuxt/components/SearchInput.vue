@@ -11,19 +11,28 @@
       class="mr-4"
       v-if="isLoading"
     ></v-progress-circular>
-    <v-text-field
-      v-model="searchQuery"
-      class="search"
-      flat
-      outlined
-      label="Type to search"
-      solo
-      prepend-inner-icon="mdi-magnify"
-      hide-details
-      :append-icon="$vuetify.breakpoint.lgAndUp ? '' : 'mdi-filter'"
-      @click:append="inputClick"
-    >
-    </v-text-field>
+    <div class="d-flex align-center">
+      <v-text-field
+        v-model="searchQuery"
+        class="search"
+        flat
+        outlined
+        label="Type to search"
+        solo
+        prepend-inner-icon="mdi-magnify"
+        hide-details
+      >
+      </v-text-field>
+      <v-btn
+        fab
+        class="mx-3"
+        v-if="$vuetify.breakpoint.lgAndDown"
+        @click="inputClick"
+        elevation="2"
+      >
+        <v-icon color="primary">mdi-filter</v-icon>
+      </v-btn>
+    </div>
     <div class="text-center btn-pop">
       <v-btn rounded class="btn-pop mt-4 mt-lg-0" to="searches" color="#fcb919"
         >Popular Searches</v-btn
