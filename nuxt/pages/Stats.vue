@@ -3,6 +3,10 @@
     <v-row class="justify-center mt-5">
       <v-flex xs12 md12 lg10 xl8>
         <v-container>
+         <v-layout justify-center mx-4 row>
+            <h2>Lightning Network Stats</h2>
+            <iframe src="https://amboss.space/embed/networkStats?theme=light&unit=BTC&noBackground=true" width="100%" height="100px" style="overflow: hidden" scrolling="no" />
+          </v-layout>
           <v-layout justify-center mx-4 row>
             <h1>Merchant adoption of the lightning network</h1>
           </v-layout>
