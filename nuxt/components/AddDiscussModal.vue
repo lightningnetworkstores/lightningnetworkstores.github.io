@@ -103,7 +103,7 @@
                 <v-layout row>
                   <v-radio-group class="mx-3" row v-model="about">
                     <v-radio label="Store" value="store"></v-radio>
-                    <v-radio label="Other" value="other"></v-radio>
+                    <v-radio label="Topic" value="other"></v-radio>
                   </v-radio-group>
                 </v-layout>
                 <v-layout row>
@@ -120,7 +120,7 @@
                       outlined
                       v-model="selectedTopic"
                       :items="topicsWithout('MERCHANTS')"
-                      label="Topics (optional)"
+                      label="Topics"
                     >
                     </v-select>
                   </v-flex>
@@ -170,7 +170,7 @@ export default {
       expiryTime: new Date(),
       isPaid: false,
       tweet: null,
-      selectedTopic: null,
+      selectedTopic: 'OTHER',
       checkPaymentTimer: null,
       addDiscussionFee: 0,
       about: 'other'

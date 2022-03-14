@@ -5,7 +5,7 @@
         <v-container>
          <v-layout justify-center mx-4 row>
             <h2>Lightning Network Stats</h2>
-            <iframe src="https://amboss.space/embed/networkStats?theme=light&unit=BTC&noBackground=true" width="100%" height="100px" style="overflow: hidden" scrolling="no" />
+            <iframe src="https://amboss.space/embed/networkStats?theme=dark&unit=BTC&noBackground=false" width="100%" height="100px" style="overflow: hidden" scrolling="no" />
           </v-layout>
           <v-layout justify-center mx-4 row>
             <h1>Merchant adoption of the lightning network</h1>
