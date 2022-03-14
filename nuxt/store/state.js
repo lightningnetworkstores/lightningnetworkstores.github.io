@@ -48,6 +48,7 @@ export const state = () => ({
   storeSummary: [],
   tags: [],
   wallets: [],
+  externallyTrending: []
 })
 
 export default state
