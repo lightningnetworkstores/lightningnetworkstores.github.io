@@ -12,43 +12,69 @@
         <v-card-text v-if="affiliate">
             <ul>
                 <li>
-                    <a :href="affiliate.affiliate_link_example">{{
-                        affiliate.affiliate_link_example
-                    }}</a>
-                    <v-btn
-                        class="mx-3"
-                        icon
-                        x-small
-                        @click="() => copyURL(affiliate.affiliate_link_example)"
+                    <a
+                        :href="restoringPath(affiliate.affiliate_link_example)"
+                        >{{
+                            restoringPath(affiliate.affiliate_link_example)
+                        }}</a
                     >
-                        <v-icon>mdi-content-copy</v-icon>
-                    </v-btn>
-                </li>
-                <li>
-                    <a :href="affiliate.affiliate_link_example2">{{
-                        affiliate.affiliate_link_example2
-                    }}</a>
                     <v-btn
                         class="mx-3"
                         icon
                         x-small
                         @click="
-                            () => copyURL(affiliate.affiliate_link_example2)
+                            () =>
+                                copyURL(
+                                    restoringPath(
+                                        affiliate.affiliate_link_example
+                                    )
+                                )
                         "
                     >
                         <v-icon>mdi-content-copy</v-icon>
                     </v-btn>
                 </li>
                 <li>
-                    <a :href="affiliate.affiliate_link_example3">{{
-                        affiliate.affiliate_link_example3
-                    }}</a>
+                    <a
+                        :href="restoringPath(affiliate.affiliate_link_example2)"
+                        >{{
+                            restoringPath(affiliate.affiliate_link_example2)
+                        }}</a
+                    >
                     <v-btn
                         class="mx-3"
                         icon
                         x-small
                         @click="
-                            () => copyURL(affiliate.affiliate_link_example3)
+                            () =>
+                                copyURL(
+                                    restoringPath(
+                                        affiliate.affiliate_link_example2
+                                    )
+                                )
+                        "
+                    >
+                        <v-icon>mdi-content-copy</v-icon>
+                    </v-btn>
+                </li>
+                <li>
+                    <a
+                        :href="restoringPath(affiliate.affiliate_link_example3)"
+                        >{{
+                            restoringPath(affiliate.affiliate_link_example3)
+                        }}</a
+                    >
+                    <v-btn
+                        class="mx-3"
+                        icon
+                        x-small
+                        @click="
+                            () =>
+                                copyURL(
+                                    restoringPath(
+                                        affiliate.affiliate_link_example3
+                                    )
+                                )
                         "
                     >
                         <v-icon>mdi-content-copy</v-icon>
@@ -163,6 +189,16 @@ export default {
             navigator.clipboard.writeText(url)
             this.showSnackbar = true
             this.snackbarMessage = 'URL copied!'
+        },
+        restoringPath(url, code = 'af') {
+            const urlString = String(url).split(`?${code}=`)
+
+            const getSliceUrl =
+                urlString[0].substr(-1) === '/'
+                    ? urlString[0].substring(0, urlString[0].length - 1)
+                    : urlString[0]
+            const newUrl = `${getSliceUrl}/${code}/${urlString[1]}`
+            return newUrl
         },
     },
     computed: {
