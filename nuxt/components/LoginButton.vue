@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-dialog v-model="dialog" max-width="300">
+        <v-dialog v-model="toogleModals" max-width="300">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn text v-bind="attrs" v-on="on" class="mt-4">
                     <v-avatar size="36" color="primary">
@@ -23,13 +23,22 @@
     </div>
 </template>
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
-    data() {
-        return {
-            dialog: false,
-        }
+    computed: {
+        ...mapState('modals', ['isSettingsModalOpen']),
+        toogleModals: {
+            get() {
+                return this.isSettingsModalOpen
+            },
+            set() {
+                this.closeSettingsModal()
+            },
+        },
     },
+
     methods: {
+        ...mapActions('modals', ['closeSettingsModal']),
         handleLoginClick() {
             this.$axios
                 .get('/api/oauthlogin?platform=twitter')
