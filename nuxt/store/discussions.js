@@ -1,5 +1,6 @@
 export const state = () => ({
   isAdmin: false,
+  isLogged: false,
   lastDiscussions: [],
   reviews: [],
   events: [],
@@ -60,7 +61,7 @@ export const actions = {
   },
   getLogStatus({ commit }) {
     this.$axios.$get('/api/logstatus')
-      .then(data => commit('updateAdmin', data.data.is_admin))
+      .then(data => commit('updateAdmin', data.data))
   },
   deleteComment({ commit, dispatch }, payload) {
     const deleteBody = {
@@ -127,9 +128,12 @@ export const mutations = {
   setTopics(state, topics) {
     state.topics = topics
   },
-  updateAdmin(state, isAdmin) {
+  updateAdmin(state, data) {
+    const { isAdmin, user } = data;
     state.isAdmin = isAdmin
+    state.isLogged = user.logged;
   },
+
   setError(state, errorMessage) {
     state.error = errorMessage
   },
