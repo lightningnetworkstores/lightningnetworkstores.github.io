@@ -79,17 +79,43 @@ export default {
             set(value) {
                 if (value == 'Month') {
                     this.fnDataMonth()
+                    this.options = {
+                        width: '100%',
+                        height: 500,
+                        colors: ['#3c3d3c'],
+                        legend: { position: 'bottom' },
+                    }
                 }
 
                 if (value == 'Weekly') {
                     this.fnDataWeek()
+                    this.options = {
+                        width: '100%',
+                        height: 500,
+                        colors: ['#3c3d3c'],
+                        legend: { position: 'bottom' },
+                        hAxis: {
+                            slantedText: true,
+                            slantedTextAngle: 45,
+                        },
+                    }
                 }
             },
         },
     },
 
     methods: {
-        getMonth(date) {
+        /**
+         * @param {Date} date
+         * @param {Boolean} withoutMonth
+         */
+        getMonth(date, withoutMonth = false) {
+            if (withoutMonth) {
+                return new Date(date).toLocaleString('en', {
+                    year: 'numeric',
+                })
+            }
+
             return new Date(date).toLocaleString('en', {
                 month: 'long',
                 year: 'numeric',
@@ -160,7 +186,13 @@ export default {
 
             this.daily_revenue.forEach((revenue) => {
                 let numWeeks = getWeeks(revenue.date)
-                objWeeks[numWeeks] = [...(objWeeks[numWeeks] ?? []), revenue]
+                let nDate = this.getMonth(revenue.date, true)
+                let weeks_year = `${nDate}-${numWeeks}`
+
+                objWeeks[weeks_year] = [
+                    ...(objWeeks[weeks_year] ?? []),
+                    revenue,
+                ]
             })
 
             const numWeeks = Object.keys(objWeeks)
@@ -178,7 +210,7 @@ export default {
                     )
                 )
 
-                return [`Week ${num}`, sum_satoshis, sum_dollar]
+                return [num, sum_satoshis, sum_dollar]
             })
 
             this.arrChartTemp = weeks
