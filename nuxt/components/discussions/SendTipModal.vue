@@ -31,7 +31,7 @@
                         label="Tip"
                         solo
                         type="number"
-                        step="0.01"
+                        step="1"
                         min="0"
                         v-model="amountTip"
                     ></v-text-field>

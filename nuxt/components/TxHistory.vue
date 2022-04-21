@@ -96,6 +96,8 @@ export default {
           return 'mdi-wallet-giftcard'
         case 'WELCOME_GIFT':
           return 'mdi-gift'
+        case 'PAY_INVOICE':
+          return 'mdi-wallet'  
         default:
           return type
       }

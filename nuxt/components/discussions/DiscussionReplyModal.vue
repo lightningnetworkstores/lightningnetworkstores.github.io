@@ -35,7 +35,7 @@
           :rules="replyRules"
         >
         </v-textarea>
-        <v-checkbox v-model="sage" class="my-0" label="Sage" color="primary">
+        <v-checkbox v-model="sage" class="my-0" label="Don't bump thread" color="primary">
         </v-checkbox>
         <v-progress-linear v-if="isProcessing" indeterminate/>
       </v-card-text>
