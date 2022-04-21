@@ -8,6 +8,19 @@
     <template v-slot:[`item.amount`]="{ item }">
       <div>
         {{ formatAmount(item) }}
+        <v-tooltip v-if="item.amount.fee" bottom>
+          <template v-slot:activator="{ on, attrs}">
+            <v-chip class="mx-1 px-1"
+              color="red accent-4"
+              v-bind="attrs"
+              v-on="on"
+              x-small
+            >
+              <span style="color:white"> - {{item.amount.fee}}</span>
+            </v-chip>
+          </template>
+          <span>Transfer Fee</span>
+        </v-tooltip>
       </div>
     </template>
     <template v-slot:[`item.type`]="{ item }">
@@ -55,7 +68,6 @@ export default {
       headers: [
         { text: 'Type', value: 'type' },
         { text: 'Amount', value: 'amount' },
-        { text: 'Fee', value: 'fee' },
         { text: 'Time', value: 'time' },
         { text: 'To/From', value: 'counterparty' },
       ],
@@ -73,9 +85,9 @@ export default {
     },
     formatAmount(item) {
       if (this.isReceivingMoney(item)) {
-        return`+${item.amount}`
+        return`+${item.amount.value}`
       } else {
-        return `-${item.amount}`
+        return `-${item.amount.value}`
       }
     },
     getIcon(type) {
@@ -141,13 +153,15 @@ export default {
           const { twitterID } = state.wallet.profile
           let counterparty = (transfer.sender && transfer.sender.id === twitterID) ? transfer.receiver : transfer.sender
           return {
-            amount: transfer.amount,
+            amount: {
+              value: transfer.amount,
+              fee: transfer.fee
+            },
             type: transfer.type,
             time: transfer.timestamp,
             counterparty: counterparty,
             receiver: transfer.receiver,
-            sender: transfer.sender,
-            fee: transfer.fee,
+            sender: transfer.sender
           }
         })
     },
