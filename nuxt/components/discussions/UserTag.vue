@@ -88,7 +88,7 @@ export default {
         },
         openDialog() {
             // If exists logged user, then open the modal dialog
-            if (this.isLogged) {
+            if (this.isLogged && this.anonymousValid) {
                 if (this.user) {
                     this.userCod = this.user.id
                 } else {
@@ -121,6 +121,9 @@ export default {
             return this.user && this.user.handle
                 ? `@${this.user.handle}`
                 : this.getFakeName(this.userId)
+        },
+        anonymousValid() {
+            return this.user && this.user.handle ? true : false
         },
     },
 }

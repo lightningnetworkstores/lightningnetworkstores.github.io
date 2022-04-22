@@ -26,7 +26,7 @@
                 <template v-slot:append>
                     <v-btn
                         rounded
-                        class="btn-pop mt-lg-0"
+                        :class="!showTextButton ? 'd-none' : ''"
                         to="searches"
                         color="#fcb919"
                         v-if="windowSizeX < 720"
