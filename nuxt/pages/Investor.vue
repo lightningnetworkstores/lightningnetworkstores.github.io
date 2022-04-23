@@ -36,7 +36,7 @@ export default {
         return {
             switchChart: false,
             changeDate: 1,
-            chartDataHeaderWeeks: ['Month', 'Satoshis'],
+            chartDataHeaderWeeks: ['Month', 'USD'],
             chartDataRows: [],
             options: {
                 width: '100%',
