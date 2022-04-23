@@ -4,7 +4,7 @@
             <v-col class="col-md-2">
                 <v-btn
                     outlined
-                    color="indigo"
+                    color="#424242"
                     @click="handlePreviousContentQuiz()"
                 >
                     Previous
@@ -18,7 +18,7 @@
             <v-col class="col-md-2 text-right">
                 <v-btn
                     outlined
-                    color="indigo"
+                    color="#424242"
                     @click="handleResetContentQuiz()"
                 >
                     Now
