@@ -3,11 +3,12 @@
     :headers="headers"
     :items="transfers"
     :items-per-page="15"
+    :custom-sort="customSort"
     class="elevation-2"
   >
     <template v-slot:[`item.amount`]="{ item }">
       <div>
-        {{ formatAmount(item) }}
+        {{ item.amount.value }}
         <v-tooltip v-if="item.amount.fee" bottom>
           <template v-slot:activator="{ on, attrs}">
             <v-chip class="mx-1 px-1"
@@ -83,13 +84,6 @@ export default {
         return false
       }
     },
-    formatAmount(item) {
-      if (this.isReceivingMoney(item)) {
-        return`+${item.amount.value}`
-      } else {
-        return `-${item.amount.value}`
-      }
-    },
     getIcon(type) {
       switch (type) {
         case 'LN_WITHDRAW':
@@ -141,6 +135,26 @@ export default {
     getFormattedTime(timestamp) {
       return DateTime.fromMillis(timestamp).toRFC2822()
     },
+    customSort(items, sortBy, sortDesc) {
+      if (sortBy[0] === 'amount') {
+        return items.sort((a, b) => {
+          if (sortDesc[0]) {
+            return b.amount.value - a.amount.value
+          } else {
+            return a.amount.value - b.amount.value
+          }
+        })
+      } else if (sortBy[0] === 'time') {
+        return items.sort((a, b) => {
+          if (sortDesc[0]) {
+            return a.time - b.time
+          } else {
+            return b.time - a.time
+          }
+        })
+      }
+      return items.sort((a, b) => a - b)
+    }
   },
   computed: mapState({
     twitterID: (state) => {
@@ -152,9 +166,10 @@ export default {
         .map((transfer) => {
           const { twitterID } = state.wallet.profile
           let counterparty = (transfer.sender && transfer.sender.id === twitterID) ? transfer.receiver : transfer.sender
+          const isIncoming = t => t.receiver && t.receiver.id === state.wallet.profile.twitterID
           return {
             amount: {
-              value: transfer.amount,
+              value: isIncoming(transfer) ? transfer.amount : -transfer.amount,
               fee: transfer.fee
             },
             type: transfer.type,
