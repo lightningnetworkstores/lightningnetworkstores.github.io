@@ -25,7 +25,9 @@
             </v-row>
             <GChart type="ColumnChart" :options="options" :data="chartData" />
         </div>
-        <div>
+        <div style="text-align: center">
+          <br>
+          <br>
           <label> AUM: {{(aum).toLocaleString()}}</label>
           <br>
           <label> Balance: {{balance.toLocaleString()}}</label>
