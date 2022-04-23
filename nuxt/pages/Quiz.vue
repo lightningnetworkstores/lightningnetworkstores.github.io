@@ -1,7 +1,7 @@
 <template>
     <v-container class="py-14">
         <v-row>
-            <v-col class="col-md-2">
+            <!-- <v-col class="col-md-2">
                 <v-btn
                     outlined
                     color="#424242"
@@ -9,13 +9,13 @@
                 >
                     Previous
                 </v-btn>
-            </v-col>
-            <v-col class="col-md-8"
+            </v-col> -->
+            <v-col
                 ><h1 class="text-center">
                     {{ question }}
                 </h1></v-col
             >
-            <v-col class="col-md-2 text-right">
+            <!-- <v-col class="col-md-2 text-right">
                 <v-btn
                     outlined
                     color="#424242"
@@ -23,7 +23,7 @@
                 >
                     Now
                 </v-btn>
-            </v-col>
+            </v-col> -->
         </v-row>
         <v-row>
             <v-col
@@ -230,13 +230,13 @@ export default {
                     window.location.replace(authorization_url)
                 })
         },
-        handlePreviousContentQuiz() {
-            this.countPreviousQuiz = this.countPreviousQuiz + 1
-            this.$store.dispatch('previousQuizContest', this.countPreviousQuiz)
-        },
-        handleResetContentQuiz() {
-            this.$store.dispatch('previousQuizContest', 0)
-        },
+        // handlePreviousContentQuiz() {
+        //     this.countPreviousQuiz = this.countPreviousQuiz + 1
+        //     this.$store.dispatch('previousQuizContest', this.countPreviousQuiz)
+        // },
+        // handleResetContentQuiz() {
+        //     this.$store.dispatch('previousQuizContest', 0)
+        // },
     },
 }
 </script>
