@@ -7,7 +7,7 @@
                     <v-switch
                         v-model="switchChart"
                         inset
-                        :label="`${switchChart ? 'Dollars' : 'Satoshis'}`"
+                        :label="`${switchChart ? 'Sats' : 'USD'}`"
                     ></v-switch>
                 </v-col>
 
@@ -57,7 +57,7 @@ export default {
     watch: {
         switchChart(newSwitchChart, _) {
             let value = newSwitchChart ? 1 : 2
-            let strValue = newSwitchChart ? 'Dollars' : 'Satoshis'
+            let strValue = newSwitchChart ? 'Sats' : 'USD'
 
             this.chartDataRows = this.arrChartTemp.map((s) => {
                 return [s[0], s[value]]
