@@ -47,6 +47,26 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <!-- SnackBar Message -->
+        <v-snackbar
+            v-model="snackbar_message.open"
+            :timeout="2e3"
+            :color="snackbar_message.color"
+        >
+            <b>{{ snackbar_message.text }}</b>
+
+            <template v-slot:action="{ attrs }">
+                <v-btn
+                    color="white"
+                    text
+                    v-bind="attrs"
+                    @click="snackbar_message.open = false"
+                >
+                    Close
+                </v-btn>
+            </template>
+        </v-snackbar>
     </div>
 </template>
 
@@ -64,6 +84,11 @@ export default {
     data() {
         return {
             amountTip: 0,
+            snackbar_message: {
+                open: false,
+                text: 'My timeout is set to 2000.',
+                color: '#424242',
+            },
         }
     },
     computed: {
@@ -90,8 +115,16 @@ export default {
                 })
 
                 if (result) {
+                    this.snackbar_message.text = 'Tip Successfull'
+                    this.snackbar_message.color = 'success'
+                    this.closeModal()
+                } else {
+                    this.snackbar_message.text =
+                        'Error while performing internal transfer'
+                    this.snackbar_message.color = 'red accent-2'
                     this.closeModal()
                 }
+                this.snackbar_message.open = true
             }
         },
     },

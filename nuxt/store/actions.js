@@ -1049,9 +1049,20 @@ const actions = {
     },
 
     async getStoreContest({ commit, state }) {
+        commit("cleanStoreContest")
         const {
             data: { data },
         } = await this.$axios.get(`${state.baseURL}api/store_contest?age=0`)
+
+        commit('setStoreContest', { ...data })
+
+        return Promise.resolve()
+    },
+    async previousStoreContest({ commit, state }, ageValue) {
+        commit("cleanStoreContest")
+        const {
+            data: { data },
+        } = await this.$axios.get(`${state.baseURL}api/store_contest?age=${ageValue}`)
 
         commit('setStoreContest', { ...data })
 

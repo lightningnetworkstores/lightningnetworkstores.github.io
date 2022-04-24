@@ -25,6 +25,17 @@
             </v-row>
             <GChart type="ColumnChart" :options="options" :data="chartData" />
         </div>
+        <div style="text-align: center">
+          <br>
+          <br>
+          <label> AUM: {{(aum).toLocaleString()}}</label>
+          <br>
+          <label> Balance: {{balance.toLocaleString()}}</label>
+          <br>
+          <label> Faucet liabilities: {{faucet_liabilities.toLocaleString()}}</label>
+          <br>
+          <label> User liabilities: {{user_liabilities.toLocaleString()}}</label>
+        </div>
     </v-container>
 </template>
 
@@ -36,7 +47,7 @@ export default {
         return {
             switchChart: false,
             changeDate: 1,
-            chartDataHeaderWeeks: ['Month', 'Satoshis'],
+            chartDataHeaderWeeks: ['Month', 'USD'],
             chartDataRows: [],
             options: {
                 width: '100%',
@@ -47,6 +58,11 @@ export default {
             items: ['Month', 'Weekly'],
             arrChartTemp: [],
             daily_revenue: [],
+            aum: 0,
+            faucet_liabilities: 0,
+            user_liabilities: 0,
+            balance: 0,
+            sats_per_usd: 1200,
         }
     },
 
@@ -64,6 +80,17 @@ export default {
             })
 
             this.chartDataHeaderWeeks = ['Month', strValue]
+            if(value == 1){
+              this.aum = Math.round(this.aum*this.sats_per_usd)
+              this.balance = Math.round(this.balance*this.sats_per_usd)
+              this.user_liabilities = Math.round(this.user_liabilities*this.sats_per_usd)
+              this.faucet_liabilities = Math.round(this.faucet_liabilities*this.sats_per_usd)
+            } else {
+              this.aum = Math.round(10*this.aum/this.sats_per_usd)/10
+              this.balance = Math.round(10*this.balance/this.sats_per_usd)/10
+              this.user_liabilities = Math.round(10*this.user_liabilities/this.sats_per_usd)/10
+              this.faucet_liabilities = Math.round(10*this.faucet_liabilities/this.sats_per_usd)/10
+            }
         },
     },
 
@@ -227,9 +254,14 @@ export default {
 
         if (dataApi.status === 200) {
             const analyzeData = dataApi.data.data
-
             this.daily_revenue = analyzeData.daily_revenue
             this.fnDataMonth()
+            this.sats_per_usd = 100000000/analyzeData.daily_revenue[analyzeData.daily_revenue.length-1].btcusd
+
+            this.aum = Math.round(10*analyzeData.balance_sheet.AUM/this.sats_per_usd)/10
+            this.balance = Math.round(10*analyzeData.balance_sheet.account_balance/this.sats_per_usd)/10
+            this.user_liabilities = Math.round(10*analyzeData.balance_sheet.user_liabilities/this.sats_per_usd)/10
+            this.faucet_liabilities = Math.round(10*analyzeData.balance_sheet.faucet_liabilities/this.sats_per_usd)/10
         }
     },
 }
