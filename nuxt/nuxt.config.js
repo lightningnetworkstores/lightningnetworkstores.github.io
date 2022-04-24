@@ -16,6 +16,7 @@ export default {
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
   router: {
+    middleware: 'affiliate',
     scrollBehavior(to, from, savedPosition) {
       if (savedPosition && to.name !== 'index') {
         return savedPosition
@@ -48,7 +49,7 @@ export default {
     },
     '/api2/': {
       target: process.env.BASE_URL,
-      changeOrigin: false,
+      changeOrigin: true,
     },
   },
   render: {
@@ -164,6 +165,11 @@ export default {
         href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
       },
     ],
+    script: [
+      {
+        src: 'https://kit.fontawesome.com/090ca49637.js'
+      }
+    ]
   },
   css: ['./assets/css/main.scss'], // Global CSS (https://go.nuxtjs.dev/config-css)
   plugins: [
@@ -204,6 +210,10 @@ export default {
       src: '~/plugins/axios.js',
       ssr: true,
     },
+    {
+      src: '~/plugins/carbon-charts.js',
+      ssr: true
+    }
   ],
 
   recaptcha: {

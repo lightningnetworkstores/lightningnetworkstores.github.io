@@ -1,80 +1,124 @@
 <template>
-  <v-app-bar app color="rgb(56, 56, 56)" dark>
-    <v-toolbar-title>
-      <nuxt-link to="/">
-        <img
-          src="@/assets/images/LightningNetworkStores.svg"
-          class="nav-logo"
-        />
-      </nuxt-link>
-    </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn text v-for="route in routes" :key="route.text" :to="route.url">
-        <v-badge
-          v-if="isDiscussionNotificationShowed && route.text === 'Discuss'"
-          color="orange"
-          dot
-          inline
-          left
-        >
-          {{ route.text }}
-        </v-badge>
-        <div v-else>
-          {{ route.text }}
-        </div>
-      </v-btn>
-      <v-btn
-        icon
-        href="https://twitter.com/bitcoinLNS"
-        class="hidden-sm-and-down"
-      >
-        <v-icon>fab fa-twitter</v-icon>
-      </v-btn>
-    </v-toolbar-items>
-    <v-menu class="hidden-md-and-up">
-      <template v-slot:activator="{ on, attrs }">
-        <v-app-bar-nav-icon class="hidden-md-and-up" v-bind="attrs" v-on="on">
-          <template #default>
-            <v-badge
-              v-if="isDiscussionNotificationShowed"
-              color="orange"
-              dot
-              overlap
+    <v-app-bar app color="rgb(56, 56, 56)" dark>
+        <v-toolbar-title>
+            <nuxt-link to="/">
+                <img
+                    src="@/assets/images/LightningNetworkStores.svg"
+                    class="nav-logo"
+                />
+            </nuxt-link>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items class="hidden-sm-and-down">
+            <v-btn
+                text
+                v-for="route in routes"
+                :key="route.text"
+                :to="route.url"
             >
-              <v-icon>mdi-menu</v-icon>
-            </v-badge>
-            <v-icon v-else>mdi-menu</v-icon>
-          </template>
-        </v-app-bar-nav-icon>
-      </template>
-      <v-list>
-        <v-list-item v-for="route in routes" :key="route.text" :to="route.url">
-          <v-list-item>
-            <v-list-item-title>
-              <v-badge
-                v-if="
-                  isDiscussionNotificationShowed && route.text === 'Discuss'
-                "
-                color="orange"
-                dot
-              >
-                {{ route.text }}
-              </v-badge>
-              <div v-else>
-                {{ route.text }}
-              </div>
-            </v-list-item-title>
-          </v-list-item>
-        </v-list-item>
-        <v-list-item href="https://twitter.com/bitcoinLNS">
-          <v-list-item>
-            <v-list-item-title>Twitter</v-list-item-title>
-          </v-list-item>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-    <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
+                <v-badge
+                    v-if="
+                        isDiscussionNotificationShowed &&
+                        route.text === 'Discuss'
+                    "
+                    color="orange"
+                    dot
+                    inline
+                    left
+                >
+                    {{ route.text }}
+                </v-badge>
+                <div v-else>
+                    {{ route.text }}
+                </div>
+            </v-btn>
+            <v-menu v-if="isLogged" offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                    <ProfilePicture
+                        :on="on"
+                        :attrs="attrs"
+                        :src="profile.image"
+                    />
+                </template>
+                <v-list>
+                    <v-list-item v-if="showDashboardButton">
+                        <v-btn @click="toDashboard" text style="width: 100%">
+                            Dashboard
+                        </v-btn>
+                    </v-list-item>
+                    <v-list-item>
+                        <v-btn @click="handleLogout" text style="width: 100%">
+                            Logout
+                        </v-btn>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+            <LoginButton v-if="!isLogged" />
+        </v-toolbar-items>
+        <v-menu class="hidden-md-and-up">
+            <template v-slot:activator="{ on, attrs }">
+                <v-app-bar-nav-icon
+                    class="hidden-md-and-up"
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                    <template #default>
+                        <v-badge
+                            v-if="isDiscussionNotificationShowed"
+                            color="orange"
+                            dot
+                            overlap
+                        >
+                            <v-icon>mdi-menu</v-icon>
+                        </v-badge>
+                        <v-icon v-else>mdi-menu</v-icon>
+                    </template>
+                </v-app-bar-nav-icon>
+            </template>
+            <v-list>
+                <v-list-item class="justify-center">
+                    <LoginButton v-if="!isLogged" />
+                    <ProfilePicture v-else :src="profile.image" />
+                </v-list-item>
+                <v-list-item
+                    v-if="isLogged && showDashboardButton"
+                    to="/dashboard"
+                >
+                    <v-list-item>
+                        <v-list-item-title> Dashboard </v-list-item-title>
+                    </v-list-item>
+                </v-list-item>
+                <v-list-item
+                    v-for="route in routes"
+                    :key="route.text"
+                    :to="route.url"
+                >
+                    <v-list-item>
+                        <v-list-item-title>
+                            <v-badge
+                                v-if="
+                                    isDiscussionNotificationShowed &&
+                                    route.text === 'Discuss'
+                                "
+                                color="orange"
+                                dot
+                            >
+                                {{ route.text }}
+                            </v-badge>
+                            <div v-else>
+                                {{ route.text }}
+                            </div>
+                        </v-list-item-title>
+                    </v-list-item>
+                </v-list-item>
+                <v-list-item v-if="isLogged">
+                    <v-list-item @click="handleLogout">
+                        <v-list-item-title> Logout </v-list-item-title>
+                    </v-list-item>
+                </v-list-item>
+            </v-list>
+        </v-menu>
+        <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -96,52 +140,69 @@
         />
       </svg>
     </v-btn> -->
-  </v-app-bar>
+    </v-app-bar>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
 export default {
-  data() {
-    return {
-      routes: [
-        { url: '/discuss', text: 'Discuss' },
-        { url: '/faucet', text: 'Faucet' },
-        { url: '/stats', text: 'Statistics' },
-        { url: '/wallets', text: 'Wallets' },
-        //{ url: '/donations', text: 'Donations' },
-        { url: '/about', text: 'About' },
-      ],
-    }
-  },
-
-  computed: {
-    ...mapState({
-      isDiscussionNotificationShowed(state) {
-        return state.lastActivity - 500 > state.lastCommentSeenTimestamp
-      },
-    }),
-  },
-
-  methods: {
-    toggleDarkmode() {
-      this.$cookies.set('darkMode', !this.$vuetify.theme.dark, '3y')
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
-      this.$vuetify.theme.dark = false // turn it off always
+    data() {
+        return {
+            routes: [
+                { url: '/discuss', text: 'Discuss' },
+                { url: '/faucet', text: 'Faucet' },
+                { url: '/stats', text: 'Statistics' },
+                { url: '/wallets', text: 'Wallets' },
+                //{ url: '/donations', text: 'Donations' },
+                //{ url: "/contest", text: "Contests" },
+                //{ url: "/quiz", text: "Daily Quiz" },
+                { url: '/about', text: 'About' },
+            ],
+        }
     },
-  },
+
+    computed: {
+        showDashboardButton() {
+            return this.$route.name !== 'Dashboard'
+        },
+        ...mapState({
+            isDiscussionNotificationShowed(state) {
+                return state.lastActivity - 500 > state.lastCommentSeenTimestamp
+            },
+            profile(state) {
+                return state.loginStatus.user
+            },
+            isLogged(state) {
+                if (state.loginStatus.user) return state.loginStatus.user.logged
+                else return false
+            },
+        }),
+    },
+
+    methods: {
+        toggleDarkmode() {
+            this.$cookies.set('darkMode', !this.$vuetify.theme.dark, '3y')
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+            this.$vuetify.theme.dark = false // turn it off always
+        },
+        handleLogout() {
+            this.$store.dispatch('logoutUser')
+        },
+        toDashboard() {
+            this.$router.push('/dashboard')
+        },
+    },
 }
 </script>
-
 <style>
 .v-toolbar__content {
-  height: 64px !important;
+    height: 64px !important;
 }
 .nav-logo {
-  height: 55px;
+    height: 55px;
 }
 .btndarkmode .v-btn__content {
-  font-size: 2em !important;
+    font-size: 2em !important;
 }
 </style>

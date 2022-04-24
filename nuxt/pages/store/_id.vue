@@ -116,11 +116,17 @@
             >
               <b>Logout</b>
             </v-btn>
-            <v-card
-              class="ma-3 d-flex justify-center headline font-weight-medium"
-            >
-              <settings-modal v-if="showSettings" :store="selectedStore" />
-            </v-card>
+            <div v-if="showSettings" class="d-flex w100">
+              <v-btn
+                class="mx-3 mb3 py-6 mt-3 flex-grow-1"
+                color="white"
+                large
+                @click="openSettingsModal"
+              >
+                <v-icon class="mr-2" color="grey darken-1">mdi-cog</v-icon>
+              </v-btn>
+              <settings-modal :store="selectedStore" />
+            </div>
             <div v-if="hasExternal" class="ma-3 headline font-weight-medium">
               External
             </div>
@@ -159,13 +165,7 @@
                 </v-flex>
               </v-layout>
             </v-card>
-            <v-card v-if="selectedStore.logged" class="mx-3 mt-3 py-2">
-              <v-layout row class="py-2 d-flex" justify-center>
-                <v-flex shrink class="mt-1">
-                  <add-external-modal :store="selectedStore" />
-                </v-flex>
-              </v-layout>
-            </v-card>
+            <add-external-modal :store="selectedStore" />
             <div class="mx-3 mt-3 py-2">
               <AddEventModal
                 v-if="selectedStore.logged"
@@ -519,6 +519,9 @@ export default {
     ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
   methods: {
+    openSettingsModal() {
+      this.$store.dispatch('modals/openSettingsModal')
+    },
     sortReviewsByTime() {
       this.reviews.sort((a, b) => {
         return b[b.length - 1].timestamp - a[a.length - 1].timestamp

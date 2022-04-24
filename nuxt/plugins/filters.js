@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const URL_REGEX = /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/*\?*(\w|=|%20|\+)*/g
+const URL_REGEX = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/
 const PROTOCOL_REGEX = /(http:\/\/|https:\/\/)/
 const TAGGED_REGEX = /@\w*/g
 
@@ -34,4 +34,4 @@ Vue.filter('splitNumber', function (value) {
   }
 })
 
-Vue.filter('capitalize', text => text[0].toUpperCase() + text.slice(1))
+Vue.filter('capitalize', text => text.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' '))

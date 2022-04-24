@@ -1,9 +1,6 @@
 <template>
   <div>
-    <v-btn icon fab @click="openDialog">
-      <v-icon>mdi-cog</v-icon>
-    </v-btn>
-    <v-dialog v-model="isOpen" max-width="500" persistent>
+    <v-dialog v-model="isSettingsModalOpen" max-width="500" persistent>
       <v-card>
         <v-card-title>Settings</v-card-title>
         <v-divider></v-divider>
@@ -21,7 +18,7 @@
         <v-layout row class="mx-3 mt-3">
           <v-col>
             <div class="mx-1 h5">Email</div>
-            <v-text-field v-model="form.email" type="email"/>
+            <v-text-field v-model="form.email" type="email" />
             <div class="mx-1 h5">Notifications</div>
             <!-- <v-checkbox
               v-model="form.notifications.features"
@@ -29,7 +26,8 @@
             </v-checkbox> -->
             <v-checkbox
               v-model="form.notifications.reviews"
-              label="New reviews (coming feature)">
+              label="New reviews (coming feature)"
+            >
             </v-checkbox>
             <!-- <v-divider></v-divider>
             <div class="mx-1 mt-2 h5">Accepted</div>
@@ -67,50 +65,52 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     store: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
-    const {
-      notifications,
-      isFirstTime,
-      email
-    } = this.$store.state.selectedStoreSettings
+    const { notifications, email } = this.$store.state.selectedStoreSettings
     return {
-      isOpen: isFirstTime,
       isProcessing: false,
       form: {
         email: email,
         notifications: {
           features: false,
-          reviews: notifications.new_reviews
+          reviews: notifications.new_reviews,
         },
         accepted: {
           BTC: false,
-          BTCLN: true
-        }
+          BTCLN: true,
+        },
       },
-      serverError: null
+      serverError: null,
     }
   },
+
+  computed: {
+    ...mapState({
+      isSettingsModalOpen: (state) => state.modals.isSettingsModalOpen,
+    }),
+  },
+
   methods: {
-    openDialog() {
-      this.isOpen = true
-    },
     closeDialog() {
-      this.isOpen = false
+      this.$store.dispatch('modals/closeSettingsModal')
       this.serverError = null
       this.$store.dispatch('updateFirstTime')
     },
     onSaveClicked() {
-      const payload = {...this.form, storeId: this.store.id }
+      const payload = { ...this.form, storeId: this.store.id }
       this.isProcessing = true
-      this.$store.dispatch('updateSettings', payload)
-        .then(result => {
+      this.$store
+        .dispatch('updateSettings', payload)
+        .then((result) => {
           if (result.error) {
             this.serverError = result.error
           }
@@ -118,7 +118,15 @@ export default {
             this.closeDialog()
           }
         })
-        .finally(() => this.isProcessing = false)
+        .finally(() => (this.isProcessing = false))
+    },
+  },
+
+  mounted() {
+    const { isFirstTime } = this.$store.state.selectedStoreSettings
+
+    if (isFirstTime) {
+      this.$store.dispatch('modals/openSettingsModal')
     }
   },
 }

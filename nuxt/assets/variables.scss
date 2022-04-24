@@ -6,3 +6,5 @@
 $font-size-root: 14px;
 $new-color: ('background': '#303030');
 $material-dark: map-merge($material-dark, $new-color);
+
+$expansion-panel-content-padding: 0;

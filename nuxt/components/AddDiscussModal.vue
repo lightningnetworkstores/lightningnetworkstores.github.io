@@ -6,11 +6,11 @@
       dark
       fab
       fixed
-      top
+      bottom
       right
       @click="openDialog"
     >
-      <v-icon>mdi-plus</v-icon>
+      <v-icon>mdi-comment</v-icon>
     </v-btn>
 
     <!-- Add store modal -->
@@ -44,13 +44,6 @@
           <v-card-text class="pa-0 cardContent" v-else>
             <v-card-title class="headline">
               <v-flex grow>Add new discussion</v-flex>
-              <v-flex shrink v-if="isLoading || paymentRequest.length"
-                ><v-progress-circular
-                  indeterminate
-                  size="20"
-                  color="green"
-                ></v-progress-circular
-              ></v-flex>
             </v-card-title>
             <Checkout
               v-if="paymentRequest"
@@ -83,6 +76,7 @@
                 <v-layout row>
                   <v-flex pl-3 pr-3>
                     <v-textarea
+                      outlined
                       v-model="addDiscussionForm.comment"
                       type="text"
                       :counter="
@@ -104,16 +98,33 @@
                     ></v-textarea>
                   </v-flex>
                 </v-layout>
+                <v-divider class="my-2"/>
+                <div class="text-body-1 mx-1">What is this about?</div>
                 <v-layout row>
-                  <v-flex pl-3 pr-3>
+                  <v-radio-group class="mx-3" row v-model="about">
+                    <v-radio label="Store" value="store"></v-radio>
+                    <v-radio label="Topic" value="other"></v-radio>
+                  </v-radio-group>
+                </v-layout>
+                <v-layout row>
+                  <v-flex pl-3 pr-3 v-if="about === 'store'">
                     <v-autocomplete
+                      outlined
                       :items="storeSummary"
                       label="Store (optional)"
                       v-model="addDiscussionForm.storeId"
                     />
                   </v-flex>
+                  <v-flex pl-3 pr-3 v-if="about === 'other'">
+                    <v-select
+                      outlined
+                      v-model="selectedTopic"
+                      :items="topicsWithout('MERCHANTS')"
+                      label="Topics"
+                    >
+                    </v-select>
+                  </v-flex>
                 </v-layout>
-
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
@@ -135,7 +146,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
@@ -151,7 +162,7 @@ export default {
       showAddDialog: false,
       addDiscussionForm: {},
       addAlert: { message: '', success: true },
-      confirm_title: 'Store successfully added.',
+      confirm_title: 'Success!',
       isLoading: false,
 
       paymentRequest: '',
@@ -159,13 +170,15 @@ export default {
       expiryTime: new Date(),
       isPaid: false,
       tweet: null,
-
+      selectedTopic: 'OTHER',
       checkPaymentTimer: null,
       addDiscussionFee: 0,
+      about: 'other'
     }
   },
   computed: {
     ...mapState(['storeSummary']),
+    ...mapGetters('discussions', ['topicsWithout'])
   },
   methods: {
     openDialog() {
@@ -209,31 +222,27 @@ export default {
         if (this.addDiscussionForm.storeId) {
           payload.storeID = this.addDiscussionForm.storeId
         }
-
+        if (this.selectedTopic) {
+          payload.topic = this.selectedTopic
+        }
         
         console.log(payload.recaptchaToken)
         
 
-        this.$store.dispatch('addDiscussion', payload).then(
-          (response) => {
-            if (response.status === 'success') {
-              this.addDiscussionFee = response.data.amount
-              this.paymentRequest = response.data.payment_request
-              this.paymentID = response.data.id
-              //     this.confirm_title = 'Store successfully added.'
+        this.$store.dispatch('discussions/addDiscussion', payload).then(
+          data => {
+            const { amount, payment_request, id } = data
+            this.addDiscussionFee = amount
+            this.paymentRequest = payment_request
+            this.paymentID = id
 
-              let date = new Date()
-              this.expiryTime = new Date(
-                date.setSeconds(date.getSeconds() + 3600)
-              )
-              this.checkPaymentTimer = setInterval(() => {
-                this.checkPayment()
-              }, 3000)
-            } else {
-              this.addAlert.message = response.message
-              this.addAlert.success = false
-            }
-
+            let date = new Date()
+            this.expiryTime = new Date(
+              date.setSeconds(date.getSeconds() + 3600)
+            )
+            this.checkPaymentTimer = setInterval(() => {
+              this.checkPayment()
+            }, 3000)
             this.isLoading = false
           },
           (error) => {
@@ -252,8 +261,8 @@ export default {
             if (response.data.paid == true) {
               this.isPaid = true
               this.addDiscussionForm = {}
+              this.$store.dispatch('discussions/getDiscussions')
               clearInterval(this.checkPaymentTimer)
-
               if (response.data.tweet !== undefined) {
                 this.tweet = response.data.tweet
               }
