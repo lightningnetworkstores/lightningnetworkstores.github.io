@@ -129,8 +129,8 @@ export const mutations = {
     state.topics = topics
   },
   updateAdmin(state, data) {
-    const { isAdmin, user } = data;
-    state.isAdmin = isAdmin
+    const { is_admin, user } = data;
+    state.isAdmin = is_admin
     state.isLogged = user.logged;
   },
 

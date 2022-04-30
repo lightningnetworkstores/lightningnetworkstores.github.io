@@ -231,7 +231,11 @@ export default {
 
         this.$store.dispatch('discussions/addDiscussion', payload).then(
           data => {
-            const { amount, payment_request, id } = data
+            const { amount, payment_request, id, submitted } = data
+            if (!payment_request && submitted) {
+              this.$store.dispatch('discussions/getDiscussions')
+              return this.closeDialog()
+            }
             this.addDiscussionFee = amount
             this.paymentRequest = payment_request
             this.paymentID = id
