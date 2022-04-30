@@ -21,7 +21,7 @@
                     :class="isActivePrevious ? '' : 'isActive'"
                     @click="handleResetContentStore()"
                 >
-                    Now
+                    Next
                 </v-btn>
             </v-col>
         </v-row>
@@ -40,11 +40,13 @@
                         <span class="title">Time left:</span>
                         <div>
                             <flip-countdown
+                                v-if="isActuallyContest"
                                 :deadline="deadline"
                                 :showDays="false"
                                 countdownSize="32px"
                                 labelSize="14px"
                             ></flip-countdown>
+                            <span v-else class="title ml-3"><b>{{ stage }}</b></span>
                         </div>
                     </div>
                     <v-btn text href="#" color="primary" class="mx-16">
@@ -77,14 +79,14 @@
                 <h3 class="mb-4">Your bets</h3>
                 <user-bets-table
                     :userBets="userBets"
-                    :waitingForEnd="isContestClosed"
+                    :waitingForEnd="isActuallyContest"
                 />
             </v-col>
         </v-row>
         <v-row>
             <v-col><v-divider class="mt-8" /></v-col>
         </v-row>
-        <template v-if="false">
+        <template v-if="isContestClosed">
             <v-row>
                 <v-col><h2>Contest Results</h2></v-col></v-row
             >
@@ -114,7 +116,7 @@
                             :store="store"
                             :contestId="storeContest.contest.id"
                             :disabled="!isLogged || isContestClosed"
-                            :selected="store.id === choice"
+                            :selected="store.id == choice"
                             :minBet="minimumBet"
                         /></div
                 ></v-col>
@@ -175,38 +177,57 @@ export default {
             return this.storeContest.contest?.stage
         },
         choice() {
-            return this.storeContest.userVote?.choice
+            return parseInt((this.storeContest.user_vote?.choice ?? 0))
+        },
+        nameContest() {
+            return this.storeContest.contest?.name
+        },
+        isActuallyContest() {
+            if (
+                ['MAIN', 'EXTENSION', 'ACTIVE'].includes(this.stage)
+            ) {
+                return true
+            }
+
+            return false
         },
         isContestClosed() {
-            switch (this.stage) {
-                case 'DISQUALIFIED':
-                case 'COMPLETE':
-                case 'CANCELLED':
-                    return true
-                default:
-                    return false
+            if (
+                ['DISQUALIFIED', 'COMPLETE', 'CANCELLED'].includes(this.stage)
+            ) {
+                return true
             }
+
+            return false
         },
         votes() {
             if (this.isContestClosed) {
-                return this.storeContest.stores.map((store) => {
+                let votesInfo = this.storeContest.stores.map((store) => {
                     return {
                         store,
                         votes:
                             this.storeContest.votes?.filter(
-                                (vote) => vote.choice === store.id
+                                (vote) => parseInt(this.notIsNaN(vote.choice)) === store.id
                             ) || [],
                         bets:
                             this.storeContest.bets?.filter(
-                                (bet) => bet.choice === store.id
+                                (bet) => parseInt(this.notIsNaN(bet.choice)) === store.id
                             ) || [],
                     }
                 })
+                
+                return votesInfo
             }
             return []
         },
     },
     methods: {
+        notIsNaN (number) {
+            if (isNaN(number)) {
+                return 0
+            }
+            return number
+        },
         handleLoginClick() {
             this.$axios
                 .get('/api/oauthlogin?platform=twitter')
@@ -220,14 +241,21 @@ export default {
         },
         handlePreviousContentStore() {
             this.countPrevious = this.countPrevious + 1
-            this.$store.dispatch('previousStoreContest', this.countPrevious)
-            this.$store.dispatch('getStoreContest')
+
+            this.$store.dispatch('previousStoreContest', {
+                age: this.countPrevious,
+            })
+            // this.$store.dispatch('getStoreContest')
             this.isActivePrevious = true
         },
         handleResetContentStore() {
-            this.countPrevious = 0
-            this.$store.dispatch('previousStoreContest', 0)
-            this.$store.dispatch('getStoreContest')
+            if (this.countPrevious > 0)
+                this.countPrevious = this.countPrevious - 1;
+
+            this.$store.dispatch('previousStoreContest', {
+                age: this.countPrevious,
+            })
+            // this.$store.dispatch('getStoreContest')
             this.isActivePrevious = false
         },
     },
