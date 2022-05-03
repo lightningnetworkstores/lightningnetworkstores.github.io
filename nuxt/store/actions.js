@@ -1062,13 +1062,14 @@ const actions = {
 
         return Promise.resolve()
     },
-    async previousStoreContest({ commit, state }, { age }) {
-        // commit("cleanStoreContest")
-        // const {
-        //     data: { data },
-        // } = await this.$axios.get(`${state.baseURL}api/store_contest?age=${ageValue}`)
-
-        let nameStore = state.nameStoreContest;
+    async getCustomStoreContest({ commit, state }, { name, age }) {
+        
+        if (name==="" || name===undefined) {
+            var nameStore = state.nameStoreContest;
+        } else {
+            var nameStore = name;
+            commit('setNameStoreContest', name)
+        }
         
         const {
             data: { data },
@@ -1092,13 +1093,15 @@ const actions = {
 
         return Promise.resolve()
     },
-    async previousQuizContest({ commit, state }, { age }) {
-        // const { data } = await this.$axios.get(`${state.baseURL}api/quiz_contest?age=${ageValue}`)
-        let nameQuiz = state.nameQuizContest;
+    async getCustomQuizContest({ commit, state }, { name, age }) {
+        if (name==="" || name===undefined) {
+            var nameQuiz = state.nameQuizContest;
+        } else {
+            var nameQuiz = name;
+            commit('setNameQuizContest', name)
+        }
 
         const { data } = await this.$axios.get(`${state.baseURL}api/quiz_contest?name=${nameQuiz}&age=${age}`)
-
-        console.log("QuizData: ", { ...data.data });
 
         commit('setQuizContest', { ...data.data })
 

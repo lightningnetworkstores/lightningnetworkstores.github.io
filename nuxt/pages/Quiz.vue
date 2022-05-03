@@ -235,7 +235,7 @@ export default {
         },
         handlePreviousContentQuiz() {
             this.countPreviousQuiz = this.countPreviousQuiz + 1
-            this.$store.dispatch('previousQuizContest', {
+            this.$store.dispatch('getCustomQuizContest', {
                 age: this.countPreviousQuiz,
             })
             this.isActivePrevious = true
@@ -244,7 +244,7 @@ export default {
             if (this.countPreviousQuiz > 0)
                 this.countPreviousQuiz = this.countPreviousQuiz - 1;
             
-            this.$store.dispatch('previousQuizContest', {
+            this.$store.dispatch('getCustomQuizContest', {
                 age: this.countPreviousQuiz,
             })
             this.isActivePrevious = false
