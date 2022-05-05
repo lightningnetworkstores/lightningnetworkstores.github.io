@@ -98,6 +98,7 @@
                     ></v-textarea>
                   </v-flex>
                 </v-layout>
+                <ImageSelector @onImageSelected="onImageSelected"/>
                 <v-divider class="my-2"/>
                 <div class="text-body-1 mx-1">What is this about?</div>
                 <v-layout row>
@@ -150,12 +151,15 @@ import { mapState, mapGetters } from 'vuex'
 
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+import ImageSelector from '@/components/discussions/ImageSelector'
+import { IMAGE_TYPE_FILE_UPLOAD, IMAGE_TYPE_URL } from '@/utils/constants'
 
 export default {
   name: 'AddDiscussModal',
   components: {
     Checkout,
     Success,
+    ImageSelector
   },
   data() {
     return {
@@ -173,7 +177,8 @@ export default {
       selectedTopic: 'OTHER',
       checkPaymentTimer: null,
       addDiscussionFee: 0,
-      about: 'other'
+      about: 'other',
+      image: null
     }
   },
   computed: {
@@ -208,6 +213,10 @@ export default {
       this.isLoading = false
     },
 
+    onImageSelected(event) {
+      // {type: <IMAGE_TYPE_FILE_UPLOAD|IMAGE_TYPE_URL>, value: <File|String>}
+      this.image = event
+    },
     async submitAdd(event) {
       if (this.$refs.addform.validate(true)) {
         this.isLoading = true
