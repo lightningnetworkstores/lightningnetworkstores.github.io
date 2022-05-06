@@ -14,6 +14,13 @@ export const actions = {
     return this.$axios.$post(`/api/discussion?g-recaptcha-response=${payload.recaptchaToken}`, payload)
       .then(data => data.data)
   },
+  addImage(context, file) {
+    const headers = {
+      'Content-Type': 'image/jpeg'
+    }
+    const data = file
+    return this.$axios.$post(`/api/discussionimage`, data, { headers })
+  },
   getDiscussions({ commit }) {
     this.$axios.$get('/api/discussion')
       .then(data => {

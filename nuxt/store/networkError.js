@@ -7,7 +7,6 @@ export const state = () => ({
 
 export const actions = {
   showError({ commit }, error) {
-    console.log(Object.keys(error))
     if (error.isAxiosError) {
       const { response } = error
       const timeout = error.timeout ? error.timeout : DEFAULT_ERROR_SNACKBAR_TIMEOUT

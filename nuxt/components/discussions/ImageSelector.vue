@@ -47,7 +47,7 @@ export default {
       }
     },
     onFileChange(e) {
-      if (!e.name) return
+      if (!e || !e.name) return
       this.imageUrl = e.name
       this.onImageSelected()
     },

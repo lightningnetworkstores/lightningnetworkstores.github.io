@@ -182,7 +182,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['storeSummary']),
+    ...mapState(['storeSummary', 'baseURL']),
     ...mapGetters('discussions', ['topicsWithout'])
   },
   methods: {
@@ -222,11 +222,23 @@ export default {
         this.isLoading = true
         this.addAlert = { message: '', success: true }
         this.isPaid = false
+        let uploadImageResponse = null
+        if (this.image && this.image.type === IMAGE_TYPE_FILE_UPLOAD) {
+          try {
+            uploadImageResponse = await this.$store.dispatch('discussions/addImage', this.image.value)
+          } catch(err) {
+            this.isLoading = false
+            return this.$store.dispatch('networkError/showError', err)
+          }
+        }
         let recaptchaToken = await this.$recaptcha.execute('create_discussion')
         const payload = {
           title: this.addDiscussionForm.title,
           comment: this.addDiscussionForm.comment,
           recaptchaToken: recaptchaToken
+        }
+        if (uploadImageResponse) {
+          payload.url = `${this.baseURL}${uploadImageResponse.data.path.slice(1)}`
         }
         if (this.addDiscussionForm.storeId) {
           payload.storeID = this.addDiscussionForm.storeId
