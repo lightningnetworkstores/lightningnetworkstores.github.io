@@ -75,87 +75,36 @@ const getters = {
       if (search && search !== 'undefined') {
         let fuse = new Fuse(stores, options)
         stores = fuse.search(search)
-      } else {
-        // Sort
-        switch (sort) {
-          case 'trending':
-            stores = stores
-              .filter((store) => store.trending > options.trendingThreshold)
-              .sort((a, b) => {
-                return b.trending - a.trending
-              })
-            break
-          case 'newest':
-            stores
-              .sort((a, b) => {
-                return a.added - b.added
-              })
-              .reverse()
-            break
-          case 'lifetime':
-            stores.sort((a, b) => {
-              return b.lifetime - a.lifetime
-            })
-            break
-          case 'likes':
-            stores.sort((a, b) => {
-              return b.likes - a.likes
-            })
-            break
-          case 'controversial':
-            stores.sort((a, b) => {
-              let magnitudeB = b.upvotes + b.downvotes
-              let controversialB = 0
-              if (magnitudeB != 0) {
-                controversialB =
-                  (magnitudeB * Math.min(b.upvotes, b.downvotes)) /
-                  Math.max(b.upvotes, b.downvotes)
-              }
+        return stores;
+      } 
 
-              let magnitudeA = a.upvotes + a.downvotes
-              let controversialA = 0
-              if (magnitudeA != 0) {
-                controversialA =
-                  (magnitudeA * Math.min(a.upvotes, a.downvotes)) /
-                  Math.max(a.upvotes, a.downvotes)
-              }
+      stores = stores.sort(sortingFunction(sort))
 
-              return controversialB - controversialA
-            })
-            break
-          case 'lastcommented':
-            stores.sort((a, b) => {
-              return b.last_commented - a.last_commented
-            })
-            break
-          default:
-            stores.sort((a, b) => {
-              return b.sorting - a.sorting
-            })
-            // Add most treding tore to top
-            if (!isFiltered) {
-              var mostTrendingStore = stores.slice().sort((a, b) => {
-                return b.trending - a.trending
-              })[0]
+      if (sort == 'trending') {
+        stores = stores.filter((store) => store.trending > options.trendingThreshold)
+      }
+      if (isFiltered || (sort != null && sort != 'best')) { return stores; }
 
-              var newestStore = stores.slice().sort((a, b) => {
-                return b.added - a.added
-              })[0]
-              stores.splice(stores.indexOf(newestStore), 1)
-              stores.splice(1, 0, newestStore)
+      // Add trendiest store to top
+      var mostTrendingStore = stores.slice().sort((a, b) => {
+        return b.trending - a.trending
+      })[0]
 
-              // Is above trending threshold?
-              if (
-                mostTrendingStore &&
-                stores.length > 0 &&
-                mostTrendingStore.trending >= 10
-              ) {
-                stores.splice(stores.indexOf(mostTrendingStore), 1)
-                stores.splice(1, 0, mostTrendingStore)
-              }
-            }
-            break
-        }
+        // Add newest store to top
+      var newestStore = stores.slice().sort((a, b) => {
+        return b.added - a.added
+      })[0]
+      stores.splice(stores.indexOf(newestStore), 1)
+      stores.splice(1, 0, newestStore)
+
+      // Is above trending threshold?
+      if (
+        mostTrendingStore &&
+        stores.length > 0 &&
+        mostTrendingStore.trending >= 10
+      ) {
+        stores.splice(stores.indexOf(mostTrendingStore), 1)
+        stores.splice(1, 0, mostTrendingStore)
       }
       return stores
     }
@@ -214,6 +163,71 @@ const getters = {
   getQuizContest(state) {
     return state.quizContest
   },
+}
+
+function sortingFunction(method) {
+  console.log('method=' + method)
+  switch (method) {
+    case 'custom':
+      let scoreFunction = customScore(parameters)
+      return (a, b) => { return (scoreFunction(b) - scoreFunction(a)) }
+    case 'trending':
+      (a, b) => { return b.trending - a.trending }
+    case 'newest':
+      (a, b) => { return b.added - a.added }
+    case 'lifetime':
+      (a, b) => { return b.lifetime - a.lifetime }
+    case 'likes':
+      return (a, b) => { return b.likes - a.likes }
+    case 'controversial':
+      return (a, b) => {
+        let magnitudeB = b.upvotes + b.downvotes
+        let controversialB = 0
+        if (magnitudeB != 0) {
+          controversialB =
+            (magnitudeB * Math.min(b.upvotes, b.downvotes)) /
+            Math.max(b.upvotes, b.downvotes)
+        }
+
+        let magnitudeA = a.upvotes + a.downvotes
+        let controversialA = 0
+        if (magnitudeA != 0) {
+          controversialA =
+            (magnitudeA * Math.min(a.upvotes, a.downvotes)) /
+            Math.max(a.upvotes, a.downvotes)
+        }
+
+        return controversialB - controversialA
+      }
+    case 'lastcommented':
+      return (a, b) => { return b.last_commented - a.last_commented }
+    default:
+      return (a, b) => { return b.sorting - a.sorting }
+  }
+}
+
+function customScore(parameters) {
+  return (a) => {
+    let evaporated = 0
+    if (parameters.halflife <= 270) {
+      let nineMonthWeight = (parameters.halflife - 30) / (270 - 30)
+      evaporated = (a.upvotes - a.downvotes) * nineMonthWeight + a.evaporated90 * (1 - nineMonthWeight)
+    } else if (parameters.halflife > 270) {
+      evaporated = a.lifetime
+    }
+
+    let score = evaporated * parameters.score
+
+    let scoreTrend = a.trending * parameters.trending
+    let likeTrend = 0 * parameters.likeTrend // TODO
+    let externalTrend = 0 * parameters.externalTrend // TODO
+    let novelty = a.added * parameters.novelty
+
+    let likes = a.likes * parameters.satsPerLike
+
+
+    return score + scoreTrend + novelty + likes + likeTrend + externalTrend
+  }
 }
 
 export default getters
