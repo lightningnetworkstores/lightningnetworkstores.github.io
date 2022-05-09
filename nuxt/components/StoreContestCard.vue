@@ -171,6 +171,8 @@ export default {
             this.$store.dispatch('choseOption', {
                 contestID: this.contestId,
                 choice: this.store.id,
+            }).then(() => {
+                this.$store.dispatch('getStoreContest')
             })
         },
     },

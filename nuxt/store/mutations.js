@@ -227,8 +227,40 @@ const mutations = {
     setStoreContest(state, payload) {
         state.storeContest = { ...payload }
     },
+    setNameStoreContest(state, payload){
+        state.nameStoreContest= payload
+    },
     setQuizContest(state, payload) {
         state.quizContest = { ...payload }
+    },
+    setNameQuizContest(state, payload) {
+        state.nameQuizContest = payload
+    },
+    setAddObjQuizContest(state, payload) {
+        state.quizContest.user_bets = [
+            ...state.quizContest.user_bets,
+            { ...payload }
+        ]
+
+
+        const sum =
+            state.quizContest.user_bets
+                .reduce((prev, curr) => prev + curr.wager, 0)
+
+        state.quizContest.contest.pot = sum
+    },
+    setAddObjStoreContest(state, payload) {
+        state.storeContest.user_bets = [
+            ...state.storeContest.user_bets,
+            { ...payload }
+        ]
+
+
+        const sum =
+            state.storeContest.user_bets
+                .reduce((prev, curr) => prev + curr.wager, 0)
+
+        state.storeContest.contest.pot = sum
     },
 }
 

@@ -35,6 +35,7 @@ export const state = () => ({
   loginStatus: {},
   popularSearches: [],
   quizContest: {},
+  nameQuizContest: '',
   scores: [],
   scrolledStores: 0,
   selectedStore: { logged: false }, // makes components reactive to selectedStore.logged
@@ -42,6 +43,7 @@ export const state = () => ({
   selectedTags: [],
   statistics: {},
   storeContest: {},
+  nameStoreContest: '',
   storeEvents: [],
   storePages: 0,
   stores: [],

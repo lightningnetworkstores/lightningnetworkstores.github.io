@@ -249,8 +249,15 @@ export default {
             this.isActivePrevious = true
         },
         handleResetContentStore() {
-            if (this.countPrevious > 0)
+
+            let nameRoute = (this.$route.params?.name ?? '');
+
+            if (nameRoute==="" || nameRoute===undefined) {
+                if (this.countPrevious > 0)
+                    this.countPrevious = this.countPrevious - 1;
+            } else {
                 this.countPrevious = this.countPrevious - 1;
+            }
 
             this.$store.dispatch('getCustomStoreContest', {
                 age: this.countPrevious,
@@ -261,7 +268,11 @@ export default {
     },
 
     beforeMount() {
-        this.$store.dispatch('getStoreContest')
+        let nameRoutes = (this.$route.params?.name ?? '')
+        this.$store.dispatch('getCustomStoreContest', {
+            name: nameRoutes,
+            age: 0
+        })
     },
 }
 </script>

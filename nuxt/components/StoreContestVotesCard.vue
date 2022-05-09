@@ -28,7 +28,7 @@
             <span>voted by</span>
             <div class="d-flex flex-wrap align-center storeVotes.votes-voted-container">
               <v-menu
-                v-for="n in 8"
+                v-for="n in votesLengthForUsers"
                 :key="`votes-${n}`"
                 top
                 open-on-hover
@@ -38,7 +38,7 @@
                 <template v-slot:activator="{ on }">
                   <v-btn icon x-large v-on="on">
                     <v-avatar size="32" class="storeVotes.votes-votes-avatar">
-                      <img :src="votes[n].profile.image" />
+                      <img :src="votesProfileImage(n-1)" />
                     </v-avatar>
                   </v-btn>
                 </template>
@@ -47,12 +47,12 @@
                     <div class="mx-auto text-left px-4">
                       <div class="d-flex align-center">
                         <v-avatar color="brown" size="38">
-                          <img :src="votes[n].profile.image" />
+                          <img :src="votesProfileImage(n-1)" />
                         </v-avatar>
                         <div class="ml-2">
-                          <h3 class="mb-1">{{ votes[n].profile.name }}</h3>
+                          <h3 class="mb-1">{{ votesProfileName(n-1) }}</h3>
                           <p class="text-caption mb-0">
-                            {{ votes[n].profile.handle }}
+                            {{ votesProfileHandle(n-1) }}
                           </p>
                         </div>
                       </div>
@@ -61,7 +61,7 @@
                 </v-card>
               </v-menu>
 
-              <v-btn icon x-large v-on="on">
+              <v-btn v-if="(votesLengthForUsers > 8)" icon x-large v-on="on">
                 <v-avatar
                   size="28"
                   class="storeVotes.votes-votes-avatar"
@@ -76,7 +76,7 @@
             <span>Bets</span>
             <div class="d-flex flex-wrap storeVotes.votes-voted-container">
               <v-menu
-                v-for="n in 8"
+                v-for="n in betsLengthForUsers"
                 :key="`bet-${n}`"
                 top
                 open-on-hover
@@ -87,7 +87,7 @@
                 <template v-slot:activator="{ on }">
                   <v-btn icon x-large v-on="on">
                     <v-avatar size="32" class="storeVotes.votes-votes-avatar">
-                      <img :src="bets[n].profile.image" />
+                      <img :src="betsProfileImage(n-1)" />
                     </v-avatar>
                   </v-btn>
                 </template>
@@ -96,18 +96,18 @@
                     <div class="mx-auto text-left px-4">
                       <div class="d-flex align-center">
                         <v-avatar color="brown" size="38">
-                          <img :src="bets[n].profile.image" />
+                          <img :src="betsProfileImage(n-1)" />
                         </v-avatar>
                         <div class="ml-2">
-                          <h3 class="mb-1">{{ bets[n].profile.name }}</h3>
+                          <h3 class="mb-1">{{ betsProfileName(n-1) }}</h3>
                           <p class="text-caption mb-0">
-                            {{ bets[n].profile.handle }}
+                            {{ betsProfileHandle(n-1) }}
                           </p>
                         </div>
                       </div>
                       <v-chip class="ma-2" color="amber darken-4" text-color="white">
                         <v-avatar left class="amber darken-3">
-                          {{ bets[n].wager }}
+                          {{ betsProfileWager(n-1) }}
                         </v-avatar>
                         Sats betted
                       </v-chip>
@@ -116,7 +116,7 @@
                 </v-card>
               </v-menu>
 
-              <v-btn icon x-large v-if="bets.length > 8">
+              <v-btn v-if="(betsLengthForUsers > 8)" icon x-large>
                 <v-avatar
                   size="32"
                   class="storeVotes.votes-votes-avatar"
@@ -144,6 +144,33 @@ export default {
         return state.baseURL;
       },
     }),
+    votesProfileImage() {
+        return (n) => this.votes[n]?.profile.image ?? ""
+    },
+    votesProfileName() {
+        return (n) => this.votes[n]?.profile.name ?? ""
+    },
+    votesProfileHandle() {
+        return (n) => this.votes[n]?.profile.handle ?? ""
+    },
+    betsProfileImage() {
+        return (n) => this.bets[n]?.profile.image ?? ""
+    },
+    betsProfileName() {
+        return (n) => this.bets[n]?.profile.name ?? ""
+    },
+    betsProfileHandle() {
+        return (n) => this.bets[n]?.profile.handle ?? ""
+    },
+    betsProfileWager() {
+        return (n) => this.bets[n]?.wager ?? ""
+    },
+    votesLengthForUsers() {
+        return (this.votes.length > 0) ? ((this.votes.length > 8) ? 8 : this.votes.length) : 0 
+    },
+    betsLengthForUsers() {
+        return (this.bets.length > 0) ? ((this.bets.length > 8) ? 8 : this.bets.length) : 0
+    },
   },
   methods: {
     getStoreLink(link) {

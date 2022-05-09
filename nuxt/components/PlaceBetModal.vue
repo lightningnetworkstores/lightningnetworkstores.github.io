@@ -38,11 +38,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-snackbar
-            v-model="snackbar.active"
-            :timeout="snackbar.timeout"
-            color="success"
-        >
+        <v-snackbar v-model="snackbar.active" :timeout="3000" color="success">
             <b>{{ snackbar.message }}</b>
 
             <template v-slot:action="{ attrs }">
@@ -79,7 +75,6 @@ export default {
             },
             snackbar: {
                 active: false,
-                timeout: 3000,
                 message: '',
                 color: '',
             },
@@ -97,18 +92,19 @@ export default {
                     contestID: this.contestId,
                     choice: this.option,
                     amount: this.amount,
+                    type: this.type,
                 })
-                .then(() => {
+                .then((data) => {
                     this.$emit('update:isOpen', false)
                     this.amount = '0'
-                    this.$store.dispatch(
-                        this.type === 'quiz'
-                            ? 'getQuizContest'
-                            : 'getStoreContest'
-                    )
+                    // this.$store.dispatch(
+                    //     this.type === 'quiz'
+                    //         ? 'getQuizContest'
+                    //         : 'getStoreContest'
+                    // )
 
-                    this.snackbar.message = 'Successful Bet!'
-                    this.snackbar.color = 'success'
+                    this.snackbar.message = data.message
+                    this.snackbar.color = data.status
                     this.snackbar.active = true
                 })
                 .catch((err) => {

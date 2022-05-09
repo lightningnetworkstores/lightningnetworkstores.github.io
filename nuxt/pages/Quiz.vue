@@ -1,29 +1,31 @@
 <template>
     <v-container class="py-14">
         <v-row>
-            <!-- <v-col class="col-md-2">
+            <v-col class="col-md-2">
                 <v-btn
                     outlined
                     color="#424242"
+                    :class="isActivePrevious ? 'isActive' : ''"
                     @click="handlePreviousContentQuiz()"
                 >
                     Previous
                 </v-btn>
-            </v-col> -->
-            <v-col
+            </v-col>
+            <v-col class="col-md-8"
                 ><h1 class="text-center">
                     {{ question }}
-                </h1></v-col
-            >
-            <!-- <v-col class="col-md-2 text-right">
+                </h1>
+            </v-col>
+            <v-col class="col-md-2 text-right">
                 <v-btn
                     outlined
                     color="#424242"
+                    :class="isActivePrevious ? '' : 'isActive'"
                     @click="handleResetContentQuiz()"
                 >
-                    Now
+                    Next
                 </v-btn>
-            </v-col> -->
+            </v-col>
         </v-row>
         <v-row>
             <v-col
@@ -40,11 +42,13 @@
                         <span class="title">Time left:</span>
                         <div>
                             <flip-countdown
+                                v-if="isActuallyContest"
                                 :deadline="deadline"
                                 :showDays="false"
                                 countdownSize="32px"
                                 labelSize="14px"
                             ></flip-countdown>
+                            <span v-else class="title ml-3"><b>{{ stage }}</b></span>
                         </div>
                     </div>
                     <v-btn text href="#" color="primary" class="mx-16">
@@ -77,14 +81,15 @@
             >
             <v-row>
                 <v-col>
-                    <div class="grid-list">
+                    <div class="grid-list" >
                         <quiz-contest-votes-card
                             v-for="optionVote in votes"
                             :key="`optionVotes-${optionVote.option}`"
                             :option="optionVote.option"
                             :votes="optionVote.votes"
                             :bets="optionVote.bets"
-                        /></div></v-col
+                        />
+                        </div></v-col
             ></v-row>
         </template>
         <template v-else>
@@ -111,7 +116,7 @@
                 <h3 class="mb-4">Your bets</h3>
                 <user-bets-table
                     :userBets="userBets"
-                    :waitingForEnd="isContestClosed"
+                    :waitingForEnd="isActuallyContest"
                 />
             </v-col>
         </v-row>
@@ -128,6 +133,7 @@ export default {
     data() {
         return {
             countPreviousQuiz: 0,
+            isActivePrevious: false,
         }
     },
     computed: {
@@ -152,6 +158,15 @@ export default {
                 ? new Date(this.quizContest.contest?.end).toLocaleString()
                 : '2022-01-01:00:00:00'
         },
+        isActuallyContest() {
+            if (
+                ['MAIN'].includes(this.stage)
+            ) {
+                return true
+            }
+
+            return false
+        },
         isContestClosed() {
             if (
                 ['DISQUALIFIED', 'COMPLETE', 'CANCELLED'].includes(this.stage)
@@ -160,12 +175,6 @@ export default {
             }
 
             return false
-            // switch (this.stage) {
-            //     case 'DISQUALIFIED' || 'COMPLETE' || 'CANCELLED':
-            //         return true
-            //     default:
-            //         return false
-            // }
         },
         minimumBet() {
             return this.quizContest.minimum_bet
@@ -179,18 +188,13 @@ export default {
         question() {
             return this.quizContest.contest?.contestants.question
         },
-
         stage() {
-            console.log('this.quizContest: ', this.quizContest.contest?.stage)
             return this.quizContest.contest?.stage
         },
         userBets() {
             return this.quizContest?.user_bets || []
         },
         votes() {
-            // console.log('isContestClosed: ', this.isContestClosed)
-            // console.log('quiz:: ', this.quizContest)
-
             if (this.isContestClosed) {
                 const quizContestData =
                     this.quizContest.contest.contestants.options.map(
@@ -208,7 +212,6 @@ export default {
                             }
                         }
                     )
-
                 return quizContestData
             }
             return []
@@ -230,13 +233,22 @@ export default {
                     window.location.replace(authorization_url)
                 })
         },
-        // handlePreviousContentQuiz() {
-        //     this.countPreviousQuiz = this.countPreviousQuiz + 1
-        //     this.$store.dispatch('previousQuizContest', this.countPreviousQuiz)
-        // },
-        // handleResetContentQuiz() {
-        //     this.$store.dispatch('previousQuizContest', 0)
-        // },
+        handlePreviousContentQuiz() {
+            this.countPreviousQuiz = this.countPreviousQuiz + 1
+            this.$store.dispatch('getCustomQuizContest', {
+                age: this.countPreviousQuiz,
+            })
+            this.isActivePrevious = true
+        },
+        handleResetContentQuiz() {
+            if (this.countPreviousQuiz > 0)
+                this.countPreviousQuiz = this.countPreviousQuiz - 1;
+            
+            this.$store.dispatch('getCustomQuizContest', {
+                age: this.countPreviousQuiz,
+            })
+            this.isActivePrevious = false
+        },
     },
 }
 </script>
@@ -250,5 +262,10 @@ export default {
     gap: 24px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.isActive {
+    background: #424242;
+    border: 1px solid #424242;
+    color: white !important;
 }
 </style>
