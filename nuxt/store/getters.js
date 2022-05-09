@@ -172,11 +172,11 @@ function sortingFunction(method) {
       let scoreFunction = customScore(parameters)
       return (a, b) => { return (scoreFunction(b) - scoreFunction(a)) }
     case 'trending':
-      (a, b) => { return b.trending - a.trending }
+      return (a, b) => { return b.trending - a.trending }
     case 'newest':
-      (a, b) => { return b.added - a.added }
+      return (a, b) => { return b.added - a.added }
     case 'lifetime':
-      (a, b) => { return b.lifetime - a.lifetime }
+      return (a, b) => { return b.lifetime - a.lifetime }
     case 'likes':
       return (a, b) => { return b.likes - a.likes }
     case 'controversial':
