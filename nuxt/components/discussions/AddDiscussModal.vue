@@ -238,7 +238,7 @@ export default {
           recaptchaToken: recaptchaToken
         }
         if (uploadImageResponse) {
-          payload.url = `${this.baseURL}${uploadImageResponse.data.path.slice(1)}`
+          payload.link = `${this.baseURL}${uploadImageResponse.data.path.slice(1)}`
         }
         if (this.addDiscussionForm.storeId) {
           payload.storeID = this.addDiscussionForm.storeId
