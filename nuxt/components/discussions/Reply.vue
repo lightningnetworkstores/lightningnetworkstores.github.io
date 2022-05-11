@@ -1,29 +1,18 @@
 <template>
-  <div
-    ref="reply"
-    class="py-3 text-body-1"
-    :inner-html.prop="reply | toHtml | tagUser"
-  >
-  </div>  
+  <UserComment
+    :content="reply"
+    @hover-on="u => $emit('hover-on', u)"
+    @hover-off="u => $emit('hover-off', u)"
+  />
 </template>
 <script>
+import UserComment from '~/components/discussions/UserComment'
 export default {
+  components: { UserComment },
   props: {
     reply: {
       type: String,
       default: ''
-    }
-  },
-  mounted() {
-    const comment = this.$refs.reply.querySelector('.user-tag')
-
-    if (comment) {
-      comment.addEventListener('mouseover', () => {
-        this.$emit('hover-on', comment.textContent)
-      })
-      comment.addEventListener('mouseout', () => {
-        this.$emit('hover-off', comment.textContent)
-      })
     }
   }
 }

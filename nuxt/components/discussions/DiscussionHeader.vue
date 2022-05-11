@@ -25,9 +25,10 @@
         <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
           :inner-html.prop="discussionHeader.title"
         />
-        <div
-          class="text-body-1 comment-title discussion-text"
-          :inner-html.prop="discussionHeader.comment | toHtml | tagUser"
+        <UserComment
+          :content="discussionHeader.comment"
+          @hover-on="u => $emit('hover-on', u)"
+          @hover-off="u => $emit('hover-off', u)"
         />
       </v-col>
       <v-col :cols="isMobile ? 0 : 4" class="d-flex flex-row justify-end align-end mr-0 pr-0">
@@ -70,12 +71,13 @@ import UserTag from './UserTag.vue'
 import DiscussionReplyModal from './DiscussionReplyModal.vue'
 import DeleteCommentModal from './DeleteCommentModal'
 import ChangeTopicModal from '@/components/discussions/ChangeTopicModal'
+import UserComment from '@/components/discussions/UserComment'
 
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    StorePreview, UserTag, DiscussionReplyModal, DeleteCommentModal, ChangeTopicModal
+    StorePreview, UserTag, DiscussionReplyModal, DeleteCommentModal, ChangeTopicModal, UserComment
   },
   mixins: [ DateFromatter ],
   props: {
