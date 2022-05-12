@@ -14,12 +14,37 @@
         <v-subheader class="title pb-2">Sort</v-subheader>
         <v-list-item class="my-0 pb-0 sort-items">
           <v-radio-group v-model="selectedSort">
-            <v-radio
+              <div
+                v-for="sortItem in sortItems.slice(0, 3)"
+                :key="sortItem.prop"
+                class="d-flex align-start"
+              >
+                  <v-radio
+                    :key="sortItem.prop"
+                    :label="sortItem.name"
+                    :value="sortItem.prop"
+                    class="mb-2"
+                    >
+                        <template v-slot:label>
+                            <div>{{ sortItem.name }} 
+                                
+                            </div>
+                        </template>
+                    </v-radio>
+                    <v-icon 
+                        small 
+                        v-if="['custom'].includes(sortItem.prop)" 
+                        class="ml-6 mt-1"
+                        @click="isOpenDialogSorting = true"
+                    >fas fa-edit</v-icon>
+              </div>
+            <!-- <v-radio
               v-for="sortItem in sortItems.slice(0, 3)"
               :key="sortItem.prop"
               :label="sortItem.name"
               :value="sortItem.prop"
-            />
+            /> -->
+
             <div v-if="sortItems.slice(3).length">
               <v-list-group
                 no-action
@@ -98,6 +123,7 @@
       </v-container>
     </div>
     <add-store-modal />
+    <sorting-custom-modal :isOpen.sync="isOpenDialogSorting" />
   </div>
 </template>
 
@@ -107,9 +133,10 @@ import FilterStores from '~/components/FilterStores.vue'
 import StoreCard from '~/components/StoreCard.vue'
 import { mapState, mapGetters } from 'vuex'
 import SearchInput from '~/components/SearchInput.vue'
+import SortingCustomModal from '~/components/SortingCustomModal.vue'
 
 export default {
-  components: { AddStoreModal, StoreCard, FilterStores, SearchInput },
+  components: { AddStoreModal, StoreCard, FilterStores, SearchInput, SortingCustomModal },
   data() {
     return {
       addCardCount: 6,
@@ -123,6 +150,7 @@ export default {
       selectedSort: 'best',
       sortItems: [
         { name: 'Best', prop: 'best' },
+        { name: 'Custom', prop: 'custom' },
         { name: 'Trending', prop: 'trending' },
         { name: 'Newest', prop: 'newest' },
         { name: 'Likes', prop: 'likes' },
@@ -131,6 +159,7 @@ export default {
         { name: 'Last commented', prop: 'lastcommented' },
       ],
       tagsCheckbox: [],
+      isOpenDialogSorting: false,
     }
   },
 

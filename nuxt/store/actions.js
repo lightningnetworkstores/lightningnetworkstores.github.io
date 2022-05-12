@@ -546,7 +546,47 @@ const actions = {
                     const {
                         data: { is_admin: isAdmin, ...data },
                     } = response.data
+
+                    let dataUser = {...data.user};
+                    let dataCustomSorting = (dataUser?.custom_sorting ?? {})
+
                     commit('updateLoginStatus', { ...data, isAdmin })
+                    commit("updateSettingCustomSorting", dataCustomSorting)
+
+                    if (Object.keys(dataCustomSorting).length !== 0) {
+                        const {
+                            halflife,
+                            score,
+                            trending,
+                            likeTrend,
+                            externalTrend,
+                            novelty,
+                            satsPerLike,
+                            newontop
+                        } = dataCustomSorting;
+
+                        let customSorting = [
+                            [score, halflife, satsPerLike],
+                            [trending, likeTrend, externalTrend],
+                            [novelty, newontop]
+                        ];
+
+                        let dataSliderGroup = [
+                            ...state.sliderCustomSorting.map((s, i) => {
+                                return {
+                                    ...s,
+                                    slide: s.slide.map((x, j)=> {
+                                        return {
+                                            ...x,
+                                            value: customSorting[i][j]
+                                        }
+                                    })
+                                }
+                            })
+                        ]
+
+                        commit("updateSliderGroup", dataSliderGroup)
+                    }
                 }
             })
             .catch(console.error)
@@ -1134,6 +1174,19 @@ const actions = {
                 return Promise.resolve(response.data)
             })
     },
+    setSettingCustomSorting({commit, state}, payload) {
+        this.$axios.post(`${state.baseURL}api/custom_sorting`, payload)
+        .then((response) => {
+
+            if (response.status==="success") {
+                commit("updateSettingCustomSorting", payload)
+            }
+
+        })
+    },
+    sliderCustomSortingAction({commit}, payload) {
+        commit("updateSliderCustomSorting", payload)
+    },  
 }
 
 export default actions

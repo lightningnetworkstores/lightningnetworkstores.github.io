@@ -78,7 +78,8 @@ const getters = {
         return stores;
       } 
 
-      stores = stores.sort(sortingFunction(sort))
+      let settingSorting = state.settingCustomSorting
+      stores = stores.sort(sortingFunction(sort, settingSorting))
 
       if (sort == 'trending') {
         stores = stores.filter((store) => store.trending > options.trendingThreshold)
@@ -165,7 +166,7 @@ const getters = {
   },
 }
 
-function sortingFunction(method) {
+function sortingFunction(method, parameters = {}) {
   console.log('method=' + method)
   switch (method) {
     case 'custom':

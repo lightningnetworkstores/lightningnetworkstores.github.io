@@ -50,7 +50,46 @@ export const state = () => ({
   storeSummary: [],
   tags: [],
   wallets: [],
-  externallyTrending: []
+  externallyTrending: [],
+  settingCustomSorting: {
+    halflife: 0,
+    score: 0,
+    satsPerLike: 0,
+    trending:  0,
+    likeTrend: 0,
+    externalTrend:  0,
+    novelty: 0,
+    newontop: 0,
+    default: false,
+  },
+  sliderCustomSorting: [
+    {
+      id: "scs01",
+      name: "",
+      slide: [
+        { id: "sl01", label: "Promotion weight", value: 0 },
+        { id: "sl02", label: "Evaporation half-life", value: 0 },
+        { id: "sl03", label: "Like weight", value: 0 },
+      ]
+    },
+    {
+      id: "scs02",
+      name: "Trending score",
+      slide: [
+        { id: "sl01", label: "Promotion", value: 0 },
+        { id: "sl02", label: "Likes", value: 0 },
+        { id: "sl03", label: "Social media", value: 0 },
+      ]
+    },
+    {
+      id: "scs03",
+      name: "Novelty",
+      slide: [
+        { id: "sl01", label: "Novelty score", value: 0 },
+        { id: "sl02", label: "Move newest stores on top", value: 0 },
+      ]
+    },
+  ]
 })
 
 export default state

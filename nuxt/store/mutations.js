@@ -262,6 +262,27 @@ const mutations = {
 
         state.storeContest.contest.pot = sum
     },
+    updateSettingCustomSorting(state, payload) {
+        state.settingCustomSorting = payload
+    },
+    updateSliderCustomSorting(state, payload) {
+        const {value, idp, id} = payload
+
+        state.sliderCustomSorting
+        .forEach((_, i) => {
+            if(state.sliderCustomSorting[i].id==idp) {
+                state.sliderCustomSorting[i].slide
+                .forEach((_, j)=> {
+                    if (state.sliderCustomSorting[i].slide[j].id== id) {
+                        state.sliderCustomSorting[i].slide[j].value = value
+                    }
+                })
+            }
+        })
+    },
+    updateSliderGroup(state, payload) {
+        state.sliderCustomSorting = payload
+    },
 }
 
 export default mutations
