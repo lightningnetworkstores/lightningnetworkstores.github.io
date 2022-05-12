@@ -98,7 +98,7 @@
                     ></v-textarea>
                   </v-flex>
                 </v-layout>
-                <ImageSelector @onImageSelected="onImageSelected"/>
+                <ImageSelector @onImageSelected="onImageSelected" @onImageCancelled="onImageCancelled"/>
                 <v-divider class="my-2"/>
                 <div class="text-body-1 mx-1">What is this about?</div>
                 <v-layout row>
@@ -215,30 +215,36 @@ export default {
 
     onImageSelected(event) {
       // {type: <IMAGE_TYPE_FILE_UPLOAD|IMAGE_TYPE_URL>, value: <File|String>}
+      console.log('onImageSelected. event: ', event)
       this.image = event
+    },
+    onImageCancelled() {
+      this.image = null
     },
     async submitAdd(event) {
       if (this.$refs.addform.validate(true)) {
         this.isLoading = true
         this.addAlert = { message: '', success: true }
         this.isPaid = false
-        let uploadImageResponse = null
-        if (this.image && this.image.type === IMAGE_TYPE_FILE_UPLOAD) {
-          try {
-            uploadImageResponse = await this.$store.dispatch('discussions/addImage', this.image.value)
-          } catch(err) {
-            this.isLoading = false
-            return this.$store.dispatch('networkError/showError', err)
-          }
-        }
         let recaptchaToken = await this.$recaptcha.execute('create_discussion')
         const payload = {
           title: this.addDiscussionForm.title,
           comment: this.addDiscussionForm.comment,
           recaptchaToken: recaptchaToken
         }
-        if (uploadImageResponse) {
-          payload.link = `${this.baseURL}${uploadImageResponse.data.path.slice(1)}`
+        let uploadImageResponse = null
+        if (this.image && this.image.type === IMAGE_TYPE_FILE_UPLOAD) {
+          // Image specified as a file
+          try {
+            uploadImageResponse = await this.$store.dispatch('discussions/addImage', this.image.value)
+            payload.link = `${this.baseURL}${uploadImageResponse.data.path.slice(1)}`
+          } catch(err) {
+            this.isLoading = false
+            return this.$store.dispatch('networkError/showError', err)
+          }
+        } else if (this.image && this.image.type === IMAGE_TYPE_URL) {
+          // Image specified as a URL
+          payload.link = this.image.value
         }
         if (this.addDiscussionForm.storeId) {
           payload.storeID = this.addDiscussionForm.storeId

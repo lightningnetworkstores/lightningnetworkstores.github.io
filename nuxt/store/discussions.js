@@ -105,6 +105,16 @@ export const actions = {
         }
         return data
       })
+  },
+  getImageUrl({ }, url) {
+    return this.$axios.get(url)
+      .then(res => {
+        let isImage = null
+        if (res.headers['content-type']) {
+          isImage = res.headers['content-type'].split('/')[0] === 'image'
+        }
+        return isImage
+      })
   }
 }
 
