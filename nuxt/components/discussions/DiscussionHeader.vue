@@ -1,8 +1,28 @@
 <template>
   <v-container class="mb-0 pb-2">
-    <v-row>
-      <v-col cols="12" class="pa-0 pt-1">
-        <div class="header-container text-caption d-flex justify-space-between align-center my-1 px-2" style="width: 100%; background-color: #f9f9f9">
+    <v-row class="justify-image-card">
+      <v-col
+        cols="12" 
+        class="pa-0 pt-1 col-with-image-style"
+        :class="(discussionHeader.link)?'col-with-image-style-height':''"  
+      >
+        <v-img
+            v-if="discussionHeader.link"
+            width="100%"
+            height="100%"
+            max-height="100%"
+            max-width="100%"
+            :lazy-src="discussionHeader.link"
+            :src="discussionHeader.link"
+            :style="{
+              position: 'absolute',
+              zIndex: -1,
+              borderRadius: '5px 5px 0px 0px'
+            }"
+        ></v-img>
+        <div 
+          class="header-container text-caption d-flex justify-space-between align-center my-3 px-2 tags-style"
+        >
           <div>
             <UserTag
               :user="discussionHeader.user"
@@ -115,5 +135,32 @@ export default {
 }
 .header-container {
   border-radius: 30px;
+}
+.col-with-image-style {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    
+    z-index: 1;
+    margin-bottom: 15px;
+}
+.col-with-image-style-height {
+  height: 220px;
+  max-height: 220px;
+}
+.tags-style {
+  width: 98%;
+  height: 36px;
+  background-color: #f9f9f9; 
+  z-index: 2;
+}
+.justify-image-card {
+  margin: -16px -24px
+}
+
+@media screen and (max-width: 1265px) {
+  .justify-image-card {
+    margin: -16px -16px
+  }
 }
 </style>
