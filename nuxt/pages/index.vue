@@ -134,6 +134,7 @@ import StoreCard from '~/components/StoreCard.vue'
 import { mapState, mapGetters } from 'vuex'
 import SearchInput from '~/components/SearchInput.vue'
 import SortingCustomModal from '~/components/SortingCustomModal.vue'
+import { actions } from '~/store/discussions'
 
 export default {
   components: { AddStoreModal, StoreCard, FilterStores, SearchInput, SortingCustomModal },
@@ -311,11 +312,18 @@ export default {
     },
   },
   async asyncData({ store, route }) {
+    await store.dispatch('getLoginStatus')
     await store.dispatch('getStores')
     const { safeMode, selectedSort, searchQuery } = await store.dispatch(
       'processRoute',
       route
     )
+
+    const setting = await store.getters.getSettingCustomSorting
+
+    if (setting.default) {
+        return { safeMode, selectedSort: 'custom', searchQuery }
+    }
 
     return { safeMode, selectedSort, searchQuery }
   },

@@ -76,7 +76,7 @@ const getters = {
         let fuse = new Fuse(stores, options)
         stores = fuse.search(search)
         return stores;
-      } 
+      }
 
       let settingSorting = state.settingCustomSorting
       stores = stores.sort(sortingFunction(sort, settingSorting))
@@ -163,6 +163,9 @@ const getters = {
   },
   getQuizContest(state) {
     return state.quizContest
+  },
+  getSettingCustomSorting(state) {
+    return state.settingCustomSorting
   },
 }
 
