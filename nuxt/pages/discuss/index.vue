@@ -55,13 +55,14 @@
 <script>
 import Discussions from '@/components/discussions/Discussions.vue'
 import DiscussionsMobile from '@/components/discussions/DiscussionsMobile.vue'
+import AddDiscussModal from '@/components/discussions/AddDiscussModal'
 import Reviews from '@/components/reviews/Reviews.vue'
 import Events from '@/components/events/Events.vue'
 
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  components: { Discussions, DiscussionsMobile, Reviews, Events },
+  components: { Discussions, DiscussionsMobile, Reviews, Events, AddDiscussModal },
   data() {
     return {
       selected: 0

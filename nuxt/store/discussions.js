@@ -14,6 +14,13 @@ export const actions = {
     return this.$axios.$post(`/api/discussion?g-recaptcha-response=${payload.recaptchaToken}`, payload)
       .then(data => data.data)
   },
+  addImage(context, file) {
+    const headers = {
+      'Content-Type': 'image/jpeg'
+    }
+    const data = file
+    return this.$axios.$post(`/api/discussionimage`, data, { headers })
+  },
   getDiscussions({ commit }) {
     this.$axios.$get('/api/discussion')
       .then(data => {
@@ -97,6 +104,16 @@ export const actions = {
           // being lazy here since this is an admin tool
         }
         return data
+      })
+  },
+  getImageUrl({ }, url) {
+    return this.$axios.get(url)
+      .then(res => {
+        let isImage = null
+        if (res.headers['content-type']) {
+          isImage = res.headers['content-type'].split('/')[0] === 'image'
+        }
+        return isImage
       })
   }
 }
