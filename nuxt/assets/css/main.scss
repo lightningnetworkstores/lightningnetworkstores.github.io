@@ -13,6 +13,10 @@ html {
   background-color: #424242 !important;
 }
 
+.theme--light.v-expansion-panels .v-expansion-panel {
+    border-radius: 5px;
+    margin-bottom: 0.7rem;
+}
 .theme--dark .detail {
   color: white !important;
 }

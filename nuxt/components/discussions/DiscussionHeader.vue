@@ -3,23 +3,26 @@
     <v-row class="justify-image-card">
       <v-col
         cols="12" 
-        class="pa-0 pt-1 col-with-image-style"
-        :class="(discussionHeader.link)?'col-with-image-style-height':''"  
+        class="pa-0 pt-1"
       >
-        <v-img
+        <div
+          class="col-with-image-style"
+          :class="(discussionHeader.link)?'col-with-image-style-height':''"  
+        >
+          <v-img
             v-if="discussionHeader.link"
             width="100%"
             height="100%"
             max-height="100%"
             max-width="100%"
+            position="center center"
             :lazy-src="discussionHeader.link"
             :src="discussionHeader.link"
             :style="{
-              position: 'absolute',
-              zIndex: -1,
-              borderRadius: '5px 5px 0px 0px'
+              borderRadius: '5px 5px 0px 0px',
             }"
-        ></v-img>
+          ></v-img>
+        </div>
         <div 
           class="header-container text-caption d-flex justify-space-between align-center my-3 px-2 tags-style"
         >
@@ -137,16 +140,11 @@ export default {
   border-radius: 30px;
 }
 .col-with-image-style {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    
-    z-index: 1;
     margin-bottom: 15px;
 }
 .col-with-image-style-height {
-  height: 220px;
-  max-height: 220px;
+  height: 250px;
+  max-height: 250px;
 }
 .tags-style {
   width: 98%;
