@@ -6,6 +6,7 @@
         class="pa-0 pt-1"
       >
         <div
+          v-if="isMobile"
           class="col-with-image-style"
           :class="(discussionHeader.link)?'col-with-image-style-height':''"  
         >
@@ -44,15 +45,46 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col :cols="isMobile ? 12 : 7" :class="{'pa-0': isMobile}">
-        <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
-          :inner-html.prop="discussionHeader.title"
-        />
-        <UserComment
-          :content="discussionHeader.comment"
-          @hover-on="u => $emit('hover-on', u)"
-          @hover-off="u => $emit('hover-off', u)"
-        />
+      <v-col :cols="isMobile ? 12 : ((discussionHeader.link)? 12 : 7)" :class="{'pa-0': isMobile}">
+        <v-row v-if="!isMobile" no-gutters>
+          <v-col md="6" class="mr-3">
+             <v-img
+                v-if="discussionHeader.link"
+                width="100%"
+                height="100%"
+                max-height="100%"
+                max-width="100%"
+                position="center center"
+                :lazy-src="discussionHeader.link"
+                :src="discussionHeader.link"
+                :style="{
+                  borderRadius: '5px',
+                }"
+              ></v-img>
+          </v-col>
+          <v-col :md="((discussionHeader.link)? 5 : 12)">
+            <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
+              :inner-html.prop="discussionHeader.title"
+            />
+            <UserComment
+              :content="discussionHeader.comment"
+              @hover-on="u => $emit('hover-on', u)"
+              @hover-off="u => $emit('hover-off', u)"
+            />  
+          </v-col>
+        </v-row>
+        <div v-else>
+          <!-- begin -->
+          <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
+            :inner-html.prop="discussionHeader.title"
+          />
+          <UserComment
+            :content="discussionHeader.comment"
+            @hover-on="u => $emit('hover-on', u)"
+            @hover-off="u => $emit('hover-off', u)"
+          />
+          <!-- end -->
+        </div>
       </v-col>
       <v-col :cols="isMobile ? 0 : 4" class="d-flex flex-row justify-end align-end mr-0 pr-0">
         <div v-if="discussionHeader.store" class="flex-grow-1">
@@ -132,6 +164,11 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+
+</style>
+
 <style scoped>
 .discussion-text {
   overflow-wrap: break-word;
