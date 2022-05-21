@@ -3,7 +3,7 @@
     <div class="d-flex">
       <v-img
         @click="() => handleInternalLink(store.rooturl)"
-        :src="`https://bitcoin-stores.com/thumbnails/${store.id}.jpg`"
+        :src="`${baseURL}thumbnails/${store.id}.jpg`"
         height="99"
         max-width="100"
       />
@@ -19,6 +19,7 @@
   </v-sheet>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
     store: {
@@ -30,6 +31,13 @@ export default {
     handleInternalLink(rootUrl) {
       this.$router.push(`/store/${rootUrl}`)
     }
+  },
+  computed: {
+    ...mapState({
+      baseURL(state) {
+        return state.baseURL
+      }
+    })
   }
 }
 </script>
