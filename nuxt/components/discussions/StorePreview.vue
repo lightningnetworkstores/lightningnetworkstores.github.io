@@ -3,11 +3,7 @@
     <div class="d-flex">
       <v-img
         @click="() => handleInternalLink(store.rooturl)"
-<<<<<<< HEAD
-        :src="`https://LightningNetworkStores.com/thumbnails/${store.id}.jpg`"
-=======
         :src="`${baseURL}thumbnails/${store.id}.jpg`"
->>>>>>> develop
         height="99"
         max-width="100"
       />
