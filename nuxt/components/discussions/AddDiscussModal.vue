@@ -98,6 +98,7 @@
                     ></v-textarea>
                   </v-flex>
                 </v-layout>
+                <ImageSelector @onImageSelected="onImageSelected" @onImageCancelled="onImageCancelled"/>
                 <v-divider class="my-2"/>
                 <div class="text-body-1 mx-1">What is this about?</div>
                 <v-layout row>
@@ -150,12 +151,15 @@ import { mapState, mapGetters } from 'vuex'
 
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+import ImageSelector from '@/components/discussions/ImageSelector'
+import { IMAGE_TYPE_FILE_UPLOAD, IMAGE_TYPE_URL } from '@/utils/constants'
 
 export default {
   name: 'AddDiscussModal',
   components: {
     Checkout,
     Success,
+    ImageSelector
   },
   data() {
     return {
@@ -173,11 +177,12 @@ export default {
       selectedTopic: 'OTHER',
       checkPaymentTimer: null,
       addDiscussionFee: 0,
-      about: 'other'
+      about: 'other',
+      image: null
     }
   },
   computed: {
-    ...mapState(['storeSummary']),
+    ...mapState(['storeSummary', 'baseURL']),
     ...mapGetters('discussions', ['topicsWithout'])
   },
   methods: {
@@ -208,6 +213,14 @@ export default {
       this.isLoading = false
     },
 
+    onImageSelected(event) {
+      // {type: <IMAGE_TYPE_FILE_UPLOAD|IMAGE_TYPE_URL>, value: <File|String>}
+      console.log('onImageSelected. event: ', event)
+      this.image = event
+    },
+    onImageCancelled() {
+      this.image = null
+    },
     async submitAdd(event) {
       if (this.$refs.addform.validate(true)) {
         this.isLoading = true
@@ -218,6 +231,20 @@ export default {
           title: this.addDiscussionForm.title,
           comment: this.addDiscussionForm.comment,
           recaptchaToken: recaptchaToken
+        }
+        let uploadImageResponse = null
+        if (this.image && this.image.type === IMAGE_TYPE_FILE_UPLOAD) {
+          // Image specified as a file
+          try {
+            uploadImageResponse = await this.$store.dispatch('discussions/addImage', this.image.value)
+            payload.link = `${this.baseURL}${uploadImageResponse.data.path.slice(1)}`
+          } catch(err) {
+            this.isLoading = false
+            return this.$store.dispatch('networkError/showError', err)
+          }
+        } else if (this.image && this.image.type === IMAGE_TYPE_URL) {
+          // Image specified as a URL
+          payload.link = this.image.value
         }
         if (this.addDiscussionForm.storeId) {
           payload.storeID = this.addDiscussionForm.storeId
@@ -231,7 +258,11 @@ export default {
 
         this.$store.dispatch('discussions/addDiscussion', payload).then(
           data => {
-            const { amount, payment_request, id } = data
+            const { amount, payment_request, id, submitted } = data
+            if (!payment_request && submitted) {
+              this.$store.dispatch('discussions/getDiscussions')
+              return this.closeDialog()
+            }
             this.addDiscussionFee = amount
             this.paymentRequest = payment_request
             this.paymentID = id

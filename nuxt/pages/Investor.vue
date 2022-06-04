@@ -42,6 +42,8 @@
 <script>
 import { GChart } from 'vue-google-charts'
 import { getWeeks } from '../utils/getWeeks'
+import { getQuarterly } from "../utils/getQuarterly"
+
 export default {
     data() {
         return {
@@ -55,7 +57,7 @@ export default {
                 colors: ['#3c3d3c'],
                 legend: { position: 'bottom' },
             },
-            items: ['Month', 'Weekly'],
+            items: ['Month', 'Weekly', 'Quarterly'],
             arrChartTemp: [],
             daily_revenue: [],
             aum: 0,
@@ -125,6 +127,16 @@ export default {
                             slantedText: true,
                             slantedTextAngle: 45,
                         },
+                    }
+                }
+
+                if (value == "Quarterly") {
+                    this.fnDataQuarterly()
+                    this.options = {
+                        width: '100%',
+                        height: 500,
+                        colors: ['#3c3d3c'],
+                        legend: { position: 'bottom' },
                     }
                 }
             },
@@ -247,6 +259,48 @@ export default {
                 return [s[0], s[value]]
             })
         },
+        /**
+         * @param {any[]} daily_revenue
+         */
+        fnDataQuarterly() {
+            const objQuarterly = {}
+
+            this.daily_revenue.forEach((revenue) => {
+                let numQuarter = getQuarterly(revenue.date)
+                let nDate = this.getMonth(revenue.date, true)
+                let nameQuarter = `${nDate}-Q${numQuarter}`
+
+                objQuarterly[nameQuarter] = [
+                    ...(objQuarterly[nameQuarter] ?? []),
+                    revenue,
+                ]
+            })
+
+            const keyQuarter = Object.keys(objQuarterly)
+            const quarters = keyQuarter.map((num) => {
+                const sum_satoshis = this.notNaN(
+                    [...objQuarterly[num]].reduce(
+                        (acc, curr) => acc + curr.sat_revenue,
+                        0
+                    )
+                )
+                const sum_dollar = this.notNaN(
+                    [...objQuarterly[num]].reduce(
+                        (acc, curr) => acc + curr.dollar_revenue,
+                        0
+                    )
+                )
+
+                return [num, sum_satoshis, sum_dollar]
+            })
+
+            this.arrChartTemp = quarters
+
+            let value = this.switchChart ? 1 : 2
+            this.chartDataRows = this.arrChartTemp.map((s) => {
+                return [s[0], s[value]]
+            })
+        },
     },
 
     async mounted() {
@@ -255,7 +309,9 @@ export default {
         if (dataApi.status === 200) {
             const analyzeData = dataApi.data.data
             this.daily_revenue = analyzeData.daily_revenue
+
             this.fnDataMonth()
+
             this.sats_per_usd = 100000000/analyzeData.daily_revenue[analyzeData.daily_revenue.length-1].btcusd
 
             this.aum = Math.round(10*analyzeData.balance_sheet.AUM/this.sats_per_usd)/10

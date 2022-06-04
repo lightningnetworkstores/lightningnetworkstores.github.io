@@ -15,6 +15,7 @@
         <Nuxt />
       </transition>
       <announcement-modal v-if="!loading" />
+      <NetworkErrorSnackbar v-if="showError" :errorMessage="errorMessage" :timeout="timeout"/>
     </v-main>
     <Footer />
   </v-app>
@@ -81,16 +82,18 @@ export default {
   },
 
   computed: {
+    showError() {
+      return this.errorMessage !== null
+    },
+    ...mapState('networkError', ['errorMessage', 'timeout']),
     ...mapState({
       configuration(state) {
         return state.configuration
       },
-
       versionApp() {
         return this.configuration?.version
       },
     }),
-
     loading() {
       return this.$store.state.loading
     },

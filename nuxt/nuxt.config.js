@@ -47,6 +47,10 @@ export default {
       target: process.env.BASE_URL,
       changeOrigin: false,
     },
+    '/img/': {
+      target: process.env.BASE_URL,
+      changeOrigin: false,
+    },
     '/api2/': {
       target: process.env.BASE_URL,
       changeOrigin: true,

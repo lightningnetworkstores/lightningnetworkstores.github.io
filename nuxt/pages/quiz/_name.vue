@@ -1,25 +1,27 @@
 <template>
-    <v-container
-        ><v-row>
+    <v-container class="py-14">
+        <v-row>
             <v-col class="col-md-2">
                 <v-btn
                     outlined
                     color="#424242"
                     :class="isActivePrevious ? 'isActive' : ''"
-                    @click="handlePreviousContentStore()"
+                    @click="handlePreviousContentQuiz()"
                 >
                     Previous
                 </v-btn>
             </v-col>
-            <v-col class="col-md-8">
-                <h1 class="text-center">What's your favorite project?</h1>
+            <v-col class="col-md-8"
+                ><h1 class="text-center">
+                    {{ question }}
+                </h1>
             </v-col>
             <v-col class="col-md-2 text-right">
                 <v-btn
                     outlined
                     color="#424242"
                     :class="isActivePrevious ? '' : 'isActive'"
-                    @click="handleResetContentStore()"
+                    @click="handleResetContentQuiz()"
                 >
                     Next
                 </v-btn>
@@ -70,10 +72,45 @@
                 >
                     <v-icon left dark> mdi-twitter </v-icon>
                     login with twitter
-                </v-btn>
-            </v-col>
+                </v-btn></v-col
+            >
         </v-row>
-
+        <template v-if="isContestClosed">
+            <v-row>
+                <v-col><h2>Quiz Results</h2></v-col></v-row
+            >
+            <v-row>
+                <v-col>
+                    <div class="grid-list" >
+                        <quiz-contest-votes-card
+                            v-for="optionVote in votes"
+                            :key="`optionVotes-${optionVote.option}`"
+                            :option="optionVote.option"
+                            :votes="optionVote.votes"
+                            :bets="optionVote.bets"
+                        />
+                        </div></v-col
+            ></v-row>
+        </template>
+        <template v-else>
+            <v-row>
+                <v-col>
+                    <div class="grid-list">
+                        <quiz-contest-card
+                            :disabled="!isLogged"
+                            v-for="option in options"
+                            :selected="choice === option"
+                            :key="'option-' + option"
+                            :contestId="contestId"
+                            :option="option"
+                            :minBet="minimumBet"
+                        /></div
+                ></v-col>
+            </v-row>
+        </template>
+        <v-row>
+            <v-col><v-divider class="mt-8" /></v-col>
+        </v-row>
         <v-row>
             <v-col>
                 <h3 class="mb-4">Your bets</h3>
@@ -83,45 +120,6 @@
                 />
             </v-col>
         </v-row>
-        <v-row>
-            <v-col><v-divider class="mt-8" /></v-col>
-        </v-row>
-        <template v-if="isContestClosed">
-            <v-row>
-                <v-col><h2>Contest Results</h2></v-col></v-row
-            >
-            <v-row>
-                <v-col class="text-center">
-                    <div class="grid-list">
-                        <store-contest-votes-card
-                            v-for="storeVote in votes"
-                            :key="`store-${storeVote.store.id}`"
-                            :store="storeVote.store"
-                            :votes="storeVote.votes"
-                            :bets="storeVote.bets"
-                        /></div></v-col
-            ></v-row>
-        </template>
-        <template v-else>
-            <v-row>
-                <v-col><h2>Stores</h2></v-col></v-row
-            >
-            <v-row>
-                <v-col>
-                    <div class="grid-list">
-                        <store-contest-card
-                            v-for="store in storeContest.stores"
-                            :data-storeId="store.id"
-                            :key="'store-' + store.id"
-                            :store="store"
-                            :contestId="storeContest.contest.id"
-                            :disabled="!isLogged || isContestClosed"
-                            :selected="store.id == choice"
-                            :minBet="minimumBet"
-                        /></div
-                ></v-col>
-            </v-row>
-        </template>
     </v-container>
 </template>
 
@@ -131,15 +129,16 @@ import FlipCountdown from 'vue2-flip-countdown'
 
 export default {
     components: { FlipCountdown },
+
     data() {
         return {
-            countPrevious: 0,
+            countPreviousQuiz: 0,
             isActivePrevious: false,
         }
     },
     computed: {
         ...mapGetters({
-            storeContest: 'getStoreContest',
+            quizContest: 'getQuizContest',
         }),
         ...mapState({
             isLogged(state) {
@@ -147,44 +146,21 @@ export default {
                 else return false
             },
         }),
-        deadline() {
-            return this.storeContest.contest?.end
-                ? new Date(this.storeContest.contest?.end).toLocaleString()
-                : '2020-01-01:00:00:00'
+        contestId() {
+            return this.quizContest.contest?.id
         },
-        userBets() {
-            return (
-                this.storeContest?.user_bets?.map(
-                    ({ wager, choice, prize }) => {
-                        return {
-                            choice: this.storeContest.stores?.find(
-                                (store) => store.id == choice
-                            )?.name,
-                            prize: prize,
-                            wager: wager,
-                        }
-                    }
-                ) || []
-            )
-        },
-        pot() {
-            return this.storeContest.contest?.pot
-        },
-        minimumBet() {
-            return this.storeContest.minimum_bet
-        },
-        stage() {
-            return this.storeContest.contest?.stage
-        },
+
         choice() {
-            return parseInt((this.storeContest.user_vote?.choice ?? 0))
+            return this.quizContest?.user_vote?.choice || ''
         },
-        nameContest() {
-            return this.storeContest.contest?.name
+        deadline() {
+            return this.quizContest.contest?.end
+                ? new Date(this.quizContest.contest?.end).toLocaleString()
+                : '2022-01-01:00:00:00'
         },
         isActuallyContest() {
             if (
-                ['MAIN', 'EXTENSION', 'ACTIVE'].includes(this.stage)
+                ['MAIN'].includes(this.stage)
             ) {
                 return true
             }
@@ -200,81 +176,103 @@ export default {
 
             return false
         },
+        minimumBet() {
+            return this.quizContest.minimum_bet
+        },
+        options() {
+            return this.quizContest?.contest?.contestants?.options
+        },
+        pot() {
+            return this.quizContest.contest?.pot
+        },
+        question() {
+            return this.quizContest.contest?.contestants.question
+        },
+        stage() {
+            return this.quizContest.contest?.stage
+        },
+        userBets() {
+            return this.quizContest?.user_bets || []
+        },
         votes() {
             if (this.isContestClosed) {
-                let votesInfo = this.storeContest.stores.map((store) => {
-                    return {
-                        store,
-                        votes:
-                            this.storeContest.votes?.filter(
-                                (vote) => parseInt(this.notIsNaN(vote.choice)) === store.id
-                            ) || [],
-                        bets:
-                            this.storeContest.bets?.filter(
-                                (bet) => parseInt(this.notIsNaN(bet.choice)) === store.id
-                            ) || [],
-                    }
-                })
-                
-                return votesInfo
+                const quizContestData =
+                    this.quizContest.contest.contestants.options.map(
+                        (option) => {
+                            return {
+                                option,
+                                votes:
+                                    this.quizContest.votes?.filter(
+                                        (vote) => vote.choice === option
+                                    ) || [],
+                                bets:
+                                    this.quizContest.bets?.filter(
+                                        (bet) => bet.choice === option
+                                    ) || [],
+                            }
+                        }
+                    )
+                return quizContestData
             }
             return []
         },
     },
+
+    beforeMount() {
+        let nameRoute = (this.$route.params?.name ?? '')
+        this.$store.dispatch('getCustomQuizContest', {
+            name: nameRoute,
+            age: 0
+        })
+    },
     methods: {
-        notIsNaN (number) {
-            if (isNaN(number)) {
-                return 0
-            }
-            return number
-        },
         handleLoginClick() {
             this.$axios
                 .get('/api/oauthlogin?platform=twitter')
                 .then((res) => res.data)
                 .then((data) => {
+                    console.log(data)
                     const { request_token, authorization_url, platform } =
                         data.data
-                    console.log({ request_token, authorization_url, platform })
                     window.location.replace(authorization_url)
                 })
         },
-        handlePreviousContentStore() {
-            this.countPrevious = this.countPrevious + 1
-
-            this.$store.dispatch('getCustomStoreContest', {
-                age: this.countPrevious,
+        handlePreviousContentQuiz() {
+            this.countPreviousQuiz = this.countPreviousQuiz + 1
+            this.$store.dispatch('getCustomQuizContest', {
+                age: this.countPreviousQuiz,
             })
-            // this.$store.dispatch('getStoreContest')
             this.isActivePrevious = true
         },
-        handleResetContentStore() {
-            if (this.countPrevious > 0)
-                this.countPrevious = this.countPrevious - 1;
+        handleResetContentQuiz() {
 
-            this.$store.dispatch('getCustomStoreContest', {
-                age: this.countPrevious,
+            let nameRoute = (this.$route.params?.name ?? '')
+
+            if (nameRoute==='' || nameRoute===undefined) {
+                if (this.countPreviousQuiz > 0)
+                    this.countPreviousQuiz = this.countPreviousQuiz - 1;
+            } else {
+                this.countPreviousQuiz = this.countPreviousQuiz - 1;
+            }
+            
+            this.$store.dispatch('getCustomQuizContest', {
+                age: this.countPreviousQuiz,
             })
-            // this.$store.dispatch('getStoreContest')
             this.isActivePrevious = false
         },
-    },
-
-    beforeMount() {
-        this.$store.dispatch('getStoreContest')
     },
 }
 </script>
 
 <style scoped>
+.contest-info {
+    row-gap: 32px;
+}
+
 .grid-list {
     gap: 24px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.user-voted-container {
-    gap: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 .isActive {
     background: #424242;
