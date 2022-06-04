@@ -3,7 +3,7 @@
     <div class="d-flex">
       <v-img
         @click="() => handleInternalLink(store.rooturl)"
-        :src="`https://bitcoin-stores.com/thumbnails/${store.id}.jpg`"
+        :src="`https://LightningNetworkStores.com/thumbnails/${store.id}.jpg`"
         height="99"
         max-width="100"
       />
