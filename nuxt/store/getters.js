@@ -211,11 +211,12 @@ function sortingFunction(method, parameters = {}) {
 }
 
 function customScore(parameters) {
+  // TODO add a.evaporated90
   return (a) => {
     let evaporated = 0
     if (parameters.halflife <= 270) {
       let nineMonthWeight = (parameters.halflife - 30) / (270 - 30)
-      evaporated = (a.upvotes - a.downvotes) * nineMonthWeight + a.evaporated90 * (1 - nineMonthWeight)
+      evaporated = (a.upvotes - a.downvotes) * nineMonthWeight + (a.upvotes - a.downvotes) * (1 - nineMonthWeight) 
     } else if (parameters.halflife > 270) {
       evaporated = a.lifetime
     }
@@ -223,14 +224,15 @@ function customScore(parameters) {
     let score = evaporated * parameters.score
 
     let scoreTrend = a.trending * parameters.trending
-    let likeTrend = 0 * parameters.likeTrend // TODO
-    let externalTrend = 0 * parameters.externalTrend // TODO
-    let novelty = a.added * parameters.novelty
+    let likeTrend = a.likeTrend * parameters.likeTrend
+    let externalTrend = a.externalTrend * parameters.externalTrend * 10000000
+
+    let novelty = 1000 + ((a.added - (new Date().getTime() / 1000)) / 86400)
+    novelty = Math.min(1000, Math.max(0, novelty)) * parameters.novelty * 10000
 
     let likes = a.likes * parameters.satsPerLike
 
-
-    return score + scoreTrend + novelty + likes + likeTrend + externalTrend
+    return (score + scoreTrend + novelty + likes + likeTrend + externalTrend)
   }
 }
 
