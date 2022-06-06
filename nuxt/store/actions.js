@@ -296,6 +296,8 @@ const actions = {
             })
     },
     getDiscussions({ state, commit }) {
+        commit('setLoading', true)
+
         return this.$axios
             .get(`${state.baseURL}api/discussion`)
             .then((response) => {
@@ -337,11 +339,14 @@ const actions = {
                         ...rest,
                     })
                     commit('setConfiguration', data.configuration)
+
+                    commit('setLoading', false)
                 }
             })
             .catch(console.error)
     },
     getDiscussion({ state, commit }, id) {
+
         return this.$axios
             .get(`${state.baseURL}api/discussion?id=${id}`)
             .then((response) => {
