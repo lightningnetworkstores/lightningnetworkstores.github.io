@@ -7,7 +7,14 @@
     >
       <template>
       <v-card class="pt-6 pl-6 pr-6">
-
+        <div class="d-flex justify-end">
+          <v-switch
+            v-model="swichMakeDefault"
+            inset
+            :label="`Make Default`"
+          ></v-switch>
+        </div>
+        <v-divider class="mb-5"></v-divider>
         <div
             v-for="(group) in sliderCustomSorting"
             :key="group.id"
@@ -46,18 +53,9 @@
                 class="ma-2 textCapitalize"
                 outlined
                 color="secondary"
-                @click="saveOrSaveAndDefault(false)"
+                @click="saveOrSaveAndDefault()"
               >
                 Save
-              </v-btn>
-
-              <v-btn
-                class="ma-2 textCapitalize"
-                outlined
-                color="secondary"
-                @click="saveOrSaveAndDefault(true)"
-              >
-                Save & make default
               </v-btn>
             </div>
             
@@ -86,7 +84,11 @@ export default {
         return {}
     },
     computed: {
-        ...mapState(['loginStatus', 'settingCustomSorting', 'sliderCustomSorting']),
+        ...mapState([
+          'loginStatus', 
+          'settingCustomSorting', 
+          'sliderCustomSorting'
+        ]),
         anonymousValid() {
             return this.loginStatus.user && 
                   (this.loginStatus.user?.handle ?? false) ? true : false
@@ -98,7 +100,14 @@ export default {
 
             return elementsCustomSorting
         },
-        
+        swichMakeDefault: {
+          get() {
+            return this.settingCustomSorting.default
+          },
+          set(value) {
+            this.saveValueCustomSorting(value);
+          }
+        },
     },
     methods: {
         ...mapActions([
@@ -110,23 +119,27 @@ export default {
         onChange(value, idp, id){
             this.sliderCustomSortingAction({value, idp, id})
 
+            // Change Setting
+            this.saveValueCustomSorting(this.swichMakeDefault)
+        },
+        saveValueCustomSorting(isDefault = false) {
             let sorting = this.getElementsCustomSorting
-            
+
             let customSorting = {
-                score: sorting[0].value,
-                halflife: sorting[1].value,
-                satsPerLike: sorting[2].value,
-                trending:  sorting[3].value,
-                likeTrend: sorting[4].value,
-                externalTrend:  sorting[5].value,
-                novelty: sorting[6].value,
-                newontop: sorting[7].value,
-                default: false,
+              score: sorting[0].value,
+              halflife: sorting[1].value,
+              satsPerLike: sorting[2].value,
+              trending:  sorting[3].value,
+              likeTrend: sorting[4].value,
+              externalTrend:  sorting[5].value,
+              novelty: sorting[6].value,
+              newontop: sorting[7].value,
+              default: isDefault,
             }
 
             this.setUpdateLiveSettingCustomSorting(customSorting)
-        },
-        saveOrSaveAndDefault(isDefault = false) {
+        }, 
+        async saveOrSaveAndDefault() {
             let sorting = this.getElementsCustomSorting
             
             let customSorting = {
@@ -138,10 +151,10 @@ export default {
                 externalTrend:  sorting[5].value,
                 novelty: sorting[6].value,
                 newontop: sorting[7].value,
-                default: isDefault,
+                default: this.swichMakeDefault,
             }
 
-            this.setSettingCustomSorting(customSorting)
+            await this.setSettingCustomSorting(customSorting)
             this.$emit("update:isOpen", false)
         }
     },
