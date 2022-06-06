@@ -25,7 +25,9 @@
             :key="slide.id"
             :value="slide.value"
             thumb-label
-            step="1"
+            :step="(slide.step < 1) ? 1 : slide.step"
+            :min="slide.min"
+            :max="slide.max"
             @change="onChange($event, group.id, slide.id)"
           >
             <template v-slot:prepend>

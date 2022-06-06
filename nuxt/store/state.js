@@ -67,26 +67,82 @@ export const state = () => ({
       id: "scs01",
       name: "",
       slide: [
-        { id: "sl01", label: "Promotion weight", value: 0 },
-        { id: "sl02", label: "Evaporation half-life", value: 0 },
-        { id: "sl03", label: "Like weight", value: 0 },
+        { 
+					id: "sl01", 
+					label: "Promotion weight", 
+					value: 0,
+					step: 1,
+					min: 0,
+					max: 100,
+        },
+        { 
+					id: "sl02", 
+					label: "Evaporation half-life", 
+					value: 0,
+					step: 1,
+					min: 0,
+					max: 100,
+				},
+        { 
+					id: "sl03", 
+					label: "Like weight", 
+					value: 0,
+					step: 1,
+					min: 0,
+					max: 100,
+				},
       ]
     },
     {
       id: "scs02",
       name: "Trending score",
       slide: [
-        { id: "sl01", label: "Promotion", value: 0 },
-        { id: "sl02", label: "Likes", value: 0 },
-        { id: "sl03", label: "Social media", value: 0 },
+        { 
+					id: "sl01", 
+					label: "Promotion", 
+					value: 0,
+					step: 1,
+					min: 0,
+					max: 100,
+				},
+        { 
+					id: "sl02", 
+					label: "Likes", 
+					value: 0,
+					step: 1,
+					min: 0,
+					max: 100,
+				},
+        { 
+					id: "sl03", 
+					label: "Social media", 
+					value: 0,
+					step: 1,
+					min: 0,
+					max: 100,
+				},
       ]
     },
     {
       id: "scs03",
       name: "Novelty",
       slide: [
-        { id: "sl01", label: "Novelty score", value: 0 },
-        { id: "sl02", label: "Move newest stores on top", value: 0 },
+        { 
+					id: "sl01", 
+					label: "Novelty score", 
+					value: 0,
+					step: 1,
+					min: 0,
+					max: 100,
+				},
+        { 
+					id: "sl02", 
+					label: "Move newest stores on top", 
+					value: 0,
+					step: 1,
+					min: 0,
+					max: 100,
+				},
       ]
     },
   ]
