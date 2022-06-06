@@ -1174,15 +1174,16 @@ const actions = {
                 return Promise.resolve(response.data)
             })
     },
-    setSettingCustomSorting({commit, state}, payload) {
-        this.$axios.post(`${state.baseURL}api/custom_sorting`, payload)
-        .then((response) => {
+    async setSettingCustomSorting({commit, state}, payload) {
+        let response = await this.$axios.post(`${state.baseURL}api/custom_sorting`, payload)
+        if( response.status===200 ) {
+            return true
+        }
 
-            if (response.status==="success") {
-                commit("updateSettingCustomSorting", payload)
-            }
-
-        })
+        return false
+    },
+    setUpdateLiveSettingCustomSorting({commit}, payload) {
+        commit("updateSettingCustomSorting", payload)
     },
     sliderCustomSortingAction({commit}, payload) {
         commit("updateSliderCustomSorting", payload)

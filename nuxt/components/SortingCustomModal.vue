@@ -101,10 +101,30 @@ export default {
         
     },
     methods: {
-        ...mapActions(["setSettingCustomSorting", "sliderCustomSortingAction"]),
+        ...mapActions([
+            "setSettingCustomSorting", 
+            "sliderCustomSortingAction",
+            "setUpdateLiveSettingCustomSorting"
+        ]),
         ...mapActions('modals', ['openSettingsModal']),
         onChange(value, idp, id){
             this.sliderCustomSortingAction({value, idp, id})
+
+            let sorting = this.getElementsCustomSorting
+            
+            let customSorting = {
+                score: sorting[0].value,
+                halflife: sorting[1].value,
+                satsPerLike: sorting[2].value,
+                trending:  sorting[3].value,
+                likeTrend: sorting[4].value,
+                externalTrend:  sorting[5].value,
+                novelty: sorting[6].value,
+                newontop: sorting[7].value,
+                default: false,
+            }
+
+            this.setUpdateLiveSettingCustomSorting(customSorting)
         },
         saveOrSaveAndDefault(isDefault = false) {
             let sorting = this.getElementsCustomSorting
