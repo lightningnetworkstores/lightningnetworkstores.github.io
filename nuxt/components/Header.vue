@@ -1,12 +1,45 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
-      <nuxt-link to="/">
-        <img
-          src="@/assets/images/LightningNetworkStores.svg"
-          class="nav-logo"
-        />
-      </nuxt-link>
+      <div class="d-flex justify-space-between align-center">
+        <nuxt-link to="/">
+          <img
+            src="@/assets/images/LightningNetworkStores.svg"
+            class="nav-logo"
+          />
+        </nuxt-link>
+        
+        <v-menu
+          v-model="showMenu"
+          absolute
+          open-on-hover
+          style="max-width: 600px"
+        >
+          
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon
+              large
+              color="grey lighten-1"
+              v-bind="attrs" v-on="on"
+            >
+              mdi-chevron-down
+            </v-icon>
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>
+                <a href="https://bitcoin-stores.com">
+                  <img
+                    src="@/assets/images/LightningNetworkStores.svg"
+                    class="nav-logo"
+                    v-bind="attrs" v-on="on"
+                  />
+                </a>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -113,6 +146,7 @@ export default {
         //{ url: '/donations', text: 'Donations' },
         { url: '/about', text: 'About' },
       ],
+      showMenu: false,
     }
   },
 
