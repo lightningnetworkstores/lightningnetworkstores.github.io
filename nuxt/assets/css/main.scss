@@ -46,3 +46,17 @@ html {
 .user-tag {
   background-color: #dddddd;
 }
+
+div.open-chevron-down-lighthing {
+    left: 0!important;
+}
+
+@media screen and (max-width: 600px){       
+    div.open-chevron-down-lighthing {
+        top: 68px!important;
+    }
+}
+
+// .v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active {
+//     left: 0 !important;
+// }

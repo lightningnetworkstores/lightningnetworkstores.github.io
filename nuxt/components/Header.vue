@@ -13,7 +13,11 @@
           v-model="showMenu"
           absolute
           open-on-hover
-          style="max-width: 600px"
+          style="width: 900px; max-width: 900px"
+          :offset-y="true"
+          bottom
+          left
+          content-class="open-chevron-down-lighthing"
         >
           
           <template v-slot:activator="{ on, attrs }">
@@ -21,18 +25,20 @@
               large
               color="grey lighten-1"
               v-bind="attrs" v-on="on"
+              style="height: 64px"
             >
               mdi-chevron-down
             </v-icon>
           </template>
-          <v-list>
+          <v-list id="networkWebSite" color="#383838" :style="{
+            marginTop: ($vuetify.breakpoint.width < 600)? '': '55px'
+          }">
             <v-list-item>
               <v-list-item-title>
                 <a href="https://bitcoin-stores.com">
                   <img
-                    src="@/assets/images/LightningNetworkStores.svg"
+                    src="@/assets/images/OtherLightningNetworkStores.svg"
                     class="nav-logo"
-                    v-bind="attrs" v-on="on"
                   />
                 </a>
               </v-list-item-title>
