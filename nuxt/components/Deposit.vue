@@ -14,6 +14,7 @@
       >
         {{ invoice }}
       </v-sheet>
+      <iframe src="https://widget.fixedfloat.com/?to=BTCLN&amp;lockReceive=true&amp;address="{{ invoice }}"lockType=true&amp;hideType=true&amp;lockAmount=true&amp;toAmount=0.001" allowtransparency="true" style="min-height: 600px; width: 100%; border: none;"></iframe>
       <InvoiceTimer
         :lifetime="timerData.lifetime"
         :remaining="timerData.remaining"

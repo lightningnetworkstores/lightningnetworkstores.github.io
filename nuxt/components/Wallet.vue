@@ -21,6 +21,7 @@
     <v-tabs-items v-model="tabs">
       <v-tab-item style="min-height: 20em">
         <Deposit class="pt-1"/>
+        <iframe src="https://widget.fixedfloat.com/?to=BTCLN&amp;lockReceive=true&amp;lockType=true&amp;hideType=true&amp;lockAmount=true&amp;toAmount=0.001" allowtransparency="true" style="min-height: 600px; width: 100%; border: none;"></iframe>
       </v-tab-item>
       <v-tab-item style="min-height: 20em">
         <Transfer class="pt-1"/>
