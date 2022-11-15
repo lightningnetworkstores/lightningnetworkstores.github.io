@@ -28,7 +28,7 @@
             :step="(slide.step < 1) ? 1 : slide.step"
             :min="slide.min"
             :max="slide.max"
-            @change="onChange($event, group.id, slide.id)"
+            @input="onChange($event, group.id, slide.id)"
           >
             <template v-slot:prepend>
               <p style="width: 205px; padding-top: 4px">
