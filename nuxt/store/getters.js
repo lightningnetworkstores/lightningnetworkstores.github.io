@@ -223,14 +223,14 @@ function customScore(parameters) {
 
     let score = evaporated * parameters.score
 
-    let scoreTrend = a.trending * parameters.trending
-    let likeTrend = a.likeTrend * parameters.likeTrend
-    let externalTrend = a.externalTrend * parameters.externalTrend * 10000000
+    let scoreTrend = a.trending * parameters.trending * 10000
+    let likeTrend = a.likeTrend * parameters.likeTrend * 30000
+    let externalTrend = a.externalTrend * parameters.externalTrend * 10000
 
     let novelty = 1000 + ((a.added - (new Date().getTime() / 1000)) / 86400)
-    novelty = Math.min(1000, Math.max(0, novelty)) * parameters.novelty * 10000
+    novelty = Math.min(1000, Math.max(0, novelty)) * parameters.novelty * 1000
 
-    let likes = a.likes * parameters.satsPerLike
+    let likes = a.likes * parameters.satsPerLike * 100000
 
     return (score + scoreTrend + novelty + likes + likeTrend + externalTrend)
   }

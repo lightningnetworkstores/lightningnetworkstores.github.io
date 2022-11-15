@@ -70,7 +70,7 @@ export const state = () => ({
         { 
 					id: "sl01", 
 					label: "Promotion weight", 
-					value: 0,
+          value: 50,
 					step: 1,
 					min: 0,
 					max: 100,
@@ -86,7 +86,7 @@ export const state = () => ({
         { 
 					id: "sl03", 
 					label: "Like weight", 
-					value: 0,
+          value: 50,
 					step: 1,
 					min: 0,
 					max: 100,
@@ -100,7 +100,7 @@ export const state = () => ({
         { 
 					id: "sl01", 
 					label: "Promotion", 
-					value: 0,
+          value: 50,
 					step: 1,
 					min: 0,
 					max: 100,
@@ -108,15 +108,15 @@ export const state = () => ({
         { 
 					id: "sl02", 
 					label: "Likes", 
-					value: 0,
+          value: 50,
 					step: 1,
 					min: 0,
-					max: 100,
+          max: 100,
 				},
         { 
 					id: "sl03", 
 					label: "Social media", 
-					value: 0,
+          value: 50,
 					step: 1,
 					min: 0,
 					max: 100,
@@ -130,7 +130,7 @@ export const state = () => ({
         { 
 					id: "sl01", 
 					label: "Novelty score", 
-					value: 0,
+          value: 50,
 					step: 1,
 					min: 0,
 					max: 100,
