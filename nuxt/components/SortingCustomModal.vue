@@ -83,6 +83,7 @@
                             v-for="slide in customSortingAdvanced"
                             :key="slide.id"
                             class="pa-0 my-0"
+                            style="overflow: initial"
                         >
                             <v-row>
                                 <v-col>
