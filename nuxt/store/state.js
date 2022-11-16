@@ -71,25 +71,34 @@ export const state = () => ({
 					id: "sl01", 
 					label: "Promotion weight", 
           value: 50,
-					step: 1,
+          step: 1,
 					min: 0,
-					max: 100,
+          max: 100,
+          ticks: false,
+          ts: 4,
+          explainer: "Weight of bitcoin spent on upvoting and upvoting this store. This is how projects are traditionally sorted."
         },
         { 
 					id: "sl02", 
 					label: "Evaporation half-life", 
 					value: 0,
-					step: 1,
+          step: 1,
 					min: 0,
 					max: 100,
+          ticks: false,
+          ts: 4,
+          explainer: "Adjusts how fast the bitcoin spent on upvoting and upvoting loses value over time. Default is set to 9 months."
 				},
         { 
 					id: "sl03", 
 					label: "Like weight", 
           value: 50,
-					step: 1,
+          step: 1,
 					min: 0,
 					max: 100,
+          ticks: false,
+          ts: 4,
+          explainer: "Adjusts the weight of each like."
 				},
       ]
     },
@@ -101,9 +110,12 @@ export const state = () => ({
 					id: "sl01", 
 					label: "Promotion", 
           value: 50,
-					step: 1,
+          step: 1,
 					min: 0,
 					max: 100,
+          ticks: false,
+          ts: 4,
+          explainer: "Adjusts the weight of the trending score derived from bitcoin spent in upvotes/downvotes."
 				},
         { 
 					id: "sl02", 
@@ -112,6 +124,9 @@ export const state = () => ({
 					step: 1,
 					min: 0,
           max: 100,
+          ticks: false,
+          ts: 4,
+          explainer: "Adjusts the weight of the trending score derived from likes."
 				},
         { 
 					id: "sl03", 
@@ -120,6 +135,9 @@ export const state = () => ({
 					step: 1,
 					min: 0,
 					max: 100,
+          ticks: false,
+          ts: 4,
+          explainer: "Adjusts the weight of the trending score derived from traffic and social media activity. We use data provided by third-parties like Twitter."
 				},
       ]
     },
@@ -134,6 +152,9 @@ export const state = () => ({
 					step: 1,
 					min: 0,
 					max: 100,
+          ticks: false,
+          ts: 4,
+          explainer: "Adjusts the weight of the age of each project. A high value will favor new stores listed on the website."
 				},
         { 
 					id: "sl02", 
@@ -141,7 +162,10 @@ export const state = () => ({
 					value: 0,
 					step: 1,
 					min: 0,
-					max: 100,
+          max: 5,
+          ticks: false,
+          ts: 4,
+          explainer: "Moves the chosen amount of newest stores to the top of the list."
 				},
       ]
     },

@@ -20,15 +20,19 @@
             :key="group.id"
         >
           <h2 v-if="(group.name)">{{ group.name }}</h2>
+          <div v-for="(slide) in group.slide"
+            :key="slide.id">
+            <v-row>
+          <v-col>  
           <v-slider
-            v-for="(slide) in group.slide"
-            :key="slide.id"
             :value="slide.value"
             thumb-label
             :step="(slide.step < 1) ? 1 : slide.step"
             :min="slide.min"
             :max="slide.max"
             @input="onChange($event, group.id, slide.id)"
+            :ticks="slide.ticks"
+            :tick-size="slide.ts"
           >
             <template v-slot:prepend>
               <p style="width: 205px; padding-top: 4px">
@@ -36,6 +40,21 @@
               </p>
             </template>
           </v-slider>
+          </v-col>
+          <v-col md="auto">
+            <v-tooltip left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="secondary" fab x-small dark class="mt-2"  v-bind="attrs" v-on="on"> <v-icon class="float-left"
+              >fa-question</v-icon
+                ></v-btn>
+              </template>
+              <span>{{slide.explainer}}</span>
+            </v-tooltip>
+          </v-col>
+          </v-row>
+
+            </div>
+          
         </div>
 
         <v-card-actions class="justify-end pr-0">
