@@ -92,7 +92,7 @@
                                         :step="slide.step < 1 ? 1 : slide.step"
                                         :min="slide.min"
                                         :max="slide.max"
-                                        @input="onChange($event, slide.id)"
+                                        @input="onChange($event, 'advanced', slide.id)"
                                         :ticks="slide.ticks"
                                         :tick-size="slide.ts"
                                     >
@@ -207,8 +207,11 @@ export default {
                     return x.slide
                 })
                 .flat(1)
-
-            return elementsCustomSorting
+            elementsCustomSorting = [...elementsCustomSorting, ...this.customSortingAdvanced]
+            
+            let sortingParameters = {}
+            elementsCustomSorting.forEach(el => { sortingParameters[el.id] = el.value });
+            return sortingParameters
         },
         swichMakeDefault: {
             get() {
@@ -234,37 +237,13 @@ export default {
         },
         saveValueCustomSorting(isDefault = false) {
             let sorting = this.getElementsCustomSorting
-
-            let customSorting = {
-                score: sorting[0].value,
-                halflife: sorting[1].value,
-                satsPerLike: sorting[2].value,
-                trending: sorting[3].value,
-                likeTrend: sorting[4].value,
-                externalTrend: sorting[5].value,
-                novelty: sorting[6].value,
-                newontop: sorting[7].value,
-                default: isDefault,
-            }
-
-            this.setUpdateLiveSettingCustomSorting(customSorting)
+            sorting['default'] = isDefault;
+            this.setUpdateLiveSettingCustomSorting(sorting)
         },
         async saveOrSaveAndDefault() {
             let sorting = this.getElementsCustomSorting
-
-            let customSorting = {
-                score: sorting[0].value,
-                halflife: sorting[1].value,
-                satsPerLike: sorting[2].value,
-                trending: sorting[3].value,
-                likeTrend: sorting[4].value,
-                externalTrend: sorting[5].value,
-                novelty: sorting[6].value,
-                newontop: sorting[7].value,
-                default: this.swichMakeDefault,
-            }
-
-            await this.setSettingCustomSorting(customSorting)
+             sorting['default'] = this.swichMakeDefault;
+            await this.setSettingCustomSorting(sorting)
             this.$emit('update:isOpen', false)
         },
     },

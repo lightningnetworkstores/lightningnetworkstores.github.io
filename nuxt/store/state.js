@@ -69,7 +69,7 @@ export const state = () => ({
       name: "",
       slide: [
         { 
-					id: "sl01", 
+          id: "score", 
 					label: "Promotion weight", 
           value: 50,
           step: 1,
@@ -80,18 +80,7 @@ export const state = () => ({
           explainer: "Weight of bitcoin spent on upvoting and upvoting this store. This is how projects are traditionally sorted."
         },
         { 
-					id: "sl02", 
-					label: "Evaporation half-life", 
-					value: 0,
-          step: 1,
-					min: 0,
-					max: 100,
-          ticks: false,
-          ts: 4,
-          explainer: "Adjusts how fast the bitcoin spent on upvoting and upvoting loses value over time. Default is set to 9 months."
-				},
-        { 
-					id: "sl03", 
+          id: "satsPerLike", 
 					label: "Like weight", 
           value: 50,
           step: 1,
@@ -108,7 +97,7 @@ export const state = () => ({
       name: "Trending score",
       slide: [
         { 
-					id: "sl01", 
+          id: "trending", 
 					label: "Promotion", 
           value: 50,
           step: 1,
@@ -119,7 +108,7 @@ export const state = () => ({
           explainer: "Adjusts the weight of the trending score derived from bitcoin spent in upvotes/downvotes."
 				},
         { 
-					id: "sl02", 
+          id: "likeTrend", 
 					label: "Likes", 
           value: 50,
 					step: 1,
@@ -130,7 +119,7 @@ export const state = () => ({
           explainer: "Adjusts the weight of the trending score derived from likes."
 				},
         { 
-					id: "sl03", 
+          id: "externalTrend", 
 					label: "Social media", 
           value: 50,
 					step: 1,
@@ -147,7 +136,7 @@ export const state = () => ({
       name: "Novelty",
       slide: [
         { 
-					id: "sl01", 
+          id: "novelty", 
 					label: "Novelty score", 
           value: 50,
 					step: 1,
@@ -158,7 +147,7 @@ export const state = () => ({
           explainer: "Adjusts the weight of the age of each project. A high value will favor new stores listed on the website."
 				},
         { 
-					id: "sl02", 
+          id: "newontop", 
 					label: "Move newest stores on top", 
 					value: 0,
 					step: 1,
@@ -173,7 +162,7 @@ export const state = () => ({
   ],
   customSortingAdvanced: [
     {
-      id: "sla01",
+      id: "halflife",
       label: "Evaporation half-life",
       value: 0,
       step: 1,
@@ -182,17 +171,6 @@ export const state = () => ({
       ticks: false,
       ts: 4,
       explainer: "Adjusts how fast the bitcoin spent on upvoting and upvoting loses value over time. Default is set to 9 months."
-    },
-    {
-      id: "sla02",
-      label: "Move newest stores on top",
-      value: 0,
-      step: 1,
-      min: 0,
-      max: 5,
-      ticks: false,
-      ts: 4,
-      explainer: "Moves the chosen amount of newest stores to the top of the list."
     }]
 })
 

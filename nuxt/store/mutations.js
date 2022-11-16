@@ -268,6 +268,15 @@ const mutations = {
     updateSliderCustomSorting(state, payload) {
         const {value, idp, id} = payload
 
+      if (idp == 'advanced') {
+        state.customSortingAdvanced.forEach((_, j) => {
+          if (state.customSortingAdvanced[j].id == id) {
+            state.customSortingAdvanced[j].value = value
+          }
+        })
+        return
+      }
+
         state.sliderCustomSorting
         .forEach((_, i) => {
             if(state.sliderCustomSorting[i].id==idp) {
