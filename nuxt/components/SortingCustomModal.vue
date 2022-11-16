@@ -1,144 +1,233 @@
 <template>
-  <div>
-    <v-dialog
-        max-width="600"
-        persistent
-        v-model="isOpen"
-    >
-      <template>
-      <v-card class="pt-6 pl-6 pr-6">
-        <div class="d-flex justify-end">
-          <v-switch
-            v-model="swichMakeDefault"
-            inset
-            :label="`Make Default`"
-          ></v-switch>
-        </div>
-        <v-divider class="mb-5"></v-divider>
-        <div
-            v-for="(group) in sliderCustomSorting"
-            :key="group.id"
-        >
-          <h2 v-if="(group.name)">{{ group.name }}</h2>
-          <div v-for="(slide) in group.slide"
-            :key="slide.id">
-            <v-row>
-          <v-col>  
-          <v-slider
-            :value="slide.value"
-            thumb-label
-            :step="(slide.step < 1) ? 1 : slide.step"
-            :min="slide.min"
-            :max="slide.max"
-            @input="onChange($event, group.id, slide.id)"
-            :ticks="slide.ticks"
-            :tick-size="slide.ts"
-          >
-            <template v-slot:prepend>
-              <p style="width: 205px; padding-top: 4px">
-                {{ slide.label }}
-              </p>
+    <div>
+        <v-dialog max-width="600" persistent v-model="isOpen">
+            <template>
+                <v-card class="pt-6 pl-6 pr-6">
+                    <h1 style="text-align: center">Customize the ordering</h1>
+                    <br />
+                    <div v-for="group in sliderCustomSorting" :key="group.id">
+                        <h2 v-if="group.name">{{ group.name }}</h2>
+                        <br />
+                        <div v-for="slide in group.slide" :key="slide.id">
+                            <v-row>
+                                <v-col>
+                                    <v-slider
+                                        :value="slide.value"
+                                        thumb-label
+                                        :step="slide.step < 1 ? 1 : slide.step"
+                                        :min="slide.min"
+                                        :max="slide.max"
+                                        @input="
+                                            onChange($event, group.id, slide.id)
+                                        "
+                                        :ticks="slide.ticks"
+                                        :tick-size="slide.ts"
+                                    >
+                                        <template v-slot:prepend>
+                                            <p
+                                                style="
+                                                    width: 205px;
+                                                    padding-top: 4px;
+                                                "
+                                            >
+                                                {{ slide.label }}
+                                            </p>
+                                        </template>
+                                    </v-slider>
+                                </v-col>
+                                <v-col md="auto">
+                                    <v-tooltip left>
+                                        <template
+                                            v-slot:activator="{ on, attrs }"
+                                        >
+                                            <v-btn
+                                                color="secondary"
+                                                fab
+                                                x-small
+                                                dark
+                                                class="mt-2"
+                                                v-bind="attrs"
+                                                v-on="on"
+                                            >
+                                                <v-icon class="float-left"
+                                                    >fa-question</v-icon
+                                                ></v-btn
+                                            >
+                                        </template>
+                                        <span>{{ slide.explainer }}</span>
+                                    </v-tooltip>
+                                </v-col>
+                            </v-row>
+                        </div>
+                    </div>
+
+                                                                          <!-- Advanced options -->
+
+                    <v-list-group
+                        no-action
+                        sub-group
+                        class="sort-items-more"
+                        :ripple="false"
+                        color="gray"
+                    >
+                        <template v-slot:activator>
+                            <v-list-item-content class="pa-0">
+                                <v-list-item-title class="pa-0"
+                                    >Advanced options</v-list-item-title
+                                >
+                            </v-list-item-content>
+                        </template>
+                        <br />
+
+                        <v-list-item
+                            v-for="slide in customSortingAdvanced"
+                            :key="slide.id"
+                            class="pa-0 my-0"
+                        >
+                            <v-row>
+                                <v-col>
+                                    <v-slider
+                                        :value="slide.value"
+                                        thumb-label
+                                        :step="slide.step < 1 ? 1 : slide.step"
+                                        :min="slide.min"
+                                        :max="slide.max"
+                                        @input="onChange($event, slide.id)"
+                                        :ticks="slide.ticks"
+                                        :tick-size="slide.ts"
+                                    >
+                                        <template v-slot:prepend>
+                                            <p
+                                                style="
+                                                    width: 205px;
+                                                    padding-top: 4px;
+                                                "
+                                            >
+                                                {{ slide.label }}
+                                            </p>
+                                        </template>
+                                    </v-slider>
+                                </v-col>
+                                <v-col md="auto">
+                                    <v-tooltip left>
+                                        <template
+                                            v-slot:activator="{ on, attrs }"
+                                        >
+                                            <v-btn
+                                                color="secondary"
+                                                fab
+                                                x-small
+                                                dark
+                                                class="mt-2"
+                                                v-bind="attrs"
+                                                v-on="on"
+                                            >
+                                                <v-icon class="float-left"
+                                                    >fa-question</v-icon
+                                                ></v-btn
+                                            >
+                                        </template>
+                                        <span>{{ slide.explainer }}</span>
+                                    </v-tooltip>
+                                </v-col>
+                            </v-row>
+                        </v-list-item>
+                    </v-list-group>
+
+                                                                              <!-- Footer of modal -->
+                    <div class="d-flex justify-end">
+                        <v-switch
+                            v-model="swichMakeDefault"
+                            inset
+                            :label="`Make default sorting method`"
+                        ></v-switch>
+                    </div>
+
+                    <v-card-actions class="justify-end pr-0">
+                        <v-btn
+                            class="ma-2 textCapitalize"
+                            outlined
+                            color="secondary"
+                            @click="$emit('update:isOpen', false)"
+                        >
+                            close
+                        </v-btn>
+
+                        <div v-if="this.anonymousValid">
+                            <v-btn
+                                class="ma-2 textCapitalize"
+                                outlined
+                                color="secondary"
+                                @click="saveOrSaveAndDefault()"
+                            >
+                                Save
+                            </v-btn>
+                        </div>
+
+                        <v-btn
+                            v-else
+                            class="ma-2 textCapitalize"
+                            outlined
+                            color="secondary"
+                            @click="openSettingsModal()"
+                        >
+                            Login to save sorting
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
             </template>
-          </v-slider>
-          </v-col>
-          <v-col md="auto">
-            <v-tooltip left>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn color="secondary" fab x-small dark class="mt-2"  v-bind="attrs" v-on="on"> <v-icon class="float-left"
-              >fa-question</v-icon
-                ></v-btn>
-              </template>
-              <span>{{slide.explainer}}</span>
-            </v-tooltip>
-          </v-col>
-          </v-row>
-
-            </div>
-          
-        </div>
-
-        <v-card-actions class="justify-end pr-0">
-          <v-btn
-            class="ma-2 textCapitalize"
-            outlined
-            color="secondary"
-            @click="$emit('update:isOpen', false)"
-          >
-            close
-          </v-btn>
-
-            <div
-              v-if="this.anonymousValid"
-            >
-              <v-btn
-                class="ma-2 textCapitalize"
-                outlined
-                color="secondary"
-                @click="saveOrSaveAndDefault()"
-              >
-                Save
-              </v-btn>
-            </div>
-            
-            <v-btn
-              v-else
-              class="ma-2 textCapitalize"
-              outlined
-              color="secondary"
-              @click="openSettingsModal()"
-            >
-                Login to save sorting
-            </v-btn>
-        </v-card-actions>
-      </v-card>
-      </template>
-    </v-dialog>
-  </div>
+        </v-dialog>
+    </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
+import { mapState, mapActions } from 'vuex'
 
 export default {
-    props: ["isOpen"],
+    props: ['isOpen'],
     data() {
         return {}
     },
     computed: {
         ...mapState([
-          'loginStatus', 
-          'settingCustomSorting', 
-          'sliderCustomSorting'
+            'loginStatus',
+            'settingCustomSorting',
+            'sliderCustomSorting',
+            'customSortingAdvanced',
         ]),
         anonymousValid() {
-            return this.loginStatus.user && 
-                  (this.loginStatus.user?.handle ?? false) ? true : false
+            return this.loginStatus.user &&
+                (this.loginStatus.user?.handle ?? false)
+                ? true
+                : false
         },
         getElementsCustomSorting() {
-            let elementsCustomSorting = [...this.sliderCustomSorting].map((x) => {
-                return x.slide
-            }).flat(1);
+            let elementsCustomSorting = [...this.sliderCustomSorting]
+                .map((x) => {
+                    return x.slide
+                })
+                .flat(1)
 
             return elementsCustomSorting
         },
         swichMakeDefault: {
-          get() {
-            return this.settingCustomSorting.default
-          },
-          set(value) {
-            this.saveValueCustomSorting(value);
-          }
+            get() {
+                return this.settingCustomSorting.default
+            },
+            set(value) {
+                this.saveValueCustomSorting(value)
+            },
         },
     },
     methods: {
         ...mapActions([
-            "setSettingCustomSorting", 
-            "sliderCustomSortingAction",
-            "setUpdateLiveSettingCustomSorting"
+            'setSettingCustomSorting',
+            'sliderCustomSortingAction',
+            'setUpdateLiveSettingCustomSorting',
         ]),
         ...mapActions('modals', ['openSettingsModal']),
-        onChange(value, idp, id){
-            this.sliderCustomSortingAction({value, idp, id})
+        onChange(value, idp, id) {
+            this.sliderCustomSortingAction({ value, idp, id })
 
             // Change Setting
             this.saveValueCustomSorting(this.swichMakeDefault)
@@ -147,45 +236,45 @@ export default {
             let sorting = this.getElementsCustomSorting
 
             let customSorting = {
-              score: sorting[0].value,
-              halflife: sorting[1].value,
-              satsPerLike: sorting[2].value,
-              trending:  sorting[3].value,
-              likeTrend: sorting[4].value,
-              externalTrend:  sorting[5].value,
-              novelty: sorting[6].value,
-              newontop: sorting[7].value,
-              default: isDefault,
+                score: sorting[0].value,
+                halflife: sorting[1].value,
+                satsPerLike: sorting[2].value,
+                trending: sorting[3].value,
+                likeTrend: sorting[4].value,
+                externalTrend: sorting[5].value,
+                novelty: sorting[6].value,
+                newontop: sorting[7].value,
+                default: isDefault,
             }
 
             this.setUpdateLiveSettingCustomSorting(customSorting)
-        }, 
+        },
         async saveOrSaveAndDefault() {
             let sorting = this.getElementsCustomSorting
-            
+
             let customSorting = {
                 score: sorting[0].value,
                 halflife: sorting[1].value,
                 satsPerLike: sorting[2].value,
-                trending:  sorting[3].value,
+                trending: sorting[3].value,
                 likeTrend: sorting[4].value,
-                externalTrend:  sorting[5].value,
+                externalTrend: sorting[5].value,
                 novelty: sorting[6].value,
                 newontop: sorting[7].value,
                 default: this.swichMakeDefault,
             }
 
             await this.setSettingCustomSorting(customSorting)
-            this.$emit("update:isOpen", false)
-        }
+            this.$emit('update:isOpen', false)
+        },
     },
 }
 </script>
 
 <style>
-    .textCapitalize {
-        text-transform: capitalize;
-    }
+.textCapitalize {
+    text-transform: capitalize;
+}
 </style>>
 
 </style>

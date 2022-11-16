@@ -62,6 +62,7 @@ export const state = () => ({
     newontop: 0,
     default: false,
   },
+  // Warning: unfortunately, the API is dependent on the order of these elements, reorder with caution
   sliderCustomSorting: [
     {
       id: "scs01",
@@ -169,7 +170,30 @@ export const state = () => ({
 				},
       ]
     },
-  ]
+  ],
+  customSortingAdvanced: [
+    {
+      id: "sla01",
+      label: "Evaporation half-life",
+      value: 0,
+      step: 1,
+      min: 0,
+      max: 100,
+      ticks: false,
+      ts: 4,
+      explainer: "Adjusts how fast the bitcoin spent on upvoting and upvoting loses value over time. Default is set to 9 months."
+    },
+    {
+      id: "sla02",
+      label: "Move newest stores on top",
+      value: 0,
+      step: 1,
+      min: 0,
+      max: 5,
+      ticks: false,
+      ts: 4,
+      explainer: "Moves the chosen amount of newest stores to the top of the list."
+    }]
 })
 
 export default state
