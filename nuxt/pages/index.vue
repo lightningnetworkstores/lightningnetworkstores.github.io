@@ -26,9 +26,7 @@
                     class="mb-2"
                     >
                         <template v-slot:label>
-                            <div>{{ sortItem.name }} 
-                                
-                            </div>
+                            <div>{{ sortItem.name }}</div>
                         </template>
                     </v-radio>
                     <v-icon 
@@ -181,6 +179,13 @@ export default {
       let score = this.$store.getters.getScore(store)
       return Object.assign({}, this.store, score)
     },
+    /**
+     * 
+     * @param {string} url 
+     */
+    pushUrl (url) {
+        this.$router.push(url)
+    },
     changeUrl() {
       const query = {}
 
@@ -311,17 +316,23 @@ export default {
       }
     },
   },
-  async asyncData({ store, route }) {
+  async asyncData({ store, route, redirect }) {
     await store.dispatch('getLoginStatus')
     await store.dispatch('getStores')
     const { safeMode, selectedSort, searchQuery } = await store.dispatch(
       'processRoute',
       route
     )
-
+    
     const setting = await store.getters.getSettingCustomSorting
-
-    if (setting.default) {
+    
+    if ((Object.entries(route.query).length === 0) && setting.default) {
+        redirect({
+            path: "/",
+            query: {
+                sort: "custom"
+            }
+        })
         return { safeMode, selectedSort: 'custom', searchQuery }
     }
 
