@@ -179,13 +179,6 @@ export default {
       let score = this.$store.getters.getScore(store)
       return Object.assign({}, this.store, score)
     },
-    /**
-     * 
-     * @param {string} url 
-     */
-    pushUrl (url) {
-        this.$router.push(url)
-    },
     changeUrl() {
       const query = {}
 
@@ -323,7 +316,7 @@ export default {
       'processRoute',
       route
     )
-    
+
     const setting = await store.getters.getSettingCustomSorting
     
     if ((Object.entries(route.query).length === 0) && setting.default) {

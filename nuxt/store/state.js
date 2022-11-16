@@ -52,15 +52,26 @@ export const state = () => ({
   wallets: [],
   externallyTrending: [],
   settingCustomSorting: {
-    halflife: 0,
-    score: 0,
-    satsPerLike: 0,
-    trending:  0,
-    likeTrend: 0,
-    externalTrend:  0,
-    novelty: 0,
-    newontop: 0,
+    score: 100, 
+    novelty: 0, 
+    halflife: 270, 
+    newontop: 1, 
+    trending: 0, 
+    likeTrend: 0, 
+    satsPerLike: 1, 
+    externalTrend: 0,
     default: false,
+  },
+  // Warning: no changes these elements, reorder with caution
+  defaultSorting: {
+    score: 100, 
+    novelty: 0, 
+    halflife: 270, 
+    newontop: 1, 
+    trending: 0, 
+    likeTrend: 0, 
+    satsPerLike: 1, 
+    externalTrend: 0
   },
   // Warning: unfortunately, the API is dependent on the order of these elements, reorder with caution
   sliderCustomSorting: [
@@ -70,7 +81,7 @@ export const state = () => ({
       slide: [
         { 
           id: "score", 
-					label: "Promotion weight", 
+		      label: "Promotion weight", 
           value: 50,
           step: 1,
 					min: 0,

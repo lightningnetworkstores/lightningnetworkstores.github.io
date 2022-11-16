@@ -79,7 +79,8 @@ const getters = {
       }
 
       let settingSorting = state.settingCustomSorting
-      stores = stores.sort(sortingFunction(sort, settingSorting))
+      let defaultSorting = state.defaultSorting
+      stores = stores.sort(sortingFunction(sort, (sort==="custom") ? settingSorting : defaultSorting))      
 
       if (sort == 'trending') {
         stores = stores.filter((store) => store.trending > options.trendingThreshold)
@@ -206,7 +207,8 @@ function sortingFunction(method, parameters = {}) {
     case 'lastcommented':
       return (a, b) => { return b.last_commented - a.last_commented }
     default:
-      return (a, b) => { return b.sorting - a.sorting }
+      let defaultFunction = customScore(parameters)
+      return (a, b) => { return (defaultFunction(b) - defaultFunction(a)) }
   }
 }
 
