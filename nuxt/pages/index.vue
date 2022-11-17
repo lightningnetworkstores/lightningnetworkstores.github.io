@@ -33,7 +33,7 @@
                         small 
                         v-if="['custom'].includes(sortItem.prop)" 
                         class="ml-6 mt-1"
-                        @click="isOpenDialogSorting = true"
+                        @click="openCustomModal()"
                     >fas fa-edit</v-icon>
               </div>
             <!-- <v-radio
@@ -201,6 +201,10 @@ export default {
       this.$router.push({
         query: query,
       })
+    },
+    openCustomModal () {
+        this.selectedSort = "custom"
+        this.isOpenDialogSorting = true;
     },
   },
   computed: {
