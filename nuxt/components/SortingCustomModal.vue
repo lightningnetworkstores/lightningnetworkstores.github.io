@@ -24,12 +24,7 @@
                                         :tick-size="slide.ts"
                                     >
                                         <template v-slot:prepend>
-                                            <p
-                                                style="
-                                                    width: 205px;
-                                                    padding-top: 4px;
-                                                "
-                                            >
+                                            <p style="width: 205px;padding-top: 4px;">
                                                 {{ slide.label }}
                                             </p>
                                         </template>
