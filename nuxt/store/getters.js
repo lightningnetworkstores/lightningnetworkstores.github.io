@@ -75,24 +75,34 @@ const getters = {
       if (search && search !== 'undefined') {
         let fuse = new Fuse(stores, options)
         stores = fuse.search(search)
-        return stores;
+        return stores
       }
 
       let settingSorting = state.settingCustomSorting
       let defaultSorting = state.defaultSorting
-      stores = stores.sort(sortingFunction(sort, (sort==="custom") ? settingSorting : defaultSorting))      
+      stores.sort(
+        sortingFunction(
+          sort,
+          sort === 'custom' ? settingSorting : defaultSorting
+        )
+      )
 
       if (sort == 'trending') {
-        stores = stores.filter((store) => store.trending > options.trendingThreshold)
+        stores = stores.filter(
+          (store) => store.trending > options.trendingThreshold
+        )
       }
-      if (isFiltered || (sort != null && sort != 'best')) { return stores; }
+
+      if (isFiltered || (sort != null && ['best', 'custom'].includes(sort))) {
+        return stores
+      }
 
       // Add trendiest store to top
       var mostTrendingStore = stores.slice().sort((a, b) => {
         return b.trending - a.trending
       })[0]
 
-        // Add newest store to top
+      // Add newest store to top
       var newestStore = stores.slice().sort((a, b) => {
         return b.added - a.added
       })[0]
@@ -175,15 +185,25 @@ function sortingFunction(method, parameters = {}) {
   switch (method) {
     case 'custom':
       let scoreFunction = customScore(parameters)
-      return (a, b) => { return (scoreFunction(b) - scoreFunction(a)) }
+      return (a, b) => {
+        return scoreFunction(b) - scoreFunction(a)
+      }
     case 'trending':
-      return (a, b) => { return b.trending - a.trending }
+      return (a, b) => {
+        return b.trending - a.trending
+      }
     case 'newest':
-      return (a, b) => { return b.added - a.added }
+      return (a, b) => {
+        return b.added - a.added
+      }
     case 'lifetime':
-      return (a, b) => { return b.lifetime - a.lifetime }
+      return (a, b) => {
+        return b.lifetime - a.lifetime
+      }
     case 'likes':
-      return (a, b) => { return b.likes - a.likes }
+      return (a, b) => {
+        return b.likes - a.likes
+      }
     case 'controversial':
       return (a, b) => {
         let magnitudeB = b.upvotes + b.downvotes
@@ -205,10 +225,14 @@ function sortingFunction(method, parameters = {}) {
         return controversialB - controversialA
       }
     case 'lastcommented':
-      return (a, b) => { return b.last_commented - a.last_commented }
+      return (a, b) => {
+        return b.last_commented - a.last_commented
+      }
     default:
       let defaultFunction = customScore(parameters)
-      return (a, b) => { return (defaultFunction(b) - defaultFunction(a)) }
+      return (a, b) => {
+        return defaultFunction(b) - defaultFunction(a)
+      }
   }
 }
 
@@ -218,7 +242,9 @@ function customScore(parameters) {
     let evaporated = 0
     if (parameters.halflife <= 270) {
       let nineMonthWeight = (parameters.halflife - 30) / (270 - 30)
-      evaporated = (a.upvotes - a.downvotes) * nineMonthWeight + (a.upvotes - a.downvotes) * (1 - nineMonthWeight) 
+      evaporated =
+        (a.upvotes - a.downvotes) * nineMonthWeight +
+        (a.upvotes - a.downvotes) * (1 - nineMonthWeight)
     } else if (parameters.halflife > 270) {
       evaporated = a.lifetime
     }
@@ -229,12 +255,12 @@ function customScore(parameters) {
     let likeTrend = a.likeTrend * parameters.likeTrend * 30000
     let externalTrend = a.externalTrend * parameters.externalTrend * 10000
 
-    let novelty = 1000 + ((a.added - (new Date().getTime() / 1000)) / 86400)
+    let novelty = 1000 + (a.added - new Date().getTime() / 1000) / 86400
     novelty = Math.min(1000, Math.max(0, novelty)) * parameters.novelty * 1000
 
     let likes = a.likes * parameters.satsPerLike * 100000
 
-    return (score + scoreTrend + novelty + likes + likeTrend + externalTrend)
+    return score + scoreTrend + novelty + likes + likeTrend + externalTrend
   }
 }
 
