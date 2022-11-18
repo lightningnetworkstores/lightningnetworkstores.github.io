@@ -543,7 +543,7 @@ const actions = {
       .catch(console.error)
   },
 
-  getLoginStatus({ state, commit }) {
+  getLoginStatus({ state, commit, dispatch }) {
     return this.$axios
       .get(`${state.baseURL}api/logstatus`)
       .then((response) => {
@@ -559,10 +559,10 @@ const actions = {
 
             commit('updateSettingCustomSorting', dataCustomSorting)
 
-            this.sliderGroupFunction({ dataCustomSorting })
+            dispatch('sliderGroupFunction', { dataCustomSorting })
           } else {
             let dataCustomSorting = state.settingCustomSorting
-            this.sliderGroupFunction({ dataCustomSorting })
+            dispatch('sliderGroupFunction', { dataCustomSorting })
           }
         }
       })
