@@ -34,7 +34,7 @@
         "@vue/cli-plugin-babel": "^3.5.0",
         "@vue/cli-plugin-pwa": "^3.5.0",
         "@vue/cli-plugin-typescript": "^3.5.0",
-        "@vue/cli-service": "^3.5.0",
+        "@vue/cli-service": "^5.0.8",
         "fibers": "^3.1.1",
         "sass": "^1.17.2",
         "sass-loader": "^7.1.0",
