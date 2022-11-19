@@ -582,11 +582,15 @@ const actions = {
         newontop,
       } = dataCustomSorting
 
+      // This order is based from the order state "sliderCustomSorting"
       let customSorting = [
-        [score, halflife, satsPerLike],
+        [score, satsPerLike, halflife],
         [trending, likeTrend, externalTrend],
         [novelty, newontop],
       ]
+
+      // This order is based on the order state "customSortingAdvanced"
+      let advancedSorting = [halflife]
 
       let dataSliderGroup = [
         ...state.sliderCustomSorting.map((s, i) => {
@@ -603,6 +607,18 @@ const actions = {
       ]
 
       commit('updateSliderGroup', dataSliderGroup)
+
+      // Advanced options
+      let dataAdvancedOptions = [
+        ...state.customSortingAdvanced.map((s, i) => {
+          return {
+            ...s,
+            value: advancedSorting[i],
+          }
+        }),
+      ]
+
+      commit('updateSliderAdvanced', dataAdvancedOptions)
     } // end if
   },
 

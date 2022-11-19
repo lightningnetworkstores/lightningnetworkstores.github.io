@@ -203,10 +203,15 @@ export default {
                     return x.slide
                 })
                 .flat(1)
+
+            
             elementsCustomSorting = [...elementsCustomSorting, ...this.customSortingAdvanced]
             
             let sortingParameters = {}
             elementsCustomSorting.forEach(el => { sortingParameters[el.id] = el.value });
+
+            sortingParameters["default"] = false
+            
             return sortingParameters
         },
         swichMakeDefault: {
@@ -233,13 +238,16 @@ export default {
             this.saveValueCustomSorting(this.swichMakeDefault)
         },
         saveValueCustomSorting(isDefault = false) {
-            let sorting = this.getElementsCustomSorting
+            let sorting = {...this.getElementsCustomSorting}
             sorting['default'] = isDefault;
+
             this.setUpdateLiveSettingCustomSorting(sorting)
         },
         async saveOrSaveAndDefault() {
-            let sorting = this.getElementsCustomSorting
-             sorting['default'] = this.swichMakeDefault;
+            let sorting = {...this.getElementsCustomSorting}
+            sorting['default'] = this.swichMakeDefault;
+
+            
             await this.setSettingCustomSorting(sorting)
             this.$emit('update:isOpen', false)
         },
