@@ -96,7 +96,31 @@
         </v-flex>
       </v-layout>
 
+      <div v-if="sectionFilteredStores">
+        <h1 class="container full-list">Newest</h1>
+        <v-container class="full-list" ref="list">
+            <!-- <pre>{{ filteredStores.slice(0, maxCards) }}</pre> -->
+            <store-card
+              :data-storeId="store.id"
+              v-for="store in filteredStoresNewest.slice(0, maxCardsNewsest)"
+              :key="'store-' + store.id"
+              :store="store"
+            ></store-card>
+        </v-container>
+        <h1 class="container full-list">Trending</h1>
+        <v-container class="full-list" ref="list">
+            <!-- <pre>{{ filteredStores.slice(0, maxCards) }}</pre> -->
+            <store-card
+              :data-storeId="store.id"
+              v-for="store in filteredStoresTrending.slice(0, maxCardsTrending)"
+              :key="'store-' + store.id"
+              :store="store"
+            ></store-card>
+        </v-container>
+      </div>
+      <h1 class="container full-list">Explore</h1>
       <v-container class="full-list" ref="list">
+        <!-- <pre>{{ filteredStores.slice(0, maxCards) }}</pre> -->
         <store-card
           :data-storeId="store.id"
           v-for="store in filteredStores.slice(0, maxCards)"
@@ -143,6 +167,8 @@ export default {
       group: null,
       isLoading: false,
       maxCards: 18,
+      maxCardsNewsest: 4,
+      maxCardsTrending: 4,
       safeMode: false,
       searchLoading: false,
       searchQuery: '',
@@ -221,6 +247,35 @@ export default {
       scrolledStores: 'scrolledStores',
       selectedTags: 'selectedTags',
       stores: 'stores',
+
+      sectionFilteredStores () {        
+        let tagsLength = this.selectedTags.filter((x) => x).length;
+
+        return ['best', 'custom'].includes(this.selectedSort) && this.searchQuery == '' && tagsLength == 0
+      },
+      filteredStoresNewest() {
+        const getStores = this.getStores(
+          { sector: this.sector, digitalGoods: this.digitalGoods },
+          "newest",
+          this.searchQuery,
+          this.safeMode,
+          "newest"
+        )
+        
+        return getStores
+      },
+      
+      filteredStoresTrending() {
+        const getStores = this.getStores(
+          { sector: this.sector, digitalGoods: this.digitalGoods },
+          "trending",
+          this.searchQuery,
+          this.safeMode,
+          "trending"
+        )
+
+        return getStores
+      },
 
       filteredStores(state) {
         const getStores = this.getStores(

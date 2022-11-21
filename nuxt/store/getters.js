@@ -17,7 +17,13 @@ const options = {
 
 const getters = {
   getStores(state) {
-    return ({ sector, digitalGoods }, sort, search, safeMode = 'false') => {
+    return (
+      { sector, digitalGoods },
+      sort,
+      search,
+      safeMode = 'false',
+      section = 'general'
+    ) => {
       //filter
       let isFiltered = true
       let stores = []
@@ -103,21 +109,26 @@ const getters = {
       })[0]
 
       // Add newest store to top
-      var newestStore = stores.slice().sort((a, b) => {
-        return b.added - a.added
-      })[0]
-      stores.splice(stores.indexOf(newestStore), 1)
-      stores.splice(1, 0, newestStore)
-
-      // Is above trending threshold?
-      if (
-        mostTrendingStore &&
-        stores.length > 0 &&
-        mostTrendingStore.trending >= 10
-      ) {
-        stores.splice(stores.indexOf(mostTrendingStore), 1)
-        stores.splice(1, 0, mostTrendingStore)
+      if (['general', 'newest'].includes(section)) {
+        var newestStore = stores.slice().sort((a, b) => {
+          return b.added - a.added
+        })[0]
+        stores.splice(stores.indexOf(newestStore), 1)
+        stores.splice(1, 0, newestStore)
       }
+
+      if (['general', 'trending'].includes(section)) {
+        // Is above trending threshold?
+        if (
+          mostTrendingStore &&
+          stores.length > 0 &&
+          mostTrendingStore.trending >= 10
+        ) {
+          stores.splice(stores.indexOf(mostTrendingStore), 1)
+          stores.splice(1, 0, mostTrendingStore)
+        }
+      }
+
       return stores
     }
   },
