@@ -113,6 +113,7 @@ const getters = {
         var newestStore = stores.slice().sort((a, b) => {
           return b.added - a.added
         })[0]
+
         stores.splice(stores.indexOf(newestStore), 1)
         stores.splice(1, 0, newestStore)
       }
