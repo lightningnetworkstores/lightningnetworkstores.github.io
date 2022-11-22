@@ -99,26 +99,26 @@
         <div v-if="sectionFilteredStores">
           <div v-if="maxCardsNewsest > 0" class="container full-list d-flex align-self-center">
               <h1>Newest</h1>
-              <v-btn v-if="maxNewOnTop!=maxCardsNewsest" class="mt-2" small color="#fcb919" @click="loadMoreCardsNewest()">Load more</v-btn>
+              <v-btn v-if="btnOptionActive.newest" class="mt-2" small color="#fcb919" @click="loadMoreCardsNewest()">Load more</v-btn>
           </div>
           <v-container v-if="maxCardsNewsest > 0" class="full-list" ref="list">
               <!-- <pre>{{ filteredStores.slice(0, maxCards) }}</pre> -->
               <store-card
                 :data-storeId="store.id"
-                v-for="store in filteredStoresNewest.slice(0, maxCardsNewsest)"
+                v-for="store in filteredStoresNewest.slice(0, maxCountOfCards(maxCardsNewsest, !btnOptionActive.newest))"
                 :key="'store-' + store.id"
                 :store="store"
               ></store-card>
           </v-container>
           <div v-if="maxCardsTrending > 0" class="container full-list d-flex align-self-center">
               <h1>Trending</h1>
-              <v-btn v-if="maxNewOnTop !=maxCardsTrending" class="mt-2" small color="#fcb919" @click="loadMoreCardsTrending()">Load more</v-btn>
+              <v-btn v-if="btnOptionActive.trending" class="mt-2" small color="#fcb919" @click="loadMoreCardsTrending()">Load more</v-btn>
           </div>
           <v-container v-if="maxCardsTrending > 0" class="full-list" ref="list">
-              <!-- <pre>{{ filteredStores.slice(0, maxCards) }}</pre> -->
+              <!-- <pre>{{ filteredStores.slice(0, maxCards) }}</pre> --> 
               <store-card
                 :data-storeId="store.id"
-                v-for="store in filteredStoresTrending.slice(0, maxCardsTrending)"
+                v-for="store in filteredStoresTrending.slice(0, maxCountOfCards(maxCardsTrending, !btnOptionActive.trending))"
                 :key="'store-' + store.id"
                 :store="store"
               ></store-card>
@@ -194,7 +194,10 @@
         ],
         tagsCheckbox: [],
         isOpenDialogSorting: false,
-        settingNewOnTopNewest: 0,
+        btnOptionActive: {
+            newest: true,
+            trending: true
+        },
         maxNewOnTop: 0,
       }
     },
@@ -204,11 +207,12 @@
         this.drawer = !this.drawer
       },
       loadMoreCardsNewest() {
-          console.log( this.maxNewOnTop,  this.maxCardsNewsest )
-          this.maxCardsNewsest += (this.maxNewOnTop - this.maxCardsNewsest)
+        this.btnOptionActive.newest = false
+        this.maxCardsNewsest = this.maxNewOnTop
       },
       loadMoreCardsTrending() {
-          this.maxCardsTrending += (this.maxNewOnTop - this.maxCardsTrending)
+        this.btnOptionActive.trending = false
+          this.maxCardsTrending = this.maxNewOnTop
       },
       loadMoreCards() {
         this.maxCards += this.addCardCount
@@ -250,6 +254,22 @@
           this.selectedSort = "custom"
           this.isOpenDialogSorting = true;
       },
+      /**
+       * 
+       * @param {number} value 
+       * @return {number}
+       */
+      maxCountOfCards (value, option = false) {
+
+        console.log({
+            value,
+            count: this.countCardPoint
+        })
+
+        let values = (option) ? value : ((value <= this.countCardPoint) ? value : this.countCardPoint)
+        
+        return values
+      }
     },
     computed: {
       ...mapState({
@@ -267,6 +287,21 @@
         stores: 'stores',
         settingCustomSorting: 'settingCustomSorting',
         sliderCustomSorting: 'sliderCustomSorting',
+
+        widthPoint() {
+            switch (this.$vuetify.breakpoint.name) {
+                case 'xs': return 390
+                case 'sm': return 800
+                case 'md': return 800
+                case 'lg': return 1280
+                case 'xl': return 1780
+                case 'xxl': return 1905
+            }
+        },
+
+        countCardPoint () {
+            return parseInt((this.widthPoint / 369))
+        },
         
         sectionFilteredStores () {        
           let tagsLength = this.selectedTags.filter((x) => x).length;
@@ -364,9 +399,12 @@
     },
     watch: {
       settingCustomSorting(newValue, oldValue) {
-          let value = (newValue.newontop <= this.cardCountSection) ? newValue.newontop : 3
-          this.maxCardsNewsest = value
-          this.maxCardsTrending = value        
+          this.maxCardsNewsest = newValue.newontop
+          this.maxCardsTrending = newValue.newontop     
+          
+          this.btnOptionActive.newest = true
+          this.btnOptionActive.trending = true
+          // ------------------
       },
       selectedSort() {
         this.changeUrl()
@@ -416,13 +454,11 @@
       return { safeMode, selectedSort, searchQuery }
     },
     beforeMount() {
-      window.addEventListener('scroll', this.handleScroll)
-      if (this.scrolledStores) {
-        this.$route.meta.scrolledStores = this.maxCards
-        this.maxCards = this.scrolledStores
-        this.maxCardsNewsest = this.settingCustomSorting.newontop
-        this.maxCardsTrending = this.settingCustomSorting.newontop
-      }
+        window.addEventListener('scroll', this.handleScroll)
+        if (this.scrolledStores) {
+            this.$route.meta.scrolledStores = this.maxCards
+            this.maxCards = this.scrolledStores
+        }
     },
     beforeRouteEnter(to, from, next) {
       if (to.query.sector) {
@@ -434,9 +470,14 @@
     },
     mounted() {
       this.$recaptcha.init()
-  
+
       let maxTop = this.sliderCustomSorting.find((slider) => slider.id=="scs03").slide.find((d) => d.id=="newontop")
+
       this.maxNewOnTop = maxTop.max ?? 0;
+      this.maxCardsNewsest = maxTop.value ?? 0;
+      this.maxCardsTrending = maxTop.value ?? 0;
+
+
   
       this.searchLoading = true
       this.$store.dispatch('getRestStores').finally(() => {
