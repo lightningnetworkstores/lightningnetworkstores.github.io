@@ -4,7 +4,7 @@ export const state = () => {
     score: 100,
     novelty: 0,
     halflife: 270,
-    newontop: 1,
+    newontop: 4,
     trending: 0,
     likeTrend: 0,
     satsPerLike: 1,
@@ -160,7 +160,7 @@ export const state = () => {
           },
           {
             id: 'newontop',
-            label: 'Move newest stores on top',
+            label: 'Newest/Trending #',
             value: defaultSorting.newontop,
             step: 1,
             min: 0,

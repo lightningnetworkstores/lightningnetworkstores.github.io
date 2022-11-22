@@ -12,6 +12,7 @@
                             <v-row>
                                 <v-col>
                                     <v-slider
+                                        :label="slide.label"
                                         :value="slide.value"
                                         thumb-label
                                         :step="slide.step < 1 ? 1 : slide.step"
@@ -23,14 +24,9 @@
                                         :ticks="slide.ticks"
                                         :tick-size="slide.ts"
                                     >
-                                        <template v-slot:prepend>
-                                            <p style="width: 205px;padding-top: 4px;">
-                                                {{ slide.label }}
-                                            </p>
-                                        </template>
                                     </v-slider>
                                 </v-col>
-                                <v-col md="auto">
+                                <v-col cols="auto">
                                     <v-tooltip left>
                                         <template
                                             v-slot:activator="{ on, attrs }"
