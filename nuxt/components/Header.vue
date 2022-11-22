@@ -10,6 +10,33 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
+          <v-menu open-on-hover offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                text
+                v-bind="attrs"
+                v-on="on">
+                Explore
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item><v-btn
+                text
+                to="/trending">
+                Trending 📈
+              </v-btn></v-list-item>
+               <v-list-item><v-btn
+                text
+                to="/searches">
+                Popular searches
+              </v-btn></v-list-item>
+              <v-list-item><v-btn
+                text
+                to="/wallets">
+                Wallets
+              </v-btn></v-list-item>
+            </v-list>
+          </v-menu>
             <v-btn
                 text
                 v-for="route in routes"
@@ -32,7 +59,7 @@
                     {{ route.text }}
                 </div>
             </v-btn>
-            <v-menu v-if="isLogged" offset-y>
+            <v-menu open-on-hover v-if="isLogged" offset-y>
                 <template v-slot:activator="{ on, attrs }">
                     <ProfilePicture
                         :on="on"
@@ -55,7 +82,7 @@
             </v-menu>
             <LoginButton v-if="!isLogged" />
         </v-toolbar-items>
-        <v-menu class="hidden-md-and-up">
+        <v-menu open-on-hover class="hidden-md-and-up">
             <template v-slot:activator="{ on, attrs }">
                 <v-app-bar-nav-icon
                     class="hidden-md-and-up"
@@ -153,7 +180,7 @@ export default {
                 { url: '/discuss', text: 'Discuss' },
                 { url: '/faucet', text: 'Faucet' },
                 { url: '/stats', text: 'Statistics' },
-                { url: '/wallets', text: 'Wallets' },
+                //{ url: '/wallets', text: 'Wallets' },
                 //{ url: '/donations', text: 'Donations' },
                 //{ url: "/contest", text: "Contests" },
                 //{ url: "/quiz", text: "Daily Quiz" },

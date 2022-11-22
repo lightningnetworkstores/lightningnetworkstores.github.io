@@ -7,9 +7,10 @@
 						<v-flex pa-3>
 							<v-alert
 								class="text-center"
-								type="success"
+								type="warning"
 							>
-								<nuxt-link class="wallets-link" to="/?tags=wallet">Wallets can also be found by tag filtering</nuxt-link>
+              This page is not updated anymore.
+								<nuxt-link class="wallets-link" to="/?tags=wallet">Wallets can be found by tag filtering.</nuxt-link>
 							</v-alert>
 						</v-flex>
 					</v-layout>
