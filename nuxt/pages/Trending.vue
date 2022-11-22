@@ -36,7 +36,7 @@
               </template> -->
 
               <template v-slot:item.twitter="{ item }">
-                <span v-if="item.popularity.TWITTER">{{ Math.round(item.popularity.TWITTER.change_relative*1000)/10 }}% (+{{ item.popularity.TWITTER.change_absolute_normalized }})</span>
+                <span v-if="item.popularity.TWITTER">{{ Math.round(item.popularity.TWITTER.change_relative*1000)/10 }}% (+{{ item.popularity.TWITTER.change_absolute }})</span>
               </template>
 
               <!-- <template v-slot:item.twitter_rel="{ item }">
@@ -105,7 +105,7 @@ export default {
           value: 'name',
         },
         { text: 'Site visits', value: 'site_rank', align: 'center' },
-        { text: 'Twitter', value: 'twitter', align: 'center' },
+        { text: 'Twitter (WoW)', value: 'twitter', align: 'center' },
       ],
       tableOptions: {
         itemsPerPage: 50,
