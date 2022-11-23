@@ -586,11 +586,11 @@ const actions = {
       let customSorting = [
         [score, satsPerLike, halflife],
         [trending, likeTrend, externalTrend],
-        [novelty, newontop],
+        [novelty],
       ]
 
       // This order is based on the order state "customSortingAdvanced"
-      let advancedSorting = [halflife]
+      let advancedSorting = [newontop]
 
       let dataSliderGroup = [
         ...state.sliderCustomSorting.map((s, i) => {

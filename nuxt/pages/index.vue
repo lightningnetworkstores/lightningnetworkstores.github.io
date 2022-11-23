@@ -198,7 +198,6 @@
             newest: true,
             trending: true
         },
-        maxNewOnTop: 0,
       }
     },
   
@@ -208,11 +207,9 @@
       },
       loadMoreCardsNewest() {
         this.btnOptionActive.newest = false
-        this.maxCardsNewsest = this.maxNewOnTop
       },
       loadMoreCardsTrending() {
         this.btnOptionActive.trending = false
-          this.maxCardsTrending = this.maxNewOnTop
       },
       loadMoreCards() {
         this.maxCards += this.addCardCount
@@ -400,6 +397,7 @@
     },
     watch: {
       settingCustomSorting(newValue, oldValue) {
+        console.log({newValue})
           this.maxCardsNewsest = newValue.newontop
           this.maxCardsTrending = newValue.newontop     
           
@@ -474,11 +472,8 @@
 
       let maxTop = this.customSortingAdvanced.find((d) => d.id=="newontop")
 
-      this.maxNewOnTop = maxTop.value ?? 0;
       this.maxCardsNewsest = maxTop.value ?? 0;
       this.maxCardsTrending = maxTop.value ?? 0;
-
-
   
       this.searchLoading = true
       this.$store.dispatch('getRestStores').finally(() => {
