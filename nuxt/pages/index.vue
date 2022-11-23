@@ -287,6 +287,7 @@
         stores: 'stores',
         settingCustomSorting: 'settingCustomSorting',
         sliderCustomSorting: 'sliderCustomSorting',
+        customSortingAdvanced: 'customSortingAdvanced',
 
         widthPoint() {
             switch (this.$vuetify.breakpoint.name) {
@@ -471,9 +472,9 @@
     mounted() {
       this.$recaptcha.init()
 
-      let maxTop = this.sliderCustomSorting.find((slider) => slider.id=="scs03").slide.find((d) => d.id=="newontop")
+      let maxTop = this.customSortingAdvanced.find((d) => d.id=="newontop")
 
-      this.maxNewOnTop = maxTop.max ?? 0;
+      this.maxNewOnTop = maxTop.value ?? 0;
       this.maxCardsNewsest = maxTop.value ?? 0;
       this.maxCardsTrending = maxTop.value ?? 0;
 

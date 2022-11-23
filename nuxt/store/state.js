@@ -158,33 +158,33 @@ export const state = () => {
             explainer:
               'Adjusts the weight of the age of each project. A high value will favor new stores listed on the website.',
           },
-          {
-            id: 'newontop',
-            label: 'Newest/Trending #',
-            value: defaultSorting.newontop,
-            step: 1,
-            min: 0,
-            max: 5,
-            ticks: false,
-            ts: 4,
-            explainer:
-              'Moves the chosen amount of newest stores to the top of the list.',
-          },
         ],
       },
     ],
     customSortingAdvanced: [
+      // {
+      //   id: 'halflife',
+      //   label: 'Evaporation half-life',
+      //   value: defaultSorting.halflife,
+      //   step: 1,
+      //   min: 0,
+      //   max: 100,
+      //   ticks: false,
+      //   ts: 4,
+      //   explainer:
+      //     'Adjusts how fast the bitcoin spent on upvoting and upvoting loses value over time. Default is set to 9 months.',
+      // },
       {
-        id: 'halflife',
-        label: 'Evaporation half-life',
-        value: defaultSorting.halflife,
+        id: 'newontop',
+        label: 'Newest/Trending #',
+        value: defaultSorting.newontop,
         step: 1,
         min: 0,
-        max: 100,
+        max: 8,
         ticks: false,
         ts: 4,
         explainer:
-          'Adjusts how fast the bitcoin spent on upvoting and upvoting loses value over time. Default is set to 9 months.',
+          'Moves the chosen amount of newest stores to the top of the list.',
       },
     ],
   }
