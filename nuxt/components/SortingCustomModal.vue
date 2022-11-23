@@ -26,22 +26,21 @@
                                     >
                                     </v-slider>
                                 </v-col>
-                                <v-col cols="auto">
+                                <v-col cols="auto" class="pl-1">
                                     <v-tooltip left>
                                         <template
                                             v-slot:activator="{ on, attrs }"
                                         >
                                             <v-btn
+                                                :style="sizeIcons"
                                                 color="secondary"
                                                 fab
-                                                x-small
                                                 dark
-                                                class="mt-2"
                                                 v-bind="attrs"
                                                 v-on="on"
                                             >
                                                 <v-icon class="float-left"
-                                                    >fa-question</v-icon
+                                                    >mdi-information-variant</v-icon
                                                 ></v-btn
                                             >
                                         </template>
@@ -91,22 +90,21 @@
                                     >
                                     </v-slider>
                                 </v-col>
-                                <v-col cols="auto">
+                                <v-col cols="auto" class="pl-1">
                                     <v-tooltip left>
                                         <template
                                             v-slot:activator="{ on, attrs }"
                                         >
                                             <v-btn
+                                                :style="sizeIcons"
                                                 color="secondary"
                                                 fab
-                                                x-small
                                                 dark
-                                                class="mt-2"
                                                 v-bind="attrs"
                                                 v-on="on"
                                             >
                                                 <v-icon class="float-left"
-                                                    >fa-question</v-icon
+                                                    >mdi-information-variant</v-icon
                                                 ></v-btn
                                             >
                                         </template>
@@ -178,6 +176,18 @@ export default {
             'sliderCustomSorting',
             'customSortingAdvanced',
         ]),
+        sizeIcons() {
+            switch (this.$vuetify.breakpoint.name) {
+                case 'xs': return {
+                  width: "24px",
+                  height: "24px"
+                }
+                default: return {
+                  width: "32px",
+                  height: "32px"
+                }
+            }
+        },
         anonymousValid() {
             return this.loginStatus.user &&
                 (this.loginStatus.user?.handle ?? false)
@@ -245,6 +255,10 @@ export default {
 <style>
 .textCapitalize {
     text-transform: capitalize;
+}
+.xx-small-icon {
+  width: 24px;
+  height: 24px;
 }
 </style>>
 
