@@ -12,9 +12,7 @@
                             <v-row>
                                 <v-col>
                                     <v-slider
-                                        :label="slide.label"
                                         :value="slide.value"
-                                        thumb-label
                                         :step="slide.step < 1 ? 1 : slide.step"
                                         :min="slide.min"
                                         :max="slide.max"
@@ -24,28 +22,30 @@
                                         :ticks="slide.ticks"
                                         :tick-size="slide.ts"
                                     >
+                                    <template v-slot:prepend>
+                                      <div class="d-flex align-center">
+                                        <span style="width: max-content; margin-right: 15px;">{{ slide.label }}</span>
+                                        <v-tooltip right>
+                                          <template
+                                              v-slot:activator="{ on, attrs }"
+                                          >
+                                              <v-btn
+                                                  depressed
+                                                  :style="sizeIcons"
+                                                  color="white"
+                                                  fab
+                                                  v-bind="attrs"
+                                                  v-on="on"
+                                              >
+                                                  <v-icon class="float-left" color="#000">mdi-information-outline</v-icon
+                                                  ></v-btn
+                                              >
+                                          </template>
+                                          <span>{{ slide.explainer }}</span>
+                                        </v-tooltip>
+                                      </div>
+                                    </template>
                                     </v-slider>
-                                </v-col>
-                                <v-col cols="auto" class="pl-1">
-                                    <v-tooltip left>
-                                        <template
-                                            v-slot:activator="{ on, attrs }"
-                                        >
-                                            <v-btn
-                                                :style="sizeIcons"
-                                                color="secondary"
-                                                fab
-                                                dark
-                                                v-bind="attrs"
-                                                v-on="on"
-                                            >
-                                                <v-icon class="float-left"
-                                                    >mdi-information-variant</v-icon
-                                                ></v-btn
-                                            >
-                                        </template>
-                                        <span>{{ slide.explainer }}</span>
-                                    </v-tooltip>
                                 </v-col>
                             </v-row>
                         </div>
@@ -78,7 +78,6 @@
                             <v-row>
                                 <v-col>
                                     <v-slider
-                                        :label="slide.label"
                                         :value="slide.value"
                                         thumb-label
                                         :step="slide.step < 1 ? 1 : slide.step"
@@ -88,28 +87,32 @@
                                         :ticks="slide.ticks"
                                         :tick-size="slide.ts"
                                     >
+                                    <template v-slot:prepend>
+                                      <div class="d-flex align-center">
+                                        <span style="width: max-content; margin-right: 15px;">{{ slide.label }}</span>
+                                        <v-tooltip right>
+                                          <template
+                                              v-slot:activator="{ on, attrs }"
+                                          >
+                                              <v-btn
+                                                  depressed
+                                                  :style="sizeIcons"
+                                                  color="white"
+                                                  fab
+                                                  dark
+                                                  v-bind="attrs"
+                                                  v-on="on"
+                                              >
+                                                  <v-icon class="float-left" color="#000"
+                                                      >mdi-information-outline</v-icon
+                                                  ></v-btn
+                                              >
+                                          </template>
+                                          <span>{{ slide.explainer }}</span>
+                                        </v-tooltip>
+                                      </div>
+                                    </template>
                                     </v-slider>
-                                </v-col>
-                                <v-col cols="auto" class="pl-1">
-                                    <v-tooltip left>
-                                        <template
-                                            v-slot:activator="{ on, attrs }"
-                                        >
-                                            <v-btn
-                                                :style="sizeIcons"
-                                                color="secondary"
-                                                fab
-                                                dark
-                                                v-bind="attrs"
-                                                v-on="on"
-                                            >
-                                                <v-icon class="float-left"
-                                                    >mdi-information-variant</v-icon
-                                                ></v-btn
-                                            >
-                                        </template>
-                                        <span>{{ slide.explainer }}</span>
-                                    </v-tooltip>
                                 </v-col>
                             </v-row>
                         </v-list-item>
