@@ -16,7 +16,7 @@ export const state = () => {
       configuration: {},
       items: [],
     },
-    baseURL: process.env.BASE_URL,
+    baseURL: process.env.baseUrl,
     browserFingerprint: '',
     configuration: {
       max_comment_size: 250,

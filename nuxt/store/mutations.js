@@ -3,7 +3,7 @@ import Vue from 'vue'
 const mutations = {
   setIsDev(state, data) {
     state.isDev = true
-    state.baseURL = process.env.BASE_URL
+    state.baseURL = process.env.baseUrl
   },
   setLoading(state, data) {
     state.loading = data
