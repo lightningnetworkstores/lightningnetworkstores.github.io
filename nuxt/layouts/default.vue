@@ -59,6 +59,12 @@ export default {
   },
 
   async mounted() {
+    try {
+      await this.$store.dispatch('getLoginStatus')
+    } catch (error) {
+      console.log(error)
+    }
+
     const fp = await FingerprintJS.load()
     const { visitorId } = await fp.get()
 
@@ -73,12 +79,6 @@ export default {
     this.$store.dispatch('setBrowserFingerprint', {
       browserFingerprint: visitorId,
     })
-
-    try {
-      await this.$store.dispatch('getLoginStatus')
-    } catch (error) {
-      console.log(error)
-    }
   },
 
   computed: {

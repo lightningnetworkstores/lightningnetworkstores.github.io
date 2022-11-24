@@ -17,7 +17,13 @@ const options = {
 
 const getters = {
   getStores(state) {
-    return ({ sector, digitalGoods }, sort, search, safeMode = 'false') => {
+    return (
+      { sector, digitalGoods },
+      sort,
+      search,
+      safeMode = 'false',
+      section = 'general'
+    ) => {
       //filter
       let isFiltered = true
       let stores = []
@@ -75,88 +81,55 @@ const getters = {
       if (search && search !== 'undefined') {
         let fuse = new Fuse(stores, options)
         stores = fuse.search(search)
-      } else {
-        // Sort
-        switch (sort) {
-          case 'trending':
-            stores = stores
-              .filter((store) => store.trending > options.trendingThreshold)
-              .sort((a, b) => {
-                return b.trending - a.trending
-              })
-            break
-          case 'newest':
-            stores
-              .sort((a, b) => {
-                return a.added - b.added
-              })
-              .reverse()
-            break
-          case 'lifetime':
-            stores.sort((a, b) => {
-              return b.lifetime - a.lifetime
-            })
-            break
-          case 'likes':
-            stores.sort((a, b) => {
-              return b.likes - a.likes
-            })
-            break
-          case 'controversial':
-            stores.sort((a, b) => {
-              let magnitudeB = b.upvotes + b.downvotes
-              let controversialB = 0
-              if (magnitudeB != 0) {
-                controversialB =
-                  (magnitudeB * Math.min(b.upvotes, b.downvotes)) /
-                  Math.max(b.upvotes, b.downvotes)
-              }
+        return stores
+      }
 
-              let magnitudeA = a.upvotes + a.downvotes
-              let controversialA = 0
-              if (magnitudeA != 0) {
-                controversialA =
-                  (magnitudeA * Math.min(a.upvotes, a.downvotes)) /
-                  Math.max(a.upvotes, a.downvotes)
-              }
+      let settingSorting = state.settingCustomSorting
+      let defaultSorting = state.defaultSorting
+      stores.sort(
+        sortingFunction(
+          sort,
+          sort === 'custom' ? settingSorting : defaultSorting
+        )
+      )
 
-              return controversialB - controversialA
-            })
-            break
-          case 'lastcommented':
-            stores.sort((a, b) => {
-              return b.last_commented - a.last_commented
-            })
-            break
-          default:
-            stores.sort((a, b) => {
-              return b.sorting - a.sorting
-            })
-            // Add most treding tore to top
-            if (!isFiltered) {
-              var mostTrendingStore = stores.slice().sort((a, b) => {
-                return b.trending - a.trending
-              })[0]
+      if (sort == 'trending') {
+        stores = stores.filter(
+          (store) => store.trending > options.trendingThreshold
+        )
+      }
 
-              var newestStore = stores.slice().sort((a, b) => {
-                return b.added - a.added
-              })[0]
-              stores.splice(stores.indexOf(newestStore), 1)
-              stores.splice(1, 0, newestStore)
+      if (isFiltered || (sort != null && ['best', 'custom'].includes(sort))) {
+        return stores
+      }
 
-              // Is above trending threshold?
-              if (
-                mostTrendingStore &&
-                stores.length > 0 &&
-                mostTrendingStore.trending >= 10
-              ) {
-                stores.splice(stores.indexOf(mostTrendingStore), 1)
-                stores.splice(1, 0, mostTrendingStore)
-              }
-            }
-            break
+      // Add trendiest store to top
+      var mostTrendingStore = stores.slice().sort((a, b) => {
+        return b.trending - a.trending
+      })[0]
+
+      // Add newest store to top
+      if (['general', 'newest'].includes(section)) {
+        var newestStore = stores.slice().sort((a, b) => {
+          return b.added - a.added
+        })[0]
+
+        stores.splice(stores.indexOf(newestStore), 1)
+        stores.splice(1, 0, newestStore)
+      }
+
+      if (['general', 'trending'].includes(section)) {
+        // Is above trending threshold?
+        if (
+          mostTrendingStore &&
+          stores.length > 0 &&
+          mostTrendingStore.trending >= 10
+        ) {
+          stores.splice(stores.indexOf(mostTrendingStore), 1)
+          stores.splice(1, 0, mostTrendingStore)
         }
       }
+
       return stores
     }
   },
@@ -214,6 +187,93 @@ const getters = {
   getQuizContest(state) {
     return state.quizContest
   },
+  getSettingCustomSorting(state) {
+    return state.settingCustomSorting
+  },
+}
+
+function sortingFunction(method, parameters = {}) {
+  console.log('method=' + method)
+  switch (method) {
+    case 'custom':
+      let scoreFunction = customScore(parameters)
+      return (a, b) => {
+        return scoreFunction(b) - scoreFunction(a)
+      }
+    case 'trending':
+      return (a, b) => {
+        return b.trending - a.trending
+      }
+    case 'newest':
+      return (a, b) => {
+        return b.added - a.added
+      }
+    case 'lifetime':
+      return (a, b) => {
+        return b.lifetime - a.lifetime
+      }
+    case 'likes':
+      return (a, b) => {
+        return b.likes - a.likes
+      }
+    case 'controversial':
+      return (a, b) => {
+        let magnitudeB = b.upvotes + b.downvotes
+        let controversialB = 0
+        if (magnitudeB != 0) {
+          controversialB =
+            (magnitudeB * Math.min(b.upvotes, b.downvotes)) /
+            Math.max(b.upvotes, b.downvotes)
+        }
+
+        let magnitudeA = a.upvotes + a.downvotes
+        let controversialA = 0
+        if (magnitudeA != 0) {
+          controversialA =
+            (magnitudeA * Math.min(a.upvotes, a.downvotes)) /
+            Math.max(a.upvotes, a.downvotes)
+        }
+
+        return controversialB - controversialA
+      }
+    case 'lastcommented':
+      return (a, b) => {
+        return b.last_commented - a.last_commented
+      }
+    default:
+      let defaultFunction = customScore(parameters)
+      return (a, b) => {
+        return defaultFunction(b) - defaultFunction(a)
+      }
+  }
+}
+
+function customScore(parameters) {
+  // TODO add a.evaporated90
+  return (a) => {
+    let evaporated = 0
+    if (parameters.halflife <= 270) {
+      let nineMonthWeight = (parameters.halflife - 30) / (270 - 30)
+      evaporated =
+        (a.upvotes - a.downvotes) * nineMonthWeight +
+        (a.upvotes - a.downvotes) * (1 - nineMonthWeight)
+    } else if (parameters.halflife > 270) {
+      evaporated = a.lifetime
+    }
+
+    let score = evaporated * parameters.score
+
+    let scoreTrend = a.trending * parameters.trending * 10000
+    let likeTrend = a.likeTrend * parameters.likeTrend * 30000
+    let externalTrend = a.externalTrend * parameters.externalTrend * 10000
+
+    let novelty = 1000 + (a.added - new Date().getTime() / 1000) / 86400
+    novelty = Math.min(1000, Math.max(0, novelty)) * parameters.novelty * 1000
+
+    let likes = a.likes * parameters.satsPerLike * 100000
+
+    return score + scoreTrend + novelty + likes + likeTrend + externalTrend
+  }
 }
 
 export default getters
