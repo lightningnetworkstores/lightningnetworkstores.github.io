@@ -284,6 +284,9 @@
                   </h4></v-flex
                 >
               </v-row>
+              <v-row>
+                <five-star-review :rating="4.5" class="my-3"/>
+              </v-row>
             </v-card-text>
           </v-card>
           <v-dialog v-model="imageModal" width="900">
