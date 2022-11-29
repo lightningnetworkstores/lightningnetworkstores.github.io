@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
     props: ['isOpen'],
@@ -179,6 +179,7 @@ export default {
             'sliderCustomSorting',
             'customSortingAdvanced',
         ]),
+        ...mapGetters(['getTrendingScore']),
         sizeIcons() {
             switch (this.$vuetify.breakpoint.name) {
                 case 'xs': return {
@@ -198,21 +199,42 @@ export default {
                 : false
         },
         getElementsCustomSorting() {
-            let elementsCustomSorting = [...this.sliderCustomSorting]
-                .map((x) => {
-                    return x.slide
-                })
-                .flat(1)
+          let elementsCustomSorting = [...this.sliderCustomSorting]
+              .map((x) => {
+                  return x.slide
+              })
+              .flat(1)
 
-            
-            elementsCustomSorting = [...elementsCustomSorting, ...this.customSortingAdvanced]
-            
-            let sortingParameters = {}
-            elementsCustomSorting.forEach(el => { sortingParameters[el.id] = el.value });
 
-            sortingParameters["default"] = false
+          // const trendingScoreValues = [];
+
+          // elementsCustomSorting.filter((parameters) => 
+          //         ["trending", "likeTrend", "externalTrend"].includes(parameters.id))
+          // .forEach((trending) => {
+          //   let trendingIndex = elementsCustomSorting.findIndex(
+          //     (params) => params.id == trending.id
+          //   )
             
-            return sortingParameters
+          //   trendingScoreValues[trending.id] = {
+          //     index: trendingIndex,
+          //     value: trending
+          //   }
+          // })
+          
+          // const trendingScore = this.getTrendingScore(trendingScoreValues)
+
+          // trendingScore.forEach(trending => {
+          //   elementsCustomSorting.splice(trending.index, 1, trending.value)
+          // })
+          
+          elementsCustomSorting = [...elementsCustomSorting, ...this.customSortingAdvanced]
+          
+          let sortingParameters = {}
+          elementsCustomSorting.forEach(el => { sortingParameters[el.id] = el.value });
+
+          sortingParameters["default"] = false
+          
+          return sortingParameters
         },
         swichMakeDefault: {
             get() {

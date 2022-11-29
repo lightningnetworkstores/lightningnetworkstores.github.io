@@ -16,7 +16,7 @@ const options = {
 }
 
 const getters = {
-  getStores(state) {
+  getStores(state, getters) {
     return (
       { sector, digitalGoods },
       sort,
@@ -104,8 +104,9 @@ const getters = {
       }
 
       // Add trendiest store to top
+      let scoreFunctionTrending = trendingScore(settingSorting)
       var mostTrendingStore = stores.slice().sort((a, b) => {
-        return b.trending - a.trending
+        return scoreFunctionTrending(b) - scoreFunctionTrending(a)
       })[0]
 
       // Add newest store to top
@@ -133,6 +134,11 @@ const getters = {
       return stores
     }
   },
+
+  // getTrendingScore: (state) => (store, trendingScoreValues) => {
+  //   // const { trending, likeTrend, externalTrend } = trendingScoreValues
+  //   // return [trending, likeTrend, externalTrend]
+  // },
 
   getScore: (state) => (id) => {
     let score = state.scores[id] || [0, 0, 0]
@@ -273,6 +279,14 @@ function customScore(parameters) {
     let likes = a.likes * parameters.satsPerLike * 100000
 
     return score + scoreTrend + novelty + likes + likeTrend + externalTrend
+  }
+}
+
+function trendingScore(parameters) {
+  const { trending, likeTrend, externalTrend } = parameters
+
+  return (a) => {
+    return a.trending
   }
 }
 
