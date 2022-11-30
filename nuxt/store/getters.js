@@ -103,42 +103,11 @@ const getters = {
         return stores
       }
 
-      // Add trendiest store to top
-      let scoreFunctionTrending = trendingScore(settingSorting)
-      var mostTrendingStore = stores.slice().sort((a, b) => {
-        return scoreFunctionTrending(b) - scoreFunctionTrending(a)
-      })[0]
-
-      // Add newest store to top
-      if (['general', 'newest'].includes(section)) {
-        var newestStore = stores.slice().sort((a, b) => {
-          return b.added - a.added
-        })[0]
-
-        stores.splice(stores.indexOf(newestStore), 1)
-        stores.splice(1, 0, newestStore)
-      }
-
-      if (['general', 'trending'].includes(section)) {
-        // Is above trending threshold?
-        if (
-          mostTrendingStore &&
-          stores.length > 0 &&
-          mostTrendingStore.trending >= 10
-        ) {
-          stores.splice(stores.indexOf(mostTrendingStore), 1)
-          stores.splice(1, 0, mostTrendingStore)
-        }
-      }
+      // Deprecated code that moves newest and trendiest store to the top
 
       return stores
     }
   },
-
-  // getTrendingScore: (state) => (store, trendingScoreValues) => {
-  //   // const { trending, likeTrend, externalTrend } = trendingScoreValues
-  //   // return [trending, likeTrend, externalTrend]
-  // },
 
   getScore: (state) => (id) => {
     let score = state.scores[id] || [0, 0, 0]
@@ -284,9 +253,11 @@ function customScore(parameters) {
 
 function trendingScore(parameters) {
   const { trending, likeTrend, externalTrend } = parameters
-
   return (a) => {
-    return a.trending
+    if (trending + likeTrend + externalTrend == 0) {
+      return a.trending
+    }
+    return (a.trending * trending + a.likeTrend * likeTrend + a.externalTrend * externalTrend) / (trending + likeTrend + externalTrend)
   }
 }
 

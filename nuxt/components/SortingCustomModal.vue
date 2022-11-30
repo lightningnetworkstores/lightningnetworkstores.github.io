@@ -204,28 +204,6 @@ export default {
                   return x.slide
               })
               .flat(1)
-
-
-          // const trendingScoreValues = [];
-
-          // elementsCustomSorting.filter((parameters) => 
-          //         ["trending", "likeTrend", "externalTrend"].includes(parameters.id))
-          // .forEach((trending) => {
-          //   let trendingIndex = elementsCustomSorting.findIndex(
-          //     (params) => params.id == trending.id
-          //   )
-            
-          //   trendingScoreValues[trending.id] = {
-          //     index: trendingIndex,
-          //     value: trending
-          //   }
-          // })
-          
-          // const trendingScore = this.getTrendingScore(trendingScoreValues)
-
-          // trendingScore.forEach(trending => {
-          //   elementsCustomSorting.splice(trending.index, 1, trending.value)
-          // })
           
           elementsCustomSorting = [...elementsCustomSorting, ...this.customSortingAdvanced]
           
