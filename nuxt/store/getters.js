@@ -215,14 +215,6 @@ function customScore(parameters) {
 
 function trendingScore(parameters) {
   const { trending, likeTrend, externalTrend } = parameters
-  console.log(
-    'trending=' +
-      trending +
-      ', likeTrend=' +
-      likeTrend +
-      ', externalTrend=' +
-      externalTrend
-  )
   return (a) => {
     if (trending + likeTrend + externalTrend == 0) {
       return a.trending
