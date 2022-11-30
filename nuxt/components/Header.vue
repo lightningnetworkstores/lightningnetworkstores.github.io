@@ -10,6 +10,9 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
+
+           <!-- Menu List - Web -->
+
           <v-menu open-on-hover offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -20,23 +23,17 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item><v-btn
-                text
-                to="/trending">
-                Trending 📈
-              </v-btn></v-list-item>
-               <v-list-item><v-btn
-                text
-                to="/searches">
-                Popular searches
-              </v-btn></v-list-item>
-              <v-list-item><v-btn
-                text
-                to="/wallets">
-                Wallets
-              </v-btn></v-list-item>
+              <v-list-item v-for="(menuExplore, index) in routesExplore" :key="index">
+                <v-btn
+                  text
+                  :to="menuExplore.url"
+                >
+                    {{ menuExplore.text }}
+                </v-btn>
+              </v-list-item>
             </v-list>
           </v-menu>
+
             <v-btn
                 text
                 v-for="route in routes"
@@ -59,6 +56,7 @@
                     {{ route.text }}
                 </div>
             </v-btn>
+
             <v-menu open-on-hover v-if="isLogged" offset-y>
                 <template v-slot:activator="{ on, attrs }">
                     <ProfilePicture
@@ -80,8 +78,13 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
+
             <LoginButton v-if="!isLogged" />
         </v-toolbar-items>
+
+
+
+        <!-- ------------------- Menu List - Mobile -------------------- -->
         <v-menu open-on-hover class="hidden-md-and-up">
             <template v-slot:activator="{ on, attrs }">
                 <v-app-bar-nav-icon
@@ -102,7 +105,11 @@
                     </template>
                 </v-app-bar-nav-icon>
             </template>
-            <v-list>
+
+            <v-menu offset-x absolute left>
+              <template v-slot:activator="{ on, attrs }">
+                
+                <v-list>
                 <v-list-item class="justify-center">
                     <LoginButton v-if="!isLogged" />
                     <ProfilePicture v-else :src="profile.image" />
@@ -115,28 +122,40 @@
                         <v-list-item-title> Dashboard </v-list-item-title>
                     </v-list-item>
                 </v-list-item>
+
+                <!-- Item from Menu = Explore -->
+                <v-list-item
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-list-item-title>
+                    <div class="v-list-item">Explore</div>
+                  </v-list-item-title>
+                </v-list-item>
+
+                <!-- Items Menu -->
                 <v-list-item
                     v-for="route in routes"
                     :key="route.text"
                     :to="route.url"
                 >
-                    <v-list-item>
-                        <v-list-item-title>
-                            <v-badge
-                                v-if="
-                                    isDiscussionNotificationShowed &&
-                                    route.text === 'Discuss'
-                                "
-                                color="orange"
-                                dot
-                            >
-                                {{ route.text }}
-                            </v-badge>
-                            <div v-else>
-                                {{ route.text }}
-                            </div>
-                        </v-list-item-title>
-                    </v-list-item>
+                  <v-list-item>
+                    <v-list-item-title>
+                      <v-badge
+                        v-if="
+                            isDiscussionNotificationShowed &&
+                            route.text === 'Discuss'
+                        "
+                        color="orange"
+                        dot
+                      >
+                        {{ route.text }}
+                      </v-badge>
+                      <div v-else>
+                        {{ route.text }}
+                      </div>
+                    </v-list-item-title>
+                  </v-list-item>
                 </v-list-item>
                 <v-list-item v-if="isLogged">
                     <v-list-item @click="handleLogout">
@@ -144,6 +163,21 @@
                     </v-list-item>
                 </v-list-item>
             </v-list>
+              </template>
+              <v-list>
+                <v-list-item v-for="(menuExplore, index) in routesExplore" :key="index">
+                  <v-btn
+                    text
+                    :to="menuExplore.url"
+                  >
+                      {{ menuExplore.text }}
+                  </v-btn>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
+
+            
         </v-menu>
         <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
       <svg
@@ -186,6 +220,11 @@ export default {
                 //{ url: "/quiz", text: "Daily Quiz" },
                 { url: '/about', text: 'About' },
             ],
+            routesExplore: [
+              { url: '/trending', text: 'Trending 📈', itHasIcon: true },
+              { url: '/searches', text: 'Popular searches', itHasIcon: false },
+              { url: '/wallets', text: 'Wallets', itHasIcon: false },
+            ]
         }
     },
 
@@ -222,6 +261,13 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.position-left-menu {
+  left: 70px !important
+}
+</style>
+
 <style>
 .v-toolbar__content {
     height: 64px !important;
