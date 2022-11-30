@@ -53,7 +53,9 @@ const getters = {
       stores.sort(
         sortingFunction(
           sort,
-          sort === 'custom' ? state.settingCustomSorting : state.defaultSorting
+          ['custom', 'trending'].includes(sort)
+            ? state.settingCustomSorting
+            : state.defaultSorting
         )
       )
 
@@ -214,12 +216,24 @@ function customScore(parameters) {
 function trendingScore(parameters) {
   console.log(parameters)
   const { trending, likeTrend, externalTrend } = parameters
-  console.log('trending=' + trending + ', likeTrend=' + likeTrend + ', externalTrend=' + externalTrend)
+  console.log(
+    'trending=' +
+      trending +
+      ', likeTrend=' +
+      likeTrend +
+      ', externalTrend=' +
+      externalTrend
+  )
   return (a) => {
     if (trending + likeTrend + externalTrend == 0) {
       return a.trending
     }
-    return (a.trending * trending + a.likeTrend * likeTrend + a.externalTrend * externalTrend) / (trending + likeTrend + externalTrend)
+    return (
+      (a.trending * trending +
+        a.likeTrend * likeTrend +
+        a.externalTrend * externalTrend) /
+      (trending + likeTrend + externalTrend)
+    )
   }
 }
 
