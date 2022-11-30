@@ -106,7 +106,7 @@
                 </v-app-bar-nav-icon>
             </template>
 
-            <v-menu offset-x absolute left>
+            <v-menu offset-x absolute :content-class="positionExploreCard">
               <template v-slot:activator="{ on, attrs }">
                 
                 <v-list>
@@ -244,6 +244,19 @@ export default {
                 else return false
             },
         }),
+        positionExploreCard() {
+          let brackPointWitdh = this.$vuetify.breakpoint.width;
+
+          if (brackPointWitdh < 361) return "positionCardMobile_xxs"
+          if (brackPointWitdh < 376) return "positionCardMobile_xs"
+          if (brackPointWitdh < 395) return "positionCardMobile_sm"
+          if (brackPointWitdh < 419) return "positionCardMobile_md"
+          else if (brackPointWitdh > 420 && brackPointWitdh < 480) return "positionCardMobile_sm"
+          else if (brackPointWitdh < 800) return "positionCardMobile_lg"
+          else if (brackPointWitdh < 900) return "positionCardMobile_xl"
+          else if (brackPointWitdh < 1200) return "positionCardMobile_xxl"
+          else return "positionCardMobile_sm"  
+        },
     },
 
     methods: {
@@ -262,7 +275,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .position-left-menu {
   left: 70px !important
 }
@@ -278,4 +291,12 @@ export default {
 .btndarkmode .v-btn__content {
     font-size: 2em !important;
 }
+
+.positionCardMobile_xxs { left: 20px !important; }
+.positionCardMobile_xs { left: 36px !important; }
+.positionCardMobile_sm { left: 51px !important; }
+.positionCardMobile_md { left: 74px !important; }
+.positionCardMobile_lg { left: 428px !important; }
+.positionCardMobile_xl { left: 479px !important; }
+.positionCardMobile_xxl { left: 573px !important; }
 </style>
