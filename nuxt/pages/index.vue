@@ -258,11 +258,6 @@
        */
       maxCountOfCards (value, option = false) {
 
-        console.log({
-            value,
-            count: this.countCardPoint
-        })
-
         let values = (option) ? value : ((value <= this.countCardPoint) ? value : this.countCardPoint)
         
         return values

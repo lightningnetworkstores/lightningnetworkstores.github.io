@@ -25,39 +25,9 @@ const getters = {
       section = 'general'
     ) => {
       //filter
-      let isFiltered = true
-      let stores = []
-
+      let isFiltered = false
       let stateStores = state.stores.slice(0)
-
-      if (
-        (!sector || sector == 'undefined') &&
-        (!digitalGoods || digitalGoods == 'undefined')
-      ) {
-        stores = stateStores
-        isFiltered = false
-      } else if (!digitalGoods || digitalGoods == 'undefined') {
-        stores =
-          sector !== 'all'
-            ? stateStores.filter((store) => store.sector == sector)
-            : stateStores
-      } else if (!sector || sector == 'undefined') {
-        stores =
-          digitalGoods !== 'all'
-            ? stateStores.filter((store) => store.digital_goods == digitalGoods)
-            : stateStores
-      } else {
-        let filteredBySector =
-          sector !== 'all'
-            ? stateStores.filter((store) => store.sector == sector)
-            : stateStores
-        stores =
-          digitalGoods !== 'all'
-            ? filteredBySector.filter(
-                (store) => store.digital_goods == digitalGoods
-              )
-            : filteredBySector
-      }
+      let stores = stateStores
 
       if (safeMode === 'true' && stores) {
         let safeStores = stores.filter((store) => {
@@ -66,10 +36,6 @@ const getters = {
           )
         })
         stores = safeStores
-      }
-
-      if (digitalGoods == 'all' || sector == 'all') {
-        isFiltered = false
       }
 
       isFiltered =
@@ -84,12 +50,10 @@ const getters = {
         return stores
       }
 
-      let settingSorting = state.settingCustomSorting
-      let defaultSorting = state.defaultSorting
       stores.sort(
         sortingFunction(
           sort,
-          sort === 'custom' ? settingSorting : defaultSorting
+          sort === 'custom' ? state.settingCustomSorting : state.defaultSorting
         )
       )
 
@@ -99,12 +63,7 @@ const getters = {
         )
       }
 
-      if (isFiltered || (sort != null && ['best', 'custom'].includes(sort))) {
-        return stores
-      }
-
       // Deprecated code that moves newest and trendiest store to the top
-
       return stores
     }
   },
@@ -176,8 +135,9 @@ function sortingFunction(method, parameters = {}) {
         return scoreFunction(b) - scoreFunction(a)
       }
     case 'trending':
+      let trendingGetter = trendingScore(parameters)
       return (a, b) => {
-        return b.trending - a.trending
+        return trendingGetter(b) - trendingGetter(a)
       }
     case 'newest':
       return (a, b) => {
@@ -252,7 +212,9 @@ function customScore(parameters) {
 }
 
 function trendingScore(parameters) {
+  console.log(parameters)
   const { trending, likeTrend, externalTrend } = parameters
+  console.log('trending=' + trending + ', likeTrend=' + likeTrend + ', externalTrend=' + externalTrend)
   return (a) => {
     if (trending + likeTrend + externalTrend == 0) {
       return a.trending

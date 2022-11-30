@@ -178,6 +178,7 @@ export default {
             'settingCustomSorting',
             'sliderCustomSorting',
             'customSortingAdvanced',
+            'defaultSorting'
         ]),
         ...mapGetters(['getTrendingScore']),
         sizeIcons() {
@@ -246,7 +247,7 @@ export default {
         async saveOrSaveAndDefault() {
             let sorting = {...this.getElementsCustomSorting}
             sorting['default'] = this.swichMakeDefault;
-
+            if(sorting['halflife']==null) sorting['halflife'] = this.defaultSorting.halflife 
             
             await this.setSettingCustomSorting(sorting)
             this.$emit('update:isOpen', false)

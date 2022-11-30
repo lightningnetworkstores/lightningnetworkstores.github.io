@@ -5,7 +5,7 @@ export const state = () => {
     novelty: 0,
     halflife: 270,
     newontop: 4,
-    trending: 0,
+    trending: 1,
     likeTrend: 0,
     satsPerLike: 1,
     externalTrend: 0,
