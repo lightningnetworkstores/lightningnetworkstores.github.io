@@ -314,12 +314,9 @@
         },
         
         filteredStoresTrending() {
-          const getStores = this.getStores(
-            { sector: this.sector, digitalGoods: this.digitalGoods },
+          const getStores = this.getCustomTrending(
             "trending",
-            this.searchQuery,
-            this.safeMode,
-            "trending"
+            this.selectedSort
           )
   
           return getStores
@@ -347,7 +344,7 @@
         },
       }),
   
-      ...mapGetters(['getStores']),
+      ...mapGetters(['getStores', 'getCustomTrending']),
   
       filtertags() {
         const data = this.filteredStores

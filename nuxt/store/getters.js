@@ -53,9 +53,7 @@ const getters = {
       stores.sort(
         sortingFunction(
           sort,
-          ['custom', 'trending'].includes(sort)
-            ? state.settingCustomSorting
-            : state.defaultSorting
+          sort === 'custom' ? state.settingCustomSorting : state.defaultSorting
         )
       )
 
@@ -66,6 +64,23 @@ const getters = {
       }
 
       // Deprecated code that moves newest and trendiest store to the top
+      return stores
+    }
+  },
+
+  getCustomTrending(state) {
+    return (section, sort) => {
+      //filter
+      let stateStores = state.stores.slice(0)
+      let stores = stateStores
+
+      stores.sort(
+        sortingFunction(
+          section,
+          sort == 'custom' ? state.settingCustomSorting : state.defaultSorting
+        )
+      )
+
       return stores
     }
   },
@@ -199,7 +214,6 @@ function customScore(parameters) {
     }
 
     let score = evaporated * parameters.score
-
 
     let trendingFunction = trendingScore(parameters)
     let trendingScoreResult = trendingFunction(a)
