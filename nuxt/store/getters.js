@@ -203,17 +203,17 @@ function sortingFunction(method, parameters = {}) {
 function customScore(parameters) {
   // TODO add a.evaporated90
   return (a) => {
-    let evaporated = 0
-    if (parameters.halflife <= 270) {
-      let nineMonthWeight = (parameters.halflife - 30) / (270 - 30)
-      evaporated =
-        (a.upvotes - a.downvotes) * nineMonthWeight +
-        (a.upvotes - a.downvotes) * (1 - nineMonthWeight)
-    } else if (parameters.halflife > 270) {
-      evaporated = a.lifetime
-    }
+    // let evaporated = 0
+    // if (parameters.halflife <= 270) {
+    //   let nineMonthWeight = (parameters.halflife - 30) / (270 - 30)
+    //   evaporated =
+    //     (a.upvotes - a.downvotes) * nineMonthWeight +
+    //     (a.upvotes - a.downvotes) * (1 - nineMonthWeight)
+    // } else if (parameters.halflife > 270) {
+    //   evaporated = a.lifetime
+    // }
 
-    let score = evaporated * parameters.score
+    let score = (a.upvotes - a.downvotes) * parameters.score
 
     let trendingFunction = trendingScore(parameters)
     let trendingScoreResult = trendingFunction(a)
