@@ -552,10 +552,19 @@ const actions = {
             data: { is_admin: isAdmin, ...data },
           } = response.data
 
+          console.log({ data })
+          // debugger
+
           commit('updateLoginStatus', { ...data, isAdmin })
+          console.log({ isAdmin })
+          // debugger
+
           if (isAdmin) {
             let dataUser = { ...data.user }
             let dataCustomSorting = dataUser?.custom_sorting ?? {}
+
+            console.log({ dataUser, dataCustomSorting })
+            // debugger
 
             commit('updateSettingCustomSorting', dataCustomSorting)
 
