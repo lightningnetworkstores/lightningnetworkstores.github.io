@@ -579,6 +579,9 @@ const actions = {
   },
 
   sliderGroupFunction({ state, commit }, { dataCustomSorting }) {
+    console.log('====================================')
+    console.log({ dataCustomSorting })
+    console.log('====================================')
     if (Object.keys(dataCustomSorting).length !== 0) {
       const {
         halflife,

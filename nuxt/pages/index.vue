@@ -422,7 +422,7 @@
         }
       },
     },
-    async asyncData({ store, route, redirect }) {
+    async asyncData({ store, route }) {
       await store.dispatch('getLoginStatus')
       await store.dispatch('getStores')
       const { safeMode, selectedSort, searchQuery } = await store.dispatch(
@@ -431,8 +431,24 @@
       )
   
       const setting = await store.getters.getSettingCustomSorting
+
+      console.log({
+        a: route.query,
+        query: Object.entries(route.query),
+        queryValue: (Object.entries(route.query).length === 0),
+        setting
+      })
       
+      console.log("redirect: ", {
+            path: "/",
+            query: {
+                sort: "custom"
+            }
+        });
       if ((Object.entries(route.query).length === 0) && setting.default) {
+        console.log("entro en el redirect")
+        // route.push('/erwin')
+        // debugger;
           redirect({
               path: "/",
               query: {
