@@ -423,14 +423,21 @@
       },
     },
     async asyncData({ store, route, redirect }) {
+      console.log('Entro a la funcion "asyncData"');
       await store.dispatch('getLoginStatus')
+
+      console.log('despues: "getLoginStatus"')
       await store.dispatch('getStores')
+      console.log('despues: "getStores"')
+
       const { safeMode, selectedSort, searchQuery } = await store.dispatch(
         'processRoute',
         route
       )
+      console.log('despues de processRoute: ', { safeMode, selectedSort, searchQuery });
   
       const setting = await store.getters.getSettingCustomSorting
+      console.log('despues Setting: ', setting);
 
       console.log({
         a: route.query,

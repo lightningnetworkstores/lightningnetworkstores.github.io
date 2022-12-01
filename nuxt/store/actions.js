@@ -36,6 +36,11 @@ const actions = {
     return this.$axios
       .get(`${state.baseURL}api/stores`)
       .then(({ data: { data } }) => {
+        console.log('setStores', data.stores)
+        console.log('setConfiguration', data.configuration)
+        console.log('setStorePages', data.pages)
+        console.log('data: ', data)
+
         commit('setStores', data.stores)
         commit('setConfiguration', data.configuration)
         commit('setStorePages', data.pages)
@@ -43,6 +48,7 @@ const actions = {
         return data
       })
       .catch(({ response }) => {
+        console.log('getStoreCatchAction', response)
         return Promise.reject({
           statusCode: response.status,
           message: response.data.message,
@@ -568,10 +574,16 @@ const actions = {
 
             commit('updateSettingCustomSorting', dataCustomSorting)
 
+            console.log('isAdmin: ', { dataCustomSorting })
             dispatch('sliderGroupFunction', { dataCustomSorting })
           } else {
+            console.log("entro al else de 'getLoginStatus'")
             let dataCustomSorting = state.settingCustomSorting
+
+            console.log('No isAdmin: ', { dataCustomSorting })
             dispatch('sliderGroupFunction', { dataCustomSorting })
+
+            console.log('paso el dispatch')
           }
         }
       })
@@ -804,12 +816,15 @@ const actions = {
     return this.$axios.post(`${state.baseURL}api/image`, null, { params: data })
   },
   processRoute({ commit, state }, route) {
+    console.log('---------- processRoute ----------')
     const tagsCheckbox = []
     const checkedTags = []
     const excludedTags = []
     let safeMode = false
     let selectedSort = 'best'
     let searchQuery = ''
+
+    console.log('route.query: ', route.query)
     if (route.query.safemode) {
       safeMode = route.query.safemode
     }
@@ -840,6 +855,12 @@ const actions = {
 
     commit('setSelectedTags', tagsCheckbox)
     commit('setExcludedTags', excludedTags)
+
+    console.log('resultData processRoute: ', {
+      safeMode,
+      selectedSort,
+      searchQuery,
+    })
 
     return {
       safeMode,
