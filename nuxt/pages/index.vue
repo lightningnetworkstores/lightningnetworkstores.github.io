@@ -422,7 +422,7 @@
         }
       },
     },
-    async asyncData({ store, route }) {
+    async asyncData({ store, route, redirect }) {
       await store.dispatch('getLoginStatus')
       await store.dispatch('getStores')
       const { safeMode, selectedSort, searchQuery } = await store.dispatch(
