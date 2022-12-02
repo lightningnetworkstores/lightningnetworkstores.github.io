@@ -220,7 +220,6 @@ export default {
                 return this.settingCustomSorting.default
             },
             set(value) {
-                // console.log({value})
                 this.saveValueCustomSorting(value)
             },
         },

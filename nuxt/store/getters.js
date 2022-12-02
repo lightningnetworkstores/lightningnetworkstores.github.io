@@ -17,30 +17,19 @@ const options = {
 
 const getters = {
   getStores(state) {
-    return (
-      { sector, digitalGoods },
-      sort,
-      search,
-      safeMode = 'false',
-      section = 'general'
-    ) => {
+    return ({ sector, digitalGoods }, sort, search, safeMode = 'false') => {
       //filter
       let isFiltered = false
       let stateStores = state.stores.slice(0)
       let stores = stateStores
 
-      console.log('---------- gettter: getStores --------')
-
       if (safeMode === 'true' && stores) {
-        console.log("entro a safeMode === 'true' && stores")
         let safeStores = stores.filter((store) => {
           return (
             +new Date(store.added * 1000) < Date.now() + -3 * 24 * 3600 * 1000
           )
         })
         stores = safeStores
-
-        // console.log({ safeStores })
       }
 
       isFiltered =

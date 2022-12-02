@@ -264,16 +264,7 @@
       },
 
       async setCustomSettings(setting) {
-        console.log('despues Setting: ', setting);
-
         const route = this.$route;
-
-        console.log({
-          a: route.query,
-          query: Object.entries(route.query),
-          queryValue: (Object.entries(route.query).length === 0),
-          setting
-        })
     
         if ((Object.entries(route.query).length === 0) && setting.default) {
           this.$router.push({
@@ -412,7 +403,6 @@
     },
     watch: {
       settingCustomSorting(newValue, oldValue) {
-        console.log({newValue})
         this.maxCardsNewsest = newValue.newontop
         this.maxCardsTrending = newValue.newontop     
         
@@ -446,25 +436,21 @@
         }
       },
     },
-    async asyncData({ store, route, redirect, error }) {
+    async asyncData({ store, route }) {
       try {
-        console.log('Entro a la funcion "asyncData"');
         await store.dispatch('getLoginStatus')
 
-        console.log('despues: "getLoginStatus"')
         await store.dispatch('getStores')
-        console.log('despues: "getStores"')
 
         const { safeMode, selectedSort, searchQuery } = await store.dispatch(
           'processRoute',
           route
         )
-        console.log('despues de processRoute: ', { safeMode, selectedSort, searchQuery });
     
         return { safeMode, selectedSort, searchQuery }
 
       } catch (err) {
-        error(err)
+        console.error(err)
       }
     },
     beforeMount() {
