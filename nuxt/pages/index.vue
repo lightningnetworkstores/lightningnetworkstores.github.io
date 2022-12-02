@@ -422,35 +422,48 @@
         }
       },
     },
-    async asyncData({ store, route }) {
-      console.log('Entro a la funcion "asyncData"');
-      await store.dispatch('getLoginStatus')
+    async asyncData({ store, route, redirect }) {
+      try {
+        console.log('Entro a la funcion "asyncData"');
+        await store.dispatch('getLoginStatus')
 
-      console.log('despues: "getLoginStatus"')
-      await store.dispatch('getStores')
-      console.log('despues: "getStores"')
+        console.log('despues: "getLoginStatus"')
+        await store.dispatch('getStores')
+        console.log('despues: "getStores"')
 
-      const { safeMode, selectedSort, searchQuery } = await store.dispatch(
-        'processRoute',
-        route
-      )
-      console.log('despues de processRoute: ', { safeMode, selectedSort, searchQuery });
-  
-      const setting = await store.getters.getSettingCustomSorting
-      console.log('despues Setting: ', setting);
+        // --------------------------------------------------------
+        const setting = await store.getters.getSettingCustomSorting
+        console.log('despues Setting: ', setting);
 
-      console.log({
-        a: route.query,
-        query: Object.entries(route.query),
-        queryValue: (Object.entries(route.query).length === 0),
-        setting
-      })
-  
-      if ((Object.entries(route.query).length === 0) && setting.default) {
-        return { safeMode, selectedSort: 'custom', searchQuery }
+        console.log({
+          a: route.query,
+          query: Object.entries(route.query),
+          queryValue: (Object.entries(route.query).length === 0),
+          setting
+        })
+    
+        if ((Object.entries(route.query).length === 0) && setting.default) {
+          redirect({
+            path: '/',
+            query: {
+              sort: encodeURIComponent('custom')
+            },
+          })
+          return { safeMode: false, selectedSort: 'custom', searchQuery: '' }
+        }
+        // --------------------------------------------------------
+
+        const { safeMode, selectedSort, searchQuery } = await store.dispatch(
+          'processRoute',
+          route
+        )
+        console.log('despues de processRoute: ', { safeMode, selectedSort, searchQuery });
+    
+        return { safeMode, selectedSort, searchQuery }
+
+      } catch (error) {
+        console.log("ErrorTryCatchIndexVue: ",{error})
       }
-  
-      return { safeMode, selectedSort, searchQuery }
     },
     beforeMount() {
         window.addEventListener('scroll', this.handleScroll)
@@ -467,7 +480,7 @@
       }
       next()
     },
-    async mounted() {
+    mounted() {
       this.$recaptcha.init()
 
       let maxTop = this.customSortingAdvanced.find((d) => d.id=="newontop")
@@ -492,24 +505,12 @@
           )
         }
       })
-
-      const setting = await this.$store.getters.getSettingCustomSorting
-      
-      console.log('ErwinSetting:',{setting})
-      if ((Object.entries(this.$route.query).length === 0) && setting.default) {
-        this.$router.push({
-          path: '/',
-          query: {
-            sort: encodeURIComponent('custom')
-          },
-        })
-      }
       
       this.$recaptcha.init()
       setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
     },
   
-    beforeDestroy() {
+    async beforeDestroy() {
       window.removeEventListener('scroll', this.handleScroll)
     },
   }

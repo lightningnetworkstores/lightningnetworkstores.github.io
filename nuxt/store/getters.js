@@ -16,7 +16,7 @@ const options = {
 }
 
 const getters = {
-  getStores(state, getters) {
+  getStores(state) {
     return (
       { sector, digitalGoods },
       sort,
@@ -40,7 +40,7 @@ const getters = {
         })
         stores = safeStores
 
-        console.log({ safeStores })
+        // console.log({ safeStores })
       }
 
       isFiltered =
@@ -67,8 +67,6 @@ const getters = {
           (store) => store.trending > options.trendingThreshold
         )
       }
-
-      console.log('getStoreGetterResult: ', stores)
 
       // Deprecated code that moves newest and trendiest store to the top
       return stores

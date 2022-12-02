@@ -36,10 +36,10 @@ const actions = {
     return this.$axios
       .get(`${state.baseURL}api/stores`)
       .then(({ data: { data } }) => {
-        console.log('setStores', data.stores)
-        console.log('setConfiguration', data.configuration)
-        console.log('setStorePages', data.pages)
-        console.log('data: ', data)
+        // console.log('setStores', data.stores)
+        // console.log('setConfiguration', data.configuration)
+        // console.log('setStorePages', data.pages)
+        // console.log('data: ', data)
 
         commit('setStores', data.stores)
         commit('setConfiguration', data.configuration)
@@ -558,7 +558,7 @@ const actions = {
             data: { is_admin: isAdmin, ...data },
           } = response.data
 
-          console.log({ data })
+          // console.log({ data })
           // debugger
 
           commit('updateLoginStatus', { ...data, isAdmin })
@@ -587,7 +587,7 @@ const actions = {
           }
         }
       })
-      .catch(console.error)
+      .catch((error) => console.error(error))
   },
 
   sliderGroupFunction({ state, commit }, { dataCustomSorting }) {
