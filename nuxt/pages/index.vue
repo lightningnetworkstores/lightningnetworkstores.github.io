@@ -422,7 +422,7 @@
         }
       },
     },
-    async asyncData({ store, route, redirect }) {
+    async asyncData({ store, route }) {
       console.log('Entro a la funcion "asyncData"');
       await store.dispatch('getLoginStatus')
 
@@ -445,24 +445,9 @@
         queryValue: (Object.entries(route.query).length === 0),
         setting
       })
-      
-      console.log("redirect: ", {
-            path: "/",
-            query: {
-                sort: "custom"
-            }
-        });
+  
       if ((Object.entries(route.query).length === 0) && setting.default) {
-        console.log("entro en el redirect")
-        // route.push('/erwin')
-        // debugger;
-          redirect({
-              path: "/",
-              query: {
-                  sort: "custom"
-              }
-          })
-          return { safeMode, selectedSort: 'custom', searchQuery }
+        return { safeMode, selectedSort: 'custom', searchQuery }
       }
   
       return { safeMode, selectedSort, searchQuery }
@@ -482,7 +467,7 @@
       }
       next()
     },
-    mounted() {
+    async mounted() {
       this.$recaptcha.init()
 
       let maxTop = this.customSortingAdvanced.find((d) => d.id=="newontop")
@@ -507,6 +492,19 @@
           )
         }
       })
+
+      const setting = await this.$store.getters.getSettingCustomSorting
+      
+      console.log('ErwinSetting:',{setting})
+      if ((Object.entries(this.$route.query).length === 0) && setting.default) {
+        this.$router.push({
+          path: '/',
+          query: {
+            sort: encodeURIComponent('custom')
+          },
+        })
+      }
+      
       this.$recaptcha.init()
       setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
     },
