@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :key="$route.query">
       <v-navigation-drawer
         clipped
         class="fixed-drawer"
@@ -261,6 +261,30 @@
         let values = (option) ? value : ((value <= this.countCardPoint) ? value : this.countCardPoint)
         
         return values
+      },
+
+      async setCustomSettings() {
+        const setting = await this.$store.getters.getSettingCustomSorting
+        console.log('despues Setting: ', setting);
+
+        const route = this.$route;
+
+        console.log({
+          a: route.query,
+          query: Object.entries(route.query),
+          queryValue: (Object.entries(route.query).length === 0),
+          setting
+        })
+    
+        if ((Object.entries(route.query).length === 0) && setting.default) {
+          this.$router.push({
+            path: '/',
+            query: {
+              sort: encodeURIComponent('custom')
+            }
+          })
+          this.selectedSort = "custom"
+        }
       }
     },
     computed: {
@@ -422,7 +446,7 @@
         }
       },
     },
-    async asyncData({ store, route, redirect }) {
+    async asyncData({ store, route, redirect, error }) {
       try {
         console.log('Entro a la funcion "asyncData"');
         await store.dispatch('getLoginStatus')
@@ -430,28 +454,6 @@
         console.log('despues: "getLoginStatus"')
         await store.dispatch('getStores')
         console.log('despues: "getStores"')
-
-        // --------------------------------------------------------
-        const setting = await store.getters.getSettingCustomSorting
-        console.log('despues Setting: ', setting);
-
-        console.log({
-          a: route.query,
-          query: Object.entries(route.query),
-          queryValue: (Object.entries(route.query).length === 0),
-          setting
-        })
-    
-        if ((Object.entries(route.query).length === 0) && setting.default) {
-          redirect({
-            path: '/',
-            query: {
-              sort: encodeURIComponent('custom')
-            },
-          })
-          return { safeMode: false, selectedSort: 'custom', searchQuery: '' }
-        }
-        // --------------------------------------------------------
 
         const { safeMode, selectedSort, searchQuery } = await store.dispatch(
           'processRoute',
@@ -461,8 +463,8 @@
     
         return { safeMode, selectedSort, searchQuery }
 
-      } catch (error) {
-        console.log("ErrorTryCatchIndexVue: ",{error})
+      } catch (err) {
+        error(err)
       }
     },
     beforeMount() {
@@ -480,7 +482,8 @@
       }
       next()
     },
-    mounted() {
+    async mounted() {
+      await this.setCustomSettings();
       this.$recaptcha.init()
 
       let maxTop = this.customSortingAdvanced.find((d) => d.id=="newontop")
