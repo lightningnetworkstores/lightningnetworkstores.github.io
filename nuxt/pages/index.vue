@@ -1,5 +1,5 @@
 <template>
-    <div :key="$route.query">
+    <div>
       <v-navigation-drawer
         clipped
         class="fixed-drawer"
@@ -263,8 +263,7 @@
         return values
       },
 
-      async setCustomSettings() {
-        const setting = await this.$store.getters.getSettingCustomSorting
+      async setCustomSettings(setting) {
         console.log('despues Setting: ', setting);
 
         const route = this.$route;
@@ -414,11 +413,12 @@
     watch: {
       settingCustomSorting(newValue, oldValue) {
         console.log({newValue})
-          this.maxCardsNewsest = newValue.newontop
-          this.maxCardsTrending = newValue.newontop     
-          
-          this.btnOptionActive.newest = true
-          this.btnOptionActive.trending = true
+        this.maxCardsNewsest = newValue.newontop
+        this.maxCardsTrending = newValue.newontop     
+        
+        this.btnOptionActive.newest = true
+        this.btnOptionActive.trending = true
+        this.setCustomSettings(newValue)
           // ------------------
       },
       selectedSort() {
@@ -483,7 +483,6 @@
       next()
     },
     async mounted() {
-      await this.setCustomSettings();
       this.$recaptcha.init()
 
       let maxTop = this.customSortingAdvanced.find((d) => d.id=="newontop")
