@@ -287,6 +287,14 @@
               <v-row>
                 <five-star-review :rating="4.5" class="my-3"/>
               </v-row>
+              <v-row>
+                <v-col v-if="isLogged" cols="12">
+                  <five-star-review-modal :storeID="storeId"/>
+                </v-col>
+                <v-col v-else cols="12" class="d-flex justify-center">
+                  Login to leave a review
+                </v-col>
+              </v-row>
             </v-card-text>
           </v-card>
           <v-dialog v-model="imageModal" width="900">
@@ -458,6 +466,7 @@ export default {
   },
 
   async mounted() {
+    this.$store.dispatch('discussions/getLogStatus')
     await this.$store.dispatch('getStatus', { storeId: this.selectedStore.id })
     this.breadcrumb = [
       {
@@ -480,6 +489,7 @@ export default {
   },
   computed: {
     ...mapState(['stores']),
+    ...mapState('discussions', ['isLogged']),
     showSettings() {
       return (
         this.selectedStoreSettings.email &&
