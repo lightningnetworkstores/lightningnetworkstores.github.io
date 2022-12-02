@@ -240,7 +240,7 @@ export default {
             payload.link = `${this.baseURL}${uploadImageResponse.data.path.slice(1)}`
           } catch(err) {
             this.isLoading = false
-            return this.$store.dispatch('networkError/showError', err)
+            return this.$store.dispatch('network/showError', err)
           }
         } else if (this.image && this.image.type === IMAGE_TYPE_URL) {
           // Image specified as a URL
