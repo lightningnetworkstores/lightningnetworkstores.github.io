@@ -84,6 +84,8 @@ export default {
       this.showDialog = true
     },
     closeDialog() {
+      this.reviewText = ''
+      this.stars = null
       this.showDialog = false
     },
     async submitReview() {
@@ -93,6 +95,7 @@ export default {
         stars: this.stars
       }
       await this.$store.dispatch('review/postReview', review)
+      this.$store.dispatch('getStore', { id: this.storeID })
       this.closeDialog()
     }
   },
