@@ -5,6 +5,8 @@
         <v-rating
           size="32"
           color="warning"
+          half-increments
+          readonly
           :value="rating"
         />
       </v-col>

@@ -285,7 +285,7 @@
                 >
               </v-row>
               <v-row>
-                <five-star-review :rating="4.5" class="my-3"/>
+                <five-star-review :rating="averageReview" class="my-3"/>
               </v-row>
               <v-row>
                 <v-col v-if="isLogged" cols="12">
@@ -528,6 +528,12 @@ export default {
         { label: 'Store Name', value: this.selectedStore.name, key: 'name' },
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
+    },
+    averageReview() {
+      const total = this.selectedStore
+        .reviews2
+        .reduce((accum, [review]) => accum + review.stars, 0)
+      return total / this.selectedStore.reviews2.length
     },
     ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
