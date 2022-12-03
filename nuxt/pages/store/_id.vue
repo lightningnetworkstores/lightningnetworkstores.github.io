@@ -295,6 +295,11 @@
                   Login to leave a review
                 </v-col>
               </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <review-list :reviews="this.selectedStore.reviews2"/>
+                </v-col>
+              </v-row>
             </v-card-text>
           </v-card>
           <v-dialog v-model="imageModal" width="900">
