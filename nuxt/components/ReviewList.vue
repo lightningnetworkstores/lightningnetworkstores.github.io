@@ -1,7 +1,7 @@
 <template>
   <v-list three-line>
-    <template v-for="(review, index) in reviews">
-      <div :key="review[0].id">
+    <template>
+      <div v-for="(review, index) in reviews" :key="review[0].id">
         <v-list-item link>
           <v-list-item-avatar>
             <v-img :src="review[0].user.image"></v-img>
@@ -21,10 +21,11 @@
               :value="review[0].stars"
             />
           </v-list-item-content>
-          <div class="text-caption d-flex justify-start flex-column align-end time-container mt-3">
-            <div>{{ getDate(review[0].timestamp) }}</div>
-            <div>{{ getTime(review[0].timestamp) }}</div>
-          </div>          
+          <div class="d-flex justify-start flex-column align-end time-container mt-3">
+            <div class="text-caption text--disabled">
+              {{ format(review[0].timestamp) }}
+            </div>
+          </div>
         </v-list-item>
         <v-divider
           v-if="index < reviews.length - 1"
@@ -36,11 +37,17 @@
 </template>
 <script>
 import { DateTime } from 'luxon'
+import { format } from 'timeago.js'
 export default {
   props: {
     reviews: {
       type: Array,
       default: []
+    }
+  },
+  data() {
+    return {
+      format
     }
   },
   mounted() {
