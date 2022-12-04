@@ -16,14 +16,8 @@ const options = {
 }
 
 const getters = {
-  getStores(state, getters) {
-    return (
-      { sector, digitalGoods },
-      sort,
-      search,
-      safeMode = 'false',
-      section = 'general'
-    ) => {
+  getStores(state) {
+    return ({ sector, digitalGoods }, sort, search, safeMode = 'false') => {
       //filter
       let isFiltered = false
       let stateStores = state.stores.slice(0)
