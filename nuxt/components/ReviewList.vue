@@ -50,9 +50,6 @@ export default {
       format
     }
   },
-  mounted() {
-    console.log('this.reviews: ', this.reviews)
-  },
   methods: {
     getDate(timestamp) {
       const date = DateTime.fromMillis(timestamp)
