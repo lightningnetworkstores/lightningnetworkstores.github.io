@@ -81,7 +81,7 @@ const actions = {
 
       commit('setConfiguration', response.configuration)
       commit('setSelectedStore', response)
-
+      commit('review/setReviews', response.reviews2)
       return response
     } catch (err) {
       return Promise.reject({

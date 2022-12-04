@@ -1,5 +1,6 @@
 export const state = () => ({
-  isPosting: false
+  isPosting: false,
+  reviews: []
 })
 
 export const actions = {
@@ -20,5 +21,8 @@ export const actions = {
 export const mutations = {
   setIsPosting(state, isPosting) {
     state.isPosting = isPosting
+  },
+  setReviews(state, reviews) {
+    state.reviews = reviews
   }
 }

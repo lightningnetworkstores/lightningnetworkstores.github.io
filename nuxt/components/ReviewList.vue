@@ -38,13 +38,8 @@
 <script>
 import { DateTime } from 'luxon'
 import { format } from 'timeago.js'
+import { mapState } from 'vuex'
 export default {
-  props: {
-    reviews: {
-      type: Array,
-      default: []
-    }
-  },
   data() {
     return {
       format
@@ -59,6 +54,9 @@ export default {
       const date = DateTime.fromMillis(timestamp)
       return date.toFormat('hh:mm:ss')
     }
+  },
+  computed: {
+    ...mapState('review',['reviews'])
   }
 }
 </script>

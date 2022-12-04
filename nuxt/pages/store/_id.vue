@@ -297,7 +297,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <review-list :reviews="this.selectedStore.reviews2"/>
+                  <review-list/>
                 </v-col>
               </v-row>
             </v-card-text>
