@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "BASE_URL=https://lightningnetworkstores.com/ nuxt",
     "build": "BASE_URL=https://lightningnetworkstores.com/ nuxt build",
-    "start": "nuxt start",
+    "start": "BASE_URL=https://lightningnetworkstores.com/ nuxt start",
     "format": "prettier --write \"**/*.{js,json,vue}\" \"{.babelrc,.eslintrc}\"",
     "generate": "node --max-old-space-size=1024 node_modules/nuxt/bin/nuxt.js generate"
   },
