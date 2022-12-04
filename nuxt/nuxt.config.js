@@ -28,6 +28,9 @@ export default {
       routes.push(...customRoutes)
     },
   },
+  env: {
+    baseUrl: process.env.BASE_URL,
+  },
   axios: {
     proxy: true,
     proxyHeaders: true,
@@ -78,7 +81,6 @@ export default {
     },
   },
   generate: {},
-  env: {},
   head: {
     // Global page headers (https://go.nuxtjs.dev/config-head)
     title: Meta.title,
@@ -171,9 +173,9 @@ export default {
     ],
     script: [
       {
-        src: 'https://kit.fontawesome.com/090ca49637.js'
-      }
-    ]
+        src: 'https://kit.fontawesome.com/090ca49637.js',
+      },
+    ],
   },
   css: ['./assets/css/main.scss'], // Global CSS (https://go.nuxtjs.dev/config-css)
   plugins: [
@@ -216,8 +218,8 @@ export default {
     },
     {
       src: '~/plugins/carbon-charts.js',
-      ssr: true
-    }
+      ssr: true,
+    },
   ],
 
   recaptcha: {
@@ -241,9 +243,11 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/recaptcha',
+    '@nuxtjs/dotenv',
     'cookie-universal-nuxt',
     'vue-social-sharing/nuxt',
   ],
+
   vuetify: {
     // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
     customVariables: ['~/assets/variables.scss'],

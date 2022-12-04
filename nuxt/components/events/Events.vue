@@ -1,10 +1,7 @@
 <template>
-    <v-container fluid class="px-4">
+    <v-container fluid class="px-0 pt-0" xs="11">
         <v-row justify="center">
-            <v-col cols="12" lg="4" md="12" sm="12" xs="12">
-                <div class="text-center text-h6 py-6">
-                    <v-layout justify-center ma-3> <h2>Events</h2></v-layout>
-                </div>
+            <v-col justify-center lg="6" md="12" sm="12" xs="12" class="pt-0">
                 <LazyListCards
                     :items="events"
                     :className="`${$style['store-row']}`"

@@ -36,6 +36,18 @@
           <br>
           <label> User liabilities: {{user_liabilities.toLocaleString()}}</label>
         </div>
+        <div style="text-align: center">
+          <br>
+          <label> Total users: {{user_stats.total}}</label>
+          <br>
+          <label> Voters: {{user_stats.voters}}</label>
+          <br>
+          <label> Weekly growth (%): {{user_stats.week_growth}}</label>
+          <br>
+          <label> Monthly growth (%): {{user_stats.month_growth}}</label>
+          <br>
+          <label> Quarterly growth (%): {{user_stats.quarter_growth}}</label>
+        </div>
     </v-container>
 </template>
 
@@ -65,6 +77,7 @@ export default {
             user_liabilities: 0,
             balance: 0,
             sats_per_usd: 1200,
+            user_stats: {}
         }
     },
 
@@ -318,6 +331,7 @@ export default {
             this.balance = Math.round(10*analyzeData.balance_sheet.account_balance/this.sats_per_usd)/10
             this.user_liabilities = Math.round(10*analyzeData.balance_sheet.user_liabilities/this.sats_per_usd)/10
             this.faucet_liabilities = Math.round(10*analyzeData.balance_sheet.faucet_liabilities/this.sats_per_usd)/10
+            this.user_stats = analyzeData.users
         }
     },
 }
