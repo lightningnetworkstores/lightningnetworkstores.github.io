@@ -21,10 +21,13 @@
               :value="review[0].stars"
             />
           </v-list-item-content>
-          <div class="d-flex justify-start flex-column align-end time-container mt-3">
+          <div class="d-flex justify-space-between flex-column align-end time-container mt-3">
             <div class="text-caption text--disabled">
               {{ format(review[0].timestamp) }}
             </div>
+            <v-icon @click="toggleHelpful(review[0])" class="mb-3" color="pink" small>
+              {{ review[0].helpful ? 'mdi-heart' : 'mdi-heart-outline' }}
+            </v-icon>
           </div>
         </v-list-item>
         <v-divider
@@ -53,6 +56,9 @@ export default {
     getTime(timestamp) {
       const date = DateTime.fromMillis(timestamp)
       return date.toFormat('hh:mm:ss')
+    },
+    toggleHelpful(review) {
+      this.$store.dispatch('review/toggleHelpful', review)
     }
   },
   computed: {
