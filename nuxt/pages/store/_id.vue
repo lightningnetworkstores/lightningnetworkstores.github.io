@@ -220,72 +220,7 @@
             </v-card-title>
             <v-card-text class="body-1">
               <v-row>
-                <v-flex px-3 pb-3
-                  >To leave a review, up or downvote the selected store.</v-flex
-                >
-              </v-row>
-              <v-row pa-2 class="text-center">
-                <v-flex grow justify-center pa-3
-                  ><v-btn
-                    fab
-                    @click="filter('positive')"
-                    :outlined="currentFilter !== 'positive'"
-                    color="success"
-                    class="mb-2"
-                    ><v-icon
-                      :color="currentFilter == 'positive' ? 'white' : 'success'"
-                      large
-                      >mdi-thumb-up</v-icon
-                    ></v-btn
-                  >
-                  <h4>
-                    Positive:
-                    {{
-                      selectedStore.reviews.filter(
-                        (review) => review[0].score > 0
-                      ).length
-                    }}
-                  </h4>
-                </v-flex>
-                <v-flex grow justify-center pa-3
-                  ><v-btn
-                    fab
-                    @click="filter('all')"
-                    :outlined="currentFilter !== 'all'"
-                    color="blue"
-                    class="mb-2"
-                    ><v-icon
-                      :color="currentFilter == 'all' ? 'white' : 'blue'"
-                      large
-                      >mdi-thumbs-up-down</v-icon
-                    ></v-btn
-                  >
-                  <h4>
-                    All:
-                    {{ selectedStore.reviews.length }}
-                  </h4></v-flex
-                >
-                <v-flex grow justify-center pa-3
-                  ><v-btn
-                    fab
-                    @click="filter('negative')"
-                    :outlined="currentFilter !== 'negative'"
-                    color="error"
-                    class="mb-2"
-                    ><v-icon
-                      :color="currentFilter == 'negative' ? 'white' : 'error'"
-                      large
-                      >mdi-thumb-down</v-icon
-                    ></v-btn
-                  >
-                  <h4>
-                    Negative:
-                    {{ selectedStore.reviews.filter(review => review[0].score &lt; 0).length }}
-                  </h4></v-flex
-                >
-              </v-row>
-              <v-row>
-                <five-star-review :reviews="this.selectedStore.reviews2" class="my-3"/>
+                <five-star-review :reviews="this.selectedStore.reviews2" @filterChange="filterReviewsWithStars" class="my-3"/>
               </v-row>
               <v-row>
                 <v-col v-if="isLogged" cols="12">
@@ -297,7 +232,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <review-list/>
+                  <review-list :showReviewsWithStars="showReviewsWithStars" />
                 </v-col>
               </v-row>
             </v-card-text>
@@ -445,6 +380,7 @@ export default {
       showLogoutModal: false,
       loginResponse: null,
       similarExpanded: false,
+      showReviewsWithStars: [1,2,3,4,5]
     }
   },
   async asyncData({ params, store, error }) {
@@ -641,6 +577,9 @@ export default {
       this.imageModal = true
       this.selectedMediaIndex = index
     },
+    filterReviewsWithStars(selected){
+    this.showReviewsWithStars = selected
+  }
   },
   beforeRouteEnter(to, from, next) {
     if (from.name === 'discuss' && !to.query.sort_reviews) {
@@ -651,7 +590,7 @@ export default {
     } else {
       return next()
     }
-  },
+  }
 }
 </script>
 
