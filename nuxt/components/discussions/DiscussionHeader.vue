@@ -47,13 +47,13 @@
     <v-row>
       <v-col :cols="isMobile ? 12 : ((discussionHeader.link)? 12 : 7)" :class="{'pa-0': isMobile}">
         <v-row v-if="!isMobile" no-gutters>
-          <v-col md="6" class="mr-3">
+          <v-col md="2" class="mr-3">
              <v-img
                 v-if="discussionHeader.link"
                 width="100%"
-                height="100%"
                 max-height="100%"
                 max-width="100%"
+                aspect-ratio="1"
                 position="center center"
                 :lazy-src="discussionHeader.link"
                 :src="discussionHeader.link"
@@ -62,7 +62,7 @@
                 }"
               ></v-img>
           </v-col>
-          <v-col :md="((discussionHeader.link)? 5 : 12)">
+          <v-col :md="((discussionHeader.link)? 9 : 12)">
             <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
               :inner-html.prop="discussionHeader.title"
             />
