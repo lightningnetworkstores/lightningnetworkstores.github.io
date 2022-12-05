@@ -16,14 +16,8 @@ const options = {
 }
 
 const getters = {
-  getStores(state, getters) {
-    return (
-      { sector, digitalGoods },
-      sort,
-      search,
-      safeMode = 'false',
-      section = 'general'
-    ) => {
+  getStores(state) {
+    return ({ sector, digitalGoods }, sort, search, safeMode = 'false') => {
       //filter
       let isFiltered = false
       let stateStores = state.stores.slice(0)
@@ -53,9 +47,7 @@ const getters = {
       stores.sort(
         sortingFunction(
           sort,
-          ['custom', 'trending'].includes(sort)
-            ? state.settingCustomSorting
-            : state.defaultSorting
+          sort === 'custom' ? state.settingCustomSorting : state.defaultSorting
         )
       )
 
@@ -66,6 +58,23 @@ const getters = {
       }
 
       // Deprecated code that moves newest and trendiest store to the top
+      return stores
+    }
+  },
+
+  getCustomTrending(state) {
+    return (section, sort) => {
+      //filter
+      let stateStores = state.stores.slice(0)
+      let stores = stateStores
+
+      stores.sort(
+        sortingFunction(
+          section,
+          sort == 'custom' ? state.settingCustomSorting : state.defaultSorting
+        )
+      )
+
       return stores
     }
   },
@@ -188,18 +197,17 @@ function sortingFunction(method, parameters = {}) {
 function customScore(parameters) {
   // TODO add a.evaporated90
   return (a) => {
-    let evaporated = 0
-    if (parameters.halflife <= 270) {
-      let nineMonthWeight = (parameters.halflife - 30) / (270 - 30)
-      evaporated =
-        (a.upvotes - a.downvotes) * nineMonthWeight +
-        (a.upvotes - a.downvotes) * (1 - nineMonthWeight)
-    } else if (parameters.halflife > 270) {
-      evaporated = a.lifetime
-    }
+    // let evaporated = 0
+    // if (parameters.halflife <= 270) {
+    //   let nineMonthWeight = (parameters.halflife - 30) / (270 - 30)
+    //   evaporated =
+    //     (a.upvotes - a.downvotes) * nineMonthWeight +
+    //     (a.upvotes - a.downvotes) * (1 - nineMonthWeight)
+    // } else if (parameters.halflife > 270) {
+    //   evaporated = a.lifetime
+    // }
 
-    let score = evaporated * parameters.score
-
+    let score = (a.upvotes - a.downvotes) * parameters.score
 
     let trendingFunction = trendingScore(parameters)
     let trendingScoreResult = trendingFunction(a)

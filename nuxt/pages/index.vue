@@ -261,6 +261,20 @@
         let values = (option) ? value : ((value <= this.countCardPoint) ? value : this.countCardPoint)
         
         return values
+      },
+
+      async setCustomSettings(setting) {
+        const route = this.$route;
+    
+        if ((Object.entries(route.query).length === 0) && setting.default) {
+          this.$router.push({
+            path: '/',
+            query: {
+              sort: encodeURIComponent('custom')
+            }
+          })
+          this.selectedSort = "custom"
+        }
       }
     },
     computed: {
@@ -314,12 +328,9 @@
         },
         
         filteredStoresTrending() {
-          const getStores = this.getStores(
-            { sector: this.sector, digitalGoods: this.digitalGoods },
+          const getStores = this.getCustomTrending(
             "trending",
-            this.searchQuery,
-            this.safeMode,
-            "trending"
+            this.selectedSort
           )
   
           return getStores
@@ -347,7 +358,7 @@
         },
       }),
   
-      ...mapGetters(['getStores']),
+      ...mapGetters(['getStores', 'getCustomTrending']),
   
       filtertags() {
         const data = this.filteredStores
@@ -392,12 +403,12 @@
     },
     watch: {
       settingCustomSorting(newValue, oldValue) {
-        console.log({newValue})
-          this.maxCardsNewsest = newValue.newontop
-          this.maxCardsTrending = newValue.newontop     
-          
-          this.btnOptionActive.newest = true
-          this.btnOptionActive.trending = true
+        this.maxCardsNewsest = newValue.newontop
+        this.maxCardsTrending = newValue.newontop     
+        
+        this.btnOptionActive.newest = true
+        this.btnOptionActive.trending = true
+        this.setCustomSettings(newValue)
           // ------------------
       },
       selectedSort() {
@@ -425,27 +436,22 @@
         }
       },
     },
-    async asyncData({ store, route, redirect }) {
-      await store.dispatch('getLoginStatus')
-      await store.dispatch('getStores')
-      const { safeMode, selectedSort, searchQuery } = await store.dispatch(
-        'processRoute',
-        route
-      )
-  
-      const setting = await store.getters.getSettingCustomSorting
-      
-      if ((Object.entries(route.query).length === 0) && setting.default) {
-          redirect({
-              path: "/",
-              query: {
-                  sort: "custom"
-              }
-          })
-          return { safeMode, selectedSort: 'custom', searchQuery }
+    async asyncData({ store, route }) {
+      try {
+        await store.dispatch('getLoginStatus')
+
+        await store.dispatch('getStores')
+
+        const { safeMode, selectedSort, searchQuery } = await store.dispatch(
+          'processRoute',
+          route
+        )
+    
+        return { safeMode, selectedSort, searchQuery }
+
+      } catch (err) {
+        console.error(err)
       }
-  
-      return { safeMode, selectedSort, searchQuery }
     },
     beforeMount() {
         window.addEventListener('scroll', this.handleScroll)
@@ -462,7 +468,7 @@
       }
       next()
     },
-    mounted() {
+    async mounted() {
       this.$recaptcha.init()
 
       let maxTop = this.customSortingAdvanced.find((d) => d.id=="newontop")
@@ -487,11 +493,12 @@
           )
         }
       })
+      
       this.$recaptcha.init()
       setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
     },
   
-    beforeDestroy() {
+    async beforeDestroy() {
       window.removeEventListener('scroll', this.handleScroll)
     },
   }

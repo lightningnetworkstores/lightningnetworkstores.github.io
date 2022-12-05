@@ -553,6 +553,7 @@ const actions = {
           } = response.data
 
           commit('updateLoginStatus', { ...data, isAdmin })
+
           if (isAdmin) {
             let dataUser = { ...data.user }
             let dataCustomSorting = dataUser?.custom_sorting ?? {}
@@ -562,11 +563,12 @@ const actions = {
             dispatch('sliderGroupFunction', { dataCustomSorting })
           } else {
             let dataCustomSorting = state.settingCustomSorting
+
             dispatch('sliderGroupFunction', { dataCustomSorting })
           }
         }
       })
-      .catch(console.error)
+      .catch((error) => console.error(error))
   },
 
   sliderGroupFunction({ state, commit }, { dataCustomSorting }) {
@@ -798,6 +800,7 @@ const actions = {
     let safeMode = false
     let selectedSort = 'best'
     let searchQuery = ''
+
     if (route.query.safemode) {
       safeMode = route.query.safemode
     }
