@@ -521,7 +521,7 @@ const actions = {
       .catch(console.error)
   },
 
-  getStatus({ state, commit }, { storeId }) {
+  getStatus({ state, commit, dispatch }, { storeId }) {
     return this.$axios
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
       .then((response) => {
@@ -538,6 +538,7 @@ const actions = {
           const { settings = {} } = data
           settings.isFirstTime = data.first_time
           commit('selectedStoreSettings', settings)
+          dispatch('review/setHelpfulReviews', data.helpful_reviews)
         }
       })
       .catch(console.error)
