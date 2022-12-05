@@ -16,6 +16,7 @@
                                         :step="slide.step < 1 ? 1 : slide.step"
                                         :min="slide.min"
                                         :max="slide.max"
+                                        thumb-label
                                         @input="
                                             onChange($event, group.id, slide.id)
                                         "
