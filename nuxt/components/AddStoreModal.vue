@@ -17,12 +17,9 @@
     <v-dialog
       v-model="showAddDialog"
       max-width="500"
-      persistent
-      style="overflow-x: hidden"
-      scrollable
     >
       <template v-if="showAddDialog">
-        <v-card>
+        <v-card :height="dialogContentHeight">
           <v-layout v-if="addAlert.message">
             <v-flex>
               <v-alert
@@ -238,6 +235,12 @@ export default {
           'Enter a valid url eg. https://lightningnetworkstores.com',
       ]
     },
+    dialogContentHeight() {
+      if (this.$vuetify.breakpoint.mobile) {
+        return '65vh'
+      }
+      return '75vh'
+    }
   },
   methods: {
     openDialog() {
