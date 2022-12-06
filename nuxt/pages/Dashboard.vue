@@ -48,6 +48,13 @@
                             <TxHistory />
                         </v-col>
                     </v-row>
+                    <v-row v-if="privilege=='SHAREHOLDER'">
+                      <v-spacer></v-spacer>
+                      <v-col cols="2"><v-btn color="primary" href='/investor'>
+                        Investor page
+                      </v-btn></v-col>
+                      <v-spacer></v-spacer>
+                    </v-row>
                     <v-row>
                         <v-spacer></v-spacer>
                         <v-col cols="6">
@@ -83,6 +90,12 @@ export default {
         return {
             info: null,
         }
+    },
+    computed: {
+      privilege(){
+        if(this.info==null) return 'NONE'
+        return this.info.data.privilege;
+      }
     },
     methods: {
         ...mapActions('modals', ['openSettingsModal']),

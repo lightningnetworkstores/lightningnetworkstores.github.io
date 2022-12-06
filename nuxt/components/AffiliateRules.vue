@@ -90,7 +90,7 @@
         <v-card-text v-if="affiliate">
             <p class="my-0">
                 Current reward per unique human referral:
-                {{ affiliate.reward_per_referral }}
+                {{ Math.round(affiliate.reward_per_referral*100)/100 }}
             </p>
             <p class="my-0">
                 Traffic quality: {{ affiliate.quality_score }}%
