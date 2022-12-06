@@ -296,19 +296,14 @@
         customSortingAdvanced: 'customSortingAdvanced',
 
         widthPoint() {
-            if (this.$vuetify.breakpoint.width < 361) {
-              return 400
-            }
-
-            if (this.$vuetify.breakpoint.width > 1301 && this.$vuetify.breakpoint.width < 1601) {
-              return 1280
-            }
-
-            if (this.$vuetify.breakpoint.width > 800 && this.$vuetify.breakpoint.width < 1300) {
-              return 800
-            }
-
-            return this.$vuetify.breakpoint.width
+          switch (this.$vuetify.breakpoint.name) {
+            case 'xs': return 400
+            case 'sm': return 800
+            case 'md': return 800
+            case 'lg': return 1280
+            case 'xl': return 1780
+            case 'xxl': return 1905
+          }
         },
 
         countCardPoint () {
