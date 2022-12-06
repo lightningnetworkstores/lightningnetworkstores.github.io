@@ -47,10 +47,10 @@
     <v-row>
       <v-col :cols="isMobile ? 12 : ((discussionHeader.link)? 12 : 7)" :class="{'pa-0': isMobile}">
         <v-row v-if="!isMobile" no-gutters>
-          <v-col md="2" class="mr-3">
-            <discussion-image :url="discussionHeader.link"/>
+          <v-col cols="2" class="mr-3 d-flex justify-center align-center">
+            <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
           </v-col>
-          <v-col :md="((discussionHeader.link)? 9 : 12)">
+          <v-col :cols="((discussionHeader.link)? 9 : 12)">
             <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
               :inner-html.prop="discussionHeader.title"
             />
@@ -147,7 +147,7 @@ export default {
   },
   computed: {
     isMobile() {
-      return this.$vuetify.breakpoint.mobile
+      return this.$vuetify.breakpoint.name === 'xs'
     },
     ...mapState('discussions', ['isAdmin'])
   }
