@@ -3,6 +3,8 @@
     :hide-delimiter-background="!logged && selectedStore.media.main.length == 1"
     height="auto"
     :show-arrows="logged || selectedStore.media.main.length > 1"
+    cycle
+    :interval="cycleInterval"
   >
     <v-carousel-item
       v-for="(media, i) in selectedStore.media.main"
@@ -137,6 +139,12 @@ export default {
     },
     showDelete() {
       return this.logged && this.selectedStore.media.main.length > 1
+    },
+    cycleInterval(){
+      for(let item in [...Array(this.selectedStore.media.main.length).keys()]){
+        if(this.selectedStore.media.main[item].type=='VIDEO') return 9999000
+      }
+      return 5000;
     }
   }
 }

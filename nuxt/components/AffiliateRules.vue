@@ -2,7 +2,7 @@
     <v-card>
         <v-card-title> Affiliate Program </v-card-title>
         <v-card-text v-if="affiliate">
-            You will currently earn {{ Math.round(affiliate.reward_per_referral*10)/10 }} for
+            You will currently earn {{ Math.round(affiliate.reward_per_referral*10)/10 }} sats for
             every unique user you refer to our website. Your affiliate code is
             <strong @click="copyAffiliate" class="affiliate-code">{{
                 affiliate.affiliate_code
@@ -90,7 +90,7 @@
         <v-card-text v-if="affiliate">
             <p class="my-0">
                 Current reward per unique human referral:
-                {{ affiliate.reward_per_referral }}
+                {{ Math.round(affiliate.reward_per_referral*100)/100 }}
             </p>
             <p class="my-0">
                 Traffic quality: {{ affiliate.quality_score }}%

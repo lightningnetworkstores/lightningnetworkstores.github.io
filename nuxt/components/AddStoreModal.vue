@@ -17,9 +17,6 @@
     <v-dialog
       v-model="showAddDialog"
       max-width="500"
-      persistent
-      style="overflow-x: hidden"
-      scrollable
     >
       <template v-if="showAddDialog">
         <v-card>
@@ -43,7 +40,7 @@
             @cancel="cancel"
           />
 
-          <v-card-text class="pa-0 cardContent" v-else>
+          <v-card-text class="pa-0" v-else>
             <v-card-title class="headline">
               <v-flex grow>Automatically add new store!</v-flex>
               <v-flex shrink v-if="isLoading || paymentRequest.length">
@@ -68,8 +65,8 @@
                 ref="addform"
                 v-if="!paymentRequest.length"
               >
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
+                <v-container>
+                  <v-row>
                     <v-text-field
                       v-model="addDialogForm.url"
                       v-debounce:800ms="handleURLChange"
@@ -77,11 +74,8 @@
                       hint="eg. https://lightningnetworkstores.com"
                       :rules="urlRules"
                     ></v-text-field>
-                  </v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
+                  </v-row>
+                  <v-row>
                     <v-text-field
                       v-model="addDialogForm.name"
                       class="dialogform-name"
@@ -90,11 +84,8 @@
                       hint="eg. Some name no longer than 50 characters."
                       :rules="[(v) => !!v || 'Name is required']"
                     ></v-text-field>
-                  </v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
+                  </v-row>
+                  <v-row>
                     <v-text-field
                       v-model="addDialogForm.description"
                       class="dialogform-description"
@@ -108,20 +99,15 @@
                           'Enter a clear description of the store',
                       ]"
                     ></v-text-field>
-                  </v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
+                  </v-row>
+                  <v-row>
                     <v-text-field
                       v-model="addDialogForm.uri"
                       label="Node URI (optional)"
                       hint="eg. 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735 (optional)"
                     ></v-text-field>
-                  </v-flex>
-                </v-layout>
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
+                  </v-row>
+                  <v-row>
                     <v-text-field
                       v-model="addDialogForm.contributor"
                       :append-icon="
@@ -131,18 +117,14 @@
                       label="Contributor code (optional)"
                       @click:append="showContributorCode = !showContributorCode"
                     ></v-text-field>
-                  </v-flex>
-                </v-layout>
-
-                <v-layout row>
-                  <v-flex pl-3 pr-3>
+                  </v-row>
+                  <v-row>
                     <span class="font-weight-bold"
                       >We reserve the right to remove this entry if it doesn't
                       accept bitcoin and is not about bitcoin</span
                     >
-                  </v-flex>
-                </v-layout>
-
+                  </v-row>
+                </v-container>
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
@@ -395,9 +377,3 @@ export default {
   mounted() {},
 }
 </script>
-
-<style scoped lang="scss">
-.cardContent {
-  max-height: 60vw;
-}
-</style>

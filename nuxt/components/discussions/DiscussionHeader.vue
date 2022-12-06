@@ -47,22 +47,10 @@
     <v-row>
       <v-col :cols="isMobile ? 12 : ((discussionHeader.link)? 12 : 7)" :class="{'pa-0': isMobile}">
         <v-row v-if="!isMobile" no-gutters>
-          <v-col md="6" class="mr-3">
-             <v-img
-                v-if="discussionHeader.link"
-                width="100%"
-                height="100%"
-                max-height="100%"
-                max-width="100%"
-                position="center center"
-                :lazy-src="discussionHeader.link"
-                :src="discussionHeader.link"
-                :style="{
-                  borderRadius: '5px',
-                }"
-              ></v-img>
+          <v-col cols="2" class="mr-3 d-flex justify-center align-center">
+            <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
           </v-col>
-          <v-col :md="((discussionHeader.link)? 5 : 12)">
+          <v-col :cols="((discussionHeader.link)? 9 : 12)">
             <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
               :inner-html.prop="discussionHeader.title"
             />
@@ -127,12 +115,13 @@ import DiscussionReplyModal from './DiscussionReplyModal.vue'
 import DeleteCommentModal from './DeleteCommentModal'
 import ChangeTopicModal from '@/components/discussions/ChangeTopicModal'
 import UserComment from '@/components/discussions/UserComment'
+import DiscussionImage from '@/components/discussions/DiscussionImage'
 
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    StorePreview, UserTag, DiscussionReplyModal, DeleteCommentModal, ChangeTopicModal, UserComment
+    StorePreview, UserTag, DiscussionReplyModal, DeleteCommentModal, ChangeTopicModal, UserComment, DiscussionImage
   },
   mixins: [ DateFromatter ],
   props: {
@@ -158,7 +147,7 @@ export default {
   },
   computed: {
     isMobile() {
-      return this.$vuetify.breakpoint.mobile
+      return this.$vuetify.breakpoint.name === 'xs'
     },
     ...mapState('discussions', ['isAdmin'])
   }

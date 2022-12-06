@@ -165,7 +165,7 @@
                 </v-flex>
               </v-layout>
             </v-card>
-            <add-external-modal :store="selectedStore" />
+            <add-external-modal :store="selectedStore" v-if="selectedStore.logged" />
             <div class="mx-3 mt-3 py-2">
               <AddEventModal
                 v-if="selectedStore.logged"
