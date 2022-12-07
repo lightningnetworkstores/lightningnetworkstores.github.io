@@ -142,7 +142,7 @@ export default {
   },
   methods: {
     handleDetailClick(threadId) {
-      window.open(`${this.$store.state.baseURL}discuss/${threadId}`, '_blank')
+      window.open(`/discuss/${threadId}`, '_blank')
     }
   },
   computed: {
