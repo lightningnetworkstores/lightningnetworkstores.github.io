@@ -553,9 +553,9 @@ const actions = {
           } = response.data
 
           commit('updateLoginStatus', { ...data, isAdmin })
+          let dataUser = { ...data.user }
 
-          if (isAdmin) {
-            let dataUser = { ...data.user }
+          if (dataUser?.logged ?? false) {
             let dataCustomSorting = dataUser?.custom_sorting ?? {}
 
             commit('updateSettingCustomSorting', dataCustomSorting)
