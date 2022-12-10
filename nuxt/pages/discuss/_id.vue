@@ -1,35 +1,20 @@
 <template>
-  <div v-if="discussion && discussion.length">
-    <v-layout justify-center ma-4
-      ><h1>{{ discussion[0].title }}</h1></v-layout
-    >
-    <v-col lg="6">
-      <Reply :post="discussion[0]" :type="'discussion'" />
-    </v-col>
-    <v-col lg="5">
-      <v-layout
-        row
-        pt-1
-        pb-1
-        pl-3
-        pr-3
-        v-for="subComment in discussion.slice(1)"
-        :key="subComment.id"
-      >
-        <Reply
-          :post="subComment"
-          :threadId="discussion[0].thread_id"
-          :parentReview="discussion[0].thread_id"
-          :type="'discussion reply'"
-        />
-      </v-layout>
-    </v-col>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col>
+        <div class="d-flex justify-space-around mt-5">
+          <div v-if="discussion && discussion.length" class="mx-6 my-6">
+            <discussion-threads :threads="[discussion]"/>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
 import { mapState } from 'vuex'
 
-import Reply from '@/components/Reply.vue'
+import DiscussionThreads from '@/components/discussions/DiscussionThreads'
 
 export default {
   head() {
@@ -66,7 +51,7 @@ export default {
   },
 
   components: {
-    Reply,
+    DiscussionThreads
   },
 
   computed: {
