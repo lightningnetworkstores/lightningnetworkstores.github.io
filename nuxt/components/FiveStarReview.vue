@@ -14,24 +14,30 @@
     <v-row class="d-flex justify-center">
       <div class="text-h6 font-weight-thin">{{ reviewCount }} reviews</div>
     </v-row>
-
-    <v-row v-for="cb in starFilters" :key="cb.label">
-      <v-col md="auto">
-           <v-checkbox
-              v-model="selected"
-              :label="`${cb.label} star`"
-              :value="cb.value"
-              @click="$emit('filterChange', selected)"
-              color="grey"
-              hide-details
-            ></v-checkbox>
+    <v-row v-for="(filter, index) in starFilters" :key="filter.label">
+      <v-col md="2" sm="3" class="my-0 py-0 d-flex align-center justify-start">
+        <v-checkbox
+          class="my-0 py-0"
+          v-model="selected"
+          :value="filter.value"
+          @click="$emit('filterChange', selected)"
+          color="grey"
+          hide-details
+        />
+        <div class="d-flex flex-grow-1">
+          <v-icon v-for="i in (5 - index)" x-small color="warning" :key="i">
+            mdi-star
+          </v-icon>
+        </div>
       </v-col>
-      <v-col >
+      <v-col md="10" sm="9" class="my-0 py-2">
         <v-progress-linear
-        v-model="starCount[cb.value-1]"
-        color="grey"
-        height="20"
-       ></v-progress-linear>
+          class="my-0 py-0"
+          v-model="starCount[filter.value - 1]"
+          rounded
+          color="grey"
+          height="8"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -47,8 +53,13 @@ export default {
   emits: ['filterChange'],
   data(){
     return { 
-      starFilters: [{'label': 'one', 'value': 1}, {'label': 'two', 'value': 2}, {'label': 'three', 'value': 3}, 
-      {'label': 'four', 'value': 4}, {'label': 'five', 'value': 5}],
+      starFilters: [
+        {'value': 5},
+        {'value': 4},
+        {'value': 3},
+        {'value': 2},
+        {'value': 1}
+      ],
       selected: [1,2,3,4,5]
     }
   },
