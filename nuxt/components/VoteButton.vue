@@ -91,42 +91,16 @@
                     hint=""
                     :rules="[(v) => !!v || 'Amount is required']"
                   ></v-text-field>
-                  <v-textarea
-                    v-if="!parentReview"
-                    v-model="upvoteDialogForm.comment"
-                    type="text"
-                    :counter="this.$store.state.configuration.max_comment_size"
-                    :label="
-                      'Review (optional - minimum ' +
-                      minCreateReview +
-                      ' satoshis)'
-                    "
-                    rows="4"
-                    :rules="[maxCommentSizeRule]"
-                  ></v-textarea>
                 </v-flex>
               </v-layout>
-
               <v-layout row>
-                <v-flex
-                  pl-3
-                  pr-3
-                  v-if="!paymentRequest.length && parentComment"
-                >
-                  Cost: {{ upvoteDialogForm.amount }} satoshis
-                  <v-textarea
-                    v-if="parentReview && parentComment"
-                    v-model="upvoteDialogForm.comment"
-                    type="text"
-                    :counter="this.$store.state.configuration.max_comment_size"
-                    label="Reply"
-                    rows="4"
-                    :rules="[
-                      maxCommentSizeRule,
-                      (v) => !!v || 'Reply is required',
-                    ]"
-                  ></v-textarea>
-                </v-flex>
+                <v-flew>
+                  <v-switch 
+                  label='Deduct from balance' 
+                  disabled="" 
+                  v-model="paywithbalance" 
+                  ></v-switch>
+                </v-flew>
               </v-layout>
               <Checkout
                 v-if="paymentRequest"
@@ -176,6 +150,7 @@ export default {
     return {
       showDialog: false,
       upvoteDialogForm: { amount: 0, comment: this.getReplyingTo() },
+      paywithbalance: false,
 
       paymentRequest: '',
       paymentID: '',
@@ -197,6 +172,7 @@ export default {
     encodedComment() {
       return this.upvoteDialogForm.comment
     },
+     ...mapState(['user']),
   },
 
   async created() {
