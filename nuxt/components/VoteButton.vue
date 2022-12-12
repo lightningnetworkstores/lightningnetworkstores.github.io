@@ -126,7 +126,7 @@
             <v-btn color="green darken-1" text @click="cancel"> Cancel </v-btn>
 
             <v-btn color="green darken-1" text @click="getInvoice">
-              Get invoice
+              Pay
             </v-btn>
           </v-card-actions>
         </template>
