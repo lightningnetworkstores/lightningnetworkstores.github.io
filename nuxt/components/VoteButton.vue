@@ -90,10 +90,20 @@
                     label="Number of upvotes (1 vote = 1 satoshi)"
                     hint=""
                     :rules="[(v) => !!v || 'Amount is required']"
-                  ></v-text-field>
+                  >
+                    <template v-slot:append>
+                      <v-btn v-if="loginStatus.balance>0"
+                        class="ma-1"
+                        depressed
+                        :disabled="!paywithbalance"
+                        v-on:click="upvoteDialogForm.amount=loginStatus.balance" >
+                        max
+                      </v-btn>
+                    </template>
+                  </v-text-field>
                 </v-flex>
               </v-layout>
-              <v-layout row v-if="!paymentRequest.length" class="d-flex justify-space-between">
+              <v-layout row v-if="!paymentRequest.length">
                   <v-col md="auto">
                      <v-switch 
                       label='Deduct from balance' 
@@ -101,13 +111,6 @@
                       :error="!hasBalance && paywithbalance"
                       v-model="paywithbalance"
                     ></v-switch>
-                  </v-col>
-                  <v-col md="auto" class="d-flex justify-center align-center">
-                    <v-btn v-if="loginStatus.balance>0"
-                      depressed
-                      v-on:click="upvoteDialogForm.amount=loginStatus.balance" >
-                      max
-                    </v-btn>
                   </v-col>
               </v-layout>
               <Checkout
