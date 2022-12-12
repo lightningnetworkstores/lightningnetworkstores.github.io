@@ -93,7 +93,7 @@
                   ></v-text-field>
                 </v-flex>
               </v-layout>
-              <v-layout row  v-if="!paymentRequest.length">
+              <v-layout row v-if="!paymentRequest.length" class="d-flex justify-space-between">
                   <v-col md="auto">
                      <v-switch 
                       label='Deduct from balance' 
@@ -102,8 +102,9 @@
                       v-model="paywithbalance"
                     ></v-switch>
                   </v-col>
-                  <v-col md="auto">
-                    <v-btn v-if="loginStatus.balance>0" 
+                  <v-col md="auto" class="d-flex justify-center align-center">
+                    <v-btn v-if="loginStatus.balance>0"
+                      depressed
                       v-on:click="upvoteDialogForm.amount=loginStatus.balance" >
                       max
                     </v-btn>
