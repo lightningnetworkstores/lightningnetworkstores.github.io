@@ -123,7 +123,7 @@
           <v-card-actions v-if="!paymentRequest && !submitted">
             <v-spacer></v-spacer>
 
-            <v-btn color="green darken-1" text @click="cancel"> Cancel </v-btn>
+            <v-btn color="red" text @click="cancel"> Cancel </v-btn>
 
             <v-btn color="green darken-1" text @click="getInvoice">
               Pay
