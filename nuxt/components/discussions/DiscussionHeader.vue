@@ -34,7 +34,7 @@
             />
           </div>
             {{ formatDate(discussionHeader.timestamp) }}
-          <div>
+          <div v-if="displayDetailLink">
             <v-btn icon @click="() => handleDetailClick(threadId)">
               <v-icon>
                 mdi-open-in-new
@@ -138,6 +138,10 @@ export default {
     },
     threadId: {
       type: String
+    },
+    displayDetailLink: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

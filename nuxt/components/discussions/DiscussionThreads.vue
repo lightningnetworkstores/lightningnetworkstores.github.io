@@ -15,6 +15,7 @@
             :threadIndex="threadIndex"
             :threadId="threadId(threadIndex)"
             @paid-reply-request="handlePaidReplyRequest"
+            :displayDetailLink="displayDetailLink"
           />
         </v-expansion-panel-header>
         <v-expansion-panel-content class="px-6">
@@ -106,6 +107,10 @@ export default {
     threads: {
       type: Array,
       default: []
+    },
+    displayDetailLink: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
