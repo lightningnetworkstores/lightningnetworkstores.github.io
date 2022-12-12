@@ -166,7 +166,7 @@ export default {
       return (index) =>
         this.threads[index][0].thread_id
     },
-    ...mapState('discussions', ['isAdmin']),
+    ...mapState('discussions', ['isAdmin', 'error']),
   }
 }
 </script>
