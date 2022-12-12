@@ -176,7 +176,7 @@ const actions = {
   },
   getStoreVotePaymentRequest(
     { state },
-    { id, amount, isUpvote, comment, parent, recaptchaToken }
+    { id, amount, isUpvote, comment, parent, paywithbalance, recaptchaToken }
   ) {
     return fetch(
       `${
@@ -185,7 +185,8 @@ const actions = {
         isUpvote ? 'Upvote' : 'Downvote'
       }${comment ? '&comment=' + comment : ''}${
         parent ? '&parent=' + parent : ''
-      }${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
+      }${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}
+      &paywithbalance=${paywithbalance}`
     )
       .then((response) => {
         return response.json()
