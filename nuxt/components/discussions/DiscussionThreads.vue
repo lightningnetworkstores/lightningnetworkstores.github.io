@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-expansion-panels>
+    <v-expansion-panels :value="expand ? 0 : 1">
       <v-expansion-panel
         v-for="(header, threadIndex) in headers"
         :key="header.id"
@@ -81,7 +81,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { format } from 'timeago.js'
 import DiscussionReplyModal from './DiscussionReplyModal.vue'
 import UserTag from './UserTag.vue'
@@ -111,6 +111,10 @@ export default {
     displayDetailLink: {
       type: Boolean,
       default: false
+    },
+    expand: {
+      type: Boolean,
+      default: undefined
     }
   },
   data() {

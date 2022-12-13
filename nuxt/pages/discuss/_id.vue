@@ -4,7 +4,7 @@
       <v-col>
         <div class="d-flex justify-space-around mt-5">
           <div v-if="discussion && discussion.length" class="mx-6 my-6">
-            <discussion-threads :threads="[discussion]"/>
+            <discussion-threads :expand="true" :threads="[discussion]"/>
           </div>
         </div>
       </v-col>
