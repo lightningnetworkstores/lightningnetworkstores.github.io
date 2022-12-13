@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-expansion-panels :value="expand ? 0 : 1">
+    <v-expansion-panels :value="expand ? 0 : undefined">
       <v-expansion-panel
         v-for="(header, threadIndex) in headers"
         :key="header.id"
