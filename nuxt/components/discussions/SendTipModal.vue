@@ -124,6 +124,7 @@ export default {
                 //     this.closeModal()
                 // }
                 // this.snackbar_message.open = true
+                this.closeModal()
             }
         },
     },
