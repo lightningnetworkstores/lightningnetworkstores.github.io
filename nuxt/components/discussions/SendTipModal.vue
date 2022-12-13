@@ -113,9 +113,8 @@ export default {
                     to: this.userId,
                     amount: this.amountTip,
                 })
-
                 if (result) {
-                    this.snackbar_message.text = 'Tip Successfull'
+                    this.snackbar_message.text = 'Tip Successful'
                     this.snackbar_message.color = 'success'
                     this.closeModal()
                 } else {
