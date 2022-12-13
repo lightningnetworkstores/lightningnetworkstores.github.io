@@ -25,7 +25,7 @@
           ></v-img>
         </div>
         <div 
-          class="header-container text-caption d-flex justify-space-between align-center my-3 px-2 tags-style"
+          class="header-container text-caption d-flex justify-space-between align-center my-3 mx-3 px-2 tags-style"
         >
           <div>
             <UserTag
