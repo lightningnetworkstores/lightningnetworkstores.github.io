@@ -51,7 +51,7 @@
             <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
           </v-col>
           <v-col :cols="((discussionHeader.link)? 9 : 12)">
-            <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
+            <div class="text-h6 px-2 font-weight-bold comment-title" style="flex-grow: 1"
               :inner-html.prop="discussionHeader.title"
             />
             <UserComment
@@ -63,7 +63,7 @@
         </v-row>
         <div v-else>
           <!-- begin -->
-          <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
+          <div class="text-h6 px-2 font-weight-bold comment-title" style="flex-grow: 1"
             :inner-html.prop="discussionHeader.title"
           />
           <UserComment
@@ -177,7 +177,6 @@ export default {
   max-height: 250px;
 }
 .tags-style {
-  width: 98%;
   height: 36px;
   background-color: #f9f9f9; 
   z-index: 2;
