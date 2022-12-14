@@ -6,7 +6,7 @@
         :key="header.id"
       >
         <v-expansion-panel-header
-          class="d-flex flex-column align-center my-0 pt-0 pb-2 px-3"
+          class="d-flex flex-column align-center my-0 pt-0 pb-2 px-1"
           expand-icon="mdi-menu-down"
         >
           <DiscussionHeader
