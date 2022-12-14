@@ -62,7 +62,6 @@
           </v-col>
         </v-row>
         <div v-else>
-          <!-- begin -->
           <div class="text-h6 px-2 font-weight-bold comment-title" style="flex-grow: 1"
             :inner-html.prop="discussionHeader.title"
           />
@@ -71,11 +70,14 @@
             @hover-on="u => $emit('hover-on', u)"
             @hover-off="u => $emit('hover-off', u)"
           />
-          <!-- end -->
         </div>
       </v-col>
-      <v-col :cols="isMobile ? 0 : 4" class="d-flex flex-row justify-end align-end mr-0 pr-0">
-        <div v-if="discussionHeader.store" class="flex-grow-1">
+      <v-col
+        v-if="discussionHeader.store"
+        :cols="isMobile ? 0 : 4"
+        class="d-flex flex-row justify-end align-end mr-0 pr-0"
+      >
+        <div class="flex-grow-1">
           <StorePreview class="hidden-sm-and-down" :store="discussionHeader.store"/>
         </div>
       </v-col>
