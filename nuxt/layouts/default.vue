@@ -1,5 +1,6 @@
 <template>
   <v-app app>
+    <Header />
 
     <v-main>
       <v-overlay :value="loading">
