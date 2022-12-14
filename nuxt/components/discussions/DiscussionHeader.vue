@@ -2,7 +2,7 @@
   <v-container class="mb-0 pb-2">
     <v-row class="justify-image-card">
       <v-col
-        cols="12" 
+        cols="12"
         class="pa-0 pt-1"
       >
         <div
@@ -12,12 +12,9 @@
         >
           <v-img
             v-if="discussionHeader.link"
-            width="100%"
-            height="100%"
-            max-height="100%"
-            max-width="100%"
-            position="center center"
-            :lazy-src="discussionHeader.link"
+            :height="250"
+            :aspect-ratio="1"
+            position="right"
             :src="discussionHeader.link"
             :style="{
               borderRadius: '5px 5px 0px 0px',

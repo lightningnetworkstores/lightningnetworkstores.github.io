@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <div class="d-flex justify-space-around mt-5">
+        <div class="d-flex justify-space-around">
           <div v-if="discussion && discussion.length" class="mx-6 my-6">
             <discussion-threads :expand="true" :threads="[discussion]"/>
           </div>
