@@ -3,8 +3,8 @@
     <v-row>
       <v-col>
         <div class="d-flex justify-space-around">
-          <div v-if="discussion && discussion.length" class="my-6">
-            <discussion-threads :expand="true" :threads="[discussion]"/>
+          <div v-if="selected && selected.length" class="my-6">
+            <discussion-threads :expand="true" :threads="[selected]"/>
           </div>
         </div>
       </v-col>
@@ -24,7 +24,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: this.discussion[0].title,
+          content: this.title,
         },
         {
           hid: 'og:title',
@@ -34,7 +34,7 @@ export default {
         {
           hid: 'og:description',
           property: 'og:description',
-          content: this.discussion[0].title,
+          content: this.title,
         },
         {
           hid: 'twitter:title',
@@ -44,7 +44,7 @@ export default {
         {
           hid: 'twitter:description',
           property: 'twitter:description',
-          content: this.discussion[0].title,
+          content: this.title,
         },
       ],
     }
@@ -55,15 +55,15 @@ export default {
   },
 
   computed: {
+    title() {
+      return this.selected ? this.selected[0].title : ''
+    },
     ...mapState(['lastCommentSeenTimestamp']),
+    ...mapState('discussion', ['selected'])
   },
 
   async asyncData({ params, store }) {
-    const resp = await store.dispatch('getDiscussion', params.id)
-
-    return {
-      discussion: resp.discussions,
-    }
+    await store.dispatch('discussion/getDiscussion', params.id)
   },
 
   async mounted() {
@@ -71,12 +71,14 @@ export default {
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
 
     await this.$store.dispatch('getLastDiscussionTimestamp')
-    const { timestamp } = this.discussion[this.discussion.length - 1]
+    if (this.selected) {
+      const { timestamp } = this.selected[this.selected.length - 1]
 
-    if (this.lastCommentSeenTimestamp < timestamp) {
-      this.$store.dispatch('updateLastDiscussionTime', {
-        discussionTime: timestamp,
-      })
+      if (this.lastCommentSeenTimestamp < timestamp) {
+        this.$store.dispatch('updateLastDiscussionTime', {
+          discussionTime: timestamp,
+        })
+      }
     }
   },
 }
