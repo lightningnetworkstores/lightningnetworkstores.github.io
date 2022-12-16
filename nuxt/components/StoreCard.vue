@@ -50,7 +50,7 @@
         <div class="content pa-2 pl-5">
           <div @click="gotoStore(store)">
             <div class="title">
-              <a @click.stop :href="getStoreLink(store.href)" class="font-weight-regular asdad">
+              <a @click.stop :href="getStoreLink(store.href)" class="font-weight-regular">
                 {{ store.name }}
                 <v-icon class="ml-1" color="blue darken-2"
                   >mdi-open-in-new</v-icon

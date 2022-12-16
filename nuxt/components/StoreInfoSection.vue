@@ -37,7 +37,7 @@
         v-if="selectedStore.uri && selectedStore.uri.toLowerCase() != 'unknown'"
         class="px-0"
       >
-        <div class="d-flex" v-if="boolNodeStores">
+        <div class="d-flex">
           <span class="break-word mt-2"
             ><b>Node:&nbsp;</b
             ><a
@@ -103,9 +103,6 @@ export default {
   },
   computed: {
     ...mapState(['likedStores', 'selectedStore']),
-    boolNodeStores() {
-      return this.selectedStore?.uri==='undefined' ? false : true;
-    },
   },
   methods: {},
 }
