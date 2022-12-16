@@ -41,6 +41,7 @@
           <span class="break-word mt-2"
             ><b>Node:&nbsp;</b
             ><a
+              v-if="boolNodeStores"
               :href="'https://1ml.com/node/' + selectedStore.uri.split('@')[0]"
               >{{ selectedStore.uri }}</a
             ></span
@@ -103,6 +104,9 @@ export default {
   },
   computed: {
     ...mapState(['likedStores', 'selectedStore']),
+    boolNodeStores() {
+      return this.selectedStore?.uri==='undefined' ? false : true;
+    },
   },
   methods: {},
 }
