@@ -37,11 +37,10 @@
         v-if="selectedStore.uri && selectedStore.uri.toLowerCase() != 'unknown'"
         class="px-0"
       >
-        <div class="d-flex">
+        <div class="d-flex" v-if="boolNodeStores">
           <span class="break-word mt-2"
             ><b>Node:&nbsp;</b
             ><a
-              v-if="boolNodeStores"
               :href="'https://1ml.com/node/' + selectedStore.uri.split('@')[0]"
               >{{ selectedStore.uri }}</a
             ></span
