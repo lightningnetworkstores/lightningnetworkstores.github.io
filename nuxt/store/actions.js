@@ -555,9 +555,11 @@ const actions = {
           commit('updateLoginStatus', { ...data, isAdmin })
           let dataUser = { ...data.user }
 
-          if (dataUser?.logged ?? false) {
+          if (
+            (dataUser?.logged ?? false) &&
+            Object.entries(dataUser?.custom_sorting ?? {}).length > 0
+          ) {
             let dataCustomSorting = dataUser?.custom_sorting ?? {}
-
             commit('updateSettingCustomSorting', dataCustomSorting)
 
             dispatch('sliderGroupFunction', { dataCustomSorting })
