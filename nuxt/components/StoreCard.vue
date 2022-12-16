@@ -61,6 +61,37 @@
               </a>
             </div>
             <div class="description">{{ store.description }}</div>
+            <div class="content">
+            <div>
+              <div class="tag-container">
+                <v-chip v-if="store.tags[0]" color="primary" outlined small class="mr-2 my-1">
+                  <b @click="updateTagSearch(store.tags[0], 0)" class="tag-link">{{ store.tags[0] }}</b>
+                </v-chip>
+                <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip v-bind="attrs" v-on="on" color="primary" outlined small class="mr-2 my-1">
+                      <b>+{{ store.tags.length - 1 }} tag{{
+                        store.tags.length - 1 == 1 ? '' : 's'
+                        }}</b>
+                    </v-chip>
+                  </template>
+          
+                  <v-list>
+                    <v-list-item v-for="(tag, index) in store.tags.slice(1, 5)" :key="index" class="my-0">
+                      <v-chip color="primary" outlined small class="mr-2 my-0">
+                        <b @click="updateTagSearch(tag, index)" class="tag-link">{{ tag }}</b>
+                      </v-chip>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+              <div :class="{
+                          'btn-actions': true,
+                          'sm-btn-actions': $vuetify.breakpoint.mobile,
+                        }">
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>
@@ -128,7 +159,7 @@ export default {
 .detail {
   color: #000000de;
   display: grid;
-  grid-template-rows: 200px 85px;
+  grid-template-rows: 200px 80px;
   grid-template-columns: 80px 1fr;
   row-gap: 4px;
   transition: 0.5s;
@@ -214,9 +245,6 @@ export default {
     text-overflow: ellipsis;
     
     .tag-container {
-      position: absolute;
-      bottom: 8px;
-      padding-right: 40px;
       background-color: white;
     }
     .btn-actions {
