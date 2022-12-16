@@ -80,7 +80,7 @@ export default {
 }
 .icon-section {
   line-height: 1;
-  font-size: 22px;
+  font-size: 15px;
 }
 .sm-btn-actions {
   font-size: 24px !important;

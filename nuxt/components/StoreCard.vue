@@ -5,9 +5,8 @@
         <div class="screenshot">
           <v-img
             :aspect-ratio="4 / 3"
-            max-height="200px"
             :src="`${baseURL}thumbnails/${store.id}.jpg`"
-            class="text-right"
+            class="v-img text-right"
             @click.native="gotoStore(store)"
           >
             <v-chip
@@ -37,7 +36,20 @@
               text-color="white"
               class="ma-2"
               >Event</v-chip
-            >
+            > 
+            <div class="top_wrapper">
+              <div class="score">
+                <vote-button :isUpvoting="true" :store="store" />
+                <span style="
+                color: white;
+                mix-blend-mode: difference;
+            ">
+                  {{ formatNumberVotes(Number(store.upvotes - store.downvotes)) }}</span>
+                <!-- <vote-button :isUpvoting="false" :store="store" /> -->
+            
+              </div>
+              <like-store-button style="padding:10px;" :store="store" />
+            </div>
           </v-img>
         </div>
 
@@ -46,80 +58,9 @@
             <div class="title">
               <a :href="getStoreLink(store.href)" class="font-weight-regular">
                 {{ store.name }}
-                <v-icon class="ml-1" color="blue darken-2"
-                  >mdi-open-in-new</v-icon
-                >
               </a>
             </div>
             <div class="description">{{ store.description }}</div>
-          </div>
-        </div>
-        <div class="score">
-          <vote-button :isUpvoting="true" :store="store" />
-          <span>
-            {{ formatNumberVotes(Number(store.upvotes - store.downvotes)) }}</span
-          >
-          <!-- <vote-button :isUpvoting="false" :store="store" /> -->
-        </div>
-        <div class="content pa-2 pl-5">
-          <div>
-            <div class="tag-container">
-              <v-chip
-                v-if="store.tags[0]"
-                color="primary"
-                outlined
-                small
-                class="mr-2 my-1"
-              >
-                <b
-                  @click="updateTagSearch(store.tags[0], 0)"
-                  class="tag-link"
-                  >{{ store.tags[0] }}</b
-                >
-              </v-chip>
-              <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-chip
-                    v-bind="attrs"
-                    v-on="on"
-                    color="primary"
-                    outlined
-                    small
-                    class="mr-2 my-1"
-                  >
-                    <b
-                      >+{{ store.tags.length - 1 }} tag{{
-                        store.tags.length - 1 == 1 ? '' : 's'
-                      }}</b
-                    >
-                  </v-chip>
-                </template>
-
-                <v-list>
-                  <v-list-item
-                    v-for="(tag, index) in store.tags.slice(1, 5)"
-                    :key="index"
-                    class="my-0"
-                  >
-                    <v-chip color="primary" outlined small class="mr-2 my-0">
-                      <b
-                        @click="updateTagSearch(tag, index)"
-                        class="tag-link"
-                        >{{ tag }}</b
-                      >
-                    </v-chip>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
-            <div
-              :class="{
-                'btn-actions': true,
-                'sm-btn-actions': $vuetify.breakpoint.mobile,
-              }"
-            >
-              <like-store-button :store="store" />
-            </div>
           </div>
         </div>
       </div>
@@ -187,9 +128,24 @@ export default {
 .detail {
   color: #000000de;
   display: grid;
-  grid-template-rows: 200px 120px;
+  grid-template-rows: 200px 85px;
   grid-template-columns: 80px 1fr;
   row-gap: 4px;
+  transition: 0.5s;
+
+  .v-img {
+    max-height: 200px;
+    transition: 0.5s;
+
+  }
+
+  &:hover {
+    grid-template-rows: 120px 160px;
+
+    .v-img {
+    max-height: 120px;
+  }
+        }
 
   .screenshot {
     grid-column: 1 / 3;
@@ -203,7 +159,7 @@ export default {
     padding: 5px 50px 5px 20px;
 
     .title {
-      font-size: 1.7rem !important;
+      font-size: 1.3rem !important;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -221,6 +177,13 @@ export default {
       margin-top: 5px;
     }
   }
+
+  .top_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
   .score {
     display: flex;
     justify-content: left;
@@ -259,7 +222,7 @@ export default {
     .btn-actions {
       display: flex;
       gap: 8px;
-      position: absolute;
+      position: relative;
       bottom: 5px;
       right: 5px;
       margin: 0.5em;

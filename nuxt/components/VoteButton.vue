@@ -14,8 +14,8 @@
     </template>
     <template v-else>
       <span v-if="isUpvoting" @click="showDialog = true">
-        <v-icon width="100%" size="16" class="arrow up" color="green"
-          >mdi-arrow-up</v-icon
+        <v-btn fab dark color="success" x-small
+          ><v-icon size="24" class="arrow up" >mdi-arrow-up</v-icon></v-btn
         ></span
       >
       <span v-else @click="showDialog = true">
@@ -379,8 +379,6 @@ export default {
   top: 4px;
 }
 .arrow {
-  border: 1px solid;
-  border-radius: 50%;
   padding: 5px;
 
   &.up:hover {
