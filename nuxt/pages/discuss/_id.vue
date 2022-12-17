@@ -38,7 +38,7 @@ export default {
         },
         {
           hid: 'og:image',
-          property: 'og:description',
+          property: 'og:image',
           content: this.selected[0].link,
         },
         {
