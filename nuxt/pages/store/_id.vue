@@ -245,14 +245,6 @@
               :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
-          <Thread
-            v-for="review in reviews"
-            :key="review[0].id"
-            :comment="review[0]"
-            :comments="review.slice(1)"
-            :store="selectedStore"
-            :type="'comment'"
-          ></Thread>
 
           <div
             v-if="discussions.length > 0"
