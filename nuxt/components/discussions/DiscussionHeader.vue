@@ -10,16 +10,7 @@
           class="col-with-image-style"
           :class="(discussionHeader.link)?'col-with-image-style-height':''"  
         >
-          <v-img
-            v-if="discussionHeader.link"
-            :height="250"
-            :aspect-ratio="1"
-            position="right"
-            :src="discussionHeader.link"
-            :style="{
-              borderRadius: '5px 5px 0px 0px',
-            }"
-          ></v-img>
+          <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
         </div>
         <div 
           class="header-container text-caption d-flex justify-space-between align-center my-3 mx-3 px-2 tags-style"
