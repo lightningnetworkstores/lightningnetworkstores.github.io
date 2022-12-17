@@ -28,7 +28,6 @@
                     <div class="headline d-flex">
                       <h3 class="mt-1">
                         <a
-                          class=""
                           @click.stop
                           :href="getStoreLink(selectedStore.href)"
                         >
@@ -280,7 +279,7 @@
                   >
                   <h4>
                     Negative:
-                    {{ selectedStore.reviews.filter(review => review[0].score &lt; 0).length }}
+                    {{ showReviewsNegativeLength }}
                   </h4></v-flex
                 >
               </v-row>
@@ -487,6 +486,9 @@ export default {
     showSimilarBtnMessage() {
       return this.similarExpanded ? 'Hide Similar' : 'Show more'
     },
+    showReviewsNegativeLength() {
+      return this.selectedStore.reviews.filter(review => review[0].score < 0).length
+    },
     maxSimilarToShow() {
       if (this.similarExpanded) {
         return this.relatedStores.length
@@ -537,8 +539,10 @@ export default {
     getStoreLink(link) {
       const url = new URL(link)
       const baseUrl = new URL(this.baseURL)
+
       url.searchParams.append('utm_source', baseUrl.host)
-      return url.toString()
+      
+      return url.href
     },
     isNewStore() {
       return (

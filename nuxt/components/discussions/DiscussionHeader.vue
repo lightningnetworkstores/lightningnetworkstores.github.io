@@ -2,7 +2,7 @@
   <v-container class="mb-0 pb-2">
     <v-row class="justify-image-card">
       <v-col
-        cols="12" 
+        cols="12"
         class="pa-0 pt-1"
       >
         <div
@@ -12,12 +12,9 @@
         >
           <v-img
             v-if="discussionHeader.link"
-            width="100%"
-            height="100%"
-            max-height="100%"
-            max-width="100%"
-            position="center center"
-            :lazy-src="discussionHeader.link"
+            :height="250"
+            :aspect-ratio="1"
+            position="right"
             :src="discussionHeader.link"
             :style="{
               borderRadius: '5px 5px 0px 0px',
@@ -25,7 +22,7 @@
           ></v-img>
         </div>
         <div 
-          class="header-container text-caption d-flex justify-space-between align-center my-3 px-2 tags-style"
+          class="header-container text-caption d-flex justify-space-between align-center my-3 mx-3 px-2 tags-style"
         >
           <div>
             <UserTag
@@ -34,7 +31,7 @@
             />
           </div>
             {{ formatDate(discussionHeader.timestamp) }}
-          <div>
+          <div v-if="displayDetailLink">
             <v-btn icon @click="() => handleDetailClick(threadId)">
               <v-icon>
                 mdi-open-in-new
@@ -51,7 +48,7 @@
             <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
           </v-col>
           <v-col :cols="((discussionHeader.link)? 9 : 12)">
-            <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
+            <div class="text-h6 px-2 font-weight-bold comment-title" style="flex-grow: 1"
               :inner-html.prop="discussionHeader.title"
             />
             <UserComment
@@ -62,8 +59,7 @@
           </v-col>
         </v-row>
         <div v-else>
-          <!-- begin -->
-          <div class="text-h6 font-weight-bold comment-title" style="flex-grow: 1"
+          <div class="text-h6 px-2 font-weight-bold comment-title" style="flex-grow: 1"
             :inner-html.prop="discussionHeader.title"
           />
           <UserComment
@@ -71,11 +67,14 @@
             @hover-on="u => $emit('hover-on', u)"
             @hover-off="u => $emit('hover-off', u)"
           />
-          <!-- end -->
         </div>
       </v-col>
-      <v-col :cols="isMobile ? 0 : 4" class="d-flex flex-row justify-end align-end mr-0 pr-0">
-        <div v-if="discussionHeader.store" class="flex-grow-1">
+      <v-col
+        v-if="discussionHeader.store"
+        :cols="isMobile ? 0 : 4"
+        class="d-flex flex-row justify-end align-end mr-0 pr-0"
+      >
+        <div class="flex-grow-1">
           <StorePreview class="hidden-sm-and-down" :store="discussionHeader.store"/>
         </div>
       </v-col>
@@ -138,11 +137,15 @@ export default {
     },
     threadId: {
       type: String
+    },
+    displayDetailLink: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
     handleDetailClick(threadId) {
-      window.open(`${this.$store.state.baseURL}discuss/${threadId}`, '_blank')
+      window.open(`/discuss/${threadId}`, '_blank')
     }
   },
   computed: {
@@ -173,7 +176,6 @@ export default {
   max-height: 250px;
 }
 .tags-style {
-  width: 98%;
   height: 36px;
   background-color: #f9f9f9; 
   z-index: 2;

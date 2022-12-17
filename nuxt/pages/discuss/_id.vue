@@ -1,35 +1,20 @@
 <template>
-  <div v-if="discussion && discussion.length">
-    <v-layout justify-center ma-4
-      ><h1>{{ discussion[0].title }}</h1></v-layout
-    >
-    <v-col lg="6">
-      <Reply :post="discussion[0]" :type="'discussion'" />
-    </v-col>
-    <v-col lg="5">
-      <v-layout
-        row
-        pt-1
-        pb-1
-        pl-3
-        pr-3
-        v-for="subComment in discussion.slice(1)"
-        :key="subComment.id"
-      >
-        <Reply
-          :post="subComment"
-          :threadId="discussion[0].thread_id"
-          :parentReview="discussion[0].thread_id"
-          :type="'discussion reply'"
-        />
-      </v-layout>
-    </v-col>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col>
+        <div class="d-flex justify-space-around">
+          <div v-if="selected && selected.length" class="my-6">
+            <discussion-threads :expand="true" :threads="[selected]"/>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
 import { mapState } from 'vuex'
 
-import Reply from '@/components/Reply.vue'
+import DiscussionThreads from '@/components/discussions/DiscussionThreads'
 
 export default {
   head() {
@@ -39,7 +24,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: this.discussion[0].title,
+          content: this.title,
         },
         {
           hid: 'og:title',
@@ -49,7 +34,7 @@ export default {
         {
           hid: 'og:description',
           property: 'og:description',
-          content: this.discussion[0].title,
+          content: this.title,
         },
         {
           hid: 'twitter:title',
@@ -59,26 +44,26 @@ export default {
         {
           hid: 'twitter:description',
           property: 'twitter:description',
-          content: this.discussion[0].title,
+          content: this.title,
         },
       ],
     }
   },
 
   components: {
-    Reply,
+    DiscussionThreads
   },
 
   computed: {
+    title() {
+      return this.selected ? this.selected[0].title : ''
+    },
     ...mapState(['lastCommentSeenTimestamp']),
+    ...mapState('discussion', ['selected'])
   },
 
   async asyncData({ params, store }) {
-    const resp = await store.dispatch('getDiscussion', params.id)
-
-    return {
-      discussion: resp.discussions,
-    }
+    await store.dispatch('discussion/getDiscussion', params.id)
   },
 
   async mounted() {
@@ -86,12 +71,14 @@ export default {
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
 
     await this.$store.dispatch('getLastDiscussionTimestamp')
-    const { timestamp } = this.discussion[this.discussion.length - 1]
+    if (this.selected) {
+      const { timestamp } = this.selected[this.selected.length - 1]
 
-    if (this.lastCommentSeenTimestamp < timestamp) {
-      this.$store.dispatch('updateLastDiscussionTime', {
-        discussionTime: timestamp,
-      })
+      if (this.lastCommentSeenTimestamp < timestamp) {
+        this.$store.dispatch('updateLastDiscussionTime', {
+          discussionTime: timestamp,
+        })
+      }
     }
   },
 }

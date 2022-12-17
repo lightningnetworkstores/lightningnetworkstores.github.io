@@ -49,7 +49,7 @@
         </v-dialog>
 
         <!-- SnackBar Message -->
-        <v-snackbar
+        <!-- <v-snackbar
             v-model="snackbar_message.open"
             :timeout="2e3"
             :color="snackbar_message.color"
@@ -66,7 +66,7 @@
                     Close
                 </v-btn>
             </template>
-        </v-snackbar>
+        </v-snackbar> -->
     </div>
 </template>
 
@@ -113,18 +113,18 @@ export default {
                     to: this.userId,
                     amount: this.amountTip,
                 })
-
-                if (result) {
-                    this.snackbar_message.text = 'Tip Successfull'
-                    this.snackbar_message.color = 'success'
-                    this.closeModal()
-                } else {
-                    this.snackbar_message.text =
-                        'Error while performing internal transfer'
-                    this.snackbar_message.color = 'red accent-2'
-                    this.closeModal()
-                }
-                this.snackbar_message.open = true
+                // if (result) {
+                //     this.snackbar_message.text = 'Tip Successful'
+                //     this.snackbar_message.color = 'success'
+                //     this.closeModal()
+                // } else {
+                //     this.snackbar_message.text =
+                //         'Error while performing internal transfer'
+                //     this.snackbar_message.color = 'red accent-2'
+                //     this.closeModal()
+                // }
+                // this.snackbar_message.open = true
+                this.closeModal()
             }
         },
     },

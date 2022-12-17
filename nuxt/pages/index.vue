@@ -36,12 +36,6 @@
                           @click="openCustomModal()"
                       >fas fa-edit</v-icon>
                 </div>
-              <!-- <v-radio
-                v-for="sortItem in sortItems.slice(0, 3)"
-                :key="sortItem.prop"
-                :label="sortItem.name"
-                :value="sortItem.prop"
-              /> -->
   
               <div v-if="sortItems.slice(3).length">
                 <v-list-group
@@ -102,7 +96,6 @@
               <v-btn v-if="btnOptionActive.newest" class="mt-2" small color="#fcb919" @click="loadMoreCardsNewest()">Load more</v-btn>
           </div>
           <v-container v-if="maxCardsNewsest > 0" class="full-list" ref="list">
-              <!-- <pre>{{ filteredStores.slice(0, maxCards) }}</pre> -->
               <store-card
                 :data-storeId="store.id"
                 v-for="store in filteredStoresNewest.slice(0, maxCountOfCards(maxCardsNewsest, !btnOptionActive.newest))"
@@ -115,7 +108,6 @@
               <v-btn v-if="btnOptionActive.trending" class="mt-2" small color="#fcb919" @click="loadMoreCardsTrending()">Load more</v-btn>
           </div>
           <v-container v-if="maxCardsTrending > 0" class="full-list" ref="list">
-              <!-- <pre>{{ filteredStores.slice(0, maxCards) }}</pre> --> 
               <store-card
                 :data-storeId="store.id"
                 v-for="store in filteredStoresTrending.slice(0, maxCountOfCards(maxCardsTrending, !btnOptionActive.trending))"
@@ -126,7 +118,6 @@
         </div>
         <h1 class="container full-list">Explore</h1>
         <v-container class="full-list" ref="list">
-          <!-- <pre>{{ filteredStores.slice(0, maxCards) }}</pre> -->
           <store-card
             :data-storeId="store.id"
             v-for="store in filteredStores.slice(0, maxCards)"

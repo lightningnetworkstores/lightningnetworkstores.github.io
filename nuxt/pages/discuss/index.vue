@@ -35,7 +35,7 @@
       <v-col>
         <div v-if="showDiscussions">
           <DiscussionsMobile v-if="$vuetify.breakpoint.mobile"/>
-          <Discussions v-if="!$vuetify.breakpoint.mobile"/>
+          <FilteredDiscussionsContainer v-if="!$vuetify.breakpoint.mobile"/>
         </div>
         <div v-if="showReviews">
           <Reviews/>
@@ -53,7 +53,7 @@
   </v-container>
 </template>
 <script>
-import Discussions from '@/components/discussions/Discussions.vue'
+import FilteredDiscussionsContainer from '~/components/discussions/FilteredDiscussionsContainer.vue'
 import DiscussionsMobile from '@/components/discussions/DiscussionsMobile.vue'
 import AddDiscussModal from '@/components/discussions/AddDiscussModal'
 import Reviews from '@/components/reviews/Reviews.vue'
@@ -62,7 +62,7 @@ import Events from '@/components/events/Events.vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  components: { Discussions, DiscussionsMobile, Reviews, Events, AddDiscussModal },
+  components: { FilteredDiscussionsContainer, DiscussionsMobile, Reviews, Events, AddDiscussModal },
   data() {
     return {
       selected: 0

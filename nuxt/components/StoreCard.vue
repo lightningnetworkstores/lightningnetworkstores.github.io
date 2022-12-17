@@ -50,7 +50,7 @@
         <div class="content pa-2 pl-5">
           <div @click="gotoStore(store)">
             <div class="title">
-              <a :href="getStoreLink(store.href)" class="font-weight-regular">
+              <a @click.stop :href="getStoreLink(store.href)" class="font-weight-regular">
                 {{ store.name }}
                 <v-icon class="ml-1" color="blue darken-2"
                   >mdi-open-in-new</v-icon
@@ -144,7 +144,8 @@ export default {
       const url = new URL(link)
       const baseUrl = new URL(this.baseURL)
       url.searchParams.append('utm_source', baseUrl.host)
-      return url.toString()
+
+      return url.href
     },
     gotoStore(store) {
       const { id, rooturl } = store

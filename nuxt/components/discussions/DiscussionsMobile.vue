@@ -28,6 +28,7 @@
                             :discussionHeader="header"
                             :threadIndex="threadIndex"
                             :threadId="threadId(threadIndex)"
+                            :displayDetailLink="true"
                             @paid-reply-request="handlePaidReplyRequest"
                         />
                     </v-expansion-panel-header>

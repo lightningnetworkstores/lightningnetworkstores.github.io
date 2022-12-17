@@ -31,7 +31,7 @@ export const actions = {
       })
       .catch(err => console.error('Error fetching discussions: ', err))
   },
-  postReply({ commit }, params) {
+  postReply({ commit, dispatch }, params) {
     const body = {
       comment: params.comment,
       parent: params.parent,
@@ -49,6 +49,7 @@ export const actions = {
         if (data.data.submitted) {
           const { thread } = data.data
           commit('updateLastDiscussions', { threadIndex, thread })
+          dispatch('discussion/updateDiscussion', thread, { root: true })
         }
         return data
       })
