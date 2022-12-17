@@ -174,7 +174,7 @@
         searchQuery: '',
         selectedSort: 'best',
         sortItems: [
-          { name: 'Best', prop: 'best' },
+          { name: 'Default', prop: 'best' },
           { name: 'Custom', prop: 'custom' },
           { name: 'Trending', prop: 'trending' },
           { name: 'Newest', prop: 'newest' },

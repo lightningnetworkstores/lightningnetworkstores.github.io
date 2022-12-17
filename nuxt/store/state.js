@@ -4,11 +4,11 @@ export const state = () => {
     score: 100,
     novelty: 0,
     halflife: 270,
-    newontop: 4,
-    trending: 1,
-    likeTrend: 0,
+    newontop: 8,
+    trending: 4,
+    likeTrend: 2,
     satsPerLike: 1,
-    externalTrend: 0,
+    externalTrend: 1,
   }
 
   const result = {
