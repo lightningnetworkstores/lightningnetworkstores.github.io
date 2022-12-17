@@ -51,12 +51,6 @@ const getters = {
         )
       )
 
-      if (sort == 'trending') {
-        stores = stores.filter(
-          (store) => store.trending > options.trendingThreshold
-        )
-      }
-
       // Deprecated code that moves newest and trendiest store to the top
       return stores
     }
