@@ -2,10 +2,8 @@
   <v-container>
     <v-row>
       <v-col>
-        <div class="d-flex justify-space-around">
-          <div v-if="selected && selected.length" class="my-6">
-            <discussion-threads :expand="true" :threads="[selected]"/>
-          </div>
+        <div v-if="selected && selected.length" class="d-flex justify-space-around mt-6">
+          <discussion-threads :expand="true" :threads="[selected]"/>
         </div>
       </v-col>
     </v-row>
