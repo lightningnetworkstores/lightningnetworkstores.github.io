@@ -232,7 +232,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <review-list :showReviewsWithStars="showReviewsWithStars" />
+                  <review-list :storeId="selectedStore.id" :showReviewsWithStars="showReviewsWithStars" />
                 </v-col>
               </v-row>
             </v-card-text>

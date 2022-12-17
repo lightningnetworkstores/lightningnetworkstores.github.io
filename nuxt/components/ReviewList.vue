@@ -20,14 +20,20 @@
               readonly
               :value="review[0].stars"
             />
+            <v-list-item-subtitle class="text-caption text--disabled ml-2">
+              {{ format(review[0].timestamp) }}
+            </v-list-item-subtitle>
           </v-list-item-content>
           <div class="d-flex justify-space-between flex-column align-end time-container mt-3">
-            <div class="text-caption text--disabled">
-              {{ format(review[0].timestamp) }}
-            </div>
-            <v-icon @click="toggleHelpful(review[0])" class="mb-3" color="pink" small>
-              {{ review[0].helpful ? 'mdi-heart' : 'mdi-heart-outline' }}
-            </v-icon>
+            <v-btn icon>
+              <v-icon @click="toggleHelpful(review[0])" color="pink" small>
+                {{ review[0].helpful ? 'mdi-heart' : 'mdi-heart-outline' }}
+              </v-icon>
+            </v-btn>
+            <review-reply-modal
+              :storeId="storeId"
+              :parent="review[0].id"
+            />
           </div>
         </v-list-item>
         <v-divider
@@ -42,12 +48,17 @@
 import { DateTime } from 'luxon'
 import { format } from 'timeago.js'
 import { mapState } from 'vuex'
+import ReviewReplyModal from '@/components/ReviewReplyModal'
+
 export default {
-  props: ['showReviewsWithStars'],
+  props: ['showReviewsWithStars', 'storeId'],
   data() {
     return {
       format
     }
+  },
+  components: {
+    ReviewReplyModal
   },
   methods: {
     getDate(timestamp) {

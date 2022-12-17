@@ -4,9 +4,9 @@ export const state = () => ({
 })
 
 export const actions = {
-  postReview(context, { stars, comment, storeID }) {
+  postReview(context, { stars, comment, storeID, parent }) {
     const { commit, dispatch } = context
-    const body = { storeID, comment, stars }
+    const body = { storeID, comment, stars, parent }
     commit('setIsPosting', true)
     return this.$axios.post('/api/review', body)
       .then(resp => dispatch('network/showResponse', resp, { root: true }))
