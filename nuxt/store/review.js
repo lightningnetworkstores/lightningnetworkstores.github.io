@@ -11,7 +11,9 @@ export const actions = {
     return this.$axios.post('/api/review', body)
       .then(resp => {
         if (resp.status === 200) {
-          commit('addReply', {storeID, parent, comment})
+          if (parent) {
+            commit('addReply', {storeID, parent, comment})
+          }
         }
         return resp
       })
