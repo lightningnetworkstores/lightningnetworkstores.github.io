@@ -61,6 +61,11 @@ export default {
           property: 'twitter:image:src',
           content: this.selected[0].link,
         },
+        {
+          hid: 'twitter:image',
+          property: 'twitter:image',
+          content: this.selected[0].link,
+      },
       ],
     }
   },
