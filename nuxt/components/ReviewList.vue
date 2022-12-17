@@ -10,7 +10,7 @@
           <v-list-item-avatar>
             <v-img :src="review.user.image"></v-img>
           </v-list-item-avatar>
-          <v-list-item-content>
+          <v-list-item-content class="py-1 my-0">
             <v-list-item-title class="ml-2" :class="{'text--secondary': review.isReply}">
               @{{ review.user.handle }}
             </v-list-item-title>
@@ -18,7 +18,7 @@
               {{ review.comment ? review.comment : '' }}
             </v-list-item-subtitle>
             <v-rating v-if="!review.isReply"
-              size="18"
+              size="12"
               color="warning"
               half-increments
               readonly
