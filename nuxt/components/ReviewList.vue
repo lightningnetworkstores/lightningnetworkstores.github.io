@@ -8,11 +8,12 @@
           link
         >
           <v-list-item-avatar>
-            <v-img :src="review.user.image"></v-img>
+            <v-img v-if="hasUser(review)" :src="review.user.image"></v-img>
+            <v-icon v-else :size="48" color="grey">mdi-account-circle</v-icon>
           </v-list-item-avatar>
           <v-list-item-content class="py-1 my-0">
             <v-list-item-title class="ml-2" :class="{'text--secondary': review.isReply}">
-              @{{ review.user.handle }}
+              {{ getHandle(review) }}
             </v-list-item-title>
             <v-list-item-subtitle class="ml-2" :class="{'text--secondary': review.isReply}">
               {{ review.comment ? review.comment : '' }}
@@ -74,6 +75,16 @@ export default {
     },
     toggleHelpful(review) {
       this.$store.dispatch('review/toggleHelpful', review)
+    },
+    hasUser(review) {
+      return review.user !== undefined
+    },
+    getHandle(review) {
+      if (this.hasUser(review)) {
+        return `@${review.user.handle}`
+      } else {
+        return 'Anonymous'
+      }
     }
   },
   computed: {
