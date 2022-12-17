@@ -8,7 +8,7 @@ export const state = () => {
     trending: 4,
     likeTrend: 2,
     satsPerLike: 1,
-    externalTrend: 1,
+    externalTrend: 2,
   }
 
   const result = {
