@@ -37,6 +37,16 @@ export default {
           content: this.title,
         },
         {
+          hid: 'image',
+          property: 'image',
+          content: this.selected[0].link,
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: this.selected[0].link,
+        },
+        {
           hid: 'twitter:title',
           property: 'twitter:title',
           content: 'Lightning Network Discussion page',
@@ -46,6 +56,16 @@ export default {
           property: 'twitter:description',
           content: this.title,
         },
+        {
+          hid: 'twitter:image:src',
+          property: 'twitter:image:src',
+          content: this.selected[0].link,
+        },
+        {
+          hid: 'twitter:image',
+          property: 'twitter:image',
+          content: this.selected[0].link,
+      },
       ],
     }
   },
