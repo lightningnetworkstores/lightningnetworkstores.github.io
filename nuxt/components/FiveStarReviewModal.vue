@@ -96,6 +96,7 @@ export default {
       }
       await this.$store.dispatch('review/postReview', review)
       this.$store.dispatch('getStore', { id: this.storeID })
+      this.$store.dispatch('getStatus', { storeId: this.storeID })
       this.closeDialog()
     }
   },
