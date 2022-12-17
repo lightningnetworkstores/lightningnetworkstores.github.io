@@ -69,6 +69,7 @@ export default {
       try {
         await this.$store.dispatch('review/postReview', body)
       } finally {
+        this.comment = ''
         this.showDialog = false
       }
     }
