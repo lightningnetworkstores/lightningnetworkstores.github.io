@@ -55,7 +55,20 @@ import { mapState } from 'vuex'
 import ReviewReplyModal from '@/components/ReviewReplyModal'
 
 export default {
-  props: ['showReviewsWithStars', 'storeId'],
+  props: {
+    showReviewsWithStars: {
+      type: Array,
+      default: [1,2,3,4,5]
+    },
+    storeId: {
+      type: Number,
+      required: true
+    },
+    reviews: {
+      type: Array,
+      default: []
+    }
+  },
   data() {
     return {
       format
@@ -103,7 +116,6 @@ export default {
         })
       return flattened
     },
-    ...mapState('review',['reviews'])
   }
 }
 </script>

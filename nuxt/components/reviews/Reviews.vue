@@ -6,40 +6,29 @@
   >
     <template slot="item" slot-scope="{ slotScope: discussion }">
       <store-card
-        :class="`${$style['store-card']} mb-2`"
+        :class="`${$style['store-card']} mb-0`"
         :key="'store-' + discussion.store.id"
         :store="discussion.store"
       >
       </store-card>
-      <Thread
-        class="store-card"
-        :comment="
-          discussion.reviews
-            ? discussion.reviews[0]
-            : discussion.discussions[0]
-        "
-        :comments="
-          discussion.reviews
-            ? discussion.reviews.slice(1)
-            : discussion.discussions.slice(1)
-        "
-        :store="discussion.store"
-        :type="discussion.reviews ? 'comment' : 'discussion'"
-        :onlyShowLast="2"
-      >
-      </Thread>
+      <review-list
+        class="mb-6 pb-0 pt-0"
+        :reviews="[discussion.reviews]"
+        :storeId="discussion.store.id"
+        :showReviewsWithStars="[1,2,3,4,5]"
+      />
     </template>
   </LazyListCards>
 </template>
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import LazyListCards from '../LazyListCards'
-import Thread from '../Thread.vue'
+import ReviewList from '@/components/ReviewList.vue'
 
 export default {
   components: {
+    ReviewList,
     LazyListCards,
-    Thread
   },
   mounted() {
     this.$store.dispatch('getDiscussions')

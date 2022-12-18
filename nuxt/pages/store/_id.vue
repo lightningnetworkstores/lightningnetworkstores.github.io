@@ -232,7 +232,11 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <review-list :storeId="selectedStore.id" :showReviewsWithStars="showReviewsWithStars" />
+                  <review-list
+                    :reviews="reviews"
+                    :storeId="selectedStore.id"
+                    :showReviewsWithStars="showReviewsWithStars"
+                  />
                 </v-col>
               </v-row>
             </v-card-text>
@@ -392,7 +396,7 @@ export default {
 
       let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
 
-      return { reviews, storeId, discussions }
+      return { storeId, discussions }
     } catch (err) {
       error(err)
     }
@@ -423,6 +427,7 @@ export default {
   computed: {
     ...mapState(['stores']),
     ...mapState('discussions', ['isLogged']),
+    ...mapState('review',['reviews']),
     showSettings() {
       return (
         this.selectedStoreSettings.email &&

@@ -26,7 +26,7 @@ export const actions = {
       .then(data => {
         commit('setTopics', data.data.configuration.topics)
         commit('setLastDiscussions', data.data.last_discussions)
-        commit('setReviews', data.data.last_active_stores)
+        commit('setReviews', data.data.last_reviews)
         commit('setEvents', data.data.last_events)
       })
       .catch(err => console.error('Error fetching discussions: ', err))
