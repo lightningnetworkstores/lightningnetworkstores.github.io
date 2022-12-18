@@ -233,6 +233,7 @@
               <v-row>
                 <v-col cols="12">
                   <review-list
+                    @toggleHelpful="toggleHelpful"
                     :reviews="reviews"
                     :storeId="selectedStore.id"
                     :showReviewsWithStars="showReviewsWithStars"
@@ -470,6 +471,9 @@ export default {
     ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
   methods: {
+    toggleHelpful(payload) {
+      this.$store.dispatch('review/toggleHelpful', payload)
+    },
     openSettingsModal() {
       this.$store.dispatch('modals/openSettingsModal')
     },

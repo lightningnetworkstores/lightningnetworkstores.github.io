@@ -540,6 +540,7 @@ const actions = {
           settings.isFirstTime = data.first_time
           commit('selectedStoreSettings', settings)
           dispatch('review/setHelpfulReviews', data.helpful_reviews)
+          dispatch('discussions/setHelpfulReviews', data.helpful_reviews)
         }
       })
       .catch(console.error)

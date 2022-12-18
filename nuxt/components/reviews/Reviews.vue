@@ -4,17 +4,18 @@
     :className="$style['store-row']"
     :maxItems="listCardsMaxItems"
   >
-    <template slot="item" slot-scope="{ slotScope: discussion }">
+    <template slot="item" slot-scope="{ slotScope: tuple }">
       <store-card
         :class="`${$style['store-card']} mb-0`"
-        :key="'store-' + discussion.store.id"
-        :store="discussion.store"
+        :key="tuple.store.id"
+        :store="tuple.store"
       >
       </store-card>
       <review-list
         class="mb-6 pb-0 pt-0"
-        :reviews="[discussion.reviews]"
-        :storeId="discussion.store.id"
+        @toggleHelpful="toggleHelpful"
+        :reviews="[tuple.reviews]"
+        :storeId="tuple.store.id"
         :showReviewsWithStars="[1,2,3,4,5]"
       />
     </template>
@@ -30,11 +31,22 @@ export default {
     ReviewList,
     LazyListCards,
   },
-  mounted() {
-    this.$store.dispatch('getDiscussions')
+  async mounted() {
+    await this.$store.dispatch('getDiscussions')
+    for (let storeId of this.storeIds) {
+      await this.$store.dispatch('getStatus', { storeId })
+    }
+  },
+  methods: {
+    toggleHelpful(payload) {
+      this.$store.dispatch('discussions/toggleHelpful', payload)
+    }
   },
   computed: {
     ...mapState('discussions', ['reviews']),
+    storeIds() {
+      return this.reviews.map(tuple => tuple.store.id)
+    },
     listCardsMaxItems() {
       return this.$vuetify.breakpoint.width >= this.screenWidthBp ? 10 : 1
     }

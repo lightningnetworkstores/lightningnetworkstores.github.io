@@ -51,7 +51,6 @@
 <script>
 import { DateTime } from 'luxon'
 import { format } from 'timeago.js'
-import { mapState } from 'vuex'
 import ReviewReplyModal from '@/components/ReviewReplyModal'
 
 export default {
@@ -87,7 +86,7 @@ export default {
       return date.toFormat('hh:mm:ss')
     },
     toggleHelpful(review) {
-      this.$store.dispatch('review/toggleHelpful', review)
+      this.$emit('toggleHelpful', { id: review.id, helpful: review.helpful })
     },
     hasUser(review) {
       return review.user !== undefined

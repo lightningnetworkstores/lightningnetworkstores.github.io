@@ -24,11 +24,9 @@ export const actions = {
       })
       .finally(() => commit('setIsPosting', false))
   },
-  toggleHelpful({ dispatch, commit }, review) {
-    const { id, helpful } = review
+  toggleHelpful({ dispatch, commit }, { id, helpful }) {
     commit('setHelpful', {reviewId: id, isHelpful: !helpful })
     return this.$axios.post(`/api/helpful?id=${id}&remove=${helpful}`)
-      // .then(resp => dispatch('network/showResponse', resp, { root: true }))
       .catch(err => {
         console.error('Error while posting review. err: ', err)
         commit('setHelpful', {reviewId: id, isHelpful: helpful })

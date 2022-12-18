@@ -115,6 +115,20 @@ export const actions = {
         }
         return isImage
       })
+  },
+  toggleHelpful({ dispatch, commit }, { id, helpful }) {
+    commit('setHelpful', {reviewId: id, isHelpful: !helpful })
+    return this.$axios.post(`/api/helpful?id=${id}&remove=${helpful}`)
+      .catch(err => {
+        console.error('Error while posting review. err: ', err)
+        commit('setHelpful', {reviewId: id, isHelpful: helpful })
+        dispatch('network/showError', err, { root: true})
+      })
+  },
+  setHelpfulReviews({ commit }, helpfulReviews) {
+    helpfulReviews.forEach(id => commit('setHelpful', {
+      reviewId: id, isHelpful: true
+    }))
   }
 }
 
@@ -183,5 +197,16 @@ export const mutations = {
       }
     })
     state.events = events
+  },
+  setHelpful(state, {reviewId, isHelpful}) {
+    const reviews = [...state.reviews]
+    reviews.forEach(tuple => {
+      tuple.reviews.forEach(review => {
+        if (review.id === reviewId) {
+          review.helpful = isHelpful
+        }
+      })
+    })
+    state.reviews = reviews
   }
 }
