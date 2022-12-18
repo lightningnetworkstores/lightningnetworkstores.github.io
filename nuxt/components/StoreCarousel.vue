@@ -144,7 +144,7 @@ export default {
       for(let item in [...Array(this.selectedStore.media.main.length).keys()]){
         if(this.selectedStore.media.main[item].type=='VIDEO') return 9999000
       }
-      return 5000;
+      return 3000;
     }
   }
 }

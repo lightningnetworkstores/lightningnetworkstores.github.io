@@ -80,7 +80,7 @@
             <v-row>
               <v-col cols="12" md="6" sm="12">
                 <v-layout ma-4 justify-center
-                  ><h2>Stack more sats</h2>
+                  ><h2>Newest projects</h2>
                 </v-layout>
                 <v-row ma-2 v-for="store in stackSatsStores" :key="store.id">
                   <v-col cols="12" sm="12">
@@ -92,7 +92,7 @@
               </v-col>
               <v-col cols="12" md="6" sm="12">
                 <v-layout ma-2 pa-2 justify-center
-                  ><h2>Spend some sats</h2>
+                  ><h2>Trending projects</h2>
                 </v-layout>
                 <v-row
                   ma-4
