@@ -41,7 +41,7 @@
             @cancel="cancel"
           />
 
-          <v-card-text class="pa-0 cardContent" v-else>
+          <v-card-text class="pa-0" v-else>
             <v-card-title class="headline">
               <v-flex grow>Add new discussion</v-flex>
             </v-card-title>
@@ -317,9 +317,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-.cardContent {
-  max-height: 60vw;
-}
-</style>
