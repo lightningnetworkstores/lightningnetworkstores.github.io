@@ -69,6 +69,7 @@
                           (v && v.length < 100) ||
                           'Title must be smaller than 100 characters',
                       ]"
+                      outlined
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
