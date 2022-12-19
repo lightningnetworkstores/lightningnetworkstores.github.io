@@ -248,10 +248,12 @@
        * @return {number}
        */
       maxCountOfCards (value, option = false) {
+        let newValue = (this.selectedSort==='custom') ? value : this.defaultSorting.newontop
 
-        let values = (option) ? value : ((value <= this.countCardPoint) ? value : this.countCardPoint)
+        let values = (option) ? newValue : ((newValue <= this.countCardPoint) ? newValue : this.countCardPoint)
         
         return values
+
       },
 
       async setCustomSettings(setting) {
@@ -282,6 +284,7 @@
         scrolledStores: 'scrolledStores',
         selectedTags: 'selectedTags',
         stores: 'stores',
+        defaultSorting: 'defaultSorting',
         settingCustomSorting: 'settingCustomSorting',
         sliderCustomSorting: 'sliderCustomSorting',
         customSortingAdvanced: 'customSortingAdvanced',
