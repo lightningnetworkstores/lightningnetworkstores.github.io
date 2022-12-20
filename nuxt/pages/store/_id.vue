@@ -14,6 +14,7 @@
             Store is new and additional images are being fetched. Please wait a
             few minutes to change your images.
           </v-alert>
+          <v-btn v-if="selectedStore.logged" @click="toggleEditing">Edit this project</v-btn>
           <v-row justify="center">
             <v-col cols="12" sm="12">
               <inactivity-alert :inactivityData="selectedStore.inactivity" />
@@ -21,7 +22,7 @@
                 <store-carousel
                   @imageClicked="handleImageClick"
                   :selectedStore="selectedStore"
-                  :logged="selectedStore.logged === true"
+                  :logged="editingSelectedStore === true"
                 />
                 <v-row class="pa-5">
                   <v-col class="pb-1">
@@ -39,7 +40,7 @@
                         </a>
                       </h3>
                       <edit-store-modal
-                        v-if="selectedStore.logged"
+                        v-if="editingSelectedStore"
                         :store="selectedStore"
                         :editAttribute="editStoreName"
                         class="ml-2"
@@ -71,7 +72,7 @@
                           <v-icon>fab fa-{{ name }}</v-icon>
                         </v-btn>
                         <edit-social-media-modal
-                          v-if="selectedStore.logged"
+                          v-if="editingSelectedStore"
                           :store="selectedStore"
                         />
                       </div>
@@ -98,7 +99,7 @@
             class="pa-0 d-flex flex-column justify-center"
           >
             <v-btn
-              v-if="!selectedStore.logged"
+              v-if="!editingSelectedStore"
               @click="requestLogin"
               class="mx-3 mb-3 py-6 mt-3"
               large
@@ -148,7 +149,7 @@
                 </v-flex>
                 <v-flex shrink class="mr-4 mt-1 d-flex">
                   <edit-store-modal
-                    v-if="selectedStore.logged"
+                    v-if="editingSelectedStore"
                     :store="selectedStore"
                     :editAttribute="{
                       label: propertyName,
@@ -157,17 +158,17 @@
                     }"
                   />
                   <delete-external-modal
-                    v-if="selectedStore.logged"
+                    v-if="editingSelectedStore"
                     :store="selectedStore"
                     :field="propertyName"
                   />
                 </v-flex>
               </v-layout>
             </v-card>
-            <add-external-modal :store="selectedStore" v-if="selectedStore.logged" />
+            <add-external-modal :store="selectedStore" v-if="editingSelectedStore" />
             <div class="mx-3 mt-3 py-2">
               <AddEventModal
-                v-if="selectedStore.logged"
+                v-if="editingSelectedStore"
                 :storeId="selectedStore.id"
               />
               <div
@@ -427,7 +428,7 @@ export default {
       showLoginModal: false,
       showLogoutModal: false,
       loginResponse: null,
-      similarExpanded: false,
+      similarExpanded: false
     }
   },
   async asyncData({ params, store, error }) {
@@ -480,7 +481,8 @@ export default {
       return (
         this.selectedStoreSettings.email &&
         this.selectedStoreSettings.notifications &&
-        this.selectedStoreSettings.notifications.new_reviews !== null
+        this.selectedStoreSettings.notifications.new_reviews !== null &&
+        this.editingSelectedStore
       )
     },
     showSimilarBtnMessage() {
@@ -518,9 +520,13 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
+    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings', 'editingSelectedStore']),
   },
   methods: {
+    toggleEditing(){
+      console.log('inside method')
+      this.$store.dispatch('toggleEditing')
+    },
     openSettingsModal() {
       this.$store.dispatch('modals/openSettingsModal')
     },

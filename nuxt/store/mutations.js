@@ -44,6 +44,9 @@ const mutations = {
   confirmStoreFieldAddition(state, { field, value }) {
     Vue.set(state.selectedStore.external, field, { href: value })
   },
+  toggleEditing(state) {
+    state.editingSelectedStore = !state.editingSelectedStore
+  },
   updateSocialLink(state, { name, href }) {
     if (state.selectedStore[name]) {
       state.selectedStore[name] = { href }

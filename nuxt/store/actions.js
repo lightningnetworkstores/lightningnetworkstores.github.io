@@ -127,6 +127,9 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  toggleEditing({ state, commit }) {
+    commit('toggleEditing')
+  },
   addEvent({ state }, payload) {
     return this.$axios
       .post(`${state.baseURL}api/event`, payload)
