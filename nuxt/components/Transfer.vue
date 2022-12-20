@@ -1,6 +1,6 @@
 <template>
   <div class="ma-2">
-        <v-autocomplete
+    <v-autocomplete
       v-model="recipient"
       outlined
       :items="suggestions"
@@ -54,7 +54,7 @@
     <v-snackbar v-model="isSuccess" timeout="1e3">
       <v-icon color="green" class="mr-2 pr-2">mdi-check-circle-outline</v-icon>
       Success!
-      <template v-slot:action="{ attrs }">
+      <template v-slot:action="{ attrs }">
         <v-btn
           color="green"
           text
