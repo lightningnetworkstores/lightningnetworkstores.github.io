@@ -234,7 +234,7 @@
                 <v-col cols="12">
                   <review-list
                     @toggleHelpful="toggleHelpful"
-                    :reviews="reviews"
+                    :reviews="this.selectedStore.reviews2"
                     :storeId="selectedStore.id"
                     :showReviewsWithStars="showReviewsWithStars"
                   />
@@ -383,18 +383,7 @@ export default {
   async asyncData({ params, store, error }) {
     try {
       const selectedStore = await store.dispatch('getStore', { id: params.id })
-
       const storeId = selectedStore.id
-
-      let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
-        (a, b) => {
-          if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
-            return Math.abs(b[0].score) - Math.abs(a[0].score)
-          }
-          return b[0].timestamp - a[0].timestamp
-        }
-      )
-
       let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
 
       return { storeId, discussions }
