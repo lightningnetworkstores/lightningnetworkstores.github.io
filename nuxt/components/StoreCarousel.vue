@@ -19,7 +19,7 @@
           class="text-right"
         >
           <v-chip
-            v-if="media.homepage && selectedStore.logged"
+            v-if="media.homepage && editingSelectedStore"
             color="orange"
             text-color="white"
             class="ma-2"
@@ -90,7 +90,7 @@
     >
       <v-sheet height="500px" class="d-flex justify-center align-center" color="white">
         <edit-store-image
-          v-if="selectedStore.logged && !selectedStore.new"
+          v-if="editingSelectedStore && !selectedStore.new"
           isNew
           :store="selectedStore"
           :position="selectedStore.media.number + 1"
@@ -104,6 +104,8 @@
 import DeleteImageModal from '~/components/DeleteImageModal'
 import EditStoreImage from '~/components/EditStoreImage'
 import SelectHomeImageModal from '~/components/SelectHomeImageModal.vue'
+import { mapState } from 'vuex'
+
 export default {
   components: { DeleteImageModal, EditStoreImage, SelectHomeImageModal },
   props: {
@@ -128,6 +130,7 @@ export default {
     },
   },
   computed: {
+    ...mapState(['editingSelectedStore']),
     baseURL() {
       return this.$store.state.baseURL
     },

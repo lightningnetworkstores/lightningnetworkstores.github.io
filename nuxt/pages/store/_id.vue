@@ -15,13 +15,28 @@
             few minutes to change your images.
           </v-alert>
           <v-row justify="center">
+            <v-btn v-if="selectedStore.logged"
+              @click="toggleEditing"
+              color="primary"
+              class="mx-3 mb-3 py-6 mt-3"
+              min-width="200"
+              :elevation="editButtonElevation"
+              large
+            >
+              <v-icon left>
+                mdi-pencil
+              </v-icon>
+              Edit
+            </v-btn>
+          </v-row>
+          <v-row justify="center">
             <v-col cols="12" sm="12">
               <inactivity-alert :inactivityData="selectedStore.inactivity" />
               <v-card class="pa-0 mb-3">
                 <store-carousel
                   @imageClicked="handleImageClick"
                   :selectedStore="selectedStore"
-                  :logged="selectedStore.logged === true"
+                  :logged="editingSelectedStore === true"
                 />
                 <v-row class="pa-5">
                   <v-col class="pb-1">
@@ -39,7 +54,7 @@
                         </a>
                       </h3>
                       <edit-store-modal
-                        v-if="selectedStore.logged"
+                        v-if="editingSelectedStore"
                         :store="selectedStore"
                         :editAttribute="editStoreName"
                         class="ml-2"
@@ -71,7 +86,7 @@
                           <v-icon>fab fa-{{ name }}</v-icon>
                         </v-btn>
                         <edit-social-media-modal
-                          v-if="selectedStore.logged"
+                          v-if="editingSelectedStore"
                           :store="selectedStore"
                         />
                       </div>
@@ -98,7 +113,7 @@
             class="pa-0 d-flex flex-column justify-center"
           >
             <v-btn
-              v-if="!selectedStore.logged"
+              v-if="!editingSelectedStore"
               @click="requestLogin"
               class="mx-3 mb-3 py-6 mt-3"
               large
@@ -148,7 +163,7 @@
                 </v-flex>
                 <v-flex shrink class="mr-4 mt-1 d-flex">
                   <edit-store-modal
-                    v-if="selectedStore.logged"
+                    v-if="editingSelectedStore"
                     :store="selectedStore"
                     :editAttribute="{
                       label: propertyName,
@@ -157,17 +172,17 @@
                     }"
                   />
                   <delete-external-modal
-                    v-if="selectedStore.logged"
+                    v-if="editingSelectedStore"
                     :store="selectedStore"
                     :field="propertyName"
                   />
                 </v-flex>
               </v-layout>
             </v-card>
-            <add-external-modal :store="selectedStore" v-if="selectedStore.logged" />
+            <add-external-modal :store="selectedStore" v-if="editingSelectedStore" />
             <div class="mx-3 mt-3 py-2">
               <AddEventModal
-                v-if="selectedStore.logged"
+                v-if="editingSelectedStore"
                 :storeId="selectedStore.id"
               />
               <div
@@ -417,11 +432,16 @@ export default {
     ...mapState(['stores']),
     ...mapState('discussions', ['isLogged']),
     ...mapState('review',['reviews']),
+    editButtonElevation() {
+      if (this.editingSelectedStore) return 0
+      return 8
+    },
     showSettings() {
       return (
         this.selectedStoreSettings.email &&
         this.selectedStoreSettings.notifications &&
-        this.selectedStoreSettings.notifications.new_reviews !== null
+        this.selectedStoreSettings.notifications.new_reviews !== null &&
+        this.editingSelectedStore
       )
     },
     showSimilarBtnMessage() {
@@ -459,11 +479,14 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
+    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings', 'editingSelectedStore']),
   },
   methods: {
     toggleHelpful(payload) {
       this.$store.dispatch('review/toggleHelpful', payload)
+    },
+    toggleEditing(){
+      this.$store.dispatch('toggleEditing')
     },
     openSettingsModal() {
       this.$store.dispatch('modals/openSettingsModal')
