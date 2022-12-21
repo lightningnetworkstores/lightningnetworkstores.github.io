@@ -29,9 +29,22 @@
         <v-img :src="data.item.image"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title>{{data.item.text}} <v-chip color="orange" outlined v-if="!data.item.registered" small>unregistered</v-chip></v-list-item-title>
-        <v-list-item-subtitle v-html="data.item.name"></v-list-item-subtitle>
-        
+        <v-row>
+          <v-col>
+            <v-list-item-title>{{data.item.text}}</v-list-item-title>
+            <v-list-item-subtitle v-html="data.item.name"></v-list-item-subtitle>
+          </v-col>
+          <v-col class="d-flex justify-end">
+            <v-chip
+              v-if="!data.item.registered"
+              color="orange"
+              text-color="white"
+              x-small
+            >
+              unregistered
+            </v-chip>
+          </v-col>
+        </v-row>
       </v-list-item-content>
     </template>
   </v-autocomplete>
