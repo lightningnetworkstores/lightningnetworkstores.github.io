@@ -29,8 +29,9 @@
         <v-img :src="data.item.image"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title v-html="data.item.text"></v-list-item-title>
+        <v-list-item-title>{{data.item.text}} <v-chip color="orange" outlined v-if="!data.item.registered">unregistered</v-chip></v-list-item-title>
         <v-list-item-subtitle v-html="data.item.name"></v-list-item-subtitle>
+        
       </v-list-item-content>
     </template>
   </v-autocomplete>
@@ -84,7 +85,7 @@ export default {
             name: suggestion.name,
             value: suggestion.id,
             image: suggestion.image,
-            registered: false
+            registered: suggestion.is_registered
           }))
           if (suggestions.length < MIN_RESULTS) {
             this.getUserSuggestions(this.search, true)
@@ -95,7 +96,7 @@ export default {
                   name: suggestion.name,
                   value: suggestion.id,
                   image: suggestion.image,
-                  isRegistered: false
+                  registered: suggestion.is_registered
                 })))
                 this.suggestions = updatedSuggestions
               })
