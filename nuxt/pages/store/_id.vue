@@ -15,7 +15,14 @@
             few minutes to change your images.
           </v-alert>
           <v-row justify="center">
-            <v-btn v-if="selectedStore.logged" @click="toggleEditing" color="primary" :elevation="editButtonElevation">
+            <v-btn v-if="selectedStore.logged"
+              @click="toggleEditing"
+              color="primary"
+              class="mx-3 mb-3 py-6 mt-3"
+              min-width="200"
+              :elevation="editButtonElevation"
+              large
+            >
               <v-icon left>
                 mdi-pencil
               </v-icon>
