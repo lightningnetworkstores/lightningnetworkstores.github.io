@@ -111,6 +111,7 @@ export default {
       }
     },
     contentClickedHandler(review) {
+      console.log('contentClickHandler')
       this.clickedReview = review
       this.showReplyDetails = true
     },
