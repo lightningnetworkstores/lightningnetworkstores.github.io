@@ -116,7 +116,7 @@
               ></store-card>
           </v-container>
         </div>
-        <h1 class="container full-list">Explore</h1>
+        <h1 v-if="sectionFilteredStores" class="container full-list">Explore</h1>
         <v-container class="full-list" ref="list">
           <store-card
             :data-storeId="store.id"
