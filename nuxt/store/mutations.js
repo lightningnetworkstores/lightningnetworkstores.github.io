@@ -52,6 +52,9 @@ const mutations = {
       Vue.set(state.selectedStore.social, name, { href })
     }
   },
+  updatePayWithBalance(state, { value }) {
+    state.paywithbalance = value
+  },
   removeSocialLink(state, { name }) {
     Vue.delete(state.selectedStore.social, name)
   },
@@ -221,6 +224,7 @@ const mutations = {
 
   updateLoginStatus(state, status) {
     state.loginStatus = status
+    state.paywithbalance = status.balance > 0
   },
   cleanStoreContest(state) {
     state.storeContest = {}

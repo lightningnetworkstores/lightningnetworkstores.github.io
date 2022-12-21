@@ -53,6 +53,7 @@ export const state = () => {
     scrolledStores: 0,
     selectedStore: { logged: false }, // makes components reactive to selectedStore.logged
     selectedStoreSettings: {},
+    paywithbalance: false,
     selectedTags: [],
     statistics: {},
     storeContest: {},

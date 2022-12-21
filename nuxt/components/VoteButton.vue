@@ -163,7 +163,6 @@ export default {
     return {
       showDialog: false,
       upvoteDialogForm: { amount: 0, comment: this.getReplyingTo() },
-      paywithbalance: false,
 
       paymentRequest: '',
       paymentID: '',
@@ -182,6 +181,14 @@ export default {
   computed: {
     minCreateReview() {
       return this.$store.state.configuration.min_post
+    },
+    paywithbalance: {
+      get(){
+        return this.$store.state.paywithbalance
+      },
+      set(value){
+        this.$store.commit('updatePayWithBalance', value)
+      }
     },
     encodedComment() {
       return this.upvoteDialogForm.comment
@@ -357,10 +364,10 @@ export default {
       clearInterval(this.checkPaymentTimer)
       this.paymentRequest = ''
     },
-    onChangeAmount(){
-      if(this.upvoteDialogForm.amount > this.loginStatus.balance) this.paywithbalance = false;
-      console.log('hereeeee')
-    }
+    // onChangeAmount(){
+    //   if(this.upvoteDialogForm.amount > this.loginStatus.balance) this.paywithbalance = false;
+    //   console.log('hereeeee')
+    // }
   },
 }
 </script>
