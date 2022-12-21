@@ -14,7 +14,14 @@
             Store is new and additional images are being fetched. Please wait a
             few minutes to change your images.
           </v-alert>
-          <v-btn v-if="selectedStore.logged" @click="toggleEditing">Edit this project</v-btn>
+          <v-row justify="center">
+            <v-btn v-if="selectedStore.logged" @click="toggleEditing" color="primary" :elevation="editButtonElevation">
+              <v-icon left>
+                mdi-pencil
+              </v-icon>
+              Edit
+            </v-btn>
+          </v-row>
           <v-row justify="center">
             <v-col cols="12" sm="12">
               <inactivity-alert :inactivityData="selectedStore.inactivity" />
@@ -477,6 +484,10 @@ export default {
   },
   computed: {
     ...mapState(['stores']),
+    editButtonElevation() {
+      if (this.editingSelectedStore) return 0
+      return 8
+    },
     showSettings() {
       return (
         this.selectedStoreSettings.email &&
@@ -524,7 +535,6 @@ export default {
   },
   methods: {
     toggleEditing(){
-      console.log('inside method')
       this.$store.dispatch('toggleEditing')
     },
     openSettingsModal() {
