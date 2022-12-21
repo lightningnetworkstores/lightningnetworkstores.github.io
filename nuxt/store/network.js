@@ -1,6 +1,7 @@
 import { DEFAULT_ERROR_SNACKBAR_TIMEOUT } from '~/utils/constants'
 
 export const state = () => ({
+  successMessage: null,
   errorMessage: null,
   timeout: DEFAULT_ERROR_SNACKBAR_TIMEOUT
 })
@@ -16,6 +17,20 @@ export const actions = {
         commit('resetError')
       }, timeout)
     }
+  },
+  showResponse({ commit }, resp) {
+    if (resp.status === 200 || resp.status === 201) {
+      const { data } = resp
+      const { status, message } = data
+      const timeout = DEFAULT_ERROR_SNACKBAR_TIMEOUT
+      commit('setSuccess', {
+        successMessage: message ? message : status,
+        timeout: timeout
+      })
+      setTimeout(() => {
+        commit('resetSuccess')
+      }, timeout)
+    }
   }
 }
 
@@ -27,5 +42,11 @@ export const mutations = {
   resetError(state) {
     state.errorMessage = null
     state.timeout = DEFAULT_ERROR_SNACKBAR_TIMEOUT
+  },
+  setSuccess(state, { successMessage }) {
+    state.successMessage = successMessage
+  },
+  resetSuccess(state) {
+    state.successMessage = null
   }
 }

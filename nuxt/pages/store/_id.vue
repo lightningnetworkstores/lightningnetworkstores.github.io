@@ -219,69 +219,25 @@
             </v-card-title>
             <v-card-text class="body-1">
               <v-row>
-                <v-flex px-3 pb-3
-                  >To leave a review, up or downvote the selected store.</v-flex
-                >
+                <five-star-review :reviews="this.selectedStore.reviews2" @filterChange="filterReviewsWithStars" class="my-3"/>
               </v-row>
-              <v-row pa-2 class="text-center">
-                <v-flex grow justify-center pa-3
-                  ><v-btn
-                    fab
-                    @click="filter('positive')"
-                    :outlined="currentFilter !== 'positive'"
-                    color="success"
-                    class="mb-2"
-                    ><v-icon
-                      :color="currentFilter == 'positive' ? 'white' : 'success'"
-                      large
-                      >mdi-thumb-up</v-icon
-                    ></v-btn
-                  >
-                  <h4>
-                    Positive:
-                    {{
-                      selectedStore.reviews.filter(
-                        (review) => review[0].score > 0
-                      ).length
-                    }}
-                  </h4>
-                </v-flex>
-                <v-flex grow justify-center pa-3
-                  ><v-btn
-                    fab
-                    @click="filter('all')"
-                    :outlined="currentFilter !== 'all'"
-                    color="blue"
-                    class="mb-2"
-                    ><v-icon
-                      :color="currentFilter == 'all' ? 'white' : 'blue'"
-                      large
-                      >mdi-thumbs-up-down</v-icon
-                    ></v-btn
-                  >
-                  <h4>
-                    All:
-                    {{ selectedStore.reviews.length }}
-                  </h4></v-flex
-                >
-                <v-flex grow justify-center pa-3
-                  ><v-btn
-                    fab
-                    @click="filter('negative')"
-                    :outlined="currentFilter !== 'negative'"
-                    color="error"
-                    class="mb-2"
-                    ><v-icon
-                      :color="currentFilter == 'negative' ? 'white' : 'error'"
-                      large
-                      >mdi-thumb-down</v-icon
-                    ></v-btn
-                  >
-                  <h4>
-                    Negative:
-                    {{ showReviewsNegativeLength }}
-                  </h4></v-flex
-                >
+              <v-row>
+                <v-col v-if="isLogged" cols="12">
+                  <five-star-review-modal :storeID="storeId"/>
+                </v-col>
+                <v-col v-else cols="12" class="d-flex justify-center">
+                  Login to leave a review
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <review-list
+                    @toggleHelpful="toggleHelpful"
+                    :reviews="this.selectedStore.reviews2"
+                    :storeId="selectedStore.id"
+                    :showReviewsWithStars="showReviewsWithStars"
+                  />
+                </v-col>
               </v-row>
             </v-card-text>
           </v-card>
@@ -293,14 +249,6 @@
               :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
-          <Thread
-            v-for="review in reviews"
-            :key="review[0].id"
-            :comment="review[0]"
-            :comments="review.slice(1)"
-            :store="selectedStore"
-            :type="'comment'"
-          ></Thread>
 
           <div
             v-if="discussions.length > 0"
@@ -428,32 +376,23 @@ export default {
       showLogoutModal: false,
       loginResponse: null,
       similarExpanded: false,
+      showReviewsWithStars: [1,2,3,4,5]
     }
   },
   async asyncData({ params, store, error }) {
     try {
       const selectedStore = await store.dispatch('getStore', { id: params.id })
-
       const storeId = selectedStore.id
-
-      let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
-        (a, b) => {
-          if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
-            return Math.abs(b[0].score) - Math.abs(a[0].score)
-          }
-          return b[0].timestamp - a[0].timestamp
-        }
-      )
-
       let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
 
-      return { reviews, storeId, discussions }
+      return { storeId, discussions }
     } catch (err) {
       error(err)
     }
   },
 
   async mounted() {
+    this.$store.dispatch('discussions/getLogStatus')
     await this.$store.dispatch('getStatus', { storeId: this.selectedStore.id })
     this.breadcrumb = [
       {
@@ -476,6 +415,8 @@ export default {
   },
   computed: {
     ...mapState(['stores']),
+    ...mapState('discussions', ['isLogged']),
+    ...mapState('review',['reviews']),
     showSettings() {
       return (
         this.selectedStoreSettings.email &&
@@ -521,6 +462,9 @@ export default {
     ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
   },
   methods: {
+    toggleHelpful(payload) {
+      this.$store.dispatch('review/toggleHelpful', payload)
+    },
     openSettingsModal() {
       this.$store.dispatch('modals/openSettingsModal')
     },
@@ -627,6 +571,9 @@ export default {
       this.imageModal = true
       this.selectedMediaIndex = index
     },
+    filterReviewsWithStars(selected){
+    this.showReviewsWithStars = selected
+  }
   },
   beforeRouteEnter(to, from, next) {
     if (from.name === 'discuss' && !to.query.sort_reviews) {
@@ -637,7 +584,7 @@ export default {
     } else {
       return next()
     }
-  },
+  }
 }
 </script>
 
