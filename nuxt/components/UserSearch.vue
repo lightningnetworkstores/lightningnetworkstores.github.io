@@ -29,7 +29,7 @@
         <v-img :src="data.item.image"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title>{{data.item.text}} <v-chip color="orange" outlined v-if="!data.item.registered">unregistered</v-chip></v-list-item-title>
+        <v-list-item-title>{{data.item.text}} <v-chip color="orange" outlined v-if="!data.item.registered" small>unregistered</v-chip></v-list-item-title>
         <v-list-item-subtitle v-html="data.item.name"></v-list-item-subtitle>
         
       </v-list-item-content>
