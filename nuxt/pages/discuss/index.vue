@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <div class="d-flex justify-space-around mt-5">
-          <v-btn-toggle v-model="selected" rounded>
+          <v-btn-toggle v-model="selected" rounded mandatory>
             <v-btn :width="buttonWidth" height="60">
               <div class="d-flex flex-column justify-center align-center">
                 <v-icon color="grey" class="mb-1">mdi-comment-text</v-icon>

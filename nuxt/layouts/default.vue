@@ -16,6 +16,7 @@
       </transition>
       <announcement-modal v-if="!loading" />
       <NetworkErrorSnackbar v-if="showError" :errorMessage="errorMessage" :timeout="timeout"/>
+      <NetworkSuccessSnackbar v-if="showSuccess" :message="successMessage"/>
     </v-main>
     <Footer />
   </v-app>
@@ -85,7 +86,10 @@ export default {
     showError() {
       return this.errorMessage !== null
     },
-    ...mapState('networkError', ['errorMessage', 'timeout']),
+    showSuccess() {
+      return this.successMessage !== null
+    },
+    ...mapState('network', ['errorMessage', 'successMessage', 'timeout']),
     ...mapState({
       configuration(state) {
         return state.configuration

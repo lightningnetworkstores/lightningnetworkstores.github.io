@@ -41,7 +41,7 @@
             @cancel="cancel"
           />
 
-          <v-card-text class="pa-0 cardContent" v-else>
+          <v-card-text class="pa-0" v-else>
             <v-card-title class="headline">
               <v-flex grow>Add new discussion</v-flex>
             </v-card-title>
@@ -69,6 +69,7 @@
                           (v && v.length < 100) ||
                           'Title must be smaller than 100 characters',
                       ]"
+                      outlined
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -240,7 +241,7 @@ export default {
             payload.link = `${this.baseURL}${uploadImageResponse.data.path.slice(1)}`
           } catch(err) {
             this.isLoading = false
-            return this.$store.dispatch('networkError/showError', err)
+            return this.$store.dispatch('network/showError', err)
           }
         } else if (this.image && this.image.type === IMAGE_TYPE_URL) {
           // Image specified as a URL
@@ -317,9 +318,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-.cardContent {
-  max-height: 60vw;
-}
-</style>

@@ -15,12 +15,13 @@ const mutations = {
     state.storePages = storePages
   },
   setSelectedStore(state, store) {
-    store.reviews.sort((a, b) => {
-      if (Math.abs(b.score) !== Math.abs(a.score)) {
-        return Math.abs(b.score) - Math.abs(a.score)
-      }
-      return b.timestamp - a.timestamp
-    })
+    store.reviews2.sort(
+      (a, b) => {
+        if (b[0].likes !== a[0].likes) {
+          return b[0].likes - a[0].likes
+        }
+        return b[0].timestamp - a[0].timestamp
+      })
     store.logged = false
     state.selectedStore = store
   },
@@ -43,6 +44,9 @@ const mutations = {
   },
   confirmStoreFieldAddition(state, { field, value }) {
     Vue.set(state.selectedStore.external, field, { href: value })
+  },
+  toggleEditing(state) {
+    state.editingSelectedStore = !state.editingSelectedStore
   },
   updateSocialLink(state, { name, href }) {
     if (state.selectedStore[name]) {

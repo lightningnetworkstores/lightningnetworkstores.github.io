@@ -81,7 +81,7 @@ const actions = {
 
       commit('setConfiguration', response.configuration)
       commit('setSelectedStore', response)
-
+      commit('review/setReviews', response.reviews2)
       return response
     } catch (err) {
       return Promise.reject({
@@ -126,6 +126,9 @@ const actions = {
       .catch((error) => {
         return Promise.reject(error)
       })
+  },
+  toggleEditing({ state, commit }) {
+    commit('toggleEditing')
   },
   addEvent({ state }, payload) {
     return this.$axios
@@ -176,7 +179,7 @@ const actions = {
   },
   getStoreVotePaymentRequest(
     { state },
-    { id, amount, isUpvote, comment, parent, recaptchaToken }
+    { id, amount, isUpvote, comment, parent, paywithbalance, recaptchaToken }
   ) {
     return fetch(
       `${
@@ -185,7 +188,8 @@ const actions = {
         isUpvote ? 'Upvote' : 'Downvote'
       }${comment ? '&comment=' + comment : ''}${
         parent ? '&parent=' + parent : ''
-      }${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}`
+      }${recaptchaToken ? '&g-recaptcha-response=' + recaptchaToken : ''}
+      &paywithbalance=${paywithbalance}`
     )
       .then((response) => {
         return response.json()
@@ -521,7 +525,7 @@ const actions = {
       .catch(console.error)
   },
 
-  getStatus({ state, commit }, { storeId }) {
+  getStatus({ state, commit, dispatch }, { storeId }) {
     return this.$axios
       .get(`${state.baseURL}api/logstatus?id=${storeId}`)
       .then((response) => {
@@ -538,6 +542,8 @@ const actions = {
           const { settings = {} } = data
           settings.isFirstTime = data.first_time
           commit('selectedStoreSettings', settings)
+          dispatch('review/setHelpfulReviews', data.helpful_reviews)
+          dispatch('discussions/setHelpfulReviews', data.helpful_reviews)
         }
       })
       .catch(console.error)

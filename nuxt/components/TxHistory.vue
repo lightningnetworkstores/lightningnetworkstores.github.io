@@ -103,7 +103,11 @@ export default {
         case 'WELCOME_GIFT':
           return 'mdi-gift'
         case 'PAY_INVOICE':
-          return 'mdi-wallet'  
+          return 'mdi-wallet'
+        case 'STORE_UPVOTE':  
+          return 'mdi-storefront-plus-outline'
+        case 'STORE_DOWNVOTE':  
+          return 'mdi-storefront-minus-outline'    
         default:
           return type
       }

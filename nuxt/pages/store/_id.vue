@@ -15,13 +15,28 @@
             few minutes to change your images.
           </v-alert>
           <v-row justify="center">
+            <v-btn v-if="selectedStore.logged"
+              @click="toggleEditing"
+              color="primary"
+              class="mx-3 mb-3 py-6 mt-3"
+              min-width="200"
+              :elevation="editButtonElevation"
+              large
+            >
+              <v-icon left>
+                mdi-pencil
+              </v-icon>
+              Edit
+            </v-btn>
+          </v-row>
+          <v-row justify="center">
             <v-col cols="12" sm="12">
               <inactivity-alert :inactivityData="selectedStore.inactivity" />
               <v-card class="pa-0 mb-3">
                 <store-carousel
                   @imageClicked="handleImageClick"
                   :selectedStore="selectedStore"
-                  :logged="selectedStore.logged === true"
+                  :logged="editingSelectedStore === true"
                 />
                 <v-row class="pa-5">
                   <v-col class="pb-1">
@@ -39,7 +54,7 @@
                         </a>
                       </h3>
                       <edit-store-modal
-                        v-if="selectedStore.logged"
+                        v-if="editingSelectedStore"
                         :store="selectedStore"
                         :editAttribute="editStoreName"
                         class="ml-2"
@@ -71,7 +86,7 @@
                           <v-icon>fab fa-{{ name }}</v-icon>
                         </v-btn>
                         <edit-social-media-modal
-                          v-if="selectedStore.logged"
+                          v-if="editingSelectedStore"
                           :store="selectedStore"
                         />
                       </div>
@@ -98,7 +113,7 @@
             class="pa-0 d-flex flex-column justify-center"
           >
             <v-btn
-              v-if="!selectedStore.logged"
+              v-if="!editingSelectedStore"
               @click="requestLogin"
               class="mx-3 mb-3 py-6 mt-3"
               large
@@ -148,7 +163,7 @@
                 </v-flex>
                 <v-flex shrink class="mr-4 mt-1 d-flex">
                   <edit-store-modal
-                    v-if="selectedStore.logged"
+                    v-if="editingSelectedStore"
                     :store="selectedStore"
                     :editAttribute="{
                       label: propertyName,
@@ -157,17 +172,17 @@
                     }"
                   />
                   <delete-external-modal
-                    v-if="selectedStore.logged"
+                    v-if="editingSelectedStore"
                     :store="selectedStore"
                     :field="propertyName"
                   />
                 </v-flex>
               </v-layout>
             </v-card>
-            <add-external-modal :store="selectedStore" v-if="selectedStore.logged" />
+            <add-external-modal :store="selectedStore" v-if="editingSelectedStore" />
             <div class="mx-3 mt-3 py-2">
               <AddEventModal
-                v-if="selectedStore.logged"
+                v-if="editingSelectedStore"
                 :storeId="selectedStore.id"
               />
               <div
@@ -219,69 +234,25 @@
             </v-card-title>
             <v-card-text class="body-1">
               <v-row>
-                <v-flex px-3 pb-3
-                  >To leave a review, up or downvote the selected store.</v-flex
-                >
+                <five-star-review :reviews="this.selectedStore.reviews2" @filterChange="filterReviewsWithStars" class="my-3"/>
               </v-row>
-              <v-row pa-2 class="text-center">
-                <v-flex grow justify-center pa-3
-                  ><v-btn
-                    fab
-                    @click="filter('positive')"
-                    :outlined="currentFilter !== 'positive'"
-                    color="success"
-                    class="mb-2"
-                    ><v-icon
-                      :color="currentFilter == 'positive' ? 'white' : 'success'"
-                      large
-                      >mdi-thumb-up</v-icon
-                    ></v-btn
-                  >
-                  <h4>
-                    Positive:
-                    {{
-                      selectedStore.reviews.filter(
-                        (review) => review[0].score > 0
-                      ).length
-                    }}
-                  </h4>
-                </v-flex>
-                <v-flex grow justify-center pa-3
-                  ><v-btn
-                    fab
-                    @click="filter('all')"
-                    :outlined="currentFilter !== 'all'"
-                    color="blue"
-                    class="mb-2"
-                    ><v-icon
-                      :color="currentFilter == 'all' ? 'white' : 'blue'"
-                      large
-                      >mdi-thumbs-up-down</v-icon
-                    ></v-btn
-                  >
-                  <h4>
-                    All:
-                    {{ selectedStore.reviews.length }}
-                  </h4></v-flex
-                >
-                <v-flex grow justify-center pa-3
-                  ><v-btn
-                    fab
-                    @click="filter('negative')"
-                    :outlined="currentFilter !== 'negative'"
-                    color="error"
-                    class="mb-2"
-                    ><v-icon
-                      :color="currentFilter == 'negative' ? 'white' : 'error'"
-                      large
-                      >mdi-thumb-down</v-icon
-                    ></v-btn
-                  >
-                  <h4>
-                    Negative:
-                    {{ showReviewsNegativeLength }}
-                  </h4></v-flex
-                >
+              <v-row>
+                <v-col v-if="isLogged" cols="12">
+                  <five-star-review-modal :storeID="storeId"/>
+                </v-col>
+                <v-col v-else cols="12" class="d-flex justify-center">
+                  Login to leave a review
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <review-list
+                    @toggleHelpful="toggleHelpful"
+                    :reviews="this.selectedStore.reviews2"
+                    :storeId="selectedStore.id"
+                    :showReviewsWithStars="showReviewsWithStars"
+                  />
+                </v-col>
               </v-row>
             </v-card-text>
           </v-card>
@@ -293,14 +264,6 @@
               :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
-          <Thread
-            v-for="review in reviews"
-            :key="review[0].id"
-            :comment="review[0]"
-            :comments="review.slice(1)"
-            :store="selectedStore"
-            :type="'comment'"
-          ></Thread>
 
           <div
             v-if="discussions.length > 0"
@@ -428,32 +391,23 @@ export default {
       showLogoutModal: false,
       loginResponse: null,
       similarExpanded: false,
+      showReviewsWithStars: [1,2,3,4,5]
     }
   },
   async asyncData({ params, store, error }) {
     try {
       const selectedStore = await store.dispatch('getStore', { id: params.id })
-
       const storeId = selectedStore.id
-
-      let reviews = JSON.parse(JSON.stringify(selectedStore.reviews)).sort(
-        (a, b) => {
-          if (Math.abs(b[0].score) !== Math.abs(a[0].score)) {
-            return Math.abs(b[0].score) - Math.abs(a[0].score)
-          }
-          return b[0].timestamp - a[0].timestamp
-        }
-      )
-
       let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
 
-      return { reviews, storeId, discussions }
+      return { storeId, discussions }
     } catch (err) {
       error(err)
     }
   },
 
   async mounted() {
+    this.$store.dispatch('discussions/getLogStatus')
     await this.$store.dispatch('getStatus', { storeId: this.selectedStore.id })
     this.breadcrumb = [
       {
@@ -476,11 +430,18 @@ export default {
   },
   computed: {
     ...mapState(['stores']),
+    ...mapState('discussions', ['isLogged']),
+    ...mapState('review',['reviews']),
+    editButtonElevation() {
+      if (this.editingSelectedStore) return 0
+      return 8
+    },
     showSettings() {
       return (
         this.selectedStoreSettings.email &&
         this.selectedStoreSettings.notifications &&
-        this.selectedStoreSettings.notifications.new_reviews !== null
+        this.selectedStoreSettings.notifications.new_reviews !== null &&
+        this.editingSelectedStore
       )
     },
     showSimilarBtnMessage() {
@@ -518,9 +479,15 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings']),
+    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings', 'editingSelectedStore']),
   },
   methods: {
+    toggleHelpful(payload) {
+      this.$store.dispatch('review/toggleHelpful', payload)
+    },
+    toggleEditing(){
+      this.$store.dispatch('toggleEditing')
+    },
     openSettingsModal() {
       this.$store.dispatch('modals/openSettingsModal')
     },
@@ -627,6 +594,9 @@ export default {
       this.imageModal = true
       this.selectedMediaIndex = index
     },
+    filterReviewsWithStars(selected){
+    this.showReviewsWithStars = selected
+  }
   },
   beforeRouteEnter(to, from, next) {
     if (from.name === 'discuss' && !to.query.sort_reviews) {
@@ -637,7 +607,7 @@ export default {
     } else {
       return next()
     }
-  },
+  }
 }
 </script>
 

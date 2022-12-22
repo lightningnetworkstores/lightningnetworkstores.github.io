@@ -116,7 +116,7 @@
               ></store-card>
           </v-container>
         </div>
-        <h1 class="container full-list">Explore</h1>
+        <h1 v-if="sectionFilteredStores" class="container full-list">Explore</h1>
         <v-container class="full-list" ref="list">
           <store-card
             :data-storeId="store.id"
@@ -248,10 +248,12 @@
        * @return {number}
        */
       maxCountOfCards (value, option = false) {
+        let newValue = (this.selectedSort==='custom') ? value : this.defaultSorting.newontop
 
-        let values = (option) ? value : ((value <= this.countCardPoint) ? value : this.countCardPoint)
+        let values = (option) ? newValue : ((newValue <= this.countCardPoint) ? newValue : this.countCardPoint)
         
         return values
+
       },
 
       async setCustomSettings(setting) {
@@ -282,6 +284,7 @@
         scrolledStores: 'scrolledStores',
         selectedTags: 'selectedTags',
         stores: 'stores',
+        defaultSorting: 'defaultSorting',
         settingCustomSorting: 'settingCustomSorting',
         sliderCustomSorting: 'sliderCustomSorting',
         customSortingAdvanced: 'customSortingAdvanced',

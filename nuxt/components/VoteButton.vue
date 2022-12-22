@@ -34,7 +34,7 @@
       <v-card>
         <template v-if="showDialog">
           <Success
-            v-if="paymentRequest && isPaid"
+            v-if="(paymentRequest && isPaid) || submitted"
             :tweet="tweet"
             :store="store"
             :confirm_title="'Payment successful'"
@@ -90,43 +90,28 @@
                     label="Number of upvotes (1 vote = 1 satoshi)"
                     hint=""
                     :rules="[(v) => !!v || 'Amount is required']"
-                  ></v-text-field>
-                  <v-textarea
-                    v-if="!parentReview"
-                    v-model="upvoteDialogForm.comment"
-                    type="text"
-                    :counter="this.$store.state.configuration.max_comment_size"
-                    :label="
-                      'Review (optional - minimum ' +
-                      minCreateReview +
-                      ' satoshis)'
-                    "
-                    rows="4"
-                    :rules="[maxCommentSizeRule]"
-                  ></v-textarea>
+                  >
+                    <template v-slot:append>
+                      <v-btn v-if="loginStatus.balance>0"
+                        class="ma-1"
+                        depressed
+                        :disabled="!paywithbalance"
+                        v-on:click="upvoteDialogForm.amount=loginStatus.balance" >
+                        max
+                      </v-btn>
+                    </template>
+                  </v-text-field>
                 </v-flex>
               </v-layout>
-
-              <v-layout row>
-                <v-flex
-                  pl-3
-                  pr-3
-                  v-if="!paymentRequest.length && parentComment"
-                >
-                  Cost: {{ upvoteDialogForm.amount }} satoshis
-                  <v-textarea
-                    v-if="parentReview && parentComment"
-                    v-model="upvoteDialogForm.comment"
-                    type="text"
-                    :counter="this.$store.state.configuration.max_comment_size"
-                    label="Reply"
-                    rows="4"
-                    :rules="[
-                      maxCommentSizeRule,
-                      (v) => !!v || 'Reply is required',
-                    ]"
-                  ></v-textarea>
-                </v-flex>
+              <v-layout row v-if="!paymentRequest.length">
+                  <v-col md="auto">
+                     <v-switch 
+                      label='Deduct from balance' 
+                      :disabled="!hasBalance && !paywithbalance"
+                      :error="!hasBalance && paywithbalance"
+                      v-model="paywithbalance"
+                    ></v-switch>
+                  </v-col>
               </v-layout>
               <Checkout
                 v-if="paymentRequest"
@@ -135,16 +120,17 @@
                 :satoshi="upvoteDialogForm.amount"
                 @cancel="cancel"
               />
+
             </v-card-text>
           </div>
 
-          <v-card-actions v-if="!paymentRequest">
+          <v-card-actions v-if="!paymentRequest && !submitted">
             <v-spacer></v-spacer>
 
-            <v-btn color="green darken-1" text @click="cancel"> Cancel </v-btn>
+            <v-btn color="red" text @click="cancel"> Cancel </v-btn>
 
             <v-btn color="green darken-1" text @click="getInvoice">
-              Get invoice
+              Pay
             </v-btn>
           </v-card-actions>
         </template>
@@ -157,6 +143,7 @@
 // import QrcodeVue from "qrcode.vue";
 import Checkout from '@/components/Checkout.vue'
 import Success from '@/components/Success.vue'
+import {mapState} from 'vuex'
 
 export default {
   componets: {
@@ -176,12 +163,14 @@ export default {
     return {
       showDialog: false,
       upvoteDialogForm: { amount: 0, comment: this.getReplyingTo() },
+      paywithbalance: false,
 
       paymentRequest: '',
       paymentID: '',
       expiryTime: new Date(),
       isPaid: false,
       tweet: null,
+      submitted: false,
 
       checkPaymentTimer: null,
 
@@ -197,6 +186,10 @@ export default {
     encodedComment() {
       return this.upvoteDialogForm.comment
     },
+    hasBalance(){
+      return this.loginStatus.balance >= this.upvoteDialogForm.amount;
+    },
+     ...mapState(['loginStatus']),
   },
 
   async created() {
@@ -296,6 +289,7 @@ export default {
           isUpvote: this.isUpvoting,
           comment: this.encodedComment,
           parent: this.parentReview,
+          paywithbalance: (this.paywithbalance && this.hasBalance),
           recaptchaToken: recaptchaToken,
         })
         .then(
@@ -303,6 +297,10 @@ export default {
             if (response.status != 'success') {
               if (response.message) this.commentAlert.message = response.message
               this.commentAlert.success = false
+              return
+            } else if(response.data && response.data.submitted){
+              this.store = response.data.store
+              this.submitted = true;
               return
             }
 
@@ -359,6 +357,10 @@ export default {
       clearInterval(this.checkPaymentTimer)
       this.paymentRequest = ''
     },
+    onChangeAmount(){
+      if(this.upvoteDialogForm.amount > this.loginStatus.balance) this.paywithbalance = false;
+      console.log('hereeeee')
+    }
   },
 }
 </script>
