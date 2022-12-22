@@ -79,6 +79,14 @@
                     <Wallet />
                 </v-card>
                 <TxHistory class="mx-2 my-2" />
+                <v-card v-if="privilege=='SHAREHOLDER'" class="mt-3 mb-3">
+                  <v-btn color="primary" href='/investor'>
+                    Investor page
+                  </v-btn>
+                </v-card>
+                <v-card elevation="2" class="mx-2 my-2" min-width="95%">
+                  <AffiliateRules />
+                </v-card>
             </v-layout>
         </div>
     </div>
@@ -94,7 +102,7 @@ export default {
     computed: {
       privilege(){
         if(this.info==null) return 'NONE'
-        return this.info.data.privilege;
+        return this.info.data.privilege
       }
     },
     methods: {
@@ -111,14 +119,6 @@ export default {
                 console.log(error)
             }
         }
-
-        /*
-        this.$axios
-            .get('/api/dashboardinfo')
-            .then((res) => res.data)
-            .then((data) => data.data)
-            .then((data) => (this.info = data))
-            .catch((err) => console.error('Errores Ja: ', err))*/
     },
 }
 </script>
