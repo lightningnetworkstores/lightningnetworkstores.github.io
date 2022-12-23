@@ -4,14 +4,15 @@
       <v-avatar size="36">
         <img :src="src" alt="Profile Picture">
       </v-avatar>
-      <v-chip x-small :ripple="false" class="profile-balance-container px-1" color="primary">
-        <div class="text-caption"> {{ numify(2144942) }} <i class="fak fa-regular"></i></div>
+      <v-chip v-if="balance" x-small :ripple="false" class="profile-balance-container px-1" color="primary">
+        <div class="text-caption"> {{ numify(balance.available) }} <i class="fak fa-regular"></i></div>
       </v-chip>
     </div>
   </v-btn>
 </template>
 <script>
 import { numify } from 'numify'
+import { mapState } from 'vuex'
 export default {
   props: {
     src: {
@@ -25,6 +26,9 @@ export default {
     return {
       numify
     }
+  },
+  computed: {
+    ...mapState('wallet', ['balance'])
   }
 }
 </script>
