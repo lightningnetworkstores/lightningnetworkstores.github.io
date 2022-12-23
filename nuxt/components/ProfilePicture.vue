@@ -7,14 +7,12 @@
       <v-chip
         x-small
         :ripple="false"
-        class="profile-balance-container px-1 justify-center align-center"
+        class="profile-balance-container px-1"
         color="primary"
         style="min-width: 4em"
+        :style="{'opacity': balance ? 1 : 0}"
       >
         <div v-if="balance" class="text-caption"> {{ numify(balance.available) }} <i class="fak fa-regular"></i></div>
-        <div v-else>
-          <v-progress-circular indeterminate size="10" width="1"></v-progress-circular>
-        </div>
       </v-chip>
     </div>
   </v-btn>
