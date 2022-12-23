@@ -1,6 +1,11 @@
 <template>
   <div class="mx-3 mt-3 py-2">
-    <div class="d-flex justify-space-between align-center">
+    <div
+      :class="[
+        isMobile ? 'justify-center' : 'justify-space-between',
+        'd-flex align-center',
+      ]"
+    >
       <h2>Builder</h2>
       <v-tooltip v-if="loginStatus.isAdmin" bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -27,7 +32,7 @@
       </div>
     </v-card>
 
-    <div class="d-flex flex-wrap mt-3">
+    <div :class="[isMobile ? 'justify-center' : '', 'd-flex flex-wrap mt-3']">
       <v-tooltip v-for="avatar of builderStore" :key="avatar.id" bottom>
         <template v-slot:activator="{ on, attrs }">
           <div
@@ -85,6 +90,9 @@ export default {
   },
   computed: {
     ...mapState(['builderStore', 'loginStatus']),
+    isMobile() {
+      return this.$vuetify.breakpoint.name === 'xs'
+    },
   },
   methods: {
     handleUserSelected(recipient) {
