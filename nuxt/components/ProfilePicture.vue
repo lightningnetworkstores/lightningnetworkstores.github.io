@@ -4,13 +4,14 @@
       <v-avatar size="36">
         <img :src="src" alt="Profile Picture">
       </v-avatar>
-      <v-chip x-small :ripple="false" class="profile-balance-container mx-6">
-        <div class="text-caption"> 21e6 <i class="fak fa-regular"></i></div>
+      <v-chip x-small :ripple="false" class="profile-balance-container px-1" color="primary">
+        <div class="text-caption"> {{ numify(2144942) }} <i class="fak fa-regular"></i></div>
       </v-chip>
     </div>
   </v-btn>
 </template>
 <script>
+import { numify } from 'numify'
 export default {
   props: {
     src: {
@@ -19,6 +20,11 @@ export default {
     },
     on: {},
     attrs: {}
+  },
+  data() {
+    return {
+      numify
+    }
   }
 }
 </script>

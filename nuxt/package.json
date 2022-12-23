@@ -25,6 +25,7 @@
     "docker-names": "^1.2.1",
     "fuse.js": "^3.4.4",
     "luxon": "^2.3.0",
+    "numify": "^1.0.3",
     "nuxt": "^2.14.6",
     "qrcode.vue": "^1.6.1",
     "timeago.js": "^4.0.2",
