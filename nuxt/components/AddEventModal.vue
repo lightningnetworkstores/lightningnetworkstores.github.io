@@ -30,7 +30,7 @@
             @cancel="cancel"
           />
 
-          <v-card-text class="pa-0 cardContent" v-else>
+          <v-card-text class="pa-0" v-else>
             <v-card-title class="headline">
               <v-flex grow>Add new event!</v-flex>
               <v-flex shrink v-if="isLoading"
@@ -243,9 +243,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-.cardContent {
-  max-height: 60vw;
-}
-</style>
