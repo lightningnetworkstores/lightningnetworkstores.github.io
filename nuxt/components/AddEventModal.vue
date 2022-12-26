@@ -27,7 +27,7 @@
           <Success
             v-if="isSuccess"
             :confirm_title="confirm_title"
-            @cancel="cancel"
+            @cancel="reset"
           />
 
           <v-card-text class="pa-0" v-else>
@@ -114,7 +114,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
-                  <v-btn color="green darken-1" text @click="cancel">
+                  <v-btn color="green darken-1" text @click="reset">
                     Close
                   </v-btn>
 
@@ -164,11 +164,14 @@ export default {
       this.isSuccess = false
       this.showAddDialog = true
     },
-    cancel() {
+    reset() {
       if (this.$refs.addform) {
         this.$refs.addform.reset()
       }
-      this.addDialogForm = {}
+      this.addDialogForm.title = ''
+      this.addDialogForm.description = ''
+      this.addDialogForm.url = ''
+      this.addDialogForm.duration = null
       this.showAddDialog = false
       this.isSuccess = false
       this.addAlert = { message: '', success: true }
