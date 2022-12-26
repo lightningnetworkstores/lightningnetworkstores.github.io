@@ -58,6 +58,10 @@ export default {
       target: process.env.BASE_URL,
       changeOrigin: true,
     },
+    '/.well-known/': {
+      target: process.env.BASE_URL,
+      changeOrigin: true,
+    },
   },
   render: {
     static: {
