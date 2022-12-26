@@ -27,10 +27,10 @@
           <Success
             v-if="isSuccess"
             :confirm_title="confirm_title"
-            @cancel="cancel"
+            @cancel="reset"
           />
 
-          <v-card-text class="pa-0 cardContent" v-else>
+          <v-card-text class="pa-0" v-else>
             <v-card-title class="headline">
               <v-flex grow>Add new event!</v-flex>
               <v-flex shrink v-if="isLoading"
@@ -114,7 +114,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
-                  <v-btn color="green darken-1" text @click="cancel">
+                  <v-btn color="green darken-1" text @click="reset">
                     Close
                   </v-btn>
 
@@ -164,11 +164,14 @@ export default {
       this.isSuccess = false
       this.showAddDialog = true
     },
-    cancel() {
+    reset() {
       if (this.$refs.addform) {
         this.$refs.addform.reset()
       }
-      this.addDialogForm = {}
+      this.addDialogForm.title = ''
+      this.addDialogForm.description = ''
+      this.addDialogForm.url = ''
+      this.addDialogForm.duration = null
       this.showAddDialog = false
       this.isSuccess = false
       this.addAlert = { message: '', success: true }
@@ -243,9 +246,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="scss">
-.cardContent {
-  max-height: 60vw;
-}
-</style>
