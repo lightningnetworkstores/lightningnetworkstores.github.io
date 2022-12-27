@@ -15,7 +15,8 @@
             few minutes to change your images.
           </v-alert>
           <v-row justify="center">
-            <v-btn v-if="selectedStore.logged"
+            <v-btn
+              v-if="selectedStore.logged"
               @click="toggleEditing"
               color="primary"
               class="mx-3 mb-3 py-6 mt-3"
@@ -23,9 +24,7 @@
               :elevation="editButtonElevation"
               large
             >
-              <v-icon left>
-                mdi-pencil
-              </v-icon>
+              <v-icon left> mdi-pencil </v-icon>
               Edit
             </v-btn>
           </v-row>
@@ -42,10 +41,7 @@
                   <v-col class="pb-1">
                     <div class="headline d-flex">
                       <h3 class="mt-1">
-                        <a
-                          @click.stop
-                          :href="getStoreLink(selectedStore.href)"
-                        >
+                        <a @click.stop :href="getStoreLink(selectedStore.href)">
                           {{ selectedStore.name }}
 
                           <v-icon class="ml-1" color="blue darken-2">
@@ -179,7 +175,10 @@
                 </v-flex>
               </v-layout>
             </v-card>
-            <add-external-modal :store="selectedStore" v-if="editingSelectedStore" />
+            <add-external-modal
+              :store="selectedStore"
+              v-if="editingSelectedStore"
+            />
             <div class="mx-3 mt-3 py-2">
               <AddEventModal
                 v-if="editingSelectedStore"
@@ -196,6 +195,8 @@
                 <EventCard :event="selectedStore.event" />
               </div>
             </div>
+
+            <builder-stores :paramsId="paramsId" :storeId="selectedStore.id" v-if="builderStore.length>0 || editingSelectedStore" />
           </v-col>
         </v-col>
       </v-row>
@@ -234,11 +235,15 @@
             </v-card-title>
             <v-card-text class="body-1">
               <v-row>
-                <five-star-review :reviews="this.selectedStore.reviews2" @filterChange="filterReviewsWithStars" class="my-3"/>
+                <five-star-review
+                  :reviews="this.selectedStore.reviews2"
+                  @filterChange="filterReviewsWithStars"
+                  class="my-3"
+                />
               </v-row>
               <v-row>
                 <v-col v-if="isLogged" cols="12">
-                  <five-star-review-modal :storeID="storeId"/>
+                  <five-star-review-modal :storeID="storeId" />
                 </v-col>
                 <v-col v-else cols="12" class="d-flex justify-center">
                   Login to leave a review
@@ -391,7 +396,7 @@ export default {
       showLogoutModal: false,
       loginResponse: null,
       similarExpanded: false,
-      showReviewsWithStars: [1,2,3,4,5]
+      showReviewsWithStars: [1, 2, 3, 4, 5],
     }
   },
   async asyncData({ params, store, error }) {
@@ -400,7 +405,8 @@ export default {
       const storeId = selectedStore.id
       let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
 
-      return { storeId, discussions }
+      let paramsId = params.id
+      return { storeId, discussions, paramsId }
     } catch (err) {
       error(err)
     }
@@ -431,7 +437,7 @@ export default {
   computed: {
     ...mapState(['stores']),
     ...mapState('discussions', ['isLogged']),
-    ...mapState('review',['reviews']),
+    ...mapState('review', ['reviews']),
     editButtonElevation() {
       if (this.editingSelectedStore) return 0
       return 8
@@ -448,7 +454,8 @@ export default {
       return this.similarExpanded ? 'Hide Similar' : 'Show more'
     },
     showReviewsNegativeLength() {
-      return this.selectedStore.reviews.filter(review => review[0].score < 0).length
+      return this.selectedStore.reviews.filter((review) => review[0].score < 0)
+        .length
     },
     maxSimilarToShow() {
       if (this.similarExpanded) {
@@ -479,13 +486,19 @@ export default {
         { label: 'URL', value: this.selectedStore.href, key: 'href' },
       ]
     },
-    ...mapState(['likedStores', 'selectedStore', 'selectedStoreSettings', 'editingSelectedStore']),
+    ...mapState([
+      'likedStores',
+      'selectedStore',
+      'selectedStoreSettings',
+      'editingSelectedStore',
+      'builderStore'
+    ]),
   },
   methods: {
     toggleHelpful(payload) {
       this.$store.dispatch('review/toggleHelpful', payload)
     },
-    toggleEditing(){
+    toggleEditing() {
       this.$store.dispatch('toggleEditing')
     },
     openSettingsModal() {
@@ -508,7 +521,7 @@ export default {
       const baseUrl = new URL(this.baseURL)
 
       url.searchParams.append('utm_source', baseUrl.host)
-      
+
       return url.href
     },
     isNewStore() {
@@ -594,9 +607,9 @@ export default {
       this.imageModal = true
       this.selectedMediaIndex = index
     },
-    filterReviewsWithStars(selected){
-    this.showReviewsWithStars = selected
-  }
+    filterReviewsWithStars(selected) {
+      this.showReviewsWithStars = selected
+    },
   },
   beforeRouteEnter(to, from, next) {
     if (from.name === 'discuss' && !to.query.sort_reviews) {
@@ -607,7 +620,7 @@ export default {
     } else {
       return next()
     }
-  }
+  },
 }
 </script>
 

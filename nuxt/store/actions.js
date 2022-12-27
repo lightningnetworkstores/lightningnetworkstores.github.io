@@ -82,6 +82,24 @@ const actions = {
       commit('setConfiguration', response.configuration)
       commit('setSelectedStore', response)
       commit('review/setReviews', response.reviews2)
+      // Builders
+      commit('setBuilders', response.builders)
+      return response
+    } catch (err) {
+      return Promise.reject({
+        statusCode: err.status,
+        message: err.message,
+      })
+    }
+  },
+  async getStoreBuilder({ state, commit }, data) {
+    try {
+      const url = `${state.baseURL}api/storeinfo/?id=${data.id}`
+      const { data: response } = await this.$axios.get(url)
+
+      // Builders
+      commit('setBuilders', response.builders)
+
       return response
     } catch (err) {
       return Promise.reject({

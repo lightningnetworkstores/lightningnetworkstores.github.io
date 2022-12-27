@@ -188,6 +188,7 @@ export const state = () => {
           'Moves the chosen amount of newest stores to the top of the list.',
       },
     ],
+    builderStore: [],
   }
 
   return result
