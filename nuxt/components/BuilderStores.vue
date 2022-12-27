@@ -6,7 +6,7 @@
         'd-flex align-center',
       ]"
     >
-      <h2>Builder</h2>
+      <h2>Builders</h2>
       <v-tooltip v-if="loginStatus.isAdmin" bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn

@@ -196,8 +196,7 @@
               </div>
             </div>
 
-            <!-- Components Builders -->
-            <builder-stores :paramsId="paramsId" :storeId="selectedStore.id" />
+            <builder-stores :paramsId="paramsId" :storeId="selectedStore.id" v-if="builderStore.length>0 || editingSelectedStore" />
           </v-col>
         </v-col>
       </v-row>
@@ -492,6 +491,7 @@ export default {
       'selectedStore',
       'selectedStoreSettings',
       'editingSelectedStore',
+      'builderStore'
     ]),
   },
   methods: {
