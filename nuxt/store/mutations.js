@@ -15,13 +15,12 @@ const mutations = {
     state.storePages = storePages
   },
   setSelectedStore(state, store) {
-    store.reviews2.sort(
-      (a, b) => {
-        if (b[0].likes !== a[0].likes) {
-          return b[0].likes - a[0].likes
-        }
-        return b[0].timestamp - a[0].timestamp
-      })
+    store.reviews2.sort((a, b) => {
+      if (b[0].likes !== a[0].likes) {
+        return b[0].likes - a[0].likes
+      }
+      return b[0].timestamp - a[0].timestamp
+    })
     store.logged = false
     state.selectedStore = store
   },
@@ -296,6 +295,9 @@ const mutations = {
   },
   updateSliderAdvanced(state, payload) {
     state.customSortingAdvanced = payload
+  },
+  setBuilders(state, payload) {
+    state.builderStore = payload
   },
 }
 

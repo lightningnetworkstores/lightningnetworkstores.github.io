@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="showDialog" max-width="500">
+  <v-dialog v-model="showDialog" :max-width="maxWidth">
     <template v-slot:activator="{ on, attrs }">
       <v-img
         width="100%"
@@ -19,6 +19,7 @@
     </template>
       <v-card class="mx-auto secondary">
         <v-img
+          contain
           :lazy-src="url"
           :src="url"
         >
@@ -42,6 +43,16 @@ export default {
   data() {
     return {
       showDialog: false
+    }
+  },
+  computed: {
+    maxWidth() {
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs':
+        case 'sm': return '100vw'
+        default:
+          return '60vw'
+      }
     }
   }
 }
