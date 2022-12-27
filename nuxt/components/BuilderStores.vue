@@ -77,7 +77,7 @@ export default {
       return this.$vuetify.breakpoint.name === 'xs'
     },
     isOnEditMode(){
-      return this.editingSelectedStore && this.loginStatus.isAdmin
+      return this.editingSelectedStore
     }
   },
   methods: {
