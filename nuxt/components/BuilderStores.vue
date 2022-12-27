@@ -7,7 +7,7 @@
       ]"
     >
       <h2>Builders</h2>
-      <v-tooltip v-if="loginStatus.isAdmin" bottom>
+      <v-tooltip v-if="isOnEditMode" bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             elevation="2"
@@ -27,7 +27,7 @@
 
     <v-card v-if="hideForm" class="mt-3 pa-md-2 text-right">
       <user-search @userSelected="handleUserSelected" />
-      <div v-if="loginStatus.isAdmin" class="text-end">
+      <div v-if="isOnEditMode" class="text-end">
         <v-btn color="#fcb919" @click="addBuilders">Add</v-btn>
       </div>
     </v-card>
@@ -44,7 +44,7 @@
               <img :src="avatar.image" :alt="avatar.name" />
             </v-avatar>
             <v-btn
-              v-if="loginStatus.isAdmin"
+              v-if="isOnEditMode"
               :style="{
                 position: 'absolute',
                 top: 0,
@@ -89,10 +89,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['builderStore', 'loginStatus']),
+    ...mapState(['builderStore', 'loginStatus', 'editingSelectedStore']),
     isMobile() {
       return this.$vuetify.breakpoint.name === 'xs'
     },
+    isOnEditMode(){
+      return this.editingSelectedStore && this.loginStatus.isAdmin
+    }
   },
   methods: {
     handleUserSelected(recipient) {
