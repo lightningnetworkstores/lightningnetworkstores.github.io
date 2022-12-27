@@ -6,26 +6,10 @@
         'd-flex align-center',
       ]"
     >
-      <h2>Builders</h2>
-      <v-tooltip v-if="isOnEditMode" bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            elevation="2"
-            fab
-            v-bind="attrs"
-            v-on="on"
-            color="#fcb919"
-            small
-            @click="hideForm = !hideForm"
-          >
-            <v-icon> mdi-plus </v-icon>
-          </v-btn>
-        </template>
-        <span>Add Builder</span>
-      </v-tooltip>
+      <h1>Builders</h1>
     </div>
 
-    <v-card v-if="hideForm" class="mt-3 pa-md-2 text-right">
+    <v-card v-if="isOnEditMode" class="mt-3 pa-md-2 text-right">
       <user-search @userSelected="handleUserSelected" />
       <div v-if="isOnEditMode" class="text-end">
         <v-btn color="#fcb919" @click="addBuilders">Add</v-btn>
@@ -84,8 +68,7 @@ export default {
   },
   data() {
     return {
-      userBuilder: null,
-      hideForm: false,
+      userBuilder: null
     }
   },
   computed: {
