@@ -88,7 +88,6 @@ import UserTag from './UserTag.vue'
 import PaidReplyModal from './PaidReplyModal'
 import Topics from './Topics.vue'
 import Reply from './Reply.vue'
-import StorePreview from './StorePreview'
 import DiscussionHeader from './DiscussionHeader.vue'
 import DeleteCommentModal from './DeleteCommentModal.vue'
 
@@ -99,7 +98,6 @@ export default {
     PaidReplyModal,
     Topics,
     Reply,
-    StorePreview,
     DiscussionHeader,
     DeleteCommentModal,
   },
