@@ -60,7 +60,9 @@
 
       <div class="px-0">
         <div class="d-flex">
-          <span class="break-word mt-2"><b>Nostr:&nbsp;</b></span>
+          <span class="break-word mt-2"
+            ><b>Nostr:&nbsp;</b><a>{{ selectedStore.nostr }}</a></span
+          >
           <edit-store-modal
             v-if="editingSelectedStore"
             :store="selectedStore"
