@@ -31,8 +31,8 @@
       <v-list-item-content>
         <v-row>
           <v-col>
-            <v-list-item-title>{{data.item.text}}</v-list-item-title>
-            <v-list-item-subtitle v-html="data.item.name"></v-list-item-subtitle>
+            <v-list-item-title>{{data.item.name}}</v-list-item-title>
+            <v-list-item-subtitle v-html="`@${data.item.text}`"></v-list-item-subtitle>
           </v-col>
           <v-col class="d-flex justify-end">
             <v-chip
