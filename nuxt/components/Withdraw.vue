@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container d-flex flex-column justify-space-between">
+    <div class="d-flex flex-column justify-space-between">
       <v-form v-model="isValid">
         <v-textarea
           v-model="invoice"
@@ -23,6 +23,24 @@
       <div v-if="isProcessing" class="pb-2">
         <v-progress-linear color="primary" indeterminate/>
       </div>
+      <v-btn-toggle v-model="mode" class="mb-2 mt-0">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on">
+              <v-icon color="orange">fa-bolt</v-icon>
+            </v-btn>
+          </template>
+          <span>Invoice</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on">
+              <v-icon color="blue">fa-at</v-icon>
+            </v-btn>
+          </template>
+          <span>Lightning Address</span>
+        </v-tooltip>
+      </v-btn-toggle>
       <v-btn
         width="200"
         @click="sendPayment"
@@ -69,6 +87,7 @@ const WithdrawalState = {
 export default {
   data() {
     return {
+      mode: 0,
       isValid: false,
       invoice: null,
       hint: 'Routing fees will be deducted from your balance',
@@ -199,8 +218,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.container {
-  height: 20em;
-}
-</style>
