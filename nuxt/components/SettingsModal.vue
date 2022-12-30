@@ -19,6 +19,13 @@
           <v-col>
             <div class="mx-1 h5">Email</div>
             <v-text-field v-model="form.email" type="email" />
+            <div class="d-flex justify-center">
+              <v-switch
+                v-model="form.accepted.BTCLN"
+                color="orange"
+                label="Lightning accepted?"
+              />
+            </div>
             <div class="mx-1 h5">Notifications</div>
             <!-- <v-checkbox
               v-model="form.notifications.features"
@@ -85,8 +92,8 @@ export default {
           reviews: notifications.new_reviews,
         },
         accepted: {
-          BTC: false,
-          BTCLN: true,
+          BTC: this.$store.state.selectedStore.accepted.BTC.payments,
+          BTCLN: this.$store.state.selectedStore.accepted.BTCLN.payments,
         },
       },
       serverError: null,
