@@ -178,7 +178,6 @@ export default {
       routes: [
         { url: '/discuss', text: 'Discuss' },
         { url: '/stats', text: 'Statistics' },
-        //{ url: '/wallets', text: 'Wallets' },
         //{ url: '/donations', text: 'Donations' },
         //{ url: "/contest", text: "Contests" },
         //{ url: "/quiz", text: "Daily Quiz" },
@@ -186,8 +185,6 @@ export default {
       ],
       routesExplore: [
         { url: '/trending', text: 'Trending 📈', itHasIcon: true },
-        // { url: '/searches', text: 'Popular searches', itHasIcon: false },
-        // { url: '/wallets', text: 'Wallets', itHasIcon: false },
       ],
     }
   },
