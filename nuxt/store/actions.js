@@ -1070,7 +1070,7 @@ const actions = {
       },
       accepted: {
         BTC: accepted.BTC,
-        'BTC-LN': accepted.BTCLN,
+        'BTCLN': accepted.BTCLN,
       },
     }
     return this.$axios
