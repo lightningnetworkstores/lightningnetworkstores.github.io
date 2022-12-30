@@ -32,10 +32,9 @@
                             <v-card
                                 class="
                                     px-5
-                                    py-6
                                     d-flex
                                     flex-column
-                                    justify-center
+                                    justify-start
                                 "
                                 min-height="30em"
                             >
