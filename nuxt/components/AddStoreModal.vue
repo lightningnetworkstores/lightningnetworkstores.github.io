@@ -116,10 +116,12 @@
                     ></v-text-field>
                   </v-row>
                   <v-row>
-                    <span class="font-weight-bold"
-                      >We reserve the right to remove this entry if it doesn't
-                      accept bitcoin and is not about bitcoin</span
-                    >
+                    <div class="d-flex justify-center my-4">
+                      <v-switch
+                        v-model="lightningAccepted"
+                        color="orange"
+                        label="Lightning accepted?"/>
+                    </div>
                   </v-row>
                 </v-container>
                 <v-card-actions>
@@ -199,6 +201,7 @@ export default {
       expiryTime: new Date(),
       isPaid: false,
       tweet: null,
+      lightningAccepted: false,
 
       checkPaymentTimer: null,
       successModalMessage: '',
@@ -282,6 +285,7 @@ export default {
             url: this.addDialogForm.url,
             nostr: this.addDialogForm.nostr,
             contributor: this.addDialogForm.contributor,
+            accepted: {'BTCLN': {'payments': this.lightningAccepted}},
             recaptcha: token,
           })
           .then(
