@@ -1,9 +1,10 @@
 <template>
-  <div class="d-flex flex-column justify-space-between">
+  <div class="d-flex flex-column justify-end flex-grow-1">
     <v-tabs
       v-model="tabs"
       fixed-tabs
       icons-and-text
+      class="flex-shrink-1"
     >
       <v-tab>
         Deposit
@@ -18,14 +19,14 @@
         <v-icon>mdi-arrow-up</v-icon>
       </v-tab>
     </v-tabs>
-    <v-tabs-items v-model="tabs">
+    <v-tabs-items v-model="tabs" class="flex-grow-1">
       <v-tab-item style="min-height: 20em">
         <Deposit class="pt-1"/>
       </v-tab-item>
       <v-tab-item style="min-height: 20em">
         <Transfer class="pt-1"/>
       </v-tab-item>
-      <v-tab-item style="min-height: 20em">
+      <v-tab-item style="min-height: 20em;">
         <Withdraw class="pt-1"/>
       </v-tab-item>
     </v-tabs-items>
