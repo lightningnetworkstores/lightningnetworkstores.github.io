@@ -21,7 +21,7 @@
             <v-text-field v-model="form.email" type="email" />
             <div class="d-flex justify-center">
               <v-switch
-                v-model="form.accepted.BTCLN"
+                v-model="form.accepted.BTCLN.payments"
                 color="orange"
                 label="Lightning accepted?"
               />

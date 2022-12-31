@@ -1066,10 +1066,7 @@ const actions = {
         new_features: notifications.features,
         new_reviews: notifications.reviews,
       },
-      accepted: {
-        BTC: accepted.BTC,
-        'BTCLN': accepted.BTCLN,
-      },
+      accepted: accepted
     }
     return this.$axios
       .post(`${state.baseURL}api/settings?id=${storeId}`, body)
