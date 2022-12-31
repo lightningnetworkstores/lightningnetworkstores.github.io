@@ -114,7 +114,7 @@ const actions = {
       name: name,
       description: description,
       url: url,
-      addStore: addStore,
+      nostr: nostr,
       sector: sector,
       digitalGoods: digitalGoods,
       contributor: contributor,
@@ -127,7 +127,7 @@ const actions = {
       name: encodeURIComponent(name),
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),
-      NOSTR: encodeURIComponent(addStore),
+      NOSTR: encodeURIComponent(nostr),
       contributor: contributor,
       'g-recaptcha-response': recaptcha,
     }
@@ -1066,7 +1066,7 @@ const actions = {
         new_features: notifications.features,
         new_reviews: notifications.reviews,
       },
-      accepted: accepted
+      accepted: accepted,
     }
     return this.$axios
       .post(`${state.baseURL}api/settings?id=${storeId}`, body)
