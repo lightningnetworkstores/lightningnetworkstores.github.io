@@ -92,8 +92,8 @@ export default {
           reviews: notifications.new_reviews,
         },
         accepted: {
-          BTC: this.$store.state.selectedStore.accepted.BTC.payments,
-          BTCLN: this.$store.state.selectedStore.accepted.BTCLN.payments,
+          BTC: {payments: this.$store.state.selectedStore.accepted.BTC.payments},
+          BTCLN: {payments: this.$store.state.selectedStore.accepted.BTCLN.payments},
         },
       },
       serverError: null,

@@ -118,14 +118,12 @@ const actions = {
       sector: sector,
       digitalGoods: digitalGoods,
       contributor: contributor,
+      accepted: accepted,
       recaptcha: recaptcha,
     }
   ) {
     let params = {
-      accepted: {
-        BTC: { modes: ['payments'] },
-        BTCLN: { modes: ['payments'] },
-      },
+      accepted: accepted,
       name: encodeURIComponent(name),
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),

@@ -285,6 +285,7 @@ export default {
             url: this.addDialogForm.url,
             uri: this.addDialogForm.uri,
             contributor: this.addDialogForm.contributor,
+            accepted: {BTC: {payments: true}, BTCLN: {payments: true}},
             recaptcha: token,
           })
           .then(
