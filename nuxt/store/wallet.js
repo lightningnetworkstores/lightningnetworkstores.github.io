@@ -1,4 +1,4 @@
-const WithdrawalState = {
+export const WithdrawalState = {
   INITIAL: 0,
   PROCESSING: 1,
   SUCCESS: 2,

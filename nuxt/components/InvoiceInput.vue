@@ -50,6 +50,7 @@
 <script>
 import lightningPayReq from 'bolt11'
 import { mapState } from 'vuex'
+import { WithdrawalState } from '~/store/wallet'
 
 const MIN_INVOICE_CHECK_LENGTH = 10
 
@@ -58,13 +59,6 @@ const MIN_INVOICE_CHECK_LENGTH = 10
 const POLL_INTERVAL = 3e3
 
 const MAX_POLLING_ATTEMPTS = 20
-
-const WithdrawalState = {
-  INITIAL: 0,
-  PROCESSING: 1,
-  SUCCESS: 2,
-  FAILED: 3
-}
 
 export default {
   data() {

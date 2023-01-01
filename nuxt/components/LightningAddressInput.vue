@@ -39,17 +39,11 @@
 <script>
 import { mapState } from 'vuex'
 import regexMixin from '~/mixins/regex.js'
+import { WithdrawalState } from '~/store/wallet'
 
 const MIN_ADDRESS_LENGTH = 3
 
 const LIGHTNING_ADDRESS_FEE_AMOUNT = 1
-
-const WithdrawalState = {
-  INITIAL: 0,
-  PROCESSING: 1,
-  SUCCESS: 2,
-  FAILED: 3
-}
 
 export default {
   data() {
