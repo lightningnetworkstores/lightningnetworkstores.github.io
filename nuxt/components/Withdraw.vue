@@ -23,16 +23,8 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import InvoiceInput from '@/components/InvoiceInput.vue'
 import LightningAddressInput from '@/components/LightningAddressInput.vue'
-
-const WithdrawalState = {
-  INITIAL: 0,
-  PROCESSING: 1,
-  SUCCESS: 2,
-  FAILED: 3
-}
 
 export default {
   components: {
@@ -43,12 +35,6 @@ export default {
     return {
       mode: 0,
     }
-  },
-  computed: {
-    isProcessing() {
-      return this.withdrawal.state === WithdrawalState.PROCESSING
-    },
-    ...mapState('wallet', ['withdrawal'])
   }
 }
 </script>
