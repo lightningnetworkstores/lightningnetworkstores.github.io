@@ -4,6 +4,7 @@
       <v-text-field
         v-model="address"
         outlined
+        dense
         type="email"
         label="Lightning Address"
         hint="Any lightning address. Ex: some-user@lntxbot.com"
@@ -13,11 +14,21 @@
       <v-text-field
         v-model="amount"
         outlined
+        dense
         type="number"
         label="Amount (sats)"
         hint="Enter an amount in sats"
         :disabled="isProcessing"
         :rules="amountRules"
+      />
+      <v-text-field
+        v-model="comment"
+        outlined
+        dense
+        type="text"
+        label="Comment"
+        hint="Any comment (optional)"
+        :disabled="isProcessing"
       />
     </v-form>
     <div class="text-caption font-weight-light">
@@ -50,6 +61,7 @@ export default {
     return {
       address: '',
       amount: undefined,
+      comment: '',
       LIGHTNING_ADDRESS_FEE_AMOUNT
     }
   },
@@ -59,6 +71,7 @@ export default {
       await this.$store.dispatch('wallet/sendPayment', {
         address: this.address,
         amount: parseInt(this.amount),
+        comment: this.comment,
         feeAmount: LIGHTNING_ADDRESS_FEE_AMOUNT
       })
       await this.$store.dispatch('wallet/getDashboardInfo')
@@ -67,6 +80,7 @@ export default {
     reset() {
       this.address = ''
       this.amount = undefined
+      this.comment = ''
     }
   },
   computed: {
