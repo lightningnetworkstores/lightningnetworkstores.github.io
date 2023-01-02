@@ -1,4 +1,4 @@
-const WithdrawalState = {
+export const WithdrawalState = {
   INITIAL: 0,
   PROCESSING: 1,
   SUCCESS: 2,
@@ -57,22 +57,30 @@ export const actions = {
     commit('setInvoice', null)
     commit('setPaymentId', null)
   },
-  async sendPayment({ commit }, { invoice, feeAmount }) {
+  async sendPayment({ commit, dispatch }, { invoice, address, amount, comment = '', feeAmount }) {
     commit('setWithdrawalState', WithdrawalState.PROCESSING)
-    const body = { fee: feeAmount, payment_request: invoice }
+    let url = '/api/withdraw'
+    let body = { fee: feeAmount, payment_request: invoice }
+    if (address && amount) {
+      url = '/api/lnurlwithdraw'
+      body = { fee: feeAmount, address, amount, comment }
+    }
     try {
-      const resp = await this.$axios.post('/api/withdraw', body)
+      const resp = await this.$axios.post(url, body)
       if (resp.data.status === 'success') {
+        commit('setWithdrawalState', WithdrawalState.SUCCESS)
         return {
           state: WithdrawalState.PROCESSING,
           withdrawalID: resp.data.data.withdrawalID
         }
       } else {
+        commit('setWithdrawalState', WithdrawalState.FAILED)
         return { state: WithdrawalState.FAILED, message: err.response.data.message }
       }
     } catch (err) {
       console.error('Withdrawal error: ', err)
       commit('setWithdrawalState', WithdrawalState.FAILED)
+      dispatch('network/showError', err, { root: true})
       return { state: WithdrawalState.FAILED, message: err.response.data.message }
     }
   },
