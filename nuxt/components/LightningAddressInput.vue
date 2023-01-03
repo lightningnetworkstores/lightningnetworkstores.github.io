@@ -1,49 +1,83 @@
 <template>
   <div>
-    <v-form>
+    <div v-if="isSuccess" class="d-flex flex-column justify-center align-center">
+      <div class="text-h5 text-center">Success!</div>
+      <div class="text-body-1">
+        Add <strong>{{ address }}</strong> to contact book?
+      </div>
       <v-text-field
-        v-model="address"
-        outlined
-        dense
-        type="email"
-        label="Lightning Address"
-        hint="Any lightning address. Ex: some-user@lntxbot.com"
-        :disabled="isProcessing"
-        :rules="addressRules"
+        v-model="contactName"
+        class="mt-3"
+        label="Contact Name"
+        hint="Optional field"
+        style="min-width: 60%"
+        outlined dense
       />
-      <v-text-field
-        v-model="amount"
-        outlined
-        dense
-        type="number"
-        label="Amount (sats)"
-        hint="Enter an amount in sats"
-        :disabled="isProcessing"
-        :rules="amountRules"
-      />
-      <v-text-field
-        v-model="comment"
-        outlined
-        dense
-        type="text"
-        label="Comment"
-        hint="Any comment (optional)"
-        :disabled="isProcessing"
-      />
-    </v-form>
-    <div class="text-caption font-weight-light">
-      Fee: {{ LIGHTNING_ADDRESS_FEE_AMOUNT }} %
+      <div class="mt-4">
+        <v-btn
+          color="primary"
+          outlined
+          min-width="100"
+          @click="onAddContact"
+        >
+          Add
+        </v-btn>
+        <v-btn
+          color="red"
+          outlined
+          min-width="100"
+          @click="onCancelAddContact"
+        >
+          Cancel
+        </v-btn>
+      </div>
     </div>
-    <v-btn
-      width="200"
-      @click="sendPayment"
-      :disabled="isButtonDisabled"
-      color="primary"
-    >
-      Withdraw
-    </v-btn>
-    <div class="pt-2 mb-0">
-      <v-progress-linear v-if="isProcessing" color="primary" indeterminate/>
+    <div v-else>
+      <v-form>
+        <v-text-field
+          v-model="address"
+          outlined
+          dense
+          type="email"
+          label="Lightning Address"
+          hint="Any lightning address. Ex: some-user@lntxbot.com"
+          :disabled="isProcessing"
+          :rules="addressRules"
+        />
+        <v-text-field
+          v-model="amount"
+          outlined
+          dense
+          type="number"
+          label="Amount (sats)"
+          hint="Enter an amount in sats"
+          :disabled="isProcessing"
+          :rules="amountRules"
+        />
+        <v-text-field
+          v-model="comment"
+          outlined
+          dense
+          type="text"
+          label="Comment"
+          hint="Any comment (optional)"
+          :disabled="isProcessing"
+        />
+      </v-form>
+      <div class="text-caption font-weight-light">
+        Fee: {{ LIGHTNING_ADDRESS_FEE_AMOUNT }} %
+      </div>
+      <v-btn
+        width="200"
+        @click="sendPayment"
+        :disabled="isButtonDisabled"
+        color="primary"
+      >
+        Withdraw
+      </v-btn>
+      <div class="pt-2 mb-0">
+        <v-progress-linear v-if="isProcessing" color="primary" indeterminate/>
+      </div>
     </div>
   </div>
 </template>
@@ -51,17 +85,22 @@
 import { mapState } from 'vuex'
 import regexMixin from '~/mixins/regex.js'
 import { WithdrawalState } from '~/store/wallet'
+import Success from '~/components/Success.vue'
 
 const MIN_ADDRESS_LENGTH = 3
 
 const LIGHTNING_ADDRESS_FEE_AMOUNT = 1
 
 export default {
+  components: {
+    Success
+  },
   data() {
     return {
       address: '',
       amount: undefined,
       comment: '',
+      contactName: '',
       LIGHTNING_ADDRESS_FEE_AMOUNT
     }
   },
@@ -75,12 +114,24 @@ export default {
         feeAmount: LIGHTNING_ADDRESS_FEE_AMOUNT
       })
       await this.$store.dispatch('wallet/getDashboardInfo')
-      this.reset()
     },
     reset() {
       this.address = ''
       this.amount = undefined
       this.comment = ''
+    },
+    async onAddContact() {
+      let payload = {
+        name: this.contactName,
+        adr: this.address
+      }
+      await this.$store.dispatch('contacts/add', payload)
+      await this.$store.dispatch('wallet/resetWithdrawalState')
+      this.reset()
+    },
+    async onCancelAddContact() {
+      await this.$store.dispatch('wallet/resetWithdrawalState')
+      this.reset()
     }
   },
   computed: {
@@ -109,7 +160,8 @@ export default {
       ]
     },
     ...mapState({
-      isProcessing: state => state.wallet.withdrawal.state === WithdrawalState.PROCESSING
+      isProcessing: state => state.wallet.withdrawal.state === WithdrawalState.PROCESSING,
+      isSuccess: state => state.wallet.withdrawal.state === WithdrawalState.SUCCESS
     })
   }
 }

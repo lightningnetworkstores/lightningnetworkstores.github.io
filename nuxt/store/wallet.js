@@ -21,15 +21,16 @@ export const state = () => ({
 })
 
 export const actions = {
-  getDashboardInfo({ commit, state }) {
+  getDashboardInfo({ commit, state, dispatch }) {
     this.$axios.get('/api/dashboardinfo')
       .then(res => res.data)
       .then(data => data.data)
-      .then(({ balance, transfers, profile, affiliate }) => {
+      .then(({ balance, transfers, profile, affiliate, address_book }) => {
         commit('setBalance', balance)
         commit('setTransfers', transfers)
         commit('setProfile', profile)
         commit('setAffiliate', affiliate)
+        dispatch('contacts/set', address_book, { root: true })
       })
       .then(() => this.$axios.get('/api/logstatus'))
       .then(res => res.data.data.user)
