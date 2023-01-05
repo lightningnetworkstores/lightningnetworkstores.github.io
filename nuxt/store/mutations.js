@@ -299,6 +299,9 @@ const mutations = {
   setBuilders(state, payload) {
     state.builderStore = payload
   },
+  setContributions(state, contributions) {
+    state.contributions = contributions
+  },
 }
 
 export default mutations
