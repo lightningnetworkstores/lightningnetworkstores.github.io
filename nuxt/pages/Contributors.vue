@@ -1,7 +1,7 @@
 <template>
   <div class="pa-8">
     <v-container>
-      <h1>Contributions</h1>
+      <h1 style='text-align:center'>Contributor leaderboard</h1>
       <br />
       <v-data-table
         :headers="headers"
