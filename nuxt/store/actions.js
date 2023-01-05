@@ -118,14 +118,12 @@ const actions = {
       sector: sector,
       digitalGoods: digitalGoods,
       contributor: contributor,
+      accepted: accepted,
       recaptcha: recaptcha,
     }
   ) {
     let params = {
-      accepted: {
-        BTC: { modes: ['payments'] },
-        BTCLN: { modes: ['payments'] },
-      },
+      accepted: accepted,
       name: encodeURIComponent(name),
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),
@@ -1068,10 +1066,7 @@ const actions = {
         new_features: notifications.features,
         new_reviews: notifications.reviews,
       },
-      accepted: {
-        BTC: accepted.BTC,
-        'BTC-LN': accepted.BTCLN,
-      },
+      accepted: accepted
     }
     return this.$axios
       .post(`${state.baseURL}api/settings?id=${storeId}`, body)

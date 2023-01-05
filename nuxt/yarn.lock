@@ -6289,6 +6289,11 @@ num2fraction@^1.2.2:
   resolved "https://registry.npmjs.org/num2fraction/-/num2fraction-1.2.2.tgz"
   integrity sha1-b2gragJ6Tp3fpFZM0lidHU5mnt4=
 
+numify@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/numify/-/numify-1.0.3.tgz#749c7226610704919cea0461c9f51c25af323ee4"
+  integrity sha512-a4iec1A14r7dkaAIhz3BoljL07bU2RZsUE8Yng2C2E4btmHx1t4U8u0jLFvekDYr3+So6xBqNH/W39zbmHK4jw==
+
 nuxt@^2.14.6:
   version "2.15.8"
   resolved "https://registry.npmjs.org/nuxt/-/nuxt-2.15.8.tgz"
