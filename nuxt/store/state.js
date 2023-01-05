@@ -189,6 +189,7 @@ export const state = () => {
       },
     ],
     builderStore: [],
+    contributions: [],
   }
 
   return result

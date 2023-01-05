@@ -302,6 +302,24 @@ const actions = {
         console.log(error)
       })
   },
+  async getContributions({ state, commit }) {
+    try {
+      const response = await this.$axios.get(
+        `${state.baseURL}api/contributor_leaderboard`
+      )
+
+      const results = response.data
+
+      if (results.status === 'success') {
+        commit('setContributions', results.data)
+        return results.data
+      }
+
+      return []
+    } catch (error) {
+      console.error(error)
+    }
+  },
   getDiscussionReplyPaymentRequest({ state }, payload) {
     return this.$axios
       .post(
@@ -1066,7 +1084,7 @@ const actions = {
         new_features: notifications.features,
         new_reviews: notifications.reviews,
       },
-      accepted: accepted
+      accepted: accepted,
     }
     return this.$axios
       .post(`${state.baseURL}api/settings?id=${storeId}`, body)
