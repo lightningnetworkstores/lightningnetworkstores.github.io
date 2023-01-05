@@ -108,6 +108,8 @@ export default {
           return 'mdi-storefront-plus-outline'
         case 'STORE_DOWNVOTE':  
           return 'mdi-storefront-minus-outline'    
+        case 'CONTRIBUTOR_REWARD':
+          return 'mdi-cash-100'  
         default:
           return type
       }

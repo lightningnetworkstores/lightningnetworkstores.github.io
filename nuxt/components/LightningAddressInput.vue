@@ -28,11 +28,12 @@
         type="text"
         label="Comment"
         hint="Any comment (optional)"
+        :rules="commentRules"
         :disabled="isProcessing"
       />
     </v-form>
     <div class="text-caption font-weight-light">
-      Fee: {{ LIGHTNING_ADDRESS_FEE_AMOUNT }} %
+      Fee: {{ withdrawalFee }} sats
     </div>
     <v-btn
       width="200"
@@ -54,15 +55,12 @@ import { WithdrawalState } from '~/store/wallet'
 
 const MIN_ADDRESS_LENGTH = 3
 
-const LIGHTNING_ADDRESS_FEE_AMOUNT = 1
-
 export default {
   data() {
     return {
       address: '',
       amount: undefined,
-      comment: '',
-      LIGHTNING_ADDRESS_FEE_AMOUNT
+      comment: ''
     }
   },
   mixins: [ regexMixin ],
@@ -72,7 +70,7 @@ export default {
         address: this.address,
         amount: parseInt(this.amount),
         comment: this.comment,
-        feeAmount: LIGHTNING_ADDRESS_FEE_AMOUNT
+        feeAmount: this.withdrawalFee
       })
       await this.$store.dispatch('wallet/getDashboardInfo')
       this.reset()
@@ -84,6 +82,9 @@ export default {
     }
   },
   computed: {
+    withdrawalFee() {
+      return Math.ceil(this.amount*0.01)
+    },
     isButtonDisabled() {
       return this.amount === undefined ||
         this.amount < 0 ||
@@ -95,7 +96,8 @@ export default {
       return [
         v => !!v || v === undefined || 'Enter any amount',
         v => Number.parseInt(v) !== NaN || v === undefined || 'Please enter a number',
-        v => Number.parseInt(v) > 0 || v === undefined || 'Must be a positive number'
+        v => Number.parseInt(v) > 0 || v === undefined || 'Must be a positive number',
+        v =>  v <= this.withdrawable || v === undefined || 'Amount is too high'
       ]
     },
     addressRules() {
@@ -108,9 +110,26 @@ export default {
         }
       ]
     },
+    commentRules() {
+      return [
+        v =>  v.length <= 32 || v === undefined || 'Description is too long.'
+      ]
+    },
     ...mapState({
-      isProcessing: state => state.wallet.withdrawal.state === WithdrawalState.PROCESSING
-    })
+      isProcessing: state => state.wallet.withdrawal.state === WithdrawalState.PROCESSING,
+      withdrawable: (state) => {
+                const { wallet } = state
+                if (!wallet.balance) return 0
+                const { balance } = wallet
+                return (
+                    balance.available -
+                    Math.ceil(
+                        balance.available *
+                            (balance.withdrawal_fee_per_cent / 100)
+                    )
+                )
+            },
+    }),
   }
 }
 </script>
