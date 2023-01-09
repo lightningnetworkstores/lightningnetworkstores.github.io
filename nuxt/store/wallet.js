@@ -17,6 +17,7 @@ export const state = () => ({
     memo: ''
   },
   affiliate: null,
+  contributorProgram: null,
   transfers: []
 })
 
@@ -25,11 +26,12 @@ export const actions = {
     this.$axios.get('/api/dashboardinfo')
       .then(res => res.data)
       .then(data => data.data)
-      .then(({ balance, transfers, profile, affiliate }) => {
+      .then(({ balance, transfers, profile, affiliate, contributor_program }) => {
         commit('setBalance', balance)
         commit('setTransfers', transfers)
         commit('setProfile', profile)
         commit('setAffiliate', affiliate)
+        commit('setContributorProgram', contributor_program)
       })
       .then(() => this.$axios.get('/api/logstatus'))
       .then(res => res.data.data.user)
@@ -136,6 +138,9 @@ export const mutations = {
   },
   setAffiliate(state, affiliate) {
     state.affiliate = affiliate
+  },
+  setContributorProgram(state, contributorProgram) {
+    state.contributorProgram = contributorProgram
   },
   setInvoice(state, invoice) {
     state.deposit.invoice = invoice

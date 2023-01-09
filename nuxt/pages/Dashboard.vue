@@ -61,6 +61,13 @@
                         </v-col>
                         <v-spacer></v-spacer>
                     </v-row>
+                     <v-row>
+                        <v-spacer></v-spacer>
+                        <v-col cols="6">
+                            <ContributorRules />
+                        </v-col>
+                        <v-spacer></v-spacer>
+                    </v-row>
                 </v-container>
             </v-layout>
         </div>
@@ -85,6 +92,9 @@
                 </v-card>
                 <v-card elevation="2" class="mx-2 my-2" min-width="95%">
                   <AffiliateRules />
+                </v-card>
+                 <v-card elevation="2" class="mx-2 my-2" min-width="95%">
+                  <ContributorRules />
                 </v-card>
             </v-layout>
         </div>
