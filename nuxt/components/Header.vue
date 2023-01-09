@@ -299,10 +299,6 @@ export default {
 .btndarkmode .v-btn__content {
   font-size: 2em !important;
 }
-.menuWidth {
-  width: 202px;
-  max-width: 202px;
-}
 
 .positionCardMobile_xxs {
   left: 20px !important;
