@@ -28,6 +28,19 @@
         </v-list>
       </v-menu>
 
+      <v-menu open-on-hover offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn text v-bind="attrs" v-on="on"> Community </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="(menu, index) in routesCommunity" :key="index">
+            <v-btn text :to="menu.url">
+              {{ menu.text }}
+            </v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
       <v-btn text v-for="route in routes" :key="route.text" :to="route.url">
         <v-badge
           v-if="isDiscussionNotificationShowed && route.text === 'Discuss'"
@@ -82,67 +95,92 @@
         </v-app-bar-nav-icon>
       </template>
 
-      <v-menu offset-x absolute :content-class="positionExploreCard">
-        <template v-slot:activator="{ on, attrs }">
-          <v-list>
-            <v-list-item class="justify-center">
-              <LoginButton v-if="!isLogged" />
-              <ProfilePicture v-else :src="profile.image" />
-            </v-list-item>
-            <v-list-item v-if="isLogged && showDashboardButton" to="/dashboard">
-              <v-list-item>
-                <v-list-item-title> Dashboard </v-list-item-title>
-              </v-list-item>
-            </v-list-item>
-
-            <!-- Item from Menu = Explore -->
-            <v-list-item v-bind="attrs" v-on="on">
-              <v-list-item-title>
-                <div class="v-list-item">Explore</div>
-              </v-list-item-title>
-            </v-list-item>
-
-            <!-- Items Menu -->
-            <v-list-item
-              v-for="route in routes"
-              :key="route.text"
-              :to="route.url"
-            >
-              <v-list-item>
-                <v-list-item-title>
-                  <v-badge
-                    v-if="
-                      isDiscussionNotificationShowed && route.text === 'Discuss'
-                    "
-                    color="orange"
-                    dot
-                  >
-                    {{ route.text }}
-                  </v-badge>
-                  <div v-else>
-                    {{ route.text }}
-                  </div>
-                </v-list-item-title>
-              </v-list-item>
-            </v-list-item>
-            <v-list-item v-if="isLogged">
-              <v-list-item @click="handleLogout">
-                <v-list-item-title> Logout </v-list-item-title>
-              </v-list-item>
-            </v-list-item>
-          </v-list>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(menuExplore, index) in routesExplore"
-            :key="index"
-          >
-            <v-btn text :to="menuExplore.url">
-              {{ menuExplore.text }}
-            </v-btn>
+      <v-list>
+        <v-list-item class="justify-center">
+          <LoginButton v-if="!isLogged" />
+          <ProfilePicture v-else :src="profile.image" />
+        </v-list-item>
+        <v-list-item v-if="isLogged && showDashboardButton" to="/dashboard">
+          <v-list-item>
+            <v-list-item-title> Dashboard </v-list-item-title>
           </v-list-item>
-        </v-list>
-      </v-menu>
+        </v-list-item>
+        <!-- Menu Explore -->
+        <v-list-item>
+          <v-menu offset-x absolute :content-class="positionExploreCard">
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item v-bind="attrs" v-on="on">
+                <v-list-item-title> Explore </v-list-item-title>
+              </v-list-item>
+            </template>
+            <v-list width="195px" max-width="195px">
+              <v-list-item
+                v-for="(menuExplore, index) in routesExplore"
+                :key="index"
+              >
+                <v-btn
+                  text
+                  :to="menuExplore.url"
+                  block
+                  style="justify-content: left"
+                >
+                  {{ menuExplore.text }}
+                </v-btn>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
+        <!-- Menu Community -->
+        <v-list-item>
+          <v-menu offset-x absolute :content-class="positionExploreCard">
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item v-bind="attrs" v-on="on">
+                <v-list-item-title> Community </v-list-item-title>
+              </v-list-item>
+            </template>
+            <v-list width="195px" max-width="195px">
+              <v-list-item
+                v-for="(menuCommunity, index) in routesCommunity"
+                :key="index"
+              >
+                <v-btn
+                  text
+                  :to="menuCommunity.url"
+                  block
+                  style="justify-content: left"
+                >
+                  {{ menuCommunity.text }}
+                </v-btn>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
+        <!-- Items Menu -->
+        <v-list-item v-for="route in routes" :key="route.text" :to="route.url">
+          <v-list-item>
+            <v-list-item-title>
+              <v-badge
+                v-if="
+                  isDiscussionNotificationShowed && route.text === 'Discuss'
+                "
+                color="orange"
+                dot
+              >
+                {{ route.text }}
+              </v-badge>
+              <div v-else>
+                {{ route.text }}
+              </div>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list-item>
+        <!-- Logout -->
+        <v-list-item v-if="isLogged">
+          <v-list-item @click="handleLogout">
+            <v-list-item-title> Logout </v-list-item-title>
+          </v-list-item>
+        </v-list-item>
+      </v-list>
     </v-menu>
     <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
       <svg
@@ -189,6 +227,10 @@ export default {
         { url: '/trending', text: 'Trending 📈', itHasIcon: true },
         { url: '/searches', text: 'Popular searches', itHasIcon: false },
         { url: '/wallets', text: 'Wallets', itHasIcon: false },
+      ],
+      routesCommunity: [
+        { url: '/builders', text: 'Builders' },
+        { url: '/contributors', text: 'Contributors' },
       ],
     }
   },
@@ -256,6 +298,10 @@ export default {
 }
 .btndarkmode .v-btn__content {
   font-size: 2em !important;
+}
+.menuWidth {
+  width: 202px;
+  max-width: 202px;
 }
 
 .positionCardMobile_xxs {
