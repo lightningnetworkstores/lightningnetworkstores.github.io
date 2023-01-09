@@ -3,7 +3,7 @@
     <div v-if="isSuccess" class="d-flex flex-column justify-center align-center">
       <div class="text-h5 text-center">Success!</div>
       <div class="text-body-1">
-        Add <strong>{{ address }}</strong> to contact book?
+        Add <strong>{{ address.adr }}</strong> to contact book?
       </div>
       <v-text-field
         v-model="contactName"
@@ -34,13 +34,20 @@
     </div>
     <div v-else>
       <v-form>
-        <v-text-field
+        <v-autocomplete
           v-model="address"
+          :items="suggestions"
+          item-text="adr"
+          item-value="adr"
+          :search-input.sync="search"
           outlined
           dense
           type="email"
           label="Lightning Address"
           hint="Any lightning address. Ex: some-user@lntxbot.com"
+          hide-no-data
+          hide-selected
+          return-object
           :disabled="isProcessing"
           :rules="addressRules"
         />
@@ -97,10 +104,12 @@ export default {
   },
   data() {
     return {
-      address: '',
+      address: null,
       amount: undefined,
       comment: '',
       contactName: '',
+      search: null,
+      suggestions: [],
       LIGHTNING_ADDRESS_FEE_AMOUNT
     }
   },
@@ -108,7 +117,7 @@ export default {
   methods: {
     async sendPayment() {
       await this.$store.dispatch('wallet/sendPayment', {
-        address: this.address,
+        address: this.address.adr,
         amount: parseInt(this.amount),
         comment: this.comment,
         feeAmount: LIGHTNING_ADDRESS_FEE_AMOUNT
@@ -134,6 +143,17 @@ export default {
       this.reset()
     }
   },
+  watch: {
+    search(newVal, oldVal) {
+      let updatedSuggestions = [
+        {
+          adr: newVal, name: ''
+        },
+        ...this.addresses
+      ]
+      this.suggestions = updatedSuggestions
+    }
+  },
   computed: {
     isButtonDisabled() {
       return this.amount === undefined ||
@@ -153,6 +173,9 @@ export default {
       return [
         v => !!v || v === '' || 'Enter a Lightning Address',
         v => {
+          console.log('v: ', v)
+          if (!v) return true
+          v = v.adr
           if (v.length < MIN_ADDRESS_LENGTH) return true
           if (this.isValidEmail(v)) return true
           else return 'Not a valid Lightning Address'
@@ -161,7 +184,8 @@ export default {
     },
     ...mapState({
       isProcessing: state => state.wallet.withdrawal.state === WithdrawalState.PROCESSING,
-      isSuccess: state => state.wallet.withdrawal.state === WithdrawalState.SUCCESS
+      isSuccess: state => state.wallet.withdrawal.state === WithdrawalState.SUCCESS,
+      addresses: state => state.contacts.contacts
     })
   }
 }
