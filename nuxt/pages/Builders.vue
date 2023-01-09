@@ -3,10 +3,10 @@
     <v-container>
       <v-row justify="center" no-gutters>
         <v-col>
-          <v-card class="pa-2">
-            <v-card-title>
-              <h2>Builders</h2>
-            </v-card-title>
+          <h1 class="my-2 mb-3" style="text-align: center">
+            Builders with their projects
+          </h1>
+          <v-card class="pa-2" elevation="2">
             <v-card-text>
               <div v-for="builder in buildersProjects" :key="builder.id">
                 <div
