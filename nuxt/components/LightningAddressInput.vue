@@ -40,6 +40,7 @@
           item-text="adr"
           item-value="adr"
           :search-input.sync="search"
+          :filter="contactFilter"
           outlined
           dense
           type="email"
@@ -50,7 +51,16 @@
           return-object
           :disabled="isProcessing"
           :rules="addressRules"
-        />
+        >
+          <template v-slot:item="data">
+            <div class="d-flex">
+              <div>{{ data.item.adr }}</div>
+              <div v-if="!data.item.hideName && data.item.name" class="ml-3 text--secondary">
+                [ {{ data.item.name  }} ]
+              </div>
+            </div>
+          </template>
+        </v-autocomplete>
         <v-text-field
           v-model="amount"
           outlined
@@ -141,13 +151,19 @@ export default {
     async onCancelAddContact() {
       await this.$store.dispatch('wallet/resetWithdrawalState')
       this.reset()
+    },
+    contactFilter(item, queryText, itemText) {
+      const name = item.name.toLowerCase()
+      const address = item.adr.toLowerCase()
+      return name.indexOf(queryText) !== -1 ||
+        address.indexOf(queryText) !== -1
     }
   },
   watch: {
     search(newVal, oldVal) {
       let updatedSuggestions = [
         {
-          adr: newVal, name: ''
+          adr: newVal, name: '', hideName: true
         },
         ...this.addresses
       ]
