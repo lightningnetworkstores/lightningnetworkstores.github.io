@@ -302,6 +302,9 @@ const mutations = {
   setContributions(state, contributions) {
     state.contributions = contributions
   },
+  setBuildersProjects(state, builders) {
+    state.buildersProjects = builders
+  },
 }
 
 export default mutations

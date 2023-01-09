@@ -9,9 +9,17 @@
       />
       <div @click="() => handleInternalLink(store.rooturl)">
         <div class="text-subtitle-2 mx-2 my-1">
-          <a :href="`${store.href}`" open="_blank" rel="noreferrer noopener">{{ store.name }}</a>
+          <a :href="`${store.href}`" open="_blank" rel="noreferrer noopener">{{
+            store.name
+          }}</a>
         </div>
-        <div class="text-body-2 mx-2 my-0" style="max-height: 60%; overflow: hidden">
+        <div
+          class="text-body-2 mx-2 my-0"
+          :style="{
+            maxHeight: minText,
+            overflow: 'hidden',
+          }"
+        >
           {{ store.description }}
         </div>
       </div>
@@ -24,20 +32,25 @@ export default {
   props: {
     store: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
+    minText: {
+      type: String,
+      required: false,
+      default: '60%',
+    },
   },
   methods: {
     handleInternalLink(rootUrl) {
       this.$router.push(`/store/${rootUrl}`)
-    }
+    },
   },
   computed: {
     ...mapState({
       baseURL(state) {
         return state.baseURL
-      }
-    })
-  }
+      },
+    }),
+  },
 }
 </script>
