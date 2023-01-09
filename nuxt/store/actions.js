@@ -1268,6 +1268,25 @@ const actions = {
   sliderCustomSortingAction({ commit }, payload) {
     commit('updateSliderCustomSorting', payload)
   },
+  async getBuildersProjects({ state, commit }, data) {
+    try {
+      const url = `${state.baseURL}api/builder`
+
+      const { data: response } = await this.$axios.get(url)
+
+      if (response.status === 'success') {
+        // Builders
+        commit('setBuildersProjects', response.data.builders_with_projects)
+      }
+
+      return []
+    } catch (err) {
+      return Promise.reject({
+        statusCode: err.status,
+        message: err.message,
+      })
+    }
+  },
 }
 
 export default actions

@@ -35,10 +35,11 @@ function formatNumber(n) {
 
 const EMPTY_BALANCE = [
     { group: 'Available', value: 0 },
-    { group: 'Pending Deposits', value: 0 },
-    { group: 'Pending Withdrawals', value: 0 },
-    { group: 'Unsettled Bets', value: 0 },
-    { group: 'Pending Affiliates', value: 0 },
+    { group: 'Pending deposits', value: 0 },
+    { group: 'Pending withdrawals', value: 0 },
+    { group: 'Unsettled bets', value: 0 },
+    { group: 'Pending affiliates', value: 0 },
+    { group: 'Pending contributor reward', value: 0 },
 ]
 
 export default {
@@ -62,11 +63,11 @@ export default {
                 color: {
                     scale: {
                         Available: '#0B8A03',
-                        'Pending Deposits': '#D5D6DC',
-                        'Pending Withdrawals': '#922D9E',
-                        'Pending Deposits': '#78BEF6',
-                        'Pending Affiliates': '#A0F678',
-                        'Unsettled Bets': '#E5DD00',
+                        'Pending deposits': '#D5D6DC',
+                        'Pending withdrawals': '#922D9E',
+                        'Pending deposits': '#78BEF6',
+                        'Pending affiliates': '#A0F678',
+                        'Unsettled bets': '#E5DD00',
                     },
                 },
                 pie: {
@@ -133,20 +134,24 @@ export default {
                 return [
                     { group: 'Available', value: wallet.balance.available },
                     {
-                        group: 'Pending Deposits',
+                        group: 'Pending deposits',
                         value: wallet.balance.pending_deposits,
                     },
                     {
-                        group: 'Pending Withdrawals',
+                        group: 'Pending withdrawals',
                         value: wallet.balance.pending_withdrawals,
                     },
                     {
-                        group: 'Unsettled Bets',
+                        group: 'Unsettled bets',
                         value: wallet.balance.unsettled_bets,
                     },
                     {
-                        group: 'Pending Affiliates',
+                        group: 'Pending affiliates',
                         value: wallet.affiliate.pending,
+                    },
+                     {
+                        group: 'Pending contributor reward',
+                        value: wallet.balance.pending_contributor_reward,
                     },
                 ]
             },
