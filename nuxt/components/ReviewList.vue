@@ -37,6 +37,7 @@
                 </v-icon>
               </v-btn>
               <review-reply-modal
+                v-if="isLogged"
                 :storeId="storeId"
                 :parent="review.id"
               />
@@ -57,6 +58,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import { DateTime } from 'luxon'
 import { format } from 'timeago.js'
 import ReviewReplyModal from '@/components/ReviewReplyModal'
@@ -136,6 +138,7 @@ export default {
         })
       return flattened
     },
+    ...mapState('discussions', ['isLogged']),
   }
 }
 </script>
