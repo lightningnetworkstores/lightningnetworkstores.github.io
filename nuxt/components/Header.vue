@@ -1,19 +1,13 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
-    
-        <div class="d-flex justify-space-between align-center">
+      <div class="d-flex justify-space-between align-center">
         <nuxt-link to="/">
           <img
             src="@/assets/images/LightningNetworkStores.svg"
             class="nav-logo"
           />
         </nuxt-link>
-          </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <!-- Menu List - Web -->
-
         <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on">
@@ -31,9 +25,9 @@
           </v-list>
         </v-menu>
       </div>
-          </v-toolbar-title>
+    </v-toolbar-title>
     <v-spacer></v-spacer>
-   <v-toolbar-items class="hidden-sm-and-down">
+    <v-toolbar-items class="hidden-sm-and-down">
       <v-btn text v-for="route in routes" :key="route.text" :to="route.url">
         <v-badge
           v-if="isDiscussionNotificationShowed && route.text === 'Discuss'"
@@ -100,10 +94,8 @@
     </v-menu>
   </v-app-bar>
 </template>
-
 <script>
 import { mapState } from 'vuex'
-
 export default {
   data() {
     return {
@@ -115,10 +107,23 @@ export default {
         //{ url: '/donations', text: 'Donations' },
         { url: '/about', text: 'About' },
       ],
+      sisterSites: [
+        {
+          url: 'https://bitcoin-stores.com',
+          svgPath: 'https://bitcoin-stores.com/bitcoin-stores.com.svg',
+        },
+        {
+          url: 'nostr.bitcoin-stores.com',
+          svgPath: 'https://bitcoin-stores.com/nostr.bitcoin-stores.com.svg',
+        },
+        {
+          url: 'yp.bitcoin-stores.com',
+          svgPath: 'https://bitcoin-stores.com/yp.bitcoin-stores.com.svg',
+        },
+      ],
       showMenu: false,
     }
   },
-
   computed: {
     ...mapState({
       isDiscussionNotificationShowed(state) {
@@ -126,7 +131,6 @@ export default {
       },
     }),
   },
-
   methods: {
     toggleDarkmode() {
       this.$cookies.set('darkMode', !this.$vuetify.theme.dark, '3y')
@@ -136,7 +140,6 @@ export default {
   },
 }
 </script>
-
 <style>
 .v-toolbar__content {
   height: 64px !important;
