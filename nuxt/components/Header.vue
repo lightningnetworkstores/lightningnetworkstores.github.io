@@ -230,6 +230,7 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
+      showMenu: false,
       routes: [
         { url: '/discuss', text: 'Discuss' },
         { url: '/faucet', text: 'Faucet' },
@@ -250,18 +251,14 @@ export default {
         { url: '/contributors', text: 'Contributors' },
       ],
       sisterSites: [
-        {
-          url: 'https://bitcoin-stores.com',
-          svgPath: 'https://bitcoin-stores.com/bitcoin-stores.com.svg',
-        },
-        {
-          url: 'nostr.bitcoin-stores.com',
-          svgPath: 'https://bitcoin-stores.com/nostr.bitcoin-stores.com.svg',
-        },
-        {
-          url: 'yp.bitcoin-stores.com',
-          svgPath: 'https://bitcoin-stores.com/yp.bitcoin-stores.com.svg',
-        },
+        // {
+        //   url: 'https://nostr.bitcoin-stores.com',
+        //   svgPath: '/nostr.bitcoin-stores.com.svg',
+        // },
+        // {
+        //   url: 'https://yp.bitcoin-stores.com',
+        //   svgPath: '/yp.bitcoin-stores.com.svg',
+        // },
       ],
     }
   },
