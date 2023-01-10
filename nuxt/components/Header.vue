@@ -119,6 +119,10 @@ export default {
           url: 'nostr.bitcoin-stores.com',
           svgPath: 'https://bitcoin-stores.com/nostr.bitcoin-stores.com.svg',
         },
+        {
+          url: 'yp.bitcoin-stores.com',
+          svgPath: 'https://bitcoin-stores.com/yp.bitcoin-stores.com.svg',
+        },
       ],
       showMenu: false,
     }
