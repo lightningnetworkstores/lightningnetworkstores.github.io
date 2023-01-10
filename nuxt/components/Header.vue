@@ -1,12 +1,30 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
-      <nuxt-link to="/">
-        <img
-          src="@/assets/images/LightningNetworkStores.svg"
-          class="nav-logo"
-        />
-      </nuxt-link>
+      <div class="d-flex justify-space-between align-center">
+        <nuxt-link to="/">
+          <img
+            src="@/assets/images/LightningNetworkStores.svg"
+            class="nav-logo"
+          />
+        </nuxt-link>
+        <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on">
+              mdi-chevron-down
+            </v-icon>
+          </template>
+          <v-list id="networkWebSite" color="#383838">
+            <v-list-item v-for="site in sisterSites" :key="site.url">
+              <v-list-item-title>
+                <a :href="site.url">
+                  <img :src="site.svgPath" class="nav-logo" />
+                </a>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -230,6 +248,20 @@ export default {
       routesCommunity: [
         { url: '/builders', text: 'Builders' },
         { url: '/contributors', text: 'Contributors' },
+      ],
+      sisterSites: [
+        {
+          url: 'https://bitcoin-stores.com',
+          svgPath: 'https://bitcoin-stores.com/bitcoin-stores.com.svg',
+        },
+        {
+          url: 'nostr.bitcoin-stores.com',
+          svgPath: 'https://bitcoin-stores.com/nostr.bitcoin-stores.com.svg',
+        },
+        {
+          url: 'yp.bitcoin-stores.com',
+          svgPath: 'https://bitcoin-stores.com/yp.bitcoin-stores.com.svg',
+        },
       ],
     }
   },
