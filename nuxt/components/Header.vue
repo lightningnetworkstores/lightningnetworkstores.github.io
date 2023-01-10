@@ -1,54 +1,39 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
-      <div class="d-flex justify-space-between align-center">
+    
+        <div class="d-flex justify-space-between align-center">
         <nuxt-link to="/">
           <img
             src="@/assets/images/LightningNetworkStores.svg"
             class="nav-logo"
           />
         </nuxt-link>
-        
-        <v-menu
-          v-model="showMenu"
-          absolute
-          open-on-hover
-          style="width: 900px; max-width: 900px"
-          :offset-y="true"
-          bottom
-          left
-          content-class="open-chevron-down-lighthing"
-        >
-          
+          </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-toolbar-items class="hidden-sm-and-down">
+      <!-- Menu List - Web -->
+
+        <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-icon
-              large
-              color="grey lighten-1"
-              v-bind="attrs" v-on="on"
-              style="height: 64px"
-            >
+            <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on">
               mdi-chevron-down
             </v-icon>
           </template>
-          <v-list id="networkWebSite" color="#383838" :style="{
-            marginTop: ($vuetify.breakpoint.width < 600)? '': '55px'
-          }">
-            <v-list-item>
+          <v-list id="networkWebSite" color="#383838">
+            <v-list-item v-for="site in sisterSites" :key="site.url">
               <v-list-item-title>
-                <a href="https://bitcoin-stores.com">
-                  <img
-                    src="@/assets/images/OtherLightningNetworkStores.svg"
-                    class="nav-logo"
-                  />
+                <a :href="site.url">
+                  <img :src="site.svgPath" class="nav-logo" />
                 </a>
               </v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
       </div>
-    </v-toolbar-title>
+          </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
+   <v-toolbar-items class="hidden-sm-and-down">
       <v-btn text v-for="route in routes" :key="route.text" :to="route.url">
         <v-badge
           v-if="isDiscussionNotificationShowed && route.text === 'Discuss'"
@@ -113,28 +98,6 @@
         </v-list-item>
       </v-list>
     </v-menu>
-    <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        aria-hidden="true"
-        focusable="false"
-        width="1em"
-        height="1em"
-        style="
-          -ms-transform: rotate(360deg);
-          -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-        "
-        preserveAspectRatio="xMidYMid meet"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2z"
-          fill="white"
-        />
-      </svg>
-    </v-btn> -->
   </v-app-bar>
 </template>
 
