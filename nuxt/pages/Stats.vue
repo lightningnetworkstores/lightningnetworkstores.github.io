@@ -38,8 +38,9 @@
                 </v-card-text> </v-card
             ></v-flex>
           </v-layout>
-
-            <v-layout row pt-4 wrap>
+						<!-- Commenting this out for now as per https://trello.com/c/vtNOjy6O --> 
+            <!-- 
+						<v-layout row pt-4 wrap>
             <v-flex grow class="text-xs-center" pa-4>
               <v-card>
                 <v-card-title primary-title class="justify-center">
@@ -66,8 +67,7 @@
                   </v-overlay>
                 </v-card-text> </v-card
             ></v-flex>
-          </v-layout>
-          </v-layout>
+          </v-layout> -->
         </v-container>
       </v-flex>
     </v-row>
@@ -150,7 +150,8 @@ export default {
 },
   async mounted() {
     this.getStatsData()
-    this.$store.state.statistics.faucet_chart.slice(0).map((d)=>[new Date(d[0]), d[1], d[2]]).forEach((s)=>this.claimsChartData.push(s))
+		// Commenting this out for now as per https://trello.com/c/vtNOjy6O
+    // this.$store.state.statistics.faucet_chart.slice(0).map((d)=>[new Date(d[0]), d[1], d[2]]).forEach((s)=>this.claimsChartData.push(s))
   },
 
   methods: {
