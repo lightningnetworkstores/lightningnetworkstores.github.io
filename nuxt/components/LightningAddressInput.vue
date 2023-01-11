@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-if="isSuccess" class="d-flex flex-column justify-center align-center">
+    <div
+      v-if="isSuccess && !isDestinationAContact"
+      class="d-flex flex-column justify-center align-center"
+    >
       <div class="text-h5 text-center">Success!</div>
       <div class="text-body-1">
         Add <strong>{{ address.adr }}</strong> to contact book?
@@ -205,6 +208,11 @@ export default {
       return [
         v =>  v.length <= 32 || v === undefined || 'Description is too long.'
       ]
+    },
+    isDestinationAContact() {
+      if (!this.address) return false
+      const contact = this.addresses.find(contact => contact.adr === this.address.adr)
+      return contact !== undefined
     },
     ...mapState({
       isProcessing: state => state.wallet.withdrawal.state === WithdrawalState.PROCESSING,
