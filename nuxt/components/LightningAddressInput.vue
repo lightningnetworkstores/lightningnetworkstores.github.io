@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="isSuccess && !isDestinationAContact"
+      v-if="isSuccess && !isDestinationAContact && address"
       class="d-flex flex-column justify-center align-center"
     >
       <div class="text-h5 text-center">Success!</div>
@@ -133,11 +133,15 @@ export default {
         feeAmount: this.withdrawalFee
       })
       await this.$store.dispatch('wallet/getDashboardInfo')
+      if (this.isDestinationAContact) {
+        this.reset()
+      }
     },
     reset() {
       this.address = ''
       this.amount = undefined
       this.comment = ''
+      this.$store.dispatch('wallet/resetWithdrawalState')
     },
     async onAddContact() {
       let payload = {
@@ -155,7 +159,6 @@ export default {
     contactFilter(item, queryText, itemText) {
       const name = item?.name?.toLowerCase()
       const address = item?.adr?.toLowerCase()
-      console.log('contactFilter. name: ', name, ', address: ', address)
       return (name && name.indexOf(queryText) !== -1) ||
         (address && address.indexOf(queryText) !== -1)
     }
