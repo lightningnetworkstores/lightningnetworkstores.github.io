@@ -60,7 +60,6 @@ export default {
       suggestions: [],
       search: null,
       recipient: null,
-      search: null,
       isLoading: false,
       isSending: false,
       isSuccess: true,
