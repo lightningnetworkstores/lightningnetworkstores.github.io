@@ -142,7 +142,7 @@ export default {
     async onAddContact() {
       let payload = {
         name: this.contactName,
-        adr: this.address
+        adr: this.address.adr
       }
       await this.$store.dispatch('contacts/add', payload)
       await this.$store.dispatch('wallet/resetWithdrawalState')
@@ -153,19 +153,21 @@ export default {
       this.reset()
     },
     contactFilter(item, queryText, itemText) {
-      const name = item.name.toLowerCase()
-      const address = item.adr.toLowerCase()
-      return name.indexOf(queryText) !== -1 ||
-        address.indexOf(queryText) !== -1
+      const name = item?.name?.toLowerCase()
+      const address = item?.adr?.toLowerCase()
+      console.log('contactFilter. name: ', name, ', address: ', address)
+      return (name && name.indexOf(queryText) !== -1) ||
+        (address && address.indexOf(queryText) !== -1)
     }
   },
   watch: {
     search(newVal, oldVal) {
+      const contacts = this.addresses ? this.addresses : []
       let updatedSuggestions = [
         {
           adr: newVal, name: '', hideName: true
         },
-        ...this.addresses
+        ...contacts
       ]
       this.suggestions = updatedSuggestions
     }
@@ -189,7 +191,6 @@ export default {
       return [
         v => !!v || v === '' || 'Enter a Lightning Address',
         v => {
-          console.log('v: ', v)
           if (!v) return true
           v = v.adr
           if (v.length < MIN_ADDRESS_LENGTH) return true

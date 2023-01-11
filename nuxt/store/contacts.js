@@ -23,7 +23,7 @@ export const mutations = {
     state.contacts = contacts
   },
   add(state, newContact) {
-    const updatedContacts = [...state.contacts]
+    const updatedContacts = state.contacts ? [...state.contacts] : []
     updatedContacts.push(newContact)
     state.contacts = updatedContacts
   }
