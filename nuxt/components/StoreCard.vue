@@ -62,19 +62,19 @@
           <div>
             <div class="tag-container">
               <v-chip
-                v-if="store.tags[0]"
+                v-if="tagsMinusNostr[0]"
                 color="primary"
                 outlined
                 small
                 class="mr-2 my-1"
               >
                 <b
-                  @click="updateTagSearch(store.tags[0], 0)"
+                  @click="updateTagSearch(tagsMinusNostr[0], 0)"
                   class="tag-link"
-                  >{{ store.tags[0] }}</b
+                  >{{ tagsMinusNostr[0] }}</b
                 >
               </v-chip>
-              <v-menu open-on-click top offset-y v-if="store.tags.length > 1">
+              <v-menu open-on-click top offset-y v-if="tagsMinusNostr.length > 1">
                 <template v-slot:activator="{ on, attrs }">
                   <v-chip
                     v-bind="attrs"
@@ -85,8 +85,8 @@
                     class="mr-2 my-1"
                   >
                     <b
-                      >+{{ store.tags.length - 1 }} tag{{
-                        store.tags.length - 1 == 1 ? '' : 's'
+                      >+{{ tagsMinusNostr.length - 1 }} tag{{
+                        tagsMinusNostr.length - 1 == 1 ? '' : 's'
                       }}</b
                     >
                   </v-chip>
@@ -94,7 +94,7 @@
 
                 <v-list>
                   <v-list-item
-                    v-for="(tag, index) in store.tags.slice(1, 5)"
+                    v-for="(tag, index) in tagsMinusNostr.slice(1, 5)"
                     :key="index"
                     class="my-0"
                   >
@@ -138,6 +138,9 @@ export default {
         return state.baseURL
       },
     }),
+		tagsMinusNostr() {
+			return this.store.tags.filter(tag => tag !== 'nostr')
+		}
   },
   methods: {
     getStoreLink(link) {
