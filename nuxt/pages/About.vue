@@ -24,9 +24,11 @@
           <v-layout row>
             <p>
               Team:
-              <a href="https://twitter.com/pedr0fr">Pedro Fernandes</a>
-              (founder) and
-              <a href="https://twitter.com/BitcoinBram">BitcoinBram</a>
+              <a href="https://twitter.com/pedr0fr" target="_blank" rel="noreferrer noopener">Pedro Fernandes</a>
+              (founder),
+              <a href="https://twitter.com/BitcoinBram" target="_blank" rel="noreferrer noopener">BitcoinBram</a>
+              (frontend development) and
+              <a href="https://twitter.com/bilthon" target="_blank" rel="noreferrer noopener">Bilthon</a>
               (frontend development)
             </p>
           </v-layout>
