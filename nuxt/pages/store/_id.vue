@@ -278,14 +278,8 @@
               ><h2>Discussions</h2></v-layout
             >
           </div>
-          <div v-for="(discussion, index) in discussions" :key="index">
-            <Thread
-              :comment="discussion[0]"
-              :comments="discussion.slice(1)"
-              :store="selectedStore"
-              :type="'discussion'"
-              :onlyShowLast="2"
-            ></Thread>
+          <div class="mb-3">
+            <discussion-threads :expand="true" :threads="discussions"/>
           </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
@@ -321,6 +315,7 @@ import StoreInfoSection from '~/components/StoreInfoSection.vue'
 import SocialMedia from '~/mixins/SocialMedia'
 import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
 import SettingsModal from '~/components/SettingsModal.vue'
+import DiscussionThreads from '~/components/discussions/DiscussionThreads'
 
 export default {
   components: {
@@ -334,6 +329,7 @@ export default {
     EventCard,
     AddEventModal,
     SettingsModal,
+    DiscussionThreads
   },
   mixins: [SocialMedia],
   head() {
