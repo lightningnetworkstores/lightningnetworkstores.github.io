@@ -12,7 +12,7 @@
     <v-toolbar-items class="hidden-sm-and-down">
       <!-- Menu List - Web -->
 
-      <v-menu open-on-hover offset-y>
+      <!-- <v-menu open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on"> Explore </v-btn>
         </template>
@@ -26,7 +26,7 @@
             </v-btn>
           </v-list-item>
         </v-list>
-      </v-menu>
+      </v-menu> -->
 
       <v-btn text v-for="route in routes" :key="route.text" :to="route.url">
         <v-badge
@@ -96,11 +96,11 @@
             </v-list-item>
 
             <!-- Item from Menu = Explore -->
-            <v-list-item v-bind="attrs" v-on="on">
+            <!-- <v-list-item v-bind="attrs" v-on="on">
               <v-list-item-title>
                 <div class="v-list-item">Explore</div>
               </v-list-item-title>
-            </v-list-item>
+            </v-list-item> -->
 
             <!-- Items Menu -->
             <v-list-item
