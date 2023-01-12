@@ -84,7 +84,7 @@ export default {
   methods: {
     async sendPayment() {
       const { state, message, withdrawalID } = await this.$store.dispatch('wallet/sendPayment', {
-        type: WithdrawalType.LIGHTNING_ADDRESS,
+        type: WithdrawalType.BOLT11_INVOICE,
         feeAmount: this.expectedWithdrawalFee,
         invoice: this.invoice
       })
