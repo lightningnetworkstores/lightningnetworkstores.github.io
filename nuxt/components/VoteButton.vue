@@ -299,6 +299,9 @@ export default {
               this.commentAlert.success = false
               return
             } else if(response.data && response.data.submitted){
+              if (this.paywithbalance) {
+                this.$store.dispatch('wallet/getDashboardInfo')
+              }
               this.store = response.data.store
               this.submitted = true;
               return
