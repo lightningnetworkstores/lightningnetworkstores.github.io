@@ -494,7 +494,7 @@ export default {
   },
   methods: {
     toggleHelpful(payload) {
-      this.$store.dispatch('review/toggleHelpful', payload)
+      this.$store.dispatch('toggleHelpful', payload)
     },
     toggleEditing() {
       this.$store.dispatch('toggleEditing')

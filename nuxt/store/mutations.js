@@ -313,6 +313,15 @@ const mutations = {
   setBuildersProjects(state, builders) {
     state.buildersProjects = builders
   },
+  setHelpful(state, { reviewId, isHelpful }) {
+    const reviews = [...state.selectedStore.reviews2]
+    reviews.forEach(r => {
+      if (r[0].id === reviewId) {
+        r[0].helpful = isHelpful
+      }
+    })
+    state.selectedStore.reviews2 = reviews
+  }
 }
 
 export default mutations
