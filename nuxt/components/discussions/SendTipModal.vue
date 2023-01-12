@@ -113,6 +113,9 @@ export default {
                     to: this.userId,
                     amount: this.amountTip,
                 })
+                if (result) {
+                    this.$store.dispatch('wallet/getDashboardInfo')
+                }
                 // if (result) {
                 //     this.snackbar_message.text = 'Tip Successful'
                 //     this.snackbar_message.color = 'success'
