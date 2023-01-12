@@ -95,7 +95,7 @@ export default {
         this.snackbar.isError = true
       } else {
         // Updates dashboard info
-        this.$store.dispatch('wallet/getDashboardInfo')
+        this.$store.dispatch('wallet/updateBalance')
         // Starts timer & polling
         this.startTimer(withdrawalID)
       }
@@ -115,7 +115,7 @@ export default {
         this.snackbar.message = 'Withdrawal was successful!'
         this.snackbar.isError = false
       }
-      this.$store.dispatch('wallet/getDashboardInfo')
+      this.$store.dispatch('wallet/updateBalance')
     },
     onInput(e) {
       this.value = null

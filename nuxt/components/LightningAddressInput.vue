@@ -133,7 +133,7 @@ export default {
         comment: this.comment,
         feeAmount: this.withdrawalFee
       })
-      this.$store.dispatch('wallet/getDashboardInfo')
+      this.$store.dispatch('wallet/updateBalance')
       this.$store.dispatch('updateBalance', -1 * parseInt(this.amount))
       if (this.isDestinationAContact) {
         this.reset()

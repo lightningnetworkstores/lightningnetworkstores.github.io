@@ -81,7 +81,7 @@ export const actions = {
       if (resp.data.status === 'success') {
         commit('setWithdrawalState', WithdrawalState.SUCCESS)
         if (type === WithdrawalType.LIGHTNING_ADDRESS) {
-          commit('updateBalance', { delta: -1 * amount })
+          dispatch('updateBalance')
         }
         return {
           state: WithdrawalState.PROCESSING,
@@ -132,6 +132,11 @@ export const actions = {
     } catch (err) {
       console.error('Error trying to check on withdrawal. err: ', err)
     }
+  },
+  async updateBalance({ commit }) {
+    this.$axios.$get('/api/balance')
+      .then(data => data.data.balance)
+      .then(balance => commit('setBalance', balance))
   }
 }
 
