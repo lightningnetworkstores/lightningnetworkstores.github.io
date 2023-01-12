@@ -50,7 +50,7 @@
 <script>
 import lightningPayReq from 'bolt11'
 import { mapState } from 'vuex'
-import { WithdrawalState } from '~/store/wallet'
+import { WithdrawalState, WithdrawalType } from '~/store/wallet'
 
 const MIN_INVOICE_CHECK_LENGTH = 10
 
@@ -84,6 +84,7 @@ export default {
   methods: {
     async sendPayment() {
       const { state, message, withdrawalID } = await this.$store.dispatch('wallet/sendPayment', {
+        type: WithdrawalType.LIGHTNING_ADDRESS,
         feeAmount: this.expectedWithdrawalFee,
         invoice: this.invoice
       })

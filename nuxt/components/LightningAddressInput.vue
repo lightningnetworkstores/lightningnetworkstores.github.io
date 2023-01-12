@@ -104,7 +104,7 @@
 <script>
 import { mapState } from 'vuex'
 import regexMixin from '~/mixins/regex.js'
-import { WithdrawalState } from '~/store/wallet'
+import { WithdrawalState, WithdrawalType } from '~/store/wallet'
 import Success from '~/components/Success.vue'
 
 const MIN_ADDRESS_LENGTH = 3
@@ -127,11 +127,13 @@ export default {
   methods: {
     async sendPayment() {
       await this.$store.dispatch('wallet/sendPayment', {
+        type: WithdrawalType.LIGHTNING_ADDRESS,
         address: this.address.adr,
         amount: parseInt(this.amount),
         comment: this.comment,
         feeAmount: this.withdrawalFee
       })
+      this.$store.dispatch('wallet/getDashboardInfo')
       this.$store.dispatch('updateBalance', -1 * parseInt(this.amount))
       if (this.isDestinationAContact) {
         this.reset()

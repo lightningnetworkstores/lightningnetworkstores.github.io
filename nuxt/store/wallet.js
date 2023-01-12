@@ -5,6 +5,11 @@ export const WithdrawalState = {
   FAILED: 3
 }
 
+export const WithdrawalType = {
+  LIGHTNING_ADDRESS: 0,
+  BOLT11_INVOICE: 1
+}
+
 export const state = () => ({
   deposit: {
     id: null,
@@ -60,18 +65,24 @@ export const actions = {
     commit('setInvoice', null)
     commit('setPaymentId', null)
   },
-  async sendPayment({ commit, dispatch }, { invoice, address, amount, comment = '', feeAmount }) {
+  async sendPayment({ commit, dispatch }, { type, invoice, address, amount, comment = '', feeAmount }) {
     commit('setWithdrawalState', WithdrawalState.PROCESSING)
-    let url = '/api/withdraw'
-    let body = { fee: feeAmount, payment_request: invoice }
-    if (address && amount) {
+    let url
+    let body
+    if (type === WithdrawalType.LIGHTNING_ADDRESS) {
       url = '/api/lnurlwithdraw'
       body = { fee: feeAmount, address, amount, comment }
+    } else if (type === WithdrawalType.BOLT11_INVOICE) {
+      url = '/api/withdraw'
+      body = { fee: feeAmount, payment_request: invoice }
     }
     try {
       const resp = await this.$axios.post(url, body)
       if (resp.data.status === 'success') {
         commit('setWithdrawalState', WithdrawalState.SUCCESS)
+        if (type === WithdrawalType.LIGHTNING_ADDRESS) {
+          commit('updateBalance', { delta: -1 * amount })
+        }
         return {
           state: WithdrawalState.PROCESSING,
           withdrawalID: resp.data.data.withdrawalID
