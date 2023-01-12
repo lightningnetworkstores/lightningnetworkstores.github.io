@@ -19,7 +19,7 @@
         <v-icon>mdi-arrow-up</v-icon>
       </v-tab>
     </v-tabs>
-    <v-tabs-items v-model="tabs" class="flex-grow-1">
+    <v-tabs-items v-model="tabs" class="flex-grow-1 mx-2">
       <v-tab-item style="min-height: 20em">
         <Deposit class="pt-1"/>
       </v-tab-item>
