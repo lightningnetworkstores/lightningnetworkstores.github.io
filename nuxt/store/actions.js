@@ -613,6 +613,10 @@ const actions = {
       .catch((error) => console.error(error))
   },
 
+  updateBalance({ commit }, delta) {
+    commit('updateBalance', delta)
+  },
+
   sliderGroupFunction({ state, commit }, { dataCustomSorting }) {
     if (Object.keys(dataCustomSorting).length !== 0) {
       const {

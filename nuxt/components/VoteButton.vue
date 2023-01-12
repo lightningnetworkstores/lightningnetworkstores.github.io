@@ -300,7 +300,8 @@ export default {
               return
             } else if(response.data && response.data.submitted){
               if (this.paywithbalance) {
-                this.$store.dispatch('wallet/getDashboardInfo')
+                const delta = -1 * parseInt(this.upvoteDialogForm.amount)
+                this.$store.dispatch('updateBalance', delta)
               }
               this.store = response.data.store
               this.submitted = true;

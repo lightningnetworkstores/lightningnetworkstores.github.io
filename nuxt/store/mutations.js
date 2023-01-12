@@ -224,6 +224,14 @@ const mutations = {
   updateLoginStatus(state, status) {
     state.loginStatus = status
   },
+  updateBalance(state, delta) {
+    const { loginStatus } = state
+    if (!loginStatus) return
+    const { balance } = loginStatus
+    if (!balance) return
+    if (balance + delta < 0) return
+    state.loginStatus.balance = balance + delta
+  },
   cleanStoreContest(state) {
     state.storeContest = {}
   },
