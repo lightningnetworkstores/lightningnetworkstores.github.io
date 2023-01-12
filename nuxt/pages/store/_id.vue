@@ -423,10 +423,6 @@ export default {
         href: location.href,
       },
     ]
-    const { sort_reviews } = this.$route.query
-    if (sort_reviews && sort_reviews === 'new') {
-      this.sortReviewsByTime()
-    }
     this.$recaptcha.init()
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
@@ -501,11 +497,6 @@ export default {
     },
     openSettingsModal() {
       this.$store.dispatch('modals/openSettingsModal')
-    },
-    sortReviewsByTime() {
-      this.reviews.sort((a, b) => {
-        return b[b.length - 1].timestamp - a[a.length - 1].timestamp
-      })
     },
     toggleMoreSimilar() {
       this.similarExpanded = !this.similarExpanded
