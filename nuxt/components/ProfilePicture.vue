@@ -35,7 +35,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['loginStatus']),
+    ...mapState('wallet', ['balance'])
   }
 }
 </script>
