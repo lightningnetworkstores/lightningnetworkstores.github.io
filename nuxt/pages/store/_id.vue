@@ -16,7 +16,7 @@
           </v-alert>
           <v-row justify="center">
             <v-btn
-              v-if="selectedStore.logged"
+              v-if="isLogged"
               @click="toggleEditing"
               color="primary"
               class="mx-3 mb-3 py-6 mt-3"
@@ -431,12 +431,14 @@ export default {
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
   computed: {
-    ...mapState(['stores']),
-    ...mapState('discussions', ['isLogged']),
+    ...mapState(['stores', 'loginStatus']),
     ...mapState('review', ['reviews']),
     editButtonElevation() {
       if (this.editingSelectedStore) return 0
       return 8
+    },
+    isLogged() {
+      return this.loginStatus?.user?.logged
     },
     showSettings() {
       return (

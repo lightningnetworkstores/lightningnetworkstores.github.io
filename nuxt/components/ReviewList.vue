@@ -30,7 +30,7 @@
                 {{ format(review.timestamp) }}
               </v-list-item-subtitle>
             </v-list-item-content>
-            <div v-if="!review.isReply" class="d-flex justify-space-between flex-column align-end time-container mt-3">
+            <div v-if="!review.isReply && isLogged" class="d-flex justify-space-between flex-column align-end time-container mt-3">
               <v-btn icon>
                 <v-icon @click="toggleHelpful(review)" color="pink" small>
                   {{ review.helpful ? 'mdi-heart' : 'mdi-heart-outline' }}
@@ -138,7 +138,10 @@ export default {
         })
       return flattened
     },
-    ...mapState('discussions', ['isLogged']),
+    ...mapState(['loginStatus']),
+    isLogged() {
+      return this.loginStatus?.user?.logged
+    }
   }
 }
 </script>
