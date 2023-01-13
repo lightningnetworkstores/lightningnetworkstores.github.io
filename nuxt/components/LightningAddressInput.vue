@@ -220,6 +220,7 @@ export default {
     },
     isDestinationAContact() {
       if (!this.address) return false
+      if(this.addresses==null) return false
       const contact = this.addresses.find(contact => contact.adr === this.address.adr)
       return contact !== undefined
     },
