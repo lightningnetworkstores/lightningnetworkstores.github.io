@@ -138,6 +138,7 @@ export default {
       if (this.isDestinationAContact) {
         this.reset()
       }
+      setTimeout(this.checkBalance, 3e3)
     },
     reset() {
       this.address = ''
@@ -163,6 +164,9 @@ export default {
       const address = item?.adr?.toLowerCase()
       return (name && name.indexOf(queryText) !== -1) ||
         (address && address.indexOf(queryText) !== -1)
+    },
+    checkBalance() {
+      this.$store.dispatch('wallet/updateBalance')
     }
   },
   watch: {
