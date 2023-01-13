@@ -30,13 +30,14 @@
                 {{ format(review.timestamp) }}
               </v-list-item-subtitle>
             </v-list-item-content>
-            <div v-if="!review.isReply" class="d-flex justify-space-between flex-column align-end time-container mt-3">
+            <div v-if="!review.isReply && isLogged" class="d-flex justify-space-between flex-column align-end time-container mt-3">
               <v-btn icon>
                 <v-icon @click="toggleHelpful(review)" color="pink" small>
                   {{ review.helpful ? 'mdi-heart' : 'mdi-heart-outline' }}
                 </v-icon>
               </v-btn>
               <review-reply-modal
+                v-if="isLogged"
                 :storeId="storeId"
                 :parent="review.id"
               />
@@ -57,6 +58,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import { DateTime } from 'luxon'
 import { format } from 'timeago.js'
 import ReviewReplyModal from '@/components/ReviewReplyModal'
@@ -136,6 +138,10 @@ export default {
         })
       return flattened
     },
+    ...mapState(['loginStatus']),
+    isLogged() {
+      return this.loginStatus?.user?.logged
+    }
   }
 }
 </script>

@@ -9,10 +9,23 @@
           <v-btn color="green darken-1" text @click="onCancel"> Ok </v-btn>
         </v-card-actions>
       </v-card>
-      <v-card v-if="loginResponse === null">
+      <v-card v-if="loginResponse === null" justify="center">
         <v-card-title class="text-h5"> Login </v-card-title>
+
+        <v-card class="d-flex flex-column justify-center align-center">
+          <v-card-title class="text-h6">
+            login with the authorized twitter account</v-card-title
+          >
+          <v-card-text>
+            <v-btn color="primary" dark block @click="handleLoginClick">
+              <v-icon color="white darken-2" class="mr-3"> mdi-twitter </v-icon>
+              LOGIN WITH TWITTER
+            </v-btn>
+          </v-card-text>
+        </v-card>
+        <h1 justify="center" class="text-center">OR</h1>
         <v-card-text
-          >An email will be sent to {{destinationEmail}}.</v-card-text
+          >An email will be sent to {{ destinationEmail }}.</v-card-text
         >
         <vue-hcaptcha
           v-if="token === null"
@@ -28,8 +41,7 @@
         <div class="ml-5 mr-5">
           <v-radio-group v-model="emailSelection">
             <v-row v-if="showRadioButtons">
-              <v-radio :value="0">
-              </v-radio>
+              <v-radio :value="0"> </v-radio>
               <v-text-field
                 label="Default email"
                 type="email"
@@ -38,8 +50,7 @@
               />
             </v-row>
             <v-row>
-              <v-radio v-if="showRadioButtons" :value="1">
-              </v-radio>
+              <v-radio v-if="showRadioButtons" :value="1"> </v-radio>
               <v-text-field
                 @input="handleChange"
                 label="Company email"
@@ -47,7 +58,9 @@
                 :value="recipient"
                 :suffix="'@' + rooturl"
                 :disabled="showRadioButtons && emailSelection !== 1"
-                :rules="[(v)=> /^[a-zA-Z0-9_\.\-]+$/.test(v) || 'invalid email']"
+                :rules="[
+                  (v) => /^[a-zA-Z0-9_\.\-]+$/.test(v) || 'invalid email',
+                ]"
               ></v-text-field>
             </v-row>
           </v-radio-group>
@@ -77,6 +90,7 @@
 </template>
 <script>
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
+
 export default {
   props: [
     'enabled',
@@ -120,11 +134,19 @@ export default {
         this.domain = this.rooturl
       }
     },
+    handleLoginClick() {
+      this.$axios
+        .get('/api/oauthlogin?platform=twitter')
+        .then((res) => res.data)
+        .then((data) => {
+          const { request_token, authorization_url, platform } = data.data
+          window.location.replace(authorization_url)
+        })
+    },
   },
   computed: {
     destinationEmail() {
-      if (this.emailSelection === 0)
-        return `${this.email}`
+      if (this.emailSelection === 0) return `${this.email}`
       else if (this.emailSelection === 1)
         return `${this.recipient}@${this.domain}`
     },

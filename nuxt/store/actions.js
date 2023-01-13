@@ -92,6 +92,15 @@ const actions = {
       })
     }
   },
+  toggleHelpful({ commit }, { id, helpful }) {
+    commit('setHelpful', {reviewId: id, isHelpful: !helpful })
+    return this.$axios.post(`/api/helpful?id=${id}&remove=${helpful}`)
+      .catch(err => {
+        console.error('Error while posting review. err: ', err)
+        commit('setHelpful', {reviewId: id, isHelpful: helpful })
+        dispatch('network/showError', err, { root: true})
+      })
+  },
   async getStoreBuilder({ state, commit }, data) {
     try {
       const url = `${state.baseURL}api/storeinfo/?id=${data.id}`
@@ -611,6 +620,10 @@ const actions = {
         }
       })
       .catch((error) => console.error(error))
+  },
+
+  updateBalance({ commit }, delta) {
+    commit('updateBalance', delta)
   },
 
   sliderGroupFunction({ state, commit }, { dataCustomSorting }) {

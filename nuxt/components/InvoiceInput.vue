@@ -50,7 +50,7 @@
 <script>
 import lightningPayReq from 'bolt11'
 import { mapState } from 'vuex'
-import { WithdrawalState } from '~/store/wallet'
+import { WithdrawalState, WithdrawalType } from '~/store/wallet'
 
 const MIN_INVOICE_CHECK_LENGTH = 10
 
@@ -84,6 +84,7 @@ export default {
   methods: {
     async sendPayment() {
       const { state, message, withdrawalID } = await this.$store.dispatch('wallet/sendPayment', {
+        type: WithdrawalType.BOLT11_INVOICE,
         feeAmount: this.expectedWithdrawalFee,
         invoice: this.invoice
       })
@@ -94,7 +95,7 @@ export default {
         this.snackbar.isError = true
       } else {
         // Updates dashboard info
-        this.$store.dispatch('wallet/getDashboardInfo')
+        this.$store.dispatch('wallet/updateBalance')
         // Starts timer & polling
         this.startTimer(withdrawalID)
       }
@@ -114,7 +115,7 @@ export default {
         this.snackbar.message = 'Withdrawal was successful!'
         this.snackbar.isError = false
       }
-      this.$store.dispatch('wallet/getDashboardInfo')
+      this.$store.dispatch('wallet/updateBalance')
     },
     onInput(e) {
       this.value = null

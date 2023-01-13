@@ -48,8 +48,8 @@ export default {
         amount: +this.amount
       })
       if (result) {
+        this.$store.dispatch('updateBalance', -1 * parseInt(this.amount))
         this.amount = null
-        this.$store.dispatch('wallet/getDashboardInfo')
       }
     },
     handleUserSelected(recipient) {

@@ -299,6 +299,10 @@ export default {
               this.commentAlert.success = false
               return
             } else if(response.data && response.data.submitted){
+              if (this.paywithbalance) {
+                const delta = -1 * parseInt(this.upvoteDialogForm.amount)
+                this.$store.dispatch('updateBalance', delta)
+              }
               this.store = response.data.store
               this.submitted = true;
               return

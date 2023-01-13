@@ -1,12 +1,30 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
-      <nuxt-link to="/">
-        <img
-          src="@/assets/images/LightningNetworkStores.svg"
-          class="nav-logo"
-        />
-      </nuxt-link>
+      <div class="d-flex justify-space-between align-center">
+        <nuxt-link to="/">
+          <img
+            src="@/assets/images/LightningNetworkStores.svg"
+            class="nav-logo"
+          />
+        </nuxt-link>
+        <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on">
+              mdi-chevron-down
+            </v-icon>
+          </template>
+          <v-list id="networkWebSite" color="#383838">
+            <v-list-item v-for="site in sisterSites" :key="site.url">
+              <v-list-item-title>
+                <a :href="site.url">
+                  <img :src="site.svgPath" class="nav-logo" />
+                </a>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -209,10 +227,10 @@
 
 <script>
 import { mapState } from 'vuex'
-
 export default {
   data() {
     return {
+      showMenu: false,
       routes: [
         { url: '/discuss', text: 'Discuss' },
         { url: '/faucet', text: 'Faucet' },
@@ -232,9 +250,18 @@ export default {
         { url: '/builders', text: 'Builders' },
         { url: '/contributors', text: 'Contributors' },
       ],
+      sisterSites: [
+        // {
+        //   url: 'https://nostr.bitcoin-stores.com',
+        //   svgPath: '/nostr.bitcoin-stores.com.svg',
+        // },
+        // {
+        //   url: 'https://yp.bitcoin-stores.com',
+        //   svgPath: '/yp.bitcoin-stores.com.svg',
+        // },
+      ],
     }
   },
-
   computed: {
     showDashboardButton() {
       return this.$route.name !== 'Dashboard'
@@ -253,7 +280,6 @@ export default {
     }),
     positionExploreCard() {
       let brackPointWitdh = this.$vuetify.breakpoint.width
-
       if (brackPointWitdh < 361) return 'positionCardMobile_xxs'
       if (brackPointWitdh < 376) return 'positionCardMobile_xs'
       if (brackPointWitdh < 395) return 'positionCardMobile_sm'
@@ -266,7 +292,6 @@ export default {
       else return 'positionCardMobile_sm'
     },
   },
-
   methods: {
     toggleDarkmode() {
       this.$cookies.set('darkMode', !this.$vuetify.theme.dark, '3y')
@@ -299,7 +324,6 @@ export default {
 .btndarkmode .v-btn__content {
   font-size: 2em !important;
 }
-
 .positionCardMobile_xxs {
   left: 20px !important;
 }

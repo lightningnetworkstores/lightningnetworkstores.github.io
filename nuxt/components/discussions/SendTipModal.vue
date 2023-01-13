@@ -113,6 +113,10 @@ export default {
                     to: this.userId,
                     amount: this.amountTip,
                 })
+                if (result) {
+                    const delta =  -1 * parseInt(this.amountTip)
+                    this.$store.dispatch('updateBalance', delta)
+                }
                 // if (result) {
                 //     this.snackbar_message.text = 'Tip Successful'
                 //     this.snackbar_message.color = 'success'

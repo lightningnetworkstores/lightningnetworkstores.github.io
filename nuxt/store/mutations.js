@@ -224,6 +224,14 @@ const mutations = {
   updateLoginStatus(state, status) {
     state.loginStatus = status
   },
+  updateBalance(state, delta) {
+    const { loginStatus } = state
+    if (!loginStatus) return
+    const { balance } = loginStatus
+    if (!balance) return
+    if (balance + delta < 0) return
+    state.loginStatus.balance = balance + delta
+  },
   cleanStoreContest(state) {
     state.storeContest = {}
   },
@@ -305,6 +313,15 @@ const mutations = {
   setBuildersProjects(state, builders) {
     state.buildersProjects = builders
   },
+  setHelpful(state, { reviewId, isHelpful }) {
+    const reviews = [...state.selectedStore.reviews2]
+    reviews.forEach(r => {
+      if (r[0].id === reviewId) {
+        r[0].helpful = isHelpful
+      }
+    })
+    state.selectedStore.reviews2 = reviews
+  }
 }
 
 export default mutations
