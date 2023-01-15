@@ -35,6 +35,7 @@
           :rules="replyRules"
         >
         </v-textarea>
+        <ImageSelector @onImageSelected="onImageSelected" @onImageCancelled="onImageCancelled"/>
         <v-checkbox v-model="sage" class="my-0" label="Don't bump thread" color="primary">
         </v-checkbox>
         <v-progress-linear v-if="isProcessing" indeterminate/>
@@ -49,7 +50,14 @@
   </v-dialog>
 </template>
 <script>
+import { mapState } from 'vuex'
+import ImageSelector from '@/components/discussions/ImageSelector'
+import { IMAGE_TYPE_FILE_UPLOAD, IMAGE_TYPE_URL } from '@/utils/constants'
+
 export default {
+  components: {
+    ImageSelector
+  },
   props: {
     reply: {
       type: Object,
@@ -80,7 +88,8 @@ export default {
       hasError: null,
       errorMessage: null,
       isValid: true,
-      isProcessing: false
+      isProcessing: false,
+      image: null
     }
   },
   mounted() {
@@ -93,13 +102,28 @@ export default {
     async handleSubmit() {
       this.isProcessing = true
       const recaptchaToken = await this.$recaptcha.execute('low_value_comment')
-      this.$store.dispatch('discussions/postReply', {
+      const payload = {
         recaptchaToken: recaptchaToken,
         parent: this.threadId,
         comment: this.message,
         threadIndex: this.threadIndex,
         sage: this.sage
-      }).then(data => {
+      }
+      let uploadImageResponse = null
+      if (this.image && this.image.type === IMAGE_TYPE_FILE_UPLOAD) {
+        // Image specified as a file
+        try {
+          uploadImageResponse = await this.$store.dispatch('discussions/addImage', this.image.value)
+          payload.link = `${this.baseURL}${uploadImageResponse.data.path.slice(1)}`
+        } catch(err) {
+          this.isLoading = false
+          return this.$store.dispatch('network/showError', err)
+        }
+      } else if (this.image && this.image.type === IMAGE_TYPE_URL) {
+        // Image specified as a URL
+        payload.link = this.image.value
+      }
+      this.$store.dispatch('discussions/postReply', payload).then(data => {
         this.showDialog = false
         if (!data.data.submitted && data.status === 'success') {
           this.$emit('paid-reply-request', data)
@@ -121,9 +145,18 @@ export default {
     },
     handleRateControlResponse(data) {
       console.log('handleRateControlResponse. data: ', data)
+    },
+    onImageSelected(event) {
+      // {type: <IMAGE_TYPE_FILE_UPLOAD|IMAGE_TYPE_URL>, value: <File|String>}
+      console.log('onImageSelected. event: ', event)
+      this.image = event
+    },
+    onImageCancelled() {
+      this.image = null
     }
   },
   computed: {
+    ...mapState(['storeSummary', 'baseURL']),
     disableSubmit() {
       return !this.isValid || this.isProcessing
     },
