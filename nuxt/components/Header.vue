@@ -3,7 +3,7 @@
     <v-toolbar-title>
       <nuxt-link to="/">
         <img
-          src="@/assets/images/LightningNetworkStores.svg"
+          src="@/assets/images/nostr.bitcoin-stores.com.svg"
           class="nav-logo"
         />
       </nuxt-link>
@@ -248,7 +248,15 @@ export default {
   height: 64px !important;
 }
 .nav-logo {
-  height: 55px;
+    width: 28vmax;
+    position: relative;
+    max-width: 380px;
+    right: 1rem;
+}
+@media (min-width: 768px) {
+    .nav-logo {
+        right: 1.5rem;
+    }
 }
 .btndarkmode .v-btn__content {
   font-size: 2em !important;
