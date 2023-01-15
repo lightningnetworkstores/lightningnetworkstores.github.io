@@ -41,7 +41,6 @@ const getters = {
       if (search && search !== 'undefined') {
         let fuse = new Fuse(stores, options)
         stores = fuse.search(search)
-        return stores
       }
 
       stores.sort(
