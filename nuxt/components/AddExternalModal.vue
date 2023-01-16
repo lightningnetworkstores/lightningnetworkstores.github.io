@@ -72,6 +72,7 @@ export default {
         'trustpilot',
         'steam',
         'chrome',
+        'firefox',
       ],
       value: null,
       formError: false,

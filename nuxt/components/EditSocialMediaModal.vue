@@ -106,6 +106,12 @@ export default {
           modified: false,
           error: null,
         },
+        {
+          name: 'youtube',
+          url: getUrl('youtube'),
+          modified: false,
+          error: null,
+        },
       ],
       isProcessing: false,
       formError: null,
