@@ -64,6 +64,11 @@
                                     />
                                 </div>
                             </div>
+                            <discussion-image
+                                v-if="reply.link"
+                                :url="reply.link"
+                                style="min-height: 50px"
+                            />
                             <Reply :reply="reply.comment" />
                             <v-divider
                                 v-if="
@@ -96,6 +101,7 @@ import Topics from './Topics.vue'
 import Reply from './Reply.vue'
 import StorePreview from './StorePreview'
 import DiscussionHeader from './DiscussionHeader.vue'
+import DiscussionImage from '@/components/discussions/DiscussionImage'
 
 export default {
     components: {
@@ -106,6 +112,7 @@ export default {
         Reply,
         StorePreview,
         DiscussionHeader,
+        DiscussionImage
     },
     data() {
         return {
