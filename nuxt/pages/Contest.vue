@@ -6,28 +6,31 @@
           outlined
           color="#424242"
           @click="onPrevious()"
-          style="width: 8em"
+          style="width: 9em"
           class="d-flex justify-center"
         >
           <v-icon v-if="!isMobile">mdi-chevron-left</v-icon>
           Previous
         </v-btn>
       </v-col>
-      <v-col class="col-md-8">
-        <h1 class="text-center">What's your favorite project?</h1>
-      </v-col>
+      <v-spacer></v-spacer>
       <v-col class="col-md-2 d-flex justify-end">
         <v-btn
           outlined
           color="#424242"
           :disabled="disableNext"
           @click="onNext()"
-          style="width: 8em"
+          style="width: 9em"
           class="d-flex justify-center"
         >
           Next
           <v-icon v-if="!isMobile">mdi-chevron-right</v-icon>
         </v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <h1 class="text-center">What's your favorite project?</h1>
       </v-col>
     </v-row>
     <v-row>
@@ -42,7 +45,6 @@
           "
         >
           <div class="d-flex align-center justify-center flex-wrap">
-            <span class="title">Time left:</span>
             <div>
               <flip-countdown
                 v-if="isActuallyContest"
@@ -226,7 +228,6 @@ export default {
       return []
     },
     isMobile() {
-      console.log('isMobile: ', this.$vuetify.breakpoint.mobile)
       return this.$vuetify.breakpoint.mobile
     }
   },
