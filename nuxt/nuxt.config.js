@@ -224,6 +224,11 @@ export default {
       src: '~/plugins/carbon-charts.js',
       ssr: true,
     },
+    {
+      src: '@/plugins/gtag',
+      ssr: true
+
+    }
   ],
 
   recaptcha: {
@@ -271,8 +276,7 @@ export default {
       },
     },
   },
-  googleAnalytics: { id: 'UA-74119866-1' },
-
+  //googleAnalytics: { id: 'UA-74119866-1' }, // universal analytics is deprecated by google
   build: {
     // Build Configuration (https://go.nuxtjs.dev/config-build)
     extend(config, { isDev, isClient }) {

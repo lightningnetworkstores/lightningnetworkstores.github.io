@@ -27,6 +27,8 @@ export default {
         { text: 'Tagging', value: 'tagging' },
         { text: 'Edits', value: 'edits' },
         { text: 'Builders', value: 'builders' },
+        { text: 'Images', value: 'images' },
+        { text: 'Sats stacked', value: 'paid' },
       ],
     }
   },
@@ -52,7 +54,7 @@ export default {
       return items.sort((a, b) => sortting(b) - sortting(a))
     },
     compareSort() {
-      return (a) => a.tagging + a.listings + a.delistings + a.builders + a.edits
+      return (a) => a.tagging + a.listings + a.delistings + a.builders + a.edits + a.images
     },
   },
   created() {

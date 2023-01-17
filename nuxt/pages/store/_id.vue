@@ -196,7 +196,11 @@
               </div>
             </div>
 
-            <builder-stores :paramsId="paramsId" :storeId="selectedStore.id" v-if="builderStore.length>0 || editingSelectedStore" />
+            <builder-stores
+              :paramsId="paramsId"
+              :storeId="selectedStore.id"
+              v-if="builderStore.length > 0 || editingSelectedStore"
+            />
           </v-col>
         </v-col>
       </v-row>
@@ -279,7 +283,7 @@
             >
           </div>
           <div class="mb-3">
-            <discussion-threads :expand="true" :threads="discussions"/>
+            <discussion-threads :expand="true" :threads="discussions" />
           </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
@@ -329,7 +333,7 @@ export default {
     EventCard,
     AddEventModal,
     SettingsModal,
-    DiscussionThreads
+    DiscussionThreads,
   },
   mixins: [SocialMedia],
   head() {
@@ -485,7 +489,7 @@ export default {
       'selectedStore',
       'selectedStoreSettings',
       'editingSelectedStore',
-      'builderStore'
+      'builderStore',
     ]),
   },
   methods: {
