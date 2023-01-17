@@ -1,27 +1,32 @@
 <template>
   <v-container
     ><v-row>
-      <v-col class="col-md-2">
+      <v-col class="col-md-2 d-flex justify-start">
         <v-btn
           outlined
           color="#424242"
-          :class="isActivePrevious ? 'isActive' : ''"
-          @click="handlePreviousContentStore()"
+          @click="onPrevious()"
+          style="width: 8em"
+          class="d-flex justify-center"
         >
+          <v-icon v-if="!isMobile">mdi-chevron-left</v-icon>
           Previous
         </v-btn>
       </v-col>
       <v-col class="col-md-8">
         <h1 class="text-center">What's your favorite project?</h1>
       </v-col>
-      <v-col class="col-md-2 text-right">
+      <v-col class="col-md-2 d-flex justify-end">
         <v-btn
           outlined
           color="#424242"
-          :class="isActivePrevious ? '' : 'isActive'"
-          @click="handleResetContentStore()"
+          :disabled="disableNext"
+          @click="onNext()"
+          style="width: 8em"
+          class="d-flex justify-center"
         >
           Next
+          <v-icon v-if="!isMobile">mdi-chevron-right</v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -131,12 +136,6 @@ import FlipCountdown from 'vue2-flip-countdown'
 
 export default {
   components: { FlipCountdown },
-  data() {
-    return {
-      countPrevious: 0,
-      isActivePrevious: false,
-    }
-  },
   computed: {
     ...mapGetters({
       storeContest: 'getStoreContest',
@@ -147,6 +146,12 @@ export default {
         else return false
       },
     }),
+    disableNext() {
+      if (this.stage) {
+        return this.stage === 'MAIN' || this.stage === 'EXTENSION'
+      }
+      return false
+    },
     deadline() {
       return this.storeContest.contest?.end
         ? new Date(this.storeContest.contest?.end).toLocaleString()
@@ -220,6 +225,10 @@ export default {
       }
       return []
     },
+    isMobile() {
+      console.log('isMobile: ', this.$vuetify.breakpoint.mobile)
+      return this.$vuetify.breakpoint.mobile
+    }
   },
   methods: {
     notIsNaN (number) {
@@ -239,29 +248,21 @@ export default {
           window.location.replace(authorization_url)
         })
     },
-    handlePreviousContentStore() {
-      this.countPrevious = this.countPrevious + 1
-
-      this.$store.dispatch('getCustomStoreContest', {
-        age: this.countPrevious,
+    onPrevious() {
+      this.$store.dispatch('getStoreContest', {
+        name: this.storeContest.contest.name,
+        age: 1
       })
-      // this.$store.dispatch('getStoreContest')
-      this.isActivePrevious = true
     },
-    handleResetContentStore() {
-      if (this.countPrevious > 0)
-        this.countPrevious = this.countPrevious - 1;
-
-      this.$store.dispatch('getCustomStoreContest', {
-        age: this.countPrevious,
+    onNext() {
+      this.$store.dispatch('getStoreContest', {
+        name: this.storeContest.contest.name,
+        age: -1
       })
-      // this.$store.dispatch('getStoreContest')
-      this.isActivePrevious = false
     },
   },
-
   beforeMount() {
-    this.$store.dispatch('getStoreContest')
+    this.$store.dispatch('getStoreContest', { age: 0 })
   },
 }
 </script>
@@ -275,10 +276,5 @@ export default {
 
 .user-voted-container {
   gap: 2px;
-}
-.isActive {
-  background: #424242;
-  border: 1px solid #424242;
-  color: white !important;
 }
 </style>

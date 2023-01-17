@@ -1176,19 +1176,20 @@ const actions = {
     })
   },
 
-  async getStoreContest({ commit, state }) {
-    // commit("cleanStoreContest")
+  async getStoreContest({ commit, state }, { age, name }) {
+    let url = `${state.baseURL}api/store_contest?age=${age}`
+    if (name) {
+      url += `&name=${name}`
+    }
     const {
       data: { data },
-    } = await this.$axios.get(`${state.baseURL}api/store_contest?age=0`)
+    } = await this.$axios.get(url)
 
     let dataStore = { ...data }
     let nameStore = dataStore.contest.name
 
     commit('setStoreContest', dataStore)
     commit('setNameStoreContest', nameStore)
-
-    return Promise.resolve()
   },
   async getCustomStoreContest({ commit, state }, { name, age }) {
     if (name === '' || name === undefined) {
