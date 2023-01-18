@@ -204,7 +204,7 @@
           </v-col>
         </v-col>
       </v-row>
-      <v-row class="justify-center" v-if="relatedStores.length > 0">
+      <v-row class="justify-center" v-if="relatedNostrStores.length > 0">
         <v-col cols="12" sm="9" xl="6">
           <v-layout class="mt-4 mb-2" justify-center>
             <h1>Similar</h1>
@@ -212,7 +212,7 @@
           <v-layout class="wrap justify-center">
             <v-flex
               class="my-3 mx-sm-3 similar-item"
-              v-for="store in relatedStores.slice(0, maxSimilarToShow)"
+              v-for="store in relatedNostrStores.slice(0, maxSimilarToShow)"
               :key="'store-' + store.id"
             >
               <store-card :store="store"> </store-card>
@@ -220,7 +220,7 @@
           </v-layout>
           <v-layout
             justify-center="true"
-            v-if="relatedStores.length > minSimilarToShow"
+            v-if="relatedNostrStores.length > minSimilarToShow"
           >
             <v-btn @click="toggleMoreSimilar()" color="primary">
               {{ showSimilarBtnMessage }}
@@ -474,6 +474,9 @@ export default {
       return this.stores.filter(({ id }) =>
         this.selectedStore.related.includes(id)
       )
+    },
+    relatedNostrStores() {
+      return this.relatedStores.filter((s) => s.tags.includes('nostr'))
     },
     storeEmail() {
       return this.selectedStore.email
