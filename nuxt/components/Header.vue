@@ -253,8 +253,8 @@ export default {
       ],
       sisterSites: [
         // {
-        //   url: 'https://nostr.bitcoin-stores.com',
-        //   svgPath: '/nostr.bitcoin-stores.com.svg',
+        //   url: 'https://nostrich.fun',
+        //   svgPath: '/nostrich.fun.svg',
         // },
         // {
         //   url: 'https://yp.bitcoin-stores.com',

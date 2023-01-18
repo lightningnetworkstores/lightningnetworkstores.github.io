@@ -5,5 +5,5 @@ Search stores/apps/projects that accept bitcoin through the lightning network.
 </Description>
 <InputEncoding>UTF-8</InputEncoding>
 <Image width="16" height="16" type="image/x-icon">/favicon-16x16.ico</Image>
-<Url type="text/html" method="get" template="https://nostr.bitcoin-stores.com/?search={searchTerms}"/>
+<Url type="text/html" method="get" template="https://nostrich.fun/?search={searchTerms}"/>
 </OpenSearchDescription>

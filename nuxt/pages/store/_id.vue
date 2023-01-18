@@ -149,7 +149,7 @@
               <v-layout row class="py-2">
                 <v-flex shrink>
                   <v-img
-                    :src="`https://nostr.bitcoin-stores.com/external/${propertyName}.svg`"
+                    :src="`https://nostrich.fun.com/external/${propertyName}.svg`"
                     class="external-image"
                   >
                   </v-img>
