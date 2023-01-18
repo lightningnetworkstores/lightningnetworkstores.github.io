@@ -30,7 +30,7 @@
     <v-toolbar-items class="hidden-sm-and-down">
       <!-- Menu List - Web -->
 
-      <v-menu open-on-hover offset-y>
+      <!-- <v-menu open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on"> Explore </v-btn>
         </template>
@@ -44,7 +44,7 @@
             </v-btn>
           </v-list-item>
         </v-list>
-      </v-menu>
+      </v-menu> -->
 
       <v-menu open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -124,7 +124,7 @@
           </v-list-item>
         </v-list-item>
         <!-- Menu Explore -->
-        <v-list-item>
+        <!-- <v-list-item>
           <v-menu offset-x absolute :content-class="positionExploreCard">
             <template v-slot:activator="{ on, attrs }">
               <v-list-item v-bind="attrs" v-on="on">
@@ -147,7 +147,8 @@
               </v-list-item>
             </v-list>
           </v-menu>
-        </v-list-item>
+        </v-list-item> -->
+
         <!-- Menu Community -->
         <v-list-item>
           <v-menu offset-x absolute :content-class="positionExploreCard">
