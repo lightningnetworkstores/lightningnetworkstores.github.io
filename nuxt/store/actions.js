@@ -1238,10 +1238,17 @@ const actions = {
 
     return Promise.resolve()
   },
-  async choseOption({ state }, { contestID, choice }) {
-    return this.$axios.post(`${state.baseURL}api/contest_vote`, {
+  async choseOption({ state, commit, dispatch }, { contestID, choice }) {
+    this.$axios.post(`${state.baseURL}api/contest_vote`, {
       contestID,
       choice,
+    })
+    .then(res => {
+      commit('chooseStore', choice)
+    })
+    .catch(err => {
+      console.error('Error while posting review. err: ', err)
+      dispatch('network/showError', err, { root: true})
     })
   },
   async placeBet({ commit, state }, { contestID, choice, amount, type }) {

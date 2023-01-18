@@ -238,6 +238,11 @@ const mutations = {
   setStoreContest(state, payload) {
     state.storeContest = { ...payload }
   },
+  chooseStore(state, storeId) {
+    const updatedStoreContest = { ...state.storeContest }
+    updatedStoreContest.user_vote.choice = storeId
+    state.storeContest = updatedStoreContest
+  },
   setNameStoreContest(state, payload) {
     state.nameStoreContest = payload
   },

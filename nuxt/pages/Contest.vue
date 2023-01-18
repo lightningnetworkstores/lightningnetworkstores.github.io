@@ -123,7 +123,7 @@
               :store="store"
               :contestId="storeContest.contest.id"
               :disabled="!isLogged || isContestClosed"
-              :selected="store.id == choice"
+              :selected="store.id === choice"
               :minBet="minimumBet"
             /></div
         ></v-col>
