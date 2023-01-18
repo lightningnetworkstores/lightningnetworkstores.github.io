@@ -32,10 +32,9 @@
                             <v-card
                                 class="
                                     px-5
-                                    py-6
                                     d-flex
                                     flex-column
-                                    justify-center
+                                    justify-start
                                 "
                                 min-height="30em"
                             >
@@ -59,6 +58,13 @@
                         <v-spacer></v-spacer>
                         <v-col cols="6">
                             <AffiliateRules />
+                        </v-col>
+                        <v-spacer></v-spacer>
+                    </v-row>
+                     <v-row>
+                        <v-spacer></v-spacer>
+                        <v-col cols="6">
+                            <ContributorRules />
                         </v-col>
                         <v-spacer></v-spacer>
                     </v-row>
@@ -86,6 +92,9 @@
                 </v-card>
                 <v-card elevation="2" class="mx-2 my-2" min-width="95%">
                   <AffiliateRules />
+                </v-card>
+                 <v-card elevation="2" class="mx-2 my-2" min-width="95%">
+                  <ContributorRules />
                 </v-card>
             </v-layout>
         </div>

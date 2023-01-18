@@ -16,7 +16,7 @@
           </v-alert>
           <v-row justify="center">
             <v-btn
-              v-if="selectedStore.logged"
+              v-if="isLogged"
               @click="toggleEditing"
               color="primary"
               class="mx-3 mb-3 py-6 mt-3"
@@ -196,7 +196,11 @@
               </div>
             </div>
 
-            <builder-stores :paramsId="paramsId" :storeId="selectedStore.id" v-if="builderStore.length>0 || editingSelectedStore" />
+            <builder-stores
+              :paramsId="paramsId"
+              :storeId="selectedStore.id"
+              v-if="builderStore.length > 0 || editingSelectedStore"
+            />
           </v-col>
         </v-col>
       </v-row>
@@ -278,14 +282,8 @@
               ><h2>Discussions</h2></v-layout
             >
           </div>
-          <div v-for="(discussion, index) in discussions" :key="index">
-            <Thread
-              :comment="discussion[0]"
-              :comments="discussion.slice(1)"
-              :store="selectedStore"
-              :type="'discussion'"
-              :onlyShowLast="2"
-            ></Thread>
+          <div class="mb-3">
+            <discussion-threads :expand="true" :threads="discussions" />
           </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
@@ -321,6 +319,7 @@ import StoreInfoSection from '~/components/StoreInfoSection.vue'
 import SocialMedia from '~/mixins/SocialMedia'
 import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
 import SettingsModal from '~/components/SettingsModal.vue'
+import DiscussionThreads from '~/components/discussions/DiscussionThreads'
 
 export default {
   components: {
@@ -334,6 +333,7 @@ export default {
     EventCard,
     AddEventModal,
     SettingsModal,
+    DiscussionThreads,
   },
   mixins: [SocialMedia],
   head() {
@@ -427,20 +427,18 @@ export default {
         href: location.href,
       },
     ]
-    const { sort_reviews } = this.$route.query
-    if (sort_reviews && sort_reviews === 'new') {
-      this.sortReviewsByTime()
-    }
     this.$recaptcha.init()
     setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
   },
   computed: {
-    ...mapState(['stores']),
-    ...mapState('discussions', ['isLogged']),
+    ...mapState(['stores', 'loginStatus']),
     ...mapState('review', ['reviews']),
     editButtonElevation() {
       if (this.editingSelectedStore) return 0
       return 8
+    },
+    isLogged() {
+      return this.loginStatus?.user?.logged
     },
     showSettings() {
       return (
@@ -491,23 +489,18 @@ export default {
       'selectedStore',
       'selectedStoreSettings',
       'editingSelectedStore',
-      'builderStore'
+      'builderStore',
     ]),
   },
   methods: {
     toggleHelpful(payload) {
-      this.$store.dispatch('review/toggleHelpful', payload)
+      this.$store.dispatch('toggleHelpful', payload)
     },
     toggleEditing() {
       this.$store.dispatch('toggleEditing')
     },
     openSettingsModal() {
       this.$store.dispatch('modals/openSettingsModal')
-    },
-    sortReviewsByTime() {
-      this.reviews.sort((a, b) => {
-        return b[b.length - 1].timestamp - a[a.length - 1].timestamp
-      })
     },
     toggleMoreSimilar() {
       this.similarExpanded = !this.similarExpanded

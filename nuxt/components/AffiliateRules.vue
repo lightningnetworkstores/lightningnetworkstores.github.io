@@ -83,6 +83,7 @@
             </ul>
         </v-card-text>
         <v-card-text v-if="affiliate">
+            <p class="my-0">Total hits: {{ affiliate.hits }}</p>
             <p class="my-0">Pending Payout: {{ affiliate.pending }}</p>
             <p class="my-0">Minimum payout: {{ affiliate.payout_every }}</p>
             <p class="my-0">Total Paid: {{ affiliate.paid }}</p>

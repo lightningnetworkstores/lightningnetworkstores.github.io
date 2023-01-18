@@ -66,7 +66,7 @@
         class="d-flex flex-row justify-end align-end mr-0 pr-0"
       >
         <div class="flex-grow-1">
-          <StorePreview class="hidden-sm-and-down" :store="discussionHeader.store"/>
+          <StorePreview :store="discussionHeader.store"/>
         </div>
       </v-col>
     </v-row>

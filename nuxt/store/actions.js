@@ -92,6 +92,15 @@ const actions = {
       })
     }
   },
+  toggleHelpful({ commit }, { id, helpful }) {
+    commit('setHelpful', {reviewId: id, isHelpful: !helpful })
+    return this.$axios.post(`/api/helpful?id=${id}&remove=${helpful}`)
+      .catch(err => {
+        console.error('Error while posting review. err: ', err)
+        commit('setHelpful', {reviewId: id, isHelpful: helpful })
+        dispatch('network/showError', err, { root: true})
+      })
+  },
   async getStoreBuilder({ state, commit }, data) {
     try {
       const url = `${state.baseURL}api/storeinfo/?id=${data.id}`
@@ -301,6 +310,24 @@ const actions = {
       .catch((error) => {
         console.log(error)
       })
+  },
+  async getContributions({ state, commit }) {
+    try {
+      const response = await this.$axios.get(
+        `${state.baseURL}api/contributor_leaderboard`
+      )
+
+      const results = response.data
+
+      if (results.status === 'success') {
+        commit('setContributions', results.data)
+        return results.data
+      }
+
+      return []
+    } catch (error) {
+      console.error(error)
+    }
   },
   getDiscussionReplyPaymentRequest({ state }, payload) {
     return this.$axios
@@ -593,6 +620,10 @@ const actions = {
         }
       })
       .catch((error) => console.error(error))
+  },
+
+  updateBalance({ commit }, delta) {
+    commit('updateBalance', delta)
   },
 
   sliderGroupFunction({ state, commit }, { dataCustomSorting }) {
@@ -1249,6 +1280,25 @@ const actions = {
   },
   sliderCustomSortingAction({ commit }, payload) {
     commit('updateSliderCustomSorting', payload)
+  },
+  async getBuildersProjects({ state, commit }, data) {
+    try {
+      const url = `${state.baseURL}api/builder`
+
+      const { data: response } = await this.$axios.get(url)
+
+      if (response.status === 'success') {
+        // Builders
+        commit('setBuildersProjects', response.data.builders_with_projects)
+      }
+
+      return []
+    } catch (err) {
+      return Promise.reject({
+        statusCode: err.status,
+        message: err.message,
+      })
+    }
   },
 }
 

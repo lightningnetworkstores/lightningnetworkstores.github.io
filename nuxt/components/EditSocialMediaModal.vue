@@ -106,6 +106,12 @@ export default {
           modified: false,
           error: null,
         },
+        {
+          name: 'youtube',
+          url: getUrl('youtube'),
+          modified: false,
+          error: null,
+        },
       ],
       isProcessing: false,
       formError: null,
@@ -164,14 +170,6 @@ export default {
       this.showDialog = false
     },
   },
-  computed: {
-    availableOptions() {
-      const activeLinks = Object.keys(this.store.social)
-      return this.options.filter((item) => {
-        const index = activeLinks.findIndex((present) => present === item)
-        return index === -1
-      })
-    },
-  },
+  computed: {},
 }
 </script>

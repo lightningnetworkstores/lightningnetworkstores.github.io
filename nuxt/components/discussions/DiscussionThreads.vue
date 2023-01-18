@@ -45,19 +45,29 @@
                 />
               </div>
             </div>
-            <div class="d-flex justify-space-between">
-              <Reply
-                :reply="reply.comment"
-                @hover-on="(u) => handleHoverOn(u)"
-                @hover-off="(u) => handleHoverOff(u)"
-              />
+            <div class="d-flex justify-space-between mb-3">
+              <v-row>
+                <v-col v-if="reply.link" cols="2">
+                  <discussion-image
+                    v-if="reply.link"
+                    :url="reply.link"
+                  />
+                </v-col>
+                <v-col>
+                  <Reply
+                    :reply="reply.comment"
+                    @hover-on="(u) => handleHoverOn(u)"
+                    @hover-off="(u) => handleHoverOff(u)"
+                  />
+                </v-col>
+              </v-row>
               <DeleteCommentModal
                 v-if="isAdmin"
                 :threadIndex="threadIndex"
                 :commentId="reply.id"
               />
             </div>
-            <v-divider v-if="replyIndex < repliesCount(threadIndex) - 2"/>
+            <v-divider v-if="replyIndex < repliesCount(threadIndex) - 1"/>
           </v-sheet>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -90,6 +100,7 @@ import Topics from './Topics.vue'
 import Reply from './Reply.vue'
 import DiscussionHeader from './DiscussionHeader.vue'
 import DeleteCommentModal from './DeleteCommentModal.vue'
+import DiscussionImage from '@/components/discussions/DiscussionImage'
 
 export default {
   components: {
@@ -100,6 +111,7 @@ export default {
     Reply,
     DiscussionHeader,
     DeleteCommentModal,
+    DiscussionImage
   },
   props: {
     threads: {

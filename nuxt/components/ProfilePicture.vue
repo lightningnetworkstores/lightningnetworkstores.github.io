@@ -10,9 +10,9 @@
         class="profile-balance-container px-1"
         color="primary"
         style="min-width: 4em"
-        :style="{'opacity': loginStatus.balance ? 1 : 0}"
+        :style="{'opacity': showBalance ? 1 : 0}"
       >
-        <div v-if="loginStatus.balance" class="text-caption"> {{ numify(loginStatus.balance) }} <i class="fak fa-regular"></i></div>
+        <div v-if="showBalance" class="text-caption"> {{ numify(balance.available) }} <i class="fak fa-regular"></i></div>
       </v-chip>
     </div>
   </v-btn>
@@ -35,7 +35,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(['loginStatus'])
+    ...mapState(['loginStatus']),
+    ...mapState('wallet', ['balance']),
+    showBalance() {
+      return this.loginStatus && this.balance
+    }
   }
 }
 </script>

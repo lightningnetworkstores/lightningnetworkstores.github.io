@@ -1,18 +1,36 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
-      <nuxt-link to="/">
-        <img
-          src="@/assets/images/nostr.bitcoin-stores.com.svg"
-          class="nav-logo"
-        />
-      </nuxt-link>
+      <div class="d-flex justify-space-between align-center">
+        <nuxt-link to="/">
+          <img
+            src="@/assets/images/LightningNetworkStores.svg"
+            class="nav-logo"
+          />
+        </nuxt-link>
+        <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on">
+              mdi-chevron-down
+            </v-icon>
+          </template>
+          <v-list id="networkWebSite" color="#383838">
+            <v-list-item v-for="site in sisterSites" :key="site.url">
+              <v-list-item-title>
+                <a :href="site.url">
+                  <img :src="site.svgPath" class="nav-logo" />
+                </a>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <!-- Menu List - Web -->
 
-      <!-- <v-menu open-on-hover offset-y>
+      <v-menu open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on"> Explore </v-btn>
         </template>
@@ -26,7 +44,20 @@
             </v-btn>
           </v-list-item>
         </v-list>
-      </v-menu> -->
+      </v-menu>
+
+      <v-menu open-on-hover offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn text v-bind="attrs" v-on="on"> Community </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="(menu, index) in routesCommunity" :key="index">
+            <v-btn text :to="menu.url">
+              {{ menu.text }}
+            </v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
       <v-btn text v-for="route in routes" :key="route.text" :to="route.url">
         <v-badge
@@ -82,67 +113,92 @@
         </v-app-bar-nav-icon>
       </template>
 
-      <v-menu offset-x absolute :content-class="positionExploreCard">
-        <template v-slot:activator="{ on, attrs }">
-          <v-list>
-            <v-list-item class="justify-center">
-              <LoginButton v-if="!isLogged" />
-              <ProfilePicture v-else :src="profile.image" />
-            </v-list-item>
-            <v-list-item v-if="isLogged && showDashboardButton" to="/dashboard">
-              <v-list-item>
-                <v-list-item-title> Dashboard </v-list-item-title>
-              </v-list-item>
-            </v-list-item>
-
-            <!-- Item from Menu = Explore -->
-            <!-- <v-list-item v-bind="attrs" v-on="on">
-              <v-list-item-title>
-                <div class="v-list-item">Explore</div>
-              </v-list-item-title>
-            </v-list-item> -->
-
-            <!-- Items Menu -->
-            <v-list-item
-              v-for="route in routes"
-              :key="route.text"
-              :to="route.url"
-            >
-              <v-list-item>
-                <v-list-item-title>
-                  <v-badge
-                    v-if="
-                      isDiscussionNotificationShowed && route.text === 'Discuss'
-                    "
-                    color="orange"
-                    dot
-                  >
-                    {{ route.text }}
-                  </v-badge>
-                  <div v-else>
-                    {{ route.text }}
-                  </div>
-                </v-list-item-title>
-              </v-list-item>
-            </v-list-item>
-            <v-list-item v-if="isLogged">
-              <v-list-item @click="handleLogout">
-                <v-list-item-title> Logout </v-list-item-title>
-              </v-list-item>
-            </v-list-item>
-          </v-list>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(menuExplore, index) in routesExplore"
-            :key="index"
-          >
-            <v-btn text :to="menuExplore.url">
-              {{ menuExplore.text }}
-            </v-btn>
+      <v-list>
+        <v-list-item class="justify-center">
+          <LoginButton v-if="!isLogged" />
+          <ProfilePicture v-else :src="profile.image" />
+        </v-list-item>
+        <v-list-item v-if="isLogged && showDashboardButton" to="/dashboard">
+          <v-list-item>
+            <v-list-item-title> Dashboard </v-list-item-title>
           </v-list-item>
-        </v-list>
-      </v-menu>
+        </v-list-item>
+        <!-- Menu Explore -->
+        <v-list-item>
+          <v-menu offset-x absolute :content-class="positionExploreCard">
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item v-bind="attrs" v-on="on">
+                <v-list-item-title> Explore </v-list-item-title>
+              </v-list-item>
+            </template>
+            <v-list width="195px" max-width="195px">
+              <v-list-item
+                v-for="(menuExplore, index) in routesExplore"
+                :key="index"
+              >
+                <v-btn
+                  text
+                  :to="menuExplore.url"
+                  block
+                  style="justify-content: left"
+                >
+                  {{ menuExplore.text }}
+                </v-btn>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
+        <!-- Menu Community -->
+        <v-list-item>
+          <v-menu offset-x absolute :content-class="positionExploreCard">
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item v-bind="attrs" v-on="on">
+                <v-list-item-title> Community </v-list-item-title>
+              </v-list-item>
+            </template>
+            <v-list width="195px" max-width="195px">
+              <v-list-item
+                v-for="(menuCommunity, index) in routesCommunity"
+                :key="index"
+              >
+                <v-btn
+                  text
+                  :to="menuCommunity.url"
+                  block
+                  style="justify-content: left"
+                >
+                  {{ menuCommunity.text }}
+                </v-btn>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
+        <!-- Items Menu -->
+        <v-list-item v-for="route in routes" :key="route.text" :to="route.url">
+          <v-list-item>
+            <v-list-item-title>
+              <v-badge
+                v-if="
+                  isDiscussionNotificationShowed && route.text === 'Discuss'
+                "
+                color="orange"
+                dot
+              >
+                {{ route.text }}
+              </v-badge>
+              <div v-else>
+                {{ route.text }}
+              </div>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list-item>
+        <!-- Logout -->
+        <v-list-item v-if="isLogged">
+          <v-list-item @click="handleLogout">
+            <v-list-item-title> Logout </v-list-item-title>
+          </v-list-item>
+        </v-list-item>
+      </v-list>
     </v-menu>
     <!--  <v-btn icon @click="toggleDarkmode" class="btndarkmode">
       <svg
@@ -171,13 +227,15 @@
 
 <script>
 import { mapState } from 'vuex'
-
 export default {
   data() {
     return {
+      showMenu: false,
       routes: [
         { url: '/discuss', text: 'Discuss' },
+        { url: '/faucet', text: 'Faucet' },
         { url: '/stats', text: 'Statistics' },
+        //{ url: '/wallets', text: 'Wallets' },
         //{ url: '/donations', text: 'Donations' },
         //{ url: "/contest", text: "Contests" },
         //{ url: "/quiz", text: "Daily Quiz" },
@@ -185,10 +243,25 @@ export default {
       ],
       routesExplore: [
         { url: '/trending', text: 'Trending 📈', itHasIcon: true },
+        { url: '/searches', text: 'Popular searches', itHasIcon: false },
+        { url: '/wallets', text: 'Wallets', itHasIcon: false },
+      ],
+      routesCommunity: [
+        { url: '/builders', text: 'Builders' },
+        { url: '/contributors', text: 'Contributors' },
+      ],
+      sisterSites: [
+        // {
+        //   url: 'https://nostr.bitcoin-stores.com',
+        //   svgPath: '/nostr.bitcoin-stores.com.svg',
+        // },
+        // {
+        //   url: 'https://yp.bitcoin-stores.com',
+        //   svgPath: '/yp.bitcoin-stores.com.svg',
+        // },
       ],
     }
   },
-
   computed: {
     showDashboardButton() {
       return this.$route.name !== 'Dashboard'
@@ -207,7 +280,6 @@ export default {
     }),
     positionExploreCard() {
       let brackPointWitdh = this.$vuetify.breakpoint.width
-
       if (brackPointWitdh < 361) return 'positionCardMobile_xxs'
       if (brackPointWitdh < 376) return 'positionCardMobile_xs'
       if (brackPointWitdh < 395) return 'positionCardMobile_sm'
@@ -220,7 +292,6 @@ export default {
       else return 'positionCardMobile_sm'
     },
   },
-
   methods: {
     toggleDarkmode() {
       this.$cookies.set('darkMode', !this.$vuetify.theme.dark, '3y')
@@ -248,20 +319,11 @@ export default {
   height: 64px !important;
 }
 .nav-logo {
-    width: 28vmax;
-    position: relative;
-    max-width: 380px;
-    right: 1rem;
-}
-@media (min-width: 768px) {
-    .nav-logo {
-        right: 1.5rem;
-    }
+  height: 55px;
 }
 .btndarkmode .v-btn__content {
   font-size: 2em !important;
 }
-
 .positionCardMobile_xxs {
   left: 20px !important;
 }
