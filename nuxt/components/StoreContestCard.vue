@@ -102,15 +102,17 @@
                 </div>
             </div>
         </v-card-text>
-        <v-card-actions
-            ><v-btn
+        <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
                 text
                 color="blue-grey"
                 class="mx-2 white--text"
+                style="min-width: 10em"
                 :disabled="selected"
                 @click="chooseStore"
             >
-                <v-icon left dark> mdi-star </v-icon>
+                <v-icon left dark> fa-badge-check </v-icon>
                 {{ selected ? 'chosen' : 'chose' }}
             </v-btn>
 
@@ -120,7 +122,7 @@
                 class="ma-2 white--text"
                 @click="openAmountModal = true"
             >
-                <v-icon left dark> mdi-crown-circle </v-icon>
+                <v-icon left dark> fa-bitcoin </v-icon>
                 Place a bet
             </v-btn>
         </v-card-actions>
