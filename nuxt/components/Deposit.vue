@@ -159,6 +159,7 @@ export default {
   computed: {
     rules() {
       return [
+        // FIXME: this does not seem to work
         v => {
           if (v === null) return true
           if (parseInt(v) <= 0) return 'Invalid amount'
