@@ -46,6 +46,13 @@
       >
         Generate Invoice
       </v-btn>
+      <v-btn
+        :disabled="!isValid || isRequesting"
+        @click="payWebLN"
+        color="primary"
+      >
+              <v-icon color="orange">fa-bolt</v-icon>
+      </v-btn>
     </v-form>
     <v-snackbar
       bottom
@@ -69,6 +76,7 @@
 import { Duration } from 'luxon'
 import { mapState } from 'vuex'
 import lightningPayReq from 'bolt11'
+import { requestProvider } from 'webln';
 
 const INITIAL_TIMER_DATA = {
   lifetime: -1,
@@ -94,6 +102,23 @@ export default {
   },
   methods: {
     async requestInvoice() {
+      await this.getInvoice()
+    },
+    async payWebLN() {
+      try {
+        const webln = await requestProvider();
+        await this.getInvoice().then((invoice) => {
+          webln.sendPayment(invoice)
+        })
+      }
+     catch(err) {
+      alert(err.message);
+}
+    },
+    onCopyClicked(e) {
+      navigator.clipboard.writeText(this.invoice)
+    },
+    async getInvoice() {
       this.isRequesting = true
       const invoice = await this.$store.dispatch('wallet/getInvoice', this.amount)
       const decoded = lightningPayReq.decode(invoice)
@@ -101,9 +126,8 @@ export default {
       this.timerData.remaining = parseInt(decoded.timeExpireDate - decoded.timestamp)
       this.isRequesting = false
       this.startTimer()
-    },
-    onCopyClicked(e) {
-      navigator.clipboard.writeText(this.invoice)
+
+      return invoice
     },
     startTimer() {
       this.timerTask = setInterval(async () => {
