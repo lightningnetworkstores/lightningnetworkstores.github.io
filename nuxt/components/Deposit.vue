@@ -31,7 +31,6 @@
         label="Amount (sats)"
         outlined
         type="number"
-        :rules="rules"
       >
       </v-text-field>
       <v-progress-linear
@@ -119,6 +118,9 @@ export default {
       navigator.clipboard.writeText(this.invoice)
     },
     async getInvoice() {
+      if (this.amount === null || parseInt(this.amount) <= 0) {
+        return "Invalid amount"
+      }
       this.isRequesting = true
       const invoice = await this.$store.dispatch('wallet/getInvoice', this.amount)
       const decoded = lightningPayReq.decode(invoice)
@@ -157,16 +159,6 @@ export default {
     }
   },
   computed: {
-    rules() {
-      return [
-        // FIXME: this does not seem to work
-        v => {
-          if (v === null) return true
-          if (parseInt(v) <= 0) return 'Invalid amount'
-          return true
-        }
-      ]
-    },
     invoiceContainerWidth() {
       return this.$vuetify.breakpoint.name === 'xs' ? '36em' : '47em'
     },
