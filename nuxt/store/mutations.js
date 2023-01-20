@@ -240,7 +240,11 @@ const mutations = {
   },
   chooseStore(state, storeId) {
     const updatedStoreContest = { ...state.storeContest }
-    updatedStoreContest.user_vote.choice = storeId
+    if (!updatedStoreContest.user_vote) {
+      updatedStoreContest.user_vote = { choice: storeId }
+    } else {
+      updatedStoreContest.user_vote.choice = storeId
+    }
     state.storeContest = updatedStoreContest
   },
   setNameStoreContest(state, payload) {
