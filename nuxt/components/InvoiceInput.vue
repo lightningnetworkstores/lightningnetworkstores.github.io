@@ -31,6 +31,13 @@
       >
         Withdraw
       </v-btn>
+      <v-btn
+        width="200"
+        @click="makeWebLN"
+        color="primary"
+      >
+        <v-icon color="orange">fa-bolt</v-icon>
+      </v-btn>
     </div>
     <v-snackbar v-model="snackbar.show">
       {{ snackbar.message }}
@@ -51,6 +58,7 @@
 import lightningPayReq from 'bolt11'
 import { mapState } from 'vuex'
 import { WithdrawalState, WithdrawalType } from '~/store/wallet'
+import { requestProvider } from 'webln';
 
 const MIN_INVOICE_CHECK_LENGTH = 10
 
@@ -98,6 +106,18 @@ export default {
         this.$store.dispatch('wallet/updateBalance')
         // Starts timer & polling
         this.startTimer(withdrawalID)
+      }
+    },
+    async makeWebLN() {
+      try {
+        const webln = await requestProvider();
+      await webln.makeInvoice().then(async (request_invoice) => {
+            const invoiceObject = lightningPayReq.decode(request_invoice.paymentRequest)
+            this.invoice = invoiceObject.paymentRequest
+            this.value = invoiceObject.satoshis
+        })
+      } catch(err) {
+        alert(err.message)
       }
     },
     reset(hadError, message) {
