@@ -1191,24 +1191,6 @@ const actions = {
     commit('setStoreContest', dataStore)
     commit('setNameStoreContest', nameStore)
   },
-  async getCustomStoreContest({ commit, state }, { name, age }) {
-    if (name === '' || name === undefined) {
-      var nameStore = state.nameStoreContest
-    } else {
-      var nameStore = name
-      commit('setNameStoreContest', name)
-    }
-
-    const {
-      data: { data },
-    } = await this.$axios.get(
-      `${state.baseURL}api/store_contest?name=${nameStore}&age=${age}`
-    )
-
-    commit('setStoreContest', { ...data })
-
-    return Promise.resolve()
-  },
   async getQuizContest({ commit, state }) {
     const {
       data: { data },
