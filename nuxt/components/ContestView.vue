@@ -231,6 +231,13 @@ export default {
       return this.$vuetify.breakpoint.mobile
     }
   },
+  watch: {
+    nameContest(oldName, newName) {
+      if (newName) {
+        history.pushState({}, null, this.$route.path + '/' + newName)
+      }
+    }
+  },
   methods: {
     notIsNaN (number) {
       if (isNaN(number)) {
