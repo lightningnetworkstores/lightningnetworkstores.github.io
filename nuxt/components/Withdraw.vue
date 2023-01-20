@@ -4,7 +4,7 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon color="orange">fa-bolt</v-icon>
+              <v-icon color="blue">fa-solid fa-qrcode</v-icon>
             </v-btn>
           </template>
           <span>Invoice</span>
