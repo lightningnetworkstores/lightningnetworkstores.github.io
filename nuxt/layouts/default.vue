@@ -40,18 +40,6 @@ export default {
     return {}
   },
 
-  head() {
-    if (this.$route.query.tags) {
-      const tags = this.$route.query.tags.split(',')
-      if (tags.length === 1) {
-        const tag = this.$options.filters.capitalize(tags[0])
-        return {
-          title: `${tag} tag | Lightning Network Stores`,
-        }
-      }
-    }
-  },
-
   beforeCreate() {
     if (this.$cookies.get('darkMode') !== undefined) {
       this.$vuetify.theme.dark = this.$cookies.get('darkMode')
