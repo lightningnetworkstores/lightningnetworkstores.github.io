@@ -320,6 +320,7 @@ import SocialMedia from '~/mixins/SocialMedia'
 import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
 import SettingsModal from '~/components/SettingsModal.vue'
 import DiscussionThreads from '~/components/discussions/DiscussionThreads'
+import Head from '~/mixins/Head'
 
 export default {
   components: {
@@ -335,56 +336,13 @@ export default {
     SettingsModal,
     DiscussionThreads,
   },
-  mixins: [SocialMedia],
+  mixins: [SocialMedia, Head],
   head() {
-    return {
-      title: this.selectedStore.name + ' | Lightning Network Stores',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.selectedStore.description,
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: this.selectedStore.name + ' | Lightning Network Stores',
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: this.selectedStore.description,
-        },
-        {
-          hid: 'twitter:title',
-          property: 'twitter:title',
-          content: this.selectedStore.name + ' | Lightning Network Stores',
-        },
-        {
-          hid: 'twitter:description',
-          property: 'twitter:description',
-          content: this.selectedStore.description,
-        },
-        {
-          hid: 'image',
-          property: 'image',
-          content:
-            this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content:
-            this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
-        },
-        {
-          hid: 'twitter:image',
-          property: 'twitter:image',
-          content:
-            this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
-        },
-      ],
-    }
+    return this.getMetadata(
+      `${this.selectedStore.name} | Lightning Network Stores`,
+      this.selectedStore.description,
+      this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png'
+    )
   },
   data() {
     return {

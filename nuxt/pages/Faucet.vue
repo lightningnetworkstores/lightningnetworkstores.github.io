@@ -149,10 +149,11 @@ import Success from '@/components/Success.vue'
 import FaucetExplainerModal from '@/components/FaucetExplainerModal.vue'
 import FaucetDonationModal from '@/components/FaucetDonationModal.vue'
 import UrlUtmSource from '~/mixins/UrlUtmSource'
+import Head from '~/mixins/Head'
 
 export default {
   name: 'Faucet',
-  mixins: [UrlUtmSource],
+  mixins: [UrlUtmSource, Head],
   components: {
     VueHcaptcha,
     Checkout,
@@ -161,49 +162,11 @@ export default {
     FaucetDonationModal,
   },
   head() {
-    return {
-      title: 'Bitcoin lightning faucet',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content:
-            'Get free bitcoin/satoshis with the click of a button in our lightning network faucet.',
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: 'Bitcoin lightning faucet',
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content:
-            'Get free bitcoin/satoshis with the click of a button in our lightning network faucet.',
-        },
-        {
-          hid: 'twitter:title',
-          property: 'twitter:title',
-          content: 'Bitcoin lightning faucet',
-        },
-        {
-          hid: 'twitter:description',
-          property: 'twitter:description',
-          content:
-            'Get free bitcoin/satoshis with the click of a button in our lightning network faucet.',
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: process.env.BASE_URL + '/faucet_ogimage.png',
-        },
-        {
-          hid: 'twitter:image',
-          property: 'twitter:image',
-          content: process.env.BASE_URL + '/faucet_ogimage.png',
-        },
-      ],
-    }
+    return this.getMetadata(
+      'Bitcoin lightning faucet',
+      'Get free bitcoin/satoshis with the click of a button in our lightning network faucet.',
+      process.env.BASE_URL + 'faucet_ogimage.png'
+    )
   },
   data: () => ({
     headers: [
