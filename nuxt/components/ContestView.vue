@@ -47,7 +47,7 @@
           <div class="d-flex align-center justify-center flex-wrap">
             <div>
               <flip-countdown
-                v-if="isActuallyContest"
+                v-if="isContestRunning"
                 :deadline="deadline"
                 :showDays="false"
                 countdownSize="32px"
@@ -86,7 +86,7 @@
         <h3 class="mb-4">Your bets</h3>
         <user-bets-table
           :userBets="userBets"
-          :waitingForEnd="isActuallyContest"
+          :waitingForEnd="isContestRunning"
         />
       </v-col>
     </v-row>
@@ -189,7 +189,7 @@ export default {
     nameContest() {
       return this.storeContest.contest?.name
     },
-    isActuallyContest() {
+    isContestRunning() {
       if (
         ['MAIN', 'EXTENSION', 'ACTIVE'].includes(this.stage)
       ) {
