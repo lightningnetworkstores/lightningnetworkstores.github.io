@@ -24,6 +24,11 @@
         </v-btn>
         <InvoiceModal :invoice="invoice"/>
       </div>
+      <v-flex pl-3 pr-3 class="text-center">
+        <a :href="'lightning:' + invoice" class="link-button"
+          >Open in wallet</a
+        >
+      </v-flex>
     </div>
     <v-form v-if="!hasInvoice" v-model="isValid">
       <v-text-field
@@ -44,13 +49,6 @@
         color="primary"
       >
         Generate Invoice
-      </v-btn>
-      <v-btn
-        :disabled="!isValid || isRequesting"
-        @click="payWebLN"
-        color="primary"
-      >
-              <v-icon color="orange">fa-bolt</v-icon>
       </v-btn>
     </v-form>
     <v-snackbar
