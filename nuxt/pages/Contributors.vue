@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import Head from '~/mixins/Head'
+
 export default {
   data() {
     return {
@@ -31,6 +33,10 @@ export default {
         { text: 'Sats stacked', value: 'paid' },
       ],
     }
+  },
+  mixins: [Head],
+  head(){
+    return this.getMetadata('LNS Contributors', 'The top contributors to LightningNetworkStores.com', '/ogimage.png')
   },
   computed: {
     contributions() {

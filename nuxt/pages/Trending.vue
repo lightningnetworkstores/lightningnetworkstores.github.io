@@ -51,7 +51,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Head from '~/mixins/Head'
 export default {
   mixins: [Head],
