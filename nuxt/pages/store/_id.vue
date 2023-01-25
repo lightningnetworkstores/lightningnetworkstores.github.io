@@ -163,8 +163,14 @@
                   >
                   </v-img>
                 </v-flex>
-                <v-flex grow class="external-text">
+                <v-flex grow class="external-text pr-2 d-flex justify-space-between">
                   <b>{{ propertyName }}</b>
+                  <b
+                    v-show="getPopularityValue(propertyName) !== 0"
+                    class="grey--text"
+                  >
+                    {{ getPopularityValue(propertyName) }}
+                  </b>
                 </v-flex>
                 <v-flex shrink class="mr-4 mt-1 d-flex">
                   <edit-store-modal
