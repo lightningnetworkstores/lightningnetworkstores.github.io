@@ -1,13 +1,13 @@
 <template>
   <div class="d-flex flex-column justify-space-between flex-grow-1">
     <v-btn-toggle v-model="mode" class="mb-2">
-        <v-tooltip bottom>
+       <v-tooltip v-if="hasWebLn" bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon color="blue">fa-solid fa-qrcode</v-icon>
+              <v-icon color="blue">fa-brands fa-chrome</v-icon>
             </v-btn>
           </template>
-          <span>Invoice</span>
+          <span>Browser Wallet</span>
         </v-tooltip>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
@@ -17,18 +17,18 @@
           </template>
           <span>Lightning Address</span>
         </v-tooltip>
-        <v-tooltip v-if="hasWebLn" bottom>
+        <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon color="orange">fa-bolt</v-icon>
+              <v-icon color="blue">fa-solid fa-qrcode</v-icon>
             </v-btn>
           </template>
-          <span>Browser Wallet</span>
+          <span>Invoice</span>
         </v-tooltip>
       </v-btn-toggle>
-      <invoice-input v-if="mode === 0"/>
-      <lightning-address-input v-if="mode === 1"/>
-      <web-l-n-withdraw v-if="mode === 2"/>
+      <web-l-n-withdraw v-if="mode === hasWebLn - 1"/>
+      <lightning-address-input v-if="mode === hasWebLn+0"/>
+      <invoice-input v-if="mode === hasWebLn+1"/>
   </div>
 </template>
 <script>
