@@ -69,18 +69,27 @@
 
                     <v-row class="pl-2 pr-2 pt-3 d-flex justify-space-between">
                       <div class="d-flex">
-                        <v-btn
-                          v-for="(name, index) in Object.keys(
-                            selectedStore.social
-                          )"
+                        <div
+                          v-for="(name, index) in Object.keys(selectedStore.social)"
                           :key="index"
-                          text
-                          icon
-                          :color="social[name].color"
-                          :href="getSocialHref(selectedStore.social[name])"
+                          class="d-flex flex-column align-center"
                         >
-                          <v-icon>fab fa-{{ name }}</v-icon>
-                        </v-btn>
+                          <v-btn
+                            text
+                            icon
+                            :color="social[name].color"
+                            :href="getSocialHref(selectedStore.social[name])"
+                          >
+                            <v-icon>fab fa-{{ name }}</v-icon>
+                          </v-btn>
+                          <span
+                            v-show="getPopularityValue(name) !== 0"
+                            class="text-caption"
+                            style="line-height: 1;"
+                          >
+                            {{ getPopularityValue(name) }}
+                          </span>
+                        </div>
                         <edit-social-media-modal
                           v-if="editingSelectedStore"
                           :store="selectedStore"
@@ -307,6 +316,7 @@
 </template>
 
 <script>
+import { numify } from 'numify'
 import { mapState } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
 import DeleteImageModal from '~/components/DeleteImageModal.vue'
@@ -602,6 +612,13 @@ export default {
     },
     filterReviewsWithStars(selected) {
       this.showReviewsWithStars = selected
+    },
+    getPopularityValue (key = '') {
+      const formattedKey = key.toUpperCase()
+      const popularityCount = this.selectedStore.popularity[formattedKey]
+        ? this.selectedStore.popularity[formattedKey]
+        : 0
+      return numify(popularityCount)
     },
   },
   beforeRouteEnter(to, from, next) {
