@@ -72,9 +72,9 @@ export default {
   mixins: [ Head ],
   head() {
     return this.getMetadata(
-      'Lightning Network Discussion page',
-      'Discuss and review stores/apps/projects about the Lightning Network',
-      '/og/index.jpg'
+      'Nostrich.fun Discussion page',
+      'Discuss and review NOSTR projects',
+      '/ogimage.jpg'
     )
   },
   async mounted() {
