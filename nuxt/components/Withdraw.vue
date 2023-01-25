@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column justify-space-between">
+  <div class="d-flex flex-column justify-space-between flex-grow-1">
     <v-btn-toggle v-model="mode" class="mb-2">
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
@@ -17,23 +17,44 @@
           </template>
           <span>Lightning Address</span>
         </v-tooltip>
+        <v-tooltip v-if="hasWebLn" bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on">
+              <v-icon color="orange">fa-bolt</v-icon>
+            </v-btn>
+          </template>
+          <span>Browser Wallet</span>
+        </v-tooltip>
       </v-btn-toggle>
       <invoice-input v-if="mode === 0"/>
       <lightning-address-input v-if="mode === 1"/>
+      <web-l-n-withdraw v-if="mode === 2"/>
   </div>
 </template>
 <script>
 import InvoiceInput from '@/components/InvoiceInput.vue'
 import LightningAddressInput from '@/components/LightningAddressInput.vue'
+import WebLNWithdraw from '@/components/WebLNWithdraw.vue'
 
 export default {
   components: {
     InvoiceInput,
-    LightningAddressInput
+    LightningAddressInput,
+    WebLNWithdraw,
   },
   data() {
     return {
       mode: 0,
+    }
+  },
+  computed: {
+    hasWebLn() {
+      try {
+        return window.webln ? true : false
+      } catch {
+        // this should never happen in a browser but better than crash
+        return false
+      }
     }
   }
 }
