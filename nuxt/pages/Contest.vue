@@ -141,7 +141,7 @@ export default {
   components: { FlipCountdown },
   mixins: [Head],
   head() { return this.getMetadata('Project contest', 'Vote regularly on your favorite project. Guess the most voted project and earn sats',
-    '/ogimage.png')
+    '/og/index.jpg')
   },
   computed: {
     ...mapGetters({

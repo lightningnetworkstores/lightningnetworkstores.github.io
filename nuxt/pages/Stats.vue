@@ -82,7 +82,7 @@ export default {
   components: { GChart },
   mixins: [Head],
   head() {
-    return this.getMetadata('LN Statistics', 'Adoption of LN by merchants and other website statistics.', "/og/stats.jpg")
+    return this.getMetadata('Nostrich.fun Statistics', 'NOSTR projects over time and other statistics.', null)
   },
   async asyncData({ store }) {
     await store.dispatch('getStatistics')

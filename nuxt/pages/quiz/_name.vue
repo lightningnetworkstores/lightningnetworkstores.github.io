@@ -138,7 +138,7 @@ export default {
     },
     mixins: [Head],
     head() { return this.getMetadata('Quiz contest', 'Vote on the daily quiz and earn sats by guessing the most voted choice.',
-     '/ogimage.png')
+     '/og/index.jpg')
     },
     computed: {
         ...mapGetters({

@@ -57,9 +57,9 @@ export default {
   mixins: [Head],
   head() {
     return this.getMetadata(
-      'Trending lightning projects',
-      'Trending lightning network projects based on social activity.',
-      '/ogimage.png'
+      'Trending NOSTR projects',
+      'Trending NOSTR projects based on social activity.',
+      '/og/index.jpg'
     )
   },
   data() {

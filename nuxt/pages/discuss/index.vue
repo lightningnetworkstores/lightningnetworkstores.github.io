@@ -74,7 +74,7 @@ export default {
     return this.getMetadata(
       'Lightning Network Discussion page',
       'Discuss and review stores/apps/projects about the Lightning Network',
-      '/ogimage.png'
+      '/og/index.jpg'
     )
   },
   async mounted() {
