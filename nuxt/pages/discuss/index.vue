@@ -60,6 +60,7 @@ import Reviews from '@/components/reviews/Reviews.vue'
 import Events from '@/components/events/Events.vue'
 
 import { mapActions, mapState } from 'vuex'
+import Head from '~/mixins/Head'
 
 export default {
   components: { FilteredDiscussionsContainer, DiscussionsMobile, Reviews, Events, AddDiscussModal },
@@ -67,6 +68,14 @@ export default {
     return {
       selected: 0
     }
+  },
+  mixins: [ Head ],
+  head() {
+    return this.getMetadata(
+      'Lightning Network Discussion page',
+      'Discuss and review stores/apps/projects about the Lightning Network',
+      '/ogimage.png'
+    )
   },
   async mounted() {
     this.$store.dispatch('discussions/getDiscussions')

@@ -100,7 +100,11 @@
         </div>
     </div>
 </template>
+
+
 <script>
+import Head from '~/mixins/Head'
+
 import { mapActions } from 'vuex'
 export default {
     data() {
@@ -108,6 +112,8 @@ export default {
             info: null,
         }
     },
+     mixins: [Head],
+    head() { return this.getMetadata('LNS Dashboard', 'Custodial web wallet associated with your LNS account.', '/ogimage.png')},
     computed: {
       privilege(){
         if(this.info==null) return 'NONE'

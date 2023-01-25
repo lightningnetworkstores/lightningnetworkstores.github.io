@@ -126,10 +126,14 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import FlipCountdown from 'vue2-flip-countdown'
+import Head from '~/mixins/Head'
 
 export default {
     components: { FlipCountdown },
-
+     mixins: [Head],
+    head() { return this.getMetadata('Quiz contest', 'Vote on the daily quiz and earn sats by guessing the most voted choice.',
+      '/ogimage.png')
+    },
     data() {
         return {
             countPreviousQuiz: 0,

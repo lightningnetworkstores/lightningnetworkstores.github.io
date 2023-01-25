@@ -24,6 +24,11 @@
         </v-btn>
         <InvoiceModal :invoice="invoice"/>
       </div>
+      <v-flex pl-3 pr-3 class="text-center">
+        <a :href="'lightning:' + invoice" class="link-button"
+          >Open in wallet</a
+        >
+      </v-flex>
     </div>
     <v-form v-if="!hasInvoice" v-model="isValid">
       <v-text-field
@@ -31,7 +36,6 @@
         label="Amount (sats)"
         outlined
         type="number"
-        :rules="rules"
       >
       </v-text-field>
       <v-progress-linear
@@ -69,6 +73,7 @@
 import { Duration } from 'luxon'
 import { mapState } from 'vuex'
 import lightningPayReq from 'bolt11'
+import { requestProvider } from 'webln';
 
 const INITIAL_TIMER_DATA = {
   lifetime: -1,
@@ -94,6 +99,26 @@ export default {
   },
   methods: {
     async requestInvoice() {
+      await this.getInvoice()
+    },
+    async payWebLN() {
+      try {
+        const webln = await requestProvider();
+        await this.getInvoice().then((invoice) => {
+          webln.sendPayment(invoice)
+        })
+      }
+     catch(err) {
+      alert(err.message);
+}
+    },
+    onCopyClicked(e) {
+      navigator.clipboard.writeText(this.invoice)
+    },
+    async getInvoice() {
+      if (this.amount === null || parseInt(this.amount) <= 0) {
+        return "Invalid amount"
+      }
       this.isRequesting = true
       const invoice = await this.$store.dispatch('wallet/getInvoice', this.amount)
       const decoded = lightningPayReq.decode(invoice)
@@ -101,9 +126,8 @@ export default {
       this.timerData.remaining = parseInt(decoded.timeExpireDate - decoded.timestamp)
       this.isRequesting = false
       this.startTimer()
-    },
-    onCopyClicked(e) {
-      navigator.clipboard.writeText(this.invoice)
+
+      return invoice
     },
     startTimer() {
       this.timerTask = setInterval(async () => {
@@ -133,15 +157,6 @@ export default {
     }
   },
   computed: {
-    rules() {
-      return [
-        v => {
-          if (v === null) return true
-          if (parseInt(v) <= 0) return 'Invalid amount'
-          return true
-        }
-      ]
-    },
     invoiceContainerWidth() {
       return this.$vuetify.breakpoint.name === 'xs' ? '36em' : '47em'
     },
