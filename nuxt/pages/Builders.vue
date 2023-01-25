@@ -62,11 +62,15 @@
 <script>
 import { mapState } from 'vuex'
 import StorePreview from '../components/discussions/StorePreview.vue'
+import Head from '~/mixins/Head'
 
 export default {
   data() {
     return {}
   },
+  mixins: [Head],
+  head() { return this.getMetadata('LN builders',
+  'List of people building on the lightning network and their projects.', '/ogimage.png')},
   components: {
     StorePreview,
   },

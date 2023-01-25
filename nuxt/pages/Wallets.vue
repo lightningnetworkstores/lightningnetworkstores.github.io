@@ -104,6 +104,7 @@
 
 <script lang="ts">
 import Head from '~/mixins/Head'
+
 export default {
   mixins: [ Head ],
   head() {
