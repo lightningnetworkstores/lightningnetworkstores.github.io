@@ -12,8 +12,8 @@
 
           <v-layout row>
             <p>
-              We track the adoption of the bitcoin lightning network by merchants and allow users to find and review them.
-              The website is mostly automated and community maintained: adding stores, tagging and updating (most/all updates done by website owners).
+              This website is a repository of NOSTR (Notes and Other Stuff Transmitted by Relays) projects. 
+              It's a fork of <a href="https://LightningNetworkStores.com">Lightning Network Stores</a> and therefore inherits most of its features. 
             </p>
           </v-layout>
 
@@ -57,7 +57,7 @@
               <a
                 href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io"
                 >https://github.com/lightningnetworkstores/lightningnetworkstores.github.io</a
-              >
+              > (nostr branches)
             </p>
           </v-layout>
           <v-layout row>
@@ -176,7 +176,7 @@
           </v-layout>
           <v-layout row>
             <h4>
-              Why do you have a bitcoin faucet?</a>
+              Why do you have a bitcoin faucet?
             </h4>
           </v-layout>
           <v-layout row>
@@ -223,44 +223,15 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import TutorialModal from '../components/TutorialModal.vue'
+import Head from '~/mixins/Head'
 
 export default {
   components: { TutorialModal },
-  head: {
-    title: 'Lightning Network Stores About Page',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'Learn more about the website: goal, contact information, FAQ, Acknowledgements.',
-      },
-      {
-        hid: 'og:title',
-        property: 'og:title',
-        content: 'Lightning Network Stores About Page',
-      },
-      {
-        hid: 'og:description',
-        property: 'og:description',
-        content:
-          'Learn more about the website: goal, contact information, FAQ, Acknowledgements.',
-      },
-      {
-        hid: 'twitter:title',
-        property: 'twitter:title',
-        content: 'Lightning Network Stores About Page',
-      },
-      {
-        hid: 'twitter:description',
-        property: 'twitter:description',
-        content:
-          'Learn more about the website: goal, contact information, FAQ, Acknowledgements.',
-      },
-    ],
-  },
+  mixins: [Head],
+  head() { return this.getMetadata('Nostrich.fun about page',
+  'Learn more about the website: goal, contact information, FAQ, Acknowledgements.', '/og/index.jpg')},
   created() {},
 }
 </script>

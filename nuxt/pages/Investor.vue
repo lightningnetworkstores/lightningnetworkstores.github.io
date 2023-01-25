@@ -55,6 +55,7 @@
 import { GChart } from 'vue-google-charts'
 import { getWeeks } from '../utils/getWeeks'
 import { getQuarterly } from "../utils/getQuarterly"
+import Head from '~/mixins/Head'
 
 export default {
     data() {
@@ -79,6 +80,15 @@ export default {
             sats_per_usd: 1200,
             user_stats: {}
         }
+    },
+
+    mixins: [Head],
+    head() { return this.getMetadata('Investor info', 'Information for LNS shareholders.', '/og/index.jpg')},
+    computed: {
+      privilege(){
+        if(this.info==null) return 'NONE'
+        return this.info.data.privilege
+      }
     },
 
     components: {

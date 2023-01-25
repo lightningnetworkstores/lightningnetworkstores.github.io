@@ -1,9 +1,9 @@
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
-<ShortName>Lightning Network Stores</ShortName>
+<ShortName>Nostrich.fun</ShortName>
 <Description>
-Search stores/apps/projects that accept bitcoin through the lightning network.
+Search nostr projects.
 </Description>
 <InputEncoding>UTF-8</InputEncoding>
-<Image width="16" height="16" type="image/x-icon">/favicon-16x16.ico</Image>
+<Image width="16" height="16" type="image/png">/favicon-16x16.png</Image>
 <Url type="text/html" method="get" template="https://nostrich.fun/?search={searchTerms}"/>
 </OpenSearchDescription>

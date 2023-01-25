@@ -16,7 +16,7 @@
       <template v-if="showTutorialDialog">
         <v-card class="pa-2">
           <v-card-title class="headline"
-            >How to use LightningNetworkStores.com</v-card-title
+            >How to use Nostrich.fun</v-card-title
           >
 
           <v-carousel :cycle="false" :light="!$vuetify.theme.dark">

@@ -35,39 +35,16 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import Head from '~/mixins/Head'
 
 export default {
+  mixins: [ Head ],
   head() {
-    return {
-      title: 'Popular searches | LightningNetworkStores',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'Popular tag searches at LightningNetworkStores.com',
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: 'Popular searches | LightningNetworkStores',
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: 'Popular tag searches at LightningNetworkStores.com',
-        },
-        {
-          hid: 'twitter:title',
-          property: 'twitter:title',
-          content: 'Popular searches | LightningNetworkStores',
-        },
-        {
-          hid: 'twitter:description',
-          property: 'twitter:description',
-          content: 'Popular tag searches at LightningNetworkStores.com',
-        },
-      ],
-    }
+    return this.getMetadata(
+      'Popular searches',
+      'Popular tag searches at Nostrich.fun',
+      null
+    )
   },
   computed: {
     ...mapState({

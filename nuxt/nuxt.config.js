@@ -3,9 +3,9 @@ import colors from 'vuetify/es5/util/colors'
 import customRoutes from './customRoutes'
 
 const Meta = {
-  title: 'Lightning Network Stores Directory',
+  title: 'Nostrich.fun Directory',
   description:
-    'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
+    'A feature-rich directory of NOSTR projects.',
 }
 
 export default {
@@ -104,7 +104,7 @@ export default {
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'LightningNetworkStores.com',
+        content: 'nostrich.fun',
       },
       {
         hid: 'og:title',
@@ -119,12 +119,12 @@ export default {
       {
         hid: 'image',
         property: 'image',
-        content: process.env.BASE_URL + 'ogimage.png',
+        content: process.env.BASE_URL + 'ogimage.jpg',
       },
       {
         hid: 'og:image',
         property: 'og:image',
-        content: process.env.BASE_URL + 'ogimage.png',
+        content: process.env.BASE_URL + 'ogimage.jpg',
       },
       {
         hid: 'twitter:title',
@@ -139,14 +139,14 @@ export default {
       {
         hid: 'twitter:image',
         property: 'twitter:image',
-        content: process.env.BASE_URL + 'ogimage.png',
+        content: process.env.BASE_URL + 'ogimage.jpg',
       },
     ],
     link: [
       {
         rel: 'search',
         type: 'application/opensearchdescription+xml',
-        title: 'Lightning Network Stores',
+        title: 'Nostrich.fun',
         href: '/opensearch.xml',
       },
       {

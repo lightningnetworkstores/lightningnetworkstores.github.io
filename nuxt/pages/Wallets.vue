@@ -103,46 +103,17 @@
 </template>
 
 <script lang="ts">
+import Head from '~/mixins/Head'
+
 export default {
-    
-  head(){return {
-      title:'Lightning Network wallets',
-      meta: [{
-          hid: 'description',
-          name: 'description',
-          content: 'List of wallets that support the bitcoin Lightning Network',
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: 'Lightning Network wallets',
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: 'List of wallets that support the bitcoin Lightning Network',
-        },
-        {
-          hid: 'twitter:title',
-          property: 'twitter:title',
-          content: 'Lightning Network wallets',
-        },
-        {
-          hid: 'twitter:description',
-          property: 'twitter:description',
-          content: 'List of wallets that support the bitcoin Lightning Network',
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: '/ogimage.png',
-        },
-         {
-        hid: 'twitter:image:src',
-        property: 'twitter:image:src',
-        content: '/ogimage.png',
-      }]
-  };},
+  mixins: [ Head ],
+  head() {
+    return this.getMetadata(
+      'Lightning Network wallets',
+      'List of wallets that support the bitcoin Lightning Network',
+      '/og/index.jpg'
+    )
+  },
   data() {
     return {
       headers: [

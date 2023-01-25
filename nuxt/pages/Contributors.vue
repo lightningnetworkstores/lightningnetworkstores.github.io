@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import Head from '~/mixins/Head'
+
 export default {
   data() {
     return {
@@ -31,6 +33,10 @@ export default {
         { text: 'Sats stacked', value: 'paid' },
       ],
     }
+  },
+  mixins: [Head],
+  head(){
+    return this.getMetadata('Nostrich.fun Contributors', 'The top contributors to Nostrich.fun', '/ogimage.jpg')
   },
   computed: {
     contributions() {

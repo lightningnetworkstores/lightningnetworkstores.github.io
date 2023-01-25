@@ -51,50 +51,17 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
+import Head from '~/mixins/Head'
 export default {
-    
-  head(){
-    let description = 'Trending lightning network projects based on social activity.'
-    let title = 'Trending lightning projects'
-    return {
-      title:'Trending projects | Lightning Network Stores',
-      meta: [{
-          hid: 'description',
-          name: 'description',
-          content: description,
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: title,
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: description,
-        },
-        {
-          hid: 'twitter:title',
-          property: 'twitter:title',
-          content: title,
-        },
-        {
-          hid: 'twitter:description',
-          property: 'twitter:description',
-          content: description,
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: '/ogimage.png',
-        },
-         {
-        hid: 'twitter:image:src',
-        property: 'twitter:image:src',
-        content: '/ogimage.png',
-      }]
-  };},
+  mixins: [Head],
+  head() {
+    return this.getMetadata(
+      'Trending NOSTR projects',
+      'Trending NOSTR projects based on social activity.',
+      '/og/index.jpg'
+    )
+  },
   data() {
     return {
       headers: [
@@ -115,7 +82,6 @@ export default {
 
   computed: {
     externallyTrending() {
-      console.log(this.$store.state.externallyTrending)
       return this.$store.state.externallyTrending
     },
   },
