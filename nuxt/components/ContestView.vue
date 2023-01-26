@@ -139,7 +139,7 @@ export default {
     }
   },
   watch: {
-    nameContest(oldName, newName) {
+    contestName(oldName, newName) {
       if (newName) {
         history.pushState({}, null, this.$route.path + '/' + newName)
       }
