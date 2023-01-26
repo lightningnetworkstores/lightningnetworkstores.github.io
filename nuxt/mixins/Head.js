@@ -19,7 +19,7 @@ export default {
           {
             hid: 'og:site_name',
             property: 'og:site_name',
-            content: 'Nostrich.fun',
+            content: 'nostrich.fun',
           },
           {
             hid: 'og:title',
