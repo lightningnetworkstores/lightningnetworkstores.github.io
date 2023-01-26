@@ -1191,10 +1191,14 @@ const actions = {
     commit('setStoreContest', dataStore)
     commit('setNameStoreContest', nameStore)
   },
-  async getQuizContest({ commit, state }) {
+  async getQuizContest({ commit, state }, { age, name}) {
+    let url = `${state.baseURL}api/quiz_contest?age=${age}`
+    if (name) {
+      url += `&name=${name}`
+    }
     const {
       data: { data },
-    } = await this.$axios.get(`${state.baseURL}api/quiz_contest?age=0`)
+    } = await this.$axios.get(url)
 
     let dataQuiz = { ...data }
     let nameDataQuiz = dataQuiz.contest.name

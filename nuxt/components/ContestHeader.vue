@@ -131,6 +131,13 @@ export default {
     pot: {
       type: Number,
       default: 0
+    },
+    contestType: {
+      type: String,
+      default: 'store',
+      validator(value) {
+        return ['store', 'quiz', 'meme'].includes(value)
+      }
     }
   },
   methods: {
@@ -146,13 +153,17 @@ export default {
         })
     },
     onPrevious() {
-      this.$store.dispatch('getStoreContest', {
+      const action = this.contestType === 'store' ?
+        'getStoreContest' : 'getQuizContest'
+      this.$store.dispatch(action, {
         name: this.name,
         age: 1
       })
     },
     onNext() {
-      this.$store.dispatch('getStoreContest', {
+      const action = this.contestType === 'store' ?
+        'getStoreContest' : 'getQuizContest'
+      this.$store.dispatch(action, {
         name: this.name,
         age: -1
       })
