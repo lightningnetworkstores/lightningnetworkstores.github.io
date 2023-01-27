@@ -103,7 +103,7 @@
                 <v-divider class="my-2"/>
                 <div class="text-body-1 mx-1">What is this about?</div>
                 <v-layout row>
-                  <v-radio-group class="mx-3" row v-model="about">
+                  <v-radio-group :disabled="hasDefaultStoreId" class="mx-3" row v-model="about">
                     <v-radio label="Store" value="store"></v-radio>
                     <v-radio label="Topic" value="other"></v-radio>
                   </v-radio-group>
@@ -112,6 +112,7 @@
                   <v-flex pl-3 pr-3 v-if="about === 'store'">
                     <v-autocomplete
                       outlined
+                      :disabled="hasDefaultStoreId"
                       :items="storeSummary"
                       label="Store (optional)"
                       v-model="addDiscussionForm.storeId"
@@ -162,6 +163,7 @@ export default {
     Success,
     ImageSelector
   },
+  props: ['defaultStoreId'],
   data() {
     return {
       showAddDialog: false,
@@ -184,7 +186,10 @@ export default {
   },
   computed: {
     ...mapState(['storeSummary', 'baseURL']),
-    ...mapGetters('discussions', ['topicsWithout'])
+    ...mapGetters('discussions', ['topicsWithout']),
+    hasDefaultStoreId() {
+      return !!this.defaultStoreId
+    }
   },
   methods: {
     openDialog() {
@@ -192,6 +197,12 @@ export default {
       this.paymentRequest = ''
       this.isPaid = false
       this.showAddDialog = true
+
+      if (this.defaultStoreId) {
+        this.addDiscussionForm.storeId = this.defaultStoreId;
+        this.about = 'store'
+      }
+
     },
     cancel() {
       if (this.paymentRequest.length > 0) {
@@ -253,9 +264,6 @@ export default {
           payload.topic = this.selectedTopic
         }
         
-        console.log(payload.recaptchaToken)
-        
-
         this.$store.dispatch('discussions/addDiscussion', payload).then(
           data => {
             const { amount, payment_request, id, submitted } = data
