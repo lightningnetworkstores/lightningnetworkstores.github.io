@@ -298,7 +298,8 @@
             >
           </div>
           <div class="mb-3">
-            <discussion-threads :expand="false" :displayDetailLink="true" :threads="discussions" />
+            <!-- displayDetailLink prop needs to be false, setting it to true breaks down the UI -->
+            <discussion-threads :expand="false" :displayDetailLink="false" :threads="discussions" />
           </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
