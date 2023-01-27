@@ -81,7 +81,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <h3 class="mb-4">Your bets</h3>
+        <h2 class="mb-4 d-flex justify-center">Your bets</h2>
         <user-bets-table
           :userBets="userBets"
           :waitingForEnd="isContestRunning"
