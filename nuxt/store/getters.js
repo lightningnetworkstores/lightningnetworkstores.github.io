@@ -126,6 +126,9 @@ const getters = {
   getQuizContest(state) {
     return state.quizContest
   },
+  getMemeContest(state) {
+    return state.memeContest
+  },
   getSettingCustomSorting(state) {
     return state.settingCustomSorting
   },

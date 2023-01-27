@@ -1,95 +1,14 @@
 <template>
-  <v-container
-    ><v-row>
-      <v-col class="col-md-2 d-flex justify-start">
-        <v-btn
-          outlined
-          color="#424242"
-          @click="onPrevious()"
-          style="width: 9em"
-          class="d-flex justify-center"
-        >
-          <v-icon v-if="!isMobile">mdi-chevron-left</v-icon>
-          Previous
-        </v-btn>
-      </v-col>
-      <v-spacer></v-spacer>
-      <v-col class="col-md-2 d-flex justify-end">
-        <v-btn
-          outlined
-          color="#424242"
-          :disabled="disableNext"
-          @click="onNext()"
-          style="width: 9em"
-          class="d-flex justify-center"
-        >
-          Next
-          <v-icon v-if="!isMobile">mdi-chevron-right</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <h1 class="text-center">What's your favorite project?</h1>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col
-        ><div
-          class="
-            d-flex
-            flex-column flex-md-row
-            align-center
-            justify-center
-            contest-info
-          "
-        >
-          <div class="d-flex align-center justify-center flex-wrap">
-            <div>
-              <flip-countdown
-                v-if="isActuallyContest"
-                :deadline="deadline"
-                :showDays="false"
-                countdownSize="32px"
-                labelSize="14px"
-              ></flip-countdown>
-              <span v-else class="title ml-3"><b>{{ stage }}</b></span>
-            </div>
-          </div>
-          <v-btn text href="#" color="primary" class="mx-16">
-            <v-icon left dark>mdi-gamepad-variant</v-icon>
-            Game rules
-          </v-btn>
-          <div class="d-flex align-center">
-            <span class="title">Total bets (sats): {{ pot }}</span>
-          </div>
-        </div></v-col
-      ></v-row
-    >
-
-    <v-row v-if="!isLogged">
-      <v-col class="text-center"
-        ><h3>You need to be logged to play</h3>
-        <v-btn
-          color="blue lighten-1"
-          class="mx-2 my-3 white--text"
-          @click="handleLoginClick"
-        >
-          <v-icon left dark> mdi-twitter </v-icon>
-          login with twitter
-        </v-btn>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col>
-        <h3 class="mb-4">Your bets</h3>
-        <user-bets-table
-          :userBets="userBets"
-          :waitingForEnd="isActuallyContest"
-        />
-      </v-col>
-    </v-row>
+  <v-container>
+    <contest-header
+      v-if="contestName"
+      question="What's your favorite project?"
+      :name="contestName"
+      :deadline="deadline"
+      :stage="stage"
+      :userBets="userBets"
+      :pot="pot"
+    />
     <v-row>
       <v-col><v-divider class="mt-8" /></v-col>
     </v-row>
@@ -123,7 +42,7 @@
               :store="store"
               :contestId="storeContest.contest.id"
               :disabled="!isLogged || isContestClosed"
-              :selected="store.id == choice"
+              :selected="store.id === choice"
               :minBet="minimumBet"
             /></div
         ></v-col>
@@ -134,10 +53,8 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import FlipCountdown from 'vue2-flip-countdown'
 
 export default {
-  components: { FlipCountdown },
   computed: {
     ...mapGetters({
       storeContest: 'getStoreContest',
@@ -186,26 +103,14 @@ export default {
     choice() {
       return parseInt((this.storeContest.user_vote?.choice ?? 0))
     },
-    nameContest() {
+    contestName() {
       return this.storeContest.contest?.name
     },
-    isActuallyContest() {
-      if (
-        ['MAIN', 'EXTENSION', 'ACTIVE'].includes(this.stage)
-      ) {
-        return true
-      }
-
-      return false
+    isContestRunning() {
+      return ['MAIN', 'EXTENSION'].includes(this.stage)
     },
     isContestClosed() {
-      if (
-        ['DISQUALIFIED', 'COMPLETE', 'CANCELLED'].includes(this.stage)
-      ) {
-        return true
-      }
-
-      return false
+      return ['DISQUALIFIED', 'COMPLETE', 'CANCELLED'].includes(this.stage)
     },
     votes() {
       if (this.isContestClosed) {
@@ -229,6 +134,13 @@ export default {
     },
     isMobile() {
       return this.$vuetify.breakpoint.mobile
+    }
+  },
+  watch: {
+    contestName(oldName, newName) {
+      if (newName) {
+        history.pushState({}, null, this.$route.path + '/' + newName)
+      }
     }
   },
   methods: {
@@ -263,7 +175,11 @@ export default {
     },
   },
   beforeMount() {
-    this.$store.dispatch('getStoreContest', { age: 0 })
+    const payload = { age: 0 }
+    if (this.$route.params?.name) {
+      payload.name = this.$route.params.name
+    }
+    this.$store.dispatch('getStoreContest', payload)
   },
 }
 </script>

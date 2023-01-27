@@ -1191,28 +1191,34 @@ const actions = {
     commit('setStoreContest', dataStore)
     commit('setNameStoreContest', nameStore)
   },
-  async getCustomStoreContest({ commit, state }, { name, age }) {
-    if (name === '' || name === undefined) {
-      var nameStore = state.nameStoreContest
-    } else {
-      var nameStore = name
-      commit('setNameStoreContest', name)
+  async getMemeContest({ commit, state }, { age, name }) {
+    // TODO: Replace by "api/meme_contest" once the API is ready
+    let url = `${state.baseURL}api/quiz_contest?age=${age}`
+    if (name) {
+      url += `&name=${name}`
     }
-
     const {
       data: { data },
-    } = await this.$axios.get(
-      `${state.baseURL}api/store_contest?name=${nameStore}&age=${age}`
-    )
-
-    commit('setStoreContest', { ...data })
-
-    return Promise.resolve()
+    } = await this.$axios.get(url)
+    // TODO: Remove this modification
+    data.contest.contestants.options = [
+      { id: 0, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 1, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 2, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 3, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 2, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 3, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+    ]
+    commit('setMemeContest', data)
   },
-  async getQuizContest({ commit, state }) {
+  async getQuizContest({ commit, state }, { age, name}) {
+    let url = `${state.baseURL}api/quiz_contest?age=${age}`
+    if (name) {
+      url += `&name=${name}`
+    }
     const {
       data: { data },
-    } = await this.$axios.get(`${state.baseURL}api/quiz_contest?age=0`)
+    } = await this.$axios.get(url)
 
     let dataQuiz = { ...data }
     let nameDataQuiz = dataQuiz.contest.name
@@ -1238,10 +1244,17 @@ const actions = {
 
     return Promise.resolve()
   },
-  async choseOption({ state }, { contestID, choice }) {
-    return this.$axios.post(`${state.baseURL}api/contest_vote`, {
+  async choseOption({ state, commit, dispatch }, { contestID, choice }) {
+    this.$axios.post(`${state.baseURL}api/contest_vote`, {
       contestID,
       choice,
+    })
+    .then(res => {
+      commit('chooseStore', choice)
+    })
+    .catch(err => {
+      console.error('Error while posting review. err: ', err)
+      dispatch('network/showError', err, { root: true})
     })
   },
   async placeBet({ commit, state }, { contestID, choice, amount, type }) {
