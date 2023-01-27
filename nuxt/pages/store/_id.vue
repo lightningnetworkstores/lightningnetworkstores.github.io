@@ -298,7 +298,7 @@
             >
           </div>
           <div class="mb-3">
-            <discussion-threads :expand="true" :threads="discussions" />
+            <discussion-threads :expand="false" :displayDetailLink="true" :threads="discussions" />
           </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
