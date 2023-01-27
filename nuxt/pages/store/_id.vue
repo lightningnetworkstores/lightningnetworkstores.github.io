@@ -219,6 +219,19 @@
           </v-col>
         </v-col>
       </v-row>
+
+      <v-row justify="center" v-if="selectedStore && discussions.length > 0">
+        <v-col cols="12" sm="9" xl="6">
+            <v-layout justify-center class="mt-4 mb-2"
+              ><h1>Discussions</h1></v-layout
+            >
+          <div class="mb-3">
+            <discussion-threads :expand="false" :displayDetailLink="true" :threads="discussions" />
+          </div>
+        </v-col>
+        <v-col sm="3" xl="2" cols="0" class="pa-0"></v-col>
+      </v-row>  
+
       <v-row class="justify-center" v-if="relatedStores.length > 0">
         <v-col cols="12" sm="9" xl="6">
           <v-layout class="mt-4 mb-2" justify-center>
@@ -288,19 +301,6 @@
               :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
-
-          <div
-            v-if="discussions.length > 0"
-            class="headline font-weight-medium"
-          >
-            <v-layout justify-center class="mt-4 mb-2"
-              ><h2>Discussions</h2></v-layout
-            >
-          </div>
-          <div class="mb-3">
-            <!-- displayDetailLink prop needs to be false, setting it to true breaks down the UI -->
-            <discussion-threads :expand="false" :displayDetailLink="false" :threads="discussions" />
-          </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
       </v-row>
