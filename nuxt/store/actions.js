@@ -1191,6 +1191,26 @@ const actions = {
     commit('setStoreContest', dataStore)
     commit('setNameStoreContest', nameStore)
   },
+  async getMemeContest({ commit, state }, { age, name }) {
+    // TODO: Replace by "api/meme_contest" once the API is ready
+    let url = `${state.baseURL}api/quiz_contest?age=${age}`
+    if (name) {
+      url += `&name=${name}`
+    }
+    const {
+      data: { data },
+    } = await this.$axios.get(url)
+    // TODO: Remove this modification
+    data.contest.contestants.options = [
+      { id: 0, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 1, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 2, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 3, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 2, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+      { id: 3, url: 'https://bitcoin-stores.com/thumbnails/2682_1634110969.png' },
+    ]
+    commit('setMemeContest', data)
+  },
   async getQuizContest({ commit, state }, { age, name}) {
     let url = `${state.baseURL}api/quiz_contest?age=${age}`
     if (name) {

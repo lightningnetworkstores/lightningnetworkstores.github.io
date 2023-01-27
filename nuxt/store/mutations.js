@@ -238,6 +238,9 @@ const mutations = {
   setStoreContest(state, payload) {
     state.storeContest = { ...payload }
   },
+  setMemeContest(state, contest) {
+    state.memeContest = contest
+  },
   chooseStore(state, storeId) {
     const updatedStoreContest = { ...state.storeContest }
     if (!updatedStoreContest.user_vote) {
