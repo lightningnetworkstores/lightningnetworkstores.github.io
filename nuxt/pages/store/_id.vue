@@ -1,7 +1,7 @@
 <template>
   <div class="store-info">
     <div>
-      <v-breadcrumbs :items="breadcrumb">
+     <v-breadcrumbs :items="breadcrumb">
         <template v-slot:divider>
           <v-icon>mdi-chevron-right</v-icon>
         </template>
@@ -318,6 +318,11 @@
       :onConfirm="handleLogoutConfirm"
     >
     </logout-modal>
+    <v-row>
+      <v-col>
+        <AddDiscussModal :default-store-id="this.selectedStore.id" />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -337,6 +342,7 @@ import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
 import SettingsModal from '~/components/SettingsModal.vue'
 import DiscussionThreads from '~/components/discussions/DiscussionThreads'
 import Head from '~/mixins/Head'
+import AddDiscussModal from '@/components/discussions/AddDiscussModal'
 
 export default {
   components: {
@@ -351,6 +357,7 @@ export default {
     AddEventModal,
     SettingsModal,
     DiscussionThreads,
+    AddDiscussModal
   },
   mixins: [SocialMedia, Head],
   head() {
