@@ -53,10 +53,8 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import FlipCountdown from 'vue2-flip-countdown'
 
 export default {
-  components: { FlipCountdown },
   computed: {
     ...mapGetters({
       storeContest: 'getStoreContest',
