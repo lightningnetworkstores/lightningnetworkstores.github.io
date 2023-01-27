@@ -1,7 +1,7 @@
 <template>
   <div
     ref="reply"
-    class="py-3 px-2 text-body-1 discussion-text"
+    class="py-1 px-2 text-body-1 discussion-text"
     :inner-html.prop="content | toHtml | tagUser"
   >
   </div>

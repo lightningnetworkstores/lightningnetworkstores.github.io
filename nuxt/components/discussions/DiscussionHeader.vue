@@ -30,8 +30,8 @@
         </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col :cols="isMobile ? 12 : ((discussionHeader.link)? 12 : 7)" :class="{'pa-0': isMobile}">
+    <v-row class="py-0">
+      <v-col :cols="isMobile ? 12 : ((discussionHeader.link)? 12 : 7)" :class="{'pa-0': isMobile}" class="py-1">
         <v-row v-if="!isMobile" no-gutters>
           <v-col cols="2" class="mr-3 d-flex justify-center align-center">
             <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
@@ -61,7 +61,7 @@
       <v-col
         v-if="discussionHeader.store"
         :cols="isMobile ? 0 : 4"
-        class="d-flex flex-row justify-end align-end mr-0 pr-0"
+        class="d-flex flex-row justify-end align-center mr-0 pr-0 py-1"
       >
         <div class="flex-grow-1">
           <StorePreview :store="discussionHeader.store"/>
@@ -69,7 +69,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" class="mx-0">
+      <v-col cols="12" class="mx-0 my-0 py-0">
         <div class="d-flex justify-space-between align-center">
           <v-chip x-small class="mx-0 px-1">
             <v-icon class="mr-1">mdi-message-reply</v-icon>
