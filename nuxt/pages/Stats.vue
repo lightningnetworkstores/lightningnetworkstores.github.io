@@ -76,41 +76,13 @@
 
 <script>
 import { GChart } from 'vue-google-charts'
+import Head from '~/mixins/Head'
 
 export default {
   components: { GChart },
-  head: {
-    title: 'Lightning Network Merchant Adoption Statistics',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'Check the adoption of lightning payments by merchants as well as the latest and trending merchants.',
-      },
-      {
-        hid: 'og:title',
-        property: 'og:title',
-        content: 'Lightning Network Merchant Adoption Statistics',
-      },
-      {
-        hid: 'og:description',
-        property: 'og:description',
-        content:
-          'Check the adoption of lightning payments by merchants as well as the latest and trending merchants.',
-      },
-      {
-        hid: 'twitter:title',
-        property: 'twitter:title',
-        content: 'Lightning Network Merchant Adoption Statistics',
-      },
-      {
-        hid: 'twitter:description',
-        property: 'twitter:description',
-        content:
-          'Check the adoption of lightning payments by merchants as well as the latest and trending merchants.',
-      },
-    ],
+  mixins: [Head],
+  head() {
+    return this.getMetadata('LN Statistics', 'Adoption of LN by merchants and other website statistics.', "/og/stats.jpg")
   },
   async asyncData({ store }) {
     await store.dispatch('getStatistics')

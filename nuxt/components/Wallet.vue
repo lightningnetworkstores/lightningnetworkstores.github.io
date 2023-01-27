@@ -27,7 +27,9 @@
         <Transfer class="pt-1"/>
       </v-tab-item>
       <v-tab-item style="min-height: 20em">
-        <Withdraw class="pt-1"/>
+        <div class="d-flex" style="min-height: 20em">
+        <Withdraw class="flex-grow-1"/>
+        </div>
       </v-tab-item>
     </v-tabs-items>
   </div>

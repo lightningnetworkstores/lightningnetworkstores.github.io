@@ -176,7 +176,7 @@
           </v-layout>
           <v-layout row>
             <h4>
-              Why do you have a bitcoin faucet?</a>
+              Why do you have a bitcoin faucet?
             </h4>
           </v-layout>
           <v-layout row>
@@ -223,44 +223,15 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import TutorialModal from '../components/TutorialModal.vue'
+import Head from '~/mixins/Head'
 
 export default {
   components: { TutorialModal },
-  head: {
-    title: 'Lightning Network Stores About Page',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'Learn more about the website: goal, contact information, FAQ, Acknowledgements.',
-      },
-      {
-        hid: 'og:title',
-        property: 'og:title',
-        content: 'Lightning Network Stores About Page',
-      },
-      {
-        hid: 'og:description',
-        property: 'og:description',
-        content:
-          'Learn more about the website: goal, contact information, FAQ, Acknowledgements.',
-      },
-      {
-        hid: 'twitter:title',
-        property: 'twitter:title',
-        content: 'Lightning Network Stores About Page',
-      },
-      {
-        hid: 'twitter:description',
-        property: 'twitter:description',
-        content:
-          'Learn more about the website: goal, contact information, FAQ, Acknowledgements.',
-      },
-    ],
-  },
+  mixins: [Head],
+  head() { return this.getMetadata('LNS about page',
+  'Learn more about the website: goal, contact information, FAQ, Acknowledgements.', '/ogimage.png')},
   created() {},
 }
 </script>

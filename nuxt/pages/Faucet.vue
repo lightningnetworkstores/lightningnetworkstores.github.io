@@ -165,7 +165,7 @@ export default {
     return this.getMetadata(
       'Bitcoin lightning faucet',
       'Get free bitcoin/satoshis with the click of a button in our lightning network faucet.',
-      process.env.BASE_URL + 'faucet_ogimage.png'
+      '/og/faucet.jpg'
     )
   },
   data: () => ({
