@@ -3,7 +3,7 @@
     <v-row class="justify-image-card">
       <v-col
         cols="12"
-        class="pa-0 pt-1"
+        class="px-1 pb-0 pt-1"
       >
         <div
           v-if="isMobile"
@@ -12,22 +12,12 @@
         >
           <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
         </div>
-        <div 
-          class="header-container text-caption d-flex justify-space-between align-center my-3 mx-3 px-2 tags-style"
-        >
-          <div>
-            <UserTag
-              :user="discussionHeader.user"
-              :userId="discussionHeader.user_id"
-            />
-          </div>
-          <div>{{ formatDate(discussionHeader.timestamp) }}</div>
-          <div v-if="displayDetailLink">
-            <a :href="`/discuss/${threadId}`" class="open-thread-btn" target="_blank" rel="noopener noreferrer">
-              <v-icon>mdi-open-in-new</v-icon>
-            </a>
-          </div>
-        </div>
+        <header-bar
+          :user="discussionHeader.user"
+          :timestamp="discussionHeader.timestamp"
+          :displayDetailLink="displayDetailLink"
+          :threadId="threadId"
+        />
       </v-col>
     </v-row>
     <v-row class="py-0">
@@ -98,18 +88,18 @@
 <script>
 import StorePreview from './StorePreview'
 import DateFromatter from '~/mixins/DateFormatter'
-import UserTag from './UserTag.vue'
 import DiscussionReplyModal from './DiscussionReplyModal.vue'
 import DeleteCommentModal from './DeleteCommentModal'
 import ChangeTopicModal from '@/components/discussions/ChangeTopicModal'
 import UserComment from '@/components/discussions/UserComment'
 import DiscussionImage from '@/components/discussions/DiscussionImage'
+import HeaderBar from '@/components/discussions/HeaderBar'
 
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    StorePreview, UserTag, DiscussionReplyModal, DeleteCommentModal, ChangeTopicModal, UserComment, DiscussionImage
+    StorePreview, DiscussionReplyModal, DeleteCommentModal, ChangeTopicModal, UserComment, DiscussionImage, HeaderBar
   },
   mixins: [ DateFromatter ],
   props: {
@@ -146,23 +136,12 @@ export default {
 </style>
 
 <style scoped>
-.discussion-text {
-  overflow-wrap: break-word;
-}
-.header-container {
-  border-radius: 30px;
-}
 .col-with-image-style {
     margin-bottom: 15px;
 }
 .col-with-image-style-height {
   height: 250px;
   max-height: 250px;
-}
-.tags-style {
-  height: 36px;
-  background-color: #f9f9f9; 
-  z-index: 2;
 }
 .justify-image-card {
   margin: -16px -24px
@@ -172,8 +151,5 @@ export default {
   .justify-image-card {
     margin: -16px -16px
   }
-}
-.open-thread-btn {
-  text-decoration: none;
 }
 </style>
