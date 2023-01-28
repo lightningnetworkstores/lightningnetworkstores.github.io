@@ -175,13 +175,16 @@ export default {
     ]),
   },
   watch: {
-    async editingSelectedStore (isEditing) {
-      if (isEditing) {
-        this.tagScore = await this.$store.dispatch('getTagScore', {
-          storeId: this.store.id
-        })
-      }
-    }
+    editingSelectedStore: {
+      async handler (isEditing) {
+        if (isEditing) {
+          this.tagScore = await this.$store.dispatch('getTagScore', {
+            storeId: this.store.id
+          })
+        }
+      },
+      immediate: true,
+    },
   },
   methods: {
     upvoteTag(tag) {
