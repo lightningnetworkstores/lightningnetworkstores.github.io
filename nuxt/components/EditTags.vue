@@ -243,7 +243,7 @@ export default {
     getTagColor ({ tagName, defaultColor }) {
       if (this.editingSelectedStore && this.tagScore) {
         const score = this.tagScore.tags[tagName] || 0
-        const maxPossibleScore = 200
+        const maxPossibleScore = 50
         const normalizedScore = Math.min(maxPossibleScore, score)
         const percentage = normalizedScore / maxPossibleScore
         const red = Math.floor((1 - percentage) * 255)
