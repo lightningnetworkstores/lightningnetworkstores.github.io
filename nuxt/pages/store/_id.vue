@@ -587,6 +587,7 @@ export default {
     },
     getPopularityValue (key = '') {
       const formattedKey = key.toUpperCase()
+      if(!this.selectedStore.popularity) return 0;
       const popularityCount = this.selectedStore.popularity[formattedKey]
         ? this.selectedStore.popularity[formattedKey]
         : 0
