@@ -9,15 +9,14 @@
       />
       <div @click="() => handleInternalLink(store.rooturl)">
         <div class="text-subtitle-2 mx-2 my-1">
-          <a :href="`${store.href}`" open="_blank" rel="noreferrer noopener">{{
-            store.name
-          }}</a>
+          <a :href="`${store.href}`" open="_blank" rel="noreferrer noopener">
+          {{ store.name }}
+          </a>
         </div>
         <div
-          class="text-body-2 mx-2 my-0"
+          class="mx-2 my-0 text-caption description line-clamp"
           :style="{
-            maxHeight: minText,
-            overflow: 'hidden',
+            maxHeight: minText
           }"
         >
           {{ store.description }}
@@ -37,7 +36,7 @@ export default {
     minText: {
       type: String,
       required: false,
-      default: '60%',
+      default: '50%',
     },
   },
   methods: {
@@ -54,3 +53,15 @@ export default {
   },
 }
 </script>
+<style scoped>
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+.description {
+  line-height: 1.1em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+</style>

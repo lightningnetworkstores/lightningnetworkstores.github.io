@@ -154,6 +154,7 @@
   import SearchInput from '~/components/SearchInput.vue'
   import SortingCustomModal from '~/components/SortingCustomModal.vue'
   import { actions } from '~/store/discussions'
+  import Head from '~/mixins/Head'
   
   export default {
     components: { AddStoreModal, StoreCard, FilterStores, SearchInput, SortingCustomModal },
@@ -191,7 +192,17 @@
         },
       }
     },
-  
+    mixins: [Head],
+    head() {
+      if (this.$route.query.tags) {
+        const tags = this.$route.query.tags.split(',')
+        if (tags.length === 1) {
+          const tag = this.$options.filters.capitalize(tags[0])
+            return this.getMetadata(tag + ' tag | LNS', 
+            tag + ' tag at Lightning Network Stores', '/og/index.png')
+        }
+      }
+    },
     methods: {
       toggleDrawer() {
         this.drawer = !this.drawer

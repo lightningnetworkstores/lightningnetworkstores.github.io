@@ -1,7 +1,7 @@
 <template>
   <div class="store-info">
     <div>
-      <v-breadcrumbs :items="breadcrumb">
+     <v-breadcrumbs :items="breadcrumb">
         <template v-slot:divider>
           <v-icon>mdi-chevron-right</v-icon>
         </template>
@@ -69,18 +69,27 @@
 
                     <v-row class="pl-2 pr-2 pt-3 d-flex justify-space-between">
                       <div class="d-flex">
-                        <v-btn
-                          v-for="(name, index) in Object.keys(
-                            selectedStore.social
-                          )"
+                        <div
+                          v-for="(name, index) in Object.keys(selectedStore.social)"
                           :key="index"
-                          text
-                          icon
-                          :color="social[name].color"
-                          :href="getSocialHref(selectedStore.social[name])"
+                          class="d-flex flex-column align-center"
                         >
-                          <v-icon>fab fa-{{ name }}</v-icon>
-                        </v-btn>
+                          <v-btn
+                            text
+                            icon
+                            :color="social[name].color"
+                            :href="getSocialHref(selectedStore.social[name])"
+                          >
+                            <v-icon>fab fa-{{ name }}</v-icon>
+                          </v-btn>
+                          <span
+                            v-show="getPopularityValue(name) !== 0"
+                            class="text-caption"
+                            style="line-height: 1;"
+                          >
+                            {{ getPopularityValue(name) }}
+                          </span>
+                        </div>
                         <edit-social-media-modal
                           v-if="editingSelectedStore"
                           :store="selectedStore"
@@ -154,8 +163,14 @@
                   >
                   </v-img>
                 </v-flex>
-                <v-flex grow class="external-text">
+                <v-flex grow class="external-text pr-2 d-flex justify-space-between">
                   <b>{{ propertyName }}</b>
+                  <b
+                    v-show="getPopularityValue(propertyName) !== 0"
+                    class="grey--text"
+                  >
+                    {{ getPopularityValue(propertyName) }}
+                  </b>
                 </v-flex>
                 <v-flex shrink class="mr-4 mt-1 d-flex">
                   <edit-store-modal
@@ -204,6 +219,19 @@
           </v-col>
         </v-col>
       </v-row>
+
+      <v-row justify="center" v-if="selectedStore && discussions.length > 0">
+        <v-col cols="12" sm="9" xl="6">
+            <v-layout justify-center class="mt-4 mb-2"
+              ><h1>Discussions</h1></v-layout
+            >
+          <div class="mb-3">
+            <discussion-threads :expand="false" :displayDetailLink="true" :threads="discussions" />
+          </div>
+        </v-col>
+        <v-col sm="3" xl="2" cols="0" class="pa-0"></v-col>
+      </v-row>  
+
       <v-row class="justify-center" v-if="relatedStores.length > 0">
         <v-col cols="12" sm="9" xl="6">
           <v-layout class="mt-4 mb-2" justify-center>
@@ -273,18 +301,6 @@
               :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
-
-          <div
-            v-if="discussions.length > 0"
-            class="headline font-weight-medium"
-          >
-            <v-layout justify-center class="mt-4 mb-2"
-              ><h2>Discussions</h2></v-layout
-            >
-          </div>
-          <div class="mb-3">
-            <discussion-threads :expand="true" :threads="discussions" />
-          </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
       </v-row>
@@ -303,10 +319,16 @@
       :onConfirm="handleLogoutConfirm"
     >
     </logout-modal>
+    <v-row>
+      <v-col>
+        <AddDiscussModal :default-store-id="this.selectedStore.id" />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
+import { numify } from 'numify'
 import { mapState } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
 import DeleteImageModal from '~/components/DeleteImageModal.vue'
@@ -320,6 +342,8 @@ import SocialMedia from '~/mixins/SocialMedia'
 import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
 import SettingsModal from '~/components/SettingsModal.vue'
 import DiscussionThreads from '~/components/discussions/DiscussionThreads'
+import Head from '~/mixins/Head'
+import AddDiscussModal from '@/components/discussions/AddDiscussModal'
 
 export default {
   components: {
@@ -334,57 +358,15 @@ export default {
     AddEventModal,
     SettingsModal,
     DiscussionThreads,
+    AddDiscussModal
   },
-  mixins: [SocialMedia],
+  mixins: [SocialMedia, Head],
   head() {
-    return {
-      title: this.selectedStore.name + ' | Lightning Network Stores',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.selectedStore.description,
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: this.selectedStore.name + ' | Lightning Network Stores',
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: this.selectedStore.description,
-        },
-        {
-          hid: 'twitter:title',
-          property: 'twitter:title',
-          content: this.selectedStore.name + ' | Lightning Network Stores',
-        },
-        {
-          hid: 'twitter:description',
-          property: 'twitter:description',
-          content: this.selectedStore.description,
-        },
-        {
-          hid: 'image',
-          property: 'image',
-          content:
-            this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content:
-            this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
-        },
-        {
-          hid: 'twitter:image',
-          property: 'twitter:image',
-          content:
-            this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png',
-        },
-      ],
-    }
+    return this.getMetadata(
+      `${this.selectedStore.name} | Lightning Network Stores`,
+      this.selectedStore.description,
+      this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png'
+    )
   },
   data() {
     return {
@@ -602,6 +584,13 @@ export default {
     },
     filterReviewsWithStars(selected) {
       this.showReviewsWithStars = selected
+    },
+    getPopularityValue (key = '') {
+      const formattedKey = key.toUpperCase()
+      const popularityCount = this.selectedStore.popularity[formattedKey]
+        ? this.selectedStore.popularity[formattedKey]
+        : 0
+      return numify(popularityCount)
     },
   },
   beforeRouteEnter(to, from, next) {

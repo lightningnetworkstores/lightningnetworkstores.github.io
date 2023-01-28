@@ -1,10 +1,37 @@
 <template>
   <v-row class="pa-2">
     <v-col class="pb-1">
+      <div
+        v-if="editingSelectedStore && tagScore"
+        class="my-2 d-flex align-center"
+      >
+        <b class="mr-1">Sum of tag scores:</b>
+        <span>{{ tagScore.total }}</span>
+        <v-tooltip right>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              depressed
+              color="white"
+              fab
+              x-small
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon>mdi-information-outline</v-icon>
+            </v-btn>
+          </template>
+          <span>A tag is good if it's used by a small group of projects. 
+            A tag that is assigned to all projects or just one is not good as it doesn't provide any information that helps classify that project. 
+            Tags are now colored according to this metric, red meaning the tag is too frequent or only used once; and green meaning a tag that is very useful because is used a few times. 
+            NOTE: This is an experimental metric, it can't tell you if the tag is a well fit for that project. It only tells you how good it is according to its frequency. A store having
+            multiple red tags is not a problem, but missing a green tag is a bad sign. If you create a tag that was never used before, it will be red and that's OK as long as it's not redundant. However, if that new tag is also assigned to another similar project, the tag 
+            will become green.</span>
+        </v-tooltip>
+      </div>
       <v-hover v-for="(tag, index) in store.tags" :key="index">
         <v-chip
           slot-scope="{ hover }"
-          color="primary"
+          :color="getTagColor({ tagName: tag, defaultColor: 'primary' })"
           outlined
           class="mr-1 mb-1"
         >
@@ -29,14 +56,18 @@
         v-for="(likely_tag, index) in store.likely_tags"
         :key="'tag-' + index"
       >
-        <v-chip slot-scope="{ hover }" color="grey lighten-1" outlined>
+        <v-chip
+          slot-scope="{ hover }"
+          :color="getTagColor({ tagName: likely_tag, defaultColor: 'grey lighten-1' })"
+          outlined
+        >
           <v-icon
             v-if="hover"
             left
             class="tag-icon mr-1"
             @click="upvoteTag(likely_tag)"
             >mdi-plus-circle</v-icon
-          >{{ likely_tag }}
+          ><b>{{ likely_tag }}</b>
           <v-icon
             v-if="hover"
             right
@@ -123,8 +154,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  props: ['store'],
+  props: [
+    'store',
+    'isEditingStore',
+  ],
   data() {
     return {
       search: '',
@@ -135,7 +171,25 @@ export default {
       tagSuggestText: 'Tag submitted',
       tagUpvoteText: 'Tag upvoted',
       tagDownvoteText: 'Tag downvoted',
+      tagScore: undefined,
     }
+  },
+  computed: {
+    ...mapState([
+      'editingSelectedStore',
+    ]),
+  },
+  watch: {
+    editingSelectedStore: {
+      async handler (isEditing) {
+        if (isEditing) {
+          this.tagScore = await this.$store.dispatch('getTagScore', {
+            storeId: this.store.id
+          })
+        }
+      },
+      immediate: true,
+    },
   },
   methods: {
     upvoteTag(tag) {
@@ -183,6 +237,20 @@ export default {
               console.error(error)
             }
           )
+      }
+    },
+
+    getTagColor ({ tagName, defaultColor }) {
+      if (this.editingSelectedStore && this.tagScore) {
+        const score = this.tagScore.tags[tagName] || 0
+        const maxPossibleScore = 50
+        const normalizedScore = Math.min(maxPossibleScore, score)
+        const percentage = normalizedScore / maxPossibleScore
+        const red = Math.floor((1 - percentage) * 255)
+        const green = Math.floor(percentage * 255)
+        return `rgba(${red}, ${green}, 0, 1)`
+      } else {
+        return defaultColor
       }
     },
   },

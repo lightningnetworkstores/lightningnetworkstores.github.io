@@ -13,59 +13,16 @@
 import { mapState } from 'vuex'
 
 import DiscussionThreads from '@/components/discussions/DiscussionThreads'
+import Head from '~/mixins/Head'
 
 export default {
+  mixins: [ Head ],
   head() {
-    return {
-      title: 'Lightning Network Discussion page',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.title,
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: 'Lightning Network Discussion page',
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: this.title,
-        },
-        {
-          hid: 'image',
-          property: 'image',
-          content: this.selected[0].link,
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: this.selected[0].link,
-        },
-        {
-          hid: 'twitter:title',
-          property: 'twitter:title',
-          content: 'Lightning Network Discussion page',
-        },
-        {
-          hid: 'twitter:description',
-          property: 'twitter:description',
-          content: this.title,
-        },
-        {
-          hid: 'twitter:image:src',
-          property: 'twitter:image:src',
-          content: this.selected[0].link,
-        },
-        {
-          hid: 'twitter:image',
-          property: 'twitter:image',
-          content: this.selected[0].link,
-      },
-      ],
-    }
+    return this.getMetadata(
+      'Lightning Network Discussion page',
+      this.title,
+      this.selected[0].link
+    )
   },
 
   components: {
