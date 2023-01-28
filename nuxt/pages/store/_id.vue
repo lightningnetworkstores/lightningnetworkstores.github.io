@@ -1,7 +1,7 @@
 <template>
   <div class="store-info">
     <div>
-      <v-breadcrumbs :items="breadcrumb">
+     <v-breadcrumbs :items="breadcrumb">
         <template v-slot:divider>
           <v-icon>mdi-chevron-right</v-icon>
         </template>
@@ -219,7 +219,19 @@
           </v-col>
         </v-col>
       </v-row>
-      <v-row class="justify-center" v-if="relatedNostrStores.length > 0">
+
+      <v-row justify="center" v-if="selectedStore && discussions.length > 0">
+        <v-col cols="12" sm="9" xl="6">
+            <v-layout justify-center class="mt-4 mb-2"
+              ><h1>Discussions</h1></v-layout
+            >
+          <div class="mb-3">
+            <discussion-threads :expand="false" :displayDetailLink="true" :threads="discussions" />
+          </div>
+        </v-col>
+        <v-col sm="3" xl="2" cols="0" class="pa-0"></v-col>
+      </v-row>  
+      <v-row class="justify-center" v-if="relatedStores.length > 0">
         <v-col cols="12" sm="9" xl="6">
           <v-layout class="mt-4 mb-2" justify-center>
             <h1>Similar</h1>
@@ -227,7 +239,7 @@
           <v-layout class="wrap justify-center">
             <v-flex
               class="my-3 mx-sm-3 similar-item"
-              v-for="store in relatedNostrStores.slice(0, maxSimilarToShow)"
+              v-for="store in relatedStores.slice(0, maxSimilarToShow)"
               :key="'store-' + store.id"
             >
               <store-card :store="store"> </store-card>
@@ -235,7 +247,7 @@
           </v-layout>
           <v-layout
             justify-center="true"
-            v-if="relatedNostrStores.length > minSimilarToShow"
+            v-if="relatedStores.length > minSimilarToShow"
           >
             <v-btn @click="toggleMoreSimilar()" color="primary">
               {{ showSimilarBtnMessage }}
@@ -288,18 +300,6 @@
               :selectedMedia="selectedMediaIndex"
             />
           </v-dialog>
-
-          <div
-            v-if="discussions.length > 0"
-            class="headline font-weight-medium"
-          >
-            <v-layout justify-center class="mt-4 mb-2"
-              ><h2>Discussions</h2></v-layout
-            >
-          </div>
-          <div class="mb-3">
-            <discussion-threads :expand="true" :threads="discussions" />
-          </div>
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
       </v-row>
@@ -318,6 +318,11 @@
       :onConfirm="handleLogoutConfirm"
     >
     </logout-modal>
+    <v-row>
+      <v-col>
+        <AddDiscussModal :default-store-id="this.selectedStore.id" />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -337,6 +342,7 @@ import InactivityAlert from '~/components/store-page/InactivityAlert.vue'
 import SettingsModal from '~/components/SettingsModal.vue'
 import DiscussionThreads from '~/components/discussions/DiscussionThreads'
 import Head from '~/mixins/Head'
+import AddDiscussModal from '@/components/discussions/AddDiscussModal'
 
 export default {
   components: {
@@ -351,6 +357,7 @@ export default {
     AddEventModal,
     SettingsModal,
     DiscussionThreads,
+    AddDiscussModal
   },
   mixins: [SocialMedia, Head],
   head() {
@@ -448,9 +455,6 @@ export default {
       return this.stores.filter(({ id }) =>
         this.selectedStore.related.includes(id)
       )
-    },
-    relatedNostrStores() {
-      return this.relatedStores.filter((s) => s.tags.includes('nostr'))
     },
     storeEmail() {
       return this.selectedStore.email
