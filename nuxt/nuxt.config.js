@@ -224,7 +224,11 @@ export default {
       src: '~/plugins/carbon-charts.js',
       ssr: true,
     },
-    //{src: '@/plugins/gtag', ssr: true}
+    {
+      src: '@/plugins/gtag',
+      ssr: true
+
+    }
   ],
 
   recaptcha: {
