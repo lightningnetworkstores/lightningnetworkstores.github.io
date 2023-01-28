@@ -268,6 +268,14 @@ const actions = {
         return Promise.reject(error)
       })
   },
+  async getTagScore({ state }, { storeId }) {
+    try {
+      const response = await this.$axios.get(`${state.baseURL}api/logstatus?id=${storeId}`)
+      return response.data.data.tag_score
+    } catch (error) {
+      console.log('Error getting tag score', error)
+    }
+  },
   setSelectedStore({ commit }, store) {
     commit('setSelectedStore', store)
   },
