@@ -285,7 +285,7 @@ export default {
             url: this.addDialogForm.url,
             nostr: this.addDialogForm.nostr,
             contributor: this.addDialogForm.contributor,
-            accepted: {'BTCLN': {'payments': this.lightningAccepted}},
+            accepted: {BTC: {payments: this.lightningAccepted}, BTCLN: {'payments': this.lightningAccepted}},
             recaptcha: token,
           })
           .then(
