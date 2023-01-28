@@ -231,10 +231,7 @@
         </v-col>
         <v-col sm="3" xl="2" cols="0" class="pa-0"></v-col>
       </v-row>  
-
       <v-row class="justify-center" v-if="relatedStores.length > 0">
-
-        <v-row class="justify-center" v-if="relatedStores.length > 0">
         <v-col cols="12" sm="9" xl="6">
           <v-layout class="mt-4 mb-2" justify-center>
             <h1>Similar</h1>
