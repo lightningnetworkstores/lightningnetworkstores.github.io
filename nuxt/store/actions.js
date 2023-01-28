@@ -582,6 +582,10 @@ const actions = {
             key: 'new',
             value: data.new,
           })
+          commit('updateSelectedStore', {
+            key: 'tag_score',
+            value: data.tag_score,
+          })
           const { settings = {} } = data
           settings.isFirstTime = data.first_time
           commit('selectedStoreSettings', settings)
