@@ -7,7 +7,10 @@
       >
         <b class="mr-1">Sum of tag scores:</b>
         <span>{{ store.tag_score.total }}</span>
-        <v-tooltip right>
+        <v-tooltip
+          right
+          max-width="600px"
+        >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               depressed
