@@ -25,6 +25,15 @@
             :key="reply.id"
             :style="{ background: getReplyBackground(reply) }"
           >
+            <v-divider v-if="replyIndex === 0 && firstPost(threadIndex).hidden"></v-divider>
+            <div v-if="replyIndex === 0 && firstPost(threadIndex).hidden"
+              class="d-flex flex-column justify-center align-center text-subtitle-2 my-2 hidden-replies"
+            >
+               {{ firstPost(threadIndex).hidden }} hidden replies
+                <v-btn icon @click="$router.push(`/discuss/${firstPost(threadIndex).thread_id}`)">
+                  <v-icon>mdi-unfold-more-horizontal</v-icon>
+                </v-btn>
+            </div>
             <v-divider v-if="replyIndex === 0"></v-divider>
             <div
               class="text-caption d-flex justify-space-between my-3"
@@ -173,6 +182,10 @@ export default {
     headers() {
       return this.threads.map(thread => thread[0])
     },
+    firstPost() {
+      return (index) =>
+        this.threads[index].slice(0, 1)[0]
+    },
     replies() {
       return (index) =>
         this.threads[index].slice(1)
@@ -192,6 +205,9 @@ export default {
 <style scoped>
 .reply-container {
   margin: auto;
+}
+.hidden-replies {
+  min-height: 5em;
 }
 @media (min-width: 1264px) {
   .reply-container {
