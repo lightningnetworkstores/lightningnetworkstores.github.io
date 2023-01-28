@@ -21,13 +21,11 @@
               :userId="discussionHeader.user_id"
             />
           </div>
-            {{ formatDate(discussionHeader.timestamp) }}
+          <div>{{ formatDate(discussionHeader.timestamp) }}</div>
           <div v-if="displayDetailLink">
-            <v-btn icon @click="() => handleDetailClick(threadId)">
-              <v-icon>
-                mdi-open-in-new
-              </v-icon>
-            </v-btn>
+            <a :href="`/discuss/${threadId}`" class="open-thread-btn" target="_blank" rel="noopener noreferrer">
+              <v-icon>mdi-open-in-new</v-icon>
+            </a>
           </div>
         </div>
       </v-col>
@@ -134,11 +132,6 @@ export default {
       default: false
     }
   },
-  methods: {
-    handleDetailClick(threadId) {
-      window.open(`/discuss/${threadId}`, '_blank')
-    }
-  },
   computed: {
     isMobile() {
       return this.$vuetify.breakpoint.name === 'xs'
@@ -179,5 +172,8 @@ export default {
   .justify-image-card {
     margin: -16px -16px
   }
+}
+.open-thread-btn {
+  text-decoration: none;
 }
 </style>

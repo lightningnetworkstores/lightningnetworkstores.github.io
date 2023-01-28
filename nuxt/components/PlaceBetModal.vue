@@ -12,28 +12,29 @@
                     <v-text-field
                         label="Amount"
                         v-model="amount"
-                        :placeholder="`${minAmount}`"
-                        :hint="`min ${minAmount} sats`"
+                        :hint="amount ? '' : 'Enter amount to bet'"
                         type="number"
-                        prefix="$"
-                        :rules="[rules.required, rules.number]"
+                        outlined
+                        suffix="sats"
+                        :rules="rules"
                     ></v-text-field>
                 </v-card-text>
                 <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="red"
+                        text
+                        @click="reset()"
+                    >
+                        Cancel
+                    </v-btn>
                     <v-btn
                         color="primary"
                         :disabled="disableDoneButton"
                         text
                         @click="placeBet"
                     >
-                        Done
-                    </v-btn>
-                    <v-btn
-                        color="secondary"
-                        text
-                        @click="$emit('update:isOpen', false)"
-                    >
-                        Cancel
+                        Bet
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -62,17 +63,12 @@ export default {
 
     data() {
         return {
-            amount: '0',
-            rules: {
-                required: (value) => !!value || 'Required.',
-                number: (value) => {
-                    const pattern = /^[0-9]*$/
-                    return (
-                        (pattern.test(value) && value >= this.minAmount) ||
-                        'Invalid amount.'
-                    )
-                },
-            },
+            amount: null,
+            rules: [
+                (value) => (value >= this.minAmount) ||
+                    `Minimum amount is ${this.minAmount} sats`
+                ,
+            ],
             snackbar: {
                 active: false,
                 message: '',
@@ -86,6 +82,10 @@ export default {
         },
     },
     methods: {
+        reset(){
+            this.amount = null
+            this.$emit('update:isOpen', false)
+        },
         placeBet() {
             this.$store
                 .dispatch('placeBet', {
