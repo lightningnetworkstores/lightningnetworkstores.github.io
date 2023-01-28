@@ -25,26 +25,22 @@
             :key="reply.id"
             :style="{ background: getReplyBackground(reply) }"
           >
-            <v-divider v-if="replyIndex === 0"></v-divider>
-            <div
-              class="text-caption d-flex justify-space-between my-3"
+            <v-divider v-if="replyIndex === 0 && firstPost(threadIndex).hidden"></v-divider>
+            <div v-if="replyIndex === 0 && firstPost(threadIndex).hidden"
+              class="d-flex flex-column justify-center align-center text-subtitle-2 my-2 hidden-replies"
             >
-              <div>
-                <UserTag
-                  :user="reply.user"
-                  :userId="reply.user_id"
-                />
-              </div>
-              {{ formatDate(reply.timestamp) }}
-              <div>
-                <DiscussionReplyModal
-                  :reply="reply"
-                  :threadId="threadId(threadIndex)"
-                  :threadIndex="threadIndex"
-                  @paid-reply-request="handlePaidReplyRequest"
-                />
-              </div>
+               {{ firstPost(threadIndex).hidden }} hidden replies
+                <v-btn icon @click="$router.push(`/discuss/${firstPost(threadIndex).thread_id}`)">
+                  <v-icon>mdi-unfold-more-horizontal</v-icon>
+                </v-btn>
             </div>
+            <v-divider v-if="replyIndex === 0"></v-divider>
+            <reply-bar
+              :reply="reply"
+              :threadIndex="threadIndex"
+              :threadId="threadId(threadIndex)"
+              :handlePaidReplyRequest="handlePaidReplyRequest"
+            />
             <div class="d-flex justify-space-between mb-3">
               <v-row>
                 <v-col v-if="reply.link" cols="2">
@@ -93,25 +89,23 @@
 <script>
 import { mapState } from 'vuex'
 import { format } from 'timeago.js'
-import DiscussionReplyModal from './DiscussionReplyModal.vue'
-import UserTag from './UserTag.vue'
 import PaidReplyModal from './PaidReplyModal'
 import Topics from './Topics.vue'
 import Reply from './Reply.vue'
 import DiscussionHeader from './DiscussionHeader.vue'
 import DeleteCommentModal from './DeleteCommentModal.vue'
 import DiscussionImage from '@/components/discussions/DiscussionImage'
+import ReplyBar from '@/components/discussions/ReplyBar'
 
 export default {
   components: {
-    DiscussionReplyModal,
-    UserTag,
     PaidReplyModal,
     Topics,
     Reply,
     DiscussionHeader,
     DeleteCommentModal,
-    DiscussionImage
+    DiscussionImage,
+    ReplyBar
   },
   props: {
     threads: {
@@ -173,6 +167,10 @@ export default {
     headers() {
       return this.threads.map(thread => thread[0])
     },
+    firstPost() {
+      return (index) =>
+        this.threads[index].slice(0, 1)[0]
+    },
     replies() {
       return (index) =>
         this.threads[index].slice(1)
@@ -192,6 +190,9 @@ export default {
 <style scoped>
 .reply-container {
   margin: auto;
+}
+.hidden-replies {
+  min-height: 5em;
 }
 @media (min-width: 1264px) {
   .reply-container {
