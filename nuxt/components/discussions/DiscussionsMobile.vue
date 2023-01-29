@@ -32,38 +32,18 @@
                             @paid-reply-request="handlePaidReplyRequest"
                         />
                     </v-expansion-panel-header>
-                    <v-expansion-panel-content class="px-4">
+                    <v-expansion-panel-content class="px-2">
                         <v-sheet
                             v-for="(reply, replyIndex) in replies(threadIndex)"
                             :key="reply.id"
                         >
                             <v-divider v-if="replyIndex === 0"></v-divider>
-                            <div
-                                class="
-                                    text-caption
-                                    d-flex
-                                    justify-space-between
-                                    my-3
-                                "
-                            >
-                                <div>
-                                    <UserTag
-                                        :user="reply.user"
-                                        :userId="reply.user_id"
-                                    />
-                                </div>
-                                {{ formatDate(reply.timestamp) }}
-                                <div>
-                                    <DiscussionReplyModal
-                                        :reply="reply"
-                                        :threadId="threadId(threadIndex)"
-                                        :threadIndex="threadIndex"
-                                        @paid-reply-request="
-                                            handlePaidReplyRequest
-                                        "
-                                    />
-                                </div>
-                            </div>
+                            <reply-bar
+                              :reply="reply"
+                              :threadIndex="threadIndex"
+                              :threadId="threadId(threadIndex)"
+                              :handlePaidReplyRequest="handlePaidReplyRequest"
+                            />
                             <discussion-image
                                 v-if="reply.link"
                                 :url="reply.link"
@@ -102,6 +82,7 @@ import Reply from './Reply.vue'
 import StorePreview from './StorePreview'
 import DiscussionHeader from './DiscussionHeader.vue'
 import DiscussionImage from '@/components/discussions/DiscussionImage'
+import ReplyBar from '@/components/discussions/ReplyBar'
 
 export default {
     components: {
@@ -112,7 +93,8 @@ export default {
         Reply,
         StorePreview,
         DiscussionHeader,
-        DiscussionImage
+        DiscussionImage,
+        ReplyBar
     },
     data() {
         return {

@@ -303,6 +303,12 @@
         </v-col>
         <v-col cols="0" sm="3" xl="2" class="pa-0"> </v-col>
       </v-row>
+
+      <v-row>
+        <v-col>
+          <AddDiscussModal :default-store-id="this.selectedStore.id" />
+        </v-col>
+      </v-row>
     </v-container>
     <login-modal
       :enabled="showLoginModal"
@@ -318,11 +324,6 @@
       :onConfirm="handleLogoutConfirm"
     >
     </logout-modal>
-    <v-row>
-      <v-col>
-        <AddDiscussModal :default-store-id="this.selectedStore.id" />
-      </v-col>
-    </v-row>
   </div>
 </template>
 
@@ -586,6 +587,7 @@ export default {
     },
     getPopularityValue (key = '') {
       const formattedKey = key.toUpperCase()
+      if(!this.selectedStore.popularity) return 0;
       const popularityCount = this.selectedStore.popularity[formattedKey]
         ? this.selectedStore.popularity[formattedKey]
         : 0

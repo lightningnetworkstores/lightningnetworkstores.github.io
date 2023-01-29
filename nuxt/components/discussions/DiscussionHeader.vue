@@ -1,9 +1,9 @@
 <template>
-  <v-container class="mb-0 pb-2">
+  <v-container class="mb-0 pb-2 header-container">
     <v-row class="justify-image-card">
       <v-col
         cols="12"
-        class="pa-0 pt-1"
+        class="px-1 pb-0 pt-1"
       >
         <div
           v-if="isMobile"
@@ -12,26 +12,16 @@
         >
           <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
         </div>
-        <div 
-          class="header-container text-caption d-flex justify-space-between align-center my-3 mx-3 px-2 tags-style"
-        >
-          <div>
-            <UserTag
-              :user="discussionHeader.user"
-              :userId="discussionHeader.user_id"
-            />
-          </div>
-          <div>{{ formatDate(discussionHeader.timestamp) }}</div>
-          <div v-if="displayDetailLink">
-            <a :href="`/discuss/${threadId}`" class="open-thread-btn" target="_blank" rel="noopener noreferrer">
-              <v-icon>mdi-open-in-new</v-icon>
-            </a>
-          </div>
-        </div>
+        <header-bar
+          :user="discussionHeader.user"
+          :timestamp="discussionHeader.timestamp"
+          :displayDetailLink="displayDetailLink"
+          :threadId="threadId"
+        />
       </v-col>
     </v-row>
-    <v-row>
-      <v-col :cols="isMobile ? 12 : ((discussionHeader.link)? 12 : 7)" :class="{'pa-0': isMobile}">
+    <v-row class="py-0">
+      <v-col :cols="isMobile ? 12 : ((discussionHeader.link)? 12 : 7)" :class="{'pa-0': isMobile}" class="py-1">
         <v-row v-if="!isMobile" no-gutters>
           <v-col cols="2" class="mr-3 d-flex justify-center align-center">
             <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
@@ -61,15 +51,15 @@
       <v-col
         v-if="discussionHeader.store"
         :cols="isMobile ? 0 : 4"
-        class="d-flex flex-row justify-end align-end mr-0 pr-0"
+        class="d-flex flex-row justify-end align-center mr-0 pr-0 py-1"
       >
         <div class="flex-grow-1">
           <StorePreview :store="discussionHeader.store"/>
         </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="12" class="mx-0">
+    <v-row class="mx-md-1">
+      <v-col cols="12" class="mx-0 my-0 pt-0 px-1 pb-4 pb-md-0">
         <div class="d-flex justify-space-between align-center">
           <v-chip x-small class="mx-0 px-1">
             <v-icon class="mr-1">mdi-message-reply</v-icon>
@@ -98,18 +88,18 @@
 <script>
 import StorePreview from './StorePreview'
 import DateFromatter from '~/mixins/DateFormatter'
-import UserTag from './UserTag.vue'
 import DiscussionReplyModal from './DiscussionReplyModal.vue'
 import DeleteCommentModal from './DeleteCommentModal'
 import ChangeTopicModal from '@/components/discussions/ChangeTopicModal'
 import UserComment from '@/components/discussions/UserComment'
 import DiscussionImage from '@/components/discussions/DiscussionImage'
+import HeaderBar from '@/components/discussions/HeaderBar'
 
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    StorePreview, UserTag, DiscussionReplyModal, DeleteCommentModal, ChangeTopicModal, UserComment, DiscussionImage
+    StorePreview, DiscussionReplyModal, DeleteCommentModal, ChangeTopicModal, UserComment, DiscussionImage, HeaderBar
   },
   mixins: [ DateFromatter ],
   props: {
@@ -146,23 +136,12 @@ export default {
 </style>
 
 <style scoped>
-.discussion-text {
-  overflow-wrap: break-word;
-}
-.header-container {
-  border-radius: 30px;
-}
 .col-with-image-style {
     margin-bottom: 15px;
 }
 .col-with-image-style-height {
   height: 250px;
   max-height: 250px;
-}
-.tags-style {
-  height: 36px;
-  background-color: #f9f9f9; 
-  z-index: 2;
 }
 .justify-image-card {
   margin: -16px -24px
@@ -173,7 +152,13 @@ export default {
     margin: -16px -16px
   }
 }
-.open-thread-btn {
-  text-decoration: none;
+
+.header-container {
+  margin: auto;
+}
+@media (min-width: 1264px) {
+  .header-container {
+    max-width: 1185px;
+  }
 }
 </style>

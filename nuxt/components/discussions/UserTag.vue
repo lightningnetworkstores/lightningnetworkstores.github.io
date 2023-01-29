@@ -18,7 +18,7 @@
             <v-icon v-else class="ml-3 pr-3" size="25" color="white"
                 >mdi-account-circle</v-icon
             >
-            <div class="ml-2">{{ username | capitalize }}</div>
+            <div class="ml-0 ml-md-1">{{ username | capitalize }}</div>
         </v-chip>
         <SendTipModal
             :toogleDialog="toogleDialog"
