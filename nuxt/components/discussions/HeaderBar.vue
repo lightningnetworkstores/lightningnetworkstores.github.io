@@ -1,6 +1,6 @@
 <template>
   <div
-    class="header-container text-caption d-flex justify-space-between align-center my-3 mx-4 px-2 tags-style"
+    class="header-container text-caption d-flex justify-space-between align-center my-3 mx-0 mx-md-4 px-2 tags-style"
   >
     <div class="bar-column">
       <UserTag
