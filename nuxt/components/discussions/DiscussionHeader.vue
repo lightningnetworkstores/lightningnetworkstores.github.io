@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mb-0 pb-2">
+  <v-container class="mb-0 pb-2 header-container">
     <v-row class="justify-image-card">
       <v-col
         cols="12"
@@ -58,8 +58,8 @@
         </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="12" class="mx-0 my-0 py-0">
+    <v-row class="mx-md-1">
+      <v-col cols="12" class="mx-0 my-0 pt-0 px-1 pb-4 pb-md-0">
         <div class="d-flex justify-space-between align-center">
           <v-chip x-small class="mx-0 px-1">
             <v-icon class="mr-1">mdi-message-reply</v-icon>
@@ -150,6 +150,15 @@ export default {
 @media screen and (max-width: 1265px) {
   .justify-image-card {
     margin: -16px -16px
+  }
+}
+
+.header-container {
+  margin: auto;
+}
+@media (min-width: 1264px) {
+  .header-container {
+    max-width: 1185px;
   }
 }
 </style>
