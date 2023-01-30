@@ -68,9 +68,6 @@ export default {
     this.$store.dispatch('setBrowserFingerprint', {
       browserFingerprint: visitorId,
     })
-    if (!this.balance && this.loginStatus.user.logged) {
-      this.$store.dispatch('wallet/getBalance')
-    }
   },
 
   computed: {
