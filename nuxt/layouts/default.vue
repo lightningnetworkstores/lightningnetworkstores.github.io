@@ -68,6 +68,9 @@ export default {
     this.$store.dispatch('setBrowserFingerprint', {
       browserFingerprint: visitorId,
     })
+    if (!this.balance && this.loginStatus.user.logged) {
+      this.$store.dispatch('wallet/getDashboardInfo')
+    }
   },
 
   computed: {
@@ -77,7 +80,9 @@ export default {
     showSuccess() {
       return this.successMessage !== null
     },
+    ...mapState(['loginStatus']),
     ...mapState('network', ['errorMessage', 'successMessage', 'timeout']),
+    ...mapState('wallet', ['balance']),
     ...mapState({
       configuration(state) {
         return state.configuration
