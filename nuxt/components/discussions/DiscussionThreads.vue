@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%">
-    <v-expansion-panels :value="expand ? 0 : undefined">
+    <v-expansion-panels :value="expand ? 0 : undefined" class="discussion-container">
       <v-expansion-panel
         v-for="(header, threadIndex) in headers"
         :key="header.id"
@@ -20,13 +20,12 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content class="px-6">
           <v-sheet
-            class="reply-container"
             v-for="(reply, replyIndex) in replies(threadIndex)"
             :key="reply.id"
             :style="{ background: getReplyBackground(reply) }"
           >
-            <v-divider v-if="replyIndex === 0 && firstPost(threadIndex).hidden"></v-divider>
-            <div v-if="replyIndex === 0 && firstPost(threadIndex).hidden"
+            <v-divider v-if="replyIndex === 0 && firstPost(threadIndex).hidden && false"></v-divider>
+            <div v-if="replyIndex === 0 && firstPost(threadIndex).hidden && false"
               class="d-flex flex-column justify-center align-center text-subtitle-2 my-2 hidden-replies"
             >
                {{ firstPost(threadIndex).hidden }} hidden replies
@@ -188,14 +187,14 @@ export default {
 }
 </script>
 <style scoped>
-.reply-container {
+.discussion-container {
   margin: auto;
 }
 .hidden-replies {
   min-height: 5em;
 }
 @media (min-width: 1264px) {
-  .reply-container {
+  .discussion-container {
     max-width: 1185px;
   }
 }

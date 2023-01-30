@@ -143,9 +143,6 @@ export default {
     updateError(hasError) {
       this.isValid = !hasError
     },
-    handleRateControlResponse(data) {
-      console.log('handleRateControlResponse. data: ', data)
-    },
     onImageSelected(event) {
       // {type: <IMAGE_TYPE_FILE_UPLOAD|IMAGE_TYPE_URL>, value: <File|String>}
       console.log('onImageSelected. event: ', event)

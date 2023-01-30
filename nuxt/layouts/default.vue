@@ -77,7 +77,9 @@ export default {
     showSuccess() {
       return this.successMessage !== null
     },
+    ...mapState(['loginStatus']),
     ...mapState('network', ['errorMessage', 'successMessage', 'timeout']),
+    ...mapState('wallet', ['balance']),
     ...mapState({
       configuration(state) {
         return state.configuration

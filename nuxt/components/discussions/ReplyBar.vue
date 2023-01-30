@@ -1,15 +1,15 @@
 <template>
   <div class="text-caption d-flex justify-space-between my-3">
-    <div class="bar-column">
+    <div class="bar-column-sides">
       <UserTag
         :user="reply.user"
         :userId="reply.user.id"
       />
     </div>
-    <div class="bar-column d-flex justify-center">
+    <div class="bar-column-middle d-flex justify-center">
       {{ formatDate(reply.timestamp) }}
     </div>
-    <div class="bar-column d-flex justify-end">
+    <div class="bar-column-sides d-flex justify-end">
       <DiscussionReplyModal
         :reply="reply"
         :threadId="threadId"
@@ -49,7 +49,18 @@ export default {
 }
 </script>
 <style scoped>
-.bar-column {
+.bar-column-sides {
   width: 33.33%;
+}
+.bar-column-middle {
+  width: 33.33%
+}
+@media (max-width: 600px) {
+  .bar-column-middle {
+    width: 25%
+  }
+  .bar-column-sides {
+    width: 37.5%
+  }
 }
 </style>
