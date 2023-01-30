@@ -574,6 +574,7 @@ const actions = {
       .then((response) => {
         if (response.status === 200) {
           const { data } = response.data
+          commit('wallet/setBalance', { available: data.balance })
           commit('updateSelectedStore', {
             key: 'logged',
             value: data.logged,
@@ -607,7 +608,7 @@ const actions = {
 
           commit('updateLoginStatus', { ...data, isAdmin })
           let dataUser = { ...data.user }
-
+          commit('wallet/setBalance', { available: data.balance })
           if (
             (dataUser?.logged ?? false) &&
             Object.entries(dataUser?.custom_sorting ?? {}).length > 0
