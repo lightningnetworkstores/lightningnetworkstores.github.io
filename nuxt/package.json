@@ -35,7 +35,6 @@
     "vue-google-charts": "^0.3.3",
     "vue-gtag": "1.16.1",
     "vue-property-decorator": "^9.1.2",
-    "vue-recaptcha": "^1.3.0",
     "vue-social-sharing": "^3.0.8",
     "webln": "^0.3.2"
   },
