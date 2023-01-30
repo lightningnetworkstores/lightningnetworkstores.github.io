@@ -27,7 +27,7 @@
             <discussion-image v-if="discussionHeader.link" :url="discussionHeader.link"/>
           </v-col>
           <v-col :cols="((discussionHeader.link)? 9 : 12)">
-            <div class="text-h6 px-2 font-weight-bold comment-title" style="flex-grow: 1"
+            <div class="text-h6 px-3 font-weight-bold comment-title" style="flex-grow: 1"
               :inner-html.prop="discussionHeader.title"
             />
             <UserComment
@@ -38,7 +38,7 @@
           </v-col>
         </v-row>
         <div v-else>
-          <div class="text-h6 px-2 font-weight-bold comment-title" style="flex-grow: 1"
+          <div class="text-h6 px-3 font-weight-bold comment-title" style="flex-grow: 1"
             :inner-html.prop="discussionHeader.title"
           />
           <UserComment
