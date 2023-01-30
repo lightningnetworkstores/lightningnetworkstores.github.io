@@ -133,6 +133,15 @@ export const actions = {
       console.error('Error trying to check on withdrawal. err: ', err)
     }
   },
+  async getBalance({ commit }) {
+    this.$axios.$get('/api/logstatus')
+      .then(data => {
+        const {
+          data: { balance }
+        } = data
+        commit('setBalance', { available: balance })
+      })
+  },
   async updateBalance({ commit }) {
     this.$axios.$get('/api/balance')
       .then(data => data.data.balance)
