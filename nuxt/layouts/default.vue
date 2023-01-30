@@ -69,7 +69,7 @@ export default {
       browserFingerprint: visitorId,
     })
     if (!this.balance && this.loginStatus.user.logged) {
-      this.$store.dispatch('wallet/getDashboardInfo')
+      this.$store.dispatch('wallet/getBalance')
     }
   },
 
