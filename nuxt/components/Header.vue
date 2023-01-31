@@ -249,10 +249,10 @@ export default {
         { url: '/contributors', text: 'Contributors' },
       ],
       sisterSites: [
-        {
-          url: 'https://nostr.bitcoin-stores.com',
-          svgPath: '/nostr.bitcoin-stores.com.png',
-        },
+        // {
+        //   url: 'https://nostr.bitcoin-stores.com',
+        //   svgPath: '/nostr.bitcoin-stores.com.png',
+        // },
         // {
         //   url: 'https://yp.bitcoin-stores.com',
         //   svgPath: '/yp.bitcoin-stores.com.svg',
