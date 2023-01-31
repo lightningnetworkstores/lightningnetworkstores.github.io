@@ -24,6 +24,15 @@
               v-for="(reply, replyIndex) in replies(threadIndex)"
               :key="reply.id"
             >
+              <v-divider v-if="replyIndex === 0 && firstPost(threadIndex).hidden"></v-divider>
+              <div v-if="replyIndex === 0 && firstPost(threadIndex).hidden"
+                class="d-flex flex-column justify-center align-center text-subtitle-2 my-2 hidden-replies"
+              >
+                {{ firstPost(threadIndex).hidden }} hidden replies
+                <v-btn icon @click="$router.push(`/discuss/${firstPost(threadIndex).thread_id}`)">
+                  <v-icon>mdi-unfold-more-horizontal</v-icon>
+                </v-btn>
+              </div>
               <v-divider v-if="replyIndex === 0"></v-divider>
               <reply-bar
                 :reply="reply"
