@@ -24,14 +24,14 @@
             :key="reply.id"
             :style="{ background: getReplyBackground(reply) }"
           >
-            <v-divider v-if="replyIndex === 0 && firstPost(threadIndex).hidden && false"></v-divider>
-            <div v-if="replyIndex === 0 && firstPost(threadIndex).hidden && false"
+            <v-divider v-if="replyIndex === 0 && firstPost(threadIndex).hidden"></v-divider>
+            <div v-if="replyIndex === 0 && firstPost(threadIndex).hidden"
               class="d-flex flex-column justify-center align-center text-subtitle-2 my-2 hidden-replies"
             >
-               {{ firstPost(threadIndex).hidden }} hidden replies
-                <v-btn icon @click="$router.push(`/discuss/${firstPost(threadIndex).thread_id}`)">
-                  <v-icon>mdi-unfold-more-horizontal</v-icon>
-                </v-btn>
+              {{ firstPost(threadIndex).hidden }} hidden replies
+              <v-btn icon @click="$router.push(`/discuss/${firstPost(threadIndex).thread_id}`)">
+                <v-icon>mdi-unfold-more-horizontal</v-icon>
+              </v-btn>
             </div>
             <v-divider v-if="replyIndex === 0"></v-divider>
             <reply-bar
