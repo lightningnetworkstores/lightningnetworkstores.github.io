@@ -21,7 +21,7 @@ export const state = () => ({
     state: WithdrawalState.INITIAL,
     memo: ''
   },
-  affiliate: null,
+  affiliate: { pending: 0 },
   contributorProgram: null,
   transfers: []
 })
