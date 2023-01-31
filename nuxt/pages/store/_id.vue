@@ -363,7 +363,7 @@ export default {
   mixins: [SocialMedia, Head],
   head() {
     return this.getMetadata(
-      `${this.selectedStore.name} | Lightning Network Stores`,
+      `${this.selectedStore.name} | Nostrich.fun`,
       this.selectedStore.description,
       this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png'
     )
