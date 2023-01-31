@@ -2,28 +2,25 @@
   <v-app-bar app color="rgb(56, 56, 56)" dark>
     <v-toolbar-title>
       <!-- <div class="d-flex justify-space-between align-center"> -->
-        <nuxt-link to="/">
-          <img
-            src="@/assets/images/nostr.bitcoin-stores.com.svg"
-            class="nav-logo"
-          />
-        </nuxt-link>
-        <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on">
-              mdi-chevron-down
-            </v-icon>
-          </template>
-          <v-list id="networkWebSite" color="#383838">
-            <v-list-item v-for="site in sisterSites" :key="site.url">
-              <v-list-item-title>
-                <a :href="site.url">
-                  <img :src="site.svgPath" class="nav-logo" />
-                </a>
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+      <nuxt-link to="/">
+        <img src="@/static/nostr.bitcoin-stores.com.png" class="nav-logo" />
+      </nuxt-link>
+      <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on">
+            mdi-chevron-down
+          </v-icon>
+        </template>
+        <v-list id="networkWebSite" color="#383838">
+          <v-list-item v-for="site in sisterSites" :key="site.url">
+            <v-list-item-title>
+              <a :href="site.url">
+                <img :src="site.svgPath" class="nav-logo" />
+              </a>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <!-- </div> -->
     </v-toolbar-title>
     <v-spacer></v-spacer>
@@ -252,10 +249,10 @@ export default {
         { url: '/contributors', text: 'Contributors' },
       ],
       sisterSites: [
-        // {
-        //   url: 'https://nostr.bitcoin-stores.com',
-        //   svgPath: '/nostr.bitcoin-stores.com.svg',
-        // },
+        {
+          url: 'https://nostr.bitcoin-stores.com',
+          svgPath: '/nostr.bitcoin-stores.com.png',
+        },
         // {
         //   url: 'https://yp.bitcoin-stores.com',
         //   svgPath: '/yp.bitcoin-stores.com.svg',
@@ -320,15 +317,15 @@ export default {
   height: 64px !important;
 }
 .nav-logo {
-    width: 28vmax;
-    position: relative;
-    max-width: 380px;
-    right: 1rem;
+  width: 28vmax;
+  position: relative;
+  max-width: 380px;
+  right: 1rem;
 }
 @media (min-width: 768px) {
-    .nav-logo {
-        right: 1.5rem;
-    }
+  .nav-logo {
+    right: 1.5rem;
+  }
 }
 .btndarkmode .v-btn__content {
   font-size: 2em !important;
