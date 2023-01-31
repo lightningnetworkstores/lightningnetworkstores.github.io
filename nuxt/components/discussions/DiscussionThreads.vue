@@ -133,9 +133,6 @@ export default {
     handlePaidReplyRequest(data) {
       this.paidReplyData = data
     },
-    onTopicSelected({ topic, index }) {
-      this.selectedTopic = topic
-    },
     handleHoverOn(reference) {
       this.selectedReference = reference
     },

@@ -3,18 +3,29 @@
     <div>
       <Topics @on-topic-selected="onTopicSelected" />
     </div>
-    <discussion-threads :displayDetailLink="true" :threads="threads"/>
+    <discussion-threads
+      v-if="!$vuetify.breakpoint.mobile"
+      :displayDetailLink="true"
+      :threads="threads"
+    />
+    <discussion-threads-mobile
+      v-if="$vuetify.breakpoint.mobile"
+      :displayDetailLink="true"
+      :threads="threads"
+    />
   </div>
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Topics from './Topics.vue'
 import DiscussionThreads from './DiscussionThreads.vue'
+import DiscussionThreadsMobile from './DiscussionThreadsMobile.vue'
 
 export default {
   components: {
     Topics,
     DiscussionThreads,
+    DiscussionThreadsMobile
   },
   data() {
     return {
