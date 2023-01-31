@@ -198,8 +198,8 @@
         const tags = this.$route.query.tags.split(',')
         if (tags.length === 1) {
           const tag = this.$options.filters.capitalize(tags[0])
-            return this.getMetadata(tag + ' tag | LNS', 
-            tag + ' tag at Lightning Network Stores', '/og/index.png')
+            return this.getMetadata(tag + ' tag | Nostrich.fun', 
+            tag + ' tag at Nostrich.fun', '/og/index.png')
         }
       }
     },
