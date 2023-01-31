@@ -16,7 +16,7 @@ export const state = () => ({
     invoice: null
   },
   profile: null,
-  balance: null,
+  balance: { available: 0, pending_deposits: 0, pending_withdrawals: 0, unsettled_bets: 0, pending_contributor_reward: 0 },
   withdrawal: {
     state: WithdrawalState.INITIAL,
     memo: ''
