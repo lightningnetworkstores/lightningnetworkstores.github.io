@@ -126,7 +126,7 @@ export default {
     },
     repliesCount() {
       return (index) =>
-        this.threads[index].length - 1
+        this.threads[index].length - 1 + this.threads[index][0].hidden
     },
     threadId() {
       return (index) =>
