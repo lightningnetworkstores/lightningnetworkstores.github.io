@@ -256,10 +256,10 @@ export default {
           url: 'https://lightningnetworkstores.com',
           svgPath: '/lns.png'
         },
-        {
-          url: 'https://yp.bitcoin-stores.com',
-          svgPath: '/yp.bitcoin-stores.com.svg',
-        },
+        // {
+        //   url: 'https://yp.bitcoin-stores.com',
+        //   svgPath: '/yp.bitcoin-stores.com.svg',
+        // },
       ],
     }
   },
