@@ -16,12 +16,12 @@ export const state = () => ({
     invoice: null
   },
   profile: null,
-  balance: null,
+  balance: { available: 0, pending_deposits: 0, pending_withdrawals: 0, unsettled_bets: 0, pending_contributor_reward: 0 },
   withdrawal: {
     state: WithdrawalState.INITIAL,
     memo: ''
   },
-  affiliate: null,
+  affiliate: { pending: 0 },
   contributorProgram: null,
   transfers: []
 })
@@ -139,7 +139,7 @@ export const actions = {
         const {
           data: { balance }
         } = data
-        commit('setBalance', { available: balance })
+        commit('setAvailableBalance', balance)
       })
   },
   async updateBalance({ commit }) {
@@ -155,6 +155,9 @@ export const mutations = {
   },
   setBalance(state, balance) {
     state.balance = balance
+  },
+  setAvailableBalance(state, availableBalance) {
+    state.balance.available = availableBalance
   },
   setTransfers(state, transfers) {
     state.transfers = transfers
