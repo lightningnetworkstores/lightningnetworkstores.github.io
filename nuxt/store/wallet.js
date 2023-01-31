@@ -139,7 +139,7 @@ export const actions = {
         const {
           data: { balance }
         } = data
-        commit('setBalance', { available: balance })
+        commit('setAvailableBalance', balance)
       })
   },
   async updateBalance({ commit }) {
@@ -155,6 +155,9 @@ export const mutations = {
   },
   setBalance(state, balance) {
     state.balance = balance
+  },
+  setAvailableBalance(state, availableBalance) {
+    state.balance.available = availableBalance
   },
   setTransfers(state, transfers) {
     state.transfers = transfers
