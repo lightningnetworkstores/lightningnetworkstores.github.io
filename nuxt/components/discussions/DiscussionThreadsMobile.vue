@@ -8,19 +8,7 @@
         >
           <v-expansion-panel-header
             class="d-flex flex-column align-start py-0 px-1"
-            :disabled="header.isStore"
-            :hide-actions="header.isStore"
           >
-            <div
-              v-if="header.isStore"
-              class="my-2 mx-0 px-0 d-flex justify-center"
-              style="width: 100%"
-            >
-              <StorePreview
-                :store="header"
-                style="width: 400px"
-              />
-            </div>
             <DiscussionHeader
               v-if="!header.isStore"
               :repliesCount="repliesCount(threadIndex)"
@@ -117,51 +105,24 @@ export default {
   },
   computed: {
     headers() {
-      return this.threads
-        .map((comments) => {
-          const firstComment = comments[0]
-          const { store } = firstComment
-          if (store) {
-            return [
-              { isStore: true, ...store },
-              { isStore: false, ...firstComment },
-            ]
-          } else {
-            return [{ isStore: false, ...firstComment }]
-          }
-        })
-        .flat()
+      return this.threads.map(thread => thread[0])
     },
-    storeCount() {
+    firstPost() {
       return (index) =>
-        this.headers.slice(0, index).filter((item) => item.isStore)
-          .length
+        this.threads[index].slice(0, 1)[0]
     },
     replies() {
-      return (index) => {
-        const threadIndex = index - this.storeCount(index)
-        return this.threads[
-          threadIndex
-        ].slice(1)
-      }
+      return (index) =>
+        this.threads[index].slice(1)
     },
     repliesCount() {
-      return (index) => {
-        const threadIndex = index - this.storeCount(index)
-        return (
-          this.threads[threadIndex]
-            .length - 1
-        )
-      }
+      return (index) =>
+        this.threads[index].length - 1
     },
     threadId() {
-      return (index) => {
-        const threadIndex = index - this.storeCount(index)
-        return this.threads[
-          threadIndex
-        ][0].thread_id
-      }
-    }
+      return (index) =>
+        this.threads[index][0].thread_id
+    },
   },
 }
 </script>
