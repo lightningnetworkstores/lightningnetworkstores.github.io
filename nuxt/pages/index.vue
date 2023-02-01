@@ -443,16 +443,12 @@
     },
     async asyncData({ store, route }) {
       try {
-        await store.dispatch('getLoginStatus')
-
-        await store.dispatch('getStores')
-
-        const { safeMode, selectedSort, searchQuery } = await store.dispatch(
-          'processRoute',
-          route
-        )
-    
-        return { safeMode, selectedSort, searchQuery }
+        const [queryData] = await Promise.all([
+          store.dispatch('processRoute', route),
+          store.dispatch('getLoginStatus'),
+          store.dispatch('getStores'),
+        ])
+        return queryData
 
       } catch (err) {
         console.error(err)
