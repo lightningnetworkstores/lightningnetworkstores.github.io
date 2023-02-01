@@ -9,7 +9,7 @@
     >
       <v-avatar v-if="hasProfilePicture" class="mx-0">
         <v-img
-          :src="user.image"
+          :src="profilePictureUrl"
           max-height="21"
           max-width="21"
           class="mx-0 px-0"
@@ -105,6 +105,7 @@ export default {
   },
   computed: {
     ...mapState('discussions', ['isLogged']),
+    ...mapState(['baseURL']),
     color() {
       if (this.user && this.user.image) {
         return '#969696'
@@ -116,6 +117,9 @@ export default {
     },
     hasProfilePicture() {
       return this.user && this.user.image
+    },
+    profilePictureUrl() {
+      return `${this.baseURL}img/profile/${this.user.id}`
     },
     username() {
       return this.user && this.user.handle
