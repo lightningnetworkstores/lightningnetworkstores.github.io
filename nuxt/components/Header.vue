@@ -6,6 +6,7 @@
           <img
             src="@/assets/images/LightningNetworkStores.svg"
             class="nav-logo"
+            alt="Lightning Network Stores logo"
           />
         </nuxt-link>
         <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
