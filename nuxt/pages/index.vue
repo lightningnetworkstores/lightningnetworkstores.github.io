@@ -293,6 +293,7 @@
     },
     computed: {
       ...mapState({
+        serverStartTime: 'serverStartTime',
         activeStoreDiscussions: 'activeStoreDiscussions',
         baseURL: 'baseURL',
         excludedTags: 'excludedTags',
@@ -464,11 +465,13 @@
     },
     async asyncData({ store, route }) {
       try {
+
         const [queryData] = await Promise.all([
           store.dispatch('processRoute', route),
           store.dispatch('getLoginStatus'),
           store.dispatch('getStores'),
         ])
+        console.log('total server time=', Date.now() - store.state.serverStartTime)
         return queryData
 
       } catch (err) {

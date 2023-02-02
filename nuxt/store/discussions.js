@@ -143,6 +143,9 @@ export const getters = {
   },
   topicsWithout: state => (topicToRemove) => {
     return state.topics.filter(topic => topic !== topicToRemove)
+  },
+  getStoreDiscussions: state => store => {
+    return state.lastDiscussions.filter(thread => thread[0].storeID === store.id)
   }
 }
 

@@ -61,6 +61,10 @@
                 :threadIndex="threadIndex"
                 :commentId="reply.id"
               />
+              <AddMemeModal
+                v-if="isAdmin && reply.link"
+                :commentId="reply.id"
+              />
             </div>
             <v-divider v-if="replyIndex < repliesCount(threadIndex) - 1"/>
           </v-sheet>
@@ -95,6 +99,7 @@ import DiscussionHeader from './DiscussionHeader.vue'
 import DeleteCommentModal from './DeleteCommentModal.vue'
 import DiscussionImage from '@/components/discussions/DiscussionImage'
 import ReplyBar from '@/components/discussions/ReplyBar'
+import AddMemeModal from '@/components/discussions/AddMemeModal'
 
 export default {
   components: {
@@ -104,7 +109,8 @@ export default {
     DiscussionHeader,
     DeleteCommentModal,
     DiscussionImage,
-    ReplyBar
+    ReplyBar,
+    AddMemeModal
   },
   props: {
     threads: {
@@ -173,7 +179,7 @@ export default {
     },
     repliesCount() {
       return (index) =>
-        this.threads[index].length - 1
+        this.threads[index].length - 1 + this.threads[index][0].hidden
     },
     threadId() {
       return (index) =>

@@ -2,7 +2,7 @@
   <v-dialog v-model="showDialog" max-width="500">
     <template v-slot:activator="{ attrs, on }">
       <v-btn v-on="on" :attrs="attrs" icon color="secondary">
-        <v-icon>mdi-tooltip-edit</v-icon>
+        <v-icon small>mdi-tooltip-edit</v-icon>
       </v-btn>
     </template>
     <v-card>

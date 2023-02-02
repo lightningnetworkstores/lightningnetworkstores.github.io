@@ -18,6 +18,10 @@ function syncLikesFromServer(serverLikes, likedStores, lsKey) {
 
 const actions = {
   async nuxtServerInit({ commit }) {
+    let startTime = Date.now()
+    console.log('Inside nuxtServerInit, setting serverStartTime=' + startTime)
+    this.commit('setServerStartTime', startTime)
+
     process.env.NODE_ENV == 'development'
       ? this.commit('setIsDev', true)
       : this.commit('setIsDev', false)
@@ -574,7 +578,7 @@ const actions = {
       .then((response) => {
         if (response.status === 200) {
           const { data } = response.data
-          commit('wallet/setBalance', { available: data.balance })
+          commit('wallet/setAvailableBalance', data.balance)
           commit('updateSelectedStore', {
             key: 'logged',
             value: data.logged,
@@ -608,7 +612,7 @@ const actions = {
 
           commit('updateLoginStatus', { ...data, isAdmin })
           let dataUser = { ...data.user }
-          commit('wallet/setBalance', { available: data.balance })
+          commit('wallet/setAvailableBalance', data.balance)
           if (
             (dataUser?.logged ?? false) &&
             Object.entries(dataUser?.custom_sorting ?? {}).length > 0

@@ -2,7 +2,7 @@
   <v-dialog v-model="showDialog" max-width="500">
     <template v-slot:activator="{ on, attrs }">
       <v-btn @click="deleteCommentRequested" icon :attrs="attrs" v-on="on">
-        <v-icon color="red">mdi-delete</v-icon>
+        <v-icon small color="red">mdi-delete</v-icon>
       </v-btn>
     </template>
     <v-card>
