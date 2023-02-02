@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
-    <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
+    <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom open-on-hover>
       <template v-slot:activator="{ on, attrs }">
         <div class="d-flex justify-start align-center" style="height: 100%">
           <nuxt-link to="/">
@@ -320,7 +320,7 @@ export default {
   height: 64px !important;
 }
 .sister-site-entry {
-  width: 10em;
+  max-height: 48px;
 }
 .sister-site-dropdown-btn {
   margin-left: -0.7em;
