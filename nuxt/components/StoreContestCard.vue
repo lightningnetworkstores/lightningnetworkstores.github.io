@@ -103,19 +103,18 @@
             </div>
         </v-card-text>
         <v-card-actions>
-            <v-spacer></v-spacer>
             <v-btn
                 text
                 color="blue-grey"
                 class="mx-2 white--text"
                 style="min-width: 10em"
                 :disabled="selected"
-                @click="chooseStore"
+                @click="voteStore"
             >
                 <v-icon left dark> fa-badge-check </v-icon>
-                {{ selected ? 'chosen' : 'chose' }}
+                {{ selected ? 'voted' : 'vote' }}
             </v-btn>
-
+            <v-spacer></v-spacer>
             <v-btn
                 text
                 color="orange darken-1"
@@ -169,7 +168,7 @@ export default {
             this.$route.meta.storeId = id
             this.$router.push('/store/' + rootUrl)
         },
-        chooseStore() {
+        voteStore() {
             this.$store.dispatch('choseOption', {
                 contestID: this.contestId,
                 choice: this.store.id,
