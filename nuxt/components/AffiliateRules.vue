@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title> Affiliate Program </v-card-title>
-        <v-card-text v-if="affiliate.length>0">
+        <v-card-text v-if="Object.keys(affiliate).length>1">
             You will currently earn {{ Math.round(affiliate.reward_per_referral*10)/10 }} sats for
             every unique user you refer to our website. Your affiliate code is
             <strong @click="copyAffiliate" class="affiliate-code">{{
@@ -9,7 +9,7 @@
             }}</strong
             >, and you can use it in any page, eg.
         </v-card-text>
-        <v-card-text v-if="affiliate.length>0">
+        <v-card-text v-if="Object.keys(affiliate).length>1">
             <ul>
                 <li>
                     <a
@@ -82,13 +82,13 @@
                 </li>
             </ul>
         </v-card-text>
-        <v-card-text v-if="affiliate.length>0">
+        <v-card-text v-if="Object.keys(affiliate).length>1">
             <p class="my-0">Total hits: {{ affiliate.hits }}</p>
             <p class="my-0">Pending Payout: {{ affiliate.pending }}</p>
             <p class="my-0">Minimum payout: {{ affiliate.payout_every }}</p>
             <p class="my-0">Total Paid: {{ affiliate.paid }}</p>
         </v-card-text>
-        <v-card-text v-if="affiliate.length>0">
+        <v-card-text v-if="Object.keys(affiliate).length>1">
             <p class="my-0">
                 Current reward per unique human referral:
                 {{ Math.round(affiliate.reward_per_referral*100)/100 }}

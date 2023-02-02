@@ -13,6 +13,7 @@
           target="_blank"
           rel="noopener noreferrer"
           class="mx-2"
+          aria-label="Lightning Network Stores Twitter Page"
         >
           <v-icon small>fab fa-twitter</v-icon>
         </v-btn>
@@ -23,6 +24,7 @@
           class="mx-2"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Lightning Network Stores Telegram Group"
         >
           <v-icon small>fab fa-telegram-plane</v-icon>
         </v-btn>
@@ -33,6 +35,7 @@
           class="mx-2"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Lightning Network Stores Medium Page"
         >
           <v-icon small>fab fa-medium</v-icon>
         </v-btn>

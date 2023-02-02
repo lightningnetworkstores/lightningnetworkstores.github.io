@@ -16,6 +16,10 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import Vue from 'vue'
+import chartsVue from "@carbon/charts-vue"
+
+Vue.use(chartsVue)
 
 const ranges = [
     { divider: 1e6, suffix: 'M' },
@@ -181,3 +185,6 @@ export default {
     },
 }
 </script>
+<style>
+@import "@carbon/charts/styles.css";
+</style>

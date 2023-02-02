@@ -220,13 +220,13 @@
         </v-col>
       </v-row>
 
-      <v-row justify="center" v-if="selectedStore && discussions.length > 0">
+      <v-row justify="center" v-if="selectedStore && getStoreDiscussions(selectedStore).length > 0">
         <v-col cols="12" sm="9" xl="6">
             <v-layout justify-center class="mt-4 mb-2"
               ><h1>Discussions</h1></v-layout
             >
           <div class="mb-3">
-            <discussion-threads :expand="false" :displayDetailLink="true" :threads="discussions" />
+            <discussion-threads :expand="false" :displayDetailLink="true" :threads="getStoreDiscussions(selectedStore)" />
           </div>
         </v-col>
         <v-col sm="3" xl="2" cols="0" class="pa-0"></v-col>
@@ -330,7 +330,7 @@
 
 <script>
 import { numify } from 'numify'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import AddExternalModal from '~/components/AddExternalModal.vue'
 import DeleteImageModal from '~/components/DeleteImageModal.vue'
 import StoreCarousel from '~/components/StoreCarousel.vue'
@@ -386,10 +386,9 @@ export default {
     try {
       const selectedStore = await store.dispatch('getStore', { id: params.id })
       const storeId = selectedStore.id
-      let discussions = JSON.parse(JSON.stringify(selectedStore.discussions))
 
       let paramsId = params.id
-      return { storeId, discussions, paramsId }
+      return { storeId, paramsId }
     } catch (err) {
       error(err)
     }
@@ -397,6 +396,7 @@ export default {
 
   async mounted() {
     this.$store.dispatch('discussions/getLogStatus')
+    this.$store.dispatch('discussions/getDiscussions')
     await this.$store.dispatch('getStatus', { storeId: this.selectedStore.id })
     this.breadcrumb = [
       {
@@ -416,6 +416,7 @@ export default {
   computed: {
     ...mapState(['stores', 'loginStatus']),
     ...mapState('review', ['reviews']),
+    ...mapGetters('discussions',['getStoreDiscussions']),
     editButtonElevation() {
       if (this.editingSelectedStore) return 0
       return 8

@@ -1,6 +1,14 @@
 <template>
   <div class="">
-    <v-btn @click.stop="showTutorialDialog = true" color="secondary" fab x-small dark class="mt-2">
+    <v-btn
+      @click.stop="showTutorialDialog = true"
+      color="secondary"
+      fab
+      x-small
+      dark
+      class="mt-2"
+      aria-label="Show tutorial"
+    >
       <v-icon class="float-left"
         >fa-question</v-icon
       >
