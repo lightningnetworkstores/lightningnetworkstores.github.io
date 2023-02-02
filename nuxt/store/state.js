@@ -12,6 +12,7 @@ export const state = () => {
   }
 
   const result = {
+    serverStartTime: 0,
     announcements: {
       configuration: {},
       items: [],
