@@ -1,31 +1,27 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
-    <v-toolbar-title>
-      <div class="d-flex justify-space-between align-center">
-        <nuxt-link to="/">
-          <img
-            src="@/assets/images/LightningNetworkStores.svg"
-            class="nav-logo"
-          />
-        </nuxt-link>
-        <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on">
-              mdi-chevron-down
-            </v-icon>
-          </template>
-          <v-list id="networkWebSite" color="#383838">
-            <v-list-item v-for="site in sisterSites" :key="site.url">
-              <v-list-item-title>
-                <a :href="site.url">
-                  <img :src="site.svgPath" class="nav-logo" />
-                </a>
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
-    </v-toolbar-title>
+    <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom open-on-hover>
+      <template v-slot:activator="{ on, attrs }">
+        <div class="d-flex justify-start align-center" style="height: 100%">
+          <nuxt-link to="/">
+            <img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"/>
+          </nuxt-link>
+          <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on" class="sister-site-dropdown-btn">
+            mdi-chevron-down
+          </v-icon>
+        </div>
+      </template>
+      <v-list dense id="networkWebSite" color="#383838">
+        <v-list-item v-for="(site, index) in sisterSites" :key="site.url" ripple link >
+          <a :href="site.url" style="width: 100%">
+            <div>
+              <img :src="site.svgPath" class="sister-site-entry"/>
+              <v-divider v-if="index < sisterSites.length - 1"></v-divider>
+            </div>
+          </a>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <!-- Menu List - Web -->
@@ -251,10 +247,10 @@ export default {
         { url: '/contributors', text: 'Contributors' },
       ],
       sisterSites: [
-        // {
-        //   url: 'https://nostr.bitcoin-stores.com',
-        //   svgPath: '/nostr.bitcoin-stores.com.svg',
-        // },
+        {
+          url: 'https://nostrich.fun',
+          svgPath: '/nostrich-fun.svg',
+        },
         // {
         //   url: 'https://yp.bitcoin-stores.com',
         //   svgPath: '/yp.bitcoin-stores.com.svg',
@@ -318,8 +314,29 @@ export default {
 .v-toolbar__content {
   height: 64px !important;
 }
+.sister-site-entry {
+  width: 10em;
+}
+.sister-site-dropdown-btn {
+  margin-left: -0.3em;
+  align-self: end;
+}
+@media (min-width: 768px) {
+  .sister-site-dropdown-btn {
+    margin-left: -0.4em;
+  }
+}
 .nav-logo {
   height: 55px;
+  position: relative;
+  max-width: 380px;
+  right: 1rem;
+}
+@media (min-width: 768px) {
+  .nav-logo {
+    margin-left: 1em;
+    right: 1.5rem;
+  }
 }
 .btndarkmode .v-btn__content {
   font-size: 2em !important;
