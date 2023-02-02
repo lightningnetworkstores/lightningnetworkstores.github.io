@@ -1,28 +1,27 @@
 <template>
   <v-app-bar app color="rgb(56, 56, 56)" dark>
-    <v-toolbar-title>
-      <!-- <div class="d-flex justify-space-between align-center"> -->
-      <nuxt-link to="/">
-        <img src="@/static/nostr.bitcoin-stores.com.png" class="nav-logo" />
-      </nuxt-link>
-      <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on">
+    <v-menu v-if="sisterSites.length" v-model="showMenu" offset-y bottom open-on-hover>
+      <template v-slot:activator="{ on, attrs }">
+        <div class="d-flex justify-start align-center" style="height: 100%">
+          <nuxt-link to="/">
+            <img src="@/static/nostr.bitcoin-stores.com.png" class="nav-logo" alt="Nostrich.fun logo"/>
+          </nuxt-link>
+          <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on" class="sister-site-dropdown-btn">
             mdi-chevron-down
           </v-icon>
-        </template>
-        <v-list id="networkWebSite" color="#383838">
-          <v-list-item v-for="site in sisterSites" :key="site.url">
-            <v-list-item-title>
-              <a :href="site.url">
-                <img :src="site.svgPath" class="nav-logo" />
-              </a>
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <!-- </div> -->
-    </v-toolbar-title>
+        </div>
+      </template>
+      <v-list dense id="networkWebSite" color="#383838">
+        <v-list-item v-for="(site, index) in sisterSites" :key="site.url" ripple link >
+          <a :href="site.url" style="width: 100%">
+            <div>
+              <img :src="site.svgPath" class="sister-site-entry"/>
+              <v-divider v-if="index < sisterSites.length - 1"></v-divider>
+            </div>
+          </a>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <!-- Menu List - Web -->
@@ -253,6 +252,10 @@ export default {
         //   url: 'https://nostrich.fun',
         //   svgPath: '/nostrich.fun.svg',
         // },
+        {
+          url: 'https://lightningnetworkstores.com',
+          svgPath: '/lns.png'
+        },
         // {
         //   url: 'https://yp.bitcoin-stores.com',
         //   svgPath: '/yp.bitcoin-stores.com.svg',
@@ -315,6 +318,18 @@ export default {
 <style>
 .v-toolbar__content {
   height: 64px !important;
+}
+.sister-site-entry {
+  max-height: 48px;
+}
+.sister-site-dropdown-btn {
+  margin-left: -0.7em;
+  align-self: end;
+}
+@media (min-width: 768px) {
+  .sister-site-dropdown-btn {
+    margin-left: -1.3em;
+  }
 }
 .nav-logo {
   width: 28vmax;
