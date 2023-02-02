@@ -3,12 +3,12 @@
     <v-row class="justify-center mt-5">
       <v-flex xs12 md12 lg10 xl8>
         <v-container>
-         <v-layout justify-center mx-4 row>
+         <!-- <v-layout justify-center mx-4 row>
             <h2>Lightning Network Stats</h2>
             <iframe src="https://amboss.space/embed/networkStats?theme=dark&unit=BTC&noBackground=false" width="100%" height="100px" style="overflow: hidden" scrolling="no" />
-          </v-layout>
+          </v-layout> -->
           <v-layout justify-center mx-4 row>
-            <h1>Merchant adoption of the lightning network</h1>
+            <h1>Nostr projects over time</h1>
           </v-layout>
 
           <v-layout row pt-4 wrap>
@@ -17,7 +17,7 @@
                 <v-card-title primary-title class="justify-center">
                   <div>
                     <h3 class="headline text--accent-2">
-                      Number of stores: {{ this.$store.state.statistics.added_times.length }}&nbsp;
+                      Number of projects: {{ this.$store.state.statistics.added_times.length }}&nbsp;
                     </h3>
                   </div>
                 </v-card-title>
@@ -38,8 +38,9 @@
                 </v-card-text> </v-card
             ></v-flex>
           </v-layout>
-
-            <v-layout row pt-4 wrap>
+						<!-- Commenting this out for now as per https://trello.com/c/vtNOjy6O --> 
+            <!-- 
+						<v-layout row pt-4 wrap>
             <v-flex grow class="text-xs-center" pa-4>
               <v-card>
                 <v-card-title primary-title class="justify-center">
@@ -66,8 +67,7 @@
                   </v-overlay>
                 </v-card-text> </v-card
             ></v-flex>
-          </v-layout>
-          </v-layout>
+          </v-layout> -->
         </v-container>
       </v-flex>
     </v-row>
@@ -82,7 +82,7 @@ export default {
   components: { GChart },
   mixins: [Head],
   head() {
-    return this.getMetadata('LN Statistics', 'Adoption of LN by merchants and other website statistics.', "/og/stats.jpg")
+    return this.getMetadata('Nostrich.fun Statistics', 'NOSTR projects over time and other statistics.', null)
   },
   async asyncData({ store }) {
     await store.dispatch('getStatistics')
@@ -122,7 +122,8 @@ export default {
 },
   async mounted() {
     this.getStatsData()
-    this.$store.state.statistics.faucet_chart.slice(0).map((d)=>[new Date(d[0]), d[1], d[2]]).forEach((s)=>this.claimsChartData.push(s))
+		// Commenting this out for now as per https://trello.com/c/vtNOjy6O
+    // this.$store.state.statistics.faucet_chart.slice(0).map((d)=>[new Date(d[0]), d[1], d[2]]).forEach((s)=>this.claimsChartData.push(s))
   },
 
   methods: {

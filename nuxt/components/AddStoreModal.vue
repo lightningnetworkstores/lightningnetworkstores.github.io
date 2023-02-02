@@ -15,10 +15,7 @@
     </v-btn>
 
     <!-- Add store modal -->
-    <v-dialog
-      v-model="showAddDialog"
-      max-width="500"
-    >
+    <v-dialog v-model="showAddDialog" max-width="500">
       <template v-if="showAddDialog">
         <v-card>
           <v-layout v-if="addAlert.message">
@@ -103,9 +100,9 @@
                   </v-row>
                   <v-row>
                     <v-text-field
-                      v-model="addDialogForm.uri"
-                      label="Node URI (optional)"
-                      hint="eg. 03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f@34.239.230.56:9735 (optional)"
+                      v-model="addDialogForm.nostr"
+                      label="Nostr (optional)"
+                      hint=""
                     ></v-text-field>
                   </v-row>
                   <v-row>
@@ -120,10 +117,12 @@
                     ></v-text-field>
                   </v-row>
                   <v-row>
-                    <span class="font-weight-bold"
-                      >We reserve the right to remove this entry if it doesn't
-                      accept bitcoin and is not about bitcoin</span
-                    >
+                    <div class="d-flex justify-center my-4">
+                      <v-switch
+                        v-model="lightningAccepted"
+                        color="orange"
+                        label="Lightning accepted?"/>
+                    </div>
                   </v-row>
                 </v-container>
                 <v-card-actions>
@@ -203,6 +202,7 @@ export default {
       expiryTime: new Date(),
       isPaid: false,
       tweet: null,
+      lightningAccepted: false,
 
       checkPaymentTimer: null,
       successModalMessage: '',
@@ -284,9 +284,9 @@ export default {
             name: this.addDialogForm.name,
             description: this.addDialogForm.description,
             url: this.addDialogForm.url,
-            uri: this.addDialogForm.uri,
+            nostr: this.addDialogForm.nostr,
             contributor: this.addDialogForm.contributor,
-            accepted: {BTC: {payments: true}, BTCLN: {payments: true}},
+            accepted: {BTC: {payments: this.lightningAccepted}, BTCLN: {'payments': this.lightningAccepted}},
             recaptcha: token,
           })
           .then(

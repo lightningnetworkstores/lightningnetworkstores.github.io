@@ -113,7 +113,7 @@ export default {
         }
     },
      mixins: [Head],
-    head() { return this.getMetadata('LNS Dashboard', 'Custodial web wallet associated with your LNS account.', '/ogimage.png')},
+    head() { return this.getMetadata('Nostrich.fun Dashboard', 'Custodial web wallet associated with your Nostrich.fun account.', '/og/index.jpg')},
     computed: {
       privilege(){
         if(this.info==null) return 'NONE'

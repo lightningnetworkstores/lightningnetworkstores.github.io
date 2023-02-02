@@ -57,12 +57,8 @@ import Head from '~/mixins/Head'
 
 export default {
   mixins: [Head],
-  head() {
-    return this.getMetadata(
-      'Project contest',
-      'Vote regularly on your favorite project. Guess the most voted project and earn sats',
-      '/ogimage.png'
-    )
+  head() { return this.getMetadata('Project contest', 'Vote regularly on your favorite project. Guess the most voted project and earn sats',
+    '/og/index.jpg')
   },
   computed: {
     ...mapGetters({

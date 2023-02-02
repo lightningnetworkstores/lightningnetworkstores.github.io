@@ -23,7 +23,7 @@
                 hide-details
                 v-resize="onResizeWidth"
             >
-                <template v-slot:append>
+                <!-- <template v-slot:append>
                     <v-btn
                         rounded
                         :class="!showTextButton ? 'd-none' : ''"
@@ -44,7 +44,7 @@
                         v-else
                         >Popular Searches</v-btn
                     >
-                </template>
+                </template> -->
             </v-text-field>
             <v-btn
                 fab
