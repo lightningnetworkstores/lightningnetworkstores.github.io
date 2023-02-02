@@ -9,6 +9,7 @@
       bottom
       right
       @click="openDialog"
+      aria-label="Add store"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>

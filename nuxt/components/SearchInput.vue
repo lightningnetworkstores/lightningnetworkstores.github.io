@@ -52,6 +52,7 @@
                 v-if="isMobile"
                 @click="inputClick"
                 elevation="2"
+                aria-label="Show filters"
             >
                 <v-icon color="secondary">mdi-filter</v-icon>
             </v-btn>

@@ -172,13 +172,16 @@ export default {
         sizes: '48x48',
       },
       {
-        rel: 'stylesheet',
+        rel: 'preload',
         href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        as: 'style',
+        onload: 'this.rel="stylesheet"'
       },
     ],
     script: [
       {
         src: 'https://kit.fontawesome.com/090ca49637.js',
+        defer: true
       },
     ],
   },
@@ -219,10 +222,6 @@ export default {
     },
     {
       src: '~/plugins/axios.js',
-      ssr: true,
-    },
-    {
-      src: '~/plugins/carbon-charts.js',
       ssr: true,
     },
     //{src: '@/plugins/gtag', ssr: true}

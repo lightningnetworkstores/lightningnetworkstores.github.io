@@ -1,6 +1,9 @@
 import Vue from 'vue'
 
 const mutations = {
+  setServerStartTime(state, timestamp) {
+    state.serverStartTime = timestamp
+  },
   setIsDev(state, data) {
     state.isDev = true
     state.baseURL = process.env.baseUrl

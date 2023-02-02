@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <div class="d-flex justify-start align-center" style="height: 100%">
           <nuxt-link to="/">
-            <img src="@/static/nostr.bitcoin-stores.com.png" class="nav-logo"/>
+            <img src="@/static/nostr.bitcoin-stores.com.png" class="nav-logo" alt="Nostrich.fun logo"/>
           </nuxt-link>
           <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on" class="sister-site-dropdown-btn">
             mdi-chevron-down
