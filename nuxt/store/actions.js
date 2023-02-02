@@ -20,7 +20,7 @@ const actions = {
   async nuxtServerInit({ commit }) {
     let startTime = Date.now()
     console.log('Inside nuxtServerInit, setting serverStartTime=' + startTime)
-    this.commit('setServerStartTime' + startTime)
+    this.commit('setServerStartTime', startTime)
 
     process.env.NODE_ENV == 'development'
       ? this.commit('setIsDev', true)
