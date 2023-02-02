@@ -452,8 +452,8 @@
           'processRoute',
           route
         )
-        console.log('serverStartTime=', store.serverStartTime, ', timestamp=', Date.now())
-        console.log('total server time=', Date.now() - store.serverStartTime)
+        console.log('serverStartTime=', store.state.serverStartTime, ', timestamp=', Date.now())
+        console.log('total server time=', Date.now() - store.state.serverStartTime)
         return { safeMode, selectedSort, searchQuery }
 
       } catch (err) {
