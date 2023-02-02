@@ -452,13 +452,13 @@
           'processRoute',
           route
         )
-    
+
+        console.log('total server time=' + Date.now() - serverStartTime)
         return { safeMode, selectedSort, searchQuery }
 
       } catch (err) {
         console.error(err)
       }
-      console.log('total server time=' + Date.now() - serverStartTime)
     },
     beforeMount() {
         window.addEventListener('scroll', this.handleScroll)
