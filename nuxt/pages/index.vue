@@ -283,6 +283,7 @@
     },
     computed: {
       ...mapState({
+        serverStartTime: 'serverStartTime',
         activeStoreDiscussions: 'activeStoreDiscussions',
         baseURL: 'baseURL',
         excludedTags: 'excludedTags',
@@ -457,6 +458,7 @@
       } catch (err) {
         console.error(err)
       }
+      console.log('total server time=' + Date.now() - serverStartTime)
     },
     beforeMount() {
         window.addEventListener('scroll', this.handleScroll)
