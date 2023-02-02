@@ -452,7 +452,7 @@
           'processRoute',
           route
         )
-
+        console.log('serverStartTime=', store.serverStartTime, ', timestamp=', Date.now())
         console.log('total server time=', Date.now() - store.serverStartTime)
         return { safeMode, selectedSort, searchQuery }
 
