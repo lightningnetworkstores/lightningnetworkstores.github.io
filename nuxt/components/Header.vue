@@ -315,7 +315,7 @@ export default {
   height: 64px !important;
 }
 .sister-site-entry {
-  width: 10em;
+  max-width: 380px;
 }
 .sister-site-dropdown-btn {
   margin-left: -0.3em;
