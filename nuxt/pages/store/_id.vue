@@ -158,7 +158,7 @@
               <v-layout row class="py-2">
                 <v-flex shrink>
                   <v-img
-                    :src="`https://nostr.bitcoin-stores.com/external/${propertyName}.svg`"
+                    :src="`https://bitcoin-stores.com/external/${propertyName}.svg`"
                     class="external-image"
                   >
                   </v-img>
@@ -231,6 +231,7 @@
         </v-col>
         <v-col sm="3" xl="2" cols="0" class="pa-0"></v-col>
       </v-row>  
+
       <v-row class="justify-center" v-if="relatedStores.length > 0">
         <v-col cols="12" sm="9" xl="6">
           <v-layout class="mt-4 mb-2" justify-center>
@@ -363,7 +364,7 @@ export default {
   mixins: [SocialMedia, Head],
   head() {
     return this.getMetadata(
-      `${this.selectedStore.name} | Nostrich.fun`,
+      `${this.selectedStore.name} | Lightning Network Stores`,
       this.selectedStore.description,
       this.baseURL + 'thumbnails/' + this.selectedStore.id + '_0.png'
     )

@@ -19,7 +19,7 @@ export default {
   mixins: [ Head ],
   head() {
     return this.getMetadata(
-      'Nostrich.fun discussion page',
+      'Lightning Network Discussion page',
       this.title,
       this.selected[0].link
     )

@@ -2,9 +2,9 @@ export default {
   head() {
     const { capitalize } = this.$options.filters
     const customTitles = {
-      siteName: 'Nostrich.fun',
+      siteName: 'Lightning Network Stores',
       fromTemplate: function (tag) {
-        return `${capitalize(tag)} tag | Nostrich.fun`
+        return `${capitalize(tag)} tag | Lightning Network Stores`
       },
       fromMapping: function (tag) {
         switch (tag.toLowerCase()) {

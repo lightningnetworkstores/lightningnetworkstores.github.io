@@ -83,7 +83,7 @@ export default {
     },
 
     mixins: [Head],
-    head() { return this.getMetadata('Investor info', 'Information for LNS shareholders.', '/og/index.jpg')},
+    head() { return this.getMetadata('Investor info', 'Information for LNS shareholders.', '/ogimage.png')},
     computed: {
       privilege(){
         if(this.info==null) return 'NONE'

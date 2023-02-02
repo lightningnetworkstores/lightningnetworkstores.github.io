@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <div class="d-flex justify-start align-center" style="height: 100%">
           <nuxt-link to="/">
-            <img src="@/static/nostr.bitcoin-stores.com.png" class="nav-logo" alt="Nostrich.fun logo"/>
+            <img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo" alt="Lightning Network Stores logo"/>
           </nuxt-link>
           <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on" class="sister-site-dropdown-btn">
             mdi-chevron-down
@@ -26,7 +26,7 @@
     <v-toolbar-items class="hidden-sm-and-down">
       <!-- Menu List - Web -->
 
-      <!-- <v-menu open-on-hover offset-y>
+      <v-menu open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on"> Explore </v-btn>
         </template>
@@ -40,7 +40,7 @@
             </v-btn>
           </v-list-item>
         </v-list>
-      </v-menu> -->
+      </v-menu>
 
       <v-menu open-on-hover offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -120,7 +120,7 @@
           </v-list-item>
         </v-list-item>
         <!-- Menu Explore -->
-        <!-- <v-list-item>
+        <v-list-item>
           <v-menu offset-x absolute :content-class="positionExploreCard">
             <template v-slot:activator="{ on, attrs }">
               <v-list-item v-bind="attrs" v-on="on">
@@ -143,8 +143,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
-        </v-list-item> -->
-
+        </v-list-item>
         <!-- Menu Community -->
         <v-list-item>
           <v-menu offset-x absolute :content-class="positionExploreCard">
@@ -230,7 +229,7 @@ export default {
       showMenu: false,
       routes: [
         { url: '/discuss', text: 'Discuss' },
-        //{ url: '/faucet', text: 'Faucet' },
+        { url: '/faucet', text: 'Faucet' },
         { url: '/stats', text: 'Statistics' },
         //{ url: '/wallets', text: 'Wallets' },
         //{ url: '/donations', text: 'Donations' },
@@ -248,13 +247,9 @@ export default {
         { url: '/contributors', text: 'Contributors' },
       ],
       sisterSites: [
-        // {
-        //   url: 'https://nostr.bitcoin-stores.com',
-        //   svgPath: '/nostr.bitcoin-stores.com.png',
-        // },
         {
-          url: 'https://lightningnetworkstores.com',
-          svgPath: '/lns.png'
+          url: 'https://nostrich.fun',
+          svgPath: '/nostrich-fun.svg',
         },
         // {
         //   url: 'https://yp.bitcoin-stores.com',
@@ -320,25 +315,26 @@ export default {
   height: 64px !important;
 }
 .sister-site-entry {
-  max-height: 48px;
+  max-width: 380px;
 }
 .sister-site-dropdown-btn {
-  margin-left: -0.7em;
+  margin-left: -0.3em;
   align-self: end;
 }
 @media (min-width: 768px) {
   .sister-site-dropdown-btn {
-    margin-left: -1.3em;
+    margin-left: -0.4em;
   }
 }
 .nav-logo {
-  width: 28vmax;
+  height: 55px;
   position: relative;
   max-width: 380px;
   right: 1rem;
 }
 @media (min-width: 768px) {
   .nav-logo {
+    margin-left: 1em;
     right: 1.5rem;
   }
 }

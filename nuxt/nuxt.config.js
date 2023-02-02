@@ -3,15 +3,15 @@ import colors from 'vuetify/es5/util/colors'
 import customRoutes from './customRoutes'
 
 const Meta = {
-  title: 'Nostrich.fun Directory',
+  title: 'Lightning Network Stores Directory',
   description:
-    'A feature-rich directory of NOSTR projects.',
+    'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
 }
 
 export default {
   target: 'server',
   server: {
-    port: 3002,
+    port: 3000,
     host: '0.0.0.0',
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
@@ -105,7 +105,7 @@ export default {
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'nostrich.fun',
+        content: 'LightningNetworkStores.com',
       },
       {
         hid: 'og:title',
@@ -120,12 +120,12 @@ export default {
       {
         hid: 'image',
         property: 'image',
-        content: process.env.BASE_URL + 'ogimage.jpg',
+        content: process.env.BASE_URL + 'ogimage.png',
       },
       {
         hid: 'og:image',
         property: 'og:image',
-        content: process.env.BASE_URL + 'ogimage.jpg',
+        content: process.env.BASE_URL + 'ogimage.png',
       },
       {
         hid: 'twitter:title',
@@ -140,14 +140,14 @@ export default {
       {
         hid: 'twitter:image',
         property: 'twitter:image',
-        content: process.env.BASE_URL + 'ogimage.jpg',
+        content: process.env.BASE_URL + 'ogimage.png',
       },
     ],
     link: [
       {
         rel: 'search',
         type: 'application/opensearchdescription+xml',
-        title: 'Nostrich.fun',
+        title: 'Lightning Network Stores',
         href: '/opensearch.xml',
       },
       {

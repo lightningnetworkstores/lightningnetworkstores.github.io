@@ -41,8 +41,8 @@ export default {
   mixins: [ Head ],
   head() {
     return this.getMetadata(
-      'Popular searches',
-      'Popular tag searches at Nostrich.fun',
+      'Popular searches | LightningNetworkStores',
+      'Popular tag searches at LightningNetworkStores.com',
       null
     )
   },

@@ -19,7 +19,7 @@ export default {
           {
             hid: 'og:site_name',
             property: 'og:site_name',
-            content: 'nostr.bitcoin-stores.com',
+            content: 'LightningNetworkStores.com',
           },
           {
             hid: 'og:title',

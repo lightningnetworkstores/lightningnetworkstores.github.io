@@ -58,7 +58,7 @@ export default {
       return this.getMetadata(
         'Quiz contest',
         'Vote on the daily quiz and earn sats by guessing the most voted choice.',
-        '/og/index.jpg'
+        '/ogimage.png'
       )
     },
   data() {

@@ -111,7 +111,7 @@ export default {
     return this.getMetadata(
       'Lightning Network wallets',
       'List of wallets that support the bitcoin Lightning Network',
-      '/og/index.jpg'
+      '/ogimage.png'
     )
   },
   data() {

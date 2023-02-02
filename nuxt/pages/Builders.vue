@@ -69,8 +69,8 @@ export default {
     return {}
   },
   mixins: [Head],
-  head() { return this.getMetadata('Nostr builders',
-  'List of people building on NOSTR and their projects.', '/og/index.jpg')},
+  head() { return this.getMetadata('LN builders',
+  'List of people building on the lightning network and their projects.', '/ogimage.png')},
   components: {
     StorePreview,
   },

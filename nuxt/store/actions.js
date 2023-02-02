@@ -127,7 +127,7 @@ const actions = {
       name: name,
       description: description,
       url: url,
-      nostr: nostr,
+      uri: uri,
       sector: sector,
       digitalGoods: digitalGoods,
       contributor: contributor,
@@ -140,7 +140,7 @@ const actions = {
       name: encodeURIComponent(name),
       description: encodeURIComponent(description),
       URL: encodeURIComponent(url),
-      NOSTR: encodeURIComponent(nostr),
+      URI: encodeURIComponent(uri),
       contributor: contributor,
       'g-recaptcha-response': recaptcha,
     }
