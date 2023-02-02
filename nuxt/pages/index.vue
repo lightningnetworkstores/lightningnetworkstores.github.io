@@ -453,7 +453,7 @@
           route
         )
 
-        console.log('total server time=' + Date.now() - this.serverStartTime)
+        console.log('total server time=' + Date.now() - store.serverStartTime)
         return { safeMode, selectedSort, searchQuery }
 
       } catch (err) {
