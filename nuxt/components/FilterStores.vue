@@ -92,7 +92,7 @@ export default {
         })
       }
 
-      return this.filterTags
+      return this.filterTags.filter(({name}) => name != 'nostr')
     },
   },
 

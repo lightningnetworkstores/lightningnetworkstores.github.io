@@ -12,8 +12,8 @@
 
           <v-layout row>
             <p>
-              We track the adoption of the bitcoin lightning network by merchants and allow users to find and review them.
-              The website is mostly automated and community maintained: adding stores, tagging and updating (most/all updates done by website owners).
+              This website is a repository of NOSTR (Notes and Other Stuff Transmitted by Relays) projects. 
+              It's a fork of <a href="https://LightningNetworkStores.com">Lightning Network Stores</a> and therefore inherits most of its features. 
             </p>
           </v-layout>
 
@@ -57,7 +57,7 @@
               <a
                 href="https://github.com/lightningnetworkstores/lightningnetworkstores.github.io"
                 >https://github.com/lightningnetworkstores/lightningnetworkstores.github.io</a
-              >
+              > (nostr branches)
             </p>
           </v-layout>
           <v-layout row>
@@ -230,8 +230,8 @@ import Head from '~/mixins/Head'
 export default {
   components: { TutorialModal },
   mixins: [Head],
-  head() { return this.getMetadata('LNS about page',
-  'Learn more about the website: goal, contact information, FAQ, Acknowledgements.', '/ogimage.png')},
+  head() { return this.getMetadata('Nostrich.fun about page',
+  'Learn more about the website: goal, contact information, FAQ, Acknowledgements.', '/og/index.jpg')},
   created() {},
 }
 </script>

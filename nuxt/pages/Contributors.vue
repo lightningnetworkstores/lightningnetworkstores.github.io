@@ -36,7 +36,7 @@ export default {
   },
   mixins: [Head],
   head(){
-    return this.getMetadata('LNS Contributors', 'The top contributors to LightningNetworkStores.com', '/ogimage.png')
+    return this.getMetadata('Nostrich.fun Contributors', 'The top contributors to Nostrich.fun', '/ogimage.jpg')
   },
   computed: {
     contributions() {

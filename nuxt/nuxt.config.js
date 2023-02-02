@@ -3,15 +3,15 @@ import colors from 'vuetify/es5/util/colors'
 import customRoutes from './customRoutes'
 
 const Meta = {
-  title: 'Lightning Network Stores Directory',
+  title: 'Nostrich.fun Directory',
   description:
-    'The most comprehensive directory of stores/apps/services that accept bitcoin through the lightning network.',
+    'A feature-rich directory of NOSTR projects.',
 }
 
 export default {
   target: 'server',
   server: {
-    port: 3000,
+    port: 3002,
     host: '0.0.0.0',
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
@@ -105,7 +105,7 @@ export default {
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'LightningNetworkStores.com',
+        content: 'nostrich.fun',
       },
       {
         hid: 'og:title',
@@ -120,12 +120,12 @@ export default {
       {
         hid: 'image',
         property: 'image',
-        content: process.env.BASE_URL + 'ogimage.png',
+        content: process.env.BASE_URL + 'ogimage.jpg',
       },
       {
         hid: 'og:image',
         property: 'og:image',
-        content: process.env.BASE_URL + 'ogimage.png',
+        content: process.env.BASE_URL + 'ogimage.jpg',
       },
       {
         hid: 'twitter:title',
@@ -140,14 +140,14 @@ export default {
       {
         hid: 'twitter:image',
         property: 'twitter:image',
-        content: process.env.BASE_URL + 'ogimage.png',
+        content: process.env.BASE_URL + 'ogimage.jpg',
       },
     ],
     link: [
       {
         rel: 'search',
         type: 'application/opensearchdescription+xml',
-        title: 'Lightning Network Stores',
+        title: 'Nostrich.fun',
         href: '/opensearch.xml',
       },
       {
@@ -172,13 +172,16 @@ export default {
         sizes: '48x48',
       },
       {
-        rel: 'stylesheet',
+        rel: 'preload',
         href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        as: 'style',
+        onload: 'this.rel="stylesheet"'
       },
     ],
     script: [
       {
         src: 'https://kit.fontawesome.com/090ca49637.js',
+        defer: true
       },
     ],
   },
@@ -219,10 +222,6 @@ export default {
     },
     {
       src: '~/plugins/axios.js',
-      ssr: true,
-    },
-    {
-      src: '~/plugins/carbon-charts.js',
       ssr: true,
     },
     //{src: '@/plugins/gtag', ssr: true}

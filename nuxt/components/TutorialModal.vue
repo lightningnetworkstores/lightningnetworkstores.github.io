@@ -1,6 +1,14 @@
 <template>
   <div class="">
-    <v-btn @click.stop="showTutorialDialog = true" color="secondary" fab x-small dark class="mt-2">
+    <v-btn
+      @click.stop="showTutorialDialog = true"
+      color="secondary"
+      fab
+      x-small
+      dark
+      class="mt-2"
+      aria-label="Show tutorial"
+    >
       <v-icon class="float-left"
         >fa-question</v-icon
       >
@@ -16,7 +24,7 @@
       <template v-if="showTutorialDialog">
         <v-card class="pa-2">
           <v-card-title class="headline"
-            >How to use LightningNetworkStores.com</v-card-title
+            >How to use Nostrich.fun</v-card-title
           >
 
           <v-carousel :cycle="false" :light="!$vuetify.theme.dark">
