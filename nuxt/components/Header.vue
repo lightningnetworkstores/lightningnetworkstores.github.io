@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <div class="d-flex justify-start align-center" style="height: 100%">
           <nuxt-link to="/">
-            <img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo"/>
+            <img src="@/assets/images/LightningNetworkStores.svg" class="nav-logo" alt="Lightning Network Stores logo"/>
           </nuxt-link>
           <v-icon large color="grey lighten-1" v-bind="attrs" v-on="on" class="sister-site-dropdown-btn">
             mdi-chevron-down
