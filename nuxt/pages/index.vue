@@ -98,7 +98,7 @@
           <v-container v-if="maxCardsNewsest > 0" class="full-list" ref="list">
               <store-card
                 :data-storeId="store.id"
-                v-for="store in filteredStoresNewest.slice(0, maxCountOfCards(maxCardsNewsest, !btnOptionActive.newest))"
+                v-for="store in newestStores"
                 :key="'store-' + store.id"
                 :store="store"
               ></store-card>
@@ -198,9 +198,19 @@
         const tags = this.$route.query.tags.split(',')
         if (tags.length === 1) {
           const tag = this.$options.filters.capitalize(tags[0])
-            return this.getMetadata(tag + ' tag | LNS', 
+          const metaData = this.getMetadata(tag + ' tag | LNS',
             tag + ' tag at Lightning Network Stores', '/og/index.png')
+
+          metaData.link = Array.isArray(metaData.link)
+            ? [ ...metaData.link, ...this.headPreloadLinks ]
+            : this.headPreloadLinks
+
+          return metaData
         }
+      }
+
+      return {
+        link: this.headPreloadLinks
       }
     },
     methods: {
@@ -404,6 +414,17 @@
         }
   
         return data
+      },
+      newestStores () {
+        return this.filteredStoresNewest.slice(0, this.maxCountOfCards(this.maxCardsNewsest, !this.btnOptionActive.newest))
+      },
+      headPreloadLinks () {
+        // Add preload links to the <head> section to improve image loading speed
+        return this.newestStores.map((store) => ({
+          rel: 'preload',
+          href: `${this.baseURL}thumbnails/${store.id}.jpg`,
+          as: 'image'
+        }))
       },
     },
     watch: {
