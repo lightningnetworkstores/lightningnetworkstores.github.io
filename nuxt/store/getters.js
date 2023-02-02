@@ -135,7 +135,7 @@ const getters = {
 }
 
 function sortingFunction(method, parameters = {}) {
-  console.log('method=' + method)
+  //console.log('method=' + method)
   switch (method) {
     case 'custom':
       let scoreFunction = customScore(parameters)
