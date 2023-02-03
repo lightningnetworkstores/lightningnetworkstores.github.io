@@ -239,6 +239,7 @@ export default {
     // '@nuxt/typescript-build', // https://go.nuxtjs.dev/typescript
     '@nuxtjs/vuetify', // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/google-analytics',
+    updateStylesheetsToLoadAsync
   ],
 
   modules: [
@@ -282,4 +283,22 @@ export default {
       }
     },
   },
+}
+
+/**
+ * Nuxt modules like Vuetify add stylesheet links to the <head> which
+ * do not load asynchronously (see https://github.com/nuxt-community/vuetify-module/blob/8b52b9374ac059a4529635fcd8c96af955d84ea2/src/font.ts#L19-L24).
+ * This results in a lower pagespeed performance score.
+ * This nuxt module updates any stylesheet links to load asychronously
+ */
+function updateStylesheetsToLoadAsync () {
+  this.nuxt.hook('build:before', () => {
+    this.options.head?.link?.forEach(link => {
+      if (link.rel === 'stylesheet') {
+        link.rel = 'preload'
+        link.as = 'style'
+        link.onload = 'this.rel="stylesheet"'
+      }
+    })
+  })
 }
