@@ -125,6 +125,9 @@
         Place a bet
       </v-btn>
     </v-card-actions>
+    <blocked-voter-modal
+      :isOpen.sync="openBlockedVoterModal"
+    />
     <place-bet-modal
       :isOpen.sync="openAmountModal"
       :contestId="contestId"
@@ -146,14 +149,14 @@ export default {
   data() {
     return {
       openAmountModal: false,
+      openBlockedVoterModal: false
     }
   },
   computed: {
-    ...mapState({
-      baseURL(state) {
-        return state.baseURL
-      },
-    }),
+    ...mapState(['loginStatus', 'baseURL']),
+    isVoter() {
+      return this.loginStatus?.user?.voter
+    }
   },
   methods: {
     getStoreLink(link) {
@@ -169,10 +172,14 @@ export default {
       this.$router.push('/store/' + rootUrl)
     },
     voteStore() {
-      this.$store.dispatch('choseOption', {
-        contestID: this.contestId,
-        choice: this.store.id,
-      })
+      if (this.isVoter) {
+        this.$store.dispatch('choseOption', {
+          contestID: this.contestId,
+          choice: this.store.id,
+        })
+      } else {
+        this.openBlockedVoterModal = true
+      }
     },
   },
 }
