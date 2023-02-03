@@ -10,17 +10,18 @@
       class="text-right"
     />
     <v-card-actions>
-      <v-spacer></v-spacer>
       <v-btn
         text
         color="blue-grey"
         class="mx-2 white--text"
         style="min-width: 10em"
         :disabled="selected"
+        @click="voteMeme"
       >
         <v-icon left dark> fa-badge-check </v-icon>
-        {{ selected ? 'chosen' : 'chose' }}
+        {{ selected ? 'voted' : 'vote' }}
       </v-btn>
+      <v-spacer></v-spacer>
       <v-btn
         text
         color="orange darken-1"
@@ -31,6 +32,9 @@
         Place a bet
       </v-btn>
     </v-card-actions>
+    <blocked-voter-modal
+      :isOpen.sync="openBlockedVoterModal"
+    />
     <place-bet-modal
       :isOpen.sync="showBetModal"
       :contestId="id"
@@ -41,6 +45,7 @@
   </v-card>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
     url: {
@@ -58,8 +63,28 @@ export default {
   },
   data() {
     return {
-      showBetModal: false
+      showBetModal: false,
+      openBlockedVoterModal: false
     }
+  },
+  computed: {
+    ...mapState(['loginStatus']),
+    isVoter() {
+      return this.loginStatus?.user?.voter
+    }
+  },
+  methods: {
+    voteMeme() {
+      if (this.isVoter) {
+        // TODO: Implement this action once the API endpoint is ready
+        // this.$store.dispatch('voteMeme', {
+        //   contestID: this.contestId,
+        //   choice: this.id,
+        // })
+      } else {
+        this.openBlockedVoterModal = true
+      }
+    },
   }
 }
 </script>
