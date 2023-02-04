@@ -147,17 +147,17 @@
   </template>
   
   <script>
-  import AddStoreModal from '~/components/AddStoreModal.vue'
-  import FilterStores from '~/components/FilterStores.vue'
-  import StoreCard from '~/components/StoreCard.vue'
   import { mapState, mapGetters } from 'vuex'
-  import SearchInput from '~/components/SearchInput.vue'
-  import SortingCustomModal from '~/components/SortingCustomModal.vue'
-  import { actions } from '~/store/discussions'
   import Head from '~/mixins/Head'
   
   export default {
-    components: { AddStoreModal, StoreCard, FilterStores, SearchInput, SortingCustomModal },
+    components: {
+      AddStoreModal: () => import('~/components/AddStoreModal.vue'),
+      StoreCard: () => import('~/components/StoreCard.vue'),
+      FilterStores: () => import('~/components/FilterStores.vue'),
+      SearchInput: () => import('~/components/SearchInput.vue'),
+      SortingCustomModal: () => import('~/components/SortingCustomModal.vue'),
+    },
     data() {
       return {
         addCardCount: 6,
