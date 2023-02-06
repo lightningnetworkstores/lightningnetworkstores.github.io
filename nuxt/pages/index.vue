@@ -148,15 +148,16 @@
   
   <script>
   import { mapState, mapGetters } from 'vuex'
+  import SearchInput from '~/components/SearchInput.vue'
   import Head from '~/mixins/Head'
   
   export default {
     components: {
+      SearchInput,
       AddStoreModal: () => import('~/components/AddStoreModal.vue'),
       StoreCard: () => import('~/components/StoreCard.vue'),
       FilterStores: () => import('~/components/FilterStores.vue'),
-      SearchInput: () => import('~/components/SearchInput.vue'),
-      SortingCustomModal: () => import('~/components/SortingCustomModal.vue'),
+      SortingCustomModal: () => import('~/components/SortingCustomModal.vue')
     },
     data() {
       return {
