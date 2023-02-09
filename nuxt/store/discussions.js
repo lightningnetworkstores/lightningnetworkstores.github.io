@@ -10,9 +10,13 @@ export const state = () => ({
 })
 
 export const actions = {
-  addDiscussion(context, payload) {
+  addDiscussion({ dispatch }, payload) {
     return this.$axios.$post(`/api/discussion?g-recaptcha-response=${payload.recaptchaToken}`, payload)
       .then(data => data.data)
+      .catch(err => {
+        dispatch('network/showError', err, { root: true })
+        throw err
+      })
   },
   addImage(context, file) {
     const headers = {
