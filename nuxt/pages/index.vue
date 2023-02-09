@@ -103,6 +103,15 @@
                 :store="store"
               ></store-card>
           </v-container>
+          <div v-if="newestStores.length === 0">
+            <v-container>
+              <v-row>
+                <v-col v-for="index in [0,1,2]" :key="index">
+                  <v-skeleton-loader type="card-avatar, actions"/>
+                </v-col>
+              </v-row>
+            </v-container>
+          </div>
           <div v-if="maxCardsTrending > 0" class="container full-list d-flex align-self-center">
               <h1>Trending</h1>
               <v-btn v-if="btnOptionActive.trending" class="mt-2" small color="#fcb919" @click="loadMoreCardsTrending()">Load more</v-btn>
@@ -116,6 +125,15 @@
               ></store-card>
           </v-container>
         </div>
+        <div v-if="filteredStoresTrending.length === 0">
+          <v-container>
+            <v-row>
+              <v-col v-for="index in [0,1,2]" :key="index">
+                <v-skeleton-loader type="card-avatar, actions"/>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
         <h1 v-if="sectionFilteredStores" class="container full-list">Explore</h1>
         <v-container class="full-list" ref="list">
           <store-card
@@ -125,6 +143,15 @@
             :store="store"
           ></store-card>
         </v-container>
+        <div v-if="filteredStoresTrending.length === 0">
+          <v-container>
+            <v-row>
+              <v-col v-for="index in [0,1,2]" :key="index">
+                <v-skeleton-loader type="card-avatar, actions"/>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
         <v-container fill-height v-if="isLoading">
           <v-layout row justify-center align-center>
             <v-progress-circular
@@ -466,15 +493,11 @@
     },
     async asyncData({ store, route }) {
       try {
-
-        const [queryData] = await Promise.all([
-          store.dispatch('processRoute', route),
-          store.dispatch('getLoginStatus'),
-          store.dispatch('getStores'),
-        ])
-        console.log('total server time=', Date.now() - store.state.serverStartTime)
-        return queryData
-
+        const { safeMode, selectedSort, searchQuery } = await store.dispatch(
+          'processRoute',
+          route
+        )
+        return { safeMode, selectedSort, searchQuery }
       } catch (err) {
         console.error(err)
       }
@@ -495,6 +518,9 @@
       next()
     },
     async mounted() {
+      this.$store.dispatch('getLoginStatus')
+      this.$store.dispatch('getStores')
+
       this.$recaptcha.init()
 
       let maxTop = this.customSortingAdvanced.find((d) => d.id=="newontop")
