@@ -15,6 +15,7 @@ export default {
     host: '0.0.0.0',
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
+  serverMiddleware: ['~/server-middleware/headers.js'],
   buildDir: '.nuxt', //default
   router: {
     middleware: 'affiliate',
