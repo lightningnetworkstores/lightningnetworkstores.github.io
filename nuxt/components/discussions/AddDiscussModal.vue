@@ -131,17 +131,18 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
 
-                  <v-btn color="green darken-1" text @click="cancel">
+                  <v-btn color="red" text @click="cancel" :disabled="isLoading">
                     Close
                   </v-btn>
 
-                  <v-btn color="green darken-1" text type="submit">
+                  <v-btn color="green darken-1" text type="submit" :disabled="!canSubmit">
                     Submit
                   </v-btn>
                 </v-card-actions>
               </v-form>
             </v-card-text>
           </v-card-text>
+          <v-progress-linear v-if="isLoading" indeterminate/>
         </v-card>
       </template>
     </v-dialog>
@@ -167,7 +168,10 @@ export default {
   data() {
     return {
       showAddDialog: false,
-      addDiscussionForm: {},
+      addDiscussionForm: {
+        title: '',
+        comment: ''
+      },
       addAlert: { message: '', success: true },
       confirm_title: 'Success!',
       isLoading: false,
@@ -187,6 +191,10 @@ export default {
   computed: {
     ...mapState(['storeSummary', 'baseURL']),
     ...mapGetters('discussions', ['topicsWithout']),
+    canSubmit() {
+      const { title, comment } = this.addDiscussionForm
+      return !this.isLoading && title && comment
+    },
     hasDefaultStoreId() {
       return !!this.defaultStoreId
     }
