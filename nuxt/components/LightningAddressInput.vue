@@ -115,7 +115,7 @@ export default {
   },
   data() {
     return {
-      address: null,
+      address: '',
       amount: undefined,
       comment: '',
       contactName: '',
