@@ -5,7 +5,7 @@ export default function(req, res, next) {
   }
   if(req.url.match(pages.home)) {
     res.setHeader('Cache-Tag', 'homepage')
-    res.setHeader('Cache-Control', 'max-age=2')
+    res.setHeader('Cache-Control', 'public; max-age=600')
   }
   if (req.url.match(pages.discuss)) {
     res.setHeader('Cache-Tag', 'discuss')
