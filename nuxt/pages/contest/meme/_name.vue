@@ -18,11 +18,11 @@
       </v-row>
       <v-row>
         <v-col class="text-center">
-          <div class="grid-list">
+          <div>
             <store-contest-votes-card
               v-for="memeVote in votes"
-              :key="`store-${memeVote.store.id}`"
-              :store="memeVote.store"
+              :key="`store-${memeVote.meme.id}`"
+              :store="memeVote.meme"
               :votes="memeVote.votes"
               :bets="memeVote.bets"
             />
@@ -35,12 +35,18 @@
         <v-col><h2 class="d-flex justify-center">Memes</h2></v-col>
       </v-row>
       <v-row v-if="hasMemeContest">
-        <v-col>
-          <div class="grid-list">
+        <v-col col="12" md="6"
+          v-for="(meme, index) in contestants"
+          :key="meme.id"
+        >
+          <div
+            class="d-flex"
+            :class="{
+              'justify-end': index % 2 === 0 && !isMobile,
+              'justify-start': index % 2 !== 0 && !isMobile
+            }">
             <meme-contest-card
-              v-for="meme in contestants"
-              :key="meme.id"
-              :url="meme.url"
+              :url="meme.link"
               :id="meme.id"
             />
           </div>
@@ -61,6 +67,9 @@ export default {
       },
     }),
     ...mapState(['memeContest']),
+    isMobile() {
+      return this.$vuetify.breakpoint.name === 'xs'
+    },
     hasMemeContest() {
       return this.memeContest !== undefined
     },
@@ -83,8 +92,8 @@ export default {
         this.memeContest?.user_bets?.map(
           ({ wager, choice, prize }) => {
             return {
-              choice: this.memeContest.stores?.find(
-                (store) => store.id == choice
+              choice: this.memeContest.contestants?.find(
+                (meme) => meme.id == choice
               )?.name,
               prize: prize,
               wager: wager,
@@ -112,17 +121,19 @@ export default {
       return ['MAIN', 'EXTENSION'].includes(this.stage)
     },
     votes() {
+      console.log('votes.this.memeContest: ', this.memeContest)
+      if (!this.memeContest) return []
       if (this.isContestClosed) {
-        let votesInfo = this.memeContest.stores.map((store) => {
+        let votesInfo = this.memeContest.contestants.map((meme) => {
           return {
-            store,
+            meme,
             votes:
               this.memeContest.votes?.filter(
-                (vote) => parseInt(this.notIsNaN(vote.choice)) === store.id
+                (vote) => parseInt(this.notIsNaN(vote.choice)) === meme.id
               ) || [],
             bets:
               this.memeContest.bets?.filter(
-                (bet) => parseInt(this.notIsNaN(bet.choice)) === store.id
+                (bet) => parseInt(this.notIsNaN(bet.choice)) === meme.id
               ) || [],
           }
         })

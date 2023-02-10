@@ -2,10 +2,11 @@
   <v-card
     hover
     class="d-flex flex-column justify-space-between"
+    width="350px"
   >
     <v-img
-      :aspect-ratio="4 / 3"
-      max-height="200px"
+      :aspect-ratio="1"
+      max-height="280px"
       :src="url"
       class="text-right"
     />
