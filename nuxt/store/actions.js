@@ -71,7 +71,7 @@ const actions = {
       return acc
     }, [])
 
-    commit('updateStores', restStores)
+    //commit('updateStores', restStores)
   },
   async getStore({ state, commit }, data) {
     try {
