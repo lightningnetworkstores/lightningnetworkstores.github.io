@@ -106,6 +106,7 @@ import { mapState } from 'vuex'
 import regexMixin from '~/mixins/regex.js'
 import { WithdrawalState, WithdrawalType } from '~/store/wallet'
 import Success from '~/components/Success.vue'
+import { calculateWithdrawFee } from '~/utils/calculateWithdrawFee'
 
 const MIN_ADDRESS_LENGTH = 3
 
@@ -184,7 +185,8 @@ export default {
   computed: {
     withdrawalFee() {
       if (!this.amount) return 0
-      return Math.ceil(this.amount * 0.01)
+
+      return calculateWithdrawFee(this.amount)
     },
     isButtonDisabled() {
       return this.amount === undefined ||
@@ -229,14 +231,9 @@ export default {
       withdrawable: (state) => {
         const { wallet } = state
           if (!wallet.balance) return 0
+
           const { balance } = wallet
-          return (
-            balance.available -
-            Math.ceil(
-              balance.available *
-                (balance.withdrawal_fee_per_cent / 100)
-            )
-          )
+          return balance.available - calculateWithdrawFee(balance.available);
         },
       isSuccess: state => state.wallet.withdrawal.state === WithdrawalState.SUCCESS,
       addresses: state => state.contacts.contacts

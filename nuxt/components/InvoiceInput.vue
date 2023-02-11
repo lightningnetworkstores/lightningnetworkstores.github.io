@@ -13,9 +13,19 @@
           no-resize
           label="Enter LN invoice"
         />
+        <v-text-field
+          v-if="invoice && invoiceWithoutAmount"
+          v-model="amount"
+          outlined
+          dense
+          type="number"
+          label="Amount (sats)"
+          hint="Enter an amount in sats"
+          :rules="amountRules"
+        />
       </v-form>
-      <div v-if="value && !hasError" class="text-caption font-weight-light">
-        Value: {{ value }} <i class="fak fa-satoshisymbol-solidtilt"/> , Fee: {{ expectedWithdrawalFee }} <i class="fak fa-satoshisymbol-solidtilt"/>
+      <div v-if="amount && !hasError" class="text-caption font-weight-light">
+        Amount: {{ amount }} <i class="fak fa-satoshisymbol-solidtilt"/> , Fee: {{ withdrawalFee }} <i class="fak fa-satoshisymbol-solidtilt"/>
       </div>
       <div v-if="memo && !hasError" class="text-caption font-weight-light">
         Memo: {{ memo }}
@@ -52,6 +62,7 @@ import lightningPayReq from 'bolt11'
 import { mapState } from 'vuex'
 import { WithdrawalState, WithdrawalType } from '~/store/wallet'
 import { requestProvider } from 'webln';
+import { calculateWithdrawFee } from '../utils/calculateWithdrawFee'
 
 const MIN_INVOICE_CHECK_LENGTH = 10
 
@@ -68,7 +79,8 @@ export default {
       isValid: false,
       invoice: null,
       hint: 'Routing fees will be deducted from your balance',
-      value: null,
+      amount: null,
+      invoiceWithoutAmount: false,
       memo: null,
       timerTask: null,
       timerCount: 0,
@@ -86,8 +98,9 @@ export default {
     async sendPayment() {
       const { state, message, withdrawalID } = await this.$store.dispatch('wallet/sendPayment', {
         type: WithdrawalType.BOLT11_INVOICE,
-        feeAmount: this.expectedWithdrawalFee,
-        invoice: this.invoice
+        feeAmount: this.withdrawalFee,
+        invoice: this.invoice,
+        amount: parseInt(this.amount)
       })
       if (state === WithdrawalState.FAILED) {
         this.reset()
@@ -103,7 +116,7 @@ export default {
     },
     reset(hadError, message) {
       this.invoice = null
-      this.value = null
+      this.amount = null
       this.memo = null
       this.snackbar.show = false
       this.$store.dispatch('wallet/resetWithdrawalState')
@@ -119,7 +132,7 @@ export default {
       this.$store.dispatch('wallet/updateBalance')
     },
     onInput(e) {
-      this.value = null
+      this.amount = null
       this.memo = null
     },
     startTimer(withdrawalID) {
@@ -158,6 +171,14 @@ export default {
         this.isProcessing ||
         !this.isValid
     },
+     amountRules() {
+      return [
+        v => !!v || v === undefined || 'Enter any amount',
+        v => Number.parseInt(v) !== NaN || v === undefined || 'Please enter a number',
+        v => Number.parseInt(v) > 0 || v === undefined || 'Must be a positive number',
+        v => v <= this.withdrawable || 'Insufficient balance' 
+      ]
+    },
     invoiceRules() {
       return [
         v => (!!v || v == null) || 'Enter a LN invoice',
@@ -170,10 +191,10 @@ export default {
             if (details.network.bech32 === 'tb') return 'This is a testnet invoice'
             if (details.network.bech32 !== 'bc') return 'This is not a bitcoin invoice'
             this.hint = null
-            this.value = details.satoshis
+            this.amount = details.satoshis
+            this.invoiceWithoutAmount = !this.amount
             this.memo = details.tags.find(tag => tag.tagName === 'description').data
-            const maxWithdrawble = this.balance.available * (1 - this.percentFactor)
-            if (this.value > maxWithdrawble) return 'Insufficient balance'
+            if (this.amount && this.amount > this.withdrawable) return 'Insufficient balance'
             return true
           } catch(err) {
             console.error('Error validating input. err: ', err)
@@ -186,11 +207,11 @@ export default {
         }
       ]
     },
-    expectedWithdrawalFee() {
-      return Math.ceil(this.value * this.percentFactor)
+    withdrawable() {
+      return this.balance.available - this.withdrawalFee
     },
-    percentFactor() {
-      return this.balance.withdrawal_fee_per_cent / 100
+    withdrawalFee() {
+      return calculateWithdrawFee(this.amount)
     },
     ...mapState('wallet', ['balance', 'withdrawal'])
   }
