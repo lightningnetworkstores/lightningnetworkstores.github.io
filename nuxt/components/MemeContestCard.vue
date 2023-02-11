@@ -4,11 +4,8 @@
     class="d-flex flex-column justify-space-between"
     width="350px"
   >
-    <v-img
-      :aspect-ratio="1"
-      max-height="280px"
-      :src="url"
-      class="text-right"
+    <discussion-image
+      :url="url"
     />
     <v-card-actions>
       <v-btn
@@ -47,7 +44,9 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import DiscussionImage from '~/components/discussions/DiscussionImage.vue'
 export default {
+  components: { DiscussionImage },
   props: {
     url: {
       type: String,

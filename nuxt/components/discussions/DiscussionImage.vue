@@ -17,21 +17,24 @@
       >
       </v-img>
     </template>
-      <v-card class="mx-auto secondary">
-        <v-img
-          contain
-          :lazy-src="url"
-          :src="url"
-        >
-          <div class="d-flex justify-end">
-            <v-btn @click="showDialog = false" icon>
-              <v-icon>mdi-close</v-icon>
-            </v-btn>            
-          </div>
-        </v-img>
-      </v-card>
+    <v-card
+      class="mx-auto secondary"
+    >
+      <v-img
+        height="100%"
+        contain
+        :lazy-src="url"
+        :src="url"
+        object-fit="contain"
+      >
+      </v-img>
+    </v-card>
+    <v-btn @click="showDialog = false" fab fixed right top>
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
   </v-dialog>
 </template>
+
 <script>
 export default {
   props: {
@@ -47,12 +50,7 @@ export default {
   },
   computed: {
     maxWidth() {
-      switch(this.$vuetify.breakpoint.name) {
-        case 'xs':
-        case 'sm': return '100vw'
-        default:
-          return '60vw'
-      }
+      return "90vh";
     }
   }
 }
