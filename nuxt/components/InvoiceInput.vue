@@ -30,9 +30,6 @@
       <div v-if="memo && !hasError" class="text-caption font-weight-light">
         Memo: {{ memo }}
       </div>
-      <div v-if="isProcessing" class="pb-2">
-        <v-progress-linear color="primary" indeterminate/>
-      </div>
       <v-btn
         width="200"
         @click="sendPayment"
@@ -41,6 +38,9 @@
       >
         Withdraw
       </v-btn>
+      <div class="pb-2">
+        <v-progress-linear v-if="isProcessing" color="primary" indeterminate/>
+      </div>
     </div>
     <v-snackbar v-model="snackbar.show">
       {{ snackbar.message }}
