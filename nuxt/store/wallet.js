@@ -16,7 +16,15 @@ export const state = () => ({
     invoice: null
   },
   profile: null,
-  balance: { available: 0, pending_deposits: 0, pending_withdrawals: 0, unsettled_bets: 0, pending_contributor_reward: 0 },
+  balance: {
+    available: 0, 
+    pending_deposits: 0, 
+    pending_withdrawals: 0, 
+    unsettled_bets: 0, 
+    pending_contributor_reward: 0, 
+    withdrawable: 0, 
+    withdrawal_fee_per_cent: 0
+  },
   withdrawal: {
     state: WithdrawalState.INITIAL,
     memo: ''
@@ -74,7 +82,7 @@ export const actions = {
       body = { fee: feeAmount, address, amount, comment }
     } else if (type === WithdrawalType.BOLT11_INVOICE) {
       url = '/api/withdraw'
-      body = { fee: feeAmount, payment_request: invoice }
+      body = { fee: feeAmount, payment_request: invoice, amount }
     }
     try {
       const resp = await this.$axios.post(url, body)
