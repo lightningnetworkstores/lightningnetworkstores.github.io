@@ -49,6 +49,7 @@
               :contestId="memeContest.contest.id"
               :url="meme.link"
               :id="meme.id"
+              :selected="meme.id === choice"
             />
           </div>
         </v-col>
@@ -122,7 +123,6 @@ export default {
       return ['MAIN', 'EXTENSION'].includes(this.stage)
     },
     votes() {
-      console.log('votes.this.memeContest: ', this.memeContest)
       if (!this.memeContest) return []
       if (this.isContestClosed) {
         let votesInfo = this.memeContest.contestants.map((meme) => {
