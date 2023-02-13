@@ -107,8 +107,8 @@ export default {
       if (this.memeContest &&
         this.memeContest.contest &&
         this.memeContest.contest.contestants &&
-        this.memeContest.contest.contestants.options) {
-        return this.memeContest.contest.contestants.options
+        this.memeContest.contest.contestants.option_details) {
+        return this.memeContest.contest.contestants.option_details
       }
       return []
     },
