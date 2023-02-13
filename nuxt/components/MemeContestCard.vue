@@ -59,6 +59,10 @@ export default {
     selected: {
       type: Boolean,
       default: false
+    },
+    contestId: {
+      type: Number,
+      required: true
     }
   },
   data() {
@@ -76,11 +80,10 @@ export default {
   methods: {
     voteMeme() {
       if (this.isVoter) {
-        // TODO: Implement this action once the API endpoint is ready
-        // this.$store.dispatch('voteMeme', {
-        //   contestID: this.contestId,
-        //   choice: this.id,
-        // })
+        this.$store.dispatch('voteMeme', {
+          contestID: this.contestId,
+          choice: this.id,
+        })
       } else {
         this.openBlockedVoterModal = true
       }

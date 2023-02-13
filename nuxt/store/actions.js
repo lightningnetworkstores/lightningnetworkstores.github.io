@@ -1253,7 +1253,20 @@ const actions = {
       commit('chooseStore', choice)
     })
     .catch(err => {
-      console.error('Error while posting review. err: ', err)
+      console.error('Error while casting a vote for a store contest. err: ', err)
+      dispatch('network/showError', err, { root: true})
+    })
+  },
+  async voteMeme({ state, commit, dispatch }, { contestID, choice }) {
+    this.$axios.post(`${state.baseURL}api/contest_vote`, {
+      contestID,
+      choice: `${choice}`,
+    })
+    .then(res => {
+      commit('voteMeme', choice)
+    })
+    .catch(err => {
+      console.error('Error while casting a vote for a meme contest. err: ', err)
       dispatch('network/showError', err, { root: true})
     })
   },

@@ -58,7 +58,9 @@ export const state = () => {
     selectedTags: [],
     statistics: {},
     storeContest: {},
-    memeContest: {},
+    memeContest: {
+      user_vote: { choice: undefined }
+    },
     nameStoreContest: '',
     storeEvents: [],
     storePages: 0,

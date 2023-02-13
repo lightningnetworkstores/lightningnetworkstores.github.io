@@ -46,6 +46,7 @@
               'justify-start': index % 2 !== 0 && !isMobile
             }">
             <meme-contest-card
+              :contestId="memeContest.contest.id"
               :url="meme.link"
               :id="meme.id"
             />
