@@ -1201,7 +1201,6 @@ const actions = {
     commit('setNameStoreContest', nameStore)
   },
   async getMemeContest({ commit, state }, { age, name }) {
-    // TODO: Replace by "api/meme_contest" once the API is ready
     let url = `${state.baseURL}api/meme_contest?age=${age}`
     if (name) {
       url += `&name=${name}`

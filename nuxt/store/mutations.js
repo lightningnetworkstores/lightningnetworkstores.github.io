@@ -298,7 +298,7 @@ const mutations = {
       (prev, curr) => prev + curr.wager,
       0
     )
-    state.memeContest.pot = sum
+    state.memeContest.contest.pot = sum
   },
   updateSettingCustomSorting(state, payload) {
     state.settingCustomSorting = payload
