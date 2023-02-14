@@ -38,7 +38,7 @@
       :contestId="contestId"
       :option="id"
       :minAmount="20"
-      type="store"
+      type="meme"
     />
   </v-card>
 </template>

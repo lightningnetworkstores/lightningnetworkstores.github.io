@@ -59,7 +59,8 @@ export const state = () => {
     statistics: {},
     storeContest: {},
     memeContest: {
-      user_vote: { choice: undefined }
+      user_vote: { choice: undefined },
+      user_bets: []
     },
     nameStoreContest: '',
     storeEvents: [],

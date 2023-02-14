@@ -265,31 +265,40 @@ const mutations = {
   setNameQuizContest(state, payload) {
     state.nameQuizContest = payload
   },
-  setAddObjQuizContest(state, payload) {
+  updateQuizBets(state, newBet) {
     state.quizContest.user_bets = [
       ...state.quizContest.user_bets,
-      { ...payload },
+      newBet,
     ]
 
     const sum = state.quizContest.user_bets.reduce(
       (prev, curr) => prev + curr.wager,
       0
     )
-
     state.quizContest.contest.pot = sum
   },
-  setAddObjStoreContest(state, payload) {
+  updateStoreBets(state, newBet) {
     state.storeContest.user_bets = [
       ...state.storeContest.user_bets,
-      { ...payload },
+      newBet,
     ]
 
     const sum = state.storeContest.user_bets.reduce(
       (prev, curr) => prev + curr.wager,
       0
     )
-
     state.storeContest.contest.pot = sum
+  },
+  updateMemeBets(state, newBet) {
+    state.memeContest.user_bets = [
+      ...state.memeContest.user_bets,
+      newBet
+    ]
+    const sum = state.memeContest.user_bets.reduce(
+      (prev, curr) => prev + curr.wager,
+      0
+    )
+    state.memeContest.pot = sum
   },
   updateSettingCustomSorting(state, payload) {
     state.settingCustomSorting = payload

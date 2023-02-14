@@ -1278,19 +1278,19 @@ const actions = {
         amount,
       })
       .then((response) => {
-        const bets = response.data.data
+        const { new_bet } = response.data.data
         if (type === 'quiz') {
-          // Data Quiz Contest
-          let bets_new = bets.new_bet
-          commit('setAddObjQuizContest', bets_new)
-        } else {
-          // Data Contest
-          let bets_new = bets.new_bet
-          commit('setAddObjStoreContest', bets_new)
+          commit('updateQuizBets', new_bet)
+        } else if (type === 'store') {
+          commit('updateStoreBets', new_bet)
+        } else if (type === 'meme') {
+          commit('updateMemeBets', new_bet)
         }
+        dispatch('network/showResponse', response)
         return response.data
       })
       .catch(err => {
+        console.error('Error while placing bet: ', err)
         dispatch('network/showError', err)
       })
   },

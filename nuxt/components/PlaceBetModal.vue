@@ -96,16 +96,7 @@ export default {
                 })
                 .then((data) => {
                     this.$emit('update:isOpen', false)
-                    this.amount = '0'
-                    // this.$store.dispatch(
-                    //     this.type === 'quiz'
-                    //         ? 'getQuizContest'
-                    //         : 'getStoreContest'
-                    // )
-
-                    this.snackbar.message = data.message
-                    this.snackbar.color = data.status
-                    this.snackbar.active = true
+                    this.amount = null
                 })
         },
     },
