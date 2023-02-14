@@ -35,7 +35,7 @@
     />
     <place-bet-modal
       :isOpen.sync="showBetModal"
-      :contestId="id"
+      :contestId="contestId"
       :option="id"
       :minAmount="20"
       type="store"
