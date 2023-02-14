@@ -63,6 +63,7 @@
           slot-scope="{ hover }"
           :color="getTagColor({ tagName: likely_tag, defaultColor: 'grey lighten-1' })"
           outlined
+          class="mr-1 mb-1"
         >
           <v-icon
             v-if="hover"
