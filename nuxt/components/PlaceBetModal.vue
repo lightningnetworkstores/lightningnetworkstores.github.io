@@ -107,11 +107,6 @@ export default {
                     this.snackbar.color = data.status
                     this.snackbar.active = true
                 })
-                .catch((err) => {
-                    this.snackbar.message = err
-                    this.snackbar.color = 'red accent-2'
-                    this.snackbar.active = true
-                })
         },
     },
 }

@@ -1270,7 +1270,7 @@ const actions = {
       dispatch('network/showError', err, { root: true})
     })
   },
-  async placeBet({ commit, state }, { contestID, choice, amount, type }) {
+  async placeBet({ commit, state, dispatch }, { contestID, choice, amount, type }) {
     return this.$axios
       .post(`${state.baseURL}api/bet`, {
         contestID,
@@ -1288,7 +1288,10 @@ const actions = {
           let bets_new = bets.new_bet
           commit('setAddObjStoreContest', bets_new)
         }
-        return Promise.resolve(response.data)
+        return response.data
+      })
+      .catch(err => {
+        dispatch('network/showError', err)
       })
   },
   async setSettingCustomSorting({ commit, state }, payload) {
