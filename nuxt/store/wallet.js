@@ -122,10 +122,14 @@ export const actions = {
       console.error('Error while polling for deposit state. err: ', err)
     }
   },
-  async transfer(context, payload) {
+  async transfer({ commit }, payload) {
     try {
       const res = await this.$axios.post('/api/transfer', payload)
-      return res.data.status === 'success'
+      const success = res?.data?.status === 'success'
+      if (success) {
+        commit('addTransfer', res.data.data.transfer)
+      }
+      return success
     } catch (err) {
       console.error('Error while performing internal transfer. Err: ', err)
     }
@@ -169,6 +173,12 @@ export const mutations = {
   },
   setTransfers(state, transfers) {
     state.transfers = transfers
+  },
+  addTransfer(state, transfer) {
+    state.transfers = [
+      transfer,
+      ...state.transfers
+    ]
   },
   setProfile(state, profile) {
     state.profile = profile
