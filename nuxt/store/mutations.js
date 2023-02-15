@@ -271,11 +271,7 @@ const mutations = {
       newBet,
     ]
 
-    const sum = state.quizContest.user_bets.reduce(
-      (prev, curr) => prev + curr.wager,
-      0
-    )
-    state.quizContest.contest.pot = sum
+    state.quizContest.contest.pot = state.quizContest.contest.pot + newBet.wager
   },
   updateStoreBets(state, newBet) {
     state.storeContest.user_bets = [
@@ -283,22 +279,15 @@ const mutations = {
       newBet,
     ]
 
-    const sum = state.storeContest.user_bets.reduce(
-      (prev, curr) => prev + curr.wager,
-      0
-    )
-    state.storeContest.contest.pot = sum
+    state.storeContest.contest.pot = state.storeContest.contest.pot + newBet.wager
   },
   updateMemeBets(state, newBet) {
     state.memeContest.user_bets = [
       ...state.memeContest.user_bets,
       newBet
     ]
-    const sum = state.memeContest.user_bets.reduce(
-      (prev, curr) => prev + curr.wager,
-      0
-    )
-    state.memeContest.contest.pot = sum
+
+    state.memeContest.contest.pot = state.memeContest.contest.pot + newBet.wager
   },
   updateSettingCustomSorting(state, payload) {
     state.settingCustomSorting = payload
