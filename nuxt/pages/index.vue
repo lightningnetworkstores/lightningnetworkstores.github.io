@@ -29,14 +29,14 @@
                               <div>{{ sortItem.name }}</div>
                           </template>
                       </v-radio>
-                      <v-icon 
-                          small 
-                          v-if="['custom'].includes(sortItem.prop)" 
+                      <v-icon
+                          small
+                          v-if="['custom'].includes(sortItem.prop)"
                           class="ml-6 mt-1"
                           @click="openCustomModal()"
                       >fas fa-edit</v-icon>
                 </div>
-  
+
               <div v-if="sortItems.slice(3).length">
                 <v-list-group
                   no-action
@@ -50,7 +50,7 @@
                       <v-list-item-title class="pa-0">More</v-list-item-title>
                     </v-list-item-content>
                   </template>
-  
+
                   <v-list-item
                     v-for="sortItem in sortItems.slice(3)"
                     :key="sortItem.prop"
@@ -89,7 +89,7 @@
             </v-row>
           </v-flex>
         </v-layout>
-  
+
         <div v-if="sectionFilteredStores">
           <store-listing-load-more
             v-if="maxCardsNewsest > 0 && newestStores.length"
@@ -145,13 +145,13 @@
       <sorting-custom-modal :isOpen.sync="isOpenDialogSorting" />
     </div>
   </template>
-  
+
   <script>
   import { mapState, mapGetters } from 'vuex'
   import SearchInput from '~/components/SearchInput.vue'
   import Head from '~/mixins/Head'
   import StoreListingLoadMore from '~/components/StoreListingLoadMore'
-  
+
   export default {
     components: {
       SearchInput,
@@ -248,11 +248,11 @@
       },
       changeUrl() {
         const query = {}
-  
+
         if (this.selectedTags.filter((x) => x).length) {
           query.tags = this.selectedTags.filter((x) => x).join(',')
         }
-  
+
         if (this.excludedTags.length) {
           query.exclude = this.excludedTags.join(',')
         }
@@ -274,22 +274,22 @@
           this.isOpenDialogSorting = true;
       },
       /**
-       * 
-       * @param {number} value 
+       *
+       * @param {number} value
        * @return {number}
        */
       maxCountOfCards (value, option = false) {
         let newValue = (this.selectedSort==='custom') ? value : this.defaultSorting.newontop
 
         let values = (option) ? newValue : ((newValue <= this.countCardPoint) ? newValue : this.countCardPoint)
-        
+
         return values
 
       },
 
       async setCustomSettings(setting) {
         const route = this.$route;
-    
+
         if ((Object.entries(route.query).length === 0) && setting.default) {
           this.$router.push({
             path: '/',
@@ -342,10 +342,10 @@
         countCardPoint () {
             return parseInt((this.widthPoint / 369))
         },
-        
-        sectionFilteredStores () {        
+
+        sectionFilteredStores () {
           let tagsLength = this.selectedTags.filter((x) => x).length;
-  
+
           return ['best', 'custom'].includes(this.selectedSort) && this.searchQuery == '' && tagsLength == 0
         },
         filteredStoresNewest() {
@@ -356,19 +356,19 @@
             this.safeMode,
             "newest"
           )
-          
+
           return getStores
         },
-        
+
         filteredStoresTrending() {
           const getStores = this.getCustomTrending(
             "trending",
             this.selectedSort
           )
-  
+
           return getStores
         },
-  
+
         filteredStores(state) {
           const getStores = this.getStores(
             { sector: this.sector, digitalGoods: this.digitalGoods },
@@ -376,11 +376,11 @@
             this.searchQuery,
             this.safeMode
           )
-  
+
           const stores = state.filterByFavorites
             ? getStores.filter((store) => !!state.likedStores[store.id])
             : getStores
-  
+
           return stores
             .filter((store) => {
               return state.selectedTags.every((tag) => store.tags.includes(tag))
@@ -393,9 +393,9 @@
           return state.configuration?.hot_tags?.[this.siteKey] || []
         },
       }),
-  
+
       ...mapGetters(['getStores', 'getCustomTrending']),
-  
+
       filtertags() {
         const data = this.filteredStores
           .reduce((acc, currentStore) => {
@@ -403,37 +403,37 @@
               const index = acc.findIndex((_tag) => {
                 return _tag.name === tag
               })
-  
+
               if (index > -1) {
                 acc[index].quantity += 1
               } else {
                 acc.push({ name: tag, quantity: 1 })
               }
             })
-  
+
             return acc
           }, [])
           .sort(
             ({ quantity: quantity1 }, { quantity: quantity2 }) =>
               quantity2 - quantity1
           )
-  
+
         if (this.excludedTags.length) {
           const excludeTags = this.excludedTags.map((tag) => {
             return { name: tag, quantity: 0 }
           })
-  
+
           data.unshift(...excludeTags)
         }
-  
+
         if (this.selectedTags.length) {
           const selectedTags = this.selectedTags
             .filter((tag) => !data.some((_tag) => _tag.name === tag))
             .map((tag) => ({ name: tag, quantity: 0 }))
-  
+
           data.unshift(...selectedTags)
         }
-  
+
         return data
       },
       newestStores () {
@@ -451,9 +451,9 @@
     watch: {
       settingCustomSorting(newValue, oldValue) {
         this.maxCardsNewsest = newValue.newontop
-        this.maxCardsTrending = newValue.newontop     
+        this.maxCardsTrending = newValue.newontop
         this.maxCardsHotTopics = newValue.newontop
-        
+
         this.btnOptionActive.newest = true
         this.btnOptionActive.trending = true
         this.setCustomSettings(newValue)
@@ -477,7 +477,7 @@
           Object.keys(from.query).length !== 0
         ) {
           this.$store.dispatch('processRoute', to)
-  
+
           this.safeMode = false
           this.selectedSort = 'best'
           this.searchQuery = ''
@@ -522,17 +522,17 @@
       this.maxCardsNewsest = maxTop.value ?? 0;
       this.maxCardsTrending = maxTop.value ?? 0;
       this.maxCardsHotTopics = maxTop.value ?? 0;
-  
+
       this.searchLoading = true
       this.$store.dispatch('getRestStores').finally(() => {
         this.searchLoading = false
-  
+
         const data = Array.from(this.$refs.list.children)
-  
+
         const store = data.find(
           (store) => Number(store.dataset.storeid) === this.$route.meta.storeId
         )
-  
+
         if (store) {
           setTimeout(
             () => window.scrollTo({ top: store.offsetTop, behavior: 'smooth' }),
@@ -540,17 +540,17 @@
           )
         }
       })
-      
+
       this.$recaptcha.init()
       setInterval(() => this.$recaptcha.init(), 2 * 60 * 1000)
     },
-  
+
     async beforeDestroy() {
       window.removeEventListener('scroll', this.handleScroll)
     },
   }
   </script>
-  
+
   <style lang="scss">
   .tag {
     margin-top: -22px !important;
@@ -594,11 +594,11 @@
     .v-list-item {
       min-height: 36px;
     }
-  
+
     .v-list-item::before {
       background: none;
     }
-  
+
     .v-list-group__header__prepend-icon {
       margin-top: 4px !important;
       margin-bottom: 4px !important;
@@ -612,7 +612,7 @@
   .v-toolbar {
     height: 64px !important;
   }
-  
+
   .v-navigation-drawer {
     .v-navigation-drawer__content {
       .v-list {
@@ -625,7 +625,7 @@
       }
     }
   }
-  
+
   .tag-search-block {
     .v-input__slot {
       padding: 0px 30px !important;
@@ -638,7 +638,7 @@
       }
     }
   }
-  
+
   .search-icon {
     position: absolute;
     top: 0px;
@@ -648,9 +648,8 @@
       color: #f34444;
     }
   }
-  
+
   .sort-title {
     height: 14px;
   }
   </style>
-  
