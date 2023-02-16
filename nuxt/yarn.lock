@@ -9052,9 +9052,9 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue2-flip-countdown@^0.12.1:
+vue2-flip-countdown@0.12.1:
   version "0.12.1"
-  resolved "https://registry.npmjs.org/vue2-flip-countdown/-/vue2-flip-countdown-0.12.1.tgz"
+  resolved "https://registry.yarnpkg.com/vue2-flip-countdown/-/vue2-flip-countdown-0.12.1.tgz#67d115634df1fbcf789be07e2674b1a6aefb4e7f"
   integrity sha512-kS3A86VMUjsG2FGnqv/AO4UTLKAAwutqh1dOTPfjSRiUfsgLO+9gmhLSeo+qSBoQYpCxccq44G/IsoRef8kywQ==
   dependencies:
     uuid "^3.3.2"
