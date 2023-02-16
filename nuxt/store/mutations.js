@@ -337,7 +337,12 @@ const mutations = {
       }
     })
     state.selectedStore.reviews2 = reviews
-  }
+  },
+  setSiteKey (state, siteKey) {
+    if (siteKey) {
+      state.siteKey = siteKey
+    }
+  },
 }
 
 export default mutations

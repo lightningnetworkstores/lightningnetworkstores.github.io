@@ -25,6 +25,8 @@ const actions = {
     process.env.NODE_ENV == 'development'
       ? this.commit('setIsDev', true)
       : this.commit('setIsDev', false)
+
+    this.commit('setSiteKey', process.env.SITE_KEY)
   },
   getDonations({ state }) {
     return fetch(`${state.baseURL}donationAdresses.json`)

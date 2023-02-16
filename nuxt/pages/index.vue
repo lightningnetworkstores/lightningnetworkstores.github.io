@@ -91,30 +91,30 @@
         </v-layout>
   
         <div v-if="sectionFilteredStores">
-          <div v-if="maxCardsNewsest > 0" class="container full-list d-flex align-self-center">
-              <h1>Newest</h1>
-              <v-btn v-if="btnOptionActive.newest" class="mt-2" small color="#fcb919" @click="loadMoreCardsNewest()">Load more</v-btn>
-          </div>
-          <v-container v-if="maxCardsNewsest > 0" class="full-list" ref="list">
-              <store-card
-                :data-storeId="store.id"
-                v-for="store in newestStores"
-                :key="'store-' + store.id"
-                :store="store"
-              ></store-card>
-          </v-container>
-          <div v-if="maxCardsTrending > 0" class="container full-list d-flex align-self-center">
-              <h1>Trending</h1>
-              <v-btn v-if="btnOptionActive.trending" class="mt-2" small color="#fcb919" @click="loadMoreCardsTrending()">Load more</v-btn>
-          </div>
-          <v-container v-if="maxCardsTrending > 0" class="full-list" ref="list">
-              <store-card
-                :data-storeId="store.id"
-                v-for="store in filteredStoresTrending.slice(0, maxCountOfCards(maxCardsTrending, !btnOptionActive.trending))"
-                :key="'store-' + store.id"
-                :store="store"
-              ></store-card>
-          </v-container>
+          <store-listing-load-more
+            v-if="maxCardsNewsest > 0 && newestStores.length"
+            header="Newest"
+            :stores="newestStores"
+            :canLoadMore="btnOptionActive.newest"
+            :loadMore="loadMoreCardsNewest"
+          />
+          <store-listing-load-more
+            v-if="maxCardsTrending > 0 && filteredStoresTrending.length"
+            header="Trending"
+            :stores="filteredStoresTrending.slice(0, maxCountOfCards(maxCardsTrending, !btnOptionActive.trending))"
+            :canLoadMore="btnOptionActive.trending"
+            :loadMore="loadMoreCardsTrending"
+          />
+          <template v-for="hotTag in hotTags">
+            <store-listing-load-more
+              v-if="maxCardsHotTopics > 0 && getStoresWithHotTag(hotTag).length"
+              :key="hotTag"
+              :header="`🔥Hot tag: ${hotTag}`"
+              :stores="getStoresWithHotTag(hotTag)"
+              :canLoadMore="btnHotTagsActive[hotTag]"
+              :loadMore="() => btnHotTagsActive[hotTag] = false"
+            />
+          </template>
         </div>
         <h1 v-if="sectionFilteredStores" class="container full-list">Explore</h1>
         <v-container class="full-list" ref="list">
@@ -150,10 +150,12 @@
   import { mapState, mapGetters } from 'vuex'
   import SearchInput from '~/components/SearchInput.vue'
   import Head from '~/mixins/Head'
+  import StoreListingLoadMore from '~/components/StoreListingLoadMore'
   
   export default {
     components: {
       SearchInput,
+      StoreListingLoadMore,
       AddStoreModal: () => import('~/components/AddStoreModal.vue'),
       StoreCard: () => import('~/components/StoreCard.vue'),
       FilterStores: () => import('~/components/FilterStores.vue'),
@@ -171,6 +173,7 @@
         maxCards: 18,
         maxCardsNewsest: 1,
         maxCardsTrending: 1,
+        maxCardsHotTopics: 1,
         safeMode: false,
         searchLoading: false,
         searchQuery: '',
@@ -191,6 +194,12 @@
             newest: true,
             trending: true
         },
+        btnHotTagsActive: (() => {
+          const siteKey = this.$store.state.siteKey
+          const hotTags = this.$store.state.configuration?.hot_tags?.[siteKey] || []
+          const entries = hotTags.map(tag => [tag, true])
+          return Object.fromEntries(entries)
+        })()
       }
     },
     mixins: [Head],
@@ -290,7 +299,13 @@
           })
           this.selectedSort = "custom"
         }
-      }
+      },
+      getStoresWithHotTag (hotTag) {
+        const storesWithTag = this.filteredStores.filter(store => store.tags.includes(hotTag))
+        const isBtnActive = this.btnHotTagsActive[hotTag]
+        const maxCards = this.maxCountOfCards(this.maxCardsHotTopics, !isBtnActive)
+        return storesWithTag.slice(0, maxCards)
+      },
     },
     computed: {
       ...mapState({
@@ -311,6 +326,7 @@
         settingCustomSorting: 'settingCustomSorting',
         sliderCustomSorting: 'sliderCustomSorting',
         customSortingAdvanced: 'customSortingAdvanced',
+        siteKey: 'siteKey',
 
         widthPoint() {
           switch (this.$vuetify.breakpoint.name) {
@@ -373,6 +389,9 @@
               return !state.excludedTags.some((tag) => store.tags.includes(tag))
             })
         },
+        hotTags(state) {
+          return state.configuration?.hot_tags?.[this.siteKey] || []
+        },
       }),
   
       ...mapGetters(['getStores', 'getCustomTrending']),
@@ -433,6 +452,7 @@
       settingCustomSorting(newValue, oldValue) {
         this.maxCardsNewsest = newValue.newontop
         this.maxCardsTrending = newValue.newontop     
+        this.maxCardsHotTopics = newValue.newontop
         
         this.btnOptionActive.newest = true
         this.btnOptionActive.trending = true
@@ -501,6 +521,7 @@
 
       this.maxCardsNewsest = maxTop.value ?? 0;
       this.maxCardsTrending = maxTop.value ?? 0;
+      this.maxCardsHotTopics = maxTop.value ?? 0;
   
       this.searchLoading = true
       this.$store.dispatch('getRestStores').finally(() => {
