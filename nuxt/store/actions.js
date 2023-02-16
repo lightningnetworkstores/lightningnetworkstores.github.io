@@ -1227,22 +1227,6 @@ const actions = {
 
     return Promise.resolve()
   },
-  async getCustomQuizContest({ commit, state }, { name, age }) {
-    if (name === '' || name === undefined) {
-      var nameQuiz = state.nameQuizContest
-    } else {
-      var nameQuiz = name
-      commit('setNameQuizContest', name)
-    }
-
-    const { data } = await this.$axios.get(
-      `${state.baseURL}api/quiz_contest?name=${nameQuiz}&age=${age}`
-    )
-
-    commit('setQuizContest', { ...data.data })
-
-    return Promise.resolve()
-  },
   async choseOption({ state, commit, dispatch }, { contestID, choice }) {
     this.$axios.post(`${state.baseURL}api/contest_vote`, {
       contestID,
