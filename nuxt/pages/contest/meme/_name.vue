@@ -93,10 +93,13 @@ export default {
       return (
         this.memeContest?.user_bets?.map(
           ({ wager, choice, prize }) => {
+            const memeLink = this.contestants?.find(
+                (meme) => meme.id == +choice
+              ).link
             return {
-              choice: this.memeContest.contestants?.find(
-                (meme) => meme.id == choice
-              )?.name,
+              choice: {
+                link: memeLink
+              },
               prize: prize,
               wager: wager,
             }
