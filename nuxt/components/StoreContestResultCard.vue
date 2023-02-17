@@ -28,7 +28,7 @@
             <span>voted by</span>
             <div class="d-flex flex-wrap align-center storeVotes.votes-voted-container">
               <v-menu
-                v-for="n in votesLengthForUsers"
+                v-for="n in votesLength"
                 :key="`votes-${n}`"
                 top
                 open-on-hover
@@ -61,7 +61,7 @@
                 </v-card>
               </v-menu>
 
-              <v-btn v-if="(votesLengthForUsers > 8)" icon x-large v-on="on">
+              <v-btn v-if="(votesLength > 8)" icon x-large v-on="on">
                 <v-avatar
                   size="28"
                   class="storeVotes.votes-votes-avatar"
@@ -76,7 +76,7 @@
             <span>Bets</span>
             <div class="d-flex flex-wrap storeVotes.votes-voted-container">
               <v-menu
-                v-for="n in betsLengthForUsers"
+                v-for="n in betsLength"
                 :key="`bet-${n}`"
                 top
                 open-on-hover
@@ -116,7 +116,7 @@
                 </v-card>
               </v-menu>
 
-              <v-btn v-if="(betsLengthForUsers > 8)" icon x-large>
+              <v-btn v-if="(betsLength > 8)" icon x-large>
                 <v-avatar
                   size="32"
                   class="storeVotes.votes-votes-avatar"
@@ -165,11 +165,11 @@ export default {
     betsProfileWager() {
         return (n) => this.bets[n]?.wager ?? ""
     },
-    votesLengthForUsers() {
-        return (this.votes.length > 0) ? ((this.votes.length > 8) ? 8 : this.votes.length) : 0 
+    votesLength() {
+        return Math.min(8, this.votes.length)
     },
-    betsLengthForUsers() {
-        return (this.bets.length > 0) ? ((this.bets.length > 8) ? 8 : this.bets.length) : 0
+    betsLength() {
+        return Math.min(8, this.bets.length)
     },
   },
   methods: {
