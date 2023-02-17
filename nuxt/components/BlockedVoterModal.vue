@@ -12,7 +12,7 @@
       </v-card-text>
       <v-card-text>
         If you think that this is a mistake, please contact our admins at
-        <a href="https://twitter.com/bitcoinLNS" target="_blank" rel="noreferrer noopener">Twitter</a> or
+        <a href="https://twitter.com/messages/compose?recipient_id=1021110839288451072&text=I%20would%20like%20access%20to%20the%20contests" target="_blank" rel="noreferrer noopener">Twitter</a> or
         <a href="https://t.me/LNstores" target="_blank" rel="noreferrer noopener">Telegram</a>.  
       </v-card-text>
       <v-card-actions>
