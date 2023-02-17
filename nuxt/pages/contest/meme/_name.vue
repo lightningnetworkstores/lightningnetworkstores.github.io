@@ -8,21 +8,29 @@
       :stage="stage"
       :userBets="userBets"
       :pot="pot"
+      contestType="meme"
     />
     <v-row>
       <v-col><v-divider class="mt-8" /></v-col>
     </v-row>
     <template v-if="isContestClosed">
       <v-row>
-        <v-col><h2>Contest Results</h2></v-col>
+        <v-col><h2 class="text-center">Contest Results</h2></v-col>
       </v-row>
       <v-row>
-        <v-col class="text-center">
-          <div>
-            <store-contest-votes-card
-              v-for="memeVote in votes"
-              :key="`store-${memeVote.meme.id}`"
-              :store="memeVote.meme"
+        <v-col col="12" md="6" class="text-center"
+          :key="`store-${memeVote.meme.id}`"
+          v-for="(memeVote, index) in votes"
+        >
+          <div
+            class="d-flex"
+            :class="{
+              'justify-end': index % 2 === 0 && !isMobile,
+              'justify-start': index % 2 !== 0 && !isMobile
+            }"
+          >
+            <meme-contest-result-card
+              :meme="memeVote.meme"
               :votes="memeVote.votes"
               :bets="memeVote.bets"
             />
@@ -128,16 +136,16 @@ export default {
     votes() {
       if (!this.memeContest) return []
       if (this.isContestClosed) {
-        let votesInfo = this.memeContest.contestants.map((meme) => {
+        let votesInfo = this.memeContest.contest.contestants.option_details.map((meme) => {
           return {
             meme,
             votes:
               this.memeContest.votes?.filter(
-                (vote) => parseInt(this.notIsNaN(vote.choice)) === meme.id
+                (vote) => parseInt(vote.choice ?? 0) === parseInt(meme.id)
               ) || [],
             bets:
               this.memeContest.bets?.filter(
-                (bet) => parseInt(this.notIsNaN(bet.choice)) === meme.id
+                (bet) => parseInt(bet.choice ?? 0) === parseInt(meme.id)
               ) || [],
           }
         })
@@ -153,6 +161,18 @@ export default {
       payload.name = this.$route.params.name
     }
     this.$store.dispatch('getMemeContest', payload)
+  },
+  watch: {
+    contestName(newName, oldName) {
+      if (newName && oldName && newName !== oldName) {
+        if (this.$route.params.name) {
+          const updatedPath = this.$route.path.replace(this.$route.params.name, newName)
+          history.pushState({}, null, updatedPath)
+        } else {
+          history.pushState({}, null, this.$route.path + '/' + newName)
+        }
+      }
+    }
   },
 }
 </script>
