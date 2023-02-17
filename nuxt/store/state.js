@@ -12,7 +12,6 @@ export const state = () => {
   }
 
   const result = {
-    siteKey: 'LNS',
     serverStartTime: 0,
     announcements: {
       configuration: {},

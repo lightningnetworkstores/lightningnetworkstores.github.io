@@ -195,7 +195,7 @@
             trending: true
         },
         btnHotTagsActive: (() => {
-          const siteKey = this.$store.state.siteKey
+          const siteKey = this.$store.getters.getSiteKey
           const hotTags = this.$store.state.configuration?.hot_tags?.[siteKey] || []
           const entries = hotTags.map(tag => [tag, true])
           return Object.fromEntries(entries)
@@ -326,7 +326,6 @@
         settingCustomSorting: 'settingCustomSorting',
         sliderCustomSorting: 'sliderCustomSorting',
         customSortingAdvanced: 'customSortingAdvanced',
-        siteKey: 'siteKey',
 
         widthPoint() {
           switch (this.$vuetify.breakpoint.name) {
@@ -390,11 +389,11 @@
             })
         },
         hotTags(state) {
-          return state.configuration?.hot_tags?.[this.siteKey] || []
+          return state.configuration?.hot_tags?.[this.getSiteKey] || []
         },
       }),
 
-      ...mapGetters(['getStores', 'getCustomTrending']),
+      ...mapGetters(['getStores', 'getCustomTrending', 'getSiteKey']),
 
       filtertags() {
         const data = this.filteredStores

@@ -132,6 +132,14 @@ const getters = {
   getSettingCustomSorting(state) {
     return state.settingCustomSorting
   },
+  getSiteKey(state) {
+    const baseUrl = (state.baseURL || '').toLowerCase()
+    if (baseUrl.includes('nostr')) {
+      return 'NOSTR'
+    } else {
+      return 'LNS'
+    }
+  }
 }
 
 function sortingFunction(method, parameters = {}) {
