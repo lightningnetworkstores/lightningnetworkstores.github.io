@@ -151,9 +151,14 @@ export default {
     this.$store.dispatch('getQuizContest', payload)
   },
   watch: {
-    contestName(newName) {
-      if (newName) {
-        history.pushState({}, null, this.$route.path + '/' + newName)
+    contestName(newName, oldName) {
+      if (newName && oldName && newName !== oldName) {
+        if (this.$route.params.name) {
+          const updatedPath = this.$route.path.replace(this.$route.params.name, newName)
+          history.pushState({}, null, updatedPath)
+        } else {
+          history.pushState({}, null, this.$route.path + '/' + newName)
+        }
       }
     }
   },
