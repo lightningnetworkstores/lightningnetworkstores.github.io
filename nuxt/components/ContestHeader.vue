@@ -45,7 +45,7 @@
           "
         >
           <div class="d-flex align-center justify-center flex-wrap">
-            <div>
+            <client-only>
               <flip-countdown
                 v-if="isContestRunning"
                 :deadline="deadline"
@@ -54,7 +54,7 @@
                 labelSize="14px"
               />
               <span v-else class="title ml-3"><b>{{ stage }}</b></span>
-            </div>
+            </client-only>
           </div>
           <v-btn text href="#" color="primary" class="mx-16">
             <v-icon left dark>mdi-gamepad-variant</v-icon>

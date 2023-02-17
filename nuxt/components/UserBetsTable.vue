@@ -11,7 +11,12 @@
       <tbody>
         <tr v-for="item in userBets" :key="item.name">
           <td>{{ item.wager }}</td>
-          <td>{{ item.choice }}</td>
+          <td v-if="item.choice.name">
+            {{ item.choice.name }}
+          </td>
+          <td v-if="item.choice.link">
+            <v-img width="35" :src="item.choice.link" class="rounded"></v-img>
+          </td>
           <td>{{ waitingForEnd ? "(wait for end)" : item.prize }}</td>
         </tr>
         <tr v-if="!userBets.length">

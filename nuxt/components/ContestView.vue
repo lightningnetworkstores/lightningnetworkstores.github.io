@@ -89,10 +89,13 @@ export default {
       return (
         this.storeContest?.user_bets?.map(
           ({ wager, choice, prize }) => {
-            return {
-              choice: this.storeContest.stores?.find(
+            const choiceName = this.storeContest.stores?.find(
                 (store) => store.id == choice
-              )?.name,
+              )?.name
+            return {
+              choice: {
+                name: choiceName
+              },
               prize: prize,
               wager: wager,
             }
@@ -146,7 +149,7 @@ export default {
     }
   },
   watch: {
-    contestName(oldName, newName) {
+    contestName(newName) {
       if (newName) {
         history.pushState({}, null, this.$route.path + '/' + newName)
       }

@@ -151,7 +151,7 @@ export default {
     this.$store.dispatch('getQuizContest', payload)
   },
   watch: {
-    contestName(oldName, newName) {
+    contestName(newName) {
       if (newName) {
         history.pushState({}, null, this.$route.path + '/' + newName)
       }
