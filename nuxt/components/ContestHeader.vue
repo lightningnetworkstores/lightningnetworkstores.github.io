@@ -153,20 +153,28 @@ export default {
         })
     },
     onPrevious() {
-      const action = this.contestType === 'store' ?
-        'getStoreContest' : 'getQuizContest'
+      const action = this.getNavigationAction()
       this.$store.dispatch(action, {
         name: this.name,
         age: 1
       })
     },
     onNext() {
-      const action = this.contestType === 'store' ?
-        'getStoreContest' : 'getQuizContest'
+      const action = this.getNavigationAction()
       this.$store.dispatch(action, {
         name: this.name,
         age: -1
       })
+    },
+    getNavigationAction() {
+      if (this.contestType === 'store') {
+        return 'getStoreContest'
+      } else if (this.contestType === 'quiz') {
+        return 'getQuizContest'
+      } else if (this.contestType === 'meme') {
+        return 'getMemeContest'
+      }
+      return null
     },
     isContestRunning() {
       return ['MAIN', 'EXTENSION'].includes(this.stage)
