@@ -17,10 +17,7 @@
             login with the authorized twitter account</v-card-title
           >
           <v-card-text>
-            <v-btn color="primary" dark block @click="handleLoginClick">
-              <v-icon color="white darken-2" class="mr-3"> mdi-twitter </v-icon>
-              LOGIN WITH TWITTER
-            </v-btn>
+            <TwitterLoginButton /> 
           </v-card-text>
         </v-card>
         <h1 justify="center" class="text-center">OR</h1>
@@ -90,6 +87,7 @@
 </template>
 <script>
 import VueHcaptcha from '@hcaptcha/vue-hcaptcha'
+import TwitterLoginButton from './TwitterLoginButton.vue'
 
 export default {
   props: [
@@ -133,15 +131,6 @@ export default {
       if (this.domain !== this.rooturl) {
         this.domain = this.rooturl
       }
-    },
-    handleLoginClick() {
-      this.$axios
-        .get('/api/oauthlogin?platform=twitter')
-        .then((res) => res.data)
-        .then((data) => {
-          const { request_token, authorization_url, platform } = data.data
-          window.location.replace(authorization_url)
-        })
     },
   },
   computed: {
