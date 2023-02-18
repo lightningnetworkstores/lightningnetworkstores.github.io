@@ -17,10 +17,19 @@
       <v-row>
         <v-col><h2 class="text-center">Contest Results</h2></v-col>
       </v-row>
+      <v-row v-if="winner">
+        <v-col class="d-flex justify-center">
+          <meme-contest-winner
+            :winner="winner.meme"
+            :votes="winner.votes"
+            :bets="winner.bets"
+          />
+        </v-col>
+      </v-row>
       <v-row>
-        <v-col col="12" md="6" class="text-center"
-          :key="`store-${memeVote.meme.id}`"
-          v-for="(memeVote, index) in votes"
+        <v-col v-for="(loser, index) in losers"
+          :key="`store-${loser.meme.id}`"
+          col="12" md="6" class="text-center"
         >
           <div
             class="d-flex"
@@ -30,9 +39,9 @@
             }"
           >
             <meme-contest-result-card
-              :meme="memeVote.meme"
-              :votes="memeVote.votes"
-              :bets="memeVote.bets"
+              :meme="loser.meme"
+              :votes="loser.votes"
+              :bets="loser.bets"
             />
           </div>
         </v-col>
@@ -133,7 +142,7 @@ export default {
     isContestRunning() {
       return ['MAIN', 'EXTENSION'].includes(this.stage)
     },
-    votes() {
+    results() {
       if (!this.memeContest) return []
       if (this.isContestClosed) {
         let votesInfo = this.memeContest.contest.contestants.option_details.map((meme) => {
@@ -154,6 +163,24 @@ export default {
       }
       return []
     },
+    losers() {
+      return this.results.filter(result => {
+        if (this.memeContest.winner) {
+          return parseInt(this.memeContest.winner) !== result.meme.id
+        }
+        return true
+      })
+    },
+    winner() {
+      const winners = this.results.filter(result => {
+        if (this.memeContest.winner) {
+          return parseInt(this.memeContest.winner) === result.meme.id
+        }
+        return false
+      })
+      if (winners.length === 1) return winners[0]
+      return null
+    }
   },
   beforeMount() {
     const payload = { age: 0 }
