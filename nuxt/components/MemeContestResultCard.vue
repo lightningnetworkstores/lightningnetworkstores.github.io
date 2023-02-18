@@ -73,10 +73,6 @@ export default {
   margin-right: -30px;
 }
 .dark-border-circle {
-    width: 200px;
-    height: 200px;
-    background-color: gold;
-    border-radius: 110px;
-    border: 1px solid black;
+  border: 0.8px solid black;
 }
 </style>
