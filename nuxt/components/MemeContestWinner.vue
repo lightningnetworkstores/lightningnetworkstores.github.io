@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-subtitle-1 text-center">
-      Winner with {{ votes.length }} vote{{ isPural ? 's' : '' }}
+      Winner with {{ votes.length }} vote{{ isPlural ? 's' : '' }}
     </div>
     <v-card width="350px">
       <discussion-image
