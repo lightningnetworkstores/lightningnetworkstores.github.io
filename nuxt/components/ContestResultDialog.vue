@@ -13,8 +13,12 @@
         <v-card-title class="text-h5 lighten-2">
           Contest Result
         </v-card-title>
+        <v-card-text class="pb-0">Relevant contest information</v-card-text>
         <v-card-text>
-          Contest result explanation comes here
+          <strong>ROI</strong>:{{ contest.roi }} <br>
+          <strong>Rake</strong>:{{ contest.rake }} <br>
+          <strong>Pot</strong>:{{ contest.pot }} <br>
+          <strong>House Cut:</strong> {{ contest.house_cut }}
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -29,7 +33,15 @@
 <script>
 export default {
   props: {
-    //TODO: Decide what's needed here
+    contest: {
+      type: Object,
+      default: () => ({
+        pot: 0,
+        rake: 0,
+        roi: 0,
+        house_cut: 0
+      })
+    }
   },
   data() {
     return {

@@ -21,6 +21,10 @@ export default {
     DiscussionImage
   },
   props: {
+    contest: {
+      type: Object,
+      required: true
+    },
     winner: {
       type: Object,
       required: true

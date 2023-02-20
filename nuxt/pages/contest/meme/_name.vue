@@ -23,6 +23,7 @@
             :winner="winner.meme"
             :votes="winner.votes"
             :bets="winner.bets"
+            :contest="memeContest.contest"
           />
         </v-col>
       </v-row>
