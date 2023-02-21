@@ -1,5 +1,5 @@
 <template>
-  <v-card hover class="d-flex flex-column justify-space-between">
+  <v-card class="d-flex flex-column justify-space-between">
     <v-card-text class="pa-0">
       <div class="detail">
         <div>

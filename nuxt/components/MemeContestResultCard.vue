@@ -1,5 +1,5 @@
 <template>
-  <v-card hover class="d-flex flex-column justify-space-between" width="350px">
+  <v-card class="d-flex flex-column justify-space-between" width="350px">
     <discussion-image
       :url="meme.link"
     />

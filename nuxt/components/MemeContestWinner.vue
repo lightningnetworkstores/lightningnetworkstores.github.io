@@ -3,7 +3,10 @@
     <div class="text-subtitle-1 text-center">
       Winner with {{ votes.length }} vote{{ isPlural ? 's' : '' }}
     </div>
-    <v-card width="350px">
+    <div class="text-center">
+      <v-icon x-large color="orange">mdi-crown</v-icon>
+    </div>
+    <v-card width="350px" hover>
       <discussion-image
         :url="winner.link"
       />
