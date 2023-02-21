@@ -10,7 +10,7 @@
     </v-card>
     <div class="text-subtitle-1 text-center">
       <span>Payout: +0%</span>
-      <contest-result-dialog/>
+      <contest-result-dialog :contest="contest" />
     </div>
   </div>
 </template>

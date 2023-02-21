@@ -16,15 +16,26 @@
       <v-row>
         <v-col><h2>Contest Results</h2></v-col></v-row
       >
+      <v-row v-if="winner">
+        <v-col class="d-flex justify-center">
+          <store-contest-winner
+            :winner="winner.store"
+            :votes="winner.votes"
+            :bets="winner.bets"
+            :contest="storeContest.contest"
+          />
+        </v-col>
+      </v-row>
+
       <v-row>
         <v-col class="text-center">
           <div class="grid-list">
             <store-contest-result-card
-              v-for="storeVote in votes"
-              :key="`store-${storeVote.store.id}`"
-              :store="storeVote.store"
-              :votes="storeVote.votes"
-              :bets="storeVote.bets"
+              v-for="loser in losers"
+              :key="`store-${loser.store.id}`"
+              :store="loser.store"
+              :votes="loser.votes"
+              :bets="loser.bets"
             />
           </div>
         </v-col>
@@ -126,7 +137,7 @@ export default {
     isContestClosed() {
       return ['DISQUALIFIED', 'COMPLETE', 'CANCELLED'].includes(this.stage)
     },
-    votes() {
+    results() {
       if (this.isContestClosed) {
         let votesInfo = this.storeContest.stores.map((store) => {
           return {
@@ -145,6 +156,24 @@ export default {
         return votesInfo
       }
       return []
+    },
+    losers() {
+      return this.results.filter(result => {
+        if (this.storeContest.winner) {
+          return parseInt(this.storeContest.winner) !== result.store.id
+        }
+        return true
+      })
+    },
+    winner() {
+      const winners = this.results.filter(result => {
+        if (this.storeContest.winner) {
+          return parseInt(this.storeContest.winner) === result.store.id
+        }
+        return false
+      })
+      if (winners.length === 1) return winners[0]
+      return null
     },
     isMobile() {
       return this.$vuetify.breakpoint.mobile
