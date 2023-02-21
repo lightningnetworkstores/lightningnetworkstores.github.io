@@ -11,7 +11,7 @@
           <div v-for="n in votesLength" :key="`votes-${n}`">
             <v-btn icon x-large class="avatar-container">
               <v-avatar size="32" class="dark-border-circle">
-                <img :src="getProfilePicture(n - 1)" />
+                <img :src="getVoteProfilePicture(n - 1)" />
               </v-avatar>
             </v-btn>
           </div>
@@ -24,7 +24,7 @@
           <div v-for="n in betsLength" :key="`bets-${n}`">
             <v-btn icon x-large class="avatar-container">
               <v-avatar size="32" class="dark-border-circle">
-                <img :src="getProfilePicture(n - 1)" />
+                <img :src="getBetProfilePicture(n - 1)" />
               </v-avatar>
             </v-btn>
           </div>
@@ -54,8 +54,11 @@ export default {
     }
   },
   methods: {
-    getProfilePicture(n) {
+    getVoteProfilePicture(n) {
       return this.votes[n].profile.image
+    },
+    getBetProfilePicture(n) {
+      return this.bets[n].profile.image
     }
   },
   computed: {
