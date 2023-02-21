@@ -14,9 +14,16 @@
     </v-row>
     <template v-if="isContestClosed">
       <v-row>
-        <v-col><h2>Contest Results</h2></v-col></v-row
-      >
-      <v-row v-if="winner">
+        <v-col >
+          <h2 class="text-center">Contest Results</h2>
+          <div class="text-center mt-1">
+            <v-chip pill :color="getStateColor(storeContest.contest.stage)" text-color="white">
+              {{ storeContest.contest.stage }}
+            </v-chip>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row v-if="winner" class="mt-0">
         <v-col class="d-flex justify-center">
           <store-contest-winner
             :winner="winner.store"
@@ -221,6 +228,14 @@ export default {
         age: -1
       })
     },
+    getStateColor(stage) {
+      if (['CANCELLED', 'DISQUALIFIED'].includes(stage)) {
+        return 'orange darken-1'
+      } else if (stage === 'COMPLETE') {
+        return 'green darken-1'
+      }
+      return 'grey darken-1'
+    }
   },
   beforeMount() {
     const payload = { age: 0 }
