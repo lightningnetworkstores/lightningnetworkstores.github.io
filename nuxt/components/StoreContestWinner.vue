@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="text-subtitle-1 text-center">
-      Winner with {{ votes.length }} vote{{ isPlural ? 's' : '' }}
-    </div>
     <div class="text-center">
       <v-icon x-large color="orange">mdi-crown</v-icon>
+    </div>
+    <div class="text-subtitle-1 text-center">
+      Winner with {{ votes.length }} vote{{ isPlural ? 's' : '' }}
     </div>
     <v-card width="350px" raised hover>
       <v-img
