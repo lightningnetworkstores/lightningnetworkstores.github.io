@@ -8,20 +8,13 @@
       <div class="py-0 text-left" style="min-height: 73px">
         <span class="text-caption text--secondary">Voted by</span>
         <vote-summary :votes="votes"/>
-        </div>
       </div>
-      <v-divider class="mb-0" />
+    </div>
+    <v-divider class="mb-0" />
+    <div class="px-5 py-2">
       <div class="py-0 text-left" style="min-height: 73px">
         <span class="text-caption text--secondary">Bets</span>
-        <div class="d-flex align-center">
-          <div v-for="n in betsLength" :key="`bets-${n}`">
-            <v-btn icon x-large class="avatar-container">
-              <v-avatar size="32" class="dark-border-circle">
-                <img :src="getBetProfilePicture(n - 1)" />
-              </v-avatar>
-            </v-btn>
-          </div>
-        </div>
+        <bet-summary :bets="bets"/>
       </div>
     </div>
   </v-card>

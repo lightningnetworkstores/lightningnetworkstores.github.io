@@ -2,7 +2,7 @@
   <v-dialog v-model="showDetails" width="600">
     <template v-slot:activator="{ on, attrs }">
       <div class="d-flex align-center">
-        <div v-for="n in votesLength" :key="`votes-${n}`">
+        <div v-for="n in betsLength" :key="`bets-${n}`">
           <v-btn icon x-large class="avatar-container">
             <v-avatar size="32" class="dark-border-circle">
               <img :src="getProfilePicture(n - 1)" />
@@ -19,14 +19,14 @@
       </div>
     </template>
     <v-card>
-      <v-card-title>Votes Summary</v-card-title>
+      <v-card-title>Bets Summary</v-card-title>
       <v-card-text>For the sake of transparency, every contest result is provided here.</v-card-text>
-      <v-card-text>Here's the list of every user that voted on this contest.</v-card-text>
+      <v-card-text>Here's the list of every user that wagered on this contest.</v-card-text>
       <div class="px-4">
         <v-chip-group column>
           <simple-user-chip
-            v-for="(vote, index) of votes" :key="`vote-${index}`"
-            :user="vote.profile"
+            v-for="(bet, index) of bets" :key="`bet-${index}`"
+            :user="bet.profile"
           />
         </v-chip-group>
       </div>
@@ -42,28 +42,28 @@
 <script>
 const MAX_VOTES_TO_DISPLAY = 12
 export default {
-  props: {
-    votes: {
-      type: Array,
-      default: []
-    }
-  },
   data() {
     return {
       showDetails: false
     }
   },
+  props: {
+    bets: {
+      type: Array,
+      default: []
+    }
+  },
   methods: {
     getProfilePicture(n) {
-      return this.votes[n].profile.image
+      return this.bets[n].profile.image
     },
   },
   computed: {
-    votesLength() {
-      return Math.min(MAX_VOTES_TO_DISPLAY, this.votes.length)
+    betsLength() {
+      return Math.min(MAX_VOTES_TO_DISPLAY, this.bets.length)
     },
     hasManyVotes() {
-      return this.votes.length > MAX_VOTES_TO_DISPLAY
+      return this.bets.length > MAX_VOTES_TO_DISPLAY
     }
   }
 }
