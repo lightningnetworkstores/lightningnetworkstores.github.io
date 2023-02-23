@@ -10,7 +10,7 @@
           </v-btn>
         </div>
         <div>
-          <v-btn icon x-large class="avatar-container" v-bind="attrs" v-on="on">
+          <v-btn v-if="hasManyVotes" icon x-large class="avatar-container" v-bind="attrs" v-on="on">
             <v-avatar size="32" class="dark-border-circle more">
               <v-icon small color="gray">mdi-dots-horizontal</v-icon>
             </v-avatar>
@@ -62,6 +62,9 @@ export default {
     votesLength() {
       return Math.min(MAX_VOTES_TO_DISPLAY, this.votes.length)
     },
+    hasManyVotes() {
+      return this.votes.length > MAX_VOTES_TO_DISPLAY
+    }
   }
 }
 </script>
