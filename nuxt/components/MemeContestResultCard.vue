@@ -7,14 +7,7 @@
       <v-divider class="mb-0" />
       <div class="py-0 text-left" style="min-height: 73px">
         <span class="text-caption text--secondary">Voted by</span>
-        <div class="d-flex align-center">
-          <div v-for="n in votesLength" :key="`votes-${n}`">
-            <v-btn icon x-large class="avatar-container">
-              <v-avatar size="32" class="dark-border-circle">
-                <img :src="getVoteProfilePicture(n - 1)" />
-              </v-avatar>
-            </v-btn>
-          </div>
+        <vote-summary :votes="votes"/>
         </div>
       </div>
       <v-divider class="mb-0" />
@@ -54,17 +47,11 @@ export default {
     }
   },
   methods: {
-    getVoteProfilePicture(n) {
-      return this.votes[n].profile.image
-    },
     getBetProfilePicture(n) {
       return this.bets[n].profile.image
     }
   },
   computed: {
-    votesLength() {
-      return Math.min(8, this.votes.length)
-    },
     betsLength() {
       return Math.min(8, this.bets.length)
     },
