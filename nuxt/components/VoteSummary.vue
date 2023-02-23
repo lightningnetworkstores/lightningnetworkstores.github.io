@@ -3,11 +3,16 @@
     <template v-slot:activator="{ on, attrs }">
       <div class="d-flex align-center">
         <div v-for="n in votesLength" :key="`votes-${n}`">
-          <v-btn icon x-large class="avatar-container">
-            <v-avatar size="32" class="dark-border-circle">
-              <img :src="getProfilePicture(n - 1)" />
-            </v-avatar>
-          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="activator">
+              <v-btn icon x-large class="avatar-container" v-bind="activator.attrs" v-on="activator.on">
+                <v-avatar size="32" class="dark-border-circle">
+                  <img :src="getProfilePicture(n - 1)" />
+                </v-avatar>
+              </v-btn>
+            </template>
+            {{ votes[n - 1].profile.name }}
+          </v-tooltip>
         </div>
         <div>
           <v-btn v-if="hasManyVotes" icon x-large class="avatar-container" v-bind="attrs" v-on="on">
