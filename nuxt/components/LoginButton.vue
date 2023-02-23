@@ -11,12 +11,7 @@
             <v-card class="d-flex flex-column justify-center align-center">
                 <v-card-title class="text-h5"> Login </v-card-title>
                 <v-card-text>
-                    <v-btn color="primary" dark block @click="handleLoginClick">
-                        <v-icon color="white darken-2" class="mr-3">
-                            mdi-twitter
-                        </v-icon>
-                        LOGIN WITH TWITTER
-                    </v-btn>
+                   <TwitterLoginButton /> 
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -24,6 +19,8 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
+import TwitterLoginButton from './TwitterLoginButton.vue'
+
 export default {
     computed: {
         ...mapState('modals', ['isSettingsModalOpen']),
@@ -39,16 +36,6 @@ export default {
 
     methods: {
         ...mapActions('modals', ['closeSettingsModal']),
-        handleLoginClick() {
-            this.$axios
-                .get('/api/oauthlogin?platform=twitter')
-                .then((res) => res.data)
-                .then((data) => {
-                    const { request_token, authorization_url, platform } =
-                        data.data
-                    window.location.replace(authorization_url)
-                })
-        },
     },
 }
 </script>
