@@ -11,11 +11,14 @@
                 </v-avatar>
               </v-btn>
             </template>
-            {{ bets[n - 1].profile.name }}
+            <div class="d-flex flex-column justify-center align-center">
+              <div>@{{ bets[n - 1].profile.handle }}</div>
+              <div>{{ numify(bets[n - 1].wager) }} <i class="fak fa-satoshisymbol-solidtilt"/></div>
+            </div>
           </v-tooltip>
         </div>
         <div>
-          <v-btn v-if="hasManyVotes" icon x-large class="avatar-container" v-bind="attrs" v-on="on">
+          <v-btn icon x-large class="avatar-container" v-bind="attrs" v-on="on">
             <v-avatar size="32" class="dark-border-circle more">
               <v-icon small color="gray">mdi-dots-horizontal</v-icon>
             </v-avatar>
@@ -32,6 +35,7 @@
           <simple-user-chip
             v-for="(bet, index) of bets" :key="`bet-${index}`"
             :user="bet.profile"
+            :wager="bet.wager"
           />
         </v-chip-group>
       </div>
@@ -45,11 +49,13 @@
   </v-dialog>
 </template>
 <script>
+import { numify } from 'numify'
 const MAX_VOTES_TO_DISPLAY = 12
 export default {
   data() {
     return {
-      showDetails: false
+      showDetails: false,
+      numify
     }
   },
   props: {

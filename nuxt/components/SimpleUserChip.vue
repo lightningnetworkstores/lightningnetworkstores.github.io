@@ -4,7 +4,7 @@
       <v-avatar class="mr-1 light-dark-border-circle">
         <v-img :src="user.image"/>
       </v-avatar>
-      <div>
+      <div class="mx-2">
         <div class="text-caption user-avatar-text">
           {{ user.name }}
         </div>
@@ -12,15 +12,30 @@
           @{{ user.handle }}
         </div>
       </div>
+      <v-divider v-if="wager" vertical></v-divider>
+      <div v-if="wager" class="ml-1 d-flex justify-space-between align-center" style="min-width: 2.4em">
+        <span class="text-caption">{{ numify(wager) }}</span>
+        <i class="fak fa-satoshisymbol-solidtilt"/>
+      </div>
     </div>
   </v-chip>
 </template>
 <script>
+import { numify } from 'numify'
 export default {
+  data() {
+    return {
+      numify
+    }
+  },
   props: {
     user: {
       type: Object,
       required: true
+    },
+    wager: {
+      type: Number,
+      required: false
     }
   }
 }
