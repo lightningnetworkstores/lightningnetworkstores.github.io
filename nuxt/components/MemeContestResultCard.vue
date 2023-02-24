@@ -3,8 +3,8 @@
     <discussion-image
       :url="meme.link"
     />
+    <v-divider class="my-0" />
     <div class="px-5 py-2">
-      <v-divider class="mb-0" />
       <div class="py-0 text-left" style="min-height: 73px">
         <span class="text-caption text--secondary">Voted by</span>
         <vote-summary :votes="votes"/>
