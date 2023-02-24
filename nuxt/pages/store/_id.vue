@@ -158,7 +158,7 @@
               <v-layout row class="py-2">
                 <v-flex shrink>
                   <v-img
-                    :src="`https://lightningnetworkstores.com/external/${propertyName}.svg`"
+                    :src="`https://bitcoin-stores.com/external/${propertyName}.svg`"
                     class="external-image"
                   >
                   </v-img>

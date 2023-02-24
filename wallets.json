@@ -1,14 +1,4 @@
-[
-	{
-		"name": "Spark Wallet",
-		"page": "https://sparkwallet.io/",
-		"requires_node": "no",
-		"android": "https://play.google.com/store/apps/details?id=io.sparkwallet",
-		"iOS": "https://apps.apple.com/us/app/sparkwallet-bitcoin-lightning/id1606418661",
-		"release": "February 2022",
-		"custodial": "yes"
-	},
-	{
+[	{
 		"name": "eclair wallet",
 		"page": "https://github.com/ACINQ/eclair-wallet",
 		"android": "https://play.google.com/store/apps/details?id=fr.acinq.eclair.wallet.mainnet2&hl=en",
@@ -16,7 +6,7 @@
 		"open_source": "https://github.com/ACINQ/eclair-wallet",
 		"release": "April 2018"
 	},
-	{
+ 	{
 		"name": "BlueWallet",
 		"page": "https://bluewallet.io/",
 		"requires_node": "no",
@@ -34,7 +24,7 @@
 		"release": "January 2019",
 		"custodial": "yes"
 	},
-	{
+ 	{
 		"name": "Lastbit",
 		"page": "https://lastbit.io/",
 		"android": "https://play.google.com/store/apps/details?id=com.lastbit.lite",
@@ -42,7 +32,7 @@
 		"release": "December 2020",
 		"custodial": "yes"
 	},
-	{
+ 	{
 		"name": "bitcoin lightning wallet",
 		"page": "http://lightning-wallet.com/",
 		"android": "https://play.google.com/store/apps/details?id=com.lightning.walletapp",
@@ -50,21 +40,22 @@
 		"open_source": "https://github.com/btcontract/lnwallet",
 		"release": "May 2018"
 	},
-	{
+ 	{
 		"name": "Sats app",
 		"page": "https://satsapp.com/",
 		"android": "https://play.google.com/store/apps/details?id=com.satsapp",
 		"iOS": "https://apps.apple.com/us/app/sats-app-with-satsback-by-casa/id1469587102",
 		"release": "September 2019",
-		"requires_node": "yes",
-		"custodial": "no"
-	},
+		"requires_node":"yes",
+		"custodial":"no"
+		
+ 	},
 	{
 		"name": "Phoenix",
 		"page": "https://phoenix.acinq.co",
 		"release": "November 2019",
 		"open_source": "https://github.com/ACINQ/phoenix",
-		"android": "https://play.google.com/store/apps/details?id=fr.acinq.phoenix.mainnet"
+		"android":"https://play.google.com/store/apps/details?id=fr.acinq.phoenix.mainnet"
 	},
 	{
 		"name": "Breez",
@@ -81,7 +72,7 @@
 		"open_source": "https://github.com/muun/apollo",
 		"android": "https://play.google.com/store/apps/details?id=io.muun.apollo",
 		"release": "May 2019",
-		"iOS": "https://apps.apple.com/app/id1482037683/"
+		"iOS":"https://apps.apple.com/app/id1482037683/"
 	},
 	{
 		"name": "Lightning labs' wallet",
@@ -91,18 +82,18 @@
 		"android": "https://play.google.com/store/apps/details?id=engineering.lightning.LightningMainnet&ah=CxvG6LDQ7m1sh5oEpcKQofnYf5Y",
 		"iOS": "https://testflight.apple.com/join/xx23MrBp"
 	},
-	{
+ 	{
 		"name": "Nayuta wallet",
 		"page": "https://nayuta.co/wallet",
 		"release": "October 2019",
 		"android": "https://play.google.com/store/apps/details?id=co.nayuta.wallet&hl=pt-BR&ah=kOB8HLfa1snFo4pgNlqjyF7ebOI",
 		"iOS": "https://testflight.apple.com/join/z2kILDhM"
 	},
-	{
+ 	{
 		"name": "Buda.com",
 		"page": "https://buda.com",
 		"release": "June 2019",
-		"custodial": "yes",
+		"custodial":"yes",
 		"android": "https://play.google.com/store/apps/details?id=com.buda.crypto",
 		"iOS": "https://search.itunes.apple.com/WebObjects/MZContentLink.woa/wa/link?mt=8&path=appstore"
 	},
@@ -171,14 +162,14 @@
 		"android": "https://github.com/shesek/spark-wallet/releases",
 		"release": "August 2018"
 	},
-	{
-		"name": "Zeus",
-		"requires_node": "yes",
-		"page": "https://zeusln.app/",
-		"open_source": "https://github.com/ZeusLN/zeus",
-		"android": "https://play.google.com/store/apps/details?id=com.zeusln.zeus",
-		"iOS": "https://testflight.apple.com/join/gpVFzEHN",
-		"release": "March 2019"
+ 	{
+		"name":"Zeus",
+		"requires_node":"yes",
+		"page":"https://zeusln.app/",
+		"open_source":"https://github.com/ZeusLN/zeus",
+		"android":"https://play.google.com/store/apps/details?id=com.zeusln.zeus",
+		"iOS":"https://testflight.apple.com/join/gpVFzEHN",
+		"release":"March 2019"
 	},
 	{
 		"name": "Hibana",
@@ -193,7 +184,7 @@
 		"requires_node": "no",
 		"release": "August 2018"
 	},
-	{
+ 	{
 		"name": "Bottle Pay",
 		"page": "http://about.bottle.li",
 		"release": "June 2019",
@@ -201,14 +192,14 @@
 		"custodial": "yes",
 		"web_wallet": "https://bottle.li"
 	},
-	{
+ 	{
 		"name": "Strike.me",
 		"requires_node": "no",
 		"custodial": "yes",
 		"web_wallet": "https://chrome.google.com/webstore/detail/strike/ddlakobiikmpnaeakgbdeodclnmiablf",
-		"page": "https://strike.me/",
-		"android": "https://play.google.com/store/apps/details?id=zapsolutions.strike",
-		"iOS": "https://apps.apple.com/us/app/id1488724463",
-		"release": "January 2020"
+		"page":"https://strike.me/",
+		"android":"https://play.google.com/store/apps/details?id=zapsolutions.strike",
+		"iOS":"https://apps.apple.com/us/app/id1488724463",
+		"release":"January 2020"
 	}
 ]
