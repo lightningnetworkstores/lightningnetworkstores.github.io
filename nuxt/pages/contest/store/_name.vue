@@ -33,7 +33,6 @@
           />
         </v-col>
       </v-row>
-
       <v-row>
         <v-col class="text-center">
           <div class="grid-list">
@@ -50,8 +49,10 @@
     </template>
     <template v-else>
       <v-row>
-        <v-col><h2>Stores</h2></v-col></v-row
-      >
+        <v-col>
+          <h2>Stores</h2>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col>
           <div class="grid-list">
