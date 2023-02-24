@@ -66,17 +66,10 @@
         </div>
       </v-col>
     </v-row>
-    <v-row v-if="!isLogged">
-      <v-col class="text-center"
-        ><h3>You need to be logged to play</h3>
-        <v-btn
-          color="blue lighten-1"
-          class="mx-2 my-3 white--text"
-          @click="handleLoginClick"
-        >
-          <v-icon left dark> mdi-twitter </v-icon>
-          login with twitter
-        </v-btn>
+    <v-row v-if="!isLogged" class="text-center" >
+      <v-col>
+        <h3 class="mb-3">You need to be logged to play</h3>
+        <TwitterLoginButton/>
       </v-col>
     </v-row>
     <v-row>
@@ -141,17 +134,6 @@ export default {
     }
   },
   methods: {
-    handleLoginClick() {
-      this.$axios
-        .get('/api/oauthlogin?platform=twitter')
-        .then((res) => res.data)
-        .then((data) => {
-          const { request_token, authorization_url, platform } =
-            data.data
-          console.log({ request_token, authorization_url, platform })
-          window.location.replace(authorization_url)
-        })
-    },
     onPrevious() {
       const action = this.getNavigationAction()
       this.$store.dispatch(action, {
