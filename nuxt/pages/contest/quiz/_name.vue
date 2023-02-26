@@ -4,7 +4,7 @@
       v-if="contestName"
       :question="question"
       :name="contestName"
-      :deadline="deadline"
+      :deadlineTimestamp="deadlineTimestamp"
       :stage="stage"
       :userBets="userBets"
       :pot="pot"
@@ -87,10 +87,8 @@ export default {
     contestName() {
       return this.quizContest.contest?.name
     },
-    deadline() {
+    deadlineTimestamp() {
       return this.quizContest.contest?.end
-        ? new Date(this.quizContest.contest?.end).toLocaleString()
-        : '2022-01-01:00:00:00'
     },
     isContestClosed() {
       if (

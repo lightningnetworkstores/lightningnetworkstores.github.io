@@ -4,7 +4,7 @@
       v-if="contestName"
       question="What's your favorite project?"
       :name="contestName"
-      :deadline="deadline"
+      :deadlineTimestamp="deadline"
       :stage="stage"
       :userBets="userBets"
       :pot="pot"
@@ -101,10 +101,8 @@ export default {
       }
       return false
     },
-    deadline() {
+    deadlineTimestamp() {
       return this.storeContest.contest?.end
-        ? new Date(this.storeContest.contest?.end).toLocaleString()
-        : '2020-01-01:00:00:00'
     },
     userBets() {
       return (

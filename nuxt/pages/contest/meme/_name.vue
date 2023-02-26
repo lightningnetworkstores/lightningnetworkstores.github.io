@@ -4,7 +4,7 @@
       v-if="hasMemeContest"
       question="What's the best meme?"
       :name="contestName"
-      :deadline="deadline"
+      :deadlineTimestamp="deadlineTimestamp"
       :stage="stage"
       :userBets="userBets"
       :pot="pot"
@@ -103,10 +103,8 @@ export default {
     contestName() {
       return this.memeContest?.contest?.name
     },
-    deadline() {
+    deadlineTimestamp() {
       return this.memeContest?.contest?.end
-        ? new Date(this.memeContest.contest?.end).toLocaleString()
-        : '2020-01-01:00:00:00'
     },
     stage() {
       return this.memeContest?.contest?.stage

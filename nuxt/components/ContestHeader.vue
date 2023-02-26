@@ -69,14 +69,9 @@
     <v-row v-if="!isLogged">
       <v-col class="text-center"
         ><h3>You need to be logged to play</h3>
-        <v-btn
-          color="blue lighten-1"
-          class="mx-2 my-3 white--text"
-          @click="handleLoginClick"
-        >
-          <v-icon left dark> mdi-twitter </v-icon>
-          login with twitter
-        </v-btn>
+        <div class="login-button-container">
+          <TwitterLoginButton /> 
+        </div>
       </v-col>
     </v-row>
     <v-row>
@@ -109,8 +104,8 @@ export default {
       type: String,
       required: true
     },
-    deadline: {
-      type: Date | String,
+    deadlineTimestamp: {
+      type: Number | null, 
       required: true
     },
     stage: {
@@ -141,17 +136,6 @@ export default {
     }
   },
   methods: {
-    handleLoginClick() {
-      this.$axios
-        .get('/api/oauthlogin?platform=twitter')
-        .then((res) => res.data)
-        .then((data) => {
-          const { request_token, authorization_url, platform } =
-            data.data
-          console.log({ request_token, authorization_url, platform })
-          window.location.replace(authorization_url)
-        })
-    },
     onPrevious() {
       const action = this.getNavigationAction()
       this.$store.dispatch(action, {
@@ -199,6 +183,17 @@ export default {
       }
       return false
     },
+    deadline() {
+      return this.deadlineTimestamp ? (new Date(this.deadlineTimestamp)).toLocaleString() : '2020-01-01 00:00:00'; 
+    }
   }
 }
 </script>
+
+<style scoped lang="scss">
+.login-button-container {
+  max-width: 300px;
+  margin: auto; 
+}
+</style>
+
