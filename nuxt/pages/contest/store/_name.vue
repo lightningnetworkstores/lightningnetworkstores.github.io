@@ -4,7 +4,7 @@
       v-if="contestName"
       question="What's your favorite project?"
       :name="contestName"
-      :deadlineTimestamp="deadline"
+      :deadlineTimestamp="deadlineTimestamp"
       :stage="stage"
       :userBets="userBets"
       :pot="pot"
