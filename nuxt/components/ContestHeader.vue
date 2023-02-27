@@ -26,6 +26,15 @@
           Next
           <v-icon v-if="!isMobile">mdi-chevron-right</v-icon>
         </v-btn>
+        <v-btn
+          outlined
+          color="#424242"
+          :disabled="disableNext"
+          class="mx-1"
+          @click="onLatest"
+        >
+          <v-icon>mdi-chevron-double-right</v-icon>
+        </v-btn>
       </v-col>
     </v-row>
     <v-row>
@@ -149,6 +158,10 @@ export default {
         name: this.name,
         age: -1
       })
+    },
+    onLatest() {
+      const action = this.getNavigationAction()
+      this.$store.dispatch(action, {})
     },
     getNavigationAction() {
       if (this.contestType === 'store') {

@@ -1186,9 +1186,12 @@ const actions = {
   },
 
   async getStoreContest({ commit, state }, { age, name }) {
-    let url = `${state.baseURL}api/store_contest?age=${age}`
+    let url = `${state.baseURL}api/store_contest`
     if (name) {
-      url += `&name=${name}`
+      url += `?name=${name}`
+    }
+    if (age) {
+      url += `&age=${age}`
     }
     const {
       data: { data },
@@ -1201,9 +1204,12 @@ const actions = {
     commit('setNameStoreContest', nameStore)
   },
   async getMemeContest({ commit, state }, { age, name }) {
-    let url = `${state.baseURL}api/meme_contest?age=${age}`
+    let url = `${state.baseURL}api/meme_contest`
     if (name) {
-      url += `&name=${name}`
+      url += `?name=${name}`
+    }
+    if (age) {
+      url += `&age=${age}`
     }
     const {
       data: { data },
@@ -1211,9 +1217,12 @@ const actions = {
     commit('setMemeContest', data)
   },
   async getQuizContest({ commit, state }, { age, name}) {
-    let url = `${state.baseURL}api/quiz_contest?age=${age}`
+    let url = `${state.baseURL}api/quiz_contest`
     if (name) {
       url += `&name=${name}`
+    }
+    if (age) {
+      url += `&age=${age}`
     }
     const {
       data: { data },
