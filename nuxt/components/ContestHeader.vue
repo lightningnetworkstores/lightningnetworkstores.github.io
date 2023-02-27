@@ -69,9 +69,9 @@
     <v-row v-if="!isLogged">
       <v-col class="text-center"
         ><h3>You need to be logged to play</h3>
-        <div class="login-button-container">
-          <TwitterLoginButton /> 
-        </div>
+        <v-btn @click="openLoginModal()" color="primary" class="ma-4">
+            LOGIN
+        </v-btn>
       </v-col>
     </v-row>
     <v-row>
@@ -166,6 +166,9 @@ export default {
     isContestClosed() {
       return ['DISQUALIFIED', 'COMPLETE', 'CANCELLED'].includes(this.stage)
     },
+    openLoginModal() {
+      this.$store.dispatch('modals/openSettingsModal')
+    }
   },
   computed: {
     isMobile() {
@@ -189,11 +192,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-.login-button-container {
-  max-width: 300px;
-  margin: auto; 
-}
-</style>
-
