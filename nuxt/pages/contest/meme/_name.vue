@@ -75,6 +75,7 @@
               :url="meme.link"
               :id="meme.id"
               :selected="meme.id === choice"
+              :isLogged="isLogged"
             />
           </div>
         </v-col>

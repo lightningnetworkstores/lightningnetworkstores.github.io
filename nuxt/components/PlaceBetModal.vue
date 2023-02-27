@@ -58,7 +58,7 @@
 
 <script>
 export default {
-    props: ['option', 'contestId', 'isOpen', 'minAmount', 'type'],
+    props: ['choice', 'contestId', 'isOpen', 'minAmount', 'type'],
     emits: ['update:isOpen'],
 
     data() {
@@ -90,7 +90,7 @@ export default {
             this.$store
                 .dispatch('placeBet', {
                     contestID: this.contestId,
-                    choice: this.option,
+                    choice: this.choice,
                     amount: this.amount,
                     type: this.type,
                 })

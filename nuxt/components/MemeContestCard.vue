@@ -20,25 +20,16 @@
         {{ selected ? 'voted' : 'vote' }}
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn
-        text
-        color="orange darken-1"
-        class="ma-2 white--text"
-        @click="showBetModal = true"
-      >
-        <v-icon left dark> fa-bitcoin </v-icon>
-        Place a bet
-      </v-btn>
+      <place-bet-button
+        contestType="meme" 
+        :contestId="contestId"
+        :minAmount="20"
+        :choice="id"
+        :isLogged="isLogged"
+      />
     </v-card-actions>
     <blocked-voter-modal
       :isOpen.sync="openBlockedVoterModal"
-    />
-    <place-bet-modal
-      :isOpen.sync="showBetModal"
-      :contestId="contestId"
-      :option="id"
-      :minAmount="20"
-      type="meme"
     />
   </v-card>
 </template>
@@ -63,11 +54,14 @@ export default {
     contestId: {
       type: Number,
       required: true
+    },
+    isLogged: {
+      type: Boolean,
+      required: true
     }
   },
   data() {
     return {
-      showBetModal: false,
       openBlockedVoterModal: false
     }
   },
@@ -79,6 +73,8 @@ export default {
   },
   methods: {
     voteMeme() {
+      if (!this.checkUserLogged()) return;
+
       if (this.isVoter) {
         this.$store.dispatch('voteMeme', {
           contestID: this.contestId,
@@ -87,6 +83,13 @@ export default {
       } else {
         this.openBlockedVoterModal = true
       }
+    },
+    checkUserLogged() {
+      if (this.isLogged) return true
+
+      this.$store.dispatch('modals/openSettingsModal')
+
+      return false ;
     },
   }
 }

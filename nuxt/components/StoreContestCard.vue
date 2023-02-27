@@ -115,25 +115,16 @@
         {{ selected ? 'voted' : 'vote' }}
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn
-        text
-        color="orange darken-1"
-        class="ma-2 white--text"
-        @click="openAmountModal = true"
-      >
-        <v-icon left dark> fa-bitcoin </v-icon>
-        Place a bet
-      </v-btn>
+      <place-bet-button
+        contestType="store" 
+        :contestId="contestId"
+        :minAmount="minBet"
+        :choice="store.id"
+        :isLogged="true"
+      /> 
     </v-card-actions>
     <blocked-voter-modal
       :isOpen.sync="openBlockedVoterModal"
-    />
-    <place-bet-modal
-      :isOpen.sync="openAmountModal"
-      :contestId="contestId"
-      :option="store.id"
-      :minAmount="minBet"
-      type="store"
     />
   </v-card>
 </template>
@@ -144,11 +135,10 @@ import VoteButton from './VoteButton.vue'
 import LikeStoreButton from './LikeStoreButton.vue'
 
 export default {
-  props: ['store', 'disabled', 'contestId', 'selected', 'minBet'],
+  props: ['store', 'disabled', 'contestId', 'selected', 'minBet', 'isLogged'],
   components: { VoteButton, LikeStoreButton },
   data() {
     return {
-      openAmountModal: false,
       openBlockedVoterModal: false
     }
   },
@@ -172,6 +162,8 @@ export default {
       this.$router.push('/store/' + rootUrl)
     },
     voteStore() {
+      if (!this.checkUserLogged()) return;
+
       if (this.isVoter) {
         this.$store.dispatch('choseOption', {
           contestID: this.contestId,
@@ -181,6 +173,13 @@ export default {
         this.openBlockedVoterModal = true
       }
     },
+    checkUserLogged() {
+      if (this.isLogged) return true
+
+      this.$store.dispatch('modals/openSettingsModal')
+
+      return false ;
+    }
   },
 }
 </script>
