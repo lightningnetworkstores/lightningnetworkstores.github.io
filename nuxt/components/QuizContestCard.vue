@@ -22,7 +22,7 @@
             :contestId="contestId"
             :minAmount="minBet"
             :choice="option"
-            :isLogged="true"
+            :isLogged="isLogged"
           />
         </v-card-actions>
     </v-card>
