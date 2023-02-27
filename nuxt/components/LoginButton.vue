@@ -10,7 +10,7 @@
             </template>
             <v-card class="d-flex flex-column justify-center align-center">
                 <v-card-title class="text-h5"> Login </v-card-title>
-                <v-card-text>
+                <v-card-text class="d-flex justify-center">
                    <TwitterLoginButton /> 
                 </v-card-text>
             </v-card>
@@ -19,7 +19,6 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import TwitterLoginButton from './TwitterLoginButton.vue'
 
 export default {
     computed: {

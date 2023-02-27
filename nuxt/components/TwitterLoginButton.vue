@@ -1,5 +1,5 @@
 <template>
-  <v-btn color="primary" dark block @click="handleLoginClick">
+  <v-btn color="primary" dark @click="handleLoginClick">
     <v-icon color="white darken-2" class="mr-3">
       mdi-twitter
     </v-icon>
