@@ -120,7 +120,7 @@
         :contestId="contestId"
         :minAmount="minBet"
         :choice="store.id"
-        :isLogged="true"
+        :isLogged="isLogged"
       /> 
     </v-card-actions>
     <blocked-voter-modal
