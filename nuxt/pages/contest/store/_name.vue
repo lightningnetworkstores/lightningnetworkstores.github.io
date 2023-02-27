@@ -62,7 +62,8 @@
               :key="'store-' + store.id"
               :store="store"
               :contestId="storeContest.contest.id"
-              :disabled="!isLogged || isContestClosed"
+              :disabled="isContestClosed"
+              :isLogged="isLogged"
               :selected="store.id === choice"
               :minBet="minimumBet"
             /></div

@@ -32,7 +32,7 @@
         <v-col>
           <div class="grid-list mt-3">
             <quiz-contest-card
-              :disabled="!isLogged"
+              :isLogged="isLogged"
               v-for="option in options"
               :selected="choice === option"
               :key="'option-' + option"
@@ -159,18 +159,6 @@ export default {
         }
       }
     }
-  },
-  methods: {
-    handleLoginClick() {
-      this.$axios
-        .get('/api/oauthlogin?platform=twitter')
-        .then((res) => res.data)
-        .then((data) => {
-          const { request_token, authorization_url, platform } =
-            data.data
-          window.location.replace(authorization_url)
-        })
-    },
   },
 }
 </script>

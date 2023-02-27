@@ -1,7 +1,6 @@
 <template>
     <v-card
         hover
-        :disabled="disabled"
         class="quizCard"
         :class="{ selected: selected }"
     >
@@ -17,33 +16,21 @@
                 <v-icon left dark> mdi-star </v-icon>
                 {{ selected ? 'chosen' : 'chose' }}
             </v-btn>
-
-            <v-btn
-                text
-                color="orange darken-1"
-                class="mx-2 white--text"
-                @click="openAmountModal = true"
-            >
-                <v-icon left dark> mdi-crown-circle </v-icon>
-                Place a bet
-            </v-btn>
-        </v-card-actions>
-        <place-bet-modal
-            :isOpen.sync="openAmountModal"
+          <v-spacer></v-spacer>
+          <place-bet-button
+            contestType="quiz" 
             :contestId="contestId"
-            :option="option"
             :minAmount="minBet"
-            type="quiz"
-        />
+            :choice="option"
+            :isLogged="true"
+          />
+        </v-card-actions>
     </v-card>
 </template>
 
 <script>
-import PlaceBetModal from './PlaceBetModal.vue'
-
 export default {
-    components: { PlaceBetModal },
-    props: ['option', 'disabled', 'contestId', 'selected', 'minBet'],
+    props: ['option', 'isLogged', 'contestId', 'selected', 'minBet'],
     data() {
         return {
             openAmountModal: false,
@@ -54,7 +41,7 @@ export default {
 
     methods: {
         chooseOption() {
-            this.$store
+            this.checkUserLogged() && this.$store
                 .dispatch('choseOption', {
                     contestID: this.contestId,
                     choice: this.option,
@@ -63,6 +50,13 @@ export default {
                     this.$store.dispatch('getQuizContest')
                 })
         },
+        checkUserLogged() {
+          if (this.isLogged) return true
+
+          this.$store.dispatch('modals/openSettingsModal')
+
+          return false ;
+        }
     },
 }
 </script>
