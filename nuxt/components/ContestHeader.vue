@@ -102,8 +102,8 @@ export default {
       type: String,
       required: true
     },
-    deadline: {
-      type: Date | String,
+    deadlineTimestamp: {
+      type: Number | null, 
       required: true
     },
     stage: {
@@ -181,6 +181,9 @@ export default {
       }
       return false
     },
+    deadline() {
+      return this.deadlineTimestamp ? (new Date(this.deadlineTimestamp)).toLocaleString() : '2020-01-01 00:00:00'; 
+    }
   }
 }
 </script>
