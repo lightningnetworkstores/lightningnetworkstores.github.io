@@ -5,6 +5,16 @@
         <v-btn
           outlined
           color="#424242"
+          :disabled="isFirst"
+          class="mx-1"
+          @click="onEarliest"
+        >
+          <v-icon>mdi-chevron-double-left</v-icon>
+        </v-btn>
+        <v-btn
+          outlined
+          color="#424242"
+          :disabled="isFirst"
           @click="onPrevious()"
           style="width: 9em"
           class="d-flex justify-center"
@@ -105,9 +115,9 @@ export default {
       type: String,
       default: ''
     },
-    age: {
-      type: Number,
-      default: 0
+    isFirst: {
+      type: Boolean,
+      default: false
     },
     question: {
       type: String,
@@ -162,6 +172,13 @@ export default {
     onLatest() {
       const action = this.getNavigationAction()
       this.$store.dispatch(action, {})
+    },
+    onEarliest() {
+      const action = this.getNavigationAction()
+      this.$store.dispatch(action, {
+        name: this.name,
+        age: 1000000
+      })
     },
     getNavigationAction() {
       if (this.contestType === 'store') {

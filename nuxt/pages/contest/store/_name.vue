@@ -6,6 +6,7 @@
       :name="contestName"
       :deadlineTimestamp="deadlineTimestamp"
       :stage="stage"
+      :isFirst="storeContest.isFirst"
       :userBets="userBets"
       :pot="pot"
     />

@@ -1197,7 +1197,7 @@ const actions = {
       data: { data },
     } = await this.$axios.get(url)
 
-    let dataStore = { ...data }
+    const dataStore = { ...data, isFirst: age === 1e6 }
     let nameStore = dataStore.contest.name
 
     commit('setStoreContest', dataStore)
@@ -1214,7 +1214,9 @@ const actions = {
     const {
       data: { data },
     } = await this.$axios.get(url)
-    commit('setMemeContest', data)
+    const dataStore = { ...data, isFirst: age === 1e6 }
+
+    commit('setMemeContest', dataStore)
   },
   async getQuizContest({ commit, state }, { age, name}) {
     let url = `${state.baseURL}api/quiz_contest`
@@ -1228,8 +1230,8 @@ const actions = {
       data: { data },
     } = await this.$axios.get(url)
 
-    let dataQuiz = { ...data }
-    let nameDataQuiz = dataQuiz.contest.name
+    const dataQuiz = { ...data, isFirst: age === 1e6 }
+    const nameDataQuiz = dataQuiz.contest.name
 
     commit('setQuizContest', dataQuiz)
     commit('setNameQuizContest', nameDataQuiz)
