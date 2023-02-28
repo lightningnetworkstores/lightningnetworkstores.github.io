@@ -14,10 +14,10 @@
             {{ votes[n - 1].profile.name }}
           </v-tooltip>
         </div>
-        <div>
-          <v-btn v-if="hasManyVotes" icon x-large class="avatar-container" v-bind="attrs" v-on="on">
+        <div v-if="votesLength > 0">
+          <v-btn icon x-large class="avatar-container" v-bind="attrs" v-on="on">
             <v-avatar size="32" class="dark-border-circle more">
-              <v-icon small color="gray">mdi-dots-horizontal</v-icon>
+              <v-icon small color="gray">mdi-magnify</v-icon>
             </v-avatar>
           </v-btn>
         </div>
@@ -66,9 +66,6 @@ export default {
   computed: {
     votesLength() {
       return Math.min(MAX_VOTES_TO_DISPLAY, this.votes.length)
-    },
-    hasManyVotes() {
-      return this.votes.length > MAX_VOTES_TO_DISPLAY
     }
   }
 }
@@ -84,7 +81,7 @@ export default {
   border: 0.8px solid rgb(85, 83, 83);
 }
 .more {
-  background: white;
+  background: rgba(255, 255, 255, 0.88);
 }
 .user-avatar-text {
   line-height: 1;
