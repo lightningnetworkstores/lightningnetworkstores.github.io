@@ -2,7 +2,7 @@
     <v-card
         hover
         class="quizCard"
-        :class="{ selected: selected }"
+        :class="{ 'selected-card' : selected }"
     >
         <v-card-title>{{ option }}</v-card-title>
         <v-card-actions>
@@ -62,11 +62,12 @@ export default {
 </script>
 
 <style>
-.selected {
-    box-shadow: 0px 0px 10px 0px #00e1ff;
-}
-
 .quizCard {
     width: 100%;
+}
+.selected-card {
+  background: '#FFFDE7';
+  box-shadow: 0 0 20px rgba(11, 67, 236, 0.9) !important;
+  -webkit-box-shadow: 0 0 20px rgba(38, 85, 223, 0.9) !important;
 }
 </style>

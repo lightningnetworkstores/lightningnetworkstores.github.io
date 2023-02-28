@@ -3,6 +3,7 @@
     :disabled="disabled"
     hover
     class="d-flex flex-column justify-space-between"
+    :class="{'selected-card': selected}"
   >
     <v-card-text class="pa-0">
       <div class="detail">
@@ -195,5 +196,10 @@ export default {
 
 .tag-container {
   min-height: 30px;
+}
+.selected-card {
+  background: '#FFFDE7';
+  box-shadow: 0 0 20px rgba(11, 67, 236, 0.9) !important;
+  -webkit-box-shadow: 0 0 20px rgba(38, 85, 223, 0.9) !important;
 }
 </style>

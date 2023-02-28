@@ -2,6 +2,7 @@
   <v-card
     hover
     class="d-flex flex-column justify-space-between"
+    :class="{'selected-card': selected}"
     width="350px"
   >
     <discussion-image
@@ -94,3 +95,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+.selected-card {
+  background: '#FFFDE7';
+  box-shadow: 0 0 20px rgba(11, 67, 236, 0.9) !important;
+  -webkit-box-shadow: 0 0 20px rgba(38, 85, 223, 0.9) !important;
+}
+</style>
