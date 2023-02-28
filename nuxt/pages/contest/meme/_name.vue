@@ -81,6 +81,15 @@
         </v-col>
       </v-row>
     </template>
+    <v-row>
+      <v-col>
+        <h2 class="mb-4 d-flex justify-center">Your bets</h2>
+        <user-bets-table
+          :userBets="userBets"
+          :waitingForEnd="isContestRunning"
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
