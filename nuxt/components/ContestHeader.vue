@@ -16,11 +16,11 @@
           color="#424242"
           :disabled="isFirst"
           @click="onPrevious()"
-          style="width: 9em"
+          :style="{'width': isMobile ? '3em' : '9em' }"
           class="d-flex justify-center"
         >
-          <v-icon v-if="!isMobile">mdi-chevron-left</v-icon>
-          Previous
+          <v-icon>mdi-chevron-left</v-icon>
+          {{ isMobile ? '' : 'Previous' }}
         </v-btn>
       </v-col>
       <v-spacer></v-spacer>
@@ -30,11 +30,11 @@
           color="#424242"
           :disabled="disableNext"
           @click="onNext()"
-          style="width: 9em"
+          :style="{'width': isMobile ? '3em' : '9em' }"
           class="d-flex justify-center"
         >
-          Next
-          <v-icon v-if="!isMobile">mdi-chevron-right</v-icon>
+          {{ isMobile ? '' : 'Next' }}
+          <v-icon>mdi-chevron-right</v-icon>
         </v-btn>
         <v-btn
           outlined
