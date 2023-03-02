@@ -4,6 +4,7 @@
       mdi-github
     </v-icon>
     CONNECT GITHUB ACCOUNT
+    </v-btn>
 </template>
 <script>
 export default {
