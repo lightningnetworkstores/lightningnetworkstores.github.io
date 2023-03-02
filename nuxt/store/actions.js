@@ -1224,7 +1224,7 @@ const actions = {
   async getQuizContest({ commit, state }, { age, name}) {
     let url = `${state.baseURL}api/quiz_contest`
     if (name) {
-      url += `&name=${name}`
+      url += `?name=${name}`
     }
     if (age) {
       url += `&age=${age}`
