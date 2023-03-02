@@ -11,15 +11,13 @@
       </template>
       <v-card>
         <v-card-title class="text-h5 lighten-2">
-          Contest Result
+          Payout calculation
         </v-card-title>
-        <v-card-text class="pb-0">Relevant contest information</v-card-text>
-        <v-card-text>
-          <strong>ROI</strong>:{{ contest.roi }} <br>
-          <strong>Rake</strong>:{{ contest.rake }} <br>
-          <strong>Pot</strong>:{{ contest.pot }} <br>
-          <strong>House Cut:</strong> {{ contest.house_cut }}
-        </v-card-text>
+        <v-card-text class="pb-0"><b>Total bitcoin to be paid out</b>: {{contest.pot - contest.pot_bonus}} (bets) + {{contest.pot_bonus}} (pot bonus) - {{contest.house_cut}} (house cut) = {{potToDistribute}} sats</v-card-text>
+        <br>
+        <v-card-text><b>Winning bets</b>: {{ winningBets}} sats </v-card-text>
+        <v-card-text><b>Return for winning bets</b>: 100*({{potToDistribute}} - {{winningBets}})/{{winningBets}} = {{contest.roi}} %</v-card-text>
+        <!-- <v-card-text>Losing bets: {{ losingBets }} sats</v-card-text> -->
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="showDialog = false">
@@ -41,6 +39,17 @@ export default {
         roi: 0,
         house_cut: 0
       })
+    }
+  },
+  computed: {
+    potToDistribute(){
+      return this.contest.pot - this.contest.house_cut;
+    },
+    winningBets(){
+      return (this.contest.pot - this.contest.house_cut)/(1 + this.contest.roi/100)
+    },
+    losingBets(){
+      return this.contest.pot - this.contest.pot_bonus - this.winningBets
     }
   },
   data() {
