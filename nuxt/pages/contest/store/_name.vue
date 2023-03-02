@@ -77,7 +77,8 @@
         <h2 class="mb-4 d-flex justify-center">Your bets</h2>
         <user-bets-table
           :userBets="userBets"
-          :waitingForEnd="isContestRunning"
+          :isContestRunning="isContestRunning"
+          contestType="store"
         />
       </v-col>
     </v-row>
