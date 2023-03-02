@@ -46,7 +46,7 @@ export default {
       return this.contest.pot - this.contest.house_cut;
     },
     winningBets(){
-      return (this.contest.pot - this.contest.house_cut)/(1 + this.contest.roi/100)
+      return Math.floor((this.contest.pot - this.contest.house_cut)/(1 + this.contest.roi/100))
     },
     losingBets(){
       return this.contest.pot - this.contest.pot_bonus - this.winningBets
