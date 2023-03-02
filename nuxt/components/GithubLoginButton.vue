@@ -3,8 +3,8 @@
     <v-icon color="white" class="mr-3">
       mdi-github
     </v-icon>
-    LOGIN WITH GITHUB
-  </v-btn>
+    CONNECT GITHUB ACCOUNT
+    </v-btn>
 </template>
 <script>
 export default {

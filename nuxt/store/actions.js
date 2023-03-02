@@ -1222,7 +1222,7 @@ const actions = {
     commit('setMemeContest', dataStore)
   },
   async getQuizContest({ commit, state }, { age, name}) {
-    let url = `${state.baseURL}api/quiz_contest`
+    let url = `${state.baseURL}api/quiz_contest?`
     if (name) {
       url += `?name=${name}`
     }

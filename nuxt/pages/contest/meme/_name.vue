@@ -95,8 +95,17 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import Head from '~/mixins/Head'
 
 export default {
+  mixins: [Head],
+    head() {
+      return this.getMetadata(
+        'Meme contest',
+        'Vote on the meme of the day and earn sats by guessing the most voted meme.',
+        '/ogimage.png'
+      )
+    },
   computed: {
     ...mapState({
       isLogged(state) {

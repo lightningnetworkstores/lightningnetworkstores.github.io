@@ -11,7 +11,7 @@
         :url="winner.link"
       />
       <div class="text-subtitle-1 text-center">
-        <span>Payout: +0%</span>
+        <span>Payout: +{{contest.roi}}%</span>
         <contest-result-dialog :contest="contest" />
       </div>
       <div class="px-5 py-2">
