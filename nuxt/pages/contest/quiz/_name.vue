@@ -17,7 +17,7 @@
       <v-row>
         <v-col>
           <div class="grid-list" >
-            <quiz-contest-votes-card
+            <quiz-contest-result-card
               v-for="optionVote in votes"
               :key="`optionVotes-${optionVote.option}`"
               :option="optionVote.option"
