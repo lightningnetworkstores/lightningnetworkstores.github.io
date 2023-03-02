@@ -1215,6 +1215,9 @@ const actions = {
       data: { data },
     } = await this.$axios.get(url)
     const dataStore = { ...data, isFirst: age === 1e6 }
+    if (!dataStore.user_vote) {
+      dataStore.user_vote = { choice: null }
+    }
 
     commit('setMemeContest', dataStore)
   },
