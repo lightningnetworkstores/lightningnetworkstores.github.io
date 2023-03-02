@@ -78,7 +78,7 @@ export default {
     },
     computed: {
         disableDoneButton() {
-            return this.amount < 20 || this.amount.length < 1
+            return this.amount < this.minAmount || this.amount.length < 1
         },
     },
     methods: {
