@@ -24,7 +24,7 @@
       <place-bet-button
         contestType="meme" 
         :contestId="contestId"
-        :minAmount="20"
+        :minAmount="memeContest.minimum_bet"
         :choice="id"
         :isLogged="isLogged"
       />
@@ -67,7 +67,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['loginStatus']),
+    ...mapState(['loginStatus', 'memeContest']),
     isVoter() {
       return this.loginStatus?.user?.voter
     }
