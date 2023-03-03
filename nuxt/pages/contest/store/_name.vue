@@ -110,7 +110,7 @@ export default {
     }),
     disableNext() {
       if (this.stage) {
-        return this.stage === 'MAIN' || this.stage === 'EXTENSION'
+        return this.stage === 'MAIN' || this.stage === 'EXTENSION' || this.stage === 'DISQUALIFIED'
       }
       return false
     },
