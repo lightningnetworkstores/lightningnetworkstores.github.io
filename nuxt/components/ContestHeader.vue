@@ -80,7 +80,7 @@
             Game rules
           </v-btn>
           <div class="d-flex align-center">
-            <span class="title">Total bets (sats): {{ pot }}</span>
+            <span class="title">Pot: {{ pot }} <i class="fak fa-satoshisymbol-solidtilt"/></span>
           </div>
         </div>
       </v-col>

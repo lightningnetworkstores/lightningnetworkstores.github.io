@@ -13,6 +13,7 @@
     <v-row>
       <v-col><v-divider class="mt-8" /></v-col>
     </v-row>
+    <PnL :pnl="pnl"></PnL>
     <template v-if="isContestClosed">
       <v-row>
         <v-col >
@@ -96,8 +97,12 @@
 <script>
 import { mapState } from 'vuex'
 import Head from '~/mixins/Head'
+import PnL from '@/components/contests/PnL.vue'
 
 export default {
+  components: {
+    PnL
+  },
   mixins: [Head],
     head() {
       return this.getMetadata(
@@ -131,6 +136,9 @@ export default {
     },
     choice() {
       return parseInt((this.memeContest?.user_vote?.choice ?? 0))
+    },
+    pnl(){
+      return this.memeContest?.user_bets?.map(b => b.prize - b.wager).reduce( (a,b) => a+b, 0)
     },
     userBets() {
       return (

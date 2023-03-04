@@ -10,6 +10,7 @@
       :pot="pot"
       contestType="quiz"
     />
+    <PnL :pnl="pnl"></PnL>
     <template v-if="isContestClosed">
       <v-row>
         <v-col><h2>Quiz Results</h2></v-col></v-row
@@ -60,9 +61,10 @@
 import { mapGetters, mapState } from 'vuex'
 import FlipCountdown from 'vue2-flip-countdown'
 import Head from '~/mixins/Head'
+import PnL from '@/components/contests/PnL.vue'
 
 export default {
-  components: { FlipCountdown },
+  components: { FlipCountdown, PnL},
   mixins: [Head],
     head() {
       return this.getMetadata(
@@ -92,6 +94,9 @@ export default {
     },
     choice() {
       return this.quizContest?.user_vote?.choice || ''
+    },
+    pnl(){
+      return this.quizContest?.user_bets?.map(b => b.prize - b.wager).reduce( (a,b) => a+b, 0)
     },
     contestName() {
       return this.quizContest.contest?.name
