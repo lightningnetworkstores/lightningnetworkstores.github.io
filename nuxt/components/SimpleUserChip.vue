@@ -1,5 +1,5 @@
 <template>
-  <v-chip class="pl-1">
+  <v-chip class="pl-1" @click="() => onClick(user)">
     <div class="d-flex justify-start align-center">
       <v-avatar class="mr-1 light-dark-border-circle">
         <v-img :src="user.image"/>
@@ -36,6 +36,11 @@ export default {
     wager: {
       type: Number,
       required: false
+    }
+  },
+  methods: {
+    onClick(user) {
+      window.open(`https://www.twitter.com/${user.handle}`, '_blank', 'noopener')
     }
   }
 }
