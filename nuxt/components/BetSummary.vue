@@ -18,9 +18,9 @@
           </v-tooltip>
         </div>
         <div>
-          <v-btn v-if="hasManyVotes" icon x-large class="avatar-container" v-bind="attrs" v-on="on">
+          <v-btn icon x-large class="avatar-container" v-bind="attrs" v-on="on">
             <v-avatar size="32" class="dark-border-circle more">
-              <v-icon small color="gray">mdi-dots-horizontal</v-icon>
+              <v-icon small color="gray">mdi-magnify</v-icon>
             </v-avatar>
           </v-btn>
         </div>
@@ -72,9 +72,6 @@ export default {
   computed: {
     betsLength() {
       return Math.min(MAX_VOTES_TO_DISPLAY, this.bets.length)
-    },
-    hasManyVotes() {
-      return this.bets.length > MAX_VOTES_TO_DISPLAY
     }
   }
 }

@@ -11,7 +11,7 @@
                 </v-avatar>
               </v-btn>
             </template>
-            {{ votes[n - 1].profile.name }}
+            @{{ votes[n - 1].profile.handle }}
           </v-tooltip>
         </div>
         <div v-if="votesLength > 0">
