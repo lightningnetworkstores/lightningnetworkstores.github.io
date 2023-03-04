@@ -66,7 +66,7 @@
           <div class="d-flex align-center justify-center flex-wrap">
             <client-only>
               <flip-countdown
-                v-if="isContestRunning"
+                v-if="isContestRunning()"
                 :deadline="deadline"
                 :showDays="false"
                 countdownSize="32px"
@@ -85,7 +85,7 @@
         </div>
       </v-col>
     </v-row>
-    <v-row v-if="!isLogged">
+    <v-row v-if="!isLogged && isContestRunning()">
       <v-col class="text-center"
         ><h3>You need to be logged to play</h3>
         <v-btn @click="openLoginModal()" color="primary" class="ma-4">
