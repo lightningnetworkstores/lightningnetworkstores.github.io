@@ -17,7 +17,7 @@
             </div>
           </v-tooltip>
         </div>
-        <div>
+        <div v-if="betsLength > 0">
           <v-btn icon x-large class="avatar-container" v-bind="attrs" v-on="on">
             <v-avatar size="32" class="dark-border-circle more">
               <v-icon small color="gray">mdi-magnify</v-icon>
