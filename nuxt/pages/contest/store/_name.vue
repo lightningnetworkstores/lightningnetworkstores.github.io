@@ -260,6 +260,9 @@ export default {
     if (this.$route.params?.name) {
       payload.name = this.$route.params.name
     }
+    if(this.$route.query.admin){
+      payload.admin = this.$route.query.admin
+    }
     this.$store.dispatch('getStoreContest', payload)
   },
 }
