@@ -1200,7 +1200,7 @@ const actions = {
       data: { data },
     } = await this.$axios.get(url)
 
-    const dataStore = { ...data, isFirst: age === 1e6 }
+    const dataStore = { ...data }
     let nameStore = dataStore.contest.name
 
     commit('setStoreContest', dataStore)
@@ -1228,7 +1228,7 @@ const actions = {
     commit('setMemeContest', dataStore)
   },
   async getQuizContest({ commit, state }, { age, name, admin}) {
-    let url = `${state.baseURL}api/quiz_contest?`
+    let url = `${state.baseURL}api/quiz_contest`
     if (name) {
       url += `?name=${name}`
     }

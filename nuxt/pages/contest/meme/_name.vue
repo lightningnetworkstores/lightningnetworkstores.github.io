@@ -6,6 +6,7 @@
       :name="contestName"
       :deadlineTimestamp="deadlineTimestamp"
       :stage="stage"
+      :isFirst="memeContest.contest.isFirst"
       :userBets="userBets"
       :pot="pot"
       contestType="meme"
