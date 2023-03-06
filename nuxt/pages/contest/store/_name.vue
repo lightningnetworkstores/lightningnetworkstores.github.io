@@ -121,7 +121,8 @@ export default {
       return this.storeContest.contest?.end
     },
     pnl(){
-      return this.storeContest?.user_bets?.map(b => b.prize - b.wager).reduce( (a,b) => a+b, 0)
+      if(!this.storeContest?.user_bets) return 0
+      return this.storeContest?.user_bets?.map(b => b.prize - b.wager).reduce((a,b) => a+b, 0)
     },
     userBets() {
       return (

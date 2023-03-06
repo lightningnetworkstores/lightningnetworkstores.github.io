@@ -97,7 +97,8 @@ export default {
       return this.quizContest?.user_vote?.choice || ''
     },
     pnl(){
-      return this.quizContest?.user_bets?.map(b => b.prize - b.wager).reduce( (a,b) => a+b, 0)
+      if(!this.quizContest?.user_bets) return 0
+      return this.quizContest?.user_bets?.map(b => b.prize - b.wager).reduce((a,b) => a+b, 0)
     },
     contestName() {
       return this.quizContest.contest?.name

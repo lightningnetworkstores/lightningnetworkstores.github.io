@@ -139,8 +139,8 @@ export default {
       return parseInt((this.memeContest?.user_vote?.choice ?? 0))
     },
     pnl(){
-      if(!this.memeContest?.user_bets) return 0;
-      return this.memeContest?.user_bets?.map(b => b.prize - b.wager).reduce( (a,b) => a+b, 0)
+      if(!this.memeContest?.user_bets) return 0
+      return this.memeContest?.user_bets?.map(b => b.prize - b.wager).reduce((a,b) => a+b, 0)
     },
     userBets() {
       return (
