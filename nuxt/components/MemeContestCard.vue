@@ -77,9 +77,10 @@ export default {
       if (!this.checkUserLogged()) return;
 
       if (this.isVoter) {
-        this.$store.dispatch('voteMeme', {
+        this.$store.dispatch('castVote', {
           contestID: this.contestId,
           choice: this.id,
+          contestType: 'meme'
         })
       } else {
         this.openBlockedVoterModal = true

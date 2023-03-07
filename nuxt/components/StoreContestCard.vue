@@ -166,9 +166,10 @@ export default {
       if (!this.checkUserLogged()) return;
 
       if (this.isVoter) {
-        this.$store.dispatch('choseOption', {
+        this.$store.dispatch('castVote', {
           contestID: this.contestId,
           choice: this.store.id,
+          contestType: 'store'
         })
       } else {
         this.openBlockedVoterModal = true

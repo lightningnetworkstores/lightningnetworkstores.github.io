@@ -1266,38 +1266,12 @@ const actions = {
       } else if (contestType === 'quiz') {
         commit('voteQuiz', choice)
       } else {
-        throw Error('Missing contestType parameter!')
+        throw Error('Missing or wrong "contestType" parameter!')
       }
     })
     .catch(err => {
       console.error('Error while casting a vote for a store contest. err: ', err)
       dispatch('network/showError', err, { root: true })
-    })
-  },
-  async choseOption({ state, commit, dispatch }, { contestID, choice }) {
-    this.$axios.post(`${state.baseURL}api/contest_vote`, {
-      contestID,
-      choice,
-    })
-    .then(res => {
-      commit('chooseStore', choice)
-    })
-    .catch(err => {
-      console.error('Error while casting a vote for a store contest. err: ', err)
-      dispatch('network/showError', err, { root: true})
-    })
-  },
-  async voteMeme({ state, commit, dispatch }, { contestID, choice }) {
-    this.$axios.post(`${state.baseURL}api/contest_vote`, {
-      contestID,
-      choice: `${choice}`,
-    })
-    .then(res => {
-      commit('voteMeme', choice)
-    })
-    .catch(err => {
-      console.error('Error while casting a vote for a meme contest. err: ', err)
-      dispatch('network/showError', err, { root: true})
     })
   },
   async placeBet({ commit, state, dispatch }, { contestID, choice, amount, type }) {
