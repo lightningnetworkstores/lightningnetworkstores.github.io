@@ -1220,7 +1220,7 @@ const actions = {
     const {
       data: { data },
     } = await this.$axios.get(url)
-    const dataStore = { ...data, isFirst: age === 1e6 }
+    const dataStore = { ...data }
     if (!dataStore.user_vote) {
       dataStore.user_vote = { choice: null }
     }
@@ -1242,7 +1242,7 @@ const actions = {
       data: { data },
     } = await this.$axios.get(url)
 
-    const dataQuiz = { ...data, isFirst: age === 1e6 }
+    const dataQuiz = { ...data }
     const nameDataQuiz = dataQuiz.contest.name
 
     commit('setQuizContest', dataQuiz)
