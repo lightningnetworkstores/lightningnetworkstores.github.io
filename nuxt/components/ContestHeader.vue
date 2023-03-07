@@ -145,7 +145,25 @@ export default {
       }
     }
   },
+  watch: {
+    deadlineTimestamp(newValue, oldValue) {
+      const EXTRA_TIME = 500
+      if (newValue && newValue !== oldValue) {
+        const now = Date.now()
+        if (newValue - now > 0) {
+          const timeLeft = newValue - now
+          setTimeout(this.updateContestData, timeLeft + EXTRA_TIME)
+        } else {
+          console.log(`Expired already, diff: ${newValue - now} ms`)
+        }
+      }
+    }
+  },
   methods: {
+    updateContestData() {
+      const action = this.getNavigationAction()
+      this.$store.dispatch(action, { name: this.name })
+    },
     onPrevious() {
       const action = this.getNavigationAction()
       this.$store.dispatch(action, {
