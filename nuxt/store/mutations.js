@@ -256,6 +256,9 @@ const mutations = {
   voteMeme(state, memeId) {
     state.memeContest.user_vote = { choice: memeId }
   },
+  voteQuiz(state, quizId) {
+    state.quizContest.user_vote = { choice: quizId }
+  },
   setNameStoreContest(state, payload) {
     state.nameStoreContest = payload
   },

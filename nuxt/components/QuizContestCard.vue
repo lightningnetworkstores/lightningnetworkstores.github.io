@@ -42,12 +42,10 @@ export default {
     methods: {
         chooseOption() {
             this.checkUserLogged() && this.$store
-                .dispatch('choseOption', {
+                .dispatch('castVote', {
                     contestID: this.contestId,
                     choice: this.option,
-                })
-                .then(() => {
-                    this.$store.dispatch('getQuizContest')
+                    contestType: 'quiz'
                 })
         },
         checkUserLogged() {

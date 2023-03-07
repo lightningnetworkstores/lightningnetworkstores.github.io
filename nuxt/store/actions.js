@@ -1244,11 +1244,35 @@ const actions = {
 
     const dataQuiz = { ...data }
     const nameDataQuiz = dataQuiz.contest.name
+    if (!dataQuiz.user_vote) {
+      dataQuiz.user_vote = { choice: null }
+    }
 
     commit('setQuizContest', dataQuiz)
     commit('setNameQuizContest', nameDataQuiz)
 
     return Promise.resolve()
+  },
+  async castVote({ state, commit, dispatch }, { contestID, choice, contestType }) {
+    this.$axios.post(`${state.baseURL}api/contest_vote`, {
+      contestID,
+      choice,
+    })
+    .then(res => {
+      if (contestType === 'store') {
+        commit('chooseStore', choice)
+      } else if (contestType === 'meme') {
+        commit('voteMeme', choice)
+      } else if (contestType === 'quiz') {
+        commit('voteQuiz', choice)
+      } else {
+        throw Error('Missing contestType parameter!')
+      }
+    })
+    .catch(err => {
+      console.error('Error while casting a vote for a store contest. err: ', err)
+      dispatch('network/showError', err, { root: true })
+    })
   },
   async choseOption({ state, commit, dispatch }, { contestID, choice }) {
     this.$axios.post(`${state.baseURL}api/contest_vote`, {
