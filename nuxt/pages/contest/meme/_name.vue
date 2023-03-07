@@ -11,19 +11,14 @@
       :pot="pot"
       contestType="meme"
     />
+    <PnL :pnl="pnl"></PnL>
     <v-row>
       <v-col><v-divider class="mt-8" /></v-col>
     </v-row>
-    <PnL :pnl="pnl"></PnL>
     <template v-if="isContestClosed">
       <v-row>
         <v-col >
           <h2 class="text-center">Contest Results</h2>
-          <div class="text-center mt-1">
-            <v-chip pill :color="getStateColor(memeContest.contest.stage)" text-color="white">
-              {{ memeContest.contest.stage }}
-            </v-chip>
-          </div>
         </v-col>
       </v-row>
       <v-row v-if="winner">
@@ -238,16 +233,6 @@ export default {
           history.pushState({}, null, this.$route.path + '/' + newName)
         }
       }
-    }
-  },
-  methods: {
-    getStateColor(stage) {
-      if (['CANCELLED', 'DISQUALIFIED'].includes(stage)) {
-        return 'orange darken-1'
-      } else if (stage === 'COMPLETE') {
-        return 'green darken-1'
-      }
-      return 'grey darken-1'
     }
   }
 }

@@ -65,22 +65,32 @@
         >
           <div class="d-flex align-center justify-center flex-wrap">
             <client-only>
-              <flip-countdown
-                v-if="isContestRunning"
-                :deadline="deadline"
-                :showDays="false"
-                countdownSize="32px"
-                labelSize="14px"
-              />
-              <span v-else class="title ml-3"><b>{{ stage }}</b></span>
+              <div v-if="isContestRunning" class="d-flex justify-center flex-column">
+                <flip-countdown
+                  :deadline="deadline"
+                  :showDays="false"
+                  countdownSize="32px"
+                  labelSize="14px"
+                />
+                <div class="d-flex justify-center">
+                  <v-chip x-small outlined color="green" text-color="green">
+                    Extra time
+                  </v-chip>
+                </div>
+              </div>
+              <span v-else class="title ml-3">
+                <v-chip pill :color="getStateColor(stage)" text-color="white">
+                  {{ stage }}
+                </v-chip>
+              </span>
             </client-only>
           </div>
-          <v-btn text href="#" color="primary" class="mx-16">
+          <v-btn text href="#" color="primary" class="mx-16 my-3">
             <v-icon left dark>mdi-gamepad-variant</v-icon>
             Game rules
           </v-btn>
           <div class="d-flex align-center">
-            <span class="title">Pot: {{ pot }} <i class="fak fa-satoshisymbol-solidtilt"/></span>
+            <span class="title"> 🏆 Pot: {{ pot }} <i class="fak fa-satoshisymbol-solidtilt"/></span>
           </div>
         </div>
       </v-col>
@@ -201,6 +211,14 @@ export default {
     },
     openLoginModal() {
       this.$store.dispatch('modals/openSettingsModal')
+    },
+    getStateColor(stage) {
+      if (['CANCELLED', 'DISQUALIFIED'].includes(stage)) {
+        return 'orange darken-1'
+      } else if (stage === 'COMPLETE') {
+        return 'green darken-1'
+      }
+      return 'grey darken-1'
     }
   },
   computed: {
@@ -216,6 +234,9 @@ export default {
         else return false
       },
     }),
+    showExtensionBadge() {
+      return this.stage === 'EXTENSION'
+    },
     disableNext() {
       if (this.stage) {
         return this.stage === 'MAIN' || this.stage === 'EXTENSION'

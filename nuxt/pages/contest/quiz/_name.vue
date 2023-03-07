@@ -12,10 +12,15 @@
       contestType="quiz"
     />
     <PnL :pnl="pnl"></PnL>
+    <v-row>
+      <v-col><v-divider class="mt-8" /></v-col>
+    </v-row>
     <template v-if="isContestClosed">
       <v-row>
-        <v-col><h2>Quiz Results</h2></v-col></v-row
-      >
+        <v-col>
+          <h2>Quiz Results</h2>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col>
           <div class="grid-list" >
