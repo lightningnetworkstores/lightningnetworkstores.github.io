@@ -14,7 +14,7 @@
                 @click="chooseOption"
             >
                 <v-icon left dark> mdi-star </v-icon>
-                {{ selected ? 'chosen' : 'chose' }}
+                {{ selected ? 'voted' : 'vote' }}
             </v-btn>
           <v-spacer></v-spacer>
           <place-bet-button
