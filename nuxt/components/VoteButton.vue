@@ -14,12 +14,12 @@
     </template>
     <template v-else>
       <span v-if="isUpvoting" @click="showDialog = true">
-        <v-icon width="100%" class="arrow up" color="green"
+        <v-icon width="100%" size="16" class="arrow up" color="green"
           >mdi-arrow-up</v-icon
         ></span
       >
       <span v-else @click="showDialog = true">
-        <v-icon width="100%" class="arrow down" color="red"
+        <v-icon width="100%" size="16" class="arrow down" color="red"
           >mdi-arrow-down</v-icon
         >
       </span>

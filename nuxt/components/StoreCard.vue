@@ -40,14 +40,8 @@
             >
           </v-img>
         </div>
-        <div class="score">
-          <vote-button :isUpvoting="true" :store="store" />
-          <span>
-            {{ Number(store.upvotes - store.downvotes).toLocaleString() }}</span
-          >
-          <vote-button :isUpvoting="false" :store="store" />
-        </div>
-        <div class="content pa-2 pl-5">
+
+        <div class="detail-bottom">
           <div @click="gotoStore(store)">
             <div class="title">
               <a @click.stop :href="getStoreLink(store.href)" class="font-weight-regular">
@@ -59,6 +53,15 @@
             </div>
             <div class="description">{{ store.description }}</div>
           </div>
+        </div>
+        <div class="score">
+          <vote-button :isUpvoting="true" :store="store" />
+          <span>
+            {{ formatNumberVotes(Number(store.upvotes - store.downvotes)) }}</span
+          >
+          <!-- <vote-button :isUpvoting="false" :store="store" /> -->
+        </div>
+        <div class="content pa-2 pl-5">
           <div>
             <div class="tag-container">
               <v-chip
@@ -138,6 +141,19 @@ export default {
         return state.baseURL
       },
     }),
+    formatNumberVotes() {
+      return (value) => {
+        if (Math.abs(value) > 999999) {
+          return (Math.sign(value)*((Math.abs(value)/1000000).toFixed(1)) + 'M')
+        
+        } else if((Math.abs(value) > 999)) {
+          return (Math.sign(value)*((Math.abs(value)/1000).toFixed(1)) + 'K')
+        
+        } else {
+          return Math.sign(value)*Math.abs(value)
+        }
+      }
+    },
   },
   methods: {
     getStoreLink(link) {
@@ -172,22 +188,50 @@ export default {
 .detail {
   color: #000000de;
   display: grid;
-  grid-template-rows: 200px 150px;
+  grid-template-rows: 200px 120px;
   grid-template-columns: 80px 1fr;
   row-gap: 4px;
 
   .screenshot {
     grid-column: 1 / 3;
   }
+
+  .detail-bottom {
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    grid-column: 1 / 3;
+    padding: 5px 50px 5px 20px;
+
+    .title {
+      font-size: 1.7rem !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      a {
+        text-decoration: none;
+      
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    .description {
+      font-size: 14px !important;
+      margin-top: 5px;
+    }
+  }
   .score {
-    display: grid;
-    grid: 1fr;
-    justify-items: center;
-    padding: 5px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 10px;
     font-size: 15px !important;
 
     span {
       display: block;
+      padding-left: 5px;
     }
     .arrow {
       border: 1px solid;
@@ -206,24 +250,7 @@ export default {
     position: relative;
     overflow: hidden;
     text-overflow: ellipsis;
-    .title {
-      font-size: 1.7rem !important;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      a {
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-    .description {
-      font-size: 14px !important;
-      margin-top: 5px;
-    }
+    
     .tag-container {
       position: absolute;
       bottom: 8px;
